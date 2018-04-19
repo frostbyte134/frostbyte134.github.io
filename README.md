@@ -1,2 +1,0 @@
-# nailbrainz.github.io
-nailbrainz
