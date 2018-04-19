@@ -1,22 +1,18 @@
 ---
 layout: page
-titles:
-  en: About
-  zh: 关于
-  zh-Hans: 关于
-  zh-Hant: 關於
-key: page-about
+title: About
+permalink: /about/
 ---
 
-Welcome to my blog! :earth_asia: :earth_africa: :earth_americas:
+This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
 
-{% highlight javascript %}
-(() => console.log('hello, world!'))();
-{% endhighlight %}
+You can find the source code for Minima at GitHub:
+[jekyll][jekyll-organization] /
+[minima](https://github.com/jekyll/minima)
 
-## Skills
+You can find the source code for Jekyll at GitHub:
+[jekyll][jekyll-organization] /
+[jekyll](https://github.com/jekyll/jekyll)
 
-- HTML5, CSS3(SASS), JavaScript(ES2017, Node.js), Bash(Zsh)
-- React, React Native, Vue.js
-- gulp, webpack
-- Adobe Photoshop, Sketch
+
+[jekyll-organization]: https://github.com/jekyll
