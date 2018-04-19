@@ -1,13 +1,18 @@
 language: ruby
-cache: bundler
 rvm:
-  - 2.1.5
-
-before_install:
-  - export NOKOGIRI_USE_SYSTEM_LIBRARIES=true
-
-script:
-  - bundle exec jekyll build
-
-notifications:
-  email: false
+  - 2.4.1
+branches:
+  only:
+  - master
+script: JEKYLL_ENV=production bundle exec jekyll build --config ./_config.demo.yml
+deploy:
+  edge:
+    branch: v1.8.47
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: _site
+  keep-history: true
+  on:
+    branch: master
+    target_branch: gh-pages
