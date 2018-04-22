@@ -3,10 +3,11 @@ layout: post
 title:  "Initial post!"
 date:   2018-04-19 23:32:05 +0900
 categories: misc
+use_math: true
 ---
 Whatever. testing.
 <blockquote>ccc i'm quoted!</blockquote>
-
+\[a^b\]
 Jekyll also offers powerful support for code snippets:
 {% highlight C++ %}
 #include<iostream>
