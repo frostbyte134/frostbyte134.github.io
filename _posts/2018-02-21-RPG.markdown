@@ -1,0 +1,17 @@
+---
+layout: post
+title:  "BOJ 1315: RPG"
+date:   2018-02-21 22:54:05 
+categories: problem_solving
+use_math: true
+tags: problem_solving dp
+---
+
+<a target="_blank" href="https://www.acmicpc.net/problem/1315">https://www.acmicpc.net/problem/1315</a><br/>
+DP문제인데 별로 dp같지 않다. 근데 러닝타임이 거의 \\(1000\times 1000\times 100\\)일텐데 0.5초밖에안되네?..<br/>
+
+s, i가 일정할 시 결국 (어떻게 여기에 도달했든) 꺨 수 있는 퀘는 같다는 것이 중요. 이것만 보면 dp같네.<br/>
+
+(2018.3.18 복습) 첨에 2점을 주니까..점수 계산은 2점을 베이스로 깔고 시작해야한다는 걸 놓쳐서 함 틀림<br/>
+
+[quan]: https://github.com/nailbrainz/Algospot/blob/master/QUANTIZE/QUANTIZE.cpp

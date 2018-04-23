@@ -4,6 +4,7 @@ title:  "Initial post!"
 date:   2018-04-19 23:32:05 +0900
 categories: misc
 use_math: true
+tags: test
 ---
 
 Whatever. testing.
