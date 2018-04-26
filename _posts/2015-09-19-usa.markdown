@@ -1,0 +1,30 @@
+---
+layout: post
+title:  "미국 (2011)"
+date:   2015-09-19 22:28:05 
+categories: traveling
+use_math: true
+tags: photo
+---
+
+군 제대하자마자 빡빡이머리로 갔던 여행. 한달정도 혼자 호스텔을 떠돌았는데 나름 재밌었던 것 같다.<br/><br/>
+![LA비디오]({{ site.url }}/images/usa/PHOTO_0011.jpg)<br/>
+맨 처음 도착한 LA. 영어가 필요없는 동네. 찜질방도 있음<br/><br/><br/>
+![2]({{ site.url }}/images/usa/PHOTO_0053.jpg)<br/>
+유니버셜 스튜디오의 비행기 추락 촬영 세트<br/><br/><br/>
+![3]({{ site.url }}/images/usa/PHOTO_0057.jpg)<br/>
+할리우드. 바닥에 스타들의 이름이 세겨져 있다. 누군지는 모르겠음<br/><br/><br/>
+![4]({{ site.url }}/images/usa/PHOTO_0084.jpg)<br/>
+여기부터는 샌프란시스코. 유명한 crooked street<br/><br/><br/>
+![5]({{ site.url }}/images/usa/PHOTO_0104.jpg)<br/>
+주차가 요상하게 되어 있음<br/><br/><br/>
+![6]({{ site.url }}/images/usa/PHOTO_0121.jpg)<br/>
+길가다 본 말탄 경찰관<br/><br/><br/>
+![7]({{ site.url }}/images/usa/PHOTO_0168.jpg)<br/>
+대륙횡단 기차의 흔한 장면.jpg<br/><br/><br/>
+![8]({{ site.url }}/images/usa/PHOTO_0259.jpg)<br/>
+기차 환승때문에 잠시 들린 시카고. 참고로 호수임<br/><br/><br/>
+![9]({{ site.url }}/images/usa/PHOTO_0271.jpg)<br/>
+뉴요크<br/><br/><br/>
+![10]({{ site.url }}/images/usa/PHOTO_0320.jpg)<br/>
+쌍둥이 빌딩의 잔해<br/><br/><br/>
