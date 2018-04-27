@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "BOJ 2316: 도시 왕복하기"
-date:   2018-02-23 22:14:05 
+date:   2018-02-24 22:14:05 
 categories: problem_solving
 use_math: true
 tags: problem_solving graph need_review need_revise
