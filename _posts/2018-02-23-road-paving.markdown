@@ -4,7 +4,7 @@ title:  "BOJ 1162: 도로포장"
 date:   2018-02-23 22:14:05 
 categories: problem_solving
 use_math: true
-tags: problem_solving graph need_review
+tags: problem_solving graph need_review shortest_path
 ---
 
 <a target="_blank" href="https://www.acmicpc.net/problem/1162">https://www.acmicpc.net/problem/1162</a><br/>

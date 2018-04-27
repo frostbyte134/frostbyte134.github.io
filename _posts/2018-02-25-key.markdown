@@ -1,0 +1,14 @@
+---
+layout: post
+title:  "BOJ 9328: 탈옥"
+date:   2018-02-25 21:20:05 
+categories: problem_solving
+use_math: true
+tags: problem_solving searching
+problem: 9328
+---
+
+<a target="_blank" href="https://www.acmicpc.net/problem/{{page.problem}}">https://www.acmicpc.net/problem/{{page.problem}}</a><br/>
+  
+첨에는 뭔 bfs와 dfs를 같이하는거라고 생각했다. 대부분 이런 경우 vis를 리셋하고 bfs를 첨부터 다시 시작하면 좋을듯. 확실히 이런 문제엔 DFS는 안어울리겠지..
+  
