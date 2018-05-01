@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "BOJ 9328: 탈옥"
+title:  "BOJ 9328: 열쇠"
 date:   2018-02-25 21:20:05 
 categories: problem_solving
 use_math: true
