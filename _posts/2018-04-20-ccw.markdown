@@ -1,0 +1,22 @@
+---
+layout: post
+title:  "ccw(counter clock wise) function of two vectors"
+date:   2018-04-20 21:34:00
+categories: geometry
+use_math: true
+tags: geometry
+---
+
+![이미지좌표계]({{ site.url }}/images/math/geometry/ccw.gif)  
+
+For \\(a,b\in\Re^2\\),
+
+(a) if \\(a\times b\\) > 0, then b is in counter clockwise direction of a
+
+(b) if \\(a\times b\\) < 0, then b is in clockwise direction of a
+
+
+
+Remember that, \\(a\times b=\|a\|\|b\|\sin{\theta}\\), and \\(\sin{-\theta}=-\sin{\theta}\\), so that above property holds.
+
+
