@@ -12,7 +12,7 @@ Input: \\(224\times 224\times 3\rightarrow 227\times 227\times 3\\) (zero padded
 ### Conv1
 * input: \\(227\times 227\times 3\\)
 * Kernel \\(11\times 11\times 3\\), stride \\(4\\), VALID, \\(48\times 2\\) filters  
- \\(\rightarrow (227-11)/4+1=55\\)
+\\(\rightarrow (227-11)/4+1=55\\)
 * output: \\(\left(55\times 55\times 48\right)\times 2\\)
 
 ### MP1
