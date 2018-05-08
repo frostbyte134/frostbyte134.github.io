@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Matrices and the choice of coordinate system"
-date:   2018-04-21 15:28:00
+date:   2018-04-21 15:28:00  +0900
 categories: linear_algebra
 use_math: true
 tags: linear_algebra

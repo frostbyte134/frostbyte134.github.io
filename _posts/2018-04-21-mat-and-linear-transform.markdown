@@ -1,34 +1,36 @@
 ---
 layout: post
 title:  "Matrix and linear transformation"
-date:   2018-04-21 17:26:00
+date:   2018-04-21 17:26:00 +0900
 categories: linear_algebra
 use_math: true
 tags: linear_algebra
 ---
 
 ### (1) Linear transformation to matrix
-Suppose  \\(  \\{ x_{1}, \ldots ,x_{n} \\}  \\) is a basis of  \\(n\\)-dimensional vector space \\(X\\), and \\(  \\{ y_{1}, \ldots ,y_{m} \\}  \\) is a basis of \\(m\\)-dimensional vector space \\(Y\\).
+Suppose that,  
+\\(  \\{ x_{1}, \ldots ,x_{n} \\}  \\) is a basis of  \\(n\\)-dimensional vector space \\(X\\), and  
+\\(  \\{ y_{1}, \ldots ,y_{m} \\}  \\) is a basis of \\(m\\)-dimensional vector space \\(Y\\).
 
-Then, every linear transformation \\(A\in L(R^n,R^m)\\) induces a set of \\(m\times n\\) numbers \\(a_{ij}\\) which compose a matrix \\([A]\in R^{m\times n}\\) by  
-\\[[ A ][ \begin{matrix}
+Then, every `linear transformation` \\(A\in L(R^n,R^m)\\) induces a set of \\(m\times n\\) numbers \\(a_{ij}\\) which compose a `matrix` \\([A]\in R^{m\times n}\\) by  
+\\[A\left( \begin{bmatrix}
 x_{1}  &   \ldots   &  x_{n} \\\
-\end{matrix}
- ] = [ \begin{matrix}
+\end{bmatrix}
+ \right) = [ \begin{matrix}
 y_{1}  &   \ldots   &  y_{m} \\\
 \end{matrix}
  ] [ A ].\\]
-In columnwise (leftmost - apply linear transformation \\(A\\) to \\(x\_j\\)),  
+By applying linear transformation \\(A\\) to \\(x\_j\\)) we see that in columnwise,  
 \\[ A(x\_{j})= \sum\_{i=1}^{m}a\_{ij}y\_{i}
 = \begin{bmatrix}
 \sum\_{i=1}^{m}a\_{ij}(y\_{i})\_1 + ... + \sum\_{i=1}^{m}a\_{ij}(y\_{i})\_1 \\\
-\vdots \\\
+\cdots \\\
 \sum\_{i=1}^{m}a\_{ij}(y\_{i})\_n + ... + \sum\_{i=1}^{m}a\_{ij}(y\_{i})\_n
 \end{bmatrix}
 \\]
 We see that \\([A]\_{pq}=\sum\_{i=1}^{m}a\_{iq}(y\_{i})\_p + ... + \sum\_{i=1}^{m}a_{iq}(y_{i})\_p \\).
 
-It is trivial (in theory) to determine \\(a\_{ij}\\), by \\[ A(x\_j)=Y \begin{bmatrix} a\_{1j} \\\ \vdots \\\ a\_{mj} \end{bmatrix} \rightarrow Y^{-1}A(x\_j)= \begin{bmatrix} a\_{1j} \\\ \vdots \\ a\_{mj} \end{bmatrix}\\] ( \\(Y\\) is a non-singular matrix, by its construction).
+It is trivial (in theory) to determine \\(a\_{ij}\\), by \\[ A(x\_j)=Y \begin{bmatrix} a\_{1j} \\\ \vdots \\\ a\_{mj} \end{bmatrix} \rightarrow Y^{-1}A(x\_j)= \begin{bmatrix} a\_{1j} \\\ \vdots \\\ a\_{mj} \end{bmatrix}\\] ( \\(Y\\) is a non-singular matrix, by its construction).
 
 For arbitrary  \\( \textbf{x} \in R^{n} \\) ,  \\( \textbf{x}= \sum\_{j=1}^{m}c\_{j}x\_{j} \\) and (not particularly unique)  \\( y=A\textbf{x} \\),
 

@@ -1,13 +1,13 @@
 ---
 layout: post
 title:  "ccw(counter clock wise) function of two vectors"
-date:   2018-04-20 21:34:00
+date:   2018-04-20 21:34:00 +0900
 categories: geometry
 use_math: true
 tags: geometry
 ---
 
-![이미지좌표계]({{ site.url }}/images/math/geometry/ccw.gif)  
+![hey]({{ site.url }}/images/math/geometry/ccw.gif)  
 
 For \\(a,b\in\Re^2\\),
 

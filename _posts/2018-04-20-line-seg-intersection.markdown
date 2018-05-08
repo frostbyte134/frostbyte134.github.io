@@ -1,14 +1,14 @@
 ---
 layout: post
 title:  "Intersection between two segments"
-date:   2018-04-20 21:23:00
+date:   2018-04-20 21:23:00 +0900
 categories: geometry
 use_math: true
 tags: geometry need_revise
 ---
 ### (1) No need for intersecting point
 
-![이미지좌표계]({{ site.url }}/images/math/geometry/Line+segment+intersection.jpg)  
+![hmm]({{ site.url }}/images/math/geometry/Line+segment+intersection.jpg)  
 
 Plus, we need to handle exception case, where l1 and l2 are parallel.
 
