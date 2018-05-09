@@ -1,0 +1,35 @@
+---
+layout: post
+title:  "Rank of matrices"
+date:   2018-05-09 10:43:00 +0900
+categories: linear_algebra
+use_math: true
+tags: linear_algebra need_revise
+---
+
+### Rule of thumbs
+For arbitrary matrices \\(B\in R^\{m\times n\}, A\in R^\{n\times p\}\\),
+\\[\textrm\{rank\}(BA)=\textrm\{rank\}A - \textrm\{dim\}(\textrm\{Ker\}B\cap\textrm\{Im\}A)\\]
+  
+Notably, \\[\textrm\{rank\}(A+B)\leq\textrm\{rank\}A+\textrm\{rank\}B,\\]
+\\[\textrm\{rank\}(AB)+\textrm\{rank\}(BC)\leq\textrm\{rank\}(ABC)+\textrm\{rank\}B\\]
+  
+### Rank as a bottleneck
+For \\(a\in R^\{m\times n\}\\),  if  \\(\textrm\{rank\}A=r\\) then \\(A\\) can be decomposed as,
+\\[A=BC,\quad B\in R^\{m\times r\}, C\in R^\{r\times n\}.\\]
+`proof` - constructive.  
+Let \\(\textrm\{dim\}(\textrm\{Im\}A)=r\\). Then \\(\textrm\{Im\}A\\) has a basis \\(\\{b_1,...,b_r\\}\\), and \\(a_i\\) (columns of \\(A\\)) can be represented as \\(a_i=c_{i1}b_1+...+c_{ir}b_r\\).  
+Now we can represent \\(A\\) as \\[A=[a_1\\>...\\>a_n]=[b_1\\>...\\>b_r]
+\left[
+	\begin{array}{}
+	C_{11} & & C_{n1}  \\\
+	\vdots & \ddots & \vdots  \\\
+	C_{1r} & & C_{nr}  \\\
+	\end{array}
+\right]
+\\]
+we see that, \\(A=BC\\) where \\(B=R^\{m\times r\}, C=R^\{r\times n\}\\).
+
+<h3 id="dimen_theorem">Dimensionality Theorem</h3>
+For \\(A\in R^\{m\times n\},\\>\textrm\{dim\}(\textrm\{ker\}A)+\textrm\{dim\}(\textrm\{Im\}A)=n\\)  
+proof:  
