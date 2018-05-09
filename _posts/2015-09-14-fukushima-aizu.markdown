@@ -1,10 +1,10 @@
 ---
 layout: post
 title:  "후쿠시마 아이즈-와카마츠"
-date:   2015-09-14 21:16:05 
+date:   2015-09-14 21:16:05 +0900
 categories: traveling
 use_math: true
-tags: photo
+tags: photo hobby
 ---
 
 ```라면```이 맛있었다고 함<br/><br/>

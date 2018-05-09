@@ -1,10 +1,10 @@
 ---
 layout: post
 title:  "HMG 연수"
-date:   2018-02-10 09:57:05 
+date:   2018-02-10 09:57:05 +0900
 categories: traveling
 use_math: true
-tags: photo
+tags: photo hobby
 ---
 
 ![1]({{ site.url }}/images/hmgedu/1517232983907.jpg)<br/><br/>
