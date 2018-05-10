@@ -4,7 +4,7 @@ title:  "Vector projection and Cosine"
 date:   2018-04-02 22:29:00
 categories: analysis
 use_math: true
-tags: analysis geometry need_revise
+tags: analysis geometry linear_algebra need_revise
 ---
 <h3 id="proj_on_line">(1) Projection onto a line</h3>
 What we want to show is:\\[\cos{\theta}=\frac{a^Tb}{\|a\|\|b\|}.\\]

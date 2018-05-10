@@ -7,6 +7,8 @@ use_math: true
 tags: linear_algebra
 ---
 
+![4spaces]({{ site.url }}/images/math/linear_alg/4spaces.jpg)  
+
 ### (1) Row space (\\(R^n\\), with \\(n-r\\) basis)
 * Space spanned by the rows
 * Row operation does not change the rowspace (Basis remains the same)

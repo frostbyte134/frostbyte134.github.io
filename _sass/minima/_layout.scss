@@ -241,6 +241,12 @@
       @include relative-font-size(1.75);
     }
   }
+  ol {
+    list-style-type: lower-alpha;
+  }
+  li {
+    margin-bottom: 6px;
+  }
   h3 {
   
     @include relative-font-size(1.625);
