@@ -24,4 +24,4 @@ As for the determinants,
 \\[=\textrm\{det\}(A-\lambda I)\\]
 
 ### Similarity transform = change of basis
-To represent a vector, <a href = "{{site.url}}/linear_algebra/2018/04/19/vector-space.html#coord" target="_blank">we need a basis and coordinate</a>. 
+To represent a vector, <a href = "{{site.url}}/linear_algebra/2018/04/19/vector-space.html#coord" target="_blank">we need a basis and coordinate</a>. To perform a change of basis, we multiply 
