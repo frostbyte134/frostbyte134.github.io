@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Vector, Vector spaces, Dimension" 
+title:  "Vector, Dimension and Coordinate" 
 date:   2018-04-19 22:41:00 +0900
 categories: linear_algebra
 use_math: true
@@ -33,15 +33,20 @@ Ex) the set \\(\\{e_1,…,e_n\\}\\), where \\(e_j\\) is the vector in \\(R^n\\) 
 We shall call it the `standard basis` of \\(R^n\\).
 
 
-### (2) Basis, and representation of a vector (coordinate system).
+<h3 id="coord">(2) Basis, and representation of a vector (coordinate system).</h3>
 
 Generally we use n-dimensional tuple \\((a_1,...,a_n)\\) to represent a single vector in the space. This implicitly assumes the usage of standard basis \\((e_1 ,..., e_n)\\).
 
 However, we can represent such vector with __any__ n-basis \\((b_1,...,b_n)\\). The new coordinate system satisfy above condition, thus forms a new vector space.
 
-* There must be (indeed, since both basis matrices are nonsingular) bijective transformation between any two different coordinate systems. There is no preference (ranking?) among the coordinate systems. \\[\textrm{vector = [basis][coordinate]}\\]
+* There must be (indeed, since both basis matrices are nonsingular) bijective transformation between any two different coordinate systems. There is no preference (ranking?) among the coordinate systems. \\[\textrm{vector = [basis][coordinate]}\\]\\[\vec{v\}=Xc\\]
 
-* During the course of linear algebra, we are mainly interested in the properties and concepts (invertibility, rank, eigenvalues, ...) (links) which does not rely on these coordinate systems.
+* During the course of linear algebra, we are mainly interested in the properties and concepts (<a href="{{site.url}}/linear_algebra/2018/05/14/similarity-transform.html" target="_blank">invertibility, eigenvalues,</a> rank, ...) which does not rely on these coordinate systems.
 
 * __There is no concepts of "angle", "rotation", "length", etc. in a vector space.__ Such space is defined with `inner product` operation between vectors, and is called an Euclidean space (link).
 
+* The __concept of diagonal matrix is dependent on the choice of coordinate system.__  
+Namely, an linear mapping \\(\vec{y}=f(\vec{x})\\) is represented as \\(y=Dx\\) with a diagonal matrix \\(D\\), but is represented as \\(y'=Ax'\\) with an ordinary matrix \\(A\\) in another coordinate system. In the former system calculation gets prettier, and we need to figure out how we can find such a good basis.
+
+* However, __the concept of Identity matrices / zero matrices are defined independently from the choice of coordinate system.__  
+Indeed, identity matrix corresponds to a linear mapping \\(f\\) where \\(f(\vec{x})=x\\), and zero matrices corresponds to a linear mapping \\(f\\) where \\(f(\vec{x})=0\\).
