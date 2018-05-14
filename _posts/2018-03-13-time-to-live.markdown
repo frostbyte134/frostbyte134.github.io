@@ -4,7 +4,7 @@ title:  "BOJ 3974: Time To Live"
 date:   2018-03-13 10:29:00 +0900
 categories: problem_solving
 use_math: true
-tags: problem_solving simulation graph reference_problem
+tags: problem_solving simulation graph
 problem: 3974
 ---
 

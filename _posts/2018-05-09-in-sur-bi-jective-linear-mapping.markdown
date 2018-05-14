@@ -30,5 +30,6 @@ proof: Again, thanks to the <a href="{{ site.url }}/linear_algebra/2018/05/09/ra
 \\[\textrm\{dim\}(\textrm\{ker\}A)+\textrm\{dim\}(\textrm\{Im\}A)=n\\]
 Then \\(\textrm\{dim\}(\textrm\{Im\}A)\leq n<m\\), which contradicts the definition of surjective mapping.
 
-### Bijective linear mapping
+### (3) Bijective linear mapping
+=전단사  
 If a mapping \\(A\\) is both injective and surjective, then it is bijective.

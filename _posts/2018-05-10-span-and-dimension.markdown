@@ -11,7 +11,7 @@ tags: linear_algebra analysis
 Let \\(r\\) be a positive integer. If a vector space \\(X\\) is spanned by a set of \\(r\\) vectors (not yet independent), then \\[\textrm\{dim\}⁡X\leq r.\\]
 
 
-Proof: If this is false, there is a vector space \\(X\\) which   
+`Proof`: If this is false, there is a vector space \\(X\\) which   
 __contains__ an independent set \\(Q=\\{y_1,…,y_\{r+1\}\\}\\) (since its dimension must be larger than \\(r\\) and   
 __spanned__ by a set \\(S_0=\\{x_1,…,x_r \\}\\) consisting of \\(r\\) vectors.  
 Suppose \\(0\leq i\leq r\\) and suppose a set \\(S_i\\) has been constructed, which __spans__ \\(X\\) 
@@ -31,7 +31,9 @@ Starting with \\(S_0\\), we thus construct sets \\(S_1,…,S_r\\). The last of t
   
 ___Corollary___
 \\[\textrm\{dim⁡ \}R^n=n\\]
-Proof	Since \\(\\{e_1,…,e_n \\}\\) spans \\(R^n\\), the theorem shows that \\(\textrm\{dim\}R^n \leq n\\). Since \\(\\{e_1,…,e_n \\}\\) is independent and \\(\\{e_1,…,e_n \\}\in R^n\\), \\(\textrm\{dim\}R^n\geq n\\).
+`Proof`:  
+Since \\(\\{e_1,…,e_n \\}\\) spans \\(R^n\\), the theorem shows that \\(\textrm\{dim\}R^n \leq n\\).  
+Since \\(\\{e_1,…,e_n \\}\\) is independent and \\(\\{e_1,…,e_n \\}\in R^n\\), \\(\textrm\{dim\}R^n\geq n\\).
 
 ### Theorem: Rudin 9.3
 Suppose \\(X\\) is a vector space, and \\(\textrm\{dim⁡X\}=n\\)  
@@ -39,7 +41,7 @@ Suppose \\(X\\) is a vector space, and \\(\textrm\{dim⁡X\}=n\\)
 (b) \\(X\\) has a basis, and every basis consists of \\(n\\) vectors.  
 (c) If \\(1\leq r\leq n\\) and \\(\\{y_1,..,y_r \\}\\) is an independent subset of \\(X\\), then \\(X\\) has a basis containing \\(\\{y_1,…,y_r \\}\\).  
   
-Proof:  
+`Proof`:  
 1. Suppose \\(E=\\{x_1,…,x_n \\}\\). Since \\(\textrm\{dim⁡\}X=n\\), the set \\(\\{x_1,…,x_n,y\\}\\) is dependent for every \\(y\in X\\) (by the <a href="{{site.url}}/linear_algebra/2018/04/19/vector-space.html" target="_blank">definition of the dimension of set</a>). If \\(E\\) is independent, it follows that \\(y\\) is the span of \\(E\\); hence \\(E\\) spans \\(X\\).  
 Conversely, if \\(E\\) is dependent, one of its members can be removed without changing the span of E (as in above theorem). Hence \\(E\\) cannot span \\(X\\), by Theorem 9.2. This proves (a).  
 2. Since \\(\textrm\{dim⁡\}X=n,\\>X\\) contains an independent set of \\(n\\) vectors, and (a) shows that every such a set is a basis of X; (b) now follows from <a href="{{site.url}}/linear_algebra/2018/04/19/vector-space.html" target="_blank">9.1(d)</a> \\(\left(\textrm\{dim\}⁡X\geq n\right)\\) and 9.2 \\(\left(\textrm\{dim\}⁡X\leq n\right)\\).

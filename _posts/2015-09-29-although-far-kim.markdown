@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "김광민-우리가 지금 멀리 있을지라도"
-date:   2015-09-29 16:11:05 
+title:  "김광민-지금은 우리가 멀리 있을지라도"
+date:   2015-09-29 16:11:05 +0900
 categories: hobby
 use_math: true
 tags: hobby
