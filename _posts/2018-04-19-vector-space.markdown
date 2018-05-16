@@ -43,7 +43,7 @@ However, we can represent such vector with __any__ n-basis \\((b_1,...,b_n)\\). 
 
 * During the course of linear algebra, we are mainly interested in the properties and concepts (<a href="{{site.url}}/linear_algebra/2018/05/14/similarity-transform.html" target="_blank">invertibility, eigenvalues,</a> rank, ...) which __does not rely on these coordinate systems__.
 
-* __There is no concepts of "angle", "rotation", "length", etc. in a vector space.__ Such space is defined with `inner product` operation between vectors, and is called an Euclidean space (link).
+* __There is no concepts of "angle", "rotation", "length", etc. in a vector space.__ Such concepts are defined with `inner product` operation between vectors, and is called an Euclidean space (link).
 
 * The <a href="{{site.url}}/linear_algebra/2018/04/21/mat-and-linear-transform.html" target="_blank">concept of diagonal matrix is dependent on the choice of coordinate system.</a>  
 Namely, an linear mapping \\(\vec{y}=f(\vec{x})\\) is represented as \\(y=Dx\\) with a diagonal matrix \\(D\\), but is represented as \\(y'=Ax'\\) with an ordinary matrix \\(A\\) in another coordinate system. In the former system calculation gets prettier, and we need to figure out how we can find such a good basis.

@@ -8,7 +8,7 @@ tags: linear_algebra
 ---
 
 
-### Projection (1-dimensional)
+<h3 id="one-dim-proj">Projection (1-dimensional)</h3>
 Preliminary: <a href="{{site.url}}/analysis/2018/04/03/vector-projection.html#proj_on_line" target="_blank">Projection onto a line</a>  
 On above, projection of a vector \\(b\\) over \\(a\\) was \\(\frac\{a^Tb\}\{a^Ta\}a\\).
 By rearranging,\\[\frac\{a^T b\}\{a^T a\}a=a\frac\{a^T b\}\{a^T a\}=\frac\{(aa^T)\}\{a^T a\}b=Pb,\quad \text\{where  \} P=\frac\{aa^T\}\{a^T a\}\\]
@@ -42,7 +42,7 @@ So that, the least square to a one-variable problem \\(ax=b\\) is, \\(\hat\{x\}=
 2. General case  
 Again, the __scalar error__ is \\(E^2(x):=\frac\{1\}\{2\}\\|Axb\\|^2\\), a distance in \\(R^n\\).
 Finding \\(\hat\{x\}\\) which minimizes \\(\frac\{1\}\{2\}\\|Ax-b\\|^2\\) is, equivalent to finding a point \\(A\hat\{x\}\\) in the column space closest to \\(b\\) (projection!)   
-![angle]({{ site.url }}/images/math/linear_alg/general_proj.jpg){: .center-image }  
+<img src="{{ site.url }}/images/math/linear_alg/general_proj.jpg" width="1000" class="center"/>  
 \\[\begin\{matrix\}\{\}
 a_1^T(b-A\hat\{x\})=0 \\\ \vdots \\\ a_n^T(b-A\hat\{x\})=0 
 \end\{matrix\}
@@ -51,7 +51,7 @@ a_1^T(b-A\hat\{x\})=0 \\\ \vdots \\\ a_n^T(b-A\hat\{x\})=0
 {:.acounter}
 
 Few remarks are,  
-* \\(A^TA\\) is invertible only when columns of \\(A\\) are independent.
+* \\(A^TA\\) is invertible only when columns of \\(A\\) are independent <a href="{{site.url}}/linear_algebra/2018/05/10/cross-prod-mat.html" target="_blank">(link)</a>.
 * If \\(b\\) is in the columnspace of \\(A\\) \\((b=Ax')\\), then projection of \\(b\\) is \\(b\\) itself\\[p=Pb=A(A^TA)^\{-1\}A^TAx'=Ax'=b\\] When \\(A\\) is square and invertible, then every vector projects to itself.
 
 <h3 id="other_proj_mat">Two Projection matrices P and I-P</h3>
