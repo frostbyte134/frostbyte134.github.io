@@ -6,10 +6,6 @@ categories: linear_algebra
 use_math: true
 tags: linear_algebra
 ---
-<ol>
-<li>1</li>
-<li>2</li>\\(what the\\)
-</ol>
 
 
 ### Projection (1-dimensional)
@@ -21,7 +17,7 @@ By rearranging,\\[\frac\{a^T b\}\{a^T a\}a=a\frac\{a^T b\}\{a^T a\}=\frac\{(aa^T
 2. \\(P^N=P\\) (Projection onto itself is itself)
 3. P has __rank 1__ <a href="{{site.url}}/linear_algebra/2018/05/09/rank.html#rank_bottleneck" target="_blank">(link)</a>, and is __positive definite__.
 
-<h3 id="least_square">Least square</h3>
+<h3 id="least_square">General Projection (Least-square)</h3>
 So called `least square` problem in \\(Ax=b,\\>A\in R^\{n\times n\}\\) is, finding the projection \\(A\hat\{x\}\\) of \\(b\\) over the space spanned by the columns of \\(A\\).
 
 \\(Ax=b\\) may has solution(s) or not, and the failure is almost certain when \\(m\gg n\\). 
@@ -48,7 +44,7 @@ Again, the __scalar error__ is \\(E^2(x):=\frac\{1\}\{2\}\\|Axb\\|^2\\), a dista
 Finding \\(\hat\{x\}\\) which minimizes \\(\frac\{1\}\{2\}\\|Ax-b\\|^2\\) is, equivalent to finding a point \\(A\hat\{x\}\\) in the column space closest to \\(b\\) (projection!)   
 ![angle]({{ site.url }}/images/math/linear_alg/general_proj.jpg){: .center-image }  
 \\[\begin\{matrix\}\{\}
-a_1^T(b-A\hat\{x\}=0 \\\ \vdots \\\ a_n^T(b-A\hat\{x\}=0 
+a_1^T(b-A\hat\{x\})=0 \\\ \vdots \\\ a_n^T(b-A\hat\{x\})=0 
 \end\{matrix\}
 \quad\rightarrow\quad A^T(b-A\hat\{x\})=0\quad\rightarrow\quad A^TA\hat\{x\}=A^Tb.
 \\] \\(A^TA\hat\{x\}=A^Tb\\) is known as the `normal equation`, and \\(A^TA\\) is the `normal matrix` (__link???__)
@@ -56,7 +52,7 @@ a_1^T(b-A\hat\{x\}=0 \\\ \vdots \\\ a_n^T(b-A\hat\{x\}=0
 
 Few remarks are,  
 * \\(A^TA\\) is invertible only when columns of \\(A\\) are independent.
-* If \\(b\\) is in the columnspace of \\(A\\) \\((b=Ax')\\), then projection of \\(b\\) is \\(b\\) itself\\[p=Pb=A(A^TA)^-1A^TAx'=Ax'=b\\] When \\(A\\) is square and invertible, then every vector projects to itself.
+* If \\(b\\) is in the columnspace of \\(A\\) \\((b=Ax')\\), then projection of \\(b\\) is \\(b\\) itself\\[p=Pb=A(A^TA)^\{-1\}A^TAx'=Ax'=b\\] When \\(A\\) is square and invertible, then every vector projects to itself.
 
 <h3 id="other_proj_mat">Two Projection matrices P and I-P</h3>
 We saw that, \\(P=A(A^T A)^\{-1\} A^T\\) projects `any` b into the columnspace of \\(A\\), by \\(p=Pb\\).
