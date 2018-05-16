@@ -14,7 +14,7 @@ For arbitrary matrices \\(B\in R^\{m\times n\}, A\in R^\{n\times p\}\\),
 Notably, \\[\textrm\{rank\}(A+B)\leq\textrm\{rank\}A+\textrm\{rank\}B,\\]
 \\[\textrm\{rank\}(AB)+\textrm\{rank\}(BC)\leq\textrm\{rank\}(ABC)+\textrm\{rank\}B\\]
   
-### Rank as a bottleneck
+<h3 id="rank_bottleneck">Rank as a bottleneck</h3>
 For \\(a\in R^\{m\times n\}\\),  if  \\(\textrm\{rank\}A=r\\) then \\(A\\) can be decomposed as,
 \\[A=BC,\quad B\in R^\{m\times r\}, C\in R^\{r\times n\}.\\]
 `proof` - constructive.  

@@ -7,6 +7,7 @@ use_math: true
 tags: linear_algebra
 ---
 Determinant provides
+{:.acounter}
 1. Test for invertivility
 2. Volume of a box (with rows)
 3. In \\(Ax=b\\), how \\(x=A^\{-1\}b\\) changes wrt \\(b\\).
@@ -58,7 +59,7 @@ Determinant provides
 	c && d \\\
 \end{vmatrix}
 \\]
-(By applying rule `b` and `c`)
+(By applying rule `(b)` and `(c)`)
 6. If A has rows of 0, then \\(\textrm\{det\}⁡A=0\\)  
 (we can add some nonzero row to zero row, unchanging the determinant, and apply `d.` <br/>
 7. If A is triangular, then det⁡A is the product of diagonal entries
@@ -83,9 +84,9 @@ Determinant provides
 	0 && 1 \\\
 \end{vmatrix}
 \\]
-(Applying `b`, `e`, and `a`) <br/>
+(Applying `(b)`, `(e)`, and `(a)`) <br/>
 8. If \\(A\\) is singular, then \\(\textrm\{det\}⁡A=0\\)  
-Colloary: `d`+`e` → if two rows are linearly dependent, then \\(\textrm\{det\}⁡A=0\\).
+Colloary: `(d)`+`(e)` → if two rows are linearly dependent, then \\(\textrm\{det\}⁡A=0\\).
 9. \\(\textrm\{det\}⁡AB=\textrm\{det\}⁡A\textrm\{det\}⁡B\\)  <br/>
 Singular case: trivial. \\(\textrm\{det\}⁡AB=0=\textrm\{det\}⁡A\textrm\{det\}⁡B\\)  
 (1st equality : linear transformation perspective)  
@@ -96,7 +97,7 @@ Same operations have exactly effect on
 so that, \\(\textrm\{det\}⁡AB=(\textrm\{same +or\}-)\textrm\{det\}⁡DB\\).
 Now we have,
 \\[\textrm\{det⁡\}AB=(+\textrm\{or\}-) \textrm\{det\}⁡DB=(+\textrm\{or\}-) \textrm\{det⁡\}D  \textrm\{det⁡\}B=\textrm\{det\}⁡A  \textrm\{det\}⁡B\\]
-where the 2nd equality follows from `c`, and 3rd equality follows from the properties of determinant.
+where the 2nd equality follows from `(c)`, and 3rd equality follows from the properties of determinant.
 10. \\(\textrm\{det\}⁡A^T=\textrm\{det\}⁡A\\)  
 	Singular : trivial  
 	Nonsingular : \\(PA=LDU\\). Applying `i` gives
@@ -106,3 +107,4 @@ Similarly,
 \\(L,U,L^T,U^T\\) are triangular with unit diagonal, and for any diagonal matrix \\(D=D^T\\) holds. We only have to show \\(\textrm\{det\}P^T=\textrm\{det\}P\\).  
 Certainly \\(\textrm\{det\}⁡P=1\\) or\\(-1\\), because \\(P\\) comes from \\(I\\) by row exchanges. Observe also that \\(PP^T=I\\) (by reverse row exchanges), therefore \\(\textrm\{det⁡\}PP^T=1=\textrm\{det\}⁡P \textrm\{det\}P^T\\), and \\(P\\) and \\(P^T\\) must have same determinant: both 1 or both -1.   
 We conclude that the above two products are same. This fact practically doubles our list of properties, since every rule that applied to the rows can now be applied to columns.
+{:.acounter}

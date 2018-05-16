@@ -16,7 +16,7 @@ A set of vectors \\(\{q_1,...,q_n\}\\) are orthonormal if
 A matrix composed of orthonormal basis is generally denoted \\(Q\\).  
 Properties of \\(Q\\) are,
 1. \\(Q^TQ=I\\).  
-\\(\rightarrow\\) If \\(Q\in R^n\\) \\(Q^T\\) is a left inverse, and thanks to the statements here(__LINK!!!!!!__) also a right inverse.
+\\(\rightarrow\\) If \\(Q\in R^n\\) \\(Q^T\\) is a left inverse, and <a href = "{{site.url}}/linear_algebra/2018/05/10/left-inverse-is-the-right-inverse.html" target="_blank">thanks to the statements here</a>, \\(Q^T\\) is also a right inverse.
 2. \\(\\| Qx\\| =\\| x\\| \\), since \\[{\\| Qx\\|}^2=x^TQ^TQx=x^Tx={\\| x\\|}^2\\]
 Therefore, __multiplication by__ \\(Q\\) __preserves length.__
 

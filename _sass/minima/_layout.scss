@@ -231,9 +231,7 @@
 }
 .post-content {
   margin-bottom: $spacing-unit;
-  li {
-    margin-bottom: 5px;
-  }
+  
   h2 {
     @include relative-font-size(2);
 
@@ -241,11 +239,9 @@
       @include relative-font-size(1.75);
     }
   }
-  ol {
-    list-style-type: lower-alpha;
-  }
-  li {
-    margin-bottom: 6px;
+  .custom-counter ol {
+    list-style-type: none;
+	margin-top: 8px;
   }
   h3 {
   
@@ -268,6 +264,37 @@
       @include relative-font-size(1.125);
     }
   }
+  
+  ol{
+	margin-top: 10px;
+  }
+  ul{
+	margin-top: 10px;
+  }
+  li {
+	  margin-top: 8px;
+	}
+	.acounter {
+	  margin: 0;
+	  padding: 0;
+	  list-style-type: none;
+	}
+	.acounter li {
+	
+	  counter-increment: step-counter;
+	  margin-top: 10px;
+	}
+
+	.acounter li::before {
+	  content: "("counter(step-counter, lower-alpha)")";
+	  margin-right: 8px;
+	  font-size: 90%;
+	  background-color: rgb(176,196,222);
+	  color: white;
+	  font-weight: bold;
+	  padding: 2px 2px;
+	  border-radius: 3px;
+	}
 }
 blockquote {
   background: #f9f9f9;

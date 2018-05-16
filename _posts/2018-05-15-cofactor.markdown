@@ -4,7 +4,7 @@ title:  "Cofactors of matrix"
 date:   2018-05-15 16:05:00 +0900
 categories: linear_algebra
 use_math: true
-tags: linear_algebra
+tags: linear_algebra need_revise
 ---
 We want to express determinant in terms of \\(n^2\\) terms in \\(A\\). Firstly looking at simple 2×2 matrix, we can get some intuition that
 \\[
