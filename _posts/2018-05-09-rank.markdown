@@ -1,13 +1,13 @@
 ---
 layout: post
-title:  "Rank of matrices"
+title:  "Rank of a matrix"
 date:   2018-05-09 10:43:00 +0900
 categories: linear_algebra
 use_math: true
 tags: linear_algebra need_revise
 ---
 
-### Rule of thumbs
+### Rule of thumb
 For arbitrary matrices \\(B\in R^\{m\times n\}, A\in R^\{n\times p\}\\),
 \\[\textrm\{rank\}(BA)=\textrm\{rank\}A - \textrm\{dim\}(\textrm\{Ker\}B\cap\textrm\{Im\}A)\\]
   
