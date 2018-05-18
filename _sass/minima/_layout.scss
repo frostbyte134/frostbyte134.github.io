@@ -266,16 +266,14 @@
     }
   }
   
-  ol{
-	margin-top: 13px;
-	margin-bottom: 13px;
-  }
+  
   ul{
 	margin-top: 13px;
 	margin-bottom: 13px;
   }
   li {
-	  margin-top: 8px;
+	  margin-top: 15px;
+	  margin-bottom: 15px;
 	}
 	.acounter {
 	  margin: 0;
@@ -298,6 +296,22 @@
 	  padding: 2px 2px;
 	  border-radius: 3px;
 	}
+	.deccounter {
+	  list-style-type: none;
+	}
+	.deccounter li {
+	
+	  counter-increment: step-counter;
+	  margin-top: 15px;
+	  margin-bottom: 15px;
+	}
+
+	.deccounter li::before {
+	  content: "("counter(step-counter, decimal)")";
+	  margin-right: 8px;
+	  font-size: 115%;
+	}
+	
 	.center {
 		display: block;
 		margin-left: auto;
@@ -308,13 +322,13 @@
 blockquote {
   background: #f9f9f9;
   border-left: 10px solid #ccc;
-  margin: 1.5em 10px;
+  margin: 1.0em 7px;
   padding: 0.5em 10px;
-  quotes: "\201C""\201D""\2018""\2019";
-  font-family: "italic";
+  letter-spacing: 0px;
 }
 .center-image
 {
+	
     margin: 0 auto;
     display: block;
 }

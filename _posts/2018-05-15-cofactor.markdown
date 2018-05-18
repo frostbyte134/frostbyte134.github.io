@@ -134,7 +134,7 @@ This is equivalent to calculating a determinant of non-singular matrix
 a_\{1,1\} 	&& a_\{1,2\} && a_\{1,3\} && ... && a_\{1,n\} \\\
 a_\{1,1\} 	&& a_\{1,2\} && a_\{1,3\} && ... && a_\{1,n\} \\\
 a_\{3,1\} 	&& a_\{3,2\} && a_\{3,3\} && ... && a_\{3,n\} \\\
-\vdots 		&& \vdots 	 && \vdots 	  && ... && \vdots \\\
+\vdots 		&& \vdots 	 && \vdots 	  && \ddots && \vdots \\\
 a_\{1,n\} 	&& a_\{n,2\} && a_\{n,3\} && ... && a_\{n,n\}
 \end\{bmatrix\}\\] (\\(a_\{1,i\}\\) are in 1st row, since the cofactors are generated in a row)
 2. \\(A^\{-1\}=\frac\{1\}\{\textrm\{diag\}A\}C^T\\), which directly follows from `(a)`.  
