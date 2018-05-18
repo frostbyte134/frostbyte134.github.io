@@ -12,7 +12,7 @@ We have to find \\(\lambda\\)s such that makes the nullspace of \\(A-\lambda I\\
 \\[\textrm\{det\}(A-\lambda I)=0.\\]
 We define \\(\Phi_A(\lambda)=\textrm\{det\}(\lambda I-A)\\) as the __characteristic equation__ of \\(A\\).  
 Thinking about the formula of determinant, it is clear that \\(\Phi_A(\lambda)\\) is a \\(n\\)th polynomial.  
-### (2) Applications
+<h3 id="apps">(2) Applications</h3>
 * Similar matrices share characteristic equation (and thus, eigenvalues)  
 \\[\textrm\{det\}(P^\{-1\}AP)=(\textrm\{det\}P^\{-1\})(\textrm\{det\}A)(\textrm\{det\}P)=\textrm\{det\}A\\]
 * Determinant of \\(A\\) = product of eigenvalues.  
