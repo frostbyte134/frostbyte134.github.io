@@ -8,8 +8,10 @@ tags: linear_algebra analysis
 ---
 
 <h3 id="rudin92">Theorem: Rudin 9.2</h3>
-Let \\(r\\) be a positive integer. If a vector space \\(X\\) is spanned by a set of \\(r\\) vectors (not yet independent), then \\[\textrm\{dim\}⁡X\leq r.\\]
 
+{:.theorem}
+>Let \\(r\\) be a positive integer. If a vector space \\(X\\) is spanned by a set of \\(r\\) vectors (not yet independent), then \\[\textrm\{dim\}⁡X\leq r.\\]
+{:.theorem}
 
 `Proof`: If this is false, there is a vector space \\(X\\) which   
 __contains__ an independent set \\(Q=\\{y_1,…,y_\{r+1\}\\}\\) (since its dimension must be larger than \\(r\\) and   
