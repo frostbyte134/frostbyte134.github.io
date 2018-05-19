@@ -36,9 +36,27 @@ We say that \\(A\in\mathbb\{C\}^\{n\times n\}\\) is Hermitian if
 {:.deccounter}
 
 <h3 id="spectral_theorem">Spectral theorem</h3>
-
-
-
+{:.acounter}
+1. \\(A\\) has \\(n\\) real eigenvalues, counting multiplicities.
+2. THe dimension of the <a href="http://mathworld.wolfram.com/Eigenspace.html" target="_blank">eigenspace</a> for each eigenvalue \\(\lambda\\) equalts the ultiplicity of \\(\lambda\\) as a root of the characteristic polynomial of \\(A\\).
+3. The eigenspaces are mutually orthogonal, in the sense that eigenvectors corresponding to different eigenvalues are orthogonal.
+4. There is aunitary matrix \\(U\\) and a real diagonal matrix \\(D\\) so that \\(A=UDU^\*=UDU^\{-1\}\\).
+5. If \\(A\\) is real then we may choose \\(U\\) in `(d)` to be real (orthogonal).
+{:.acounter}
+`proof`:  
+By the Schur's lemma there exists a unitary \\(U\\) and an upper triangular \\(T\\) such that \\(A=UTU^\*\\). But \\(A=A^\*\\) so \\[T=U^\*AU=U^\*A^\*U=(U^\*AU)^\*=T^\*\\]
+But then \\(T\\) must be diagonal, since \\(T\\) is upper-triangular. Moreover, diagonal entries \\(\lambda_i\\)s must be real, and by letting \\(T=D\\)`(d)` is proved.  
+Since \\(U\\) diagonalizes \\(A\\) we know that the diagonal entries of \\(D\\) are eigenvalues of \\(A\\) and the columns of \\(U\\) are eigenvectors, \\[AU=UD\\] we have shown `(a)` and `(b)`.  
+Note `(c)` follows since the columns of \\(U\\) are orthonormal by its construction on Schur's lemma.  
+As for the real eigenpairs, if \\(A\\),
+1. If \\(A=A^\*\\), then \\(x^\*Ax\\) is real scalar  
+\\(x^\*Ax=x^\*A^\*x=(x^\*Ax)^\*\\). Only reals have same complex conjugate with itself.
+2. If \\(A=A^\*\\), then its eigenvalues are real  
+For an eigenpair \\((x,\lambda)\\), \\(Ax=\lambda x\quad\rightarrow\quad x^\*Ax=\lambda x^\*x.\\) Since \\(x^\*Ax\\) is real (confirmed above), and \\(x^\*x\\) is real, \\(\lambda\\) is also real.
+3. If \\(A\\) is real and symmetric (subset of Hermitian), its eigenvectors are real.  
+The eigenvalues were real, and eigenvectors are orthogonal. The eigenvectors solve characteristic equation \\((A-\lambda I)x=0\\) for real \\(A\\) and \\(\lambda\\), so must be real.
+In particular, we have shown `Principal axis theorem` \\[A=QDQ^T\\] for real and symmetric \\(A\\).
+  
 Next: Normal matrix
 
 Link:
