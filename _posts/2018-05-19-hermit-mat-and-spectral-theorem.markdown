@@ -36,14 +36,15 @@ We say that \\(A\in\mathbb\{C\}^\{n\times n\}\\) is Hermitian if
 {:.deccounter}
 
 <h3 id="spectral_theorem">Spectral theorem</h3>
-For \\(n\times n\\) Hermitian matrix \\(A\\),
 {:.acounter}
+> \\(\\>\\)For \\(n\times n\\) Hermitian matrix \\(A\\)
 1. \\(A\\) has \\(n\\) real eigenvalues, counting multiplicities.
-2. THe dimension of the <a href="http://mathworld.wolfram.com/Eigenspace.html" target="_blank">eigenspace</a> for each eigenvalue \\(\lambda\\) equalts the ultiplicity of \\(\lambda\\) as a root of the characteristic polynomial of \\(A\\).
+2. The dimension of the <a href="http://mathworld.wolfram.com/Eigenspace.html" target="_blank">eigenspace</a> for each eigenvalue \\(\lambda\\) equalts the ultiplicity of \\(\lambda\\) as a root of the characteristic polynomial of \\(A\\).
 3. The eigenspaces are mutually orthogonal, in the sense that eigenvectors corresponding to different eigenvalues are orthogonal.
 4. There is aunitary matrix \\(U\\) and a real diagonal matrix \\(D\\) so that \\(A=UDU^\*=UDU^\{-1\}\\).
-5. If \\(A\\) is real then we may choose \\(U\\) in `(d)` to be real (orthogonal).
+5. If \\(A\\) is real then we may choose \\(U\\) in `(d)` to be real (orthogonal).<br />
 {:.acounter}
+
 `proof`:  
 By the Schur's lemma there exists a unitary \\(U\\) and an upper triangular \\(T\\) such that \\(A=UTU^\*\\). But \\(A=A^\*\\) so \\[T=U^\*AU=U^\*A^\*U=(U^\*AU)^\*=T^\*\\]
 But then \\(T\\) must be diagonal, since \\(T\\) is upper-triangular. Moreover, diagonal entries \\(\lambda_i\\)s must be real, and by letting \\(T=D\\)`(d)` is proved.  
@@ -58,7 +59,8 @@ For an eigenpair \\((x,\lambda)\\), \\(Ax=\lambda x\quad\rightarrow\quad x^\*Ax=
 The eigenvalues were real, and eigenvectors are orthogonal. The eigenvectors solve characteristic equation \\((A-\lambda I)x=0\\) for real \\(A\\) and \\(\lambda\\), so must be real.
 In particular, we have shown `Principal axis theorem` \\[A=QDQ^T\\] for real and symmetric \\(A\\).
   
-Next: Normal matrix
+### Extension to normal matrix
+
 
 Link:
 <a href="http://www.math.umd.edu/~hking/Hermitian.pdf" target="_blank">http://www.math.umd.edu/~hking/Hermitian.pdf</a>  
