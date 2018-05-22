@@ -36,6 +36,7 @@ We say that \\(A\in\mathbb\{C\}^\{n\times n\}\\) is Hermitian if
 {:.deccounter}
 
 <h3 id="spectral_theorem">Spectral theorem</h3>
+For \\(n\times n\\) Hermitian matrix \\(A\\),
 {:.acounter}
 1. \\(A\\) has \\(n\\) real eigenvalues, counting multiplicities.
 2. THe dimension of the <a href="http://mathworld.wolfram.com/Eigenspace.html" target="_blank">eigenspace</a> for each eigenvalue \\(\lambda\\) equalts the ultiplicity of \\(\lambda\\) as a root of the characteristic polynomial of \\(A\\).
