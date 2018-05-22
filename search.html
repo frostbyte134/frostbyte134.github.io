@@ -3,6 +3,9 @@ layout: default
 page_title: Search
 permalink: /search/
 ---
+
+<h3>Tag and title search (JS)</h3>
+
 <div id="results">
   <h1><!-- `key` listing for `value` --></h1>
 
@@ -21,6 +24,9 @@ permalink: /search/
 <script src="{{site.baseurl}}/dest/jekyll-search.js" type="text/javascript"></script>
 
 
+
+<h3>Google custom search (restricted to this blog)</h3>
+
 <script type="text/javascript">
       SimpleJekyllSearch({
         searchInput: document.getElementById('search-input'),
@@ -33,3 +39,19 @@ permalink: /search/
         exclude: ['Welcome']
       })
 </script>
+
+
+
+
+<script>
+  (function() {
+    var cx = '010832438877688471643:fcaa6rvk3ji';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:search></gcse:search>
