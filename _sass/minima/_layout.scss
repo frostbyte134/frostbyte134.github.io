@@ -300,7 +300,8 @@
 	  list-style-type: none;
 	}
 	.deccounter li {
-	
+	  
+	  list-style-type: none;
 	  counter-increment: step-counter;
 	  margin-top: 15px;
 	  margin-bottom: 15px;
@@ -309,15 +310,40 @@
 	.deccounter li::before {
 	  content: "("counter(step-counter, decimal)")";
 	  margin-right: 8px;
-	  font-size: 115%;
+	  font-size: 110%;
+	  background-color: rgb(176,196,222);
+	  color: white;
+	  font-weight: bold;
+	  padding: 2px 2px;
+	  border-radius: 3px;
 	}
-	
 	.center {
 		display: block;
 		margin-left: auto;
 		margin-right: auto;
 		width: 80%;
 	}
+	.nestedcounter li{
+		list-style-type: upper-roman;
+		margin-top: 15px;
+		margin-bottom: 15px;
+	}
+	.nestedcounter li li{
+	
+		margin-top: 10px;
+		list-style-type: lower-alpha;
+	}
+
+	.nestedcounter li li li{
+		margin-top: 8px;
+		list-style-type: decimal;
+	}
+	
+	.nestedcounter li li li li{
+		margin-top: 8px;
+		list-style-type: lower-greek;
+	}
+	
 }
 blockquote {
   background: #f9f9f9;

@@ -9,12 +9,12 @@ tags: linear_algebra analysis need_revise
 
 <h3 id="hermit_inner_prod">Definition: Complex (Hermitian) inner product</h3>
 On a complex vector space \\(V\\), to each pair of vectors \\(\textbf\{u, v, w\}\\) and \\(c\in \mathbb\{P\}\\), let \\(\langle u,v\rangle\\) be a function that satisfies the following axioms.
-{:.deccounter}
+{:.adeccounter}
 1. \\(\langle \textbf\{u,v\}\rangle=\overline\{\langle \textbf\{v,u\}\rangle\}\\).
 2. `Bilinearity`: \\(\langle \textbf\{u+v,w\}\rangle=\langle \textbf\{u,w\}\rangle+\langle \textbf\{v,w\}\rangle\\) and \\(\langle \textbf\{u,v+w\}\rangle=\langle \textbf\{u,v\}\rangle+\langle \textbf\{u,w\}\rangle\\).
 3. \\(\langle c\textbf\{u,v\}\rangle=\bar\{c\}\langle \textbf\{u,v\}\rangle=\\) and \\(\langle \textbf\{u\},c\textbf\{v\}\rangle=c\langle \textbf\{u,v\}\rangle=\\).
 4. \\(\langle \textbf\{u,u\}\rangle\\) is a nonnegative real number, and \\(\langle \textbf\{u,u\}\rangle = 0\\) iif \\(\textbf\{u\}=0\\).
-{:.deccounter}
+{:.adeccounter}
 
 __Side note__:  
 Hermitian inner product is not symmetric, namely

@@ -4,7 +4,7 @@ title:  "BOJ 2295: 세 수의 합"
 date:   2018-03-01 22:02:05 
 categories: problem_solving
 use_math: true
-tags: problem_solving need_review reference_problem
+tags: problem_solving reference_problem
 problem: 2295
 ---
 

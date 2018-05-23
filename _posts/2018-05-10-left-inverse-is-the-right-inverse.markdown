@@ -7,7 +7,9 @@ use_math: true
 tags: linear_algebra
 ---
 ### Theorem
-For \\(n\\)-dimensional sqaure matrix \\(A,\\>B\\), \\[AB=I\quad\rightarrow\quad BA=I\\]
+{:.theorem}
+>For \\(n\\)-dimensional sqaure matrix \\(A,\\>B\\), \\[AB=I\quad\rightarrow\quad BA=I\\]
+{:.theorem}
 `proof`:
 \\[AB=I\\]
 \\[(BA)B=B\\]
