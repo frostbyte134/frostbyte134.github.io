@@ -4,7 +4,7 @@ title:  "BOJ 1989: 부분배열 고르기 2"
 date:   2018-05-20 09:26:00 +0900
 categories: problem_solving
 use_math: true
-tags: problem_solving segment_tree dnq reference_problem
+tags: problem_solving segment_tree dnq
 problem: 1989
 ---
 
