@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Cofactors of matrix"
+title:  "Application of determinants"
 date:   2018-05-15 16:05:00 +0900
 categories: linear_algebra
 use_math: true
@@ -151,3 +151,31 @@ a_\{n,1\} 	&& a_\{n,2\} && a_\{n,3\} && a_\{n,j-1\} && b_n		&& a_\{n,n\}
 \end\{bmatrix\}
 \textrm\{has \}b\textrm\{ in column \}j.\\]
 {:.acounter}
+
+
+<h3 id="pivots_with_det">Computing pivots with determinant</h3>
+1. Key observation is that in Gaussian elimination,
+> the first \\(k\\) pivots are completely determined by the submatrix \\(A_k\\) in the upper left corner of \\(A\\)
+
+This can be shown in block-matrix representation.
+\\[A=LDU=
+\begin\{bmatrix\}\{\}
+L_k && 0 \\\
+B && C
+\end\{bmatrix\}
+\begin\{bmatrix\}\{\}
+D_k && 0\\\
+0 && E
+\end\{bmatrix\}
+\begin\{bmatrix\}\{\}
+U_k && F \\\
+0 && G
+\end\{bmatrix\}
+=
+\begin\{bmatrix\}\{\}
+L_kD_kU_k && L_kD_kF\\\
+BD_kU_k && BD_kF+CEG
+\end\{bmatrix\}
+\\] You can see that \\(A_k\\) coincides with \\(L_kD_kU_k\\). Then,\\[\textrm\{det\}A_k=\textrm\{det\}L_k\textrm\{det\}D_k\textrm\{det\}U_k=\textrm\{det\}D_k=\prod_\{i=1\}^kd_i\\]
+Therefore, we come to conclusion that
+\\[\frac\{\textrm\{det\}A_k\}\{\textrm\{det\}A_\{k-1\}\}=(d_k\cdots d_1)/(d_\{k-1\}\cdots d_1)=d_k\\]
