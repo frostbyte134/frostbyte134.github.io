@@ -24,3 +24,8 @@ tags: linear_algebra need_revise
 
 ### Geometric multiplicity is bounded by the algebraic multiplicity
 https://www.google.co.kr/search?q=geometric+multiplicity+is+less+than+algebraic+multiplicity&rlz=1C1QJDB_enKR796KR796&oq=geometric+mul&aqs=chrome.2.69i57j0l5.7111j0j4&sourceid=chrome&ie=UTF-8
+
+
+<h3 id="zero-eval">Eigenvector corresponding to 0-eigenvalue is an nontrival member of nullspace</h3>
+\\[Ax=0x=0 \textrm\{  for nontrivial \}x.\\]
+Thus, orthonormal eigenvectors corresponding to 0-eigenvalues compose a basis of nullspace.

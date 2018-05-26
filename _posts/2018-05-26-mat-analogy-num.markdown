@@ -8,3 +8,6 @@ tags: linear_algebra need_revise
 ---
 
 asdasd
+
+
+4.	Polar decomposition of SVD!!

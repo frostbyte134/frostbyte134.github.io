@@ -5,7 +5,7 @@ date:   2018-05-09 10:29:00 +0900
 categories: problem_solving
 use_math: true
 tags: problem_solving simulation
-problem: 2261
+problem: 2573
 ---
 
 <a target="_blank" href="https://www.acmicpc.net/problem/{{page.problem}}">https://www.acmicpc.net/problem/{{page.problem}}</a><br/><br/>

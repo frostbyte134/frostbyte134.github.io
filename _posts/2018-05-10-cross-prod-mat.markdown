@@ -31,7 +31,7 @@ __Base case__: Let \\(n=2\\). WLOG let \\[T=\begin\{bmatrix\} a && 0 \\\ b && c 
 \end\{bmatrix\}=0
 \\] so \\(b=0\\) and \\(T\in \mathbb\{R\}^\{2\times 2\}\\) must be diagonal.
 
-__Inductive step__: For \\(n\leq 2\\), suppose that the theorem holds for \\(n\\). Let \\[T_\{n+1\}=\begin\{bmatrix\} T_\{n\} && 0 \\\ v && a \end\{bmatrix\}.\\] be an arbitrary triangular matrix in \\(\mathbb\{C\}^\{(n+1)\times(n+1)\}\\), where \\(T\\) is an (normal, by assumption) triangular matrix in \\(\mathbb\{C\}^\{n\times n\},\\>v\in \mathbb\{C\}^\{1\times n\},\\>a\in\mathbb\{C\}.\\) Then \\(T_\{n+1\}^HT_\{n+1\}-T_\{n+1\}T_\{n+1\}^H=0\\) gives
+__Inductive step__: For \\(n\leq 2\\), suppose that the theorem holds for \\(n\\). Let \\[T_\{n+1\}=\begin\{bmatrix\} T && 0 \\\ v && a \end\{bmatrix\}.\\] be an arbitrary triangular matrix in \\(\mathbb\{C\}^\{(n+1)\times(n+1)\}\\), where \\(T\\) is an (normal, by assumption) triangular matrix in \\(\mathbb\{C\}^\{n\times n\},\\>v\in \mathbb\{C\}^\{1\times n\},\\>a\in\mathbb\{C\}.\\) Then \\(T_\{n+1\}^HT_\{n+1\}-T_\{n+1\}T_\{n+1\}^H=0\\) gives
 \\[
 \begin\{bmatrix\} T^HT-TT^* + v^Hv && v^Ha-Tv^H \\\ \bar\{a\}v-vT^H && -|v|^2 \end\{bmatrix\}
 =\begin\{bmatrix\} 0 + \\|v\\|^2 && v^Ha-Tv^H \\\ \bar\{a\}v-vT^H && -\\|v\\|^2 \end\{bmatrix\}
@@ -39,7 +39,7 @@ __Inductive step__: For \\(n\leq 2\\), suppose that the theorem holds for \\(n\\
 \\]
 Hence \\(v=0\\) and since \\(T\\) is diagonal, \\(T_\{n+1\}\\) is also diagonal.
 
-<h3>Normal matrix and original matrix share nullspace</h3>
+<h3 id="share_null">Normal matrix and original matrix share nullspace</h3>
 For any matrix \\(A\\), \\(AA^T\\) or \\(A^TA\\) is normal. Then \\(A^TA\\) has the same nullspace as \\(A\\). Indeed,
 \\[Ax=0\rightarrow A^T Ax=0\\]
 is obvious. To prove the converse,
