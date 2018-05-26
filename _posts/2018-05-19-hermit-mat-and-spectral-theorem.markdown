@@ -15,7 +15,8 @@ We say that \\(A\in\mathbb\{C\}^\{n\times n\}\\) is Hermitian if
 * above-diagonal entries are conjugate to corresponding below-diagonal entries
 * \\(\textrm\{Symmetric matrices\}\subset\textrm\{Hermitian matrices\}\\)
 
-### Preliminaries of Spectral theorem (Schur's Lemma)
+
+<h3 id="schur_lemma"> Preliminaries of Spectral theorem (Schur's Lemma)</h3>
 
 {:.deccounter}
 1. Theorem 1  
@@ -30,12 +31,22 @@ We say that \\(A\in\mathbb\{C\}^\{n\times n\}\\) is Hermitian if
 	> If \\(A\\) is __any__ square complex matrix,  then there is an upper triangular complex matrix \\(T\\) and a unitary \\(U\\) such that  
 	\\[A=UTU^*=UTU^\{-1\}\\]
 	
-	`proof`: Let \\(q_1\\) be an eigenvector of \\(A\\), which is guaranteed to be exists by `(1)`. By the <a href="{{site.url}}/linear_algebra/2018/05/15/orthonormal-basis.html#gram_schmidt"  target="_blank">Gram-Schmidt process</a> we may choose any \\(q'_i\\) such that \\(\\{q_1,...,q'_n\\}\\) is an orthonormal basis.  
-	Let \\(Q_0:=[q_1,..,q_n]\in\mathbb\{C\}^\{n\times n\}\\). Then \\(Q_0\\) is unitary, and \\(\{Q\_0\}^\* A Q\_0=\begin\{bmatrix\}\{\} \lambda_1 && * \\\ 0 && A\_2 \end\{bmatrix\}\\) for some \\((n-1)\times(n-1)\\) matrix \\(A_2\\).  
-	Likewise, we may find a unitary \\((n-1)\times(n-1)\\) matrix \\(Q_1\\) so that \\(Q_1^\*A_1Q_1=\begin\{bmatrix\}\{\} \lambda_2 && * \\\ 0 && A_3 \end\{bmatrix\}\\) for \\((n-2)\times (n-2)\\) matrix \\(A_3\\). Then we see that \\[Q_0^\*AQ_0=\begin\{bmatrix\}\{\} \lambda_1 && * \\\ 0 && A_2 \end\{bmatrix\}\\] \\[Q_1^\*Q_0^\*AQ_0Q_1=\begin\{bmatrix\}\{\} \lambda_1 && * && * \\\ 0 && \lambda_2 && * \\\ 0 && 0 && A_3 \end\{bmatrix\}\\] for some \\((n-2)\times(n-2)\\) matrix \\(A_3\\). The process continues till \\[(Q_n^\*\cdots Q_0^\*) A (Q_0 \cdots Q_n)=T\\] where \\(T\\) is \\(n\times n\\) upper triangular matrix with eigenvalues of \\(A\\) in diagonal, and \\(U:=Q_n\cdots Q_0\\) is unitary thanks to `(3)`. Finally we see that \\[A=UTU^\*\\] holds.
+	`proof`: Let \\(q_1\\) be an eigenvector of \\(A\\), which is guaranteed to be exists by `(1)`. By the <a href="{{site.url}}/linear_algebra/2018/05/15/orthonormal-basis.html#gram_schmidt"  target="_blank">Gram-Schmidt process</a> we may choose any \\(q'_i\\) such that \\(\\{q_1,q'_2...,q'_n\\}\\) is an orthonormal basis.  
+	Let \\(Q_0:=[q_1,q'_2..,q'_n]\in\mathbb\{C\}^\{n\times n\}\\). Then \\(Q_0\\) is unitary, and \\[\{Q\_0\}^\* A Q\_0=\begin\{bmatrix\}\{\} \lambda_1 && * \\\ 0 && A\_1 \end\{bmatrix\}\\] for some \\((n-1)\times(n-1)\\) matrix \\(A_1\\).  
+	Likewise \\(A_1\\) has at least 1 eigenvalue and we may find a unitary \\((n-1)\times(n-1)\\) matrix \\(Q'_1\\) so that \\[Q_1^\{'*\}A_1Q'_1=\begin\{bmatrix\}\{\} \lambda_2 && * \\\ 0 && A_2 \end\{bmatrix\}\\] for \\((n-2)\times (n-2)\\) matrix \\(A_2\\). We let \\[Q_1:=\\left[
+	\begin{array}{c|ccc}
+	1 & & 0 &  \\\
+	\hline
+	 & & & \\\
+	0 & & Q'_1\in R^\{(n-1)\times(n-1)\} & \\\
+	 & & &
+	\end{array}
+	\right\]\\]and see that \\[Q_0^\*AQ_0=\begin\{bmatrix\}\{\} \lambda_1 && * \\\ 0 && A_2 \end\{bmatrix\}\\] \\[Q_1^\*Q_0^\*AQ_0Q_1=\begin\{bmatrix\}\{\} \lambda_1 && * && * \\\ 0 && \lambda_2 && * \\\ 0 && 0 && A_3 \end\{bmatrix\}\\] holds. The process continues till \\[(Q_n^\*\cdots Q_0^\*) A (Q_0 \cdots Q_n)=T\\] where \\(T\\) is \\(n\times n\\) upper triangular matrix and \\(U:=Q_n\cdots Q_0\\) is unitary thanks to `(3)`. Finally we see that \\[A=UTU^\*\\] holds.
 {:.deccounter}
 
+
 <h3 id="spectral_theorem">Spectral theorem</h3>
+
 {:.acounter}
 > \\(\\>\\)For \\(n\times n\\) Hermitian matrix \\(A\\)
 1. \\(A\\) has \\(n\\) real eigenvalues, counting multiplicities.
@@ -48,7 +59,7 @@ We say that \\(A\in\mathbb\{C\}^\{n\times n\}\\) is Hermitian if
 `proof`:  
 By the Schur's lemma there exists a unitary \\(U\\) and an upper triangular \\(T\\) such that \\(A=UTU^\*\\). But \\(A=A^\*\\) so \\[T=U^\*AU=U^\*A^\*U=(U^\*AU)^\*=T^\*\\]
 But then \\(T\\) must be diagonal, since \\(T\\) is upper-triangular. Moreover, diagonal entries \\(\lambda_i\\)s must be real, and by letting \\(T=D\\)`(d)` is proved.  
-Since \\(U\\) diagonalizes \\(A\\) we know that the diagonal entries of \\(D\\) are eigenvalues of \\(A\\) and the columns of \\(U\\) are eigenvectors, \\[AU=UD\\] we have shown `(a)` and `(b)`.  
+Since \\(U\\) diagonalizes \\(A\\) we know that the diagonal entries of \\(D\\) are eigenvalues of \\(A\\) and the columns of \\(U\\) are eigenvectors, \\[AU=UD.\\] We have shown `(a)` and `(b)`.  
 Note `(c)` follows since the columns of \\(U\\) are orthonormal by its construction on Schur's lemma.  
 As for the real eigenpairs, if \\(A\\),
 1. If \\(A=A^\*\\), then \\(x^\*Ax\\) is real scalar  
@@ -60,7 +71,7 @@ The eigenvalues were real, and eigenvectors are orthogonal. The eigenvectors sol
 In particular, we have shown `Principal axis theorem` \\[A=QDQ^T\\] for real and symmetric \\(A\\).
   
 ### Extension to normal matrix
-
+<a href="{{site.url}}/linear_algebra/2018/05/10/cross-prod-mat.html" target="_blank">Refer to a link here</a>
 
 Link:
 <a href="http://www.math.umd.edu/~hking/Hermitian.pdf" target="_blank">http://www.math.umd.edu/~hking/Hermitian.pdf</a>  

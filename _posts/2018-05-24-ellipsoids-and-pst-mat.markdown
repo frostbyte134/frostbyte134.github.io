@@ -6,7 +6,7 @@ categories: linear_algebra
 use_math: true
 tags: linear_algebra
 ---
-\\(x^TAx=1\\) with positive definite \\(A\\) has a `bijection mapping` with the ellipsoid.  
+\\(x^TAx=1\\) with __positive definite__ \\(A\\) has a bijection mapping with the ellipsoid.  
 The center is in origin, since \\(x\\) which satisfies \\(x^T Ax=1\\) must be symmetric around the origin.
 {:.deccounter}
 1. \\(A=I\\). Unit circle (length 1) \\[x^TIx=x^Tx=1.\\]
@@ -14,7 +14,7 @@ The center is in origin, since \\(x\\) which satisfies \\(x^T Ax=1\\) must be sy
 By letting \\(x=\frac\{1\}\{\sqrt d_i\}e_i\\), the radius of ellipsoid toward axis \\(e_i\\) is \\(\frac\{1\}\{\sqrt d_i\}\\).
 3. \\(A=\\)positive definite.  
 We apply the Spectral decomposition \\(A=Q\Lambda Q^T\\). \\[x^TQ\Lambda Q^Tx=(Q^Tx)^T\Lambda Q^Tx=1\\]
-For an \\(i\\)th eigenpair \\((x_i,\lambda_i)\\), letting \\(x=\frac\{1\}\{\sqrt \lambda_i\}x_i\\) gives one of the `maximum stretch` of ellipsoid, with length \\(\frac\{1\}\{\sqrt \lambda_i\}\\) and direction \\(x_i\\).  
+For an \\(i\\)th eigenpair \\((q_i,\lambda_i)\\), letting \\(x=\frac\{1\}\{\sqrt \lambda_i\}q_i\\) gives one of the `maximum stretch` of ellipsoid, with __length__ \\(\frac\{1\}\{\sqrt \lambda_i\}\\) and __direction__ \\(q_i\\).  
 In coordinate change perspective,
 	> Suppose \\(A=QΛQ^T\\) with \\(\lambda_i>0\\).  Rotating  \\(y=Q^T x\\)  simplifies  \\(x^T Ax=1\\):
 	\\[x^T Q\Lambda Q^T x=y^T \Lambda y=\lambda_1 y_1^2+\cdots+\lambda_n y_n^2=1\\]

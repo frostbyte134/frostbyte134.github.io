@@ -37,13 +37,15 @@ according to the <a href="{{site.url}}/linear_algebra/2018/05/15/cofactor.html#p
 Rememter the <a href="{{site.url}}/linear_algebra/2018/05/16/projection.html" target="_blank">`least square`</a> setting \\[Rx=b,\quad\quad R\in R^\{m\times n\},m\leq n\\]
 where the columns of \\(R\\) are independent. The system \\(Rx=b\\) might not solvable.  
 Instead, we solved the `normal equation` \\(R^TR\hat\{x\}=R^T\hat\{x\}\\). The <a href="{{site.url}}/linear_algebra/2018/05/10/cross-prod-mat.html" target="_blank">`normal matrix`</a> \\(R^TR\\) is symmetric (indeed) and positive definite (which we will show now), provided that the __columns__ of \\(R\\) are __independent.__
+
 {:.theorem}
 > The symmetric matrix \\(A\in R^\{n\times n\}\\) is __positive definite__ i.i.f there exists \\( m\times n\\) matrix \\(R\\) with __independent columns__ such that \\[A=R^TR.\\]
 {:.theorem}
+
 `Proof.`  
-\\(\leftarrow.\\) If \\(A=R^T R\\) for \\(R\\) with independent columns, \\[x^T Ax=(Rx)^T Rx=\\|Rx\\|^2\\]
-Since the columns of \\(R\\) are independent, we see that \\(x^TAx>0\\).
-\\(\rightarrow.\\) Since \\(A\\) is symmetric, \\(A=LDL^T\\). Easy choice of R is, R=L√D.
-Note that for any \\(Q,\\>(QR)^T (QR)=R^T R=A\\), so the choice above is not unique.
+\\(\leftarrow\\>\\>\\) If \\(A=R^T R\\) for \\(R\\) with independent columns, \\[x^T Ax=(Rx)^T Rx=\\|Rx\\|^2\\]
+Since the columns of \\(R\\) are independent, we see that \\(x^TAx>0\\) for nontrivial \\(x\\).  
+\\(\rightarrow\\>\\>\\) Since \\(A\\) is symmetric, \\(A=LDL^T\\). Easy choice is \\(R=L\sqrt\{D\}\\).
+Note that for any \\(Q,\\>(QR)^T (QR)=R^T R=A\\), so the choice above is not unique.  
 The `Choleskey decomposition` is done in similar way, wrt eigenvector basis S. \\[A=SΛS^T=(\sqrt Λ S^T )^T \sqrtΛ S^T.\\]
 For positive __semidefinite__ matrices, we replace \\(>\\) into \\(\geq \\), and independent into dependent.

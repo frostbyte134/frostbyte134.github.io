@@ -24,7 +24,7 @@ __트리의 최장거리 구하기__ (edge weight = 1): 아무노드에서나 BF
   
 `proof by contradiction`: 만약 아니라면,  
 ![hey]({{ site.url }}/images/ps/time_to_live.png)  
-ex)최장거리: m-n. 만약 m부터 시작한 bfs에서 d가 가장 나중에 끝났다면, d-c경로를 m-c대신 갖다붙여 더 긴 거리를 만들 수 있을 것.
+ex)최장거리: m-n. 만약 h부터 시작한 bfs에서 d가 가장 나중에 끝났다면, d-f경로를 m-f대신 갖다붙여 최장거리인 m-n보다 더 긴 거리를 만들 수 있을 것.
 따라서
 1. bfs 한번 돌려서 가장 늦게 끝나는 노드에서
 2. 다시 한번 bfs를 돌려서 (길이+1)/2가 답임.
