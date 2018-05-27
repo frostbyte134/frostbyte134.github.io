@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "BOJ 10800: 숫자 구슬"
+title:  "BOJ 10800: 컬러볼"
 date:   2018-05-27 17:32:00 +0900
 categories: problem_solving
 use_math: true
