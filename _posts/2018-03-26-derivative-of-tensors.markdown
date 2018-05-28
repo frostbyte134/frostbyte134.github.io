@@ -6,7 +6,7 @@ categories: deep_learning
 use_math: true
 tags: deep_learning deep_learning(bengio)
 ---
->Derivatives are a way to measure rate of change.
+>Derivatives are a way to measure a rate of change.
 
 
 
@@ -14,12 +14,14 @@ tags: deep_learning deep_learning(bengio)
 For \\(f : \Re\mapsto\Re\\), the derivative of f at a point \\(x\in\Re\\) is a scalar \\(a\in \Re\\) which satisfies\\[ f'(x)=\lim_{h\to0}\frac{f(x+h)-f(x)-ah}{h}=0,  f'(x)\in\Re\\]
 - For \\(y=f(x)\\), the `chain rule` tells us that \\[\frac{\partial z}{\partial x} =\frac{\partial z}{\partial y}\frac{\partial y}{\partial x}\\]with scalar product.
 
-- `Linear approximation` gives \\[ f(x+h)\approx f(x)+f'(x)h \\] where f'(x)h is a scalar product.
+- `Linear approximation` gives \\[ f(x+h)\approx f(x)+f'(x)h \\] where \\(f'(x)h\\) is a scalar product.
 
 
 
 ### (2) Gradient: vector in, scalar out
- For \\(f : \Re^N\mapsto\Re\\), the derivative of f at a point \\(\textbf{x}\in\Re^N\\) is now a vector \\(A\in \Re^N\\) which satisfies \\[ \bigtriangledown_{x}f(x)=\lim_{\|h\|\to0}\frac{f(x+h)-f(x)-Ah}{\|h\|}, f'(x)\in\Re\\] (is it right to use \\(\|\|\\) here?)
+ For \\(f : \Re^N\mapsto\Re\\), the derivative of f at a point \\(\textbf{x}\in\Re^N\\) is now a row-vector \\(A\in \Re^\{1\times N\}\\) which satisfies \\[ \bigtriangledown_{x}f(x)=\lim_{\|h\|\to0}\frac{f(x+h)-f(x)-Ah}{\|h\|}, f'(x)\in\Re\\] 
+ 
+ __(REVISE!!)__ is it \\(1\times n\\) or \\(n \times 1\\)???  
 
 - For \\(f:\Re^N\to\Re, g:\Re\to\Re, y=f(x),z=g(y)=g(f(x))\\) the `chain rule` extends as \\[\frac{\partial z}{\partial x} =\frac{\partial z}{\partial y}\frac{\partial y}{\partial x}\\] with scalar-vector multiplication.
 
