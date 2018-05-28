@@ -4,7 +4,7 @@ title:  "Algospot: Quantize"
 date:   2015-09-16 16:11:05 
 categories: problem_solving
 use_math: true
-tags: problem_solving referene_problem
+tags: problem_solving reference_problem
 ---
 
 오랬만에 손 푸는 겸...<br/>
