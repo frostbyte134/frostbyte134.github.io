@@ -20,7 +20,9 @@ To generalize the above, we now need to produce a vector \\(\hat{\mathbf{y}}\\),
 
 2. \\(\sum_j\hat{y}_j=1\\)
 
-Similarly to above, a linear layer predicts unnormalized log-probailities: \\[\mathbf{z}=W^T h+b\\] where \\(z_i=\log\tilde{P}(y=i\|x)\\). Then again we exponentiate and normalize to obtain the desired \\(\hat{\textbf{y}}\\). Formally, the softmax function \\(\Re^N\to\Re^N\\) is defined by \\[\textrm{softmax}(z_i)=\frac{\exp(z_i)}{\sum_j\exp(z_j)}.\\]
+Similarly to above, a linear layer predicts unnormalized log-probailities: \\[\mathbf{z}=W^T h+b\in R^n,\\] where \\(z_i=\log\tilde{P}(y=i\|x)\\). Then again we exponentiate and normalize to obtain the desired \\(\hat{\textbf{y}}\\). Formally, the softmax function \\(\Re^N\to\Re^N\\) is defined by \\[\textrm{softmax}(z_i)=\frac{\exp(z_i)}{\sum_j\exp(z_j)}.\\]
+
+### MLE over softmax
 
 During MLE optimization, the log undoes the \\(\exp\\) of softmax. \\[\log\textrm{softmax}(z)_i=z_i-\log\sum_j{\exp(z_j)}.\\]
 
@@ -38,22 +40,21 @@ Few things to note are,
 ### Saturation of softmax
  Like sigmoid, the softmax activation saturate when the differences between input values become extreme (indeed it is similar to the sigmoid case) 
 
-1. To see that the softmax function responds to the difference between its inputs, observe that it is invariant to scalar scaling \\[\textrm{softmax}(z)=\textrm{softmax}(z+c).\\]Using this, we can derive numerically stable softmax \\[\textrm{softmax}(z)=\textrm{softmax}(z-\max_j{z_j}).\\]
+1. To see that the softmax function responds to the difference between its inputs, observe that it is invariant to scalar scaling \\[\textrm{softmax}(z+c)=\frac{\exp(z)\exp(c)}{(\sum_j\exp(z))\exp(c)}=\textrm{softmax}(z).\\]Using this, we can derive numerically stable softmax \\[\textrm{softmax}(z)=\textrm{softmax}(z-\max_j{z_j}).\\]
 
 
 
 (maybe i need to take the sum over all partial derivs)
 
-2. \\(\textrm{softmax}(z)_i\\) saturates to 1 when \\(z_i=\max_j z_j\\), and \\(z_i\\) is much greater than all other inputs (Then we can state that \\(\log\sum_j{\exp(z_j)}\approx\max_j z_j\\).
+2. \\(\textrm{softmax}(z)_i:==\frac{\exp(z_i)}{\sum_j\exp(z_j)}\\) saturates to 1 when \\(z_i=\max_j z_j\\), and \\(z_i\\) is much greater than all other inputs (Then we can state that \\(\log\sum_j{\exp(z_j)}\approx\max_j z_j\\).
 
-3. It also saturates to 0, when \\(z_j\\) is not maximal and the maximum \\(z_i\\) is much greater. (again, using \\(\log\sum_j{\exp(z_j)}\approx\max_j z_j=z_i\\) we see that \\(\frac{\partial\textrm{softmax}(z)_j}{\partial z_j}\approx 1 \\))
+3. It also saturates to 0, when \\(z_j\\) is not maximal and the maximum \\(z_i\\) is much greater. 
 
-This indeed is a generalization of the way that sigmoid unit saturate.
   
   
 <hr>
 <br/><br/>
-Next:<a href="https://nailbrainz.blogspot.kr/2018/03/softmax-unit.html" target="_blank">https://nailbrainz.blogspot.kr/2018/03/softmax-unit.html</a>  
+Next:  
 <br/><br/>
 References:  
 <a href = "http://www.deeplearningbook.org/" target="_blank">http://www.deeplearningbook.org/</a>  
