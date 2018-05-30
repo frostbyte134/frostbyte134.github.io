@@ -5,7 +5,7 @@ date:   2018-05-30 16:20:05 +0800
 categories: problem_solving
 use_math: true
 tags: problem_solving segment_tree reference_problem
-problem: 2618
+problem: 9426
 ---
 
 <a target="_blank" href="https://www.acmicpc.net/problem/{{page.problem}}">https://www.acmicpc.net/problem/{{page.problem}}</a><br/>
