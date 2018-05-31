@@ -6,7 +6,7 @@ categories: deep_learning
 use_math: true
 tags: deep_learning deep_learning(bengio)
 ---
-The princciple of MLE provides a guide for designing a good cost function.
+The principle of MLE provides a guide for designing a good cost function.
 
 >In general, if we define a conditional distribution \\(p(y\|x;\theta)\\) the principle of maximum likelihood suggests we use \\(-\log{p(y\|x;\theta)}\\) as our cost function.
 
@@ -17,7 +17,7 @@ We can think of the neural network as representing a function \\(f(x;\theta)\\).
 ### Example: Learning the variance of a conditional Gaussian for \\(y\\) given \\(x\\)
 
 (1) Simple case: \\(\sigma^2=\frac{1}{n}(x_i-\hat{\mu})^2\\)  
-Recap: <a href="{{site.url}}/probability/2018/04/06/mle-of-gaussian.html" target="_blank">ML estimator of variance of I.I.D Gaussians is the sample variance.</a>
+Recap: <a href="{{site.url}}/probability/2018/04/05/mle-of-gaussian.html" target="_blank">ML estimator of variance of I.I.D Gaussians is the sample variance.</a>
 
 (2) Let \\(p(y\|x)\sim\mathcal{N}(\mu,\omega)\\), where \\(\omega=f(x;\theta)\\), and solve \\(\min[-\log{p(y\|x)}]=\min[-\mathcal{N}(x;\mu,\omega)]\\).  
 We often want to find `precision`, instead of  

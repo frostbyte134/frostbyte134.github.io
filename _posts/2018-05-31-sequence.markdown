@@ -1,0 +1,20 @@
+---
+layout: post
+title:  "BOJ 1849: 순열"
+date:   2018-05-31 09:20:05 +0800
+categories: problem_solving
+use_math: true
+tags: problem_solving segment_tree reference_problem
+problem: 1849
+---
+
+<a target="_blank" href="https://www.acmicpc.net/problem/{{page.problem}}">https://www.acmicpc.net/problem/{{page.problem}}</a><br/>
+  
+
+1. 우선 가장 작은 숫자인 1은, 앞에는 모두 자기보다 큰 숫자들뿐이다. 따라서 A[1]+1이 1의 위치.
+2. 다음 2가 1 뒤에 있는 경우는 문제가 없다. A[2]+1이 2의 위치.   
+그러나 2가 1 앞에 있는 경우를 처리해줘야 해서 구간트리가 필요.
+3. 1~N까지 1로 채우고, 합을 구하는 구간트리를 만듬. A[1]+1을 사용했으므로 (1이 들어갔으므로), A[1]+1은 0으로 만듬. 
+4. 다음 A[2]를 채우기 위해선 1부터 어디까지를 사용해야 하는지를, 구간트리에서 합 쿼리로 구함. 2가 1 앞에 있는 경우는 A[1]+1의 값이 0이므로 한 칸 더 뒤로 밀린 답이 나올 것임.
+
+조세퍼스 2같은데서 이런 구간트리 분명히 썼는데...수월하게 못풀었네

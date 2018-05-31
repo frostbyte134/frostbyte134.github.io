@@ -4,7 +4,7 @@ title:  "BOJ 3830: 교수님은 기다리지 않는다"
 date:   2018-05-28 21:20:05 +0900
 categories: problem_solving
 use_math: true
-tags: problem_solving djset graph reference_problem
+tags: problem_solving djset graph
 problem: 3830
 ---
 

@@ -8,7 +8,7 @@ tags: deep_learning deep_learning(bengio)
 ---
 <a href="https://www.tensorflow.org/api_docs/python/tf/nn/conv2d" target="_blank">2d convolution in Tensorflow</a>
 
-Recall that <a href="{{site.url}}/deep_learning/2018/03/29/cnn.html">convolution is a linear operation</a> and can thus be described as a matrix multiplication (if we first reshape the input tensor into a flat vector). The matrix involved is a function of the convolution kernel. The matrix is sparse, and each element of the kernel is copied to several elements of the matrix. This view helps us to derive some of the other operation needed to implement a convolutional network.
+Recall that <a href="{{site.url}}/deep_learning/2018/03/29/cnn.html" target="_blank">convolution is a linear operation</a> and can thus be described as a matrix multiplication (if we first reshape the input tensor into a flat vector). The matrix involved is a function of the convolution kernel. The matrix is sparse, and each element of the kernel is copied to several elements of the matrix. This view helps us to derive some of the other operation needed to implement a convolutional network.
 
 ### (1) Convolution
 To describe a convolution, we need 3 components
@@ -19,11 +19,11 @@ To describe a convolution, we need 3 components
 (output channel = type of filter. Note that each index can be a vector in \\(\Re^n\\))
 
 Then, \\(Z_{i,j,k}\\) can be described by \\(V, K\\) as follows \\[Z_{i,j,k}=\sum_{l,m,n}{V_{l,m+(j-1),n+(k-1)}K_{i,l,m,n}}\\]
-
+where \\(m, n\\) are iterated over the filter.
 
 | ![angle]({{ site.url }}/images/deeplearning/6zX2c.png){: .center-image }| 
 |:--:| 
-| Image from <a href="http://jeanvitor.com/convolution-parallel-algorithm-python/" target="_blank">http://jeanvitor.com/convolution-parallel-algorithm-python/</a> |
+| Pic of a single channel. Image from <a href="http://jeanvitor.com/convolution-parallel-algorithm-python/" target="_blank">http://jeanvitor.com/convolution-parallel-algorithm-python/</a> |
 
 
 And with the stride \\(s\\), \\[Z_{i,j,k}=c(K,V,s)=\sum_{l,m,n}{V_{l,m+s(j-1),n+s(k-1)}K_{i,l,m,n}}\tag{1}\\]
@@ -48,7 +48,7 @@ Usually the __optimal amount of zero padding (in terms of test set classificatio
 ### (3) Derivatives of convolution, in B-prop
 Suppose we want to minimizer \\(J(V,K)\\). During the backpropagation, we'll receive a tensor \\(G\\) such that \\[G_{i,j,k}=\frac{\partial}{\partial{Z_{i,j,k}}}{J(V,K)} \\]
 
-1. To compute the derivative w.r.t one component of kernel \\(K_{i,j,k,l}\\) (parameter of current layer), \\[\frac{\partial}{\partial{K_{i,j,k,l}}}{J(V,K)}=\sum_{m,n}{\frac{\partial}{\partial{Z_{i,m,n}}}{J(V,K)}}{\frac{\partial}{\partial K_{i,j,k,l}}Z_{i,m,n}}\\] (for fixed index of output channel \\(i\\), we have to iterate over image) \\[=\sum_{m,n}{\frac{\partial}{\partial{Z_{i,m,n}}{J(V,K)}}V_{j,(m-1)s+k,(n-1)s+l}}\\] (refer to (1) for the relations between indices)
+1. To compute the derivative w.r.t one component of kernel \\(K_{i,j,k,l}\\) (parameter of current layer), \\[\frac{\partial}{\partial{K_{i,j,k,l}}}{J(V,K)}=\sum_{m,n}{\frac{\partial}{\partial{Z_{i,m,n}}}}J(V,K){\frac{\partial}{\partial K_{i,j,k,l}}Z_{i,m,n}}\\] (for fixed index of output channel \\(i\\), we have to iterate over image) \\[=\sum_{m,n}{\frac{\partial}{\partial{Z_{i,m,n}}}{J(V,K)}V_{j,(m-1)s+k,(n-1)s+l}}\\] (refer to (1) for the relations between indices)
 2. To compute the derivative w.r.t input \\(V_{i,j,k}\\) (for further step of Bprop), \\[\frac{\partial}{\partial{V_{i,j,k}}}{J(V,K)}=\sum_{\substack{l,m \\ \textrm{s.t.} \\ (l-1)s+m=j}}\sum_{\substack{n,p \\ \textrm{s.t.} \\ (n-1)s+p=k}}\sum_{q}K_{q,i,m,p}{\frac{\partial}{\partial{Z_{q,l,n}}}{J(V,K)}}\\] (input \\(V_{i,j,k}\\) is multiplied by kernels satisfying above conditions, through all output channels (filters))
 
 
@@ -64,5 +64,5 @@ Next:
 Training autoencoders (skipped, for now)
 <br/><br/>
 References:  
-<a href="http://www.deeplearningbook.org/" target="_blank">http://www.deeplearningbook.org/</a>
+<a href="http://www.deeplearningbook.org/" target="_blank">http://www.deeplearningbook.org/</a>  
 <a href="http://jeanvitor.com/convolution-parallel-algorithm-python/" target="_blank">http://jeanvitor.com/convolution-parallel-algorithm-python/</a>
