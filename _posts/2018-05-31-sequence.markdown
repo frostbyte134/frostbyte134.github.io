@@ -4,7 +4,7 @@ title:  "BOJ 1849: 순열"
 date:   2018-05-31 09:20:05 +0800
 categories: problem_solving
 use_math: true
-tags: problem_solving segment_tree reference_problem
+tags: problem_solving segment_tree reference_problem need_review
 problem: 1849
 ---
 

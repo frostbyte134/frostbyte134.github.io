@@ -8,6 +8,7 @@ tags: optimization analysis need_revise
 ---
 
 need revision in differentiability -> continuity
+add links to chain rule (analysis), differentiability, continuity
 
 ### Definition
 `Directional derivative` in a unit vector \\(u\\) 
@@ -25,7 +26,7 @@ To minimize \\(f\\), we would like to find a direction (in unit length) \\(u\\) 
 \\[=\min\_\{u,u^Tu=1\}\\|u\\|\_2\\|\nabla_xf(x)\\|\_2\cos\{\theta\}\\]
 (Remember the <a href="{{site.url}}/analysis/2018/04/03/vector-projection.html" target="_blank">relationship between cosine and inner product</a>)  
 Where \\(\theta\\) is the angle between gradient and \\(u\\). \\(\\|u\\|=1\\) is a constant, and removing irrelevant components with \\(u\\) gives
-\\[=min_\{u,u^Tu=1\}\cos\{\theta\}\\]
+\\[=\min_\{u,u^Tu=1\}\cos\{\theta\}\\]
 \\(\theta\\) is minimized when \\(u\\) points opposite direction with \\(\nabla_xf(x)\\). QED.  
 The theorem assumes differentiability (heard that the theorem is more general, by just assuming continuity).
 

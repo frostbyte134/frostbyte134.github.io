@@ -7,6 +7,9 @@ use_math: true
 tags: linear_algebra need_revise
 ---
 
+### Volume of a box with rows(columns)
+asdasd
+
 ### Definiton of Cofactor
 We want to express determinant in terms of \\(n^2\\) terms in \\(A\\). Firstly looking at simple 2×2 matrix, we can get some intuition that
 \\[

@@ -4,7 +4,7 @@ title:  "BOJ 9426: 중앙값 측정"
 date:   2018-05-30 16:20:05 +0800
 categories: problem_solving
 use_math: true
-tags: problem_solving segment_tree
+tags: problem_solving segment_tree need_review
 problem: 9426
 ---
 
