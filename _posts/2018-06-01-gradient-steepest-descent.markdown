@@ -24,7 +24,7 @@ and we see that, \\(F(0)=\frac\{\partial f(x)\}\{\partial (x)\}\cdot u=\nabla_xf
 To minimize \\(f\\), we would like to find a direction (in unit length) \\(u\\) where \\(f\\) decreases the most.
 \\[\min_\{u,u^Tu=1\}u^T\nabla_xf(x)\\]
 \\[=\min\_\{u,u^Tu=1\}\\|u\\|\_2\\|\nabla_xf(x)\\|\_2\cos\{\theta\}\\]
-(Remember the <a href="{{site.url}}/analysis/2018/04/03/vector-projection.html" target="_blank">relationship between cosine and inner product</a>)  
+(Remember the <a href="{{site.url}}/analysis/2018/04/02/vector-projection.html" target="_blank">relationship between cosine and inner product</a>)  
 Where \\(\theta\\) is the angle between gradient and \\(u\\). \\(\\|u\\|=1\\) is a constant, and removing irrelevant components with \\(u\\) gives
 \\[=\min_\{u,u^Tu=1\}\cos\{\theta\}\\]
 \\(\theta\\) is minimized when \\(u\\) points opposite direction with \\(\nabla_xf(x)\\). QED.  
