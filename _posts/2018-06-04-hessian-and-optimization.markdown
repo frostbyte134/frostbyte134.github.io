@@ -50,5 +50,6 @@ where \\(o(y-x)\\) is negligible (link to taylor expansion). <a href="{{site.url
 
 In the stationary point \\(x\\), when \\(f\'\'(x)\\) has both positive and negative eigenvalues,  then \\(x\\) is a `saddle point`
 * \\(f(x)\\) increases towards eigenvector directions of positive eigenvalues
-* \\(f(x)\\) decreases towards eigenvector directions of negative eigenvalues
+* \\(f(x)\\) decreases towards eigenvector directions of negative eigenvalues  
+
 which is obvious with <a href="{{site.url}}/linear_algebra/2018/05/19/hermit-mat-and-spectral-theorem.html" target="_blank">spectral decomposition</a>.
