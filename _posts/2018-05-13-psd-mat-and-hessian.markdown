@@ -101,10 +101,6 @@ The 2nd derivative in a specific direction, represented by a unit vector \\(d\\)
 You can see that, the `directional second derivative` \\(f\'\'(d)\\) is the weighted average of all the eigenvalues, with weights \\((q_i^Td)^2\\) between 0 and 1, and eigenvectors that have a smaller angle with \\(d\\) recieving more weight (thanks to <a href="{{site.url}}/analysis/2018/04/03/vector-projection.html" target="_blank">cos - cross product relation</a>)
 
 
-### Minimum point and Hessian
-At a stationary point \\(x\in R^n,\\>f'(x)=0\\) by the definition. To test whether \\(x\\) is the minimum, we use the Taylor expansion\\[f(y)=f(x)+(f'(x))^T(y-x)+\frac\{\(y-x)^Tf'' (x)(y-x)}\{2!\}+o(y-x),\\>\forall x\in R^n\\]
-where \\(o(y-x)\\) is negligible (link to taylor expansion). Positive definiteness of hessian gives \\[f`` (x)>0\\]so that
-\\[f(y)-f(x)>0\\>\forall x\in R^n\\]
 
 ### convexity of a functin and hessian
 put contents in other posts. just post a link 

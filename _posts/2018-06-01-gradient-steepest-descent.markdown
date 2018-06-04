@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Directional Derivative and steepest descent direction"
+title:  "Directional Derivative and Gradient Descent"
 date:   2018-06-01 21:25:00 +0900
 categories: optimization
 use_math: true
