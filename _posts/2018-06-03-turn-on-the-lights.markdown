@@ -4,7 +4,7 @@ title:  "BOJ 2423: 전구를 켜라"
 date:   2018-06-03 10:20:05 +0800
 categories: problem_solving
 use_math: true
-tags: problem_solving parametric_search need_review
+tags: problem_solving search
 problem: 2423
 ---
 

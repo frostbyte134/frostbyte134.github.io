@@ -4,7 +4,7 @@ title:  "BOJ 11062: 카드 게임"
 date:   2018-06-03 10:20:05 +0800
 categories: problem_solving
 use_math: true
-tags: problem_solving dp minimax game
+tags: problem_solving dp minimax_game reference_problem
 problem: 2423
 ---
 
