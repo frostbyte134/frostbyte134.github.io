@@ -4,7 +4,7 @@ title:  "미국 (2011)"
 date:   2015-09-19 22:28:05 +0900
 categories: traveling
 use_math: true
-tags: photo hobby
+tags: photo hobby misc
 ---
 
 군 제대하자마자 빡빡이머리로 갔던 여행. 한달정도 혼자 호스텔을 떠돌았는데 나름 재밌었던 것 같다.<br/><br/>

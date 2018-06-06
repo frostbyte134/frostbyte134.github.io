@@ -4,7 +4,7 @@ title:  "NB 990v4 - Triple Black"
 date:   2018-05-14 20:42:00 +0900
 categories: photo
 use_math: true
-tags: hobby photo
+tags: misc photo
 ---
 ![hey]({{ site.url }}/images/etc/990v4_1.jpg)  
   <br/><br/>

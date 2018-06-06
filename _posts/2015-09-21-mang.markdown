@@ -4,7 +4,7 @@ title:  "존망"
 date:   2015-09-21 01:06:05 
 categories: hobby
 use_math: true
-tags: hobby
+tags: hobby misc
 ---
 
 현 디피는 입대 전 산 커즈와일꺼인데..64비트컴퓨터에 연결이 안됨ㅜㅜ 내 프린터usb 케이블 5천원..

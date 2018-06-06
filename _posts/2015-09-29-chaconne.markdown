@@ -4,7 +4,7 @@ title:  "이루마-Chaconne"
 date:   2015-09-21 16:02:05 
 categories: hobby
 use_math: true
-tags: hobby
+tags: hobby misc
 ---
 
 느리게 치려고 했는데 안되서 속도가 오락가락하네...

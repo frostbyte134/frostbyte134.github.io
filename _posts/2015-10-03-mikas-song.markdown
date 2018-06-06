@@ -4,7 +4,7 @@ title:  "이루마 - Mika's song"
 date:   2015-10-03 01:27:05 
 categories: hobby
 use_math: true
-tags: hobby
+tags: misc hobby
 ---
 
 굳이 변명하자면 본지 얼마 안된걸 연습삼아 찍었던 것 같긴 한데..ㅡㅡㅋ<br/>
