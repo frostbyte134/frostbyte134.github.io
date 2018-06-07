@@ -4,7 +4,7 @@ title:  "Challenges in Neural Network Optimization"
 date:   2018-06-06 12:34:00 +0900
 categories: deep_learning
 use_math: true
-tags: linear_algebra analysis optimization deep_learning
+tags: optimization deep_learning
 ---
 
 
