@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "BOJ 1699 : 제곱수의 합"
+title:  "BOJ 1699: 제곱수의 합"
 date:   2018-06-08 10:45:05 +0800
 categories: problem_solving
 use_math: true
