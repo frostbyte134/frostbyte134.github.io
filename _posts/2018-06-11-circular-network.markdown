@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "BOJ 2215: 원형 네트워크"
-date:   2018-06-08 10:45:05 +0800
+date:   2018-06-11 10:45:05 +0800
 categories: problem_solving
 use_math: true
 tags: problem_solving search reference_problem
