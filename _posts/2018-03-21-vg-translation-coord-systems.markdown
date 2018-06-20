@@ -24,9 +24,7 @@ using `extrinsic parameters` \\( \begin{bmatrix} R & T \end{bmatrix} \\) (Rotati
 
 \\[ \begin{bmatrix}   &   &  &  \\\ & R \in {\Re}^{3 \times 3} & & T \in {\Re}^{3 \times 1} \\\   & & & \\\ 0 & 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} x_w \\\ y_w \\\ z_w \\\ 1 \end{bmatrix} = \begin{bmatrix} x_c \\\ y_c \\\ z_c \\\ 1 \end{bmatrix} \\]
 
-Firstly we rotate \\( x_c, y_c, z_c \\) with \\( R \\),
-
-then translate the whole plane with \\(T\\).
+Firstly we rotate \\( x_w, y_w, z_w \\) with \\( R \\), then translate the whole plane with \\(T\\).
 
 Note that, \\( T \\) __is the position of the origin of the world coordinate in camera-coordinate.__
 

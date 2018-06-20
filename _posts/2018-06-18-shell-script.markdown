@@ -121,13 +121,14 @@ if list then list elif list then list elif list then list fi
 if list then list elif list then list else list fi
 if list then list elif list then list elif list else list fi
 ```
-`list` is one of followings.
+`list` is one of the followings.
 	1. simple __expressions__ or __commands__, such as `test`
 	2. set of simple commands, connected with `|` (pipe)
-	3. consecutive expressions, connected with `&`, `;`, `&&` or `||`.
+	3. consecutive expressions, connected with `&`, `;`, `&&` or `||`.  
+
 continued..
 
 Links  
 <a href="http://storycompiler.tistory.com/103" target="_blank">http://storycompiler.tistory.com/101</a>  
 <a href="http://coffeenix.net/doc/shell/introbashscript.htm" target="_blank">http://coffeenix.net/doc/shell/introbashscript.htm</a>  
-<a href="https://opentutorials.org/course/2598/14212 target="_blank">https://opentutorials.org/course/2598/14212</a>
+<a href="https://opentutorials.org/course/2598/14212" target="_blank">https://opentutorials.org/course/2598/14212</a>
