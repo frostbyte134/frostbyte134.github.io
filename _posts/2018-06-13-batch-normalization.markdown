@@ -11,6 +11,12 @@ tags: optimization deep_learning need_revise
 
 It provides __reasonable tradeoff__ between the representational power of the network and ease in optimization. 
 
+> (Ian Goodfellow) Batch norm is similar to dropout in the sense that it multiplies each hidden unit by a random value at each step of training. In this case, the random value is the standard deviation of all the hidden units in the minibatch. Because different examples are randomly chosen for inclusion in the minibatch at each step, the standard deviation randomly fluctuates.  
+Batch norm also subtracts a random value (the mean of the minibatch) from each hidden unit at each step.  
+Both of these sources of noise mean that every layer has to learn to be robust to a lot of variation in its input, just like with dropout.
+
+(<a href="https://www.quora.com/Is-there-a-theory-for-why-batch-normalization-has-a-regularizing-effect" target="_blank">https://www.quora.com/Is-there-a-theory-for-why-batch-normalization-has-a-regularizing-effect</a>)
+
 ### Inverse Covariance Shift (Motivations of BN)
 <a href="https://arxiv.org/abs/1502.03167" target="_blank">`Inverse covariance shift`</a> :  A phenomenon s.t. the distribution of \[a layer's input over the entire traning set\] changes during the training, as the parmeters of the previous layers change.
 

@@ -20,9 +20,9 @@ x좌표로 정렬하고, 검사할 점들의 집합 \\(\mathcal{S}\\)를 유지�
 
 
 
-(1) 현재 답이 ans라 했을 시, x좌표 차이가 ans이상 나는 점은 검사할 필요가 없을 것임.  
-\\(\mathcal{S}\\)의 시작번호를 \\(index\\) 변수에 저장해 두었다가, 매 iteration마다 S에 대한 검사를 수행. x좌표 차이가 ans이상 나는 경우 \\(index\\)번호의 점을 \\(\mathcal{S}\\)에서 삭제하고 1 증가시킴. 차이가 나지 않는 경우 해당 iteration에서의 \\(\mathcal{S}\\) 검사는 종료.
-
+(1) 정렬된 x좌표를 도는 iteration마다,  
+지금까지 찾은 답이 ans라 했을 시, 현재 점과 x좌표 차이가 ans이상 나는 점은 검사할 필요가 없을 것임.  
+\\(\mathcal{S}\\)의 시작번호를 \\(index\\) 변수에 저장해 두었다가, 매 iteration마다 S에 대한 검사를 수행. x좌표 차이가 ans이상 나는 경우 \\(index\\)번호의 점을 \\(\mathcal{S}\\)에서 삭제하고 1 증가시킴 (while문). 차이가 나지 않는 경우 해당 iteration에서의 \\(\mathcal{S}\\) 검사는 종료.
 
 
 (2) y좌표 차이가 ans이상 나는 점 또한 검사할 필요가 없을 것임. \\(\mathcal{S}\\)를 y좌표 기준으로 정렬해놓았으므로 parametric search 수행가능. 구현에서는 간단하게 `set`의 lower_bound 및 upper_bound 함수를 사용.

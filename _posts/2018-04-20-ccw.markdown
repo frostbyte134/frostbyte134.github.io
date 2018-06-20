@@ -16,6 +16,8 @@ For \\(a,b\in\Re^2\\),
 (b) if \\(a\times b\\) < 0, then b is in clockwise direction of a
 
 
+For the ccw of 3 parameters ccw(P0,P1,P2), it calculates ccw(P1-P0, P2-P0), which is a widely used convention.
+
 
 <a href="{{site.url}}/analysis/2018/04/03/vector-projection.html#sin_formula" target="_blank">Remember that</a>, \\(a\times b=\|a\|\|b\|\sin{\theta}\\), and \\(\sin{-\theta}=-\sin{\theta}\\), so that above property holds.
 
