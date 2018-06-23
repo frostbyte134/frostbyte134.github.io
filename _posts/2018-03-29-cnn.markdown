@@ -4,7 +4,7 @@ title:  "Convolution in deep learning (def, properties)"
 date:   2018-03-29 11:19:00
 categories: deep_learning
 use_math: true
-tags: deep_learning deep_learning(bengio)
+tags: deep_learning deep_learning(bengio) translation_invariance
 ---
 Convolutional Neural Networks (LeCun, 1989, `CNN`) are neural nets for processing of grid-like topology.
 
