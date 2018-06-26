@@ -9,6 +9,15 @@ tags: optimization deep_learning resnet residual inception need_revise
 AAAI 2017, <a href="https://arxiv.org/abs/1602.07261" target="_blank">https://arxiv.org/abs/1602.07261</a>
 
 
+### Summary
+* Residual connection do help at least in training speed (fewer iterations)
+* __Scalar scaling of residual__ (0.2~0.3) helps in stabilizing the network (Unstablility was also reported in the <a href="{{site.url}}/deep_learning/2018/06/19/residual-network.html" target="_blank">Residaul paper</a>)
+* Excessive filters (over 1000) \\(\Longrightarrow\\) network "died" early in the training  
+\\(\Longrightarrow\\) meaning that the last layer before the avg pooling started to produce only zeros after a few tens of thousands of iterations.
+
+> Also our latest models (with and without residual connections) outperform all our previous networks, just by the virtue of the increased model size.
+
+
 ### 1. Abstract
 > ...empirical evidence that training with residual connections accelerates the training of inception networks significntly.
 
@@ -23,18 +32,37 @@ _This would allow Inception to reap all the benefits of the residual approach wh
 
 
 ### Related work
-... The authors (of [1]) argued that _residual connections are inherently necessary for training very deep convolutional model._ In the experimental section we demonstrate (in a bit ad-hoc manner) that it is not very difficult to train competitive very deep networks without utilizing residual connections. __However the use of residual connections semms to imporve the training speed greatly, which is alone a great argument for their use__.
+... The authors (of [1]) argued that _residual connections are inherently necessary for training very deep convolutional model._ In the experimental section we demonstrate (in a bit ad-hoc manner) that it is not very difficult to train competitive very deep networks without utilizing residual connections. __However the use of residual connections seems to imporve the training speed greatly, which is alone a great argument for their use__.
   
 History of Inception nets are,
 1. Inception-v1: GoogLeNet [3]
 2. Inception-v2: added <a href="{{site.url}}/deep_learning/2018/06/13/batch-normalization.html" target="_blank">batch normalization</a>
 3. Inception-v3: added asym factorization and regularization [1]
-4. Inception-v4: Introduced in this paper.
+4. Inception-v4: Introduced in this paper. has more inception module.
+5. Inception-ResNet
  
 
+### Architectural Choices
+
+#### Pure Inception Blocks
+1. Previously, each inception block was pretrained independently due to the memory constraints.  
+Now thanks to the Tensorflow(JIT backproP?) they didn't have to.
+2. Made uniform choices for the Inception blocks for each grid size.
+
+#### Residual Inception blocks
+1. To compensate the dimensionality reduction induced by the induction block, \\(1\times1\\) filter-expansion is done b4 the residual conn.
+2. Used BN onlky on top of the traditional layers(???), but not on top of the summations (residual conn???).
+
+#### Scalaing of the Residuals
+Excessive filters (over 1000) \\(\Longrightarrow\\) network "died" early in the training  
+\\(\Longrightarrow\\) __last layer before the avg pooling started to produce only zeros after a few tens of thousands of iterations.__
  
+ 
+### Network architecture
+Refer to the <a href="https://arxiv.org/abs/1602.07261" target="_blank">paper</a>.
+
 <br/><br/>
 Next:  
 <br/><br/>
 References:  
-<a href="https://arxiv.org/abs/1512.00567" target="_blank">https://arxiv.org/abs/1512.00567</a>
+<a href="https://arxiv.org/abs/1602.07261" target="_blank">https://arxiv.org/abs/1602.07261</a>
