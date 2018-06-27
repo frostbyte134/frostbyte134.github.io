@@ -1,10 +1,10 @@
 ---
 layout: post
 title:  "BOJ 2162: 선분 그룹"
-date:   2018-06-24 08:45:05 +0800
+date:   2018-06-27 08:45:05 +0800
 categories: problem_solving
 use_math: true
-tags: problem_solving greedy
+tags: problem_solving geometry
 problem: 2162
 ---
 
