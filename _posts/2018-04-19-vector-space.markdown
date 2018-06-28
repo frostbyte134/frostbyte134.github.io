@@ -4,7 +4,7 @@ title:  "Vector, Dimension and Coordinate"
 date:   2018-04-19 22:41:00 +0900
 categories: linear_algebra
 use_math: true
-tags: linear_algebra
+tags: linear_algebra analysis
 ---
 
 ### Theorem 9.1
