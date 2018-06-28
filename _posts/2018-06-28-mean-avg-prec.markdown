@@ -49,7 +49,7 @@ harmonic mean is always less than geometric/arithmetic mean, and close to the \\
 (image from [1])  
 
 If we consider the top k most confident data, then
-1. \\(k=0\\): return false(negative) strat. We report nothing as positive so \\(P=0\\) by the convention, and \\(R=0\\) (Among the true data, we were failed to report any of them as positive).
+1. \\(k=0\\): return false(negative) strat. We report nothing as positive so \\(P=1\\) by the convention (the classifier never got wrong), and \\(R=0\\) (Among the true data, we were failed to report any of them as positive).
 \\[\vdots\\]
 2. Suppose \\(k=i\\).  
 * If \\(i+1\\)th confident data (which we well gonna report as positive) is false, then  
@@ -58,9 +58,11 @@ If we consider the top k most confident data, then
 Both \\(R\\) and \\(P\\) increases (\\(tp\\) increases by 1 \\(\rightarrow\\) fraction become closes to 1), and the curve jags up to right.
 
 ### AP and mAP
-<img src="{{ site.url }}/images/deeplearning/20171123_195812.png" class="center"/>  
-`AP`: average of maximum recall over all distinct recall values.
-`mAP`: average of AP over all queries
+<img src="{{ site.url }}/images/deeplearning/20171123_195812.jpg" class="center" style="width:400px"/>  
+(image from <a href="http://darkpgmr.tistory.com/162" target="_blank">http://darkpgmr.tistory.com/162</a>)
+
+`AP`: average of maximum recall over all distinct recall values.  
+`mAP`: average of AP over all queries  
 
 Links:  
 <a href="https://nlp.stanford.edu/IR-book/pdf/08eval.pdf" target="_blank">https://nlp.stanford.edu/IR-book/pdf/08eval.pdf</a>  
