@@ -75,7 +75,7 @@ harmonic mean is always less than geometric/arithmetic mean, and close to the \\
 (image from [1])  
 
 If we consider the top k most confident data, then
-1. \\(k=0\\): return false(negative) strat. We report nothing as positive so \\(P=1\\) by the convention (the classifier never got wrong), and \\(R=0\\) (Among the true data, we were failed to report any of them as positive).
+1. \\(k=0\\): return false(negative) strat. We report nothing as positive so \\(P=1\\) by the convention (there is no wrong box), and \\(R=0\\) (Among the GT, we were failed to report any of them as positive).
 \\[\vdots\\]
 2. Suppose \\(k=i\\).  
 * If \\(i+1\\)th confident data (which we well gonna report as positive) is false, then  
