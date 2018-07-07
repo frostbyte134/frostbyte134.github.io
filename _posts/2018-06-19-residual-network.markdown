@@ -26,7 +26,7 @@ Such degradation is __not caused by overfitting__ (=failures in regularization, 
 ### Deep Residual Learning
 
 Let us consider 
-* \\(\mathcal\{H\}(\textrm\{x\})\\) as an underlying mapping we want to _approximate_ (not learn, importantly) with few stacked layers, and
+* \\(\mathcal\{H\}(\textrm\{x\})\\) as an underlying mapping we want to _approximate_ (not learn, importantly. Possibly we can approximate it indirectly by learning other functions) with few stacked layers, and
 * \\(\textrm\{x\}\\) as an input to the layer.
 
 Instead of learning \\(\mathcal\{H\}(\textrm\{x\})\\) directly, we would like to 

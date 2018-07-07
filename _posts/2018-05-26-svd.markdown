@@ -18,7 +18,7 @@ In such case, we allow \\(Q=U,\\>Q^T=V^T\\) for some orthogonal \\(U\\) and \\(V
 \\[\textrm\{every matrix will split into \} A=U\Sigma V^T.\\] 
 
 <h3 id="svd">Singular Value Decomposition</h3>
-> Singular value decomposition (SVD): Any \\(m\times n\\) matrix \\(A\\) can be decomposed into \\[A=U\Sigma V^T = (m\times n\textrm\{ orthogonal\})(m\times n\textrm\{ diagonal\})(n\times n\textrm\{ orthogonal\}).\\]
+> Singular value decomposition (SVD): Any \\(m\times n\\) matrix \\(A\\) can be decomposed into \\[A=U\Sigma V^T = (m\times m\textrm\{ orthogonal\})(m\times n\textrm\{ diagonal\})(n\times n\textrm\{ orthogonal\}).\\]
 
 
 1. \\(\Sigma:\\>m\times n\\). Has \\(r=\textrm\{rank\}A\\) nonzero singular values on the main diagonal, which are square roots of the nonzero eigenvalues of \\(AA^T\\) (or equivalently, of \\(A^TA\\)).

@@ -1,0 +1,17 @@
+---
+layout: post
+title:  "git pull"
+date:   2018-07-07 10:23:00 +0900
+categories: coding
+use_math: true
+tags: git pull
+---
+
+> When you use `pull`, Git tries to automatically do your work for you. It is __context sensitive__, so Git will merge any pulled commits into the branch you are currently working in.  `pull` __automatically merges the commits without letting you review them first__. If you don’t closely manage your branches, you may run into frequent conflicts.
+
+> When you `fetch`, Git gathers any commits from the target branch that do not exist in your current branch and __stores them in your local repository.__ However, __it does not merge them with your current branch.__ This is particularly useful if you need to keep your repository up to date, but are working on something that might break if you update your files. __To integrate the commits into your master branch, you use__ `merge`.
+
+links:  
+<a href="https://stackoverflow.com/questions/292357/what-is-the-difference-between-git-pull-and-git-fetch" target="_blank">https://stackoverflow.com/questions/292357/what-is-the-difference-between-git-pull-and-git-fetch</a>
+
+

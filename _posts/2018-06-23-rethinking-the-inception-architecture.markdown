@@ -42,8 +42,8 @@ reduced # of weights with suitable factorization
 {:.deccounter}
 1. Factorization into smaller convolutions  
 ...by exploiting <a href="{{site.url}}/deep_learning/2018/03/29/cnn.html#equivariance" target="_blank">`translation invariance`</a>, it seems natural to replace the fully connected component by a two layer conv architecture:
-\\[(5\times5) \textrm\{ conv \} \quad\longrightarrow\quad(3\times3)\textrm\{ conv \} \times (3\times3)\\]
-Above example gives, for a single dimension, \\[\frac\{\textrm\{filter of (3by3)\}\times2\}\{\textrm\{filter of (5by5)\}\}=\frac\{9\*2\}\{25\}\quad\rightarrow\quad 28\% \textrm\{saving\}\\]
+\\[(5\times5) \textrm\{ conv \} \quad\longrightarrow\quad(3\times3)\textrm\{ conv \} \times (3\times3)\textrm\{ conv \}\\]
+Above example gives, for a single dimension, \\[\frac\{\textrm\{filter of (3by3)\}\times2\times\textrm\{#filters\}\}\{\textrm\{filter of (5by5)\}\times\textrm\{#filters\}\}=\frac\{9\times2\}\{25\}\quad\rightarrow\quad 28\% \textrm\{ saving\}\\]
 It is reported in the paper that, using linear activation (between factorized conv?) was always inferior to using ReLUs in all stages (empirically).
 2. Spatial factorization into Asymmetric Convolutions  
 \\[(n\times n) \textrm\{ conv \} \quad\longrightarrow\quad(1\times n)\textrm\{ conv \} \times (n\times1)\\]
@@ -70,7 +70,7 @@ Example TODO:
 
 <img src="{{ site.url }}/images/deeplearning/inception/expansion.jpg" class="center"/>  
 
-__No explanation/intuition in the paper why 3 works. No explanation either why they decided to use it.__ Maybe inspired by the asymmetry of 3-2.
+__No explanation/intuition in the paper why (the bizarre asymmetric structure of) 3 works. No explanation either why they decided to use it.__ Maybe inspired by the asymmetry of 3-2.
 
 
 ### 6. Inception-V2
