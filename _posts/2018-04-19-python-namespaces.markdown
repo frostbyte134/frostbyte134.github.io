@@ -7,6 +7,8 @@ use_math: true
 tags: python
 ---
 
+We have 4 types of variable in python (or more?),namely Global/Local, and Class/Instance variables.
+
 ```python
 d = 50 # global variable
 class Myclass(object):

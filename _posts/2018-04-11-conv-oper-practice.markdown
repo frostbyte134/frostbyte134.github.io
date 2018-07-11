@@ -16,10 +16,11 @@ To describe a convolution, we need 3 components
 1. `filter` \\(K_{\textrm{[output channel][input channel][row][column]}}\\)
 2. `input` \\(V_{\textrm{[input channel][row][column]}}\\)
 3. `output` \\(Z_{\textrm{[output channel][row][column]}}\\)  
-(output channel = type of filter. Note that each index can be a vector in \\(\Re^n\\))
+(output channel = type of filter. Note that each index can be a vector in \\(\Re^n\\))  
+(Notice that, filter/input/output row/columns possibly have different sizes)
 
-Then, \\(Z_{i,j,k}\\) can be described by \\(V, K\\) as follows \\[Z_{i,j,k}=\sum_{l,m,n}{V_{l,m+(j-1),n+(k-1)}K_{i,l,m,n}}\\]
-where \\(m, n\\) are iterated over the filter.
+Then, \\(Z_{i,j,k}\\) can be described by \\(V, K\\) as follows \\[Z_{i,j,k}=\sum_{l,m,n}{V_{l,j+(m-1),k+(n-1)}K_{i,l,m,n}}\\]
+where \\(m, n\\) are iterated over the size of filter, starting with 1.
 
 | ![angle]({{ site.url }}/images/deeplearning/6zX2c.png){: .center-image }| 
 |:--:| 
@@ -31,7 +32,7 @@ And with the stride \\(s\\), \\[Z_{i,j,k}=c(K,V,s)=\sum_{l,m,n}{V_{l,m+s(j-1),n+
 
 
 ### (2) Zero padding
-Without the zero padding, the width of the output shrinks by one pixel less (1st convolution) than the kernel width. 3 special cases of the zero-padding are worth mentioning.
+Without the zero padding, the width of the output shrinks by one pixel less (1st convolution) than the kernel width. 3 special cases of the zero-padding are worth mentioning. If \\(m\\) is the width of image and \\(k\\) is the width of the filter, than
 
 1. No zero padding (`valid convolution` in MATLAB)  
 Width of \\(V\\) is \\(m-k+1\\)
@@ -46,10 +47,23 @@ Usually the __optimal amount of zero padding (in terms of test set classificatio
 
 
 ### (3) Derivatives of convolution, in B-prop
+Remember the above notation
+1. `filter` \\(K_{\textrm{[output channel][input channel][row][column]}}\\)
+2. `input` \\(V_{\textrm{[input channel][row][column]}}\\)
+3. `output` \\(Z_{\textrm{[output channel][row][column]}}\\)   
+
+(Notice that, filter/input/output row/columns possibly have different sizes)
+
 Suppose we want to minimizer \\(J(V,K)\\). During the backpropagation, we'll receive a tensor \\(G\\) such that \\[G_{i,j,k}=\frac{\partial}{\partial{Z_{i,j,k}}}{J(V,K)} \\]
 
-1. To compute the derivative w.r.t one component of kernel \\(K_{i,j,k,l}\\) (parameter of current layer), \\[\frac{\partial}{\partial{K_{i,j,k,l}}}{J(V,K)}=\sum_{m,n}{\frac{\partial}{\partial{Z_{i,m,n}}}}J(V,K){\frac{\partial}{\partial K_{i,j,k,l}}Z_{i,m,n}}\\] (for fixed index of output channel \\(i\\), we have to iterate over image) \\[=\sum_{m,n}{\frac{\partial}{\partial{Z_{i,m,n}}}{J(V,K)}V_{j,(m-1)s+k,(n-1)s+l}}\\] (refer to (1) for the relations between indices)
-2. To compute the derivative w.r.t input \\(V_{i,j,k}\\) (for further step of Bprop), \\[\frac{\partial}{\partial{V_{i,j,k}}}{J(V,K)}=\sum_{\substack{l,m \\ \textrm{s.t.} \\ (l-1)s+m=j}}\sum_{\substack{n,p \\ \textrm{s.t.} \\ (n-1)s+p=k}}\sum_{q}K_{q,i,m,p}{\frac{\partial}{\partial{Z_{q,l,n}}}{J(V,K)}}\\] (input \\(V_{i,j,k}\\) is multiplied by kernels satisfying above conditions, through all output channels (filters))
+1. To compute the derivative w.r.t one component of kernel \\(K_{i,l,p,q}\\) (parameter of current layer), \\[\frac{\partial}{\partial{K_{i,l,p,q}}}{J(V,K)}=\sum_{m,n}{\frac{\partial}{\partial{Z_{i,m,n}}}}J(V,K){\frac{\partial}{\partial K_{i,l,p,q}}Z_{i,m,n}}\\] 
+	1. An \\(i\\)th filter (kernel) generates \\(i\\)th output channel \\(Z\_\{i,\*,\*\}\\), and during the process a corresponding filter compoment \\(K_{i,l,p,q}\\) contributes to the entire output channel by multiplication (with an input component for each output channel).  
+	Thus we have to iterate over the row \\(m\\)/col \\(n\\) __of the output__.
+	2. In order to calculate \\(\frac{\partial}{\partial K_{i,l,p,q}}Z_{i,m,n}\\), we need to review (1) to figure out which component of input is multiplied with \\(K_{i,l,p,q}\\) while generating \\(Z\_\{i,m,n\}\\). Since
+	\\[Z_{i,m,n}=\sum_{l,p,q}{V_{l,p+s(m-1),q+s(n-1)}K_{i,l,p,q}}\\]
+	we see that by fixing \\(p,q\\),
+	\\[=\sum_{m,n}{\frac{\partial}{\partial{Z_{i,m,n}}}{J(V,K)}V_{l,p+s(m-1),q+s(n-1)}}\\] 
+2. To compute the derivative w.r.t input \\(V_{i,j,k}\\) (for further step of Bprop), \\[\frac{\partial}{\partial{V_{i,j,k}}}{J(V,K)}=\sum_{\substack{l,m \\ \textrm{s.t.} \\ (l-1)s+m=j}}\sum_{\substack\{k,p \\ \textrm{s.t.} \\ (n-1)s+p=k\}}\sum_{q}K_{q,i,m,p}{\frac{\partial}{\partial{Z_{q,l,n}}}{J(V,K)}}\\] (input \\(V_{i,j,k}\\) is multiplied by kernels \\(K_{q,i,m,p}\\) contributing to \\(Z_{q,l,n}\\) s.t. satisfying conditions \\(j=(l-1)s+m,\\>k=(n-1)s+p\\), through all output channels \\(q\\). We have to sum them up.
 
 
 

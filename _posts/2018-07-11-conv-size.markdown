@@ -20,15 +20,21 @@ From the left,
 * \\(\textrm\{dilation\}[0]\*(\textrm\{kernel_size\}-1)+1\\): the length of 1st convolution. 
 * \\(\frac\{1\}\{\textrm\{stride\}[0]\}\\): the \\(\textrm\{stride\}[0]\\) must fit in space of (total - length of 1st conv), thus division.
 
-### The Same convolution
+### The Same convolution(stride = 1)
+Let \\(y\\) be the padding[0], \\(k\\) be the kernel size.
+\\[x = 1+ x+2y-((k-1)+1)+1\\]
+\\[2y = k-2\\]
+Therefore, total \\(k-2\\) padding is required.
 
-\\[x = x+2y-(k-1)-1+1\\]
-\\[2y+1 = k\\]
-Therefore, total \\(2y+1\\) of padding is required.
 
 ### Halving(1/2) the height/weight, with stride 2
+Let \\(y\\) be the padding[0], \\(k\\) be the kernel size, and assume that \\(k\\) is divisible by 2.
+\\[x = 1+\left\lfloor\{\frac\{2x+2y-((k-1)+1)\}\{2\}}\right\rfloor\\]
+\\[x = 1+\frac\{2x+2y-k\}\{2\}\\]
 
-\\[x = \frac\{2x+2y-(k-1)-1\}\{2\}+1\\]
-\\[2x = 2x+2y-(k-1)-1+2\\]
-\\[2y = (k-1)\\]
-Therefore, total \\(2y\\) of padding is required.
+\\[2x = 2x+2y-k+2\\]
+\\[2y = (k-2)\\]
+Therefore, total \\(k-2\\) padding is required.
+
+
+TODO: concat with https://nailbrainz.github.io/deep_learning/2018/04/11/conv-oper-practice.html
