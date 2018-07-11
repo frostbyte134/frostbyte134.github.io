@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Size Calculation of 2D Convolution"
-date:   2018-07-10 16:00:05 +0800
+date:   2018-07-11 16:00:05 +0800
 categories: deep_learning
 use_math: true
 tags: deep_learning rcnn cnn convolution
