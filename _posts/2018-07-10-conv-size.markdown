@@ -1,0 +1,34 @@
+---
+layout: post
+title:  "Size Calculation of 2D Convolution"
+date:   2018-07-11 16:00:05 +0800
+categories: deep_learning
+use_math: true
+tags: deep_learning rcnn cnn convolution
+---
+
+\\[H\_\{out\}=\left\lfloor\{1+\frac\{H\_\{in\}+2*\textrm\{padding\}[0]-\textrm\{dilation\}[0]\*(\textrm\{kernel_size\}-1)-1\}\{\textrm\{stride\}[0]\}\}\right\rfloor\\]
+(<a href="https://pytorch.org/docs/stable/nn.html#conv2d" target="_blank">https://pytorch.org/docs/stable/nn.html#conv2d (conv2d)</a>)
+
+Is more clearly represented by
+\\[H\_\{out\}=\left\lfloor\{1+\frac\{H\_\{in\}+2*\textrm\{padding\}[0]-(\textrm\{dilation\}[0]\*(\textrm\{kernel_size\}-1)+1)\}\{\textrm\{stride\}[0]\}\}\right\rfloor\\]
+
+From the left,
+* \\(1+\\): The first, leftmost convolved filter.
+* \\(H\_\{in\}+2*\textrm\{padding\}[0]\\): total input feature height, assuming symmetric convolution.
+* \\(\textrm\{dilation\}[0]\\): spacing between the kernel elements. Default=1
+* \\(\textrm\{dilation\}[0]\*(\textrm\{kernel_size\}-1)+1\\): the length of 1st convolution. 
+* \\(\frac\{1\}\{\textrm\{stride\}[0]\}\\): the \\(\textrm\{stride\}[0]\\) must fit in space of (total - length of 1st conv), thus division.
+
+### The Same convolution
+
+\\[x = x+2y-(k-1)-1+1\\]
+\\[2y+1 = k\\]
+Therefore, total \\(2y+1\\) of padding is required.
+
+### Halving(1/2) the height/weight, with stride 2
+
+\\[x = \frac\{2x+2y-(k-1)-1\}\{2\}+1\\]
+\\[2x = 2x+2y-(k-1)-1+2\\]
+\\[2y = (k-1)\\]
+Therefore, total \\(2y\\) of padding is required.
