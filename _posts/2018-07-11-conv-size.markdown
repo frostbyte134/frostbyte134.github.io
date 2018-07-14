@@ -4,7 +4,7 @@ title:  "Size Calculation of 2D Convolution"
 date:   2018-07-11 16:00:05 +0800
 categories: deep_learning
 use_math: true
-tags: deep_learning rcnn cnn convolution
+tags: deep_learning cnn convolution
 ---
 
 \\[H\_\{out\}=\left\lfloor\{1+\frac\{H\_\{in\}+2*\textrm\{padding\}[0]-\textrm\{dilation\}[0]\*(\textrm\{kernel_size\}-1)-1\}\{\textrm\{stride\}[0]\}\}\right\rfloor\\]
@@ -14,27 +14,31 @@ Is more clearly represented by
 \\[H\_\{out\}=\left\lfloor\{1+\frac\{H\_\{in\}+2*\textrm\{padding\}[0]-(\textrm\{dilation\}[0]\*(\textrm\{kernel_size\}-1)+1)\}\{\textrm\{stride\}[0]\}\}\right\rfloor\\]
 
 From the left,
-* \\(1+\\): The first, leftmost convolved filter.
+* \\(1+\\): The first, leftmost convolved one.
 * \\(H\_\{in\}+2*\textrm\{padding\}[0]\\): total input feature height, assuming symmetric convolution.
 * \\(\textrm\{dilation\}[0]\\): spacing between the kernel elements. Default=1
-* \\(\textrm\{dilation\}[0]\*(\textrm\{kernel_size\}-1)+1\\): the length of 1st convolution. 
-* \\(\frac\{1\}\{\textrm\{stride\}[0]\}\\): the \\(\textrm\{stride\}[0]\\) must fit in space of (total - length of 1st conv), thus division.
+* \\(\textrm\{dilation\}[0]\*(\textrm\{kernel_size\}-1)+1\\): the length of 1st element wise product between filter and input. 
+* \\(\frac\{1\}\{\textrm\{stride\}[0]\}\\): the \\(\textrm\{stride\}[0]\\) must fit in space of (total - length of 1st prod), thus division.
 
 ### The Same convolution(stride = 1)
 Let \\(y\\) be the padding[0], \\(k\\) be the kernel size.
-\\[x = 1+ x+2y-((k-1)+1)+1\\]
-\\[2y = k-2\\]
-Therefore, total \\(k-2\\) padding is required.
+\\[x = 1+ x+2y-((k-1)+1)\\]
+\\[2y = k-1\\]
+Therefore, total \\(k-1\\) padding is required.
 
 
 ### Halving(1/2) the height/weight, with stride 2
 Let \\(y\\) be the padding[0], \\(k\\) be the kernel size, and assume that \\(k\\) is divisible by 2.
-\\[x = 1+\left\lfloor\{\frac\{2x+2y-((k-1)+1)\}\{2\}}\right\rfloor\\]
-\\[x = 1+\frac\{2x+2y-k\}\{2\}\\]
+\\[x = \left\lfloor\{1+\frac\{2x+2y-((k-1)+1)\}\{2\}}\right\rfloor\\]
+\\[x = \left\lfloor\{\frac\{2x+2y-k+2\}\{2\}}\right\rfloor\\]
+1. \\(2x+2y-k+2\\) is even  
+\\(\rightarrow\quad 2y=k-2\\)
+1. \\(2x+2y-k+2\\) is odd  
+\\(x = \{\frac\{2x+2y-k+2-1\}\{2\}}\\)  
+\\(\rightarrow\quad 2y=k-1\\)
 
-\\[2x = 2x+2y-k+2\\]
-\\[2y = (k-2)\\]
-Therefore, total \\(k-2\\) padding is required.
+Therefore, in any case, \\(k-1\\) padding is the optimal. 
+
 
 
 TODO: concat with https://nailbrainz.github.io/deep_learning/2018/04/11/conv-oper-practice.html

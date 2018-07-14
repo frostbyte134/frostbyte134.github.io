@@ -1,0 +1,79 @@
+---
+layout: post
+title:  "SSD: Simgle Shot Multibox Detector"
+date:   2018-07-14 08:00:05 +0800
+categories: deep_learning
+use_math: true
+tags: deep_learning ssd detection need_revise
+---
+
+ECCV 2016, <a href="https://arxiv.org/abs/1512.02325" target="_blank">https://arxiv.org/abs/1512.02325</a>  
+
+### Abstract, introduction
+
+* ..`SSD` discretizes the output space of bounding boxes into a set of default boxes over different aspect ratios and scales per feature map location.
+* At prediction time, 
+	1. the network generates scores for the presence of each object category in each default box, 
+	2. and produces adjustment to the box (regression?) to better match the object shape.
+* Additionally, the network combines predictions from multiple feature maps with different resolutions, to naturally handle objects of various sizes.
+
+
+Current SOTA object detection systems with `explicit region prooposals and pooling`
+1. hypothesize bounding boxes
+2. resample pixels or features for each box, and
+3. apply a high-quallity classifier.
+
+Although accurate, this approach is somewhat slow.
+
+Whereas, `SSD` _does not resample pixels or features for bounding box hypotheses_, eliminating bounding box proposals and the subsequent pixel or feature resampling stage. (really?)  
+Its contributions are,
+* the core of `SSD` is predicting category scores and box offsets for a fixed set of default bnding boxes, using __small convolutional filters__ applied to feature maps.
+* for high detection accuracy, `SSD` produces prediction of different scales from feature maps of different scales, and explicitly separate predictions by aspect ratio (using separate __predictors (filters)__ for different aspect ratio detections).
+
+### Model
+* Over the base net, there are __several convolutional layers__, which are used to find a most probable default box.  
+* Each convolutional layer corresponds to __different scale__ of default boxes (default boxes in a same layer have same scale). However the receptive field of the conv layer element must not match (the receptive field must be larger?) with the box size.
+
+Reason for using multiple size of feature maps 
+* <a href="#10">[10]</a>, <a href="#11">[11]</a> - low lvl features maps can improve semantic segmentation quality, b/c they have more details about the input objs.
+* <a href="#12">[12]</a> - adding global context pooled from a feature map can help smooth the segmentation results
+
+Default boxes are deployed in grid-fassion, and for each (assigned) feature map mlocation there exists 6 different aspect ratios (their sizes are all equivalent though). For details refer to the paper.  
+Scales are also uniformly distributed. 1 scale for each feature map.
+
+### Default boxes
+* The __basic element__ for predicting parameters of a potential detection  
+= \\(3\times3\\) small kernel ("SAME" conv)
+* One output feature spatial location  \\(\leftrightarrow\\)  a __set__ of default boxes
+
+Let \\(k\\) be the cardinality of such set (\\(k=6\\) above?), which corresponds to a single output feature map spatial location.  
+For a box, we have \\[4+c\\] where
+* \\(4\\) - offsets relative to the original default box shape
+* \\(c\\) - number of classes. corresponds to a logit for each class in the box area) parameters.  
+
+Thus,
+1. assuming \\((n\times n)\times p\\) input feature map,
+2. we have __predictors (filters)__ with weights \\((3\times3)\times k\\), and
+3. \\((n\times n)\times kmn\\) output feature map.
+
+\\(\rightarrow\\) A \\(n\times n\\) square conv layer output over the basenet is convolved with \\(3\times3\\) filters, to predict \\(n\times n\times k\\) default boxes with same scale (but different aspect ratios?)
+
+In SSD, for a ground truth box we can assign multiple default boxes.
+<hr/>
+#### Matching strategies
+* As in <a href="#7">Multibox</a>, match each gt box to the default box with the best IOU
+* Unlike <a href="#7">Multibox</a>, then match default boxes to any gt box witgh IOU over than 0.5
+
+\\(\rightarrow\\) this __simplifies the learning problem__, allowing the network to predict high scores for multiple overlapping default boxes, rather than requiring it to pick only the one with maximum overlap.
+
+TODO:
+1. L1 smooth loss
+2. non-maximum suppression step 
+3. Left part of paper (data aug, hard negative mining, exp)
+
+Links:  
+<a href="https://arxiv.org/pdf/1512.02325.pdf" target="_blank">SSD: Single Shot MultiBox Detector</a>  
+<a href="https://arxiv.org/abs/1411.4038" target="_blank" id="7">[7] (Multibox) Scalable object detection using deep neural networks. In: CVPR. (2014)</a>  
+<a href="https://arxiv.org/abs/1411.4038" target="_blank" id="10">[10] Fully Convolutional Networks for Semantic Segmentation</a>  
+<a href="https://arxiv.org/abs/1411.5752" target="_blank" id="11">[11] Hypercolumns for object segmentation and fine-grained localization. In: CVPR. (2015)</a>  
+<a href="https://arxiv.org/abs/1506.04579" target="_blank" id="12">[12] ParseNet: Looking wider to see better. In: ILCR. (2016)</a>  

@@ -1,13 +1,13 @@
 ---
 layout: post
-title:  "Intersection between two lines and segments"
+title:  "Intersection between two lines and segments (in 2D)"
 date:   2018-07-06 18:23:00 +0900
 categories: geometry
 use_math: true
 tags: geometry need_revise
 ---
 
-Throughout this page, we assume that a line \\(l_i\\) is composed of two points \\(l_i.p_1,\\>l_i.p_2\\) such that \\[l\_i.p\_1 \leq l\_i.p\_2\\] holds.
+Throughout this page, we assume that a line \\(l_i\\) is composed of two points \\(l_i.p_1,\\>l_i.p_2\\) such that \\[l\_i.p\_1 \leq l\_i.p\_2\\] holds. (Note that \\(\leq\\) is not an generalized inequality(link??). It is just an element(scalar)wise comparison.)
 
 
 ### (1) No need for intersecting point
@@ -24,7 +24,7 @@ If they are parallel, we need to test 2 conditions.
 1. \\(l1.p2 \leq l2.p1\quad\rightarrow\quad l\_1.p_1\\) - \\(l\_2.p_1\\) - \\(l\_1.p_2\\) - \\(l\_2.p_2\\)
 2. \\(l2.p2 \leq l1.p1\quad\rightarrow\quad l\_2.p_1\\) - \\(l\_1.p_1\\) - \\(l\_2.p_2\\) - \\(l\_1.p_2\\)
 
-if any of above holds, then the two segment intersects.
+if any of above holds, then the two segment intersects. Notice that if any of terms are 0 and the other is negative, then the segments meet at a point.
 ```java
 typedef pair<double, double> vec2;
 bool isIntersect(vec2 l1, vec2 l2, vec2 r1, vec2 r2){ //assumption of the top of the page applied 
@@ -44,8 +44,7 @@ bool isIntersect(vec2 l1, vec2 l2, vec2 r1, vec2 r2){ //assumption of the top of
 
 ### (2) Need an intersection point
 1. lines  
-Let us temporarily define a line as \\(\textbf\{a\}+p\textbf\{b\}\\), where \\(\textbf\{a\}\\) is a point \\(\textbf\{b\}\\) is a and a direction vector. We want to find a intersection between two lines \\(\textbf\{a\}+p\textbf\{b\}\\), \\(\textbf\{c\}+q\textbf\{d\}\\).
-
+Let us temporarily define a line as \\(\textbf\{a\}+p\textbf\{b\}\\), where \\(\textbf\{a\}\\) is a point \\(\textbf\{b\}\\) is a and a direction vector. We want to find a intersection between two lines \\(\textbf\{a\}+p\textbf\{b\}\\), \\(\textbf\{c\}+q\textbf\{d\}\\).  
 We have to solve linear equations
 \\[a_x+pb_x=c_x+qd_x\\]
 \\[a_y+pb_y=c_y+qd_y.\\]
@@ -57,15 +56,14 @@ so that
 \\[(b_yd_x-b_xd_y)p=(c_y-a_y)d_x+(a_x-c_x)d_y\\]
 \\[p=\frac\{(c_y-a_y)d_x+(a_x-c_x)d_y\}\{(b_yd_x-b_xd_y)\}\\]
 Therefore, if two lines are not parallel \\(\left(\textbf\{b\}\times \textbf\{d\}\right)\neq0\\), two lines intersects at
-\\[\textbf\{a\}+p\textbf\{q\}=\textbf\{a\}+\frac\{(c_y-a_y)d_x+(a_x-c_x)d_y\}\{(b_yd_x-b_xd_y)\}\textbf\{q\}\\]
-\\[=\textbf\{a\}+\frac\{(\textbf\{c\}-\textbf\{a\})\times \textbf\{d\}\}\{\textbf\{b\}\times\textbf\{d\}\}\\]
-
-In the original representation of lines with two points \\(a, b\\), we let
+\\[\textbf\{a\}+p\textbf\{b\}=\textbf\{a\}+\frac\{(c_y-a_y)d_x+(a_x-c_x)d_y\}\{(b_yd_x-b_xd_y)\}\textbf\{b\}\\]
+\\[=\textbf\{a\}+\frac\{(\textbf\{c\}-\textbf\{a\})\times \textbf\{d\}\}\{\textbf\{b\}\times\textbf\{d\}\}\textbf\{b\}\\]
+In the original representation of a line with two points \\(a, b\\), we let
 \\[\textbf\{a\}=a,\\>\textbf\{b\}=b-a\\]
 \\[\textbf\{c\}=c,\\>\textbf\{d\}=d-c\\]
 so if \\(\left(\textbf\{b\}\times \textbf\{d\}\right)=(b-a)\times(d-c)\neq0\\), then __the lines intersect at__
-\\[=\textbf\{a\}+\frac\{(\textbf\{c\}-\textbf\{a\})\times \textbf\{d\}\}\{\textbf\{b\}\times\textbf\{d\}\}=
-a+\frac\{(c-a)\times (d-c)\}\{(b-a)\times(d-c)}
+\\[=\textbf\{a\}+\frac\{(\textbf\{c\}-\textbf\{a\})\times \textbf\{d\}\}\{\textbf\{b\}\times\textbf\{d\}\times(b-a)\}=
+a+\frac\{(c-a)\times (d-c)\}\{(b-a)\times(d-c)}\times(b-a)
 \\] (Notice that \\((b-a)\times(d-c)\\) of the parallel test can be resued)
 ```java
 typedef pair<double, double> vec2
@@ -76,5 +74,31 @@ bool lineIntersection(vec2 a, vec2 b, vec2 c, vec2 d, vec2& x){
 	return true;
 }
 ```
-
+2. segments  
+	1. If two segments are parallel, then we can easily find a intersection point.  
+	We can use above code to test whether the two lines (which are extension of segments) are parallel, and compute their arbitrary intersection \\(p\\). If two lines are parallel, then we need to recalculate \\(p\\) if the two segments intersect. If not, then \\(p\\) is unique and genunine. We go to (2) with original \\(p\\).
+	2. If are not parallel, then we need to test 2 conditions.
+		1. for the first segment \\((a,b)\\), we know that \\(a, b, p\\) are in a line. If two lines are not parallel (thus the intersection point \\(p\\) is unique) and \\(a<=p<=b\\) holds, then \\(p\\) is included in the segment
+		2. for the 2nd segment \\((c, d)\\), we need to apply the same test with \\(p\\).  
+		If above two tests are passed, then the segments intersect.
+```java
+bool parallelSegments(vec2 a, vec2 b, vec2 c, vec2 d, vec2& p){ //tests whether two segments intersect
+    if(a > b) swap(a, b);
+    if(c > d) swap(c, d);
+    if(ccw(a, b, c) != 0 || b < c || d < a) return false; //checks whether 1. not parallel, 2. not intersecting.
+    if(a < c)p = c; else p = a;
+    return true;
+}
+bool isBndingRect(vec2 p, vec2 a, vec2 b){
+    if(b < a)swap(a, b);
+    return p == a || p == b || (a < p && p < b);
+}
+bool segIntersec(vec2 a, vec2 b, vec2 c, vec2 d, vec2& p){
+    if(!lineIntersection(a, b, c, d, p)){
+	    //(a,b), (c,d) are parallel and p is not unique. need to recalulate p
+	    return parallelSegments(a, b, c, d, p);
+    }
+	return isBndingRect(p, a, b) && isBndingRect(p, c, d);
+}
+```
 
