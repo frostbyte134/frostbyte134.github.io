@@ -18,16 +18,17 @@ ECCV 2016, <a href="https://arxiv.org/abs/1512.02325" target="_blank">https://ar
 * Additionally, the network combines predictions from multiple feature maps with different resolutions, to naturally handle objects of various sizes.
 
 
-Current SOTA object detection systems with `explicit region prooposals and pooling`
+Current SOTA object detection systems with `explicit region prooposals and pooling` do
 1. hypothesize bounding boxes
 2. resample pixels or features for each box, and
-3. apply a high-quallity classifier.
+3. apply a high-quallity classifier for all proposals.
 
 Although accurate, this approach is somewhat slow.
 
-Whereas, `SSD` _does not resample pixels or features for bounding box hypotheses_, eliminating bounding box proposals and the subsequent pixel or feature resampling stage. (really?)  
+Whereas, `SSD` _does not resample pixels or features for bounding box hypotheses_, eliminating bounding box proposals and the subsequent pixel or feature resampling stage (it handles all ROI at once, with multiple feature maps).  
+
 Its contributions are,
-* the core of `SSD` is predicting category scores and box offsets for a fixed set of default bnding boxes, using __small convolutional filters__ applied to feature maps.
+* the core of `SSD` is predicting category scores and box offsets for a fixed set of default bnding boxes (at once), using __small convolutional filters__ applied to feature maps.
 * for high detection accuracy, `SSD` produces prediction of different scales from feature maps of different scales, and explicitly separate predictions by aspect ratio (using separate __predictors (filters)__ for different aspect ratio detections).
 
 ### Model
@@ -67,8 +68,7 @@ In SSD, for a ground truth box we can assign multiple default boxes.
 \\(\rightarrow\\) this __simplifies the learning problem__, allowing the network to predict high scores for multiple overlapping default boxes, rather than requiring it to pick only the one with maximum overlap.
 
 TODO:
-1. L1 smooth loss
-2. non-maximum suppression step 
+1. Atrous?
 3. Left part of paper (data aug, hard negative mining, exp)
 
 Links:  
