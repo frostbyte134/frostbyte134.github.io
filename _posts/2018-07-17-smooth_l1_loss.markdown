@@ -19,7 +19,7 @@ tags: deep_learning detection optimization
 
 It is a compound loss of L1 and L2.
 1. Between \\([-0.5,\\>0.5])\\), it behaves like L2 loss  
-\\(\leadsto\\) Smooth than L1. Less panelizes close elements than L1.
+\\(\leadsto\\) Smooth than L1 in \\([-0.5,\\>0.5])\\) (Less panelizes close elements than L1)
 1. Otherwise, it behaves like L1 loss  
-\\(\leadsto\\) Smooth than L2. Less panelizes elements with distance than L2.
+\\(\leadsto\\) Smooth than L2 in other areas (Less panelizes elements with distance than L2)
 
