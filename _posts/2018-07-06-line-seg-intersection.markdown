@@ -41,6 +41,7 @@ bool isIntersect(vec2 l1, vec2 l2, vec2 r1, vec2 r2){ //assumption of the top of
 }
 ```
 
+Note that above test can be applied between (point, line). B/C of this, to find out whether two objects (line, line) or (point, line) are above is better than determinant=0. 
 
 ### (2) Need an intersection point
 1. lines  

@@ -34,7 +34,7 @@ Additionally, suppose there exists an \\(\alpha\in S\\) with:
 1. \\(\alpha\\) is an upper bound of \\(E\\).
 2. If \\(\gamma<\alpha\\) then \\(\gamma\\) is not an upper bound of \\(E\\).  
 
-Then \\(\alpha\\)α is called the `least upper bound` of \\(E\\) [that there is at most one such α is clear from 2] or the `supremum` of \\(E\\), and we write
+Then \\(\alpha\\) is called the `least upper bound` of \\(E\\) [that there is at most one such α is clear from 2] or the `supremum` of \\(E\\), and we write
 \\[\alpha=\sup E.\\]
 The `greatest lower bound`, or `infimum`, of a set \\(E\\) which is bounded below is defined in the same manner.
 
