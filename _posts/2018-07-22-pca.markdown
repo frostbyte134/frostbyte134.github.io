@@ -1,0 +1,67 @@
+---
+layout: post
+title:  "Principle Component Analysis"
+date:   2018-07-22 10:49:00 +0900
+categories: linear_algebra
+use_math: true
+tags: linear_algebra statistic linear_programming duality
+---
+
+
+### Preliminaries
+
+1. <a href="{{site.url}}/linear_algebra/2018/05/19/hermit-mat-and-spectral-theorem.html" target="_blank">Spectral (Eigen) decomposition</a>
+2. <a href="{{site.url}}/linear_algebra/2018/05/15/orthonormal-basis.html">Gram-Schmidt orthogonalization (to make orthonormal eigenvector matrix)</a>
+3. Linear programming (Lagrangian stuff)
+
+
+### PCA of 1-dim
+For a data matrix \\(X\in(p\times n)\\) where 
+* \\(n\\) is the number of data points and 
+* \\(p\\) is the dimension of data,
+
+After subtracting mean of \\(X\\) from itself, we can calculate its covariance matrix \\(\Sigma\\) as
+\\[XX^T\\]
+(For each pair of dimension \\(j,k\\), we calculate \\(\sum\_\{i=1\}^nX\_\{ji\}X\_\{ki\}\\). Thus we are viewing each dimension as a RV, and calculate their (co)variances along the discrete empirical distribution)
+
+We 
+1. want to project \\(X\\) into 1-dim as \\(a_1^TX,\\>a_1\in (p\times1)\\), __preserving its 2nd moment (statistical info.) as much as we can.__ (maximizing variance)
+2. While doing so, __we want to restrict our attention to `orthonormal` projection matrix__ which does not change the length of the data points. Otherwise, we can arbitrary scale the data points to obtain large variance.  
+
+In 1-dim this gives simple 1-dimentional linear programming problem
+\\[\text\{minimize \} -a_1^TX(a_1^TX)^T=-a_1^TXX^Ta_1=-a_1^T\Sigma a_1\\]
+\\[\text\{S.T. \} a\_1^Ta\_1=1\\]
+Constructing Lagrangian as
+\\[L=-a_1^T\Sigma a_1 + \lambda\_1(a\_1^Ta\_1-1)\\]
+and while solvoing the dual problem (link later),
+\\[\min\_\{a\_1\}\sup\_\{\lambda_1\}L\\]
+taking derivative wrt \\(a_1\\) gives a constraint 
+\\[-2\Sigma^Ta_1+2\lambda a_1\\]
+\\[\leadsto\Sigma a_1=\lambda a_1 \\]
+Which is exactly a definiton of eivenvalue/eigenvector. We know that only the eigenvector satisfies such relation, and seeing that objective function becomes
+\\[-a_1^T\Sigma a_1=-a\_1^T\lambda a\_1=-\lambda a_1^Ta_1\\]
+(if \\(a_1^Ta_1\neq1\\), then the dual problem is unconstrained)  
+
+We see that
+1. Covariance matrix is symmetrix, so it has n-independent eigenvectors
+2. Covariance matrix is positive semidefinite (\\(\Sigma=XX^T\\)), so \\(\lambda\_i\geq0\\)
+3. All its \\(n\\) independent eigenvectors can made be orthogonal and normal, by the <a href="{{site.url}}/linear_algebra/2018/05/15/orthonormal-basis.html">`Gram-Schmidt process`</a>
+
+Selecting 1st largest eigenpair gives the solution.
+
+### PCA of k-dim
+To generalizing the above problem, define
+* \\(A\in(p\times k)\\), so that the projection becomes \\(A^TX=(p\times k)\\)
+
+Then the linear programming becomes
+\\[\text\{minimize \} \sum\_\{i=1\}^k\left[-a_i^TX(a_i^TX)^T=-a_i^T\Sigma a_i\right]\\]
+\\[\text\{s.t. \} AA^T=I\\]
+
+As for the constraint, consider projecting one data point \\(x_i\\) with \\(A^Tx_i\\). We see that with the constraint, the length of projected point becomes
+\\[x_i^TAA^Tx_i=x_i^Tx_i\\]
+so that the length of each data point is preserved.
+
+We might need generalized inequality to solve the above problem, but we already know the simple answer. We can choose \\(k\\)-largest eigenpairs. Considering the constraints, it is guaranteed that no better answer exist.
+
+Notice that the fraction of preserved sum of (variance of each dimension=variable) is
+\\[\frac\{\sum\_\{i=1\}^k\lambda_i\}\{\sum\_\{i=1\}^n\lambda_i\}\\]
