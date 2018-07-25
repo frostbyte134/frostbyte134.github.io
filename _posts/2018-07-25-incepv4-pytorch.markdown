@@ -15,8 +15,8 @@ def sameConv(in_c, out_c, k_size=3, stride=1, where=None): #where = w or h if As
   pad_w = pad_h = 0
   if(where is None):
     pad_total = k_size-1 # Refer to the formula in the blog
-    
     # https://nailbrainz.github.io/deep_learning/2018/07/11/conv-size.html
+	
     pad_w = pad_h = pad_total // 2 # if not divisible by 2, can't handle
     
     # Note that, the (a, b) padding of nn.Conv2d adds 
@@ -55,7 +55,8 @@ class ConvModule(nn.Module):
     x = self.conv(x)
     x = self.bn(x)
     x = self.relu(x)
-    return x```
+    return x
+```
 
 
 ### Stem_v4
