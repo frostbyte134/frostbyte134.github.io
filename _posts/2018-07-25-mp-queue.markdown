@@ -1,0 +1,32 @@
+---
+layout: post
+title:  "Python multiprocess-Queue"
+date:   2018-07-22 10:49:00 +0900
+categories: python
+use_math: true
+tags: python multiprocess
+---
+
+
+```python
+import multiprocessing as mp
+import os
+def foo(q):
+    q.put('hello from {}'.format(os.getpid()))
+def bar(q):
+    q.put("world from {}".format(os.getpid()))
+if __name__ == '__main__':
+    ctx = mp.get_context('spawn') # 'spawn' on window, 'fork' on python2 ubuntu, 'forkserver' on python3 ubuntu 
+    q = ctx.Queue()
+
+    for i in range(10):
+        p = ctx.Process(target=foo, args=(q,))
+        pp = ctx.Process(target=bar, args=(q,))
+        p.start()
+        pp.start()
+        #p.join()
+        #pp.join()
+
+    while not q.empty():
+        print(q.get())
+```
