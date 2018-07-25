@@ -9,15 +9,19 @@ tags: deep_learning resnet bottleneck
 
 ### "SAME" convolution in tensorflow 
 as for the padding size \\(k-1\\), refer to <a href="{{site.url}}/deep_learning/2018/07/11/conv-size.html" target="_blank">`here`</a>
+Note that, the (a, b) padding of nn.Conv2d adds (2*a) on width, and (2*b) on height (on each side)
 
 ```python
 def sameConv(in_c, out_c, k_size=3, stride=1):
   pad_total = k_size-1 # Refer to the formula in the blog
   # https://nailbrainz.github.io/deep_learning/2018/07/11/conv-size.html
-  pad_l = pad_total // 2
-  pad_r = pad_total - pad_l
+  
+  pad = pad_total // 2 # if not divisible by 2, can't handle
+  
+  # Note that, the (a, b) padding of nn.Conv2d adds 
+  # (2*a) on width, and (2*b) on height (on each side)
   return nn.Conv2d(in_c, out_c, k_size, stride=stride, 
-                   padding=(pad_l,pad_r),bias=False)
+                   padding=pad,bias=False)
 ```
 
 
