@@ -4,7 +4,7 @@ title:  "Resnet (pytorch 0.4.0)"
 date:   2018-07-25 08:00:05 +0800
 categories: deep_learning
 use_math: true
-tags: deep_learning resnet bottleneck
+tags: deep_learning resnet bottleneck basenet
 ---
 
 ### "SAME" convolution in tensorflow 
