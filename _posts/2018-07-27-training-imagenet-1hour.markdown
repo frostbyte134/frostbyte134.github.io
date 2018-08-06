@@ -94,14 +94,45 @@ __Gradual warmup__
 > (?) [Shortcut], a practical consideration to avoid comm overhead, is acutally necessarey for preserving the loss fun when changing the minibatch size.
 
 We write
-* \\(l\_\beta(x,w)\\): loss of a sample \\(x\in\beta\\), which is __dependent on all samples in \\(\beta\\).
-* \\(L(\beta,w)\\): loss over a single minibatch \\(\beta\\) of size \\(n\\)
+* \\(l\_\beta(x,w)\\): loss of __a single sample__ \\(x\in\beta\\), which is _dependen on all samples in_ \\(\beta\\).
+* \\(L(\beta,w)\\): loss over __a single sampled__ minibatch \\(\beta\\) of size \\(n\\)
 \\[=\frac\{1\}\{n\}\sum\_\{x\in\beta\}l\_\{\beta\}(x,w)\\]
-* We wish \\(\frac\{1\}\{\|X^n\|\}L(\beta,w)\quad\text\{for \}\beta\in X^n\\) to approximate [_training loss of minibatch context_ \\(L(w)\\)]
+
+With `BN`, the training set can be thought of as containing [all distinct subsets of size \\(n\\) drawn from the original training set \\(X\\)]=\\(X^n\\).
+
+\\(\rightarrow\\) Then, unlike above we wish \\(L(\beta,w)\quad\text\{for \}\beta\in X^n\\) to approximate [_training loss of minibatch in BN context_ \\(L(w)\\)]
 \\[L(w)=\frac\{1\}\{\|X^n\|\}\sum\_\{\beta\in X^n\}L(\beta,w)\\]
-where \\(X^n\\) denote a set of all distinct subssets of size \\(n\\) drawn from \\(X\\) (it need not be )
+where \\(X^n\\) denote a set of all distinct subssets of size \\(n\\) drawn from \\(X\\)
 
+If we view \\(\beta\\) as __a single sample__ in \\(X^n\\), then the loss of each sample \\(\beta\\) can be computed independently with the assumption that
+* batch size \\(n\\) is fixed  
+\\(\rightarrow\\) if \\(n\\) is changed, it changes the underlying loss functional \\(l\\) that is optimized
+* weight \\(w\\) is fixed
 
+Then, in the case of distributed SGD training,
+* if the per-worker size \\(n\\) is fixed
+* while the total minibatch size is \\(kn\\)
+
+It can be viewed as a [minibatch of \\(k\\) samples] __(Need to divide with \\(k\\)!)__ with each sample \\(\beta_j\\) is independently selected from \\(X^n\\)  
+\\(\rightarrow\\) \\(L\\) is unchanged, ans is still defined in \\(X^n\\)  
+(We need above to guarantee that \\(L\\) is unchanged in SGD with distrubuted batches)?
+
+Under such point of view,
+1. (3) becomes
+\\[w\_\{t+1\}=w\_t-\eta\sum\_\{x\in\beta\_0\}\nabla L(\beta\_1,w\_\{t\})\\]
+\\[w\_\{t+2\}=w\_\{t+1\}-\eta\sum\_\{x\in\beta\_0\}\nabla L(\beta\_2,w\_\{t+1\})\\]
+\\[+\\]
+\\[\vdots\\]
+\\[=w\_\{t+1\}=w\_t-\eta\sum\_\{j<k\}\sum\_\{x\in\beta\_j\}\nabla L(\beta\_j,w\_\{t+j\})\\]
+(Notice that \\(\beta_j\\) is summed up)
+2. and (4) becomes
+\\[\hat\{w\}\_\{t+1\}=w\_t-\hat\{\eta\}\frac\{1\}\{k\}\sum\_\{j<k\}\nabla L(\beta\_j,w\_\{t\})\\]
+
+Following simliar logic as in sec.2.1, we set \\(\hat\{\eta\}=k\eta\\).
+* If \\(n\\) is adjusted, it shloud be viewed as a hyperparam of `BN`, not dist-SGD (why?)
+* `BN`-stats shouldn't be computed across all workers, for
+	1. reduced communication cost
+	2. to maintain the same underlying los function being optimized (computing bn stats over all workers changes func being optimized? why?)
 
 Links:  
 <a href="https://arxiv.org/pdf/1512.02325.pdf" target="_blank">SSD: Single Shot MultiBox Detector</a>  
