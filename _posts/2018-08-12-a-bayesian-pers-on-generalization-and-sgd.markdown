@@ -4,7 +4,7 @@ title:  "A Bayesian Perspective on Generalization and Stochastic Gradient Descen
 date:   2018-08-12 08:00:05 +0800
 categories: deep_learning
 use_math: true
-tags: deep_learning SGD bayesian
+tags: deep_learning SGD bayesian laplace_approximation
 ---
 
 <a href="https://arxiv.org/pdf/1804.06516.pdf" target="_blank">https://arxiv.org/pdf/1804.06516.pdf</a>  
@@ -32,6 +32,7 @@ With the i.i.d assumption of inputs, the __likelihood__ becomes
 \\[\exp\\{\sum\_i\{\ln\{P(y\_i|w,x\_i;M)\}\}\\}\\]
 and we let
 \\[P(y|w,x;M)=\text\{Likelihood of w\}=e^\{-H(w;M)\}, \text\{ where \}H(w;M):=-\sum\_i\{\ln\{P(y\_i|w,x\_i;M)\}\}\\]
+Note that \\(H(w;M)\\) is the cross entropy term between one-hot categorical ground truth and our model.
 
 Right term is a __Gaissian prior__ (\\(\lambda\\) is a precision (=inverse of variance))
 \\[P(w;M)=\sqrt\{\frac\{\lambda\}\{2\pi\}\}e^\{-\lambda\frac\{w^2\}\{2\}\}\\]
@@ -57,7 +58,6 @@ Note that, with the (somewhat) strong independent assumption between \\(w, (x,y)
 
 We have calculated the right term \\(P(w|y,x;M)=\frac\{\sqrt\{\frac\{\lambda\}\{2\pi\}\}e^\{-C(w;M)\}\}\{P(y|x;M)\}\\) above. To deal with the normalization term \\(P(y|x;M)\\), using the above results and marginalization,
 \\[\int{P(w|y,x;M)}dw=1\\]
-\\[\int{P(w|y,x;M)}dw=1\\]
 \\[\int{\frac\{\sqrt\{\frac\{\lambda\}\{2\pi\}\}e^\{-C(w;M)\}\}\{P(y|x;M)\}}dw=1\\]
 \\[\frac\{1\}\{P(y|x;M)\}\int{\sqrt\{\frac\{\lambda\}\{2\pi\}\}e^\{-C(w;M)\}}dw=1\\]
 \\[P(y|x;M)=\sqrt\{\frac\{\lambda\}\{2\pi\}\}\int{e^\{-C(w;M)\}}dw\\]
@@ -68,145 +68,81 @@ Therefore the prediction becomes
 \\[=\frac\{\sqrt\{\frac\{\lambda\}\{2\pi\}\}\}\{\sqrt\{\frac\{\lambda\}\{2\pi\}\}\int{e^\{-C(w;M)\}}dw\}\int\{P(y_t|w,x_t;M)e^\{-C(w;M)\}dw\}\\]
 \\[=\frac\{\int\{P(y_t|w,x_t;M)e^\{-C(w;M)\}dw\}\}\{\int{e^\{-C(w;M)\}}dw\}\tag\{3\}\\]
 However, 
-* these integrals are dominated by the (maximum) regin near \\(w_0\\) (isn't it too rough?), and since \\(P(y_t\|w,x_t;M)\\) is smooth (at least in deep learning, we never use models with discontinuity), we usually approximate so we approximate \\[\frac\{\int\{P(y_t\|w,x_t;M)e^\{-C(w;M)\}dw\}\}\{\int{e^\{-C(w;M)\}}dw\}=\frac\{P(y_t\|w_0,x_t;M)e^\{-C(w_0;M)\}\}\{e^\{-C(w_0;M)\}}=P(y_t\|w_0,x_t;M)\\]
+* these integrals are dominated by the (maximum) regin near \\(w_0\\) (isn't it too rough?) (\\(w_0\\) is an argmax to the likelihood \\(P(y_t\|w,x_t;M)\\) and the term proportional to the posterior \\(e^\{-C(w;M)\}\\)), and since \\(P(y_t\|w,x_t;M)\\) is smooth (at least in deep learning, we never use models with discontinuity), we usually approximate \\[\frac\{\int\{P(y_t\|w,x_t;M)e^\{-C(w;M)\}dw\}\}\{\int{e^\{-C(w;M)\}}dw\}=\frac\{P(y_t\|w_0,x_t;M)e^\{-C(w_0;M)\}\}\{e^\{-C(w_0;M)\}}=P(y_t\|w_0,x_t;M)\\]
 
-Notice that the evidence
+The probability ratio between two different model with different structure becomes
+\\[\frac\{P(M_1\|y,x)\}\{P(M_2\|y,x)\}=\frac\{P(y\|x;M\_1)P(M_1)\}\{P(y\|x;M\_2)P(M_2)\}\\]
+We usually set the __prior ratio__ \\(P(M=M_i)\\) as uniform, so what matters in determining good model is the __evidence ratio__, which controls how much the training data changes our prior belief.
 
-### Abstract
+We have derived the __evidence ratio__ above, that is,
+\\[P(y|x;M)=\sqrt\{\frac\{\lambda\}\{2\pi\}\}\int{e^\{-C(w;M)\}}dw=\left(\frac\{\lambda\}\{2\pi\}\right)^\{p/2\}\int{e^\{-C(w;M)\}}dw\\]
 
-* To handle the variability in real-world data, the system relies upon the technique of `domain randomization`, in which the parameters of the simulator - such as lighting, pose, object textures, etc. - are randomized in non-realistic ways to force the network to learn the essential features of the object of interest.
-* With additional fine-tuning on real data, the network yields better performance than using real data alone.
-* ...evaluated on bnding box detection of cars on the KITTI dataset.
+__Assuming__ that the integral is dominated by the region near the minimum point \\(w_0\\), the multidimensional Taylor approximation at \\(w_0\\) of \\(C(w;M)\approx C(w_0)+0+\frac\{(w-w_0)^TC^\{(2)\}(w_0)(w-w_0)\}\{2\}\\) gives (remember that \\(C'(w_0)=0\\))  
+(This approximation is dangerous, since it is very much likely that there exists many minimum points in deep learning models, thus the integral might not be dominated by a minimum point)
+\\[P(y\|x;M)=\left(\frac\{\lambda\}\{2\pi\}\right)^\{p/2\}\exp\\{-C(w_0)\\}\int\exp\\{-\frac\{(w-w_0)^TC^\{(2)\}(w_0)(w-w_0)\}\{2\}\\}dw\\]
 
+Remember that n-dimensional normal with __precision matrix__ \\(C^\{(2)\}(w_0)\in P\times P\\) integrates to (__assuming__, again, that the covariance matrix is not degenerate)
+\\[1=\int\frac\{\sqrt\{\|C^\{(2)\}(w_0)\|\}\}\{(2\pi)^\{p/2\}\}\exp\{-\frac\{(w-w_0)^TC^\{(2)\}(w_0)(w-w_0)\}\{2\}\}\\]
+Therefore, by modifying the equation,
+\\[P(y\|x;M)\approx\left(\frac\{\lambda\}\{2\pi\}\right)^\{p/2\}\exp\\{-C(w_0)\\}\frac\{(2\pi)^\{p/2\}\}\{\sqrt\{\|C^\{(2)\}(w_0)\|\}\}\int\frac\{\sqrt\{\|C^\{(2)\}(w_0)\|\}\}\{(2\pi)^\{p/2\}\}\exp\\{-\frac\{(w-w_0)^TC^\{(2)\}(w_0)(w-w_0)\}\{2\}\\}\\]
+\\[=\frac\{\lambda^\{p/2\}\exp\{-C(w_0)\}\}\{\sqrt\{\|C^\{(2)\}(w_0)\|\}\}\\]
+(Above taylor approximation = `Laplace's approximation`.)
 
-### (1) Introduction
+The determinant is the product of eigenvalues, and thus
+\\[P(y\|x;M)\approx\ext\left{-\left(C(w_0)+\frac\{1\}\{2\}\sum\_\{i=1\}^\{p\}\ln(\lambda_i/\lambda)\right)\right}\\]
+* The contribution \\(\sum\_\{i=1\}^\{p\}\ln(\lambda_i/\lambda)\\) is often called the `Occam factor`, since it enforces Ocam's razor; when two models describe the data equally well, the simpler model is usually better. 
+* __Minima with low curvature are simple__, because the parameters do not have to be fine-tuned to fit the data.
+\\[\text\{low curvature = low value of \sum\_\{i=1\}^\{p\}\ln(\lambda_i/\lambda)\}\\]
 
-* In particular, the expense required to generate photo-realistic quality negates the primary selling point of synthetic data, namely, that arbitrarily large amounts of labeled data are available essentially for free.
-* To solve this problem, `domain randomization` [32] is a recently proposed inexpensive approach that intentionally abnandons photorealism by randomly perturbing the environment in non-photorealistic ways (e.g., by adding random textures) __to force network to learn to focus on the seesntial features of the image__.
+### Stochastic Differential Equations and the Scaling Rules (Need serious revision, scalar->vec)
 
-... `DR` has been successful in 
-* determining the control commands of an indoor quadcopter [28]
-* detecting the 3D coordinates of homogeneously colored cubes on a table [32]
-* optical flow [4] and scene flow [18]
+We now identify the SGD "noise scale" (which is the key in the tradeoff between depth and bredth in the Bayesian evidence?), and use it to derive scaling rules which predict how the optimal batch size depends on the learning rate, training set size and momentum coef.
 
-Our `DR`-based car detector achieves better results on the KITTI dataset than the same architecture trained on virtual KITTI [7], even though the latter dataset is highly correlated with the test set.
+Consider a gradient update
+\\[\nabla \omega=-\frac\{\epsilon\}\{N\}\left(
+\frac\{dC\}\{d\omega\}+\left(\frac\{d\hat\{C\}\}\{d\omega\}-\frac\{dC\}\{d\omega\}\right)\right)
+\\]
+where
+* \\[\frac\{dC\}\{d\omega\}\in\Re\\]: True gradient (scalar, not a RV, since we have a fixed set of training examples) of the cost function \\(C\\), which is defined by
+\\[\frac\{dC\}\{d\omega\}:=\sum\_{i=1}^N\frac\{dC_i\}\{d\omega\}\\]
+where
+\\[C(x,w;M):=H(x,w;M)+\lambda\frac\{w^2\}\{2\}=-\sum\_i\{\ln\{P(y\_i|w,x\_i;M)\}\}+\lambda\frac\{w^2\}\{2\}\\]
+Note that we have randomness in \\(x\\), and treat \\(C\\) as a function over the random variable (iid distributed) \\(X\\).
+* \\[\frac\{d\hat\{C\}\}\{d\omega\}\in\Re\\]: gradient of a batch, which is a scalar random variable, since we have a randomness in selecting batch. It is defined by
+\\[\frac\{d\hat\{C\}\}\{d\omega\}:=\frac\{N\}\{B\}\sum\_\{i=1\}^B\frac\{dC_i\}\{d\omega\}.\\]
+Its expectation (as a RV) is,
+\\[\text\{E\}\left[\frac\{d\hat\{C\}\}\{d\omega\}\right]=\frac\{N\}\{B\}\sum\_\{i=1\}^B\text\{E\}\left[\frac\{dC_i\}\{d\omega\}\right]=\frac\{N\}\{B\}\times B\times\frac\{1\}\{N\}\frac\{dC\}\{d\omega\}=\frac\{1\}\{N\}\frac\{dC\}\{d\omega\}\\]
+We want \\(\frac\{d\hat\{C\}\}\{d\omega\}\approx \frac\{dC\}\{d\omega\}\\)
+* \\(\epsilon\\): learning rate
+* \\(N\\): training set size
 
-Furthermore, augmenting synthetic `DR` data by fine-tuing on real data yields better results than training on real KITTI data alone.
-
-
-### (2) Previous Works
-
-Hinterstoisser _et al._ [11] used synthetic data generated by adding Gaussian noise to the object of interest and Guassian blurring the object edges before composing over a black-ground image. The resulting synthetic data are used to train the later layers of a neural network while freezing the early layers pretrained on real data (e.g., ImageNet). In constract, we found this approach of __freezing the weights to be harmful rather than helpful, as shown later.__ (think freezing weight was effective in [11] since it didn't used `DR`. Networks trained with DR need to _narrow its scope_(?) considerably to adjust on real test data)
-
-The work of Johnson-Robertson _et al._ [15] used __photorealistic synthetic data to train a car detector that was tested on the KITTI dataset.__ This work is colsely related to ours, with the __primary difference__ being our use of DR rather than photorealistic images. 
-* Our experimental results reveal a similar conclusion, namely, __that synthetic data can rival, and in some cases beat, real data for training nueral networks__.
-* Moreover, we show clear benefit from __fine-tuning on real data after training on synthetic data.__
-
-### (3) Domain Randomization
-
-Fig.1 - processes
-1. Begin with 3D models of object of interest
-2. A random # of these ojects are placed in a 3D scene at random positions and orientations
-3. To better enable the network to learn to ignore objects in the scene that are not of interest, a random number of gemoetric shapes are added to the scene. We call these __flying distractors__
-4. Random textures are than applied to both the objects of interest and the flying distractors.
-5. A random number of lights of different types are inserted at random locations, and the scene is rendered from a random camera viewpoint, after  which the result is composed over a random bg image.
-6. The resulting image with automatically generated GT label is used for training.
-
-Details of above is in the paper. Used an internally created plugin to the `Unreal Engine 4`, outputing 1200 X 400 images with annotations at 30Hz.
-
-Although our crude (and amlost cartoonish) images are not as aesthetically pleasing (compared to VKITTI), this apparent limiation is arguably an asset:
-* our images are order of magnitude faster to created (with less expertise)
-* include variations that force the ddep neural network to focus on the important structure of the problem at hand, rather than details that may or may not be present in real images at test time.
-
-
-### (4) Evaluation - no real images during training
-1. Training: `VKITTI` vs `DR`, on (`Faster-RCNN`, `R-FCN`, `SSD`)  
-(All 3 detector used <a href="{{site.url}}/deep_learning/2018/06/23/inceptionv4-resnet-residualconn.html" target="_blank">Inception-Resnet V2</a>, imagenet pretrained)  
-For all architectures, training was stopped when performance on the test set saturated to __avoid overfitting.__
-2. Testing: 500 images from `KITTI` dataset, __IOU 0.5__
-	* `DR` dataset: 100K images, no more than __14 cars__ in a frame __(36 models)__, 8k random textures
-	* `VKITTI` dataset: 2.5k images, Unity 3D. High correlation with `KITTI` dataset (need speciality / care)
-
-__Data Augmentation:__
-	- random (brightness / contrast / Gaussin noise)  
-	- `classical augmentations`: random (flips / resizing), box jitter and random crop.
+Few things important are
+1. \\[\text\{E\}\left[\frac\{dC_i\}\{d\omega\}\right]=\frac\{1\}\{N\}\frac\{dC\}\{d\omega\}\\]since from the definition of \\(\frac\{dC\}\{d\omega\}\\),
+\\[\text\{E\}\left[\frac\{dC\}\{d\omega\}\right]=\frac\{1\}\{N\}\text\{E\}\left[\frac\{dC_i\}\{d\omega\}\right]\\]
+Since \\(\frac\{dC_i\}\{d\omega\}\\) are iid, we obtain above result.
+2. while,
+\\[\text\{E\}\left[\frac\{dC_i\}\{d\omega\}\frac\{dC_j\}\{d\omega\}\right]=\left(\frac\{1\}\{N\}\frac\{dC\}\{d\omega\}\right)^2+F(\omega)\delta\_\{ij\}\\] since
+\\[\text\{Cov\}\left[\frac\{dC_i\}\{d\omega\}\frac\{dC_j\}\{d\omega\}\right]=F(\omega)\delta\_\{ij\}\\]
+\\[\quad\quad=\text\{E\}\left[\left(\frac\{dC_i\}\{d\omega\}-\frac\{1\}\{N\}\frac\{dC\}\{d\omega\}\right)^2\right]
+=\text\{E\}\left[\frac\{dC_i\}\{d\omega\}\frac\{dC_j\}\{d\omega\}\right]
+-\frac\{2\}\{N^2\}\left(\frac\{dC\}\{dw\}\right)^2+\frac\{1\}\{N^2\}\left(\frac\{dC\}\{dw\}\right)^2
+\\]which gives the desired result. Note that \\(F(\omega)\\) is a __matrix__ describing the gradient covariances, which are a function of the current parameter values.
 
 
-__Minimum bnding box:__
-	- considered __bnding boxes with height greater than 40 pixels__, and __truncation lower than 0.15__, as in [8] (KITTI, "easy difficulty" setting, http://www.cvlibs.net/datasets/kitti/eval_object.php ).  
+We adopt the `central limit theorem`(LINK!!!) and __model the gradient error__
+\\[\alpha=\left(\frac\{d\hat\{C\}\}\{d\omega\}-\frac\{dC\}\{d\omega\}\right)\\]
+with __Gaissan random noise__ (appendix C).
 
-
-__Machine__:
-	- DGX, batch 4
-
-__Results:__
-
-|Architecture|VKITTI  |DR      |
-|------------|--------|--------|
-|Faster-RCNN |__79.7__|78.1    |
-|R-FCN       |64.6    |__71.5__|
-|SSD         |36.1    |__46.3__|
-
-Although `DR` images are easy to generate, obtained somewhat competitive results
-	\\(\rightarrow\\) simple technique of `DR` bridged the reality gap (Remember that, DR trained model never seen a real car image, beside the imagenet pretraining)
-
-__PR Curve__:
-
-<img src="{{ site.url }}/images/deeplearning/ssg/dr-pr.png" class="center" style="width:500px"/>
-	- For high recall, VKITTI is better.
-> We hypothesize that our simplified DR procedure prevents some variations observed in the test set from being genrerated. For example, image context is ignored by our procedure, so that the structure inherent in parked cars is not taken into account. (thus problematic in high recall?)
-
-
-### (4) Evaluation - fine tuning with real images
-* lr: 1/10 decreased while keeping the rest of the hyperparameters unchanged, 
-* gradient was allowed to fully flow from end-to-end
-* Faster R-CNN network trained until convergence. 
-
-<img src="{{ site.url }}/images/deeplearning/ssg/finetune-pr.png" class="center" style="width:500px"/>
-
-Fig. 6. (For comparison, the figure also shows results after
-training only on real images at the original learning rate of
-0.0003.) 
-
-
-> Note that DR surpasses VKITTI as the number of real images increases, likely due to the fact that the advantage
-of the latter becomes less important as real images that resemble the synthetic images are added. With fine-tuning
-on all 6000 real images, our DR-based approach achieves an AP score of 98.5, which is better than VKITTI by 1.6%
-and better than using only real data by 2.1%.
-
-### (4)-2. Ablation
-Faster-RCNN with Resnet V1, 50K `DR` images, lr 0.3, momentum 0.0003, testing with AP@0.5 on `KITTI`.
-
-AP - 73.64
-* no light augmentation: 67.6 (????)
-* No random texture: 69.0  
-	half (4K) textures: 71.500
-* Data augmentation: 72.0
-	- random contrast, brighness, crop, flip, resizing, additive Guassian noise
-* Flying distractor: 72.5
-
-### (4)-3 Pretraining
-* Faster-RCNN + Resnet V2
-* COCO pretraining 
-
-|COCO|COCO+VKITTI|COCO+DR |
-|-----------|--------|--------|
-|56.7|79.7\\(\rightarrow\\)79.7|78.1\\(\rightarrow\\)83.7|
-
-* Although COCO includes car images, not that good with COCO only.  
-\\(\rightarrow\\) networks today often fail to transfer from one dataset to another.  
-> Synthetic data, and in particular DR, has the potential to overcome this problem, by enabling the network to learn features that are invariant to the specific dataset (????). 
-
-### (4)-3 Freezing Weights
-In main experiment, freezed imagenet trained feature extractor, and trained left part of `Faster R-CNN` or `R-FCN` (__no__ `SSD`)  
-\\(\rightarrow\\) Degraded AP by 13.50  
-\\(\rightarrow\\) With the variarity of DR images (obtained by randomization), the target domain of input image is large (but low avg accuracy). It has to be fine-tuned in comparably large scale, compared to the imagenet pretrained networks.
-
-### (4)-3 Dataset Size
-Contrary to [20] (Pretraining is useless when we have masssive synthetic images), Pretraining was helpful even up to 1M images.
-
-> This result can be explained by the fact that our training images are not photo-realistic.
-
+It is easy to show that
+* \\[\text\{E\}\left[\alpha\right]=0 \\] (which is obvious with above equations), and
+* \\[\text\{E\}\left[\alpha^2\right]=N(\frac\{N\}\{B\}-1)F(\omega)\\]
+since
+\\[\text\{E\}\left[\alpha^2\right]=\text\{E\}\left[\left(\frac\{d\hat\{C\}\}\{d\omega\}-\frac\{dC\}\{d\omega\}\right)^2\right]\\]
+\\[=\text\{E\}\left[\left(\frac\{d\hat\{C\}\}\{d\omega\}\right)^2\right]-2\text\{E\}\left[\frac\{d\hat\{C\}\}\{d\omega\}\frac\{dC\}\{d\omega\}\right]+\text\{E\}\left[\left(\frac\{dC\}\{d\omega\}\right)^2\right]\\]
+Each terms are
+\\[\text\{E\}\left[\left(\frac\{dC\}\{d\omega\}\right)^2\right]=\left(\frac\{dC\}\{d\omega\}\right)^2\\]
+\\[\text\{E\}\left[\left(\frac\{d\hat\{C\}\}\{d\omega\}\right)^2\right]=\text\{E\}\left[\left(\frac\{N\}\{B\}\sum\_\{i=1\}^B\frac\{dC_i\}\{d\omega\}\right)^2\right]=\frac\{N^2\}\{B^2\}\sum\_i^B\sum_j^B\left(\left(\frac\{1\}\{N\}\frac\{dC\}\{d\omega\}\right)^2+F(\omega)\delta\_\{ij\}\right)=\left(\frac\{dC\}\{d\omega\}\right)^2+\frac\{N^2\}\{B^2\}\sum\_i^B\sum_j^B\left(F(\omega)\delta\_\{ij\}\right)\\]
+\\[-2\text\{E\}\left[\frac\{d\hat\{C\}\}\{d\omega\}\frac\{dC\}\{d\omega\}\right]=-2\frac\{dC\}\{d\omega\}\text\{E\}\left[\frac\{d\hat\{C\}\}\{d\omega\}\right]=-2\frac\{dC\}\{d\omega\}\frac\{1\}\{N\}\frac\{dC\}\{d\omega\}\\]
 
 
 Links:  
