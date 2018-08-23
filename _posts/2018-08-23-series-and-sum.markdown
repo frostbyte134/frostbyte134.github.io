@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Sum and series"
-date:   2018-08-20 08:00:05 +0800
+date:   2018-08-23 08:00:05 +0800
 categories: deep_learning
 use_math: true
 tags: probability analysis
