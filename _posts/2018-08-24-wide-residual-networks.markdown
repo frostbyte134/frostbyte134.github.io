@@ -4,7 +4,7 @@ title:  "Wide Residual Networks"
 date:   2018-08-24 08:00:05 +0800
 categories: deep_learning
 use_math: true
-tags: deep_learning SGD large_batch generalization_gap
+tags: deep_learning resnet residual
 ---
 
 <a href="https://arxiv.org/abs/1605.07146" target="_blank">https://arxiv.org/pdf/1705.08741.pdf</a>  
@@ -44,9 +44,9 @@ However, wider networks (with more channel size) is more suitable for paralleliz
 - Cifar10/100
 1. Type of convs in a block  
 - Original resnet block (not bottlenecked one) \\(B(3,3)\\) were slightly better than \\(B(1,3), B(3,1,3), B(3,1),...\\)  
-> Based on the above, blocks with comparable number of params turned tout to give more or less the same result.
+_Based on the above, blocks with comparable number of params turned tout to give more or less the same result._
 2. Number of ocnvolutions per block  
-\\(B(3)\\) was not so good, \\(B(3,3)\\) the best, and gets worsen as more convs are added \\(B(3,3,3), \\(B(3,3,3,3)...\\)\\)
+\\(B(3)\\) was not so good, \\(B(3,3)\\) the best, and gets worsen as more convs are added \\(B(3,3,3), B(3,3,3,3)...\\).
 3. Width of residual block  
 refer to the paper
 
@@ -66,6 +66,3 @@ Next:
 2. <a href="https://arxiv.org/abs/1603.09382" target="_blank">[14] Deep networks with stochastic depth</a>  
 3. <a href="https://arxiv.org/abs/1505.00387" target="_blank">[28] Highway Networks</a>  
 4. <a href="http://proceedings.mlr.press/v9/glorot10a.html" target="_blank">[1] Understanding the difficulty of training deep feedforward neural networks</a>  
-
-Links:  
-<a href="https://arxiv.org/abs/1710.10710" target="_blank">[11] (Freezing Weights) On pre-trained image features and synthetic images for deep learning</a>  
