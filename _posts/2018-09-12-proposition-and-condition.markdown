@@ -13,7 +13,7 @@ A `proposition` is a mathematical statement that __can only be true or false.__
 It is generally represented with lowercase letter alphabet, such as \\(p, q, r,...\\).
 
 - \\(\sim\\): negation
-- \\(\lor\\): __l__ogical __or__, \\(\land\\): __l__ogical __and__
+- \\(\lor\\): logical OR, \\(\land\\): logical AND
 
 Some statement turns out to be true or false when values are assigned to its variables.  
 We call such statement as a `Propositional function`, or a `condition`.
@@ -38,7 +38,9 @@ where \\(\exists\\) is referred as the `existence quantifier`
 	- \\(q(x)\\): `necessary condition` (it is necessary for \\(q(x)\\) to be true when \\(p(x)\\) is true)
 
 	__For two propositional functions__ \\(p(x), q(x)\\) __which shares a domain, their conditional proposition__\\(p(x)\rightarrow q(x)\\) __also becomes a propositional function__
-	\\[p(x)\rightarrow q(x) \text\{ is also a propositional function\}\\]
+	
+	\\[p \rightarrow q \text\{ is a proposition, and\}\\]
+	\\[p(x)\rightarrow q(x) \text\{ is a propositional function\}\\]
 
 ### Miscs
 
@@ -50,7 +52,7 @@ means that \\[\forall x\in U, f(x)=g(x) \text\{ holds\}\\]
 3. `converse` of a proposition \\(p\rightarrow q \\): \\(\quad\sim p\rightarrow \sim q\\)
 3. `contrapositive` of a proposition \\(p\rightarrow q \\): \\(\quad\sim q\rightarrow \sim p\\)
 4. For propositions, `transitive` / `De Morgan's rule` holds.  
-Based on the De Morgan's rule, we can derive the `negation rule fo the quantifiers`
+Based on the De Morgan's rule, we can derive the `negation rule of the quantifiers`
 \\[\sim(p(x_1)\lor p(x_2)\lor p(x_3)\lor \cdots \lor p(x_n))\quad\Longleftrightarrow\quad\sim p(x_1) \land \sim p(x_2) \land \sim p(x_3) \land \cdots \land \sim p(x_n)\\]
 is equivalent to
 \\[\sim(\forall x \in \\{x_1,...,x_n\\}, p(x))\quad\Longleftrightarrow\quad \exists x\in\\{x_1,...,x_n\\}:\sim p(x)\\]
