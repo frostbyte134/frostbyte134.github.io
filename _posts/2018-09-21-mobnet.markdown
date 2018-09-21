@@ -1,0 +1,42 @@
+---
+layout: post
+title:  "Mobilenets (Depthwise Convolution)"
+date:   2018-09-21 08:00:05 +0800
+categories: deep_learning
+use_math: true
+tags: deep_learning mobilenet depthwise_conv
+---
+
+
+
+
+### Mobilenet v1
+<a href="https://arxiv.org/pdf/1704.04861.pdf" target="_blank">https://arxiv.org/pdf/1704.04861.pdf</a>  
+
+- Depthwise convolution: seperate(ind) 1-dim conv over each input channel, then combine (channelwise) with 1by1 conv
+<img src="{{ site.url }}/images/deeplearning/depthwise.png" class="center" style="width:500px"/>  
+- Computational cost of Depthwise conv:
+	1. Normal conv: \\(D_\{filt\}\times D_\{filt\} \times C_\{filt\}\\) (a single filter wrt one output point) \\(\times D_\{out\} \times D_\{out\} \times C_\{out\}\\)  
+	Note that \\(C_\{filt\}= C_\{in\}\\).
+	2. Depthwise conv: \\(D_\{filt\}\times D_\{filt\}\times D_\{out\} \times D_\{out\} \times D_\{out\} \times C_\{filt\}\\) (cost of separate conv) \\(+ D_\{out\}\times D_\{out\}\times C_\{filt\} \times C_\{out\}\\) (1by1 conv)  
+Thus the cost saving becomes
+\\[\frac\{D_\{filt\}\times D_\{filt\}\times D_\{out\} \times D_\{out\} \times D_\{out\} \times C_\{filt\} + D_\{out\}\times D_\{out\}\times C_\{filt\} \times C_\{out\}\}\{D_\{filt\}\times D_\{filt\} \times C_\{filt\} \times D_\{out\} \times D_\{out\} \times C_\{out\}\}\\]
+\\[=\frac\{1\}\{C_\{out\}\}+\frac\{1\}\{D_\{filt\}^2\}\\]
+- Embedding into lower dim -> residual (inverse)
+- width multiplier \\(\alpha\\): multiplied to all channels
+- resolution multiplier \\(\rho\\): multiplied to all \\(W\\) and \\(H\\) of feature maps and input image.
+- Imagenet 70.6
+
+### Mobilenet v2 - Abstract
+- `inverted residual structure`: shortcut connections are between the thin bottleneck layers.
+- The intermediate expansion layer uses lightweight depthwise conv to filter features as a source of non-linearity  
+(Non-linearity is applied to high-dim feture map. Remember that, Relu removes half in 1-dim, but only \\(1/4\\) in 2-dim)
+- it is important to remove nonlinearity in the narrow layers, __in order to maintain representational power__ (and make residual connection close to identity mapping, as in <a href="https://arxiv.org/abs/1603.05027" target="_blank">Kaiming He's 2nd Resnet paper</a>).  
+Combining aboves gives
+	> ...a novel layer module: the `inverted residual with linear bottleneck`.
+- Our approach allows decoupling of the input/output domains (bottleneck part) from the expressiveness of the transformation, which provides a convenient framework for further analysis
+- 
+
+Next:  
+2. <a href="https://arxiv.org/abs/1603.09382" target="_blank">[14] Deep networks with stochastic depth</a>  
+4. <a href="http://proceedings.mlr.press/v9/glorot10a.html" target="_blank">[1] Understanding the difficulty of training deep feedforward neural networks</a>  
