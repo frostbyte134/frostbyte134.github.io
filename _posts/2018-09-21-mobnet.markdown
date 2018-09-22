@@ -35,7 +35,44 @@ Thus the cost saving becomes
 Combining aboves gives
 	> ...a novel layer module: the `inverted residual with linear bottleneck`.
 - Our approach allows decoupling of the input/output domains (bottleneck part) from the expressiveness of the transformation, which provides a convenient framework for further analysis
-- 
+- num of operation measured by multiply0-addds (MAdd), as well as actual latency, and the \# of params.
+
+### Why linear bottleneck?
+Suppose that each of \\(n\\) layers \\(L_i\\) has an __activation tensor__ of \\(h\_i\times w\_i\times d\_i\\).  
+Informally we say that a set of input images forms a `manifold of interest` (`MOI`) over the set of layer activations.
+
+> It has long been assumed that the MOI in neural nets can be embedded in lower-dimensional subspaces.  
+(`Mobilenet-v1` or `Resnet-101` utilized this assumption, with bottleneck layers)
+
+However, this intuition breaks down when we recall that deep conv neuralnets acutally have non-linear opers per coordinate transforms, such as ReLU.  
+(Applying coordinate-independent non-linear function yields different resunts. For example, ReLU in 1-dim yields a ray \\(x\geq0\\), but a quadrant in 2-dim)  
+> Non-linearity destroyes information in low-dimensional space.
+
+
+\\(\rightarrow\\) avoid using ReLU in bottleneck layers  
+_if we have lots of channnels, and there is a structure in the activation manifold (what structure?), the information (lost during ReLU) mgiht still be preserved in the other channels._  
+Proof in the appendix, in terms of invertibility (preservation of observation) and volumen (=information).
+
+In constrast, linear transformation does not lose much information in general.  
+Indeed, if a result of a layer-transforming \\(\text\{ReLU\}(Bx)\\) has a __nonzero volume__ \\(S\\), then the deep nets __only have a power of a linear classifier__ on the area of \\(B^\{-1\}\text\{int\}S\\).
+
+In conclusion, 
+1. If the MOI remains nonzero volume after ReLU transformation, it corresponds to a linear transformation.
+2. ReLU is capable of preserving complete info. about the inpout manifold, but only if the input manifold lies in a low-dim subspace of the input space (expansion size \\(>>\\) suitable bottleneck size)
+
+\\(\rightarrow\\) insert _linear_ bottleneck block layers into the conv blocks, with suitably small size
+
+
+### Information Flow Interpretation
+`Mobilenet-v2` architecture provides a natural(?) separation between
+1. input/output domains of the building blocks (bottleneck layers)  
+\\(rightarrow\\) represent capacity of the network at each layer
+2. layer transformation (expansion layer, ReLU non-linearity resides)  
+\\(rightarrow\\) represent expressiveness of the network
+
+
+### Appendix
+
 
 Next:  
 2. <a href="https://arxiv.org/abs/1603.09382" target="_blank">[14] Deep networks with stochastic depth</a>  
