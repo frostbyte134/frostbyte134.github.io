@@ -14,7 +14,7 @@ For two sets \\(A, B\\), a `relation` \\(R\\) is a __subset__ of \\(A\times B\\)
 \\[R=aRb\quad \text\{ or \} \quad R:A\mapsto B\\]
 * `domain` of \\(R, \text\{ dom\}R := \\{x\in A \\ \|\\  \exists y\in B : (x,y)\in R\\}\\)
 * `range` or `image` of \\(R, \text\{ Im\}R := \\{y\in B \\ \|\\ \exists x\in A : (x,y)\in R\\}\\)
-* `codomain' of \\(R: B\\).
+* `codomain` of \\(R: B\\).
 * `inverse relation` of \\(R, R^\{-1\}:=\\{(y,x)\in B\times A \\ \|\\ (x,y)\in R\\}\\)
 
 For 3 sets \\(A,B,C\\) and two relations \\(R:A\mapsto B, S:B\mapsto A\\), define their `composition` as
