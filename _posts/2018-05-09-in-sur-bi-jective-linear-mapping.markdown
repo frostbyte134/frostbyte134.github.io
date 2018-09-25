@@ -4,7 +4,7 @@ title:  "(In / Sur / Bi)jective linear mapping"
 date:   2018-05-09 13:42:00 +0900
 categories: linear_algebra
 use_math: true
-tags: linear_algebra
+tags: linear_algebra analysis
 ---
 For \\(A\in R^\{m\times n\}\\),
 <h3 id="injective_linear_mapping">(1) Injective linear mapping</h3>
