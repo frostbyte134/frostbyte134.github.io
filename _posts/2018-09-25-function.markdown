@@ -24,7 +24,8 @@ is generally denoted as \\(K_c\\).
 is called a `restricted function` of \\(f\\) over \\(S\\).  
 On the contrary, \\(f\\) is a `extended function` of \\(f\|\_s\\).
 
-### One-to-one Correspondence
+<h3 id="#oto_corr">One-to-one Correspondence</h3>
+
 <a href="{{site.url}}/linear_algebra/2018/05/09/in-sur-bi-jective-linear-mapping.html" target="_blank">link</a>  
 * (Injective - one to one function)
 * (Surjective - onto function)
@@ -54,7 +55,7 @@ Then for sets
 
 define the `cartesian product` of \\(A_i\\)s as
 \\[\mathop\{\Pi\}\_\{i\in I\}A\_i:=\\{f\in A^I \\ \| \\ f(i)\in A\_i\\}\\]
-In words, a cartesian product of arbitrary sets \\(\mathop\{\Pi\}\_\{i\in I\}A\_i\\) is a __set of all functions__ \\(\left(\mathop\{\bigcup\}\_\{i\in I\}A\_i\right)^I\\) which maps \\(i\in I \\) to \\(A_i\\). 
+In words, a cartesian product of arbitrary sets \\(\mathop\{\Pi\}\_\{i\in I\}A\_i\\) is a __set of all functions__ \\(\left(\mathop\{\bigcup\}\_\{i\in I\}A\_i\right)^I\\) which maps \\(i\in I \\) to \\(A_i\\)
 
 Next:  
 

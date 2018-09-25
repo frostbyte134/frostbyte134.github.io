@@ -27,7 +27,7 @@ Also for \\(R: A\mapsto B\\),
 
 For any non-empty set \\(A\\), \\(\bigtriangleup_A =\\{(x,y)\in A\times A \\ \|\\ x=y\\}\\) is __the smallest__ relation on \\(A\\). It is often called a `diagonal relation`. (And also notice that we can use symbol = without defining a equivalent relation)
 
-### Order Relation
+<h3 id="order">Order Relation</h3>
 
 For \\(R:A\mapsto A\\), define
 * \\(R\\) is `antisymmetric` : \\((x,y)\in R \land (y,x)\in R \quad\Rightarrow\quad x=y\\)
