@@ -36,6 +36,14 @@ Proof (for fun):
 then, \\(P:=\{k\in\mathbb\{N\} \\ \| \\ p(k)\}\\), so \\(P\subseteq \mathbb\{N\}\\).
 2. \\(P\\) is an inductive set by the condition, so \\(\mathbb\{N\}\subseteq P\\) holds (\\(\mathbb\{N\}\\) is the smallest inductive set)
 
+### Bernoulli's Inequality
+> For \\(x\leq-1,\\ n\in\mathbb\{N\}\\), show that \\[(1+x)^n\leq 1+nx\\] holds.
+
+Using induction (domain is \\(\mathbb\{N\}\\)
+1. \\(n=1\quad\rightarrow\quad (1+x)\leq 1+x \\)
+2. Suppose that it holds for \\(k\in\mathbb\{N\}\\). Then by multiplying \\(x+1\leq 0\\) on both sides,
+\\[(1+x)^\{k+1\}\leq(1+kx)(1+x)=1+kx+x+kx^2\leq1+kx+x=1+(k+1)x\\] 
+
 
 
 Next:  

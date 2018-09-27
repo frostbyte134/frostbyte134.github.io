@@ -32,7 +32,8 @@ If a is one-to-one correspondence and \\(f, f^\{-1\}\\) are both order-preservin
 \\[A\cong B\\]
 
 
-### Maximum, Maximal of a Set
+<h3 id="maximum">Maximum, Maximal of a Set</h3>
+
 Consider a ordered set \\((\\{1,2,3,4,5,6\\}, \rightarrow)\\)  
 <img src="{{ site.url }}/images/math/iso.png" class="center" style="width:500px"/>  
 
@@ -71,10 +72,27 @@ An ordered set \\(S\\) is said to have the __least-upper-bound property__ if the
 * If \\(E⊂S\\), \\(E≠\emptyset\\), and \\(E\\) is bounded above, then \\(\sup ⁡E\\) exists in \\(S\\).  
 (If any set is not empty and bounded above, it must have upper bound in the universe)  
 
+Note that,
+* lower/upper bound of \\(\emptyset\\) can be any number.
+* Thus, the supremum (least upper bound) of \\(\emptyset\\) is \\(-\infty\\)
+* On the contrary, \\(\inf \emptyset=\infty\\)
+
 
 ### Least Upper bound property implies Greatest Lower Bound property
 __Rudin Theorem 1.11__: If \\(S\\) has least upper bound property and is bounded below, collect all the lower bounds in the universe in a set. The supremum (which is guaranteed to exists) of such set must be the infimum of \\(S\\).
 
+### Definition of a supremum using epsilon
+> Let \\(E\\) be a nonempty subset of \\(\mathbb\{R\}\\), bounded above.  
+Then \\(\sup E=\alpha\\) exists i.i.f  
+\\[\forall \epsilon>0,\\ \exists x\in E\\ :\\ \alpha-\epsilon<x\leq \alpha\\]
+
+Proof
+1. \\(\rightarrow\\).  
+Suppose not. Then there exists no such \\(x\\), so \\(\alpha-\epsilon\\) can be a new supremum - contradiction.
+2. \\(\leftarrow\\).  
+Suppose not. Then there exists \\(\sup E=\alpha`\\). Considering \\(\alpha-\alpha`>0\\) into the equation as \\(\epsilon\\),
+\\[\alpha-\alpha+\alpha'=\alpha'<x\leq \alpha\\]
+which is a contradiciton.
 
 
 Next:  
