@@ -4,7 +4,7 @@ title:  "Real Number System"
 date:   2018-09-27 5:00:05 +0800
 categories: analysis
 use_math: true
-tags: analysis real_number triangle_inqequality bernoulli_inequality
+tags: analysis real_number triangle_inqequality bernoulli_inequality completeness_axiom
 ---
 
 
@@ -38,8 +38,8 @@ Preliminaries: upper bound, least upper bound property, supremum (<a href="{{sit
 Both \\(\mathbb\{Q\}\\) field and \\(\mathbb\{R\}\\) field satisfies field/order axiom. However \\(\exists\\) numbers not in \\(\mathbb\{Q\}\\), and if we ignore such numbers there is infinite "holes" in the line of numbers.  
 \\(\rightarrow\\) we need a axiom to comptete the line
 
-> `Completeness axiom`  
-If \\(S\subseteq\mathbb\{R\}\\) is not empty and bounded aobve, its supremum exists.
+> `Completeness axiom`  (<a href="{{site.url}}/analysis/2018/09/25/ordered-set.html#lub_lbp" target="_blank">Least Upper Bound property</a> - also implies Greatest lower bound)
+If \\(S\subseteq\mathbb\{R\}\\) is not empty and bounded above, its supremum exists.
 
 EX) Let \\(E=\\{x\in \mathbb\{Q\}\\ \| \\ x^2<2\\}\\). In \\(\mathbb\{Q\},\\ E\\) has no supremum. However thanks to the axiom, \\(\sup E\\) exists in \\(\mathbb\{R\}\\).
 

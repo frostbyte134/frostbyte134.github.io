@@ -31,6 +31,13 @@ Following are some properties of the finite/infinite sets.
 * Let \\(2^A\\) be a set of all discrete functions, where \\(A\\) is domain (all values must be considered), \\(\\{0,1\\}\\) is codomain. Then\\[2^A\approx \mathcal\{P\}(A)\\] (ex - For \\(A=\\{a,b\\},\\ \\{a\\}=\\{(a,1),(b,0)\\}\\)
 * If all \\(A_i\\)s of \\(\\{A_i \\ \| \\ i\in \mathbb\{N\}\\}\\) are finite, then their union is also finite.
 
+### Properties of Countable Sets
+
+* Note that the __countable set represents the smallest infinity__. Indeed, any (infinite) subsets of a countable set is countable (sort the original set, pick subset elements in order. We can construct a 1-1 correspondence)
+* Countable unions of countable sets is countable. Indeed, the elements can be sorted in the order below  
+<img src="{{site.url}}/images/math/analysis/countable.png" class="center" style="width:500"/>
+* Finite (?) cartesian product of countable sets are countable. Can be proved with induction.
+
 ### Cantor-Bernstein Theorem
 If a one-to-one function \\(f:A\mapsto B\\) exists, we say that "\\(B\\) is greater or equal to \\(A\\)", and denote
 \\[A\preceq B\\]. Furthermore, we denote \\(A\preceq B\\) and \\(A\not\approx B\\) as \\(A\prec B\\).

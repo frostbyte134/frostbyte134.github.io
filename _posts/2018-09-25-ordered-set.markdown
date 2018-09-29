@@ -4,7 +4,7 @@ title:  "Ordered set, Isomorphism and Supremum"
 date:   2018-09-25 09:00:05 +0800
 categories: analysis
 use_math: true
-tags: analysis chain totally_ordered_set well_ordered_set maximum maximal supremum least_upper_bound
+tags: analysis chain totally_ordered_set well_ordered_set maximum maximal supremum least_upper_bound_property
 ---
 
 ### (totally) Ordered set
@@ -78,9 +78,6 @@ Note that,
 * On the contrary, \\(\inf \emptyset=\infty\\)
 
 
-### Least Upper bound property implies Greatest Lower Bound property
-__Rudin Theorem 1.11__: If \\(S\\) has least upper bound property and is bounded below, collect all the lower bounds in the universe in a set. The supremum (which is guaranteed to exists) of such set must be the infimum of \\(S\\).
-
 ### Definition of a supremum using epsilon
 > Let \\(E\\) be a nonempty subset of \\(\mathbb\{R\}\\), bounded above.  
 Then \\(\sup E=\alpha\\) exists i.i.f  
@@ -90,10 +87,29 @@ Proof
 1. \\(\rightarrow\\).  
 Suppose not. Then there exists no such \\(x\\), so \\(\alpha-\epsilon\\) can be a new supremum - contradiction.
 2. \\(\leftarrow\\).  
-Suppose not. Then there exists \\(\sup E=\alpha`\\). Considering \\(\alpha-\alpha`>0\\) into the equation as \\(\epsilon\\),
+Suppose not. Then there exists \\(\sup E=\alpha'\\). Considering \\(\alpha-\alpha'>0\\) into the equation as \\(\epsilon\\),
 \\[\alpha-\alpha+\alpha'=\alpha'<x\leq \alpha\\]
 which is a contradiciton.
 
+
+<h3 id="lub_lbp"> Least Upper bound property implies Greatest Lower Bound property</h3>
+
+__Rudin Theorem 1.11__: If \\(S\\) has least upper bound property and is bounded below, collect all the lower bounds in the universe in a set. The supremum (which is guaranteed to exists) of such set must be the infimum of \\(S\\).
+
+Proof: Let 
+* \\(U\\) be a universe with the Least upper bound property.
+* \\(A\subseteq U\\) be a set, and
+* \\(Q\\) be a __set of all lower bounds__ of \\(A\\). Then,\\[\forall q\in Q,\\ x\in A,\quad q\leq x\\]
+
+Let \\(g:=\sup Q\\). Then,
+* \\(\forall q\in Q, g\geq q\\) since \\(g\\) is an upper bound of \\(Q\\)  
+* If \\(x\geq g\\ \forall q\in Q\\), then \\(x\geq g\\) (\\(x\\) is an another upper bound of \\(Q\\)) (This is the contraposition of the original definition of the supremum).
+
+We need to show that \\(g=\sup Q=\inf A\\), which is
+1. \\(\forall x\in A,\\ x\geq g\\)  
+If \\(x\in A\\), then \\(x\geq q\\ \forall q\in Q\\), so that \\(x\geq q\geq g\\).
+2. If \\(k>g\\), then \\(k\\) is not an lower bound of \\(A\\)  
+We assumed that \\(Q\\) is the set of all lower bounds of \\(A\\), and \\(k>g\geq q\\ \forall q\in Q\\).
 
 Next:  
 
