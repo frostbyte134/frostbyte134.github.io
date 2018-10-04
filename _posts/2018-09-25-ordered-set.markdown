@@ -111,5 +111,22 @@ If \\(x\in A\\), then \\(x\geq q\\ \forall q\in Q\\), so that \\(x\geq q\geq g\\
 2. If \\(k>g\\), then \\(k\\) is not an lower bound of \\(A\\)  
 We assumed that \\(Q\\) is the set of all lower bounds of \\(A\\), and \\(k>g\geq q\\ \forall q\in Q\\).
 
+
+### inf A = -sup -A
+
+> Theorem: Let \\(A\in\mathbb\{R\}\\), and is lower boudned. Then
+\\[\inf A = -\sup -A\\]
+
+__Proof__: Since \\(A\\) is lower bounded and - reverses the order, \\(\beta:=\sup -A\\) exists. (Remember that \\(mathbb\{R\}\\) has the least upper bound property)  
+Then two property holds for \\(\beta\\)
+1. \\(\forall -x\in -A,\\ \beta\leq -x\\)
+2. If \\(\gamma < \beta\\), then \\(\exists -x\in -A \\ : \\ \gamma < x\\).
+
+Using above 2 sequentially,
+1. \\(\forall x\in A, -\beta \geq x\\) (Remember that - reverses the order, not negates)
+2. If \\(-\gamma>-\beta\\), then \\(\exists x\in A \\ : \\ -\gamma > x\\).
+
+Therefore \\(-\beta\\) is the infimum of \\(A\\).
+
 Next:  
 
