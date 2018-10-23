@@ -9,7 +9,7 @@ tags: analysis metric_space open_set closed_set limit_point neightborhood interi
 
 Note that, subset (not subseteq) is used in the def. of interior.
 
-With the concept of `distance` defined in a __metric space__, we can talk about the limit, and openness/closedness of a set.
+With the concept of `distance` defined in a <a href="{{site.url}}/analysis/2018/10/03/metric-space.html" target="_blank">__metric space__</a>, we can talk about the limit, and openness/closedness of a set.
 
 
 ### Definitions
@@ -23,14 +23,14 @@ is denoted as a `open circle` in Euclidean space.
 * `limit point` \\(p\\) of a set \\(E\\): Every neightborhood of \\(p\\) constains a point \\(q\neq p\\) such that \\(q\in E\\)
 * `isolated point` \\(p\\) of a set \\(E\\): \\(p\in E\\) but \\(p\\) is not an limit point
 * \\(E\\) is `closed` if every limit point of \\(E\\) is a point of \\(E\\)
-* \\(p\in E\\) is an `interior point` if \\(\exists\\ N\_r(p) \subseteq E \\ \forall \\ r>0\\)
+* \\(p\in E\\) is an `interior point` if \\(\exists\\ N\_r(p) \subseteq E \text\{ for some \} \\ r>0\\)
 * \\(E\\) is `open` if every point of \\(E\\) is an interior point
 * \\(E\\) is perfect, if \\(E\\) is closed and if every point of \\(E\\) is a limit point of \\(E\\) (no isolated points)
 * \\(E\\) is bounded if \\(\exists\\ q\in X,\\ M\in\mathbb\{R\} \\ : \\ d(p,q)<M,\quad \forall \\ p\in E\\) 
 * \\(E\\) is dense if every point of \\(X\\) is a limit point of \\(E\\), or a point of \\(E\\)\\[\mathbb\{Q\} \text\{ is dense in \}\mathbb\{R\}\\]
 
 ### Examples
-Let us consider the following subsets or \\(\mathbb\{R^2\}=\mathbb\{C\}\\\\).
+Let us consider the following subsets or \\(\mathbb\{R^2\}=\mathbb\{C\}\\).
 * \\(\\{z\in\mathbb\{C\}\quad\|\quad \|z\|<1\\}\\)  
 \\(\rightarrow\\) not closed, open, not perfect, bounded
 * \\(\\{z\in\mathbb\{C\}\quad\|\quad \|z\|\leq 1\\}\\)  
@@ -68,6 +68,8 @@ Let \\(x\\) be a limit point of \\(E^C\\). Then every neighborhood of \\(x\\) ha
 2. \\(\leftarrow\\)  
 Let \\(x\notin E^C\\), so that \\(x\in E\\) by the def. of complement. Then since \\(E^C\\) is closed, \\(x\\) is not an limit point of \\(E^C\\), so some neighborhood of \\(x,\\ N_\epsilon(x)\\) has no intersection with \\(E^C\\), which implies that \\(N_\epsilon(x)\subset\\), and sicne this holds for arbitrary point of \\(E\\), \\(E\\) is open.
 
+### Intersection / Union of open/closed sets
+
 > __Theorem__(Rudin 2.24)  
 (a) For any collection \\(\\{G\_\alpha\\}\\) of open sets, \\(\bigcup\_\alpha G\_\alpha\\) is open.  
 (b) For any collection \\(\\{F\_\alpha\\}\\) of closed sets, \\(\bigcap\_\alpha F\_\alpha\\) is closed.  
@@ -81,6 +83,9 @@ Using De Morgan's Law on (a) gives (b).
 
 __proof__: In (a), taking minimum of radii \\(\epsilon\\) (which makes \\(N_\epsilon(x)\in G\_\alpha\\), gives a neighborhood of \\(x\\) in all of the finite sets, thus the intersection. (Note that when such sets are infinite, the infimum \\(\epsilon\\) could converge to 0).
 
+
+### Supremum is in the closer of a set
+
 __Definition__: `closure` of \\(E,\\)\\[\bar\{E\}:=E\bigcup \\{\text\{all limit points of \}E\\}\\] 
 
 > __Theorem__(Rudin 2.28): Supremum is in the closer of the set. (__Supremum is a limit point, if it is not in the set__)  
@@ -89,21 +94,26 @@ Let \\(E\\) be a nonempty set of __real numbers__ which is bounded above. Let \\
 __proof__:  
 1. If \\(y\in E\\), then the theorem trivially holds.
 2. If not, then by the definition of the supremum, for every \\(\epsilon>0\\) there must be \\(x\in E\\) such that 
-\\[y-\epsilon < x < y\\]  for otherwise \\(y-\epsilon\\) can be a new supremum. Thus \\(y\\) is a limit point of \\(E\\), and \\(y\in \bar\{E\}\\).
+\\[y-\epsilon < x \leq y\\]  for otherwise \\(y-\epsilon\\) can be a new supremum. Thus \\(y\\) is a limit point of \\(E\\), and \\(y\in \bar\{E\}\\).
+
+
+### Open Relative To
 
 __Remark__(Rudin 2.29): Suppose that \\(E\subset Y \subset X\\), where \\(X\\) is a metric space.  
 To say that \\(E\\) is an open subset of \\(X\\), for every \\(p\in E\\) there is associated (pointwise property!) \\(\epsilon>0\\) such that \\(d(p,q)<\epsilon\\) imples that \\(q\in E\\).  
 But we know that (Rudin 2.16) a subset of a metric space is also a metric space, so our def may equally well be made within \\(Y\\).  
-To be explicit, let us say that \\(E\\) is `open relative to` \\(Y\\) if \\(\forall\\ p\in E\\) there is associated \\(\epsilon>0\\ : \\ d(p,q)<\epsilon \quad\rightarrow\quad q\in Y\\).  
+To be explicit, let us say that \\(E\\) is `open relative to` \\(Y\\), when \\(\forall\\ p\in E\\) if \\(q\in Y\\) then there exists associated \\(\epsilon>0\\ : d(p,q)<\epsilon\\).  
 A set could be open relative to \\(Y\\) (subset), while not open in \\(X\\) (universe). Think about a circle in 3D space. It is never open in 3D, but is open in 2D plane which is a proper subset of 3D space.
 
 Following theorem show that there is certain relation between these concepts.
 
-> __Theorem__(Rudin 2.30): Suppose \\(Y\subset X\\).  
+> __Theorem__(Rudin 2.30): Suppose \\(Y\subset X\\), and \\(Y, X\\) are metric spaces.  
 A subset \\(E\\) of \\(Y\\) is open relative to \\(Y\\) iif \\(E=Y\bigcap G\\) for some open subset \\(G\\) of \\(X\\).
 
-1. \\(\leftarrow\\): Since \\(E\\) is open relative to \\(Y\\), for each point there must be \\(\epsilon\_p\\) such that \\(N\_\{\epsilon\_p\}(p)\subset Y\\). Let \\(G\\) be union of all such neighbors, then \\(G\\) is open by Theorem 2.19 and 2.24, and we have \\(E\subset G\cap Y\\). 
-2. \\(\rightarrow\\): let \\(G\\) is open in \\(X\\) and let \\(E=G\bigcap Y\\). Then every \\(p\in E\\) has a neighbor (in \\(X\\)) \\(N\_\epsilon(p)\subset G\\). Now it holds that
-\\[N\_\epsilon(p)\cap Y \subset G\cap Y = E\\] so that \\(E\\) is open relative to \\(Y\\).
+1. \\(\leftarrow\\):  
+Since \\(E\\) is open relative to \\(Y\\), for each point \\(p\in E\subset Y\\) there must be \\(\epsilon\_p\\) such that \\(d(p,q\)<\epsilon\_p \quad\rightarrow\quad q\in E\\). Now consider \\(X\\) as an universe, and define \\(G:=\bigcup\_\{p\}N\_\{\epsilon_p\}(p)\\) where the neighbors are defined in \\(X\\). Then \\(G\\) is open by Theorem 2.19 and 2.24, and we have \\(E\subset G\cap Y\\). Conversely, if \\(p\in G\\) and \\(p\in Y \\), then \\(d(p,q\)<\epsilon\_p, p\in Y) holds so that \\(p\in E\\). Thus we have \\(E=G\cap Y\\).  
+2. \\(\rightarrow\\):  
+let \\(G\\) is open in \\(X\\) and let \\(E=G\bigcap Y\\). Then every \\(p\in E\\) has a neighbor (in \\(X\\)) \\(N\_\epsilon(p)\subset G\\). Now it holds that
+\\[N\_\{\epsilon_p\}(p)\cap Y \subset G\cap Y = E\\] so that \\(E\\) is open relative to \\(Y\\).
 
 
