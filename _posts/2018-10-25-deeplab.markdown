@@ -9,6 +9,9 @@ tags: deep_learning segmentation aspp CRF
 
 PASCAL VOC 2012 test mIOU 79.7
 
+Cityspace test 70.4
+
+
 
 
 
