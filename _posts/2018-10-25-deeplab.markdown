@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Deeplab V3"
+title:  "Deeplab V2"
 date:   2018-10-25 09:00:05 +0800
 categories: deep_learning
 use_math: true
@@ -27,7 +27,7 @@ Cityspace test 70.4
 3. __Improve the localization__ with CRF on top of DCNN.
 
 ### Introduction
-> Essenttial to the success of DCNN is the __built-in invariance of DCNNs to the local image transformation__, which allows them to learn increasingly abstract data representations.
+> Essential to the success of DCNN is the __built-in invariance of DCNNs to the local image transformation__, which allows them to learn increasingly abstract data representations.
 
 __This invariance is not desirable for the segmentation__, where we have to solve localization problem.
 
@@ -40,7 +40,7 @@ __This invariance is not desirable for the segmentation__, where we have to solv
 	\\(\rightarrow\\)(A)SPP
 3. reduced localization accuracy due to DCNN invariance.  
 	using skip connections, concat b4 the final seg result can solve this.  
-	\\(\rightarrow\\) Deeplabv2 used `fully-connected pairwise CRF`[22] with mean field inference. V3 uses better CRF.
+	\\(\rightarrow\\) `Deeplabv2` used `fully-connected pairwise CRF`[22] with mean field inference. V3 uses better CRF.
 {:.deccounter}
 
 
@@ -53,7 +53,7 @@ __partial remedy = use `deconvolutional` layers,__ which however requires additi
 > We advocate instead the use of atrous convolution
 	
 
-`Deeplab V3` removed the downsampling, and instead upsample the filters. But Replacing all stride to atrous conv is too costly.
+`Deeplab V2` removed the downsampling, and instead upsample the filters. But Replacing all stride to atrous conv is too costly.
 > adopted a hybrid approach that strikes a good efficiency/accuracy trade-off, using atrous conv to incrase by a factor of 4 the density of computed feature maps, followed by fast bilinear interpolation by an additional factor of 8 to recover fet maps at the original image resolution.  
 
 By doing this, __FOV of the filter can be maintained (approx.ly) while enlarging the feature resolution.__
@@ -79,12 +79,12 @@ Conventional approaches to tackle this was
 
 Deeplab used 2nd one as a baseline, and substituted it with `ASPP`
 1. extract DCNN score maps from multiple (3 in their experiments) rescaled versions of the orig image using paralalle DCNN branches that share the same params.
-2. To produce thr final result, they bilinearly interpolate the feature maps from thje parallel DCNN branches to the orignla image resolutoion and fuse the, by taking at each position the maximum response accross the different scales. (Think this not that much structured. What about adding them and train as a whole, end to end?)
+2. To produce the final result, they bilinearly interpolate the feature maps from the parallel DCNN branches to the orignal image resolutoion and fuse the, by taking at each position the maximum response accross the different scales. (Think this not that much structured. What about adding them and train as a whole, end to end?)
 
 
 `ASPP`
 * Deeplab inspired to use ASPP from the detection paper of Kaiming He [20], which showed that regions of an arbitrary scale can be accurately and efficiently classified by resampling convolutional features extracted at a __single scale.__
-* `Deeplab V3` implemented variant, useing atrous conv at multiple rates in parallel.
+* `Deeplab V2` implemented variant, useing atrous conv at multiple rates in parallel.
 
 ### (3) Reduced Localization Accuracy due to DCNN Invariance - CRF
 > Tradeoff between localization accuracy and classification performance seems to be inherent in DCNNs
@@ -97,7 +97,7 @@ Prev works has pursued two directions to address this localization challenge.
 1. harness info from multiple layers in the convnet, to better estimate the obj boundaries [14] [21] [52]
 2. employ a superpixel representation, essentially delegating the locailzation task to a lower lvl segmentation methods [50]
 
-`Deeplab v3` pursue an alternative, based on coupling the recognition capacity of DCNNs and the fine-grained localization accruacy of fully connected CRFs  
+`Deeplab v2` pursue an alternative, based on coupling the recognition capacity of DCNNs and the fine-grained localization accruacy of fully connected CRFs  
 \\(\rightarrow\\) successful in addressing localization (obj boundaries)
 
 * `short-range CRFs` (Conventional one)  
@@ -105,8 +105,8 @@ Prev works has pursued two directions to address this localization challenge.
 
 Modern DCNNs produces a scoremap which is (comparably) accurate and already smooth. In this regime, using short-range CRFs can be detrimental, as our gola should be to recover detailed local structutre rather than further smooth it.
 
-* `fully-connected CRF` of `Deeplab V3`  
-	To overcome these limitation, `Deeplab v3` used the `fully connected CRF` (all possible pairwise edges exist) of [22], with the energy function \\[E(x)=\sigma\_\{i\}\theta\_i(x\_i)+\sigma\_\{ij\}\theta\_\{ij\}(x\_\{i\},x\_j)\\] where \\(x\_i\\) is a label assigmnent for pixels (on a single image)
+* `fully-connected CRF` of `Deeplab V2`  
+	To overcome these limitation, `Deeplab v2` used the `fully connected CRF` (all possible pairwise edges exist) of [22], with the energy function \\[E(x)=\sigma\_\{i\}\theta\_i(x\_i)+\sigma\_\{ij\}\theta\_\{ij\}(x\_\{i\},x\_j)\\] where \\(x\_i\\) is a label assigmnent for pixels (on a single image)
 	1. Unary potential
 	\\[\theta\_i(x\_i)=-\log P(x\_i)\\]
 	where \\(P(x_i)\\) is the label assignment prob at pixel \\(i\\) as computed by a DCNN.
