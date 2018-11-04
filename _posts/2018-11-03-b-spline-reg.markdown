@@ -7,6 +7,84 @@ use_math: true
 tags: geometry vision
 ---
 
+<a href="https://cran.r-project.org/web/packages/crs/vignettes/spline_primer.pdf" target="_blank">https://cran.r-project.org/web/packages/crs/vignettes/spline_primer.pdf</a>
+
+### B-spline
+B-spline function \\(B(x)\\) is defined by
+* `degree` \\(n\\) (of `spline order` \\(m=n+1\\))
+* \\(N+2\\) nondecreasing `knots` vector
+\\[t_0\leq ...\leq t_\{N+1\}\\]
+
+### Augmented Knots
+Define the \\(N+2+2(m-1)=N+2m=N+2n+2\\) `augmented knots` vector by adding \\(m-1\\) additional points on each side of the knots vector.
+\\[t\_\{-(m-1)\}=...=t\_0\leq ... \leq t\_\{N+1\}=...=t\_\{N+m\}\\]
+or, reindexing by
+\\[t\_0=...=t\_\{m-1}\leq ... \leq t\_\{N+m\}=...=t\_\{N+2m-1\}\\]
+
+### Basis function
+For each augmented knots, define a set of real-valued `basis function` \\[B\_\{i,j\}(x)\quad =\quad B\_\{\text\{[knots index][recursive order <= degree]\}\}\\]
+by
+\\[
+B\_\{i,0\}(x)=\begin\{cases\}
+1 \quad\text\{if \} t\_i\leq x < t\_\{i+1\} \\\
+0 \quad\text\{otherwise \} \\\
+\end\{cases\}
+\\]
+
+\\[B\_\{i,j\}(x)=\alpha\_\{i,j\}B\_\{i,j-1\}(x)+[1-\alpha\_\{i+1,j\}(x)]B\_\{i+1,j-1\}(x)\\]
+where
+\\[
+\alpha\_\{i,j\}(x)=\begin\{cases\}
+\frac\{x-t\_i\}\{t\_\{i+j\}-t\_i\} \quad\text\{if \} t\_\{i\+j}\neq t\_\{i\} \\\
+0 \quad\text\{otherwise \} \\\
+\end\{cases\}
+\\]
+
+### B-spline function
+A function which realizes the B-spline is defined by
+\\[B(x)=\sum\_\{i=m-1\}^\{N+m-2\}(x),\quad x\in [t\_0,t\_\{N+1\}]\\]
+__Notice that we have \\(N+2n+2\\) augmented knots, but use only the \\(N+n+1\\) control points.__
+
+The \\(\beta = \{\beta\_0...,\beta\_\{N+n\}\}\\) is called `control points` or `de Boor points`.
+
+
+### Linear regression of P2CP
+1. Single point cases  
+Given a point \\(x\\), we obtain a \\(N+n+1\\)-dimensional vector \\(a\\), which represents how the basis function evaluates \\(x\\).
+\\[a=[B_\{m-1,n\}(x),...,B_\{N+m-2,n\}(x)\\]
+
+Taking inner product of \\(a\\) with control points \\(\beta\\), \\[\beta = [\beta\_1,...,\beta\_\{N+n\}]\\] gives a function value how our B-splie evaluates \\(x\\).
+2. Mulitiple points
+Given \\(t\\) points, by elaborating 1 we obtain matrix-vector multiplication (and linear regression, or projection)
+\\[
+\begin\{bmatrix\}
+\\ \-\\ a\_\{0\}^T \\ \-\\ \\\
+\vdots \\\
+\\ \-\\ a\_\{N+n\}^T \\ \- \\\
+\end\{bmatrix\}
+\begin\{bmatrix\}
+\beta\_\{0\} \\\
+\vdots \\\
+\beta\_\{N+n\} \\\
+\end\{bmatrix\}
+\approx
+\begin\{bmatrix\}
+f(x\_0\) \\\
+\vdots \\\
+f(x\_\{N+n\}\) \\\
+\end\{bmatrix\}
+\\] 
+\\[A\beta=x\\]
+where 
+* \\(A\in (t\times N+n),\\ \beta\in \Re^\{N+n\}\\), and \\(f\\) is a function we wish to approximate.
+
+As in <a href="{{site.url}}/linear_algebra/2018/05/16/projection.html" target="_blank">(link)</a>, we want to project \\(x\\) by the subspace spanned by the columns of \\(A\\). Then the columns of \\(A\\) must be orthogonal to the error vector \\(e=x-A\beta\\), so that we obtain
+\\[A^T(b-A\beta)=0\\]
+\\[A^TA\beta=A^Tb\\]
+
+Next: PseudoInverse!!! (when we have many knots, it is quite unlikely that \\(A^TA\\) is invertible)
+
+### Python codes
 ```python
 import matplotlib.pyplot as plt
 import numpy as np
