@@ -18,15 +18,16 @@ tags: linear_algebra
 ### (2) Null space (\\(R^n\\), with \\(n-r\\) basis)
 * For \\(x\in\textrm{null}(A),\>Ax=0\\) holds \\(\rightarrow\\) taking inner product with rows of \\(A\\) and \\(x\\) gives \\(0\in\Re\\).
 
-* Orthogonal complement to the rowspace (Gathered all vectors orthogonal to rowspace – we need to find  basis all orthogonal to the basis of rowspace) (Orthogonal complement will be defined rigorously later)
+* Orthogonal complement to the rowspace (Gathered all vectors orthogonal to rowspace – we need to find  basis all orthogonal to the basis of rowspace. BTW, think its (and its basis vectors's) existence is clear from its definition) (Orthogonal complement will be defined rigorously later)
 * Row operation does not change the nullspace (since such operation does not change the rowspace)
 * \\(A\\) transforms a vector from nullspace to the origin of the column space (\\(0\in\Re^n\\)).
 
 
 ### (3) Column space (\\(R^m\\), with \\(r\\) basis)
 * Space spanned by the columns
-* Row operation does not change the column space, since the nullspace remains same
-Proof. After the row operation, the matrix (in row sense) will look like \\[\begin{bmatrix} \textrm{row a} \\\ \vdots \\\ \textrm{row a + row b} \end{bmatrix}\\] 1. Linear combinations of columns which produced 0 vector remains the same, since the \\(\textrm{row a}\\) is copied directly into another row.
+* Row operation does not change the column space, since the nullspace remains same  
+__Proof__: After the row operation, the matrix (in row sense) will look like \\[\begin{bmatrix} \textrm{row a} \\\ \vdots \\\ \textrm{row a + row b} \end{bmatrix}\\]  
+1. Linear combinations of columns which produced 0 vector remains the same, since the \\(\textrm{row a}\\) is copied directly into another row.
 2. Linear combinations of columns which did not produced 0 vector remains the same, for the same reason
 Therefore, the basis of the column vector remains the same after the row operation.
 

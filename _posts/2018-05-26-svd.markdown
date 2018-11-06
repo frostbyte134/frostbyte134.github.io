@@ -52,7 +52,7 @@ are the basis of the rowspace of \\(A\\). Working with \\(AA^T\\) we obtain oppo
 
 
 <h3 id="const_proof_of_svd">Constructive proof of (the existence of) SVD</h3>
-Let \\(A\in\mathbb\{C\}^\{m\times n\}\\). WLOG we see that \\(\textrm\{min\}(m,n)\leq r=\textrm\{rank\}A\\).  
+Let \\(A\in\mathbb\{C\}^\{m\times n\}\\). WLOG we see that \\(r=\textrm\{rank\}A\leq \textrm\{min\}(m,n)\\).  
 Since \\(A^TA\in\mathbb\{C\}^\{n\times n\}\\) is normal (and thus positive semidefinite), we have \\(n\\) eigenpairs 
 \\[(\sigma_1^2,...,\sigma_r^2,0,...,0),(v_1,...,v_n)\\]where \\(v_i\\)s are orthonormal. Then, 
 \\[A^TAv_i=\sigma_i^2v_i\\]
