@@ -11,7 +11,7 @@ PASCAL VOC 2012 test mIOU 79.7
 
 Cityspace test 70.4
 
-
+<a href="https://arxiv.org/abs/1606.00915" target="_blank">https://arxiv.org/abs/1606.00915</a>
 
 
 
