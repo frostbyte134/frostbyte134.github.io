@@ -40,9 +40,14 @@ Cityscape VAL 79.55, test 82.1%
 * Then fine-tune the model on the coarse annotations to compete in TEST set - 
 
 
-### The cityscapes dataset for semantic urban scene understanding
-
 ### PSPNet
+
+test80.2 (without coarse, 78.4)
+
+* Poly rate policy (90K)
+* Notably, took large benefit (1.8%) from coarse set
+* No pre-train on COCO (perhaps?)
+
 
 ### Xception?
 
