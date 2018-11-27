@@ -6,7 +6,7 @@ categories: deep_learning
 use_math: true
 tags: optimization deep_learning need_revise
 ---
-
+<img src="{{ site.url }}/images/deeplearning/batchnorm_calc.png" class="center" style="width:800px"/> 
 > <a href="https://arxiv.org/abs/1502.03167" target="_blank">Batch normalization</a> is a method of adaptive reparametrization, motivated by the difficulty of training very deep models.
 
 It provides __reasonable tradeoff__ between the representational power of the network and ease in optimization. 
@@ -17,16 +17,16 @@ Both of these sources of noise mean that every layer has to learn to be robust t
 
 (<a href="https://www.quora.com/Is-there-a-theory-for-why-batch-normalization-has-a-regularizing-effect" target="_blank">https://www.quora.com/Is-there-a-theory-for-why-batch-normalization-has-a-regularizing-effect</a>)
 
-Too big batch size \\(\rightarrow\\) not much randomness \\(rightarrow\\) No regularization effects
+Too big batch size \\(\rightarrow\\) not much randomness \\(\rightarrow\\) No regularization effects
 
 
 ### Inverse Covariance Shift (Motivations of BN)
-<a href="https://arxiv.org/abs/1502.03167" target="_blank">`Inverse covariance shift`</a> :  A phenomenon s.t. the distribution (isn't it the 1st and 2nd statistics only, considering its name?) of \[a layer's input over the entire traning set\] changes during the training, as the parmeters of the previous layers change.
+<a href="https://arxiv.org/abs/1502.03167" target="_blank">`Inverse covariance shift`</a>, `ICS` :  A phenomenon s.t. the distribution  of \[a layer's input over the entire traning set\] changes during the training, as the parmeters of the previous layers change.
 
 The author states that 
 > As such it is advantageous for the distributiuon of \\(x\\) to remain fixed over time.
 
-This is not the optimal situation considering the representational power. However in learning (or optimization) perspective, since __the upper layers have to compensate for the change in the distribution of lower layers__, this situation is optimal. We want to make a __tradeoff__ by fixed the 1st (mean = location) and 2nd (stddev) statistic of the lower layers.
+This is not the optimal situation considering the representational power. However in learning (or optimization) perspective, since __the upper layers have to compensate for the change in the distribution of lower layers__, this situation is optimal. We want to make a __tradeoff__ by fixing the 1st (mean = location) and 2nd (stddev) statistic of the lower layers.
 
 The layers of deep networks are too much _tangled_(=__ICS__ exists) for effective optimization. Previous approaches of _untangling_ the network was 
 {:.acounter}

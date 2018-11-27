@@ -1,0 +1,39 @@
+---
+layout: post
+title:  "Training guidlines"
+date:   2018-11-25 09:00:05 +0800
+categories: deep_learning
+use_math: true
+tags: deep_learning cam basenet localization 
+---
+
+
+### Mapillary
+* WideResnet  
+	* For training, we use the same setup and hyperparameters as for ResNeXt, with one exception: following [31] we train for 90 epochs, linearly decreasing the learning rate from 0.1 to 10−6
+	* dropout in the last
+	* model files = https://github.com/mapillary/inplace_abn/blob/master/models/wider_resnet.py
+	* batchSize 256, bn eps= 1e-5, decay=0.1
+	* lr 0.1, weight decay 10−4, momentum 0.9
+
+### Wider or deeper
+* We follow settings in the re-implementation of ResNets by Gross and Wilber [10] as possible. But, we use a linear learning
+rate schedule, which was reported as a better choice by Mishkin et al. [23]. Take Model A in Table 1 for example. __We start from 0.1, and linearly reduce the learning rate to 10−6 within 450k__
+* We run all experiments using the MXNet framework [4], with four devices (two K80 or four Maxwell Titan X cards
+
+
+### Original Xception
+* The Inception V3 model uses a weight decay (L2 regularization) rate of 4e − 5, which has been carefully tuned for performance on ImageNet. We found this rate to be quite suboptimal for Xception and instead settled for 1e − 5
+* Initial learning rate: 0.045
+* decay of rate 0.94 every 2 epochs
+* dropout = rate 0.5 before the logisti
+* All networks were implemented using the TensorFlow framework [1]
+* trained on 60 NVIDIA K80 GPUs each.
+* For the __ImageNet experiments, we used data parallelism with synchronous gradient descent__ to achieve the best classification performance, while for JFT we used asynchronous gradient descent so as to speed up training.
+* The ImageNet experiments took approximately __3 days__ each
+* Total __iteration = 120k__ (with 60 GPUS? wtf)
+
+### Modified Aligned Xception (Deeplab v3 plus)
+* Nesterov momentum optimizer with momentum = 0.9, initial learning rate = 0.05, rate decay = 0.94 every 2 epochs, and weight decay 4e − 5.
+* We use asynchronous training with 50 GPUs and each GPU has batch size 32 with image size 299×299
+* batch_norm_decay=0.9997, batch_norm_epsilon=0.001 (author code. small batch size?), weight_decay=0.00004
