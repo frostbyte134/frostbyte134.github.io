@@ -126,6 +126,30 @@ if list then list elif list then list elif list else list fi
 	2. set of simple commands, connected with `|` (pipe)
 	3. consecutive expressions, connected with `&`, `;`, `&&` or `||`.  
 
+### For loops
+<a href="https://stackoverflow.com/questions/12316167/does-linux-shell-support-list-data-structure" target="_blank>https://stackoverflow.com/questions/12316167/does-linux-shell-support-list-data-structure</a>
+
+It supports lists, but not as a separate data structure (ignoring arrays for the moment).
+
+The for loop iterates over a list (in the generic sense) of white-space separated values, regardless of how that list is created, whether literally:
+```
+for i in 1 2 3; do
+    echo "$i"
+done
+```
+or via parameter expansion:
+```
+listVar="1 2 3"
+for i in $listVar; do
+    echo "$i"
+done
+```
+or command substitution:
+```
+for i in $(echo 1; echo 2; echo 3); do
+    echo "$i"
+done	
+```
 continued..
 
 Links  
