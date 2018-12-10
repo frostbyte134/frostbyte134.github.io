@@ -33,13 +33,15 @@ Proof: using the negation rule of the qualifier,
 
 
 When \\(I\equiv\emptyset\\), following holds.
-* \\(\mathop\{\bigcup\}\_\{i\in I\}A\_i=\emptyset\\): When we take union of more less sets, the resulting set becomes smaller. Taking union over the empty union must yield a set which is smaller than any other sets.  
-Proof:
+* \\(\mathop\{\bigcap\}\_\{i\in I\}A\_i=U\\): When we take intersection of more less sets, the resulting set becomes more larger.  
+`Proof`:  
 \\[\forall x\in U,\quad x\in \mathop\{\bigcap\}\_\{i\in I\}A\_i\\]
-\\[\forall x\in U,\quad i\in I\quad\rightarrow\quad x\in A\_i\\]
+\\[\forall x\in U,\quad i\in I\quad\rightarrow\quad  x\in A\_i\\]
 which is a vacously true proposition (\\(i\in I\\) is false)
-* \\(\mathop\{\bigcap\}\_\{i\in I\}A\_i=U\\): When we take intersection of more less sets, the resulting set becomes more larger. 
-Proof: Taking De Morgan's rule of above yields desired result.
+* \\(\mathop\{\bigcup\}\_\{i\in I\}A\_i=\emptyset\\): When we take union of more less sets, the resulting set becomes smaller. Taking union over the empty union must yield a set which is smaller than any other sets.  
+`Proof`:  
+Taking De Morgan's rule of above yields desired result.
+
 
 Next:  
 

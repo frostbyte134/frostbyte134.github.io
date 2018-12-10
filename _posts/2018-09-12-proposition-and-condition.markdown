@@ -53,7 +53,7 @@ means that \\[\forall x\in U, f(x)=g(x) \text\{ holds\}\\]
 3. `contrapositive` of a proposition \\(p\rightarrow q \\): \\(\quad\sim q\rightarrow \sim p\\)
 4. For propositions, `transitive` / `De Morgan's rule` holds.  
 Based on the De Morgan's rule, we can derive the `negation rule of the quantifiers`
-\\[\sim(p(x_1)\lor p(x_2)\lor p(x_3)\lor \cdots \lor p(x_n))\quad\Longleftrightarrow\quad\sim p(x_1) \land \sim p(x_2) \land \sim p(x_3) \land \cdots \land \sim p(x_n)\\]
+\\[\sim(p(x_1)\land p(x_2)\land p(x_3)\land \cdots \land p(x_n))\quad\Longleftrightarrow\quad\sim p(x_1) \lor \sim p(x_2) \lor \sim p(x_3) \lor \cdots \lor \sim p(x_n)\\]
 is equivalent to
 \\[\sim(\forall x \in \\{x_1,...,x_n\\}, p(x))\quad\Longleftrightarrow\quad \exists x\in\\{x_1,...,x_n\\}:\sim p(x)\\]
 
