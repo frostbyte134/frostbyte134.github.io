@@ -73,7 +73,7 @@ The results of this section is done in __non-parametric__ setting, e.g. models w
 
 `Proposition 1`: For \\(G\\) fixed, the __optimal discriminator__ \\(D\\) is
 \\[D\_G^*=\frac\{p\_\{data\}(x)\}\{p\_\{data\}(x)+p\_g(x)\}\tag\{2\}\\]
-(is this term sum to 1?)
+(\\(D(x)\\) corresponds to \\(P[Y=data \|\ X=x]\\), thus sum to 1 by \\(P[Y=data \|\ X=x]+P[Y=fake \|\ X=x]\\)
 
 __Proof__: The training criterion for the discriminator \\(D\\) given any generator \\(G\\), is to maximize the quantity \\(V(G,D)\\)
 \\[ V(G,D)=\int\_x\{p\_\{data\}(x)\log(D(x))dx\} + \int\_z p\_\{z\}(z)\log(1-D(g(z)))dz \\]
