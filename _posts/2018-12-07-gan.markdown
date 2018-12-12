@@ -13,7 +13,7 @@ tags: deep_learning gan domain
 ### Abstract
 We simultaneously train two models:
 * a generative model \\(G\\) __(counterfeit)__ that captures the data distribution, and
-* a discriminative model \\(D\\) __(police)__ that estimates the prob mahat a sample came from the training data, rather than \\(G\\).
+* a discriminative model \\(D\\) __(police)__ that estimates the prob that a sample came from the training data, rather than \\(G\\).
 
 The `training procedure` for \\(G\\) is to maximize the prob of \\(D\\) making a mistake. This corresponds to a __minimax__ two player game.
 
@@ -32,7 +32,7 @@ Deep generative models have had less of an impact,
 <img src="{{ site.url }}/images/deeplearning/gan/generative-2014.png" class="center" style="width:700px"/>   
 In __undirected graphical models__ (MRF!) with latent variables such as RBM, or DBP (deep Boltzman machines), 
 * interactions are represneted as the prod of unnormalized potentials.  
-* The partition function and its gradient are intractable for all but the most trivial instances, amthough they can be estimated by MCMC methods.
+* The partition function and its gradient are intractable for all but the most trivial instances, akthough they can be estimated by MCMC methods.
 
 
 ### Adversarial nets
@@ -76,20 +76,42 @@ The results of this section is done in __non-parametric__ setting, e.g. models w
 (is this term sum to 1?)
 
 __Proof__: The training criterion for the discriminator \\(D\\) given any generator \\(G\\), is to maximize the quantity \\(V(G,D)\\)
-\\[ V(G,D)=\int\_x\{p\_\{data\}(x)\log(D(x))dx\} + \int\_z p\_\{z\}(z)\log(1-D(g(z)))dz\\]
+\\[ V(G,D)=\int\_x\{p\_\{data\}(x)\log(D(x))dx\} + \int\_z p\_\{z\}(z)\log(1-D(g(z)))dz \\]
 by substituting \\(g(z)=x\\) and performing the integration over the \\(Supp(p\_\{data\})\bigcup Supp(p\_g)\\) (which is the domain of the discriminator WLOG),
-\\[=\int\_x\{p\_\{data\}(x)\log(D(x)) + p\_g(x)\log(1-D(x))dx\} \\]
+\\[=\int\_x\{p\_\{data\}(x)\log(D(x)) + p\_g(x)\log(1-D(x))dx\} \tag\{3\}\\]
 
-For any \\((a,b)\in \Re^2 \backslash \\{0,0\\}\\) (isn't the constraint that \\(a,b \in[0,1]\\) (since they are probs in above eq) or \\((a,b)\geq (0, 0)\\) (for following maximality to be hold) must be added?) achieves its maximum in [0,1] at \\(\frac\{a\}\{a+b\}\\), concluding proof.
+For any \\((a,b)\in \Re^2 \backslash \\{0,0\\}\\)   
+(isn't the constraint that \\(a,b \in[0,1]\\) (since they are probs in above eq) or \\((a,b)\geq (0, 0)\\) (for following maximality to be hold) must be added?)  
+, \\(a\log y+b\log (1-y)\\) achieves its maximum in [0,1] at \\(\frac\{a\}\{a+b\}\\), concluding proof.
 
+> `Note` that the training objective for \\(D\\) can be interpreted as maximizing the log-likelihood for estimating the conditional prob \\(P(Y=y\|X=x)\\), where \\(Y\\) indicates whether \\(x\\) comes from data (with y=1) or from G (with y=0).  
 
-`Note` that the training objective for \\(D\\) can be interpreted as maximizing the log-likelihood for estimating the conditional prob \\(P(Y=y\|X=x)\\), where \\(Y\\) indicates whether \\(x\\) comes from data (with y=1) or from G (with y=0).  
-(To estimate such conditional prob (which should be binary valued, if optimal), we have to maximize the log-likelihood in \\(V(G,D)\\))
+\\(\rightarrow\\) The training object independently maximizes(=estimates), for each \\(x\\), the conditional prob \\(P(Y=y\|X=x)\\)
 
 
 Now the minimax game in Eq (1) can be reformulated as \\(\min\_\{G\}C(G)\\) with,
 \\[ C(G)=\max\_\{D\}V(G,D) \\]
 
+__Theorem 1__: The global minimum of the virtual training criterion \\(C(G)\\) is achieved iif \\(p\_g=p\_\{data\}\\). At that point, \\(C(G)\\) achieves the value \\(-\log 4\\).
+
+Note that,
+\\[p\_g(x)=P[G(z;\theta\_p)=x]:=\sum\_\{z\text\{  s.t.  \} G(z;\theta\_p)=x\}P[Z=z]\\]
+, where \\(P[Z=z]\\) is the source of the randomness (U(0,1) maybe). Therefore given \\(p\_g\\), there is limited \\(G\\) which can achieve given \\(G\\).    
+`proof`: For \\(p\_g=p\_\{data\}\\), \\(D^*\_\{G\}(x)=1/2\\). Hence by inspecting Eq.4, the function value is evaluated as \\(C(G')=-\log 4\\). To see that this is the best possible value of \\(C(G)\\), ...
+
+(just note that KL-divergence is \\(p\log\frac\{p\}\{q\}\\), not \\(\frac\{\log p\}\{\log q\}\\)).
+
+
+__4.2 Convergence of Algorithm 1__:  
+For the convexity of \\(V(G,D)=U(p\_g,D)\\) in \\(p\_g\\). Remember (though skipped in this page) that in the Eq.(3),  
+\\[ V(G,D)=\int\_x\{p\_\{data\}(x)\log(D(x)) + p\_g(x)\log(1-D(x))dx\} \tag\{3\}\\]
+
+
+### Pros and Cons
+
+__Disadvantages__: there is no explicit represnetation of \\(p\_g(x)\\), and that \\(D\\) must be synchronized well with \\(G\\) during training (in particular, \\(G\\) must not be trained too much without updating \\(D\\), in order to avoid `the Helvetica scenario` in which \\(G\\) collapses too many values of \\(z\\) to the same value of \\(x\\) to have __enough diversity__ to model \\(p\_\{data\}\\))
+
+__Advantages__: no need of Markov chains. only baack prop/ on inference is needed during learning. 
 
 Next:  
 
