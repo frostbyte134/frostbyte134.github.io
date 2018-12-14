@@ -47,3 +47,7 @@ Carsim
 * Remote viewer plugin – 가벼운 뷰어
 * 다 지우고 regenerate – 초기화
 
+stateflow
+* Simulink-stateflow = if/else rule
+* Default transition: 왼쪽 toolbar
+* input-output = 오른클릭후 Explore, 변수추가 (위의 툴바) - input/output
