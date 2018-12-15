@@ -21,8 +21,8 @@ Let \\(x,y>0, x,y\in\mathbb\{R\}\\). Prove that \\(x<y\\ \Leftrightarrow\\ x^2<y
 	2.; \\(\leftarrow\\)  
 	\\[y^2-x^2>0\quad\rightarrow\quad (y-x)(y+x)>0\quad\rightarrow\quad y-x>0\\]
 
-> Theorem 2.2.11. `Triangle inequality`  
-For \\(x,y\in\mathbb\{R\}\\), show that \\[\|\|x\|+\|y\|\|\leq\|x+y\|\leq\|x\|+\|y\|\\]	
+> Theorem 2.2.11. `Triangular inequality`  
+For \\(x,y\in\mathbb\{R\}\\), show that \\[\|x+y\|\leq\|x\|+\|y\|\\]	
 
 __Proof__: Using Ex)2.2.9, square the both sides and use \\(xy\leq\|xy\|, -xy\leq\|xy\|\\).
 

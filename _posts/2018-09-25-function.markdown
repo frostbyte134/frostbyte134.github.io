@@ -12,7 +12,7 @@ tags: analysis function orderd_pair cartesian_product
 
 A relation \\(R:A\mapsto B\\) is a `function` when
 * \\(\forall x\in A, \exists y\in B\\ : \\ (x,y)\in R\\)
-* If \\(f(x)=f(y)\\), then \\(x=y\\).
+* If \\((x,y)\in f\\ \land\\ (x,z)\in f\\), then \\(y=z\\).
 
 List of famous functions are
 * `Identity function` \\(f = \\{(x,y)\in A\times A \\ \| \\ x=y\\}\\)

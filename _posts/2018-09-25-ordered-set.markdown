@@ -7,9 +7,9 @@ use_math: true
 tags: analysis chain totally_ordered_set well_ordered_set maximum maximal supremum least_upper_bound_property
 ---
 
-### (totally) Ordered set
+### (Totally) Ordered set
 
-An `ordered set` \\(A,\gt\\) is a pair with a set and a <a href="{{site.url}}/analysis/2018/09/24/relation.html#order" target="_blank">order relation</a>. 
+An `ordered set` \\(\\{A,\gt\\}\\) is a pair with a set and a <a href="{{site.url}}/analysis/2018/09/24/relation.html#order" target="_blank">order relation</a>. 
 
 If the order relation can be applied to two elements of the set, we say that the elemtns are `comparable`. If two arbitrary elements of a set are comparable, we say that the set is a `totally ordered set` (or `linearly ordered set`).
 
@@ -28,7 +28,7 @@ A totally ordered subset of a ordered set is called as `chain`.
 For two ordered sets \\((A, \leq),\\ (B, \leqslant)\\), if a function \\(f:A\mapsto B\\) such that
 \\[\forall x,y\in A, x\leq y\quad\rightarrow\quad f(x)\leqslant f(y)\\]
 exists, then we say that \\(f\\) is an `order-preserving function` (or increasing function).  
-If a is one-to-one correspondence and \\(f, f^\{-1\}\\) are both order-preserving, we say that \\(f\\) is an `order-isomorphism`, and \\(A, B\\) are `isomorphic`. Isomorphism is denoted by
+If \\(f\\) is one-to-one correspondence and \\(f, f^\{-1\}\\) are both order-preserving, we say that \\(f\\) is an `order-isomorphism`, and \\(A, B\\) are `isomorphic`. Isomorphism is denoted by
 \\[A\cong B\\]
 
 
@@ -101,15 +101,19 @@ Proof: Let
 * \\(A\subseteq U\\) be a set, and
 * \\(Q\\) be a __set of all lower bounds__ of \\(A\\). Then,\\[\forall q\in Q,\\ x\in A,\quad q\leq x\\]
 
-Let \\(g:=\sup Q\\). Then,
-* \\(\forall q\in Q, g\geq q\\) since \\(g\\) is an upper bound of \\(Q\\)  
-* If \\(x\geq g\\ \forall q\in Q\\), then \\(x\geq g\\) (\\(x\\) is an another upper bound of \\(Q\\)) (This is the contraposition of the original definition of the supremum).
+Let \\(g:=\sup Q\\). We want to show that \\(g\\) is also \\(\inf A\\), using the fact that \\(g=\sup Q\\).  
+Firstly since \\(g=\sup Q\\),
+* \\(\forall q\in Q, g\geq q\\) (\\(g\\) is the greatest lower bound) 
+* If \\(x\geq q\\ \forall q\in Q\\), then \\(x\geq g\\) 
 
-We need to show that \\(g=\sup Q=\inf A\\), which is
+We need to show that \\(g=\inf A\\), which is
 1. \\(\forall x\in A,\\ x\geq g\\)  
-If \\(x\in A\\), then \\(x\geq q\\ \forall q\in Q\\), so that \\(x\geq q\geq g\\).
+Suppose not. Then \\(\exists x\in A\\ : \\ x<g\\). Consequently \\(x<g, q\leq g\\), and we want to draw \\(q\\) close enough to \\(g\\) to make \\(x < q \leq g\\), which is a contradiction of the definition of \\(Q\\). Let \\(\epsilon=g-x\\). Then since \\(g=\sup Q\\),
+\\[\exists q\in Q : g-\epsilon < q \leq g\\]
+\\[\exists q\in Q : g-g+x < q \leq g\\]
+which is a contradiction.
 2. If \\(k>g\\), then \\(k\\) is not an lower bound of \\(A\\)  
-We assumed that \\(Q\\) is the set of all lower bounds of \\(A\\), and \\(k>g\geq q\\ \forall q\in Q\\).
+We assumed that \\(Q\\) is the set of all lower bounds of \\(A\\), and \\(k>g\geq q\\ \forall q\in Q \quad\rightarrow\quad k\notin Q\\).
 
 
 ### inf A = -sup -A
@@ -117,7 +121,7 @@ We assumed that \\(Q\\) is the set of all lower bounds of \\(A\\), and \\(k>g\ge
 > Theorem: Let \\(A\in\mathbb\{R\}\\), and is lower boudned. Then
 \\[\inf A = -\sup -A\\]
 
-__Proof__: Since \\(A\\) is lower bounded and - reverses the order, \\(\beta:=\sup -A\\) exists. (Remember that \\(mathbb\{R\}\\) has the least upper bound property)  
+__Proof__: Since \\(A\\) is lower bounded and - reverses the order, \\(\beta:=\sup -A\\) exists. (Remember that \\(\mathbb\{R\}\\) has the least upper bound property)  
 Then two property holds for \\(\beta\\)
 1. \\(\forall -x\in -A,\\ \beta\leq -x\\)
 2. If \\(\gamma < \beta\\), then \\(\exists -x\in -A \\ : \\ \gamma < x\\).
