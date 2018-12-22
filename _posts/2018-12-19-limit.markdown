@@ -1,0 +1,43 @@
+---
+layout: post
+title:  "Limit "
+date:   2018-12-19 08:00:05 +0800
+categories: analysis
+use_math: true
+tags: analysis limit sequence bounded subsequence
+---
+
+
+### Limit
+> We say that a sequence \\(\\{a\_n\\}\\) converges to a `limit` \\(L\in\Re\\) when
+\\[\forall \epsilon > 0,\\ \exists n\in \mathbb\{N\},\\ \forall n\\ : \\ n > N\quad\rightarrow\quad \| a\_n - L \| < \epsilon\\]
+
+1. Obviously, its negation is
+\\[\exists \epsilon > 0, \forall n\in \mathbb\{N\},\\ \exists n\\ : \\ n > N\quad\rightarrow\quad \| a\_n - L \| \geq \epsilon\\]
+2. __Converging sequence \\(\\{a\_n\\}\\) has a unique limit__. Suppose not, and assume that it converges to \\(L\_1\\) and \\(L\_2\\). Then,
+\\[\forall \epsilon > 0,\\ \exists n\in \mathbb\{N\},\\ \forall n\\ : \\ n > N\quad\rightarrow\quad \| a\_n - L\_1 \| < \epsilon/2\\]
+\\[\forall \epsilon > 0,\\ \exists n\in \mathbb\{N\},\\ \forall n\\ : \\ n > N\quad\rightarrow\quad \| a\_n - L\_2 \| < \epsilon/2\\]
+We can bound \\(\| L\_1 - L\_2\| \\) with these statements.  
+\\[\| L\_1 - L\_2\| = \| L\_1 -a\_n - L\_2 + a\_n\| \leq \| a\_n - L\_1 \| + \| a\_n - L\_2 \| < \epsilon \\]
+Since \\(\epsilon\\) was arbitrary, \\(\| L\_1 - L\_2\|=0\\).
+
+### Bounded sequence
+> Bounded function  
+Given a function \\(f\\ : \\ D\rightarrow\Re\\), and a set \\(E\subseteq D\\). We say that \\(f\\) is `bounded` on \\(E\\) if,
+\\[\forall x\in D,\\ \exists M>0\\ : \\ \|f(x)\| \leq M\in\Re\\]
+
+1. Since we can think of a sequence as a function (with \\(\mathbb\{N\}\\) as domain), the __bounded sequence is defined similarly__.
+2. Converging sequence is bounded.  
+__proof__: Suppose \\(\lim\_\{n\rightarrow\infty\}\\{a\_n\\}=L\\). Then, 
+\\[\forall \epsilon > 0,\\ \exists n\in \mathbb\{N\},\\ \forall n\\ : \\ n > N\quad\rightarrow\quad \| a\_n - L \| < \epsilon\\]
+Fix \\(\epsilon>0\\). Then for the corresponding \\(N\\), 
+\\[\| a\_n - L \| < \epsilon\\]
+\\[\| a\_n\| - \| L\| \leq \| a\_n - L \| < \epsilon\\]
+\\[\rightarrow \| a\_n\| \leq < L + \epsilon\\]
+Then \\(\\{a\_n\\}\\) is bounded by \\(\max\\{L + \epsilon, \|a\_1\|,...,\|a\_\{n-1\}\|\\})
+
+
+
+[DA]: 맛있는 해석학 
+Next:  
+
