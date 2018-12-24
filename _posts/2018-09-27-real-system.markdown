@@ -59,7 +59,7 @@ In \\(\mathbb\{R\}\\) (as a universe), the (sub)set of rational numbers and irra
 
 Proof: use Archimedeas property. (book, 54p)
 
-It can be alternatively expressed as, "Any nonempty open subset of \\(\mathbb\{R\}\\ has rational numbers and irrational numbers as its element"
+It can be alternatively expressed as, "Any nonempty open subset of \\(\mathbb\{R\}\\) has rational numbers and irrational numbers as its element"
 
 Next:  
 

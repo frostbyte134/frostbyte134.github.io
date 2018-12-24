@@ -22,22 +22,82 @@ We can bound \\(\| L\_1 - L\_2\| \\) with these statements.
 Since \\(\epsilon\\) was arbitrary, \\(\| L\_1 - L\_2\|=0\\).
 
 ### Bounded sequence
-> Bounded function  
-Given a function \\(f\\ : \\ D\rightarrow\Re\\), and a set \\(E\subseteq D\\). We say that \\(f\\) is `bounded` on \\(E\\) if,
+> Definition: `Bounded function`  
+Given a function \\(f\\ : \\ D\rightarrow\Re\\), and a set \\(E\subseteq D\\). We say that \\(f\\) is bounded on \\(E\\) if,
 \\[\forall x\in D,\\ \exists M>0\\ : \\ \|f(x)\| \leq M\in\Re\\]
+Since we can think of a sequence as a function (with \\(\mathbb\{N\}\\) as domain), the __bounded sequence is defined similarly__.
 
-1. Since we can think of a sequence as a function (with \\(\mathbb\{N\}\\) as domain), the __bounded sequence is defined similarly__.
-2. Converging sequence is bounded.  
-__proof__: Suppose \\(\lim\_\{n\rightarrow\infty\}\\{a\_n\\}=L\\). Then, 
+
+> __Theorem 3.1.13 (DA)__  
+Converging sequence is bounded.  
+
+__proof__: Suppose \\(\lim\_\{n\rightarrow\infty\}a\_n=L\\). Then, 
 \\[\forall \epsilon > 0,\\ \exists n\in \mathbb\{N\},\\ \forall n\\ : \\ n > N\quad\rightarrow\quad \| a\_n - L \| < \epsilon\\]
 Fix \\(\epsilon>0\\). Then for the corresponding \\(N\\), 
 \\[\| a\_n - L \| < \epsilon\\]
 \\[\| a\_n\| - \| L\| \leq \| a\_n - L \| < \epsilon\\]
-\\[\rightarrow \| a\_n\| \leq < L + \epsilon\\]
-Then \\(\\{a\_n\\}\\) is bounded by \\(\max\\{L + \epsilon, \|a\_1\|,...,\|a\_\{n-1\}\|\\})
+\\[\rightarrow \| a\_n\| \leq L + \epsilon\\]
+Then \\(\\{a\_n\\}\\) is bounded by \\(\max\\{L + \epsilon, \|a\_1\|,...,\|a\_\{n-1\}\|\\}\\)
+
+### Subsequence
+
+> __Theorem 3.1.16 (DA)__  
+If a sequence \\(\\{a\_n\\}\\) converges to \\(L\\), then its every subsequence does as well.
+
+__proof__: \\(\lim\_\{n\rightarrow\infty\}a\_n\\)  
+\\(\rightarrow\\) \\(\\forall \epsilon > 0,\\ \exists n\in \mathbb\{N\},\\ \forall n\\ : \\ n > N\quad\rightarrow\quad \| a\_n - L \| < \epsilon \\)  
+For an arbitrary subsequence \\(\\{a\_\{n\_k\}\\}\\), in \\(n\_k \geq N\\) same holds true.
+
+### Limit is a linear mapping
+
+If \\(\\{a\_n\\}\\) converges to \\(L\\), then
+\\[1.\\ \lim\_\{n\rightarrow\infty\}(a\_n+b\_n)=\lim\_\{n\rightarrow\infty\}a\_n+\lim\_\{n\rightarrow\infty\}b\_n\\]
+\\[2.\\ \lim\_\{n\rightarrow\infty\}(a\_n b\_n)=\lim\_\{n\rightarrow\infty\}a\_n\cdot \lim\_\{n\rightarrow\infty\}b\_n\\]
+\\[3.\\ \lim\_\{n\rightarrow\infty\}ca\_n=c\lim\_\{n\rightarrow\infty\}a\_n\\]
+
+Additionally, If \\(a\_n\neq 0\\ \forall n\in\mathbb\{N\}\\), \\(\\{a\_n\\}\rightarrow A,\\ A\neq 0\\) then
+1. \\(\\{1/a\_n\\}\\) converges to \\(1/A\\).
+2. Using the linearity first, 
+\\[\lim\_\{n\rightarrow\infty\}\frac\{a\_n\}\{b\_n\}=\frac\{A\}\{B\}\\]
 
 
+### Limit and order relation
+> __(Important) Theorem 3.2.9 (DA)__  
+If \\(\\{a\_n\\}\rightarrow A,\\ \\{b\_n\\}\rightarrow B\\) and \\(a\_n\leq b\_n\\ \forall\\ n\in\mathbb\{N\}\\), then
+\\[\lim\_\{n\rightarrow\infty\}a\_n\leq \lim\_\{n\rightarrow\infty\}b\_n\\]
 
-[DA]: 맛있는 해석학 
+__proof__: \\(\forall \epsilon > 0,\\ n\in \mathbb\{N\},\\ \forall\\ n > N\\), 
+\\[A-\frac\{\epsilon\}\{2\} < a\_n \leq b\_n < B+\frac\{\epsilon\}\{2\}\\]
+\\[\rightarrow\\ A < B + \epsilon,\quad \forall\\ n\in \mathbb\{N\}\\]
+Now suppose \\(A>B\\). Then by letting \\(\epsilon:=A-B\\),
+\\[B < B\\]
+contradiction rises.
+
+`Note`
+1. Above statement can be rephrased as
+\\[\text\{For finitely many \}n,\\ a\_n\leq b\_n\\]
+2. Let \\(C\\) be a set of all convergent sequences. Let us define \\(\leq\\) as
+\\[x\leq y\quad\rightarrow\quad a\_n\leq b\_n \text\{ for finitely many \}n\\]
+Then \\(<C,\leq>\\) becomes the total order relation(link).
+
+Based on Thm 3.2.9,
+\\[x\leq y\quad\rightarrow\quad \lim\_\{n\rightarrow\infty\}a\_n \leq \lim\_\{n\rightarrow\infty\}y\_n\\]
+holds. Thus the limit is an order preserving mapping from \\(C\\) to \\(\mathbb\{R\}\\).
+
+
+### Sandwich theorem
+__Theorem 3.2.14__  
+For 3 sequences \\(\\{a\_n\\},\\{b\_n\\},\\{c\_n\\}\\), if 
+\\[a\_n\leq b\_n\leq c\_n\\]
+holds for finitely many \\(n\\), and \\(\\{a\_n\\},\\{b\_n\\}\rightarrow L\\), then
+\\[\\{b\_n\\}\rightarrow L\\]
+
+__proof__: 
+\\[L-\epsilon < a\_n \leq b\_n \leq c\_n\leq L+\epsilon\\]
+Thus by the def. of the limit, \\(\\{b\_n\\}\rightarrow L\\)
+
+<br/>
+* (DA): 맛있는 해석학 4판, 김백진
+
 Next:  
 

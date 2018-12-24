@@ -7,7 +7,5 @@ use_math: true
 tags: photo misc
 ---
 
-![1]({{ site.url }}/images/hmgedu/1517232983907.jpg)<br/><br/>
-![2]({{ site.url }}/images/hmgedu/1517753681344.jpg)<br/><br/>
 ![3]({{ site.url }}/images/hmgedu/1518187926549.jpg)<br/><br/>
 ![4]({{ site.url }}/images/hmgedu/1518188003440.jpg)<br/><br/>
