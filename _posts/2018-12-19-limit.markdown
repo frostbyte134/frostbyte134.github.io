@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Limit "
+title:  "Sequences and limits"
 date:   2018-12-19 08:00:05 +0800
 categories: analysis
 use_math: true
@@ -13,7 +13,7 @@ tags: analysis limit sequence bounded subsequence
 \\[\forall \epsilon > 0,\\ \exists n\in \mathbb\{N\},\\ \forall n\\ : \\ n > N\quad\rightarrow\quad \| a\_n - L \| < \epsilon\\]
 
 1. Obviously, its negation is
-\\[\exists \epsilon > 0, \forall n\in \mathbb\{N\},\\ \exists n\\ : \\ n > N\quad\rightarrow\quad \| a\_n - L \| \geq \epsilon\\]
+\\[\exists \epsilon > 0, \forall n\in \mathbb\{N\},\\ \exists n\\ : \\ n > N\\ \land\\ \| a\_n - L \| \geq \epsilon\\]
 2. __Converging sequence \\(\\{a\_n\\}\\) has a unique limit__. Suppose not, and assume that it converges to \\(L\_1\\) and \\(L\_2\\). Then,
 \\[\forall \epsilon > 0,\\ \exists n\in \mathbb\{N\},\\ \forall n\\ : \\ n > N\quad\rightarrow\quad \| a\_n - L\_1 \| < \epsilon/2\\]
 \\[\forall \epsilon > 0,\\ \exists n\in \mathbb\{N\},\\ \forall n\\ : \\ n > N\quad\rightarrow\quad \| a\_n - L\_2 \| < \epsilon/2\\]
@@ -75,7 +75,7 @@ contradiction rises.
 
 `Note`
 1. Above statement can be rephrased as
-\\[\text\{For finitely many \}n,\\ a\_n\leq b\_n\\]
+\\[\text\{For finitely many \}n,\\ a\_n\geq b\_n\\]
 2. Let \\(C\\) be a set of all convergent sequences. Let us define \\(\leq\\) as
 \\[x\leq y\quad\rightarrow\quad a\_n\leq b\_n \text\{ for finitely many \}n\\]
 Then \\(<C,\leq>\\) becomes the total order relation(link).
@@ -86,7 +86,7 @@ holds. Thus the limit is an order preserving mapping from \\(C\\) to \\(\mathbb\
 
 
 ### Sandwich theorem
-__Theorem 3.2.14__  
+> __Theorem 3.2.14 (DA)__  
 For 3 sequences \\(\\{a\_n\\},\\{b\_n\\},\\{c\_n\\}\\), if 
 \\[a\_n\leq b\_n\leq c\_n\\]
 holds for finitely many \\(n\\), and \\(\\{a\_n\\},\\{b\_n\\}\rightarrow L\\), then
@@ -95,6 +95,19 @@ holds for finitely many \\(n\\), and \\(\\{a\_n\\},\\{b\_n\\}\rightarrow L\\), t
 __proof__: 
 \\[L-\epsilon < a\_n \leq b\_n \leq c\_n\leq L+\epsilon\\]
 Thus by the def. of the limit, \\(\\{b\_n\\}\rightarrow L\\)
+
+
+### Subsequence
+> __(Important) Theorem 3.3.3 (DA)__  
+Bounded monotonic subsequence converges.
+
+__proof__: use the property of sup/inf  
+Suppose \\(\\{a\_n\\}\\) is bounded by \\(L\\), and is monotonically increasing.  
+Then \\(\sup\\{a\_n\\ |\\ a\_n\in\\{a\_n\\}\\}=L\\), and by the property of sup,
+\\[\forall \epsilon > 0,\\ \exists N\in\mathbb\{N\}\\ :\\ L-\epsilon < a\_N \leq L\\]
+and since \\(\\{a\_n\\}\\) is monotonically increasing,
+\\[\forall \epsilon > 0,\\ \exists N\in\mathbb\{N\},\\ \forall n\\ :\\ L-\epsilon < a\_N < a\_n \leq L < L+\epsilon \\]
+Thus \\(\\{a\_\{n\_k\}\\}\\) converges to \\(L\\).
 
 <br/>
 * (DA): 맛있는 해석학 4판, 김백진

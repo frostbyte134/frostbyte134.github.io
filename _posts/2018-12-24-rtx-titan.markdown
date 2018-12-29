@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "RTX Titan"
-date:   2018-12-24 09:57:05 +0900
+date:   2018-12-24 07:57:05 +0900
 categories: misc
 use_math: true
 tags: photo misc

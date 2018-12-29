@@ -17,6 +17,8 @@ Using the Sandwich theorem(link!), and the fact that
 \\[\lim\_\{n\rightarrow\infty\}0=0,\quad \lim\_\{n\rightarrow\infty\}\frac\{1\}\{nh\}=0\\]
 we see that \\(\\{r^n\\}\\) converges to 0.
 
+
+
 <br/>
 * (DA): 맛있는 해석학 4판, 김백진
 
