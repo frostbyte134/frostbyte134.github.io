@@ -65,5 +65,121 @@ Instead of 1/4 1by1 conv, we can
 
 ... the multi-stage kernels should (of pooling) should maintain a reasonable gap in representation. Our pyramid pooling module is a four-lvl one with bin sizes of 1by1, 2by2, 3by3 and 6by6 respectively.
 
+
+### Network Details
+1. Basenet = (dilated) Resnet 50, 101
+2. bs = 16, os = 8
+3. Aux head (handling opt difficulty): at resnet4b22 (layer4[-1]), weight 0.4
+4. lr = 0.001, wd = 0.0001, momentum = 0.9
+5. Poly learning rate = \\[\left(1-\frac\{\text\{iter\}\}\{\text\{maxiter\}\}\right)^\{\text\{power\}\}\\]
+	* maxIter = 30K for VOC, 90K for Citys
+	* power = 0.9
+6. Preproc:
+	* random mirrir
+	* random resize bet 0.5 and 2
+	* random rotation [-10, 10]
+	* random Gaussian blur (for Imagenet and PASCAL only!)
+	
+
+	
+<a href="https://github.com/hszhao/PSPNet" target="_blank">Author github</a>
+* PSPNet50 on ADE20K valset (mIoU/pAcc): 41.68/80.04 (ss) and 42.78/80.76 (ms)
+* PSPNet101 on VOC2012 testset (mIoU): 85.41 (ms)
+* PSPNet101 on cityscapes valset (mIoU/pAcc): 79.70/96.38 (ss) and 80.91/96.59 (ms)
+
+### Cityscapes-Author
+<a href="https://github.com/hszhao/PSPNet" target="_blank">Author github</a>
+
+crop size 713, base_size(?): 2048, step=125 (500/4?)
+
+Val set
+* 79.70
+
+
+Test set
+* paper = 80.2
+* <a href="https://www.cityscapes-dataset.com/detailed-results/" target="_blank">leaderboard</a> = 81.2
+
+### Cityscapes-holyseven
+<a href="https://github.com/holyseven/PSPNet-TF-Reproduce" target="_blank">github link</a>
+
+* Tensorflow
+
+<table>
+   <tr>
+      <td></td>
+      <td>Backbones</td>
+      <td>L2</td>
+      <td>L2-SP</td>
+   </tr>
+   <tr>
+      <td rowspan="2">Cityscapes (train set: 3K)</td>
+      <td>ResNet-50</td>
+      <td>76.9/?</td>
+      <td>77.9/?</td>
+   </tr>
+   <tr>
+      <td>ResNet-101</td>
+      <td>77.9/?</td>
+      <td>78.6/?</td>
+   </tr>
+   <tr>
+      <td rowspan="2">Cityscapes (coarse + train set: 20K + 3K)</td>
+      <td>ResNet-50</td>
+      <td></td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>ResNet-101</td>
+      <td>80.0/80.9</td>
+      <td>80.1/81.2*</td>
+   </tr>
+   <tr>
+      <td rowspan="2">SBD </td>
+      <td>ResNet-50</td>
+      <td>76.5/?</td>
+      <td>76.6/?</td>
+   </tr>
+   <tr>
+      <td>ResNet-101</td>
+      <td>77.5/79.2</td>
+      <td>78.5/79.9</td>
+   </tr>
+   <tr>
+      <td rowspan="2">ADE20K</td>
+      <td>ResNet-50</td>
+      <td>41.81/?</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>ResNet-101</td>
+      <td></td>
+      <td></td>
+   </tr>
+</table>
+
+*This model gets 80.3 without post-processing methods on [Cityscapes test set (1525)](https://www.cityscapes-dataset.com/method-details/?submissionID=1148).
+
+resnet-50 on Cityscapes, getting around 77.9
+* img_size = 816
+* lr=0.0001, weight_decay_rate 0.0001 / 0.001
+* bs=4, gpus=4
+* --random_rotate=0 ????
+
+__mirror on val set__: add logits from mirrored image?
+
+### Cityscapes-hellochick
+<a href="https://github.com/hellochick/PSPNet-tensorflow" target="_blank">github link</a>
+
+* Tensorflow, simply converted weights
+
+city val set (With SS: )
+* Without flip	76.99%
+* Flip	77.23%
+
+val params
+* crop=7120
+* steps=500
+
 [22]
 Next:  
