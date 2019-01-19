@@ -1,0 +1,62 @@
+---
+layout: post
+title:  "Unsupervised Domain Adaptation by Backpropagation (Gradient Reversial Layer)"
+date:   2019-01-18 09:00:05 +0800
+categories: deep_learning
+use_math: true
+tags: deep_learning gan domain_adaptation GDL gradient_reversal
+---
+
+<a href="https://arxiv.org/pdf/1409.7495.pdf" target="_blank">https://arxiv.org/pdf/1409.7495.pdf</a>
+
+
+### Abstract
+... propose a new approach ... that can be trained on large amount of labeled data from the source domain and large amount of unlabeled data from the darget domain __(no labeled target-domain data is necessary)__
+
+As the training progresses, the approach promotes the emergence of `deep features` that are
+1. discriminative for the main learning task on the source domain
+2. invariant WRT the shift between the domains.
+
+We show that this adaptation behavior can be achieved by augmenting it with few standard layers and a simple new `gradient reversal layer`. 
+
+### Intro
+
+* `synthetic` or `semi-synthetic` training data, which suffer from the `shift in data distribution`. 
+* Learning a discriminative classifier or other predicotr in the presence of a `shift` between training and test dist. is known as `domain adaptation` (`DA`).
+* ... we focus on the harder unsupervised case, although the proposed approach can be generalzied to the semi-supervised case rather straightforwardly.
+* Our goal is to embed domain adaptation into the process of learning repr (feature), so that the final classification decisions are made so that the final classification decisions are made based on __features that are both discriminative and invariant to the change of domains__, i.e. have the same or very similar distributions in the source and the target domains.
+
+We thus focus on learning features that combine discriminativeness and domain-invariance. This is achieved by jointly optimizing the underlying features as well as two discriminative classifiers operating on these features
+1. `label predictor` that predicts class labels, and is used both during training and test
+2. `domain classifier` that discriminates between the source and the target domains during training.
+
+While the parameters of the cpassifiers are optimized to minimize their error on the training set, the parameters of the underlying deep feature mapping are optimized in order to minimize the loss of the label cassifier and to maximize the loss of the domain classifier. 
+> The latter encourges domain-invariant features to emerge in the course of optimization.
+
+### Related Work
+An important aspect of the dist. matching approach is the way the (dis)similarity between distributions is measured.
+
+Our approach also attempts to match feature space distributions, however this is accomplished by modifying the feature repr itself rather than by reweighing or geometric transformation.
+
+Also, our method uses (implicitly) a rather __different way to measure the disparity__ between distributons based on their `separability by a deep discriminatively-trained classifier`.
+
+Our approach performs feature learning, domain adaptation and classifier learning jointly, in a unified architecture, and using a single learning algorithm (bp).
+
+Supervised domain adaptation - fine-tune the network trainin on the source domain.
+
+Relation to `GAN`: While their goal is quite different (building generative deep models that can synthesize samples), the way they measure and minimize the discrepancy between the distribution of the training data and the distribution of the synthesized data is very similar to the way our architecture measures and minimizes the discrepancy between feature dist. for the two domains. (separability by a deep discriminatively-trained classifier)
+
+Tzeng et at - think I saw this name in the last paper 
+	- focuses on domain adaptation in feed-forward networks. Their set of techniques measures and minimizes the distance of the data means across domains. Their approach may be regarded as a "first-order" approx. to our approach, which seeks a tighter alignment between distributions.
+
+
+
+Link:  
+
+
+
+
+Next:  Deep domain confusion: Maximizing for domain invariance (Tzeng et al)
+
+
+

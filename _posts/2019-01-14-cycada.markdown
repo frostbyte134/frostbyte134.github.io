@@ -1,0 +1,85 @@
+---
+layout: post
+title:  "CyCADA"
+date:   2019-01-14 09:00:05 +0800
+categories: deep_learning
+use_math: true
+tags: deep_learning gan domain_adaptation cycada cityscapes 
+---
+
+<a href="https://arxiv.org/abs/1711.03213" target="_blank">https://arxiv.org/abs/1711.03213</a>
+
+
+### Abstract
+* Adversarial adaptation models applied in __feature spaces__ discover domain invariant representations, but are difficult to visualize and sometimes fail to capture pixel-lvl and low-lvl domain shifts.
+* `GAN`s dombined with `cycle-consistency` constaints are surprisingly effective at __mapping images between domains, even without the use of aligned image pairs.__
+* `CyCADA` adapts repr at both the piuxel and fet lvl, enforcing cycle-consistency while leveraging a task loss, and does not require aligned pairs.
+
+### Intro
+* Even a slight departure from a net's training domain can cause it to make spurious predictions and significantly hurt its performance (<a href="https://arxiv.org/abs/1702.05464" target="_blank">Tzeng et al</a>)
+* EX) For example, a state-of-the-art semantic seg model trained on synthetic `dashcam data` fails to segment the road in real imgs, and its overall per-pixel label accuracy drops from __93%(trained on real) to 54%(trained only on synthetic)__
+
+
+### Intro 1. Feature level unsupervised domain adaptation methods
+address this problem by __aligning the features__ extracted from the network across the souce (e.g. synthetic) and target (e.g. real) domains.
+
+`Alignment` typically involves minimizing some distance, e.g.
+1. maximum mean discrepancy
+2. correlation distance
+3. adversarial discriminator accuracy (<a href="https://arxiv.org/abs/1702.05464" target="_blank">Tzeng et al</a>)
+
+Two main limitation of above is,
+1. aligning marginal dist. does not enforce any semantic consistency
+2. aligmnent at high lvl (intermediate features) can fail to model aspects of low-lvl appearance variance which are crucial for the end-visual task.
+
+
+### Intro 2. Generative pixel-level domain adaptation models
+perform similar distribution alignment - not in feature space but rather in __raw pixel space__ - translating source data to the "style" of a target domain.
+
+Limitations are,
+1. The results are __visually compelling,__ but such image-space models have only been shown to __work for small image sizes and limited domain shifts__ (cons of generative models, compared to the discriminative models)
+2. They do not necessarily preserve the contents
+
+Cycle-Consistent Adversarial Domain Adaptation (`CyCADA`) adapts representations at both the 
+1. pixel level, while enforcing local consistency through __pixel cycle-consistency__
+2. global level, while enforcing global structural consistency through semantic loss (+DRN!?)
+
+CyCADA unifies prior feature-lvl and img-lvl adversarial domain adaptation methods, together with cycle-consistent img-to-img translation techniques.
+
+We use a reconstruction (cycle-consistency) loss to encourage the cross-domain transformation to preserve local structural info and a semantic loss to enforce semantic consistency.
+
+
+### Related works-1. Feature level methods
+Early deep adaptive works focused on feature space aligmment through minimizing the dist bet 1st or 2nd order feature space statistics of the source and taget.  
+These __latent distribution alignment approaches__ were further improved through the use of domain adversarial objectives, whereby a domain classifier is trained to distinguish bet the source and target reprs while the domain repr is learned so as to maximize the rerr of the domain classifier. The repr is optimized using the
+1. standard minimax objective
+2. GAN objective
+3. inverted label objective
+
+Improved training procedures for GANS: <a href="https://arxiv.org/abs/1606.03498" target="_blank">(Salimans et al 2016b)</a>, <a href="https://arxiv.org/pdf/1701.07875.pdf" target="_blank">(Arjovsky et al, 2017)</a>
+
+adaptation of Feature-lvl + Img-lvl:
+1. CoGANs: jointly learn a source and target repr through __explicit weight sharing of certain layers__ while each source and targ has a unique generative adversarial objs.
+2. Ghifary et al (2016) uses an additional reconst objs in the raget domain, to encourge alignment in the unsupervised adaptation setting.
+
+
+### Related works-2. Img level methods
+1. Directly converting source imgs to target imgs (including `conditional-GAN`): require source-target pair.
+2. 
+
+
+Link:  
+Feature-level domain adaptations:  
+<a href="https://arxiv.org/abs/1702.05464" target="_blank">Tzeng et al</a>(next2)  
+<a href="https://arxiv.org/pdf/1409.7495" target="_blank">Garnin and Lempitsky</a>(next1, read once but not posted)  
+
+Improved training procedures for GANS:  
+<a href="https://arxiv.org/abs/1606.03498" target="_blank">(Salimans et al 2016b)</a>  
+<a href="https://arxiv.org/pdf/1701.07875.pdf" target="_blank">(Arjovsky et al, 2017)</a>  
+
+
+
+Next:  
+
+
+
