@@ -65,7 +65,7 @@ adaptation of Feature-lvl + Img-lvl:
 
 ### Related works-2. Img level methods
 1. Directly converting source imgs to target imgs (including `conditional-GAN`): require source-target pair.
-2. 
+2. Unsupervised approach:
 
 
 Link:  
