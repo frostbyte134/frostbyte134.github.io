@@ -16,7 +16,6 @@ Event loop (message dispatching):
 
 event source = message
 
-
 ### socket and select
 * refer to the book
 
@@ -149,3 +148,28 @@ other useful funcs: `loop.call_later(sec, coroutine)`
 	* easy to maintain parallel programs than Python
 	* unlike python which has to use `async model` and `thread model` at the same time to handle blocking stuff, go provides single programming model `goroutine`.
 	* profiling is better in multiprocessing, blocking stats (pprof)
+	
+
+### Multiprocessing with asyncio
+
+* Note that, asyncio is useful for efficiently using single core with external (IO, for example) bottleneck, not the calculation bottleneck from the single core
+
+```python
+import asyncio
+from concurrent.futures import ProcessPoolExecutor
+
+async def sub_main():
+    print('Hello from subprocess')
+
+def sub_loop():
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(sub_main())
+
+async def start(executor):
+    await asyncio.get_event_loop().run_in_executor(executor, sub_loop)
+
+if __name__ == '__main__':
+    executor = ProcessPoolExecutor()
+    asyncio.get_event_loop().run_until_complete(start(executor))
+```
