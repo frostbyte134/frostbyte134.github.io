@@ -66,4 +66,4 @@ if __name__ == "__main__":
 	* `successful()`: returns whether the call is completed. Raise `AssertionError` if the result is not yet ready.
 	
 ### Interprocess Lock
-use `fastners` library (file-level) - supports decorator. etc.
+use `fastners` library (file-based) - supports decorator. etc.
