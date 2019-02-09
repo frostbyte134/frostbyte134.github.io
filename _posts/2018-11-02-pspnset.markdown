@@ -181,5 +181,26 @@ val params
 * crop=7120
 * steps=500
 
+### Reproduction result
+- 77.75 with resnet50, coarse data only
+
+Cityscapes val images  
+
+<img src="{{ site.url }}/images/deeplearning/pspnet/img_frankfurt_000001_043395_valImg.png" class="center" style="width:1000px"/>  
+
+<img src="{{ site.url }}/images/deeplearning/pspnet/img_frankfurt_000001_080091_valImg.png" class="center" style="width:1000px"/>
+
+Images from the younin city  
+
+<img src="{{ site.url }}/images/deeplearning/pspnet/img_yongin_000000_00000_valImg.png" class="center" style="width:1000px"/>
+
+<img src="{{ site.url }}/images/deeplearning/pspnet/img_yongin_000000_00001_valImg.png" class="center" style="width:1000px"/>
+
+<img src="{{ site.url }}/images/deeplearning/pspnet/img_yongin_000000_00002_valImg.png" class="center" style="width:1000px"/>
+
+
+Images from the internet  
+<img src="{{ site.url }}/images/deeplearning/pspnet/img_yongin_000000_00005_valImg.png" class="center" style="width:1000px"/>
+
 [22]
 Next:  
