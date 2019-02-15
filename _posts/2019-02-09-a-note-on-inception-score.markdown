@@ -75,6 +75,7 @@ In words, \\(\text\{IS\}\approx\\) measure of discrepancy between the images gen
 	1. left 2 inequalities: entropy is nonnegative
 	2. rightmost inequality: uniform distibution (over 1000 cls) is the unconstrained maximum entropy
 4. Empirical calcumation
-\\[\hat\{p\}(x)=\frac\{1\}\{N\}\sum\_\{i=1\}^N p(y\| x^\{(i)\})\\]	
-\\[\rightarrow \text\{IS\}(G) \approx \exp\left( \frac\{1\}\{N\}\sum\_\{i=1\}^N p(y\| x^\{(i)\}) \right)\\]
+\\[\hat\{p\}(y)=\frac\{1\}\{N\}\sum\_\{i=1\}^N p(y\| x^\{(i)\})\\]	
+which gives
+\\[\text\{IS\}(G) \approx \exp\left( \frac\{1\}\{N\}\sum\_\{i=1\}^N D_\{KL\}(p(y\| x^\{(i)\}) \|\| \hat\{p\}(y))) \right)\\]
 original paper recommended N=5000, taking expectation of scores over 10 repititions.
