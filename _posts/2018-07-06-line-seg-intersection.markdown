@@ -7,7 +7,7 @@ use_math: true
 tags: geometry need_revise
 ---
 
-Throughout this page, we assume that a line \\(l_i\\) is composed of two points \\(l_i.p_1,\\>l_i.p_2\\) such that \\[l\_i.p\_1 \leq l\_i.p\_2\\] holds. (Note that \\(\leq\\) is not an generalized inequality(link??). It is just an element(scalar)wise comparison.)
+Throughout this page, we assume that a line \\(l_i\\) is composed of two points \\(l_i.p_1,\\>l_i.p_2\\) such that \\[l\_i.p\_1 \leq l\_i.p\_2\\] holds. (Note that \\(\leq\\) is not an generalized inequality(link??). It is just an element(scalar)wise comparison, with priority on certain (generally x) axis)
 
 
 ### (1) No need for intersecting point
@@ -63,7 +63,7 @@ In the original representation of a line with two points \\(a, b\\), we let
 \\[\textbf\{a\}=a,\\>\textbf\{b\}=b-a\\]
 \\[\textbf\{c\}=c,\\>\textbf\{d\}=d-c\\]
 so if \\(\left(\textbf\{b\}\times \textbf\{d\}\right)=(b-a)\times(d-c)\neq0\\), then __the lines intersect at__
-\\[=\textbf\{a\}+\frac\{(\textbf\{c\}-\textbf\{a\})\times \textbf\{d\}\}\{\textbf\{b\}\times\textbf\{d\}\times(b-a)\}=
+\\[=\textbf\{a\}+\frac\{(\textbf\{c\}-\textbf\{a\})\times \textbf\{d\}\}\{\textbf\{b\}\times\textbf\{d\}\}(b-a)=
 a+\frac\{(c-a)\times (d-c)\}\{(b-a)\times(d-c)}\times(b-a)
 \\] (Notice that \\((b-a)\times(d-c)\\) of the parallel test can be resued)
 ```java

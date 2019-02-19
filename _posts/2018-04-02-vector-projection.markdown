@@ -18,11 +18,11 @@ Let \\((x,y)\\) be a point on the unit circle, and \\(\theta\\) be the angle whi
 
 
 <h3 id="proj_on_line">Projection onto a line (cosine and inner product)</h3>
-What we want to show is:\\[\cos{\theta}=\frac{a^Tb}{\|a\|\|b\|}.\\]
+What we want to show is, in \\(0\leq\theta\leq \pi/2\\), :\\[\cos{\theta}=\frac{\| a^Tb\| }{\|a\|\|b\|}.\\]
 ![vproj]({{ site.url }}/images/math/analysis/vector_proj.png){: .center-image }
 
 To begin with,
-\\[p = ca\quad\textrm{for}\quad c\in\Re, a\in \Re^N\\] \\[a^T(b-p)=a^T(b-ca)=0\\] \\[\longrightarrow c=\frac{a^Tb}{a^Ta}, \\]so that \\[p=ca=\frac{a^Tb}{a^Ta}a, \quad \|p\|=\sqrt{\frac{(a^Tb)^2}{(a^Ta)^2}a^Ta}=\frac{a^Tb}{\|a\|}\\] now, \\[\cos{\theta}=\frac{\|p\|}{\|b\|}=\frac{a^Tb}{\|a\|\|b\|}\\]
+\\[p = ca\quad\textrm{for}\quad c\in\Re, a\in \Re^N\\] \\[a^T(b-p)=a^T(b-ca)=0\\] \\[\longrightarrow c=\frac{a^Tb}{a^Ta}, \\]so that \\[p=ca=\frac{a^Tb}{a^Ta}a, \quad \|p\|=\sqrt{\frac{(a^Tb)^2}{(a^Ta)^2}a^Ta}=\frac{\|a^Tb\|}{\|a\|}\\] now, \\[\cos{\theta}=\frac{\|p\|}{\|b\|}=\frac{\|a^Tb\|}{\|a\|\|b\|}\\]
 
 Projection \\(p\\) of \\(b\\) onto \\(a\\) can be simplified as \\[ p=({a'}^Tb)a', \\]where \\(a'\\) is the normalized vector of \\(a\\).
 
@@ -96,9 +96,9 @@ In two dimension, we set \\(z\\) coordinate to 0. The direction does not matter 
 
 It can be calculated as \\[\|v_1\|\|v_2\|\sin\theta = v_{1x}v_{2y}-v_{1y}v_{2x}\\] Since the \\(\theta\\) __tells us how much we move (in radian) from__ \\(v_1\\) __to__ \\(v_2\\), and \\(\sin{-\theta}=-\sin{\theta}\\), the sign of cross product tells about the relative angular position between two vectors.
 
-If \\(\theta\\) is positive, we can find b within \\(\pi\\) radian, toward counter-clockwise direction.
+If \\(\sin\theta\\) is positive, we can find b within \\(\pi\\) radian, toward counter-clockwise direction.
 
-If \\(\theta\\) is positive, we can find b within \\(\pi\\) radian, toward clockwise direction.
+If \\(\sin\theta\\) is negative, we can find b within \\(\pi\\) radian, toward clockwise direction.
 
 
 
