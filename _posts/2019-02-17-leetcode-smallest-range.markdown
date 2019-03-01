@@ -2,7 +2,7 @@
 layout: post
 title:  "Leetcode - Smallest Range II"
 date:   2019-02-17 10:59:00
-categories: python
+categories: problem_solving
 use_math: true
 tags: problem_solving leetcode need_review greedy sort
 ---

@@ -14,7 +14,7 @@ tags: probability point_estimation inequality
 2. __An estimator__ \\(\hat\{R\}\\) of a param \\(r\\) is `unbiased` if
 \\[E[\hat\{R\}]=r\\]
 otherwise, \\(\hat\{R\}\\) is biased.
-3. The _-sequence of estimators__ \\(\hat\{R\}\_\{n\}\\) of parameter \\(r\\) is `asymptotically unbiased` if
+3. The __sequence of estimators__ \\(\hat\{R\}\_\{n\}\\) of parameter \\(r\\) is `asymptotically unbiased` if
 \\[\lim\_\{n\rightarrow\infty\}E[\hat\{R\}\_\{n\}]=r\\]
 4. The mean square error (`MSE`) of an estimator \\(\hat\{R\}\\) of parameter \\(r\\) is
 \\[e=E[(\hat\{R\}-r)^2]\\]
@@ -24,7 +24,8 @@ otherwise, \\(\hat\{R\}\\) is biased.
 \\[\lim\_\{n\rightarrow\infty\}e\_n=0\\]
 then the sequence \\(\hat\{R\}\_\{n\}\\) is `consistent`.
 
-__Proof__: Since \\(E[\hat\{R\}\_\{n\}=r\\), we can restate MSE of \\(\hat\{R\}\_\{n\}\\) as \\(V[\hat\{R\}\_\{n\}\\) (as stated in the theorem), and by applying `Chevyshev`'s inequality to \\(\hat\{R\}\_\{n\}\\),
+__Proof__:  
+Since \\(E[\hat\{R\}\_\{n\}]=r\\), we can restate MSE of \\(\hat\{R\}\_\{n\}\\) as \\(V[\hat\{R\}\_\{n\}]\\) (as stated in the theorem), and by applying `Chevyshev`'s inequality to \\(\hat\{R\}\_\{n\}\\),
 \\[P[\| \hat\{R\}\_\{n\}-r\| \geq \epsilon]\leq \frac\{V[\hat\{R\}\_\{n\}]\}\{\epsilon^2\}\\]
 Taking \\(n\rightarrow\infty\\) gives
 \\[\lim\_\{n\rightarrow\infty\}P[\| \hat\{R\}\_\{n\}-r\| \geq \epsilon]\leq \lim\_\{n\rightarrow\infty\}\frac\{V[\hat\{R\}\_\{n\}]\}\{\epsilon^2\} = 0\\]

@@ -2,7 +2,7 @@
 layout: post
 title:  "Leetcode - Regular Expression"
 date:   2019-02-16 10:59:00
-categories: python
+categories: problem_solving
 use_math: true
 tags: problem_solving leetcode need_review
 ---
