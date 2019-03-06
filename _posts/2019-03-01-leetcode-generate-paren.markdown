@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Leetcode - Generate Parentheses"
-date:   2019-03-01 1:59:00
+date:   2019-03-01 1:59:00 +0800
 categories: problem_solving
 use_math: true
 tags: problem_solving leetcode need_review dp dfs bfs

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Measure Theory and sigma-algebra"
-date:   2019-03-01 3:59:00
+date:   2019-03-01 3:59:00 +0800
 categories: probability
 use_math: true
 tags: probability analysis measure banach-tarski sigma-algebra borel_set
