@@ -10,7 +10,7 @@ tags: probability analysis measure banach-tarski sigma-algebra borel_set
 <a href="https://www.youtube.com/view_play_list?p=17567A1A3F5DB5E4" target="_blank">Youtube - Mathematical monk</a>
 
 TODO
-* complement `Banach-Tarski` paradox
+* complement `Banach-Tarski` paradox 
 
 
 ### Why measure theory?
