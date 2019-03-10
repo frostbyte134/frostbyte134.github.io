@@ -4,12 +4,30 @@ title:  "MLE and Negative log-likelihood, in Deep Learning Context"
 date:   2018-03-25 21:49:00
 categories: deep_learning
 use_math: true
-tags: deep_learning deep_learning(bengio) optimization probability
+tags: deep_learning deep_learning(bengio) optimization probability mle cross_entropy
 ---
 - SGD applied to nonconvex loss functions has __no convergence guarantee__, and is __sensitive to the initialization.__
 - For feedforward networks, it is important to initialize all weights to 0, or to small positive values.
 
-### __Training using MLE__  
+<h3 id="cross_entropy"> Cross Entropy</h3>
+For two discrete probability distributions (probability measures) \\(p, q\\), their `KL-divergence` is defiend by
+\\[D\_\{KL\}(p \|\| q) := \sum\_\{i=1\}^\{N\}p\_\{i\}\log\frac\{q\_\{i\}\}\{p\_\{i\}\}\\]
+\\[=\sum\_\{i=1\}^\{N\}p\_\{i\}\log q\_i - \sum\_\{i=1\}^\{N\}p\_\{i\}\log p\_i\\]
+
+If \\(p\\) is the distribution we wish to approximate with \\(q\\) by minimizing the KL-divergence, the latter term is a constant, and we only have to minimize the first `Cross entropy` term
+\\[\sum\_\{i=1\}^\{N\}p\_\{i\}\log q\_i \\]
+
+In Machine learning, \\(p\\) is usually an empirical distribution (counts) which puts uniform mass on \\(m\\) data points equally.
+\\[\mathbb\{E\}\_\{x\sim p\_\{data\}\}\log D(x) \\]
+where \\(D(x)\\) is the output logit of the network (or a model).
+
+`negative log-likelihood`
+* Since the distribution \\(p\\) is usually an one-hot vector, the cross entropy (in Machine Learning) can be interpreted as the `negative log-likelihood` of \\(q\\).
+
+`Maximum likelihood`
+* Since the \\(q\\) is often a likelihood in Bayesian framework (#TODO: link, perhaps?), above formulation can be interpreted as maximizing MLE
+
+### __Training using MLE__ 
 Cost function = `negative log-likelihood` (cross-entropy between the data and the model distribution)
 
 {% raw %}
@@ -21,6 +39,9 @@ If \\(p_{model}(y|x)=\mathcal{N}(y;f(x;\theta,I)) \\), then we recover the mean 
 
 `The negative log-likelihood` (used in MLE) helps to avoid this problem for many models. Exp function saturates when its argument is very negative (converges to 0). The log function in the negative log-likelihood cost function undoes the exp of some output units.
 
+> <a href="{{site.url}}/deep_learning/2019/03/09/nips2016-gan-tutorial.html#heuristic" target="_blank">(Goodfellow)</a> Minimizing the cross-entropy between a target class and a classifier's predicted distribution is highly effective b/c the cost never saturates when the classifier has the wrong output. THe cost does eventually saturate, approaching 0, but only when the classifier has already chosen the correct class.
+
+(\\(-\log p\\) is very negative when p is so low, 0 when \\(p\approx 1\\))
 
 
 ### Minium of Cross-entropy  

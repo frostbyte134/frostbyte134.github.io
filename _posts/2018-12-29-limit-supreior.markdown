@@ -39,10 +39,10 @@ Then \\(\Lambda=\text\{limsup\}\\ a\_n\\) i.i.f,
 __proof__: \\(\rightarrow\\). Let \\(\text\{limsup\}\\ a\_n=\Lambda\\).  
 1. Negating 1. gives, 
 \\[\exists \epsilon > 0,\\ \forall N\in\mathbb\{N\},\\ \exists n\\ :\\ n>N\quad\land\quad a\_n\geq\Lambda+\epsilon\\]
-Thus for some \\(\epsilon\\), we can construct a sequence converging to limit larger than \\(\Lambda+\epsilon\\) - contradiction that \\(\sup C=\Lambda\\).
+Thus for some \\(\epsilon\\), we can construct a sequence converging to limit larger than \\(\Lambda+\epsilon\\) (There are infinitely many \\(N\\): a cluster point (of sequence) exists) - contradiction that \\(\sup C=\Lambda\\).
 2. Negating 2. gives,
 \\[\exists \epsilon > 0,\exists N\in\mathbb\{N\},\\ \forall n\\ :\\ n>N\quad\rightarrow\quad a\_n\leq\Lambda-\epsilon\\]
-Thus for some \\(\epsilon>0\\), every subsequence converges to a limit less than or equal to \\(\Lambda\\) - contradiction that \\(\sup C=\Lambda\\).
+Thus for some \\(\epsilon>0\\), every subsequence converges to a limit less than or equal to \\(\Lambda\\) (or \\(\Lambda - \epsilon \\) is the new supremum)- contradiction that \\(\sup C=\Lambda\\).
 
 \\(\leftarrow\\): Let \\(\text\{limsup\}\\ a\_n=\Lambda'\\). We'll show that \\(\sup C=\Lambda'=\Lambda\\), where \\(\Lambda\\) is the number satisfying 1. and 2.  
 
@@ -52,7 +52,7 @@ If not, then \\(\Lambda'>\Lambda\\). Let \\(\epsilon=(\Lambda'-\Lambda)/2\\), an
 Thus \\(\Lambda'\\) cannot be \\(\sup C\\)=supremum of all cluster points, a contradiction.
 2. \\(\Lambda'\geq\Lambda\\): We'll use 1, 2 to construct a subseq converging to \\(\Lambda'\\), and use that \\(\Lambda'=\sup C\\).  
 Using 1. and 2., for each \\(\epsilon=1/k,\\ \exists N\in\mathbb\{N\}\\ :\\ 1\Lambda-\frac\{1\}\{k\}<a\_n<\Lambda+\frac\{1\}\{k\}\\)  
-Using the sandwich theorem (link), we see that there is a subsequence converging to \\(a\_n\\), and since \\(\Lambda'\\) is the supremum over the cluster points, the theorem follows. __Q.E.D.__
+Using the sandwich theorem (link), we see that there is a subsequence converging to \\(\Lambda\\), and since \\(\Lambda'\\) is the supremum over the cluster points, the theorem follows. __Q.E.D.__
 
 
 ### Partial additivity of the limit supremum/infimum
@@ -60,7 +60,7 @@ Using the sandwich theorem (link), we see that there is a subsequence converging
 1. \\(\\text\{limsup\}\\{a\_n+b\_n\\}\leq\text\{limsup\}\\ \\{a\_n\\}+\text\{limsup\}\\ \\{b\_n\\}\\) 
 2. \\(\\text\{liminf\}\\{a\_n+b\_n\\}\geq\text\{liminf\}\\ \\{a\_n\\}+\text\{liminf\}\\ \\{b\_n\\}\\)
 
-__proof__: For 1, Let \\(\text\{limsup\}\\ \\{a\_n\\}=A,\\ \text\{limsup\}\\ \\{b\_n\\}=B\\) and suppose the theorem does not hold. Then there musb be a subsequence of \\(\\{a\_n+b\_n\\}\\) such that converges to a cluster point larger thatn \\(A+B\\). In equation,
+__proof__: For 1, Let \\(\text\{limsup\}\\ \\{a\_n\\}=A,\\ \text\{limsup\}\\ \\{b\_n\\}=B\\) and suppose the theorem does not hold. Then there must be a subsequence of \\(\\{a\_n+b\_n\\}\\) such that converges to a cluster point larger thatn \\(A+B\\). In equation,
 \\[\exists \epsilon,\\ \forall N\in\mathbb\{N\},\\ \exists n\\ :\\ n>N\quad\rightarrow\quad a\_n+b\_n>A+B+\epsilon\\]
 (Using \\(n\_k\\) subseq notation is much simpler, but anyway)  
 This in turn implies
@@ -87,7 +87,7 @@ which is exactly 1. of 3.7.5 (DA) (link)
 2. For some \\(N\\) of 1., \\(\forall K\geq N\\),
 \\[-\epsilon<x\_K-L\quad\rightarrow\quad L-\epsilon < x\_K\\]
 holds. Since \\(x\_K\\) is a _supremum_ over \\(a\_k,\\ k\geq K\\), for such \\(\epsilon\\),  
-\\\exists k\geq K\\ :\\ L-\epsilon < a\_k\leq x\_K\\]
+\\[\exists k\geq K\\ :\\ L-\epsilon < a\_k\leq x\_K\\]
 In summary, by exchanging \\(\forall K \geq N,\\ \exists k > K\\) to \\(\quad \forall K\in\mathbb\{N\},\exists k > K\\),
 \\[\forall \epsilon > 0,\\ \forall k\in N,\\ \exists k\\ :\\ k\geq K \quad\land\quad L-\epsilon <a\_k\\]
 which is exactly 3.7.5-2. 
