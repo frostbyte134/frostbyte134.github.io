@@ -1,1 +1,0 @@
-http://presentations.cocodataset.org/COCO17-Detect-MSRA.pdf
