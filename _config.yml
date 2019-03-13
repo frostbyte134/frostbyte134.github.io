@@ -6,8 +6,12 @@
 # Site
 title: Nailbrainz의 복습 노트
 subtitle:
-description:
+description: > # this means to ignore newlines until "twitter_username:"
+  Review Note
 author: Nailbrainz
+email: nailbrainz@gmail.com
+
+
 # Support language: de, en, fr-FR, id, ja, ko, pt-BR, pt, ru, zh-Hans, zh-hk, zh-tw
 language: en
 date_format: '%Y-%m-%d'
@@ -84,13 +88,13 @@ keywords: "Jekyll, NexT"
 # Set rss to false to disable feed link.
 # Leave rss as empty to use site's feed link.
 # Set rss to specific value if you have burned your feed already.
-rss:
+rss: false
 
 # Specify the date when the site was setup
 #since: 2015
 
 # icon between year and author @Footer
-authoricon: heart
+authoricon: credit-card
 
 # Footer `powered-by` and `theme-info` copyright
 copyright: true
@@ -118,7 +122,7 @@ index_with_subtitle: false
 # When running the site in a subdirectory (e.g. domain.tld/blog), remove the leading slash (/archives -> archives)
 menu:
   home: /
-  #categories: /categories/
+  categories: /categories/
   #about: /about/
   archives: /archives/
   tags: /tags/
@@ -141,7 +145,7 @@ menu_icons:
   tags: tags
   archives: archive
   sitemap: sitemap
-  commonweal: heartbeat
+  #commonweal: heartbeat
 
 
 

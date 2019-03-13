@@ -1,0 +1,18 @@
+---
+layout: post
+title:  "Alerts"
+date:   2019-03-13 08:00:05 +0800
+categories: blog
+use_math: true
+tags: css
+---
+
+TODO: add background colors?
+
+{% include note.html content="Add your note here." %}
+
+{% include tip.html content="Add your tip here." %}
+
+{% include important.html content="Add your important info here." %}
+
+{% include warning.html content="Add your warning here." %}

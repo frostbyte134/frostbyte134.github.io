@@ -32,11 +32,17 @@
   .post-tags {
     text-align: left;
     a {
-      padding: 1px 5px;
-      background: $whitesmoke;
-      border-bottom: none;
-    }
-    a:hover { background: $grey-light; }
+      color: #2a7ae2;
+      text-decoration: none; }
+      a:visited {
+        color: #1756a9; }
+      a:hover {
+        color: #111;
+        text-decoration: underline; }
+      .social-media-list a:hover {
+        text-decoration: none; }
+        .social-media-list a:hover .username {
+          text-decoration: underline; }
   }
   .post-nav { margin-top: 40px; }
 }

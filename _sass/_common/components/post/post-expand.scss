@@ -30,9 +30,27 @@
 
 .posts-expand .post-body {
   @include desktop() { text-align: justify; }
+  
+  h3{
+    font-size: 28.925px;
+    margin-top: 70px; 
+    border-bottom: 2px solid grey;
+  }
+  
+  a {
+    color: #2a7ae2;
+    text-decoration: none; }
+    a:visited {
+      color: #1756a9; }
+    a:hover {
+      color: #111;
+      text-decoration: underline; }
+    .social-media-list a:hover {
+      text-decoration: none; }
+      .social-media-list a:hover .username {
+        text-decoration: underline; }
 
-
-  h2, h3, h4, h5, h6 {
+  h2, h4, h5, h6 {
     padding-top: 10px;
 
     .header-anchor{

@@ -19,7 +19,7 @@ menu:
   search: Search
   schedule: Schedule
   sitemap: Sitemap
-  commonweal: Commonweal 404
+  #commonweal: Commonweal 404
 
 sidebar:
   overview: Overview
@@ -51,7 +51,7 @@ page:
 
 footer:
   powered: "Powered by %s"
-  theme: Theme
+  theme: "Based on "
 
 counter:
   tag_cloud:
@@ -79,14 +79,14 @@ search:
   placeholder: Searching...
 
 cheers:
-  um: Um..
-  ok: OK
-  nice: Nice
-  good: Good
-  great: Great
-  excellent: Excellent
+  um: 
+  ok: 
+  nice: 
+  good: 
+  great: 
+  excellent: 
 
-keep_on: Keep on posting.
+keep_on: 
 
 symbol:
   comma: ', '

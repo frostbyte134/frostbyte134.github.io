@@ -9,6 +9,12 @@ tags: deep_learning gan
 
 <a href="https://arxiv.org/abs/1701.00160" target="_blank">https://arxiv.org/abs/1701.00160</a>
 
+
+{% include note.html content="Add your note here." %}
+
+<div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i> <b>Warning: </b>This is a special warning message.</div>
+
+
 TODO
 1. MLE - add link
 
