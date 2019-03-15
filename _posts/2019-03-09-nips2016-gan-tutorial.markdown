@@ -107,7 +107,7 @@ which is the standrad cross-entropy loss (add link), trained on 2 minibatches
 1. from the dataseet, where the label is 1 for all examples
 2. from the generator, there the label is 0 for all examples
 
-#### __The optimal discriminator__
+<h3 id="opt_d"> __The optimal discriminator__</h3>
 
 Supposing that the discriminator can be optimized in function space (it can be an arbitrary mapping, unlike in the functional space), taking derivative gives
 \\[\frac\{\partial J^\{(D)\}\}\{\partial D(x)\}=\frac\{D(x)\}\{p\_\{d\}(x)\}+\frac\{1-D(x)\}\{p\_\{m\}(x)\}\\]
@@ -156,15 +156,53 @@ But note that, the above heuristic game is never equivalent to maximizing MLE.
 ### Choice of divergence (Rather than KL)
 
 We might wonder exactly what is that makes GANs work well for generating samples.
-> (Goodfellow) Previously, many people (including the author) believed that GANs produced sharp, realistic samples b/c they minimize the Jenson-Shannon divergence while VAEs produce blurry sample b/c they minimize the KL-divergence between the3 data and model.
+> (Goodfellow) Previously, many people (including the author) believed that GANs produced sharp, realistic samples b/c they minimize the Jenson-Shannon divergence while VAEs produce blurry sample b/c they minimize the KL-divergence between the data and model.
 
+KL-divergence is not symmetric, and there are two possible choices
+1. Maximum likelihood = minimizing \\(\text\{KL\}(p\_\{data\} \| p\_\{model\})\\)  
+\\[\min\_q p\ln \frac\{p\}\{q\} = \min\_q\left\\{ p\ln p - p\ln q \right\\}\\]
+<img src="{{ site.url }}/images/deeplearning/mle.jpg" class="center" style="width:600px"/>  
+Since we have too much panelty in letting \\(q\approx 0\\) in \\(- p\ln q\\), the model chooses to average two modes (bad images generated)
+2. Jenson-Shannon divergence = _somewhat_ close to minimizing  \\(\text\{KL\}(p\_\{model\} \| p\_\{data\})\\)  
+\\[\min\_q q\ln \frac\{q\}\{p\} = \min\_q\left\\{ q\ln q - q\ln p \right\\}\\]
+<img src="{{ site.url }}/images/deeplearning/rev_kl.jpg" class="center" style="width:600px"/>
+Since we do not have much panelty in setting \\(q\approx 0\\), the model chooses to approximate single mode
 
+> __However__, some newer evidence suggest that the use of the Jenson-SHannon divergence does not explain why GANs make sharper smamples.
 
+1. Now GAN can use MLE, and the results are still good
+2. GAN often choose to generate too few modes, fewer than the model capacity. Jenson-Shannon divergence prefers to generate as many modes as the model capacity.
 
-Link:  
-[6] <a href="https://arxiv.org/pdf/1502.02791" target="_blank">Learning transferable features with deep adaptation networks</a>  
-[13] <a href="https://arxiv.org/abs/1606.07536" target="_blank">Coupled Generative Adversarial Networks</a>  
+These suggests that the mode collapse is driven by a factor other than the choice of divergence. (Maybe imperfect training procedure?)
 
-Next:  
-[6] - Learning transferable features with deep adaptation networks   
+### Miscs
+1. `DCGAN`: use batchnorm, all-conv net (no pooling), transposed conv, ADAM
+2. TIPS: class `conditional GAN`
+	1. Works well
+	2. Should not compare with non-conditional ones
+3. label-smoothing: penalize __D__ when outputs too high prob
+4. virtual batch normalization
+	> (Goodfellow) The main purpose of BNs is to improve the optimization of the model, by reparameterizing the model so that the mean and variance of each feature are determined by a single mean parameter and a single variance parameter associated with the feature, rather than by a complicated interaction between all of the weights of all of the layers used to extract the features.
 
+	GAN requires too much memory - low batch - fluctuation.  
+	\\(\rightarrow\\) sample reference batch at the beginning of train, use (union and calc stats, etc)
+5. Balancing __G__ and __D__
+	* (Goodfellow) If such balance (between G and D) is desirable and feasible, it has not yet been demonstrated in any compelling fashion. (2016)
+	* (Goodfellow) The author's present belief is that GANs work by estimating the ratio of the data density and model density <a href="#opt_d">(link)</a>. This ratio is estimated correctly only when the D is optimal, so it is fine for the D to overpower the G.
+	* Sometimes the gradient for the generator can vanish when the D becomes too accurate. THe right way to solve this problem is not to limit the power of the D, but to use a parameterization of the game where the gradient does not vanish
+	* The idea that D should be optimal \\(\rightarrow\\) k step of D with 1 step of G  
+		> In practice, this does not usually result in a clear improcement.
+
+### Research Frontiers
+1. Non-convergence
+	* Goodfellow et al (2014): sumultaneous gradient descent converges if the updates are made in function space (not in the parameter space)
+	* In practice, GANs often seem to oscillate, meaning that they progress from generating one kind of sample (from an mode?) to generating another kind of sample (from other mode?) without eventually reaching an equilibrium.
+2. Mode collapse (=`Helvetica scenario`)  
+	* occurs when the G learns to map several different z to the same output point.
+	* occurs when the simultaneous GD behaves like maxmin, rather than minmax.
+	\\[\mathop\{\min\}\_G \mathop\{\max\}\_D V(G,D)\\]
+	is equivalent to nested for loops. We fix G first, then solve inner maximization problem. Here, since the D is optimal, G draws sample from the data distribution.
+	\\[\mathop\{\max\}\_D \mathop\{\min\}\_G V(G,D)\\]
+	For fixed (and imperfect) D, G maps many vector to the output which imperfect D yields.
+3. Minibatch features
+	to allow the D to compare an example to a minibatch of generated samples and a minibatch of real images (isn't the description different than one in the `PG-GAN`?)
