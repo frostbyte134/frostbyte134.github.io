@@ -206,3 +206,4 @@ These suggests that the mode collapse is driven by a factor other than the choic
 	For fixed (and imperfect) D, G maps many vector to the output which imperfect D yields.
 3. Minibatch features
 	to allow the D to compare an example to a minibatch of generated samples and a minibatch of real images (isn't the description different than one in the `PG-GAN`?)
+
