@@ -107,7 +107,7 @@ which is the standrad cross-entropy loss (add link), trained on 2 minibatches
 1. from the dataseet, where the label is 1 for all examples
 2. from the generator, there the label is 0 for all examples
 
-<h3 id="opt_d"> __The optimal discriminator__</h3>
+__<h3 id="opt_d"> The optimal discriminator</h3>__
 
 Supposing that the discriminator can be optimized in function space (it can be an arbitrary mapping, unlike in the functional space), taking derivative gives
 \\[\frac\{\partial J^\{(D)\}\}\{\partial D(x)\}=\frac\{D(x)\}\{p\_\{d\}(x)\}+\frac\{1-D(x)\}\{p\_\{m\}(x)\}\\]
@@ -143,7 +143,7 @@ the zero-sum game(=`minimax` game) can be solved by following minimax optimizati
 In the above minimax game, D minimizes the cross-entropy but G maximizes it. __When the D successfully rejects generator samples with high confidence, the generator's gradient vanishes.__
 
 To solve this, one approach is _to continue to use cross-entropy minimization for the generator_. Instead of flipping sign the cost of D, we flip the target used to construct the cross-entropy cost.
-\\[J^\{(G)\}=\frac\{1\}\{2\}E\_\{z\}\log (D(x))\\]
+\\[J^\{(G)\}=-\frac\{1\}\{2\}E\_\{z\}\log (D(x))\\]
 
 > (Goodfellow) This version of the game is heuristically motivated, rather than being motivated by a theoretical convern. The sole motivation for this version of the game is to ensure that _each player has a strong gradient when that player is "losing" the game_
 
@@ -161,11 +161,11 @@ We might wonder exactly what is that makes GANs work well for generating samples
 KL-divergence is not symmetric, and there are two possible choices
 1. Maximum likelihood = minimizing \\(\text\{KL\}(p\_\{data\} \| p\_\{model\})\\)  
 \\[\min\_q p\ln \frac\{p\}\{q\} = \min\_q\left\\{ p\ln p - p\ln q \right\\}\\]
-<img src="{{ site.url }}/images/deeplearning/mle.jpg" class="center" style="width:600px"/>  
+<img src="{{ site.url }}/images/deeplearning/gan/mle.jpg" class="center" style="width:600px"/>  
 Since we have too much panelty in letting \\(q\approx 0\\) in \\(- p\ln q\\), the model chooses to average two modes (bad images generated)
 2. Jenson-Shannon divergence = _somewhat_ close to minimizing  \\(\text\{KL\}(p\_\{model\} \| p\_\{data\})\\)  
 \\[\min\_q q\ln \frac\{q\}\{p\} = \min\_q\left\\{ q\ln q - q\ln p \right\\}\\]
-<img src="{{ site.url }}/images/deeplearning/rev_kl.jpg" class="center" style="width:600px"/>
+<img src="{{ site.url }}/images/deeplearning/gan/rev_kl.jpg" class="center" style="width:600px"/>
 Since we do not have much panelty in setting \\(q\approx 0\\), the model chooses to approximate single mode
 
 > __However__, some newer evidence suggest that the use of the Jenson-SHannon divergence does not explain why GANs make sharper smamples.
