@@ -49,9 +49,12 @@ highlight:
 
 #### Markdown Processors
 ## 'redcarpet' is unsupported on GitHub Pages now.
-markdown: kramdown
+markdown: CommonMarkGhPages #kramdown
 kramdown:
     input: GFM
+commonmark:
+  options: ["SMART", "FOOTNOTES"]
+  extensions: ["strikethrough", "autolink", "tables"]
 
 # Default Attributes
 ## Docs: https://jekyllrb.com/docs/configuration/#front-matter-defaults
@@ -268,7 +271,7 @@ sidebar:
   #  - always  expand for all pages automatically
   #  - hide    expand only when click on the sidebar toggle icon.
   #  - remove  Totally remove sidebar including sidebar toggle.
-  display: post
+  display: hide
   #display: always
   #display: hide
   #display: remove
@@ -579,7 +582,7 @@ calendar:
 
 # Algolia Search
 algolia_search:
-  enable: false
+  enable: true
   hits:
     per_page: 10
   labels:
@@ -590,7 +593,7 @@ algolia_search:
 
 # Local search
 local_search:
-  enable: false
+  enable: true
   # if auto, trigger search by changing input
   # if manual, trigger search by pressing enter key or search button
   trigger: auto
