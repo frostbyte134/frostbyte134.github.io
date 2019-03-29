@@ -60,7 +60,7 @@ Using the sandwich theorem (link), we see that there is a subsequence converging
 1. \\(\\text\{limsup\}\\{a\_n+b\_n\\}\leq\text\{limsup\}\\ \\{a\_n\\}+\text\{limsup\}\\ \\{b\_n\\}\\) 
 2. \\(\\text\{liminf\}\\{a\_n+b\_n\\}\geq\text\{liminf\}\\ \\{a\_n\\}+\text\{liminf\}\\ \\{b\_n\\}\\)
 
-__proof__: For 1, Let \\(\text\{limsup\}\\ \\{a\_n\\}=A,\\ \text\{limsup\}\\ \\{b\_n\\}=B\\) and suppose the theorem does not hold. Then there must be a subsequence of \\(\\{a\_n+b\_n\\}\\) such that converges to a cluster point larger than \\(A+B\\). In equation,
+__proof__: For 1, Let \\(\text\{limsup\}\\ \\{a\_n\\}=A,\\ \text\{limsup\}\\ \\{b\_n\\}=B\\) and suppose the theorem does not hold. Then there must be a subsequence of \\(\\{a\_n+b\_n\\}\\) such that converges to a cluster point larger thatn \\(A+B\\). In equation,
 \\[\exists \epsilon,\\ \forall N\in\mathbb\{N\},\\ \exists n\\ :\\ n>N\quad\rightarrow\quad a\_n+b\_n>A+B+\epsilon\\]
 (Using \\(n\_k\\) subseq notation is much simpler, but anyway)  
 This in turn implies
@@ -71,23 +71,23 @@ for infinitely many \\(n\\). Consequently,
 
 
 
-### Definition of limit superior/inferior using supremum / infimum
+### Definition of limit superior/inferior using supremum/infimum
 __(important!)Theorem 3.7.10 (DA)__ For a bounded sequence \\(\\{a\_n\\}\\), 
-1. \\(\text\{limsup\}\\ \\{a\_n\\}=\inf\_\{n\in\mathbb\{n\}\}\sup\_\{k\geq n\}a\_k=\lim\_\{n\rightarrow\infty\}\sup\_\{k\geq n\}a\_k\\)
-2. \\(\text\{liminf\}\\ \\{a\_n\\}=\sup\_\{n\in\mathbb\{n\}\}\inf\_\{k\geq n\}a\_k=\lim\_\{n\rightarrow\infty\}\inf\_\{k\geq n\}a\_k\\)
+1. \\(\text\{limsup\}\\ \\{a\_n\\}=\inf\_\{N\in\mathbb\{N\}\}\sup\_\{k\geq n\}a\_k=\lim\_\{n\rightarrow\infty\}\sup\_\{k\geq n\}a\_k\\)
+2. \\(\text\{liminf\}\\ \\{a\_n\\}=\sup\_\{N\in\mathbb\{N\}\}\inf\_\{k\geq n\}a\_k=\lim\_\{n\rightarrow\infty\}\inf\_\{k\geq n\}a\_k\\)
 
 __proof__: Let
-\\[x\_n=\sup\\{a\_k\\ \|\\ k\geq n\\}\\]
+\\[x\_n=\sup\\{a\_k\\ \|\\ k\leq n\\}\\]
 It is trivial that \\(x\_n\\) is monotonocally decreasing seq (think about the support of \\(\sup\\)), and is bounded by its definition. Thus \\(x\_n\\) converges by the monotonic convergence theorem (link), and let \\(\Lambda\\) be the limit of it.  
 1. Then \\(\forall \epsilon>0,\\ \exists N\\) such that
-\\[\| x\_N-L\| <\epsilon\quad\rightarrow\quad x\_N<L+\epsilon\\]
-Since \\(a\_n\leq x\_n\\) holds, for \\(n > N\\),  
+\\[x\_N-L<\epsilon\quad\rightarrow\quad x\_N<L+\epsilon\\]
+Since for \\(n\geq N\\), \\(a\_n\leq x\_n\\) holds,
 \\[\forall \epsilon>0,\\ \exists N,\\ \forall n\\ :\\ n>N\quad\rightarrow\quad a\_n\leq x\_n<L+\epsilon\\]
 which is exactly 1. of 3.7.5 (DA) (link)
-1. For some \\(K\in\mathbb\{N\}\\), and \\(N\\) of above, \\(\forall m > \max (K, N)\\),
-\\[\| x\_m-L\| <\epsilon\quad\rightarrow\quad x\_m > L - \epsilon\\]
-holds. Since \\(x\_m\\) is a _supremum_ over \\(\\{a\_k \| \\ k\geq m\\}\\), for the \\(\epsilon\\) mentioned above (wrt  above \\(N\\)),  
-\\[\exists k\geq K\\ :\\ L-\epsilon < a\_k\leq x\_K\\] holds.  
+2. For some \\(N\\) of 1., \\(\forall K\geq N\\),
+\\[-\epsilon<x\_K-L\quad\rightarrow\quad L-\epsilon < x\_K\\]
+holds. Since \\(x\_K\\) is a _supremum_ over \\(a\_k,\\ k\geq K\\), for such \\(\epsilon\\),  
+\\[\exists k\geq K\\ :\\ L-\epsilon < a\_k\leq x\_K\\]
 In summary, by exchanging \\(\forall K \geq N,\\ \exists k > K\\) to \\(\quad \forall K\in\mathbb\{N\},\exists k > K\\),
 \\[\forall \epsilon > 0,\\ \forall k\in N,\\ \exists k\\ :\\ k\geq K \quad\land\quad L-\epsilon <a\_k\\]
 which is exactly 3.7.5-2. 

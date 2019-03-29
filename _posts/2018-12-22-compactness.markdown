@@ -81,15 +81,11 @@ Suppose \\(F\subset K\subset X\\), \\(F\\) is closed, and \\(K\\) is compact. Le
 
 > __Theorem__ 2.36 (PMA) :  
 If \\(\\{K\_\{\alpha\}\\}\\) is a collection of compact subsets of a metrix space \\(X\\) such that the intersection of every finite subcollection of \\(\\{K\_\{\alpha\}\\}\\) is nonempty, then \\(\mathop\{\bigcap\}\_\{\alpha\}K\_\alpha\\) is nonempty.
-<details>
-  <summary><b>proof:</b></summary>
-{% raw %}
-Suppose that \\(\mathop\{\bigcap\}\_\{\alpha\}K\_\alpha\\) is empty. Fix a \\(\alpha'\\) and assume \\(\nexists\\ p\in K\_\{\alpha'\} \\ : \\ p\in K\_\alpha\\ \forall\\ \alpha \neq \alpha'\\) (assumption says the intersection is nonempty only for finite collections).  
+
+`proof`: Suppose that \\(\mathop\{\bigcap\}\_\{\alpha\}K\_\alpha\\) is empty. Fix a \\(\alpha'\\) and assume \\(\nexists\\ p\in K\_\{\alpha'\} \\ : \\ p\in K\_\alpha\\ \forall\\ \alpha \neq \alpha'\\) (assumption says the intersection is nonempty only for finite collections).  
 Then \\(\bigcup\_\{\alpha\}K\_\{\alpha\}^C\\) is an open cover of \\(K\_\{\alpha'\}\\), and there exists a finite collections \\(K\_\{\alpha\_1\}^C,...,K\_\{\alpha\_n\}^C\\) that their union covers \\(K\_\{\alpha'\}\\). Now we have a contradiction, since by the statement so far,
 \\[K\_\{\alpha'\}\cap\left( K\_\{\alpha\_1\}^C\cup \cdots \cup K\_\{\alpha\_n\}^C \right)^C=\emptyset\\]
 \\[\rightarrow K\_\{\alpha'\}\cap\left( K\_\{\alpha\_1\}\cap \cdots \cap K\_\{\alpha\_n\} \right)=\emptyset\\]QED.
-{% endraw %}
-</details>
 
 
 > __Corollary__: If \\(\\{K\_n\\}\\) is a sequence of nonempty compact sets such that \\(K\_n\supset K\_\{n+1\}\\), then \\[\mathop\{\bigcap\}\_\alpha K\_\alpha\neq\emptyset\\]
@@ -98,26 +94,20 @@ Then \\(\bigcup\_\{\alpha\}K\_\{\alpha\}^C\\) is an open cover of \\(K\_\{\alpha
 
 > __Theorem__ 2.37 (PMA) :  
 If \\(E\\) is an subset (with infinite cardinality) of a compact set \\(K\\), then \\(E\\) has a limit point on \\(K\\).
-<details>
-  <summary><b>proof:</b></summary>
-{% raw %}
+
+`proof:`:
 1. If no point of \\(K\\) were __a limit point of \\(E\\)__, then for all \\(q\in K\\) exists a neighborhood \\(V\_\{\epsilon\_q\}\\) which contains __at most one point of \\(E\\)__ (namely, \\(q\\) if \\(q\\in E\\)).
 2. Now it is clear that no finite subcollection of \\(\mathop\{\bigcup\}\_q V\_\{\epsilon\_q\}\\) can cover \\(E\\), and the sma e is true of \\(K\\) since \\(E\subset K\\). This contradicts the compactness of \\(K\\).
-{% endraw %}
-</details>
 
 > __Theorem__ 2.38 (PMA) :  
 If \\(\\{I\_n\\}\\) is a sequence of intervals in \\(R^1\\), such that \\(I\_n\supset I\_\{n+1\}\\ (n=1,2,...)\\), then \\(\mathop\{\bigcap\}\_\{n\}^\infty I\_n\\) is not empty.
-<details>
-  <summary><b>proof:</b></summary>
-{% raw %}
+
+`proof`:
 1. Let \\(E\\) be the set of all \\(x\_n\\). Since \\(x\_n\\)s are bounded by any \\(b\_k\\), by the least upper bound property of \\(R\\), the supremum exists, so denote \\(x=\sup E\\). We immediately see that \\(x\_n \leq C\\)
 2.  Now we want to show that \\(x\leq b\_n\\). Suppose not. Then for some \\(n\\), \\(x > b\_n\\) and let \\(\epsilon'=x-b\_n\\).  
 Since \\(x=\sup E,\\ \forall\\ \epsilon>0\\ \exists\\ n\in\mathbb\{N\}\\ :\\ x-\epsilon < x\_n \leq x\\). By letting \\(\epsilon=\epsilon'\\), we see that
 \\[x-\epsilon' = b\_n < a\_n < x\\] which is a contradiction.
 3. Combining all 2, we see that \\(a\_n\leq x \leq b_n \forall n\in \mathbb\{N\}\\), so that \\[x\in \mathop\{\cap\}\_\{i=1\}^\infty I\_n\neq\emptyset\\]. 
-{% endraw %}
-</details>
 
 > __Theorem__ 2.39 (PMA) :  
 Let \\(K\\) be a positive integer. If \\(\\{I\_n\\}\\) is a sequence of \\(k\\)-cells such that \\(I\_n\supset I\_\{n+1\}\\ (n=1,2,3,...)\\), then \\(\mathop\{\cap\}\_\{i=1\}^\infty I\_n\neq\emptyset\\).
@@ -128,9 +118,8 @@ __proof__: Apply 2.38 dimension-wise.
 Every \\(k\\)-cell in \\(\Re\\) is compact.
 
 Without this theorem, we cannot say rigorously that every closed interval \\([a\_n, b\_n]\\) is compact (every open cover contains finite subcover).
-<details>
-  <summary><b>proof:</b></summary>
-{% raw %}
+
+`proof`:
 1. Let \\(I\\) be a \\(k\\)-cell, consisting of all points \\(\textbf\{x\}=(x\_1,...,x\_k)\\ :\\ a\_j\leq x\_k \leq b\_j\\ (1\leq j\leq k)\\). Put
 \\[\delta := \left\\{  \sum\_\{j=1\}^k (b\_j-a\_j)^2\right\\}^\{\frac\{1\}\{2\}\}.\\]
 Then we easily see that \\(\forall \textbf\{p, q\}\in I,\\ \|\|\textbf\{p\}-\textbf\{q\}\|\| \leq \delta\\).  
@@ -139,8 +128,7 @@ Then we easily see that \\(\forall \textbf\{p, q\}\in I,\\ \|\|\textbf\{p\}-\tex
     2. \\(\forall\\ n,\\ I\_n\\) cannot be covered by the open subcover.
     3. If \\( \textbf\{p, q\}\in I\_n\\), then \\(\|\|\textbf\{p\}-\textbf\{q\}\|\| \leq 2^\{-n\}\delta \\).
 3. By (a) and `Theorem 2.39`, \\(\exists x^* \\) which lies in all \\(I\_n\\). Since the \\(\\{G\_\alpha\\}\\) covers \\(I\\), for some \\(\alpha\\ x^* \in G\_\alpha\\). Since \\(G\_\alpha\\) is open in \\(\Re\\), there exists \\(\lambda\\ :\\ \|\|x^* - q\|\| \leq \lambda \rightarrow q\in G\_\alpha\\). Now for some \\(n'\\ :\\ 2^\{-n'\}\delta \leq \lambda\\)\\), (c) implies that \\(I\_n\subset G\_\alpha\\), which contradicts (b). 
-{% endraw %}
-</details>
+
 
 
 The equivalence of 1, 2 of following theorem is known as __Heine-Borel Theorem__.
@@ -149,9 +137,8 @@ If a set \\(E\in R^k\\) has one of the following three properties, then it has t
 1. \\(E\\) is closed and bounded
 2. \\(E\\) is compact
 3. Every infinite subset of \\(E\\) has a limit point in \\(E\\)
-<details>
-  <summary><b>proof:</b></summary>
-{% raw %}
+
+`proof`:
 * If 1. holds, then \\(E\\) is a subset of some \\(k\\)-cell, and 2. follows from the `Theorem 2.40` and `Theorem 2.35`. 
 * Theorem 2.37 shows that 2. implies 3.
 * It remains to show tha 3. implies 1.  
@@ -164,8 +151,7 @@ The set \\(S:=\\{x\_n \| n=1,2,3,...\\}\\) clearly has no limit point in \\(R^k\
 \\[\|x\_0 - y\| - \frac\{1\}\{2\} \geq \frac\{1\}\{2\}\|x\_0-y\|\\]  
 
 (1st - traingular inequality, 2nd - above, 3rd - \\(\frac\{1\}\{2\} \leq \frac\{1\}\{2\}\|x\_0-y\| \\), which holds for large \\(n\\)) for all but finitely many \\(n\\); this whos that \\(y\\) is not a limit point of \\(S\\) (Theorem 2.20). Since there exists an infinite subset of \\(E\\) suth chat has no limit point in \\(E\\), \\(E\\) is closed.  
-</details>
-{% endraw %}
+
 
 We should remark, at this point, that 2. and 3. are equivalent in any metric spaces (Exercise 26) but that 1. does not, int general, implyt 2. and 3. Examples are furnished by Exercise 16 adn by the space \\(\mathcal\{l\}^2\\), which is discussed in Chap 11.
 
@@ -173,12 +159,9 @@ We should remark, at this point, that 2. and 3. are equivalent in any metric spa
 > __Theorem__ 2.42 (PMA) : Weierstrass Theorem  
 Every bounded infinite subset of \\(R^k\\) has a limit point in \\(R^k\\).
 
-<details>
-  <summary><b>proof:</b></summary>
-{% raw %}
+`proof`:  
 Being bounded, the set \\(E\\) is a subset of some \\(k\\)-cell \\(\in R^k\\). By `Theorem 2.40`, the cell is compact, so \\(E\\) has a limit point in the cell, by `Theoren 2.37`.
-{% endraw %}
-</details>
+
 
 References
 * (DA): 맛있는 해석학 4판, 김백진
