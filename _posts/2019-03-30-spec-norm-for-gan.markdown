@@ -72,6 +72,12 @@ where \\(\sigma\_1\\) is the largest eigenvalue. Since \\(\frac\{\sigma\_k\}\{\s
 (\\(c\_1,\\ \sigma\_1\\) dissapears since we performed normalization. There is unique vector with unique direction with length 1)  
 And we obtain the largest singular value by \\[\sigma\_1=\sqrt\{d\_1W^TWd\_1\}\\]
 
+In practice, we perform the following update rule (Appendix-A)
+\\[v\leftarrow W^Tu,\quad u\leftarrow W^Tv \tag\{18\}\\]
+Substitution gives similar conclusion as above. We then can approximate the spectral norm of \\(W\\) by
+\\[ u^TWv \\]
+Since the \\(W\\) does not change during the grad descent step, one step of power method is enough.
+
 ### Grad Analysis of the Spectrally Normalized Weights
 THe gradients (when the spectrum(?) has multiplicities, we would be looking at subgradients here, which happens with probability 0 almost surely? - need check) of \\(\bar\{W\}\_\{SN\}(W)\\) wrt \\(W\_\{ij\}\\) is,
 \\[\bar\{W\}\_\{SN\}:=W/\sigma(W)\\]
@@ -80,6 +86,26 @@ THe gradients (when the spectrum(?) has multiplicities, we would be looking at s
 \\[=  \frac\{1\}\{\sigma(W)\}E\_\{ij\} - \frac\{[u\_1v\_1^T]\_\{ij\}\}\{\sigma(W)^2\}W \\]
 (For the last term, remember that \\(\sigma(W)=\sigma\_1=u\_1Wv\_1^T\\)
 \\[ = \frac\{1\}\{\sigma(W)\}(E\_\{ij\} - [u\_1v\_1^T]\_\{ij\} \bar\{W\}\_\{SN\})\\]
+where \\(E\{ij\}\\) is the matrix whose only the (ij)th entry is 1 and others are 0, and \\(u\_1,v\_1\\) are 1st left and right singular vectors of \\(W\\).
+
+### Analysis of SN-GAN (VS other regularization / Normalization)
+compared to other regularizatio which pushes the \\(W\\) to low rank, SN-GAN does the converse (?)
+
+The weight normalization by Salimans & Kingma (2016) performs following weight normalization.
+For a matrix \\(W\\), let \\(w\_i\\) be its row matrix. Then
+\\[\bar\{W\}\_\{WN\}=[\bar\{W\}\_1^T,...,\bar\{W\}\_n^T]\\]
+where
+\\[\bar\{W\}\_i^T=w\_i/\|\| w\_i \|\|\_2 \\]
+There exists implicit constraints
+\\[ \sigma\_1(\bar\{W\})^2 + ... + \sigma\_T(\bar\{W\})^2=n\\]
+where \\(T:=\min(d\_0. d\_i)\\). Indeed,
+\\[\sum\_\{t=1\}^\{\min(d\_i, d\_0)\} \sigma\_t(\bar\{W\}\_\{WN\})^2=\text\{tr\} (\bar\{W\}\_\{WN\}^T\bar\{W\}\_\{WN\}) = \sum\_\{i=1\}^\{d\_0\}\frac\{w\_i\}\{\|\| w\_i \|\|\}\frac\{w\_i\}\{\|\| w\_i \|\|\}^T=d\_0\\]
+
+For a fixed \\(h\\), \\(\max \|\| \bar\{W\}\_\{WN\} h \|\| \\) tends to change \\(\bar\{W\}\_\{WN\}\\) towards a matrix with largest eigenvalue corresponds to \\(d\_0\\) (with eigenvector \\(h\\)?) and other eigenvalues to 0 - toward row rank!
+
+`Orthonormal regularization` which addes following regularization term
+\\[\|\| W^T - I \|\|\_F^2\\]
+clearly pushes \\(W\\) to have eigenvalues with only 1 - destroyes the matrix structure.
 ### Intro
 For example, (Nowozin et al., 2016; Uehara et al., 2016; Mohamed & Lakshminarayanan, 2017) revealed that the training of the discriminator amounts to the training of a good
 estimator for the density ratio between the model distribution and the target. This is a perspective
