@@ -126,9 +126,6 @@ During the inference, for stocasticity (and implicit handling of mode-collapse p
 1. used dropout
 2. did not fix the BN (with bs=1, this is the `instance normalization` of [54] - effective in image generation task?)
 
-
-Next:  
-
 ### Experiments
 1. `Cityscapes`: seg(condition) to img  
     1. Removing conditioning resulted in pool images with one mode.
@@ -136,6 +133,39 @@ Next:
     3. in __img-to-seg__ problem, cGAN did some job (MIOU 22). But GAN+L1 is the best (MIOU 35)
     4. Figure - color distribution
 
+### Code analysis
 
+<a href="https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix" target="_blank">https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix</a>
 
+1. Discriminator-PatchGAN  
+<img src="{{site.url}}/images/deeplearning/gan/pix2pix_patchgan_d.png" width="1000"/>
 
+2. Generator - Unet256
+<img src="{{site.url}}/images/deeplearning/gan/pix2pix_unet_g.png" width="1000"/>  
+UnetBLK
+* use_bias = norm_layer == nn.InstanceNorm2d
+* upconv = ConvTranspose2d(ksize=4, stride=2, padding=1, use_bias)
+* Code copied from <a href="https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix" target="_blank">https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix</a>  
+```python
+if outermost:
+    upconv = nn.ConvTranspose2d(inner_nc * 2, outer_nc,
+                                kernel_size=4, stride=2,
+                                padding=1)
+    down = [downconv]
+    up = [uprelu, upconv, nn.Tanh()]
+    model = down + [submodule] + up
+elif innermost:
+    upconv = nn.ConvTranspose2d(inner_nc, outer_nc,
+                                kernel_size=4, stride=2,
+                                padding=1, bias=use_bias)
+    down = [downrelu, downconv]
+    up = [uprelu, upconv, upnorm]
+    model = down + up
+else:
+    upconv = nn.ConvTranspose2d(inner_nc * 2, outer_nc,
+                                kernel_size=4, stride=2,
+                                padding=1, bias=use_bias)
+    down = [downrelu, downconv, downnorm]
+    up = [uprelu, upconv, upnorm]
+```
+3. Generator - Resnet - refer to the link
