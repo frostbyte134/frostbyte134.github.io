@@ -74,8 +74,8 @@ Checkerboard effect of normal convolution
 <img src="{{site.url}}/images/deeplearning/align_corner.png" width="800">
 
 From below example, we can wee that,
-1. align_corner=True for both TF and Pytorch works same, as the description in the <a href="https://en.wikipedia.org/wiki/Bilinear_interpolation" target="_blank">Wikipedia</a> or from the <a href="https://darkpgmr.tistory.com/117" target="_blank">Darkprogrammer</a>
-2. __align_corner=False for Pytorch works same as the opencv.__ Not sure what tf tried to implement with align_corner=False. 
+1. `align_corner=True` __for both TF and Pytorch work the same__, as the description in the <a href="https://en.wikipedia.org/wiki/Bilinear_interpolation" target="_blank">Wikipedia</a> or from the <a href="https://darkpgmr.tistory.com/117" target="_blank">Darkprogrammer</a>
+2. __`align_corner=False` for Pytorch works same as the opencv.__ Not sure what tf tried to implement with align_corner=False. 
 
 ```python
 import tensorflow as tf
@@ -182,7 +182,7 @@ tensor([[-1.00, -0.86, -0.71, -0.57, -0.43, -0.29, -0.14,  0.00],
 torch.Size([8, 8])
 ```
 
-* You can see in above that, as the <a href="https://github.com/tensorflow/tensorflow/issues/19627" target="_blank">claim here</a>, `align_corner=False` in tensorflow is __not so much symmetric__.
+* You can see in above that, as the <a href="https://github.com/tensorflow/tensorflow/issues/19627" target="_blank">claim here</a>, `align_corner=False` in tensorflow is __not that symmetric__.
 
 * <a href="https://pytorch.org/docs/stable/nn.html#upsample" target="_blank">In the Pytorch document example here</a>, you can see that
   1. with the same scalaing factor, when the input size changed, `align_corner=false` __changes the non-zero values at the top left side__

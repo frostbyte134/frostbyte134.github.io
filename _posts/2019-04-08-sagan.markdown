@@ -1,0 +1,58 @@
+---
+layout: post
+title:  "Self-Attention GAN"
+date:   2019-04-08 09:00:05 +0800
+categories: deep_learning
+use_math: true
+tags: deep_learning attention gan generative
+---
+
+TODO
+* add link to the hinge loss
+* Where did the authors apply self-attention module? not mentioned in the paper?
+
+### Abstract
+* __allows attention-drive, long-range dependency modeling__ for image generation task
+* In `SAGAN`, details can be generated using all cues from all feature location
+* the \\(D\\) can check that highly detailed features in distant portions of the image are consistent with each other
+* ... recent work has shown that conditioning on \\(G\\) affects GAN performance \\(\rightarrow\\) apply `spectral normalization` to the \\(G\\), improved training dynamics
+
+### Intro
+* .. we can observe that convolutional GANs [19, 16, 17] have difficulties in modeling some image classes than others when trainined on multi-class datasets (e.g., ImageNet)  
+EX) SOTA GAN [17] (`Projection cGAN`, Miyato)  
+    * excels at synthesizing image classes with few structural constraints _(ocean, sky, landscapes, which are distinguished ore by texture than by geometry)_
+    * fails to capture geometric / structural pattens that occur consistently in some cls (__dogs__ - with realistic fur texture but without clearly defined feet)
+* since the `convolution` operator has a local receptive field, __long range dependencies__ can only be processed after passing through several convolutional layers. THis could prevent learning about long range dependencies for a variety of reasons:
+    * a small model - not able to represent them (optimization algs have problem finding optimal params, since the parameterizations may be statistically britle and prone to failure when applied to previously seen inputs)
+    * Increasing size of model also poses difficulty in learning and efficiency
+
+\\(\rightarrow\\) `Self-attention` module!
+* __exhibits a better balance between ability to model long-range dependencies and computational and statistical efficiency__.
+* calculates response at a position (as a weighted sum of the features at all positions), where the __weights__ - or `attention vectors` - are calculated with only a small computational cost
+* is __complementary to conv__ and helps with __modeling long range, multi-lvl__(?) dependencies across image regions
+* Visualization of the attention layers shows that the \\(G\\) leverages neighborhoods that correpond to object shapes rather than local regions of fixed shape.
+
+### Related Work
+* `Self-attention` [4, 20] (=`intra-attention`) calculates the response at a position in a sequence, by attending to all positions within the same sequence.
+
+### Self-Attention GANs
+<img src="{{site.url}}/images/deeplearning/gan/self_attention.png" width="1000"/>
+
+Variables
+* feature map \\(x\in R^\{C\times N\}\\)
+* \\(x\_i \in R^\{C\}\\), for \\(i=1,...,N\\). Iterating from i=1 to N is equivalent to iterating all feature spaces \\(W\times H\\).
+* \\(W\_f,\\ W\_g,\\ \in R^\{\bar\{C\}\times C\}\\), which are the weight of 1by1 channel compressing conv \\(f(x)\\). \\(\bar\{C\}=C/8\\) in this paper.
+* \\(W\_h\\) is in \\(C\times C\\).
+
+1. Firstly, we perform two 1by1 conv \\(f, g\\) on \\(x\\) for channel compression. Then we have,
+\\[f(x),g(x)\in R^\{\bar\{C\}\times N\},\quad\quad f(x\_i),g(x\_i)\in R^\{\bar\{C\}\}\\]
+2. Now we calculate attention, by
+\\[\beta\_\{ij\} = \frac\{\exp(s\_\{ij\})\}\{\sum\_\{i=1\}^N\exp(s\_\{ij\})\},\quad \text\{ where \} s\_\{ij\}=f(x\_i)^Tg(x\_j)\\] Notice that __with \\(i\\),__
+    1. we iterate through all spaces with \\(i=1\\ to\\ N\\)
+    2. \\(\sum\_\{i=1\}^N\beta\_\{ij\}=1\\)  
+which shows that \\(\beta\_\{ij\}\\) "indicates the extent to which the model attends to the ith location when synthesizing the jth region".
+3. Finally, the output of the attrention layer is \\(o=(o\_1,...,o\_N)\in R^\{C\times N\}\\) (to original channel), where
+\\[o\_j=\sum\_\{i=1\}^N \beta\_\{ij\}h(x\_i),\quad \text\{ where \} h(x\_i)=W\_hx\_i\\]
+(Remember the semantic of \\(\beta\_\{ij\}\\). We multiply such indicator with fully connected layer with original input feature map.)
+
+In `SA-GAN`, the proposed attention module __has been applied both to \\(G,\\ D\\)__, which are trainind in an alternating fashion by minimizing the `hinge-loss` of GAN [13, 30, 16]
