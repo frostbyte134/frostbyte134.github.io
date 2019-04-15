@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Upsampling the Image in Deep Learning"
+title:  "Upsampling Images in Deep Learning"
 date:   2019-04-07 09:00:05 +0800
 categories: deep_learning
 use_math: true
