@@ -21,7 +21,7 @@ for all points \\(x\in X\\) which
 ### Continuity
 > __Definition__ 4.6 (PMA):  
 Let \\(X\\) and \\(Y\\) be metric spaces; suppose \\(E\subset X\\), \\(f\\) maps \\(E\\) into \\(Y\\). Then \\(f\\) is said to be continuous at \\(p\\) if
-\\[\forall\\ \epsilon > 0\\ \exists \\ \delta > 0 \\ : \\ d\_X(x,p)<\delta\quad\rightarrow\quad d\_Y(f(x),f(y)) < \epsilon\\]
+\\[\forall\\ \epsilon > 0\\ \exists \\ \delta > 0 \\ : \\ d\_X(x,p)<\delta\quad\rightarrow\quad d\_Y(f(x),f(p)) < \epsilon\\]
 
 `note`
 * unlike 4.1, \\(f\\) should be defined at \\(p\\).
@@ -78,7 +78,7 @@ Suppose \\(f\\) is a continuous mapping of a compact metric space \\(X\\) into a
 
 `proof`:  
 1. Let \\(\\{V\_\alpha\\}\\) be an open cover of \\(f(X)\\). We have to show that there exists a finite subcover which still covers \\(f(X)\\).
-2. Since \\(V\_\alpha\\) is open and \\(f\\) is continuous, \\(f^\{-1\}(V\_\alpha)\\) is also open set (`Thm 4.8`). We easily see that the inverse mapping of \\(\\{V\_\alpha\\}\\) covers \\(X\\), and
+2. Since \\(V\_\alpha\subset Y\\) is open and \\(f\\) is continuous, \\(f^\{-1\}(V\_\alpha)\\) is also open set (`Thm 4.8`). We easily see that the inverse mapping of \\(\\{V\_\alpha\\}\\) covers \\(X\\), and
 \\[X\subseteq f^\{-1\}\left(\mathop\{\bigcup\}\_\{\alpha\}V\_\alpha\right)\\]
 \\[f^\{-1\}\left(\mathop\{\bigcup\}\_\{\alpha\}V\_\alpha\right) = \mathop\{\bigcup\}\_\{\alpha\}f^\{-1\}\left(V\_\alpha\right)\\]
 Since \\(X\\) is compace, there exists an finite indices \\(\alpha\_1,...,\alpha\_n\\) such that

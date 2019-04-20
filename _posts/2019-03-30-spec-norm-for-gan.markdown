@@ -73,7 +73,7 @@ where \\(\sigma\_1\\) is the largest eigenvalue. Since \\(\frac\{\sigma\_k\}\{\s
 And we obtain the largest singular value by \\[\sigma\_1=\sqrt\{d\_1W^TWd\_1\}\\]
 
 In practice, we perform the following update rule (Appendix-A)
-\\[v\leftarrow W^Tu,\quad u\leftarrow W^Tv \tag\{18\}\\]
+\\[v\leftarrow W^Tu,\quad u\leftarrow Wv \tag\{18\}\\]
 Substitution gives similar conclusion as above. We then can approximate the spectral norm of \\(W\\) by
 \\[ u^TWv \\]
 Since the \\(W\\) does not change during the grad descent step, one step of power method is enough.
