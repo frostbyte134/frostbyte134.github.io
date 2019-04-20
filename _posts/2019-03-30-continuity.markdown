@@ -15,6 +15,8 @@ Let \\(X\\) and \\(Y\\) be metric spaces; suppose \\(E\subset X\\), \\(f\\) maps
 \\[\lim\_\{x\rightarrow p\}f(x)\\]
 if there is a point \\(q\in Y\\) with the following property: For every \\(\epsilon>0\\) there exists a \\(\delta\\) such that
 \\[d\_Y(f(x),q)< \epsilon\\]
+for all points \\(x\in X\\) which
+\\[0<d\_X(x,p)<\delta\\]
 
 ### Continuity
 > __Definition__ 4.6 (PMA):  
