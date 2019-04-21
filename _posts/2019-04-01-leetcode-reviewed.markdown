@@ -1,13 +1,43 @@
 ---
 layout: post
-title:  "Leetcode - Regular Expression"
-date:   2019-02-16 10:59:00
+title:  "Leetcode - reviewed"
+date:   2019-04-01 09:59:00 +0800
 categories: problem_solving
 use_math: true
-tags: problem_solving leetcode need_review
+tags: problem_solving leetcode
 ---
 
-<a href="https://leetcode.com/problems/two-sum/" target="_blank">https://leetcode.com/problems/two-sum/</a>
+### Subarray Sum Equals K
+https://leetcode.com/problems/subarray-sum-equals-k/
+
+부분합문제인데 N^2로 풀면 TLE남.  
+힌트는 값의 범위가 좁다는거였음. dic에 지금까지 나온 값들 저장해놓고 체크하면 됨.  
+`collections.counter`를 쓰면 더 빨라지는듯?
+
+
+### Find All Numbers Disappeared in an Array
+https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/
+
+리스트 값이 리스트 내부와 range가 같고, 리스트를 체크해야 할 시 리스트 값이 -를 해두면 좋은듯
+
+
+### Min stack
+<a href="https://leetcode.com/problems/min-stack/" target="_blank">https://leetcode.com/problems/min-stack/</a>
+
+stack의 최소값 - pair를 저장하면 됨. 큐와는 달리 top 밑에 있는 애들이 안빠지므로..
+
+
+### Rotate image
+
+<a href="https://leetcode.com/problems/rotate-image/submissions/" target="_blank">https://leetcode.com/problems/rotate-image/submissions/</a>
+
+행렬 90도 rotation
+
+1. transpose + column exchange
+2. 4개의 점끼리만 바꾸기. Row 2개로 swap하려고 해서 잘 안풀려서 1번으로 풀음
+
+
+### Regular expression
  
 ```python
 class Solution:
