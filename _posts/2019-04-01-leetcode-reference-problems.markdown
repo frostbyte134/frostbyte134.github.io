@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Leetcode - Search problems"
-date:   2019-04-21 09:59:00 +0800
+title:  "Leetcode - reference problems"
+date:   2019-04-01 09:59:00 +0800
 categories: problem_solving
 use_math: true
 tags: problem_solving leetcode need_review
@@ -37,7 +37,7 @@ Permutation의 다음번째는 무엇인가? (lexicographical order)
 1. \\(2(L\_1+L\_2)=L\_1+L\_2+nC\\)
 2. \\(n=1\\): 어차피 `fast`와 `slow`는 1번에 1칸씩밖에 차이가 안나기때문에, `fast`는 1번의 순회만으로 `slow`와 만남.
 
-그러므로, \\(L\_1+L\_2=C \quad\right\quad L\_1=C-L\_2\\). 현재 slow위치에서 계속 앞으로 나가고, starting point에서 앞으로 나가면 만나는곳이 cycle entry가 됨.
+그러므로, \\(L\_1+L\_2=C \quad\rightarrow\quad L\_1=C-L\_2\\). 현재 slow위치에서 계속 앞으로 나가고, starting point에서 앞으로 나가면 만나는곳이 cycle entry가 됨.
 
 ### Coin change
 

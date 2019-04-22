@@ -39,10 +39,10 @@ Then \\(\Lambda=\text\{limsup\}\\ a\_n\\) i.i.f,
 __proof__: \\(\rightarrow\\). Let \\(\text\{limsup\}\\ a\_n=\Lambda\\).  
 1. Negating 1. gives, 
 \\[\exists \epsilon > 0,\\ \forall N\in\mathbb\{N\},\\ \exists n\\ :\\ n>N\quad\land\quad a\_n\geq\Lambda+\epsilon\\]
-Thus for some \\(\epsilon\\), we can construct a sequence converging to limit larger than \\(\Lambda+\epsilon\\) (There are infinitely many \\(N\\): a cluster point (of sequence) exists) - contradiction that \\(\sup C=\Lambda\\).
+Thus for some \\(\epsilon\\), \\(a\_n\geq\Lambda+\epsilon\\) infinitely many times - contradicting that \\(\sup C=\Lambda\\).
 2. Negating 2. gives,
 \\[\exists \epsilon > 0,\exists N\in\mathbb\{N\},\\ \forall n\\ :\\ n>N\quad\rightarrow\quad a\_n\leq\Lambda-\epsilon\\]
-Thus for some \\(\epsilon>0\\), every subsequence converges to a limit less than or equal to \\(\Lambda\\) (or \\(\Lambda - \epsilon \\) is the new supremum)- contradiction that \\(\sup C=\Lambda\\).
+Thus for some \\(\epsilon>0\\), every subsequence converges to a limit converges to a number less than or equal to \\(\Lambda-\epsilon\\) contradicting that \\(\sup C=\Lambda\\).
 
 \\(\leftarrow\\): Let \\(\text\{limsup\}\\ a\_n=\Lambda'\\). We'll show that \\(\sup C=\Lambda'=\Lambda\\), where \\(\Lambda\\) is the number satisfying 1. and 2.  
 
@@ -51,14 +51,14 @@ If not, then \\(\Lambda'>\Lambda\\). Let \\(\epsilon=(\Lambda'-\Lambda)/2\\), an
 \\[a\_n<\Lambda+\epsilon=\Lambda+\frac\{\Lambda'-\Lambda\}\{2\}=\Lambda'-\epsilon,\quad \forall n > N\\]
 Thus \\(\Lambda'\\) cannot be \\(\sup C\\)=supremum of all cluster points, a contradiction.
 2. \\(\Lambda'\geq\Lambda\\): We'll use 1, 2 to construct a subseq converging to \\(\Lambda'\\), and use that \\(\Lambda'=\sup C\\).  
-Using 1. and 2., for each \\(\epsilon=1/k,\\ \exists N\in\mathbb\{N\}\\ :\\ 1\Lambda-\frac\{1\}\{k\}<a\_n<\Lambda+\frac\{1\}\{k\}\\)  
+Using 1. and 2., for each \\(\epsilon=1/k,\\ \exists N\in\mathbb\{N\}\\ :\\ \Lambda-\frac\{1\}\{k\}<a\_n<\Lambda+\frac\{1\}\{k\}\\)  
 Using the sandwich theorem (link), we see that there is a subsequence converging to \\(\Lambda\\), and since \\(\Lambda'\\) is the supremum over the cluster points, the theorem follows. __Q.E.D.__
 
 
 ### Partial additivity of the limit supremum/infimum
 > __Theorem__ 3.7.9 (DA): For bounded sequences \\(\\{a\_n\\},\\{b\_n\\}\\),  
-1. \\(\\text\{limsup\}\\{a\_n+b\_n\\}\leq\text\{limsup\}\\ \\{a\_n\\}+\text\{limsup\}\\ \\{b\_n\\}\\) 
-2. \\(\\text\{liminf\}\\{a\_n+b\_n\\}\geq\text\{liminf\}\\ \\{a\_n\\}+\text\{liminf\}\\ \\{b\_n\\}\\)
+\\[1.\\ \\text\{limsup\}\\{a\_n+b\_n\\}\leq\mathop\{limsup\}\\ \\{a\_n\\}+\mathop\{limsup\}\\ \\{b\_n\\}\\]
+\\[2.\\ \\text\{liminf\}\\{a\_n+b\_n\\}\geq\mathop\{liminf\}\\ \\{a\_n\\}+\mathop\{liminf\}\\ \\{b\_n\\}\\]
 
 __proof__: For 1, Let \\(\text\{limsup\}\\ \\{a\_n\\}=A,\\ \text\{limsup\}\\ \\{b\_n\\}=B\\) and suppose the theorem does not hold. Then there must be a subsequence of \\(\\{a\_n+b\_n\\}\\) such that converges to a cluster point larger thatn \\(A+B\\). In equation,
 \\[\exists \epsilon,\\ \forall N\in\mathbb\{N\},\\ \exists n\\ :\\ n>N\quad\rightarrow\quad a\_n+b\_n>A+B+\epsilon\\]
@@ -73,23 +73,21 @@ for infinitely many \\(n\\). Consequently,
 
 ### Definition of limit superior/inferior using supremum/infimum
 __(important!)Theorem 3.7.10 (DA)__ For a bounded sequence \\(\\{a\_n\\}\\), 
-1. \\(\text\{limsup\}\\ \\{a\_n\\}=\inf\_\{N\in\mathbb\{N\}\}\sup\_\{k\geq n\}a\_k=\lim\_\{n\rightarrow\infty\}\sup\_\{k\geq n\}a\_k\\)
-2. \\(\text\{liminf\}\\ \\{a\_n\\}=\sup\_\{N\in\mathbb\{N\}\}\inf\_\{k\geq n\}a\_k=\lim\_\{n\rightarrow\infty\}\inf\_\{k\geq n\}a\_k\\)
+\\[\mathop\{limsup\}\\ \\{a\_n\\}=\lim\_\{n\rightarrow\infty\}\sup\_\{k\geq n\}a\_k=\inf\_\{N\in\mathbb\{N\}\}\sup\_\{k\geq n\}a\_k\\]
+\\[\mathop\{liminf\}\\ \\{a\_n\\}=\lim\_\{n\rightarrow\infty\}\inf\_\{k\geq n\}a\_k=\sup\_\{N\in\mathbb\{N\}\}\inf\_\{k\geq n\}a\_k=\\]
 
 __proof__: Let
 \\[x\_n=\sup\\{a\_k\\ \|\\ k\leq n\\}\\]
-It is trivial that \\(x\_n\\) is monotonocally decreasing seq (think about the support of \\(\sup\\)), and is bounded by its definition. Thus \\(x\_n\\) converges by the monotonic convergence theorem (link), and let \\(\Lambda\\) be the limit of it.  
+It is trivial that \\(x\_n\\) is monotonocally decreasing seq (think about the support of \\(\sup\\)), and is bounded by its definition. Thus \\(x\_n\\) converges by the monotonic convergence theorem (link), and let \\(L\\) __be the limit of it.__  
 1. Then \\(\forall \epsilon>0,\\ \exists N\\) such that
-\\[x\_N-L<\epsilon\quad\rightarrow\quad x\_N<L+\epsilon\\]
+\\[\| x\_N-L\| <\epsilon\quad\rightarrow\quad x\_N<L+\epsilon\\]
 Since for \\(n\geq N\\), \\(a\_n\leq x\_n\\) holds,
 \\[\forall \epsilon>0,\\ \exists N,\\ \forall n\\ :\\ n>N\quad\rightarrow\quad a\_n\leq x\_n<L+\epsilon\\]
 which is exactly 1. of 3.7.5 (DA) (link)
-2. For some \\(N\\) of 1., \\(\forall K\geq N\\),
-\\[-\epsilon<x\_K-L\quad\rightarrow\quad L-\epsilon < x\_K\\]
-holds. Since \\(x\_K\\) is a _supremum_ over \\(a\_k,\\ k\geq K\\), for such \\(\epsilon\\),  
-\\[\exists k\geq K\\ :\\ L-\epsilon < a\_k\leq x\_K\\]
-In summary, by exchanging \\(\forall K \geq N,\\ \exists k > K\\) to \\(\quad \forall K\in\mathbb\{N\},\exists k > K\\),
-\\[\forall \epsilon > 0,\\ \forall k\in N,\\ \exists k\\ :\\ k\geq K \quad\land\quad L-\epsilon <a\_k\\]
+2. Now, suppose that arbitrary \\(K\in \mathbb\{N\}\\) is given. By letting \\(m>\max(N, K)\\) for the \\(N\\) and \\(\epsilon\\) (which was arbitrary) of 1, 
+\\[\|L-\epsilon\|<x\_m\quad\rightarrow\quad L-\epsilon < x\_m\\]
+holds. Furthermore, since \\(x\_K\\) is a _supremum_ over \\(a\_k,\\ k\geq K\\) by using the property of supremum, 
+\\[\forall K\in \mathbb\{N\},\\ \exists m, : m\geq K\\ \land \\ L-\epsilon < a\_k\leq x\_K\\]
 which is exactly 3.7.5-2. 
 
 
