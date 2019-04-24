@@ -4,8 +4,16 @@ title:  "Leetcode - reference problems"
 date:   2019-04-01 09:59:00 +0800
 categories: problem_solving
 use_math: true
-tags: problem_solving leetcode need_review
+tags: problem_solving leetcode need_review reference_problem
 ---
+
+### Best time to buy and sell stock
+<a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/submissions/" target="_blank">https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/</a>
+
+1. DP
+\\[\text\{maxx\}[i] = \max(\text\{maxx\}[i], \text\{maxx\}[i-1], ary[i] - ary[j] + \text\{maxx\}[j-2]),\\ j=1,...,i-1\\]
+when j<2, maxx[j-2] = 0 (there is no profit we can obtain in day=i=0, 1)
+2. __Notice__ that, the term \\(- ary[j] + \text\{maxx\}[j-2])\\) is calculated over and over
 
 ### Next permutation
 

@@ -61,7 +61,18 @@ Difference with L2 reg / Lasso / spectral norm "regularization"
 
 ### Fast Approximation of the Spectral Norm
 - appeals to the `power method`
-- <a href="https://pytorch.org/docs/stable/_modules/torch/nn/utils/spectral_norm.html" target="_blank">pytorch implementation</a>
+- <a href="https://pytorch.org/docs/stable/_modules/torch/nn/utils/spectral_norm.html" target="_blank">pytorch implementation</a>  
+Notice that, the weights are reshaped as,
+```python
+if dim is None:
+        if isinstance(module, (torch.nn.ConvTranspose1d,
+                               torch.nn.ConvTranspose2d,
+                               torch.nn.ConvTranspose3d)):
+            dim = 1
+        else:
+            dim = 0
+```
+since, for each output channel, the convolution can be thought as a linear operation (or, even a dot product) by expanding the matrix
 
 For a weight matrix \\(W\\), power method performs following update
 \\[x^\{k+1\}=W^TWx^\{k\}\\]

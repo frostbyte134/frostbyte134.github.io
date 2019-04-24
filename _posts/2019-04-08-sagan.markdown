@@ -57,6 +57,13 @@ which shows that \\(\beta\_\{ij\}\\) "indicates the extent to which the model at
 
 In `SA-GAN`, the proposed attention module __has been applied both to \\(G,\\ D\\)__, which are trainind in an alternating fashion by minimizing the `hinge-loss` of GAN [13, 30, 16]
 
+### Self-Attention GANs in practice
+The code implemented is a bit different than the model describied in paper. <a href="https://github.com/ajbrock/BigGAN-PyTorch" target="_blank">(BigGAN author code)</a>
+
+In particular,
+
+<img src="{{site.url}}/images/deeplearning/gan/sa.png" width="1200"/>
+
 
 ### Techniques to stabilize GAN training
 1. Spectral normalization on \\(G\\)  
