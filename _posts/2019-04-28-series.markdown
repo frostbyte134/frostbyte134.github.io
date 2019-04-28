@@ -1,0 +1,100 @@
+---
+layout: post
+title:  "Series"
+date:   2019-4-22 08:00:05 +0800
+categories: analysis
+use_math: true
+tags: analysis continuity limit function compact differentiation derivative
+---
+
+Related:
+1. <a href="{{site.url}}/deep_learning/2018/08/23/series-and-sum.html" target="_blank">Sums and Series</a>
+
+
+
+### Definition
+> __Definition__ 3.21 (PMA):  
+Given a sequence \\(\\{a\_n\\}\\), we associate __a seequence__ \\(\\{s\_n\\}\\) (=`partial sum`), where
+\\[s\_n=\sum\_\{k=1\}^na\_k.\\]
+
+For \\(\\{s\_n\\}\\), we use the symbolic expression
+\\[a\_1+a\_2+...\\] 
+or, more __consicesly__
+\\[\sum\_\{k=1\}^\infty a\_n.\tag\{4\}\\]
+The symbol (4) we call an `infinite series`, or just a `series`. If \\(\\{s\_n\\}\\) __converges to __ \\(s\\), then we say that the __series converges__, and write
+\\[\sum\_\{k=1\}^\infty a\_n = s\\]
+The number \\(s\\) is called the sum of the series; but it should be clearly understood that \\(s\\) __is the limit of a sequence__ of sums, and __is not obtained simply by addition__. If \\(\\{s\_n\\}\\) diverges, the series is said to be diverge.
+
+The term (4) is sometimes abbreviated as \\(\sum a\_n\\), including the case where \\(n\\) starts with 0.
+
+### Series and Cauchy sequence
+It is clear that every theorem about sequences can be stated in terms of series, as the following thereom and vice versa.
+
+The <a href="{{site.url}}/analysis/2018/12/29/cauchy-seq.html" target="_blank">Cauchy criterion (PMA Thm 3.11)</a> can be restated as follows.
+
+> __Theorem__ 3.22 (PMA) \\(\sum a\_n\\) converges i.i.f for every \\(\epsilon\\), there is an integer \\(N\\) such that
+\\[\| \sum\_\{k=n\}^m a\_k \| < \epsilon\tag\{6\}\\]
+\\(\forall\\ m\geq n \geq N\\)
+
+__proof__: remember that the partial sum \\(\\{s\_n\\}\\)s are sequence
+
+In particular, by taking \\(m=n\\), we see that (6) becomes
+\\[\|a\_n\| < \epsilon\\]
+Which can be stated as below
+
+> __Theorem__ 3.23 (PMA) If \\(\sum a\_n\\) converges, then 
+\\[\lim\_\{n\rightarrow\infty\}\|a\_n\| = 0\\]
+
+The __converse is not true__ for some cases (ex - \\(\sum 1/n\\). For the proof we refer to `Thm 3.28`).
+
+> __Theorem__ 3.24 (PMA) A series of nonnegative terms converges i.i.f its partial sum form a bounded sequence.
+
+__proof__: `Thm 3.14`, concerning monotonic sequences, also has in immediate counterpart for series non-negative (or positive) series, since their partial sums are monotonic.
+
+### Comparison Test
+> __Theorem__ 3.25  __Comparison test__  
+(a) If \\(\|a\_n\| \leq c\_n\\) for \\(n\geq N\_0\\), where \\(N\_0\\) is some fixed integer, and if \\(\sum c\_n\\) converges, than \\(\sum a\_n\\) converges.  
+(b) Can be proved in many ways, (ex - `Thm 3.24`) considering the partial sums
+
+__proof__  
+(a) \\(\sum c\_n\\) converges - partial sums of \\(c\_n\\) converges - using some inequalities, partial sums of \\(a\_n\\) converges.  
+(b) If \\(a\_n\geq d\_n\geq 0\\) for \\(n\geq N\_0\\), and if \\(\sum d\_n\\)  diverges, then \\(\sum a\_n\\)  diverges
+
+### Series of Nonnegative Terms
+Here only the theorems are listed. For the exact proof, refer to the book.
+
+> __Theorem__ 3.26  __Geometric Series__   
+If \\(0\leq x\leq 1\\), then
+\\[\sum\_\{n=1\}^\infty x^n=\frac\{1\}\{1-x\}\\]
+If \\(x\leq 1\\), the series diverges
+
+__proof__: If \\(x\neq 1\\),
+\\[s\_n=\sum\_\{k=1\}^n x^k=\frac\{1-x^\{n+1\}\}\{1-x\}\\]
+The result follows if we let \\(n\rightarrow\infty\\). For \\(x=1\\), the series obviously diverges.
+
+The following theorem of Cauchy is therefore of particular interest. The striking feature of the theorem is that a rather `thin subsequence` of \\(a\_n\\) determines the convergence or divergence of \\(\sum a\_n\\).
+
+> __Theorem__ 3.27   
+Suppose \\(a\_1\geq a\_2 \geq \cdots \geq 0\\). Then the series \\(sum\_\{n=1\}^\infty a\_n\\)  converges i.i.f the series
+\\[\sum\_\{k=0\}^\infty 2^ka\_\{2^k\}\\]
+converges
+
+__proof__: we can bound each other's partial sums, using the finite sum of geometric sequences.
+
+> __Theorem__ 3.28 	
+\\(\sum \frac\{1\}\{n^p\}\\) converges if \\(p>1\\) and diverges if \\(p≤1\\)
+
+1. If \\(p\leq 0\\), theorem 3.23 is applicable.
+2. If \\(p>1\\), Theorem 3.27 is applicable, which gives the series
+\\[\sum\_\{k=0\}^\infty 2^k \frac\{1\}\{2^\{kp\}\}=\sum\_\{k=0\}^\infty 2^\{(1-p)k\}\\]
+Now, \\(2^\{1-p\}<1 \\) i.i.f \\(1-p<0\\), and the result follows from the comparison test with geometric seq.
+
+> __Theorem__ 3.29 	
+\\(\sum \frac\{1\}\{n(\log n)^p\}\\) converges if \\(p>1\\) and diverges if \\(p≤1\\).
+
+References
+* (DA): 맛있는 해석학 4판, 김백진
+* (PMA): Walter Rudin, Principle of Mathmatical Analysis
+
+Next:  
+

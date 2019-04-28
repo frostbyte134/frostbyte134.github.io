@@ -6,6 +6,56 @@ categories: analysis
 use_math: true
 tags: analysis limit_superior supremum limit_inferior infimum
 ---
+### (Rudin) Theorem 2.37
+> If \\(E\\) is an subset with infinite cardinality of a compact set \\(K\\), then \\(E\\) has a limit point in \\(K\\)
+
+__proof__: 
+1. If not, then \\(E\\) does not have an limit point in \\(K\\)  
+\\(\rightarrow\\) for every \\(k\in K\\), there exists \\(\epsilon\_k\\) such that the neighbor \\(N\_\{\epsilon\_k\}(k)\\) contains at most one point of \\(E\\) (namely, when \\(k\in E\\)).
+2. \\(E\\) can be covered by the open cover \\(\\{N\_\{\epsilon\_k\}(k)\\}\\), but by 1 there exists no finite subcover which can cover \\(E\\), which also cannot cover \\(K\\), a contradiction.
+
+### (Rudin) Theorem 3.6
+> (a) If \\(\\{p\_n\\}\\) is a sequence in a compact metric space \\(X\\), then some subsequence of \\(\\{p\_n\\}\\) converges to a point in \\(X\\). 
+
+Notice that the `set` is replaced with `sequence`, in compact metric space.
+
+__proof__: Let \\(E\\) be the range of \\(\\{p\_n\\}\\).
+1. When \\(E\\) is finite, \\(\exists\\) a point \\(x\in X\\) with infinitely many occurence in \\(\\{p\_n\\}\\).
+2. When \\(E\\) has infinite cardinality, then by the `Thm 2.37` \\(E\\) has a limit point \\(x\in X\\).  
+By the definition of the limit point (cluster point), every neighborhood of \\(x\\) contains infinitely many points of \\(E\\).  
+For each \\(n\in \mathbb\{N\}\\), choose \\(p\_\{n\_i\}\in E\\) in \\(N\_\{1/n\}(x)\\).  
+We now have a subsequence converging to \\(x\in X\\).
+
+> (b) Every bounded sequence in R^k contains a convergent subsequence  
+
+__proof__: This follows from (a), since `Thm 2.41` implies that every bounded subset of \\(R^k\\) lies in a compact subset of \\(R^k\\).
+
+### (Rudin) Theorem 3.7
+> The subsequential limits of a sequence \\(\\{p\_n\\}\\) in a metric space \\(X\\) form a closed subset of \\(X\\)
+
+(We'll gonna show that, for a limit point \\(q\\) of \\(E^\*\\), the set of all subsequential limit points of \\({p\_n\}\\), there eixsts a subsequence of \\(\\{p\_n\\}\\) converging to \\(q\\). 
+
+__proof__: with \\(E^\*\\) and \\(q\\) as above, 
+1. choose \\(n\_1\\) s.t. \\(p\_\{n\_1\}\in E\\ \land\\ p\_\{n\_1\}\neq q\\). If there is no such \\(n\_1\\), then \\(E^\*\\) is an singleton and we have nothing to prove. Let \\(\delta=\|p\_\{n\_1\}-q\|\\).
+2. Using induction, let \\(n\_\{i-1\}\\) be choosed.  
+	-1. Since \\(q\\) is the limit point of \\(E\\), \\[\forall i\in\mathbb\{N\},\\ \exists q\_i\in E\\ : \\ \|q-q\_i\| < \delta 2^\{-i\}\\]  
+	-2. Since \\(q\_i\in E^\*\\), there exists a subsequence \\(\\{p\_\{n\_i\}\\}\\) converging to \\(q\_i\\), and
+	\\[\exists j \in\mathbb\{N\} ,\\ \forall k \in\mathbb\{N\} : k>j\quad\rightarrow\quad  \|p\_\{n\_k\}-q\_i\| <\delta 2^\{-i\}\\]
+	-3. Using aboves,
+	\\[\forall i\in \mathbb\{N\},\\ \exists j\in\mathbb\{N\},\\ \forall k\in\mathbb\{N\}\\ :\\  k>j\quad\rightarrow\quad\|q-p\_\{n\_k\}\| \leq \|q-q\_i\| + \|p\_\{n\_k\}-q\_i\| < 2\delta 2^\{-i\} = \delta 2^\{1-i\}\\]
+	which shows that \\(\\{p\_\{n\_i\}\\}\\) converges to \\(q\\).
+	
+> If \\(x> q\\), then there is an integer \\(N\\) such that \\(p\_n<x\\)
+
+__proof__: Suppose not. Then \\(p\_n\geq x\\) for infinitely many times, and we see that there is an subsequence converging to the limit value large or equal than \\(x\\), which is a contradiction.
+
+> Limit supremum is unique
+
+__proof__: Let \\(p,q\\) be two distinct limit suprema. Then there exists \\(x\\ :\\ p<x<q\\). Since \\(p\\) satisfies (b), we see that \\(\exists N\in\mathbb\{N\}\\) such that, \\(n>N\quad\rightarrow\quad p\_n<x\\) but then \\(q\\) cannot satisfy (a). 
+ 
+With this theorem, we see that __there always exists a subsequence converges to limsup (or liminf)__ of a sequence
+	
+### Definition
 
 For a sequence \\(\\{a\_n\\}\\), let \\(C\\) be the set of all cluster points of it.  
 (`Cluster point` of a sequence : there exist a subsequence converging to it).  
