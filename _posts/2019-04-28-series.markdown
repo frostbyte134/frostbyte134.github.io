@@ -1,10 +1,10 @@
 ---
 layout: post
 title:  "Series"
-date:   2019-4-22 08:00:05 +0800
+date:   2019-4-28 08:00:05 +0800
 categories: analysis
 use_math: true
-tags: analysis continuity limit function compact differentiation derivative
+tags: analysis sum series root_test ratio_test cauchy absolute_convergence
 ---
 
 Related:
@@ -95,6 +95,94 @@ Now, \\(2^\{1-p\}<1 \\) i.i.f \\(1-p<0\\), and the result follows from the compa
 References
 * (DA): 맛있는 해석학 4판, 김백진
 * (PMA): Walter Rudin, Principle of Mathmatical Analysis
+
+
+### The number _e_
+\\[e:=\sum\_\{n=0\}^\infty \frac\{1\}\{n!\}=\lim\_\{n\rightarrow \infty\}(1+\frac\{1\}\{n\})^n.\\]
+Skipped. The proof uses binomial theorem and few thorems about subsequential limits. (Theorem 3.19, Rudin)
+
+### The root and Ratio Tests
+> __Theorem__ 3.33  __Root test__  
+Given \\(\sum a\_n\\), put \\[\alpha=\mathop\{\text\{limsup\}\}\_\{n\rightarrow\infty\} \|a\_n\|^\{\frac\{1\}\{n\}\}\\] Then,  
+(a) If \\(\alpha < 1\\), \\(\sum a\_n\\) converges  
+(b) If \\(\alpha > 1\\), \\(\sum a\_n\\) diverges  
+(c) If \\(\alpha = 1\\), The test gives no information.
+
+__proof__:  
+(a): If \\(\alpha<1\\), then there exists \\(\beta\\) such that \\(\alpha<\beta<1\\), and by the `Thm 3.17 (b)`, we have
+\\[\exists N\in\mathbb\{N\},\\ \forall n : n>N\quad\rightarrow\quad \|a\_n\|^\{\frac\{1\}\{n\}\} < \beta\\]
+\\[\|a\_n\| < \beta^n\\]
+1. Since \\(0<\beta<1,\\ \sum \beta^n\\) converges (geometric series)
+2. By the comparison test (partial sum + triangle inequality), \\(\sum a\_n\\) also converges.
+
+(b) If  \\(\alpha>1\\), then again by the `Thm 3.17 (b)`, we have a subsequence \\(n\_k\\) such that \\(\|a\_\{n\_k\}\|^\{\frac\{1\}\{n\_k\}\}\\) converges to \\(\alpha\\). Since \\(\alpha>1\\), for some \\(N\in\mathbb\{N\}\\), the term gets bigger than 1, so that the condition \\(a\_n\rightarrow 0\\) for convergent series does not hold (`Thm 3.23`).
+
+(c) We consider the series
+\\[\sum\frac\{1\}\{n\},\quad \sum\frac\{1\}\{n^2\}\\]
+For each of these series \\(\alpha=1\\), but the first diverges, and the second converges.
+
+> __Theorem__ 3.34  __Ratio test__  
+The series \\(\sum a\_n\\) 
+1. converges when \\[\mathop\{\text\{limsup\}\}\_\{n\rightarrow\infty\} \left\|\frac\{a\_\{n+1\}\}\{a\_n\}\right\|<1\\]  
+2. diverges if \\[\exists N\in\mathbb\{N\},\\ \forall n\\ : \\ n>N\quad\rightarrow\quad \left\|\frac\{a\_\{n+1\}\}\{a\_n\}\right\|\geq 1\\]
+
+__proof__: Like `Thm 3.33`, \\(\exists \beta < 1\\) and an integer \\(N\\) such that
+\\[\left\|\frac\{a\_\{n+1\}\}\{a\_n\}\right\| < \beta\\]
+for \\(n\geq N\\). In particular, 
+\\[\|a\_\{N+1\}\| < \beta \|a\_\{N\}\|\\]
+\\[\|a\_\{N+2\}\| < \beta \|a\_\{N+1\}\| < \beta^2 \|a\_\{N+1\}\| ... \\]
+\\[\|a\_\{N+p\}\| < \beta^p \|a\_\{N\}\|\\]
+Now letting \\(N+p=n\quad\rightarrow\quad n=N-p\\) gives
+\\[\|a\_n\| < \|a\_N\|\beta^\{-N\}\cdot\beta^\{n\}\\]
+for \\(n\geq N\\), and (a) follows from the compartion test as \\(\sum\beta^n\\) converges.
+
+If \\(\|a\_\{n+1\}\geq \|a\_n\|\\) for \\(n\geq n\_0\\), then the condition \\(a\_n\rightarrow 0\\) does not hold, and (b) follows.
+
+Note: exactly like (c) of Thm 3.33, =1 gives no information (with same proof)
+
+* Ratio test is easier to apply, but the root test is more powerful.
+
+> __Theorem__ 3.37    
+For any positive sequence \\(\\{c\_n\\}\\),
+\\[\mathop\{\text\{liminf\}\}\_\{n\rightarrow\infty\} \left\|\frac\{c\_\{n+1\}\}\{c\_n\}\right\| < 
+\mathop\{\text\{liminf\}\}\_\{n\rightarrow\infty\} \left\|c\_n\right\|^\{\frac\{1\}\{n\}\}\\]
+\\[\mathop\{\text\{limsup\}\}\_\{n\rightarrow\infty\} \left\|c\_n\right\|^\{\frac\{1\}\{n\}\} < 
+\mathop\{\text\{limsup\}\}\_\{n\rightarrow\infty\} \left\|\frac\{c\_\{n+1\}\}\{c\_n\}\right\|\\]
+
+__proof__ we shall prove the 2nd inequality. Put
+\\[\alpha=\mathop\{\text\{limsup\}\}\_\{n\rightarrow\infty\} \left\|\frac\{c\_\{n+1\}\}\{c\_n\}\right\|\\]
+If \\(\alpha=\infty\\), then there is nothing to prove. If it is finite, choose \\(\beta > \alpha\\). There is an integer \\(N\\) such that
+\\[\frac\{c\_\{n+1\}\}\{c\_n\}\leq \beta\\]
+for \\(n>N\\). In particular, for any \\(p>0\\), 
+\\[c\_\{N+k+1\}\\leq c\_\{N+k\} \beta,\quad k=0,1,...,p-1\\]
+Multiplying these inequalities, we obtain
+\\[c\_\{N+P\}\leq \beta^p c\_N\\]
+or (by substitution)
+\\[c\_n \leq c\_N\beta^{-N\}\cdot \beta^n\quad(n\geq N)\\]
+Hence
+\\[c\_n^\{\frac\{1\}\{n\}\}\leq \{c\_N\beta^\{-N\}\}^\{\frac\{1\}\{n\}\}\beta\\]
+so that (Notice that \\(c\_N\beta^\{-N\}\\) is a constant)
+\\[\mathop\{\text\{limsup\}\}\_\{n\rightarrow\infty\} \leq \beta\tag\{18\}\\]
+by Theorem 3.20 (b). Since (18) is true for every \\(\beta>\alpha\\), we have (can be proved by reduction)
+\\[\mathop\{\text\{limsup\}\}\_\{n\rightarrow\infty\} \left\|c\_n\right\|^\{\frac\{1\}\{n\}\} \leq \alpha\\]
+
+### Absolute Convergence
+
+A series \\(\sum a\_n\\) is said to `converges absolutely` if the series \\(\sum \|a\_n\|\\) converges.
+
+> __Theorem__ 3.28  
+If \\(\sum a\_n\\) converges absolutely, then \\(\sum a\_n\\) converges
+
+__proof__: follows from the inequality of partial sums
+\\[\|\sum\_\{k=n\}^m a\_k\| \leq \sum\_\{k=n\}^m \|a\_k\|\\]
+plus the Cauchy criterion
+
+* For series of positive terms, absolute convergence is same as the convergence
+* If a series converges, but does not converges absolutely, we say that it `converges non-absolutely`. 
+* For such series, the result of summation changes depending the order of the addition, which leads to the post here. (<a href="{{site.url}}/deep_learning/2018/08/23/series-and-sum.html" target="_blank">Sums and Series</a>)
+
+
+
 
 Next:  
 

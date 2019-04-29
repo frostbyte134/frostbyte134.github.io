@@ -1,13 +1,16 @@
 ---
 layout: post
-title:  "Limit superior and inferior"
+title:  "Limit supremum and infimum"
 date:   2018-12-29 09:00:05 +0800
 categories: analysis
 use_math: true
-tags: analysis limit_superior supremum limit_inferior infimum
+tags: analysis limit_supremum supremum limit_infimum infimum
 ---
 ### (Rudin) Theorem 2.37
-> If \\(E\\) is an subset with infinite cardinality of a compact set \\(K\\), then \\(E\\) has a limit point in \\(K\\)
+> If \\(E\\) is 
+1. a set with infinite cardinality 
+2. a subset of a compact set \\(K\\)  
+then \\(E\\) has a limit point in \\(K\\)
 
 __proof__: 
 1. If not, then \\(E\\) does not have an limit point in \\(K\\)  
@@ -51,7 +54,7 @@ __proof__: Suppose not. Then \\(p\_n\geq x\\) for infinitely many times, and we 
 
 > Limit supremum is unique
 
-__proof__: Let \\(p,q\\) be two distinct limit suprema. Then there exists \\(x\\ :\\ p<x<q\\). Since \\(p\\) satisfies (b), we see that \\(\exists N\in\mathbb\{N\}\\) such that, \\(n>N\quad\rightarrow\quad p\_n<x\\) but then \\(q\\) cannot satisfy (a). 
+__proof__: Let \\(p,q\\) be two distinct limit supremum. Then there exists \\(x\\ :\\ p<x<q\\). Since \\(p\\) satisfies (b), we see that \\(\exists N\in\mathbb\{N\}\\) such that, \\(n>N\quad\rightarrow\quad p\_n<x\\) but then \\(q\\) cannot satisfy (a). 
  
 With this theorem, we see that __there always exists a subsequence converges to limsup (or liminf)__ of a sequence
 	

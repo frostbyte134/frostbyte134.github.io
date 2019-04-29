@@ -7,10 +7,6 @@ use_math: true
 tags: problem_solving leetcode
 ---
 
-### 쇠막대기
-https://programmers.co.kr/learn/courses/30/lessons/42585  
-난 stack lvl을 세는 변수를 하나 뒀는데, 그냥 스택의 길이면 됬었네. 
-
 ### N으로 표현
 https://programmers.co.kr/learn/courses/30/lessons/42895
 
@@ -41,3 +37,13 @@ def solution(N, number):
     return -1
 ```
 
+
+### 단속카메라
+https://programmers.co.kr/learn/courses/30/lessons/42884
+
+### 섬 연결하기
+https://programmers.co.kr/learn/courses/30/lessons/42861
+
+### 쇠막대기
+https://programmers.co.kr/learn/courses/30/lessons/42585  
+난 stack lvl을 세는 변수를 하나 뒀는데, 그냥 스택의 길이면 됬었네. 
