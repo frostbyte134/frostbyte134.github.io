@@ -21,7 +21,7 @@ For \\(\\{s\_n\\}\\), we use the symbolic expression
 \\[a\_1+a\_2+...\\] 
 or, more __consicesly__
 \\[\sum\_\{k=1\}^\infty a\_n.\tag\{4\}\\]
-The symbol (4) we call an `infinite series`, or just a `series`. If \\(\\{s\_n\\}\\) __converges to __ \\(s\\), then we say that the __series converges__, and write
+The symbol (4) we call an `infinite series`, or just a `series`. If \\(\\{s\_n\\}\\) converges to \\(s\\), then we say that the __series converges__, and write
 \\[\sum\_\{k=1\}^\infty a\_n = s\\]
 The number \\(s\\) is called the sum of the series; but it should be clearly understood that \\(s\\) __is the limit of a sequence__ of sums, and __is not obtained simply by addition__. If \\(\\{s\_n\\}\\) diverges, the series is said to be diverge.
 
@@ -54,11 +54,13 @@ __proof__: `Thm 3.14`, concerning monotonic sequences, also has in immediate cou
 ### Comparison Test
 > __Theorem__ 3.25  __Comparison test__  
 (a) If \\(\|a\_n\| \leq c\_n\\) for \\(n\geq N\_0\\), where \\(N\_0\\) is some fixed integer, and if \\(\sum c\_n\\) converges, than \\(\sum a\_n\\) converges.  
-(b) Can be proved in many ways, (ex - `Thm 3.24`) considering the partial sums
 
-__proof__  
-(a) \\(\sum c\_n\\) converges - partial sums of \\(c\_n\\) converges - using some inequalities, partial sums of \\(a\_n\\) converges.  
-(b) If \\(a\_n\geq d\_n\geq 0\\) for \\(n\geq N\_0\\), and if \\(\sum d\_n\\)  diverges, then \\(\sum a\_n\\)  diverges
+\\(\sum c\_n\\) converges - partial sums of \\(c\_n\\) converges - using triangle inequality, partial sums of \\(a\_n\\) converges.  
+
+> (b) If \\(a\_n\geq d\_n\geq 0\\) for \\(n\geq N\_0\\), and if \\(\sum d\_n\\)  diverges, then \\(\sum a\_n\\)  diverges
+
+Can be proved in many ways, (ex - `Thm 3.24`) considering the partial sums
+
 
 ### Series of Nonnegative Terms
 Here only the theorems are listed. For the exact proof, refer to the book.
@@ -181,8 +183,63 @@ plus the Cauchy criterion
 * If a series converges, but does not converges absolutely, we say that it `converges non-absolutely`. 
 * For such series, the result of summation changes depending the order of the addition, which leads to the post here. (<a href="{{site.url}}/deep_learning/2018/08/23/series-and-sum.html" target="_blank">Sums and Series</a>)
 
+### Power series
 
+> __Definition__ 3.38  
+Given a sequence \\(\\{c\_n\\}\\) of complex numbers, the series
+\\[\sum\_\{n=0\}^\infty c\_nz^n\tag\{19\}\\]
+is called a `power series`.
 
+* \\(c\_n\\): a complex number, called the __coefficients__ of the series
+* \\(z\\): a complex number, multiplied many times
+
+> __Theorem__ 3.39  
+Given the power series \\(\sum c\_nz^n\\), put
+\\[\alpha = \mathop\{\text\{limsup\}\}\_\{n\rightarrow\infty\} \|c\_n\|^\{\frac\{1\}\{n\}\},\quad R=\frac\{1\}\{\alpha\}\\]
+(If \\(\alpha=0,\\ \text\{R\}=+\infty,\\ \alpha=+\infty,\\ \text\{R\}=0\\). Then \\(\sum c\_nz^n\\) conveges if \\(\|z\|<R\\), and diverges if \\(\|z\|>R\\).
+
+__proof__: Put \\(a\_n=c\_nz^n\\), and apply the root test:
+\\[\mathop\{\text\{limsup\}\}\_\{n\rightarrow\infty\}\|a\_n\|^\{\frac\{1\}\{n\}\}=\|z\| \mathop\{\text\{limsup\}\}\_\{n\rightarrow\infty\} \|c\_n\|^\{\frac\{1\}\{n\}\} = frac\{\|z\|\}\{R\}\\]
+
+`Note`: \\(R\\) is called the radius of convergence of \\(\sum c\_nz^n\\).
+
+### Summation by parts
+skipped
+
+### Addition and Multiplication of Series
+> __Theorem__ 3.47  
+If \\(\sum a\_n=A\\), and \\(\sum b\_n=B\\), then \\(\sum(a\_n+b\_n)=A+B\\), and \\(\sum ca\_n=cA\\), for any fixed \\(c\\).
+
+__proof__ can be proved using the property of limits (of partial sums), or Cauchy criterion + triangle inequality
+
+> __Definition__ 3.48  
+Given \\(\sum a\_n\\) and \\(\sum b\_n\\), we put
+\\[c\_n=\sum\_\{k=0\}^n a_kb\_\{n-k\}\quad(n=0,1,2,...)\\]
+
+This definition is motivated as follows. If we consider two power series
+\\[\sum a\_nz^n,\quad\sum b\_n z^n\\]
+multiply them term by term, and __collect therms containing the same power of \\(z\\)__, then we get
+\\[\sum\_\{n=0\}^\infty a\_nz^n\cdot \sum\_\{n=0\}^\infty b\_nz^n=(a\_0+a\_1z+a\_2z^2+...)(b\_0+b\_1z+b\_2z^2+...)\\]
+\\[=a\_0b\_0+(a\_0b\_1+a\_1b\_0)z+(a\_0b\_2+a\_1b\_1+a\_2b\_0)z^2+...\\]
+\\[=c_0+c\_1z+c\_2z^2+...\\]
+Setting \\(z=1\\), we arrive at the above definition.
+
+> __Theorem__ 3.50  
+Suppose
+(a) \\(\sum\_\{n=0\}^\infty a\_n\\) converges absolutely  
+(b) \\(\sum\_\{n=0\}^\infty a\_n=A\\)  
+(c) \\(\sum\_\{n=0\}^\infty b\_n=B\\)  
+(d) \\(c\_n=\sum\_\{k=0\}^n a\_kb\_\{n-k\}\quad (n=0,1,2,...)\\)  
+Then
+\\[\sum\_\{n=0\}^\infty c\_n=AB\\]
+That is, the product of two convergent series converges, and to the right value, if at least one of the two series converges absolutely.
+
+__proof__ put
+\\[A\_n = \sum\_\{k=0\}^n a\_k,\quad B\_n=\sum\_\{k=0\}^n b\_k,\quad C\_n=\sum\_\{k=0\}^n c\_k,\quad \beta\_n=B\_n-B\\]
+...The proof is somewhat algebraic.
+
+\\[\text\{Absolutely convergent series \}\quad\rightarrow\quad \text\{Rearrangement has no difference!\}\\]
+proof - skipped. Think I'll never need them for my life
 
 Next:  
 
