@@ -1,0 +1,84 @@
+---
+layout: post
+title:  "(Style-GAN) A Style-Based Generator Architecutr for Generative Adversarial Networks"
+date:   2019-05-06 09:00:05 +0800
+categories: deep_learning
+use_math: true
+tags: deep_learning conditional_gan generative style latent
+---
+
+<a href="https://arxiv.org/abs/1812.04948" target="_blank">https://arxiv.org/abs/1812.04948</a>
+
+### Abstarct
+* __an alternative G architecture__ ... leads to an automatically learned, unsupervised separation of `high-level attributes` (e.g. pose and identity when trained on human faces) and `stochastic variation` in the generated images (location of each hair, freckles)
+* better interpolation properties, better disentangles the latent factors of variation.
+* To quantify interpolation quality and disentanglement, we propose two new, automated methods that are applicable to any G architecture.
+* New human face dataset (`FFHQ`)
+
+
+### Intro
+#### Literature
+* SOTA GANs: (Spec gan, BigGAN, PG-GAN)
+* despite [3], the understanding of various aspects of the image synthesis process (e.g., the oriigin of stochastic features) is still lacking
+* The properties of latent space are also poorly understood
+
+#### proposed
+* re-designed G architecture
+* starts from a learned constant input tensor, and __adjusts the "style" of the image__ at each conv layer, based on the latent code (initial \\(z\\)), therefore directly controlling the strength of image features at different scales (at different layers).
+* Combined with noise injected directly into the network, this architectural change leads to automatic, unsupervised separation of high-lvl attributes (pose, identity) from stochastic variation (freckles, hair) in the genearted images, and enable intuitive scale-specific mixing and interpolation operations.
+* no modification on the D or the loss func
+
+#### latent space
+* Our G embeds the `input latent code` (initial \\(z\sim \mathcal\{N\}\\)) into an `intermediate latent space` (\\(\mathcal\{W\}\\) in the figure 1(b)), which has a profound effect on how the factors of variation are represented in the network.
+* The `input latent space` (which is normally a \\(\mathcal\{N\}\\)) must follow the prob density of the training data, and we argue that this leads to some degree of unavoidable entanglement.
+* Our intermediate latent space \\(\mathcal\{W\}\\) is free from that restriction and is therefore allowed to be disentangle.
+* we propose two new automated metrics - perceptual path length and linear separability - for quantifying these aspects (degree of latent space disentanglement) of the G
+
+### Style-based G
+<img src="{{site.url}}/images/deeplearning/gan/style_gan.png" width="800">
+1. Given a `input latent code` \\(z\\) in the `input latent space` \\(\mathcal\{Z}\\), a non-linear mapping network \\(f:\mathcal\{Z\}\mapsto \mathcal\{W\}\\) first produce `intermediate latent code` \\(w\in \mathcal\{W\}\\) (\\(f\\) - 8-layer MLP basically)
+2. Learned affine transformations (+embedding?) \\(A:w\mapsto y\\) then specialize \\(w\\) to `styles` \\(y=(y\_s,y\_b)\\) that controls `AdaIN` operations after each conv layer of the G. The `AdaIN` in this case is
+\\[\text\{AdaIN\}(x\_i,y)=y\_\{s,i\}\frac\{x\_i-\mu(x\_i)\}\{\sigma (x\_i)\} + y\_\{b,i\}\\]
+where _each feature map_ \\(x\_i\\) is normalized separately, and then scaled back and biased using the corresponding scalar components from \\(y\\). Therefore, \\[y\in R^\{2 \times \text\{# of feature maps\}\}\\]
+3. Comparing this approach to `style transfer`, we compute the __spatially invariant style__ \\(y\\) from vector \\(w\\), instead of an example image. Compared to more general feature transforms [36, 55], `AdaIN` is particularly well  suited for our purposes due to its efficiency and compact representation.
+4. Finally, we provide our G with a direct means to generate stochstic details by introducing `explicit noise inputs` (single-channel images consisting of uncorrelated \\(\mathcal\{N\}\\) noise) The noise image is broadcasted to all feature maps using learnind per-feature scaling factors (\\(B\\) in the figure). The implications of adding the noise inputs are discussed in section 3.2, 3.3.
+
+### Quality of generated images
+
+1. baseline: `PG-GAN`, which we inherit the networks and all hyperparams except where stated otherwise.
+2. using bilinear up/downsample operations [62], longer training, hyperparams tuning (appendix C)
+3. adding the mapping network (left one in the fig1(b)), `AdaIN` 
+4. found that __the network no longer benefits from feeding the latent code into the 1st conv layer__ - repalce with 4x4x512 constant tensor
+5. introduce the noise input + novel `mixing regularization` that decorrelated neighboring styles and enables more fine-grained control over the generated imagery
+6. loss functions: `WGAN-GP` for CELEBA-AH / `WGAN-GP` + non-saturating loss[21] + R1 reg.
+7. For visualization, used `truncation trick` (like BigGAN)
+
+### Prior art
+\\(D\\)
+* multiple D, multires D, self attention
+
+\\(G\\)
+* focusing on the exact distribution in the input latent space / shaping the input latent space via Gaussian mixture, clustering, or encourging convexity
+* [44] (cGAN with projection D): conditional Gs feed the class identifier through a separate embedding entwork to a large number of layers in the \\(G\\), while the latent code is still provided in the network
+* [9, 5] (BigGAN): feeding parts of the latent code to multiple \\(G\\) layers
+* [6] - "self modulate" the G using `AdaIN`s, similary to this work, but do not consider an intermediate latent space or noise inputs
+
+### Properties of the style-based G
+> Out \\(G\\) architecture makes it possible to control the image synthesis via scale-specific modifications to the styles
+
+We can view 
+* the mapping network, affine transformations \\(w\\) and \\(A\\): as a way to draw samples for each style from a learned dist.
+* the synthesis entwork: a way to generate a novel img based on a collection of styles.
+
+> The effects of each style are __localized__ in the netrwork, i.e., modifying a specific subset of the styles can be expected to affect only certain aspects of the img.
+
+* Tho see the __reason fot ehis localization__, consider how the `AdaIN` works (normalizes each channel, apply scales and bias base on __a style__ drawn from style sets (which are generated by \\(w\\) and \\(A\\))). The new per-channel stats, as __dictated by the style__, modify the relative importance of features for the subsequent conv operation, but they do not depend on the original stats b/c/ of the normalization. __Thus each style controls only one conv b4 being overriden by the next `AdaIN` operation.__
+
+### Style mixing
+1. In figure 1(b), draw two \\(z\_1,z\_2\\), and generate \\(w\_1,w\_2\\)
+2. Have the \\(w\_1,w\_2\\) control the style (\\(w\_1\\) b4 the _crossover point_, \\(w\_2\\) after the crossover point)
+
+Next
+* [3]
+* [6] - "self modulate" the G using `AdaIN`s, similary to this work, but do not consider an intermediate latent space or noise inputs
+* [62] - bilinear upsampling 

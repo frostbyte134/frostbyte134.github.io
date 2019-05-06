@@ -11,7 +11,7 @@ tags: deep_learning conditional_gan generative pix2pix
 
 * paired - attack point!
 * multi-scale G
-* GAN loss (lsgan) + percepual loss (feature matching loss?)
+* GAN loss (lsgan) + perceptual loss (feature matching loss?)
 * multi-scale D (3)
 * instance map \\(\rightarrow\\) boundary map and concat to input
 

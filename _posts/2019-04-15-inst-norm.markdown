@@ -4,10 +4,10 @@ title:  "Instance Normalization"
 date:   2019-04-15 09:00:05 +0800
 categories: deep_learning
 use_math: true
-tags: deep_learning batch_norm gan
+tags: deep_learning batch_normalization gan
 ---
-
-<a href="https://arxiv.org/abs/1607.08022" target="_blank">https://arxiv.org/abs/1607.08022</a>
+* <a href="{{site.url}}/deep_learning/2019/05/04/adain.html" target="_blank">__Next : AdaIN__</a>
+* <a href="https://arxiv.org/abs/1607.08022" target="_blank">https://arxiv.org/abs/1607.08022</a>
 
 The `style transfer` methods must not be dependent on the contrast (relative strength of RGB pixel values) of content image.  
 not clear how to perform `contrast normalization` (RGB normalization) with ReLUs and convs  

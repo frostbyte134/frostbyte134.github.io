@@ -54,7 +54,7 @@ which is exactly 1.
 > __Corollary__ (PMA):  
 Let \\(X,Y\\) are metric spaces. Then a mapping \\(f:X\mapsto Y\\) is continuous on \\(X\\) _i.i.f_  \\(f^\{-1\}(V)\\) is closed in \\(X\\) for every closed set \\(V\subset Y\\).
 
-### Vector-valued functions
+<h3 id="vector_valued">Vector-valued functions</h3>  
 In euclidean norm, by the ineuality 
 \\[\|\|f\_j(x) - f_j(y)\|\| \leq \|\|\textbf\{f\}(x) - \textbf\{f\}(y)\|\| = \left\\{ \sum\_\{i=1\}^k \|\|f\_i(x) - f_i(y)\|\|^2 \right\\}^\{\frac\{1\}\{2\}\}\\]
 we se that
