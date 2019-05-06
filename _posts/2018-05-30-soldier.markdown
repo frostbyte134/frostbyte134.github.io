@@ -1,0 +1,18 @@
+---
+layout: post
+title:  "BOJ 1321: 군인"
+date:   2018-05-30 10:20:05 +0800
+categories: problem_solving
+use_math: true
+tags: problem_solving segment_tree parametric_search
+problem: 1321
+---
+
+<a target="_blank" href="https://www.acmicpc.net/problem/{{page.problem}}">https://www.acmicpc.net/problem/{{page.problem}}</a><br/>
+  
+
+부대의 수가 N으로 고정되어 있고, 각 부대원의 수만 변함. K번째 병사가 어느 부대에 있는지 알아내야 함.
+
+구간트리를 위해 만든 문제. 부대번호는 parametric_search로 찾음
+
+  

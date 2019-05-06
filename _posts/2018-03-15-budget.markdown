@@ -1,0 +1,13 @@
+---
+layout: post
+title:  "BOJ 2512: 예산"
+date:   2018-03-15 20:00:00
+categories: problem_solving
+use_math: true
+tags: problem_solving
+problem: 2512
+---
+<a target="_blank" href="https://www.acmicpc.net/problem/{{page.problem}}">https://www.acmicpc.net/problem/{{page.problem}}</a><br/><br/>
+
+그냥..정올문제라 심심해서 함 풀어봤음.
+쉬우니 복습은 안해도 될듯

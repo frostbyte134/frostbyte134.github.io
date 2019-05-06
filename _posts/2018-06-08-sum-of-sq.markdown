@@ -1,0 +1,14 @@
+---
+layout: post
+title:  "BOJ 1699: 제곱수의 합"
+date:   2018-06-08 10:45:05 +0800
+categories: problem_solving
+use_math: true
+tags: problem_solving dp
+problem: 11985
+---
+
+<a target="_blank" href="https://www.acmicpc.net/problem/{{page.problem}}">https://www.acmicpc.net/problem/{{page.problem}}</a><br/>
+
+대전리저널 인터넷예선 문제길래 걍..  
+탐색법은 완전히 똑같지만 높은 수(좋은 답)부터 검사하면 4배는 빨라진다. 항상 유념할 것.

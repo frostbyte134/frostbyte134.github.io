@@ -1,0 +1,61 @@
+---
+layout: post
+title:  "Functions"
+date:   2018-09-25 08:00:05 +0800
+categories: analysis
+use_math: true
+tags: analysis function orderd_pair cartesian_product
+---
+
+
+### Functions
+
+A relation \\(R:A\mapsto B\\) is a `function` when
+* \\(\forall x\in A, \exists y\in B\\ : \\ (x,y)\in R\\)
+* If \\((x,y)\in f\\ \land\\ (x,z)\in f\\), then \\(y=z\\).
+
+List of famous functions are
+* `Identity function` \\(f = \\{(x,y)\in A\times A \\ \| \\ x=y\\}\\)
+* `constant function` \\(f = \\{(x,y)\in A\times B \\ \| \\ y=c\\}\\)
+\\[\rightarrow f=A\times c\\]
+is generally denoted as \\(K_c\\).
+* Let \\(f:A\mapsto B\\), and \\(S\subseteq A\\). Then,
+\\[f\|\_s=\\{(x,y) \in A\times B \\ \| \\ x\in S \land y=f(x)\\}\\]
+is called a `restricted function` of \\(f\\) over \\(S\\).  
+On the contrary, \\(f\\) is a `extended function` of \\(f\|\_s\\).
+
+<h3 id="#oto_corr">One-to-one Correspondence</h3>
+
+<a href="{{site.url}}/linear_algebra/2018/05/09/in-sur-bi-jective-linear-mapping.html" target="_blank">link</a>  
+* (Injective - one to one function)
+* (Surjective - onto function)
+* (Bijective - one to one correspondence)
+
+
+### Image of a Function
+Let \\(f:A\mapsto B,\\ S\subseteq A, T\subseteq B\\). Denote
+* `Image` of \\(S\\) by \\(f,\quad f(s):= \\{y\in B \\ \| \\ \exists x\in S \\ : \\ f(x)=y\\}\\)
+* `Inverse image` of \\(T\\) by \\(f,\quad f^\{-1\}(T):=\\{x\in A \\ \| \\ \exists y\in T \\ : \\ f(x)=y\\}\\)
+
+
+### Function and Cartesian product (Ordered pair)
+1. An _ordered_ pair \\(a,b,c\\) can be thought as a discrete function \\(f\\), where
+\\[f(0)=a,\\ f(1)=b,\\ f(2)=c\\]
+2. __An__ element of a cartesian product can be thought as __a__ function.  
+For example, let \\(A:=\\{a,b\\}\\) and consider \\(A\times A\\). Then we have a bijection
+\\[(a,a)\quad\Leftrightarrow\quad f_0(0)=a, f_0(1)=a\\]
+\\[(a,b)\quad\Leftrightarrow\quad f_1(0)=a, f_1(1)=b\\]
+\\[\vdots\\]
+3. __Formal definition__  
+For two sets \\(A,B\\), define \\(B^A\\) as a set of all functions \\(f:A\mapsto B\\).  
+Then for sets 
+* \\(I=\\{0,1,2,...\\}\\)
+* \\(\\{A_i \\ \| \\ i\in I\\}\\)
+* \\( A=\mathop\{\bigcup\}\_\{i\in I\}A\_i\\)
+
+define the `cartesian product` of \\(A_i\\)s as
+\\[\mathop\{\Pi\}\_\{i\in I\}A\_i:=\\{f\in A^I \\ \| \\ f(i)\in A\_i\\}\\]
+In words, a cartesian product of arbitrary sets \\(\mathop\{\Pi\}\_\{i\in I\}A\_i\\) is a __set of all functions__ \\(\left(\mathop\{\bigcup\}\_\{i\in I\}A\_i\right)^I\\) which maps \\(i\in I \\) to \\(A_i\\)
+
+Next:  
+

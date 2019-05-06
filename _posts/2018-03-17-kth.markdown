@@ -1,0 +1,19 @@
+---
+layout: post
+title:  "BOJ 7469: K번째 숫자"
+date:   2018-03-17 22:50:00
+categories: problem_solving
+use_math: true
+tags: problem_solving parametric_search reference_problem segment_tree
+problem: 7469
+---
+
+<a target="_blank" href="https://www.acmicpc.net/problem/{{page.problem}}">https://www.acmicpc.net/problem/{{page.problem}}</a><br/>
+  
+Parametric search 연습해보기 좋은 문제인듯. 두 번이나 쓰네..
+
+좀 특이한 `segment tree`가 필요함. s~e를 나타내는 노드 n이 \\(ary[s]\sim ary[e]\\)의 정렬된 카피를 갖고 있어야, val이 주어졌을 시 주어진 구간에서 val보다 작은 숫자의 갯수를 `parametric search` \\((\log N)\\) 로  찾을 수 있음.  공간복잡도는 해봐야 \\(O(N\log_2{N})\\)일듯.
+
+다르게 풀 수 있는 방법이 있는 듯 하다.
+<a href="http://koosaga.com/entry/Kth-Number-NEERC-2004" target="_blank">http://koosaga.com/entry/Kth-Number-NEERC-2004</a>  
+재미는 있어 보이는데 가성비가 있는지는 잘...근데 좌표압축이 뭐지?

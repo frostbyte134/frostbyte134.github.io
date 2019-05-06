@@ -1,0 +1,15 @@
+---
+layout: post
+title:  "BOJ 2533: 사회망 서비스"
+date:   2018-01-03 18:18:05 
+categories: problem_solving
+use_math: true
+tags: problem_solving graph
+---
+<a target="_blank" href="https://www.acmicpc.net/problem/2533">https://www.acmicpc.net/problem/2533</a><br/>
+<br/>
+문제가 쉬워서 복습에 넣지 않음.<br/>
+트리의 지배집합 구하기.<br/>
+예전에 버벅거렸던 생각이 나서 그만...나쁘지 않게 풀음.<br/>
+
+[quan]: https://github.com/nailbrainz/Algospot/blob/master/QUANTIZE/QUANTIZE.cpp

@@ -1,0 +1,171 @@
+---
+layout: post
+title:  "pix2pix - Image-to-Image Translation with Conditional Adversarial Networks"
+date:   2019-03-28 09:00:05 +0800
+categories: deep_learning
+use_math: true
+tags: deep_learning gan domain_adaptation pix2pix instance_normalization
+---
+
+<a href="https://arxiv.org/abs/1611.07004" target="_blank">https://arxiv.org/abs/1611.07004</a>
+
+In this paper, authours
+1. removed \\(z\\) on \\(G\\) - since the G simply ignored it, which is consistent with [40]
+2. Instead introduce stocasticity with dropout, which had minor effect (think we have to solve the mode collapse problem first)
+3. conclusion - open question!
+
+PatchGAN can be understood as a form of __texture/style loss__, and is some sort of MRF?!
+
+### Abstract
+
+> We investigate conditional adversarial networks as a general purpose solution to image-to-image translation problems
+
+* ... these networks not only learn the mapping from input iamge to output image, __but also learn a loss function to train this mapping__ (???)
+
+
+### Intro
+
+L2 norm produce blurry results
+* B/C it is minimized by averaging all plausible outputs
+
+GANs learn a loss that adapts to the data (D?), they can be applied to a multitude of tasks that traditionally would require very different kinds of loss functions
+
+> ... many of the techniques we explore in this paper has been previously proposed. Nonetheless, earlier papers have focused on specific applications, and it has remained unclear how effective image-conditional GANS dan be as a general-purpose solution for iamge-to-image translation.
+
+Their claims on contributions are
+1. demonstrate wide applicability of conditional GANS (with reasonable results)
+2. present a simple framework sufficient to achieve good result, analyuze the effects of several important architectural choices.
+
+
+### Related works
+
+`unstructured output space` in image-to-image modeling: each output pixel is considered conditionally independent from all others given the input image.
+
+__Conditional GANs instead learn a `structured loss`__.
+* penalize the joint configuration of the output
+* CRF, SSIM metric, nonparametric losses, ...
+
+previous works used other terms (L2 regression for example) to force the output to be conditioned on the input.
+
+out method differs from the prior works in several architectural choices for G and D
+1. U-net for G
+2. Convolutional patch-GAN classifier, _which only penalizes structure at the scale of image patches_, which is proposed in [38]. We show that it is effective in wide range of problems, and investigate the effect of changing the patch size.
+
+### Method
+`GAN`:
+* generative model that learn a mapping from random noise vector \\(z\\) to output image \\(y\\),
+\\[G:z\mapsto y\\]
+
+`Conditional GAN`:  
+* learn a mapping from observed image \\(x\\) and random noise vector \\(z\\) to y
+\\[G: \\{x,z\\}\mapsto y\\]
+
+### Objective function
+
+__GAN objective__:
+\\[L\_\{GAN\}(G, D) = E\_y[\log D(y)] + E\_\{x,z\}[\log (1-D(G(x,z)))]\\]
+
+__conditional GAN objective__:
+\\[L\_\{cGAN\}(G, D) = E\_y[\log D(x,y)] + E\_\{x,z\}[\log (1-D(x,G(x,z)))]\\]
+
+why there is \\(x\\) in \\(G\\)? b/c this is img-to-img?
+
+Previous approaches have found it benefial to add more traditional loss, such as L1 or L2.  
+D's job remains unchanged, but the G is tasked to not only fool the D but also to be near the gt output in certain distance. They used L1 since it is less blurry.
+
+
+\\[L\_\{L1\}(G) = E\_\{x,y,z\}[\|\| y-G(x,z)\|\|\_1]\\]
+
+The paper's __final objective__ is
+\\[ G^* = \text\{arg \} \mathop\{\text\{min\}\}\_G\\ \mathop\{\text\{max\}\}\_D \left\\{L\_\{cGAN\}(G, D)+\lambda L\_\{L1\}(G)\right\\}\\]
+
+In this paper, authours
+1. removed \\(z\\) on \\(G\\) - since the G simply ignored it, which is consistent with [40]
+2. Instead introduce stocasticity with dropout, which had minor effect (think we have to solve the mode collapse problem first)
+3. conclusion - open question!
+
+> Analysis: Not using L1 normalization resulted in sharp images with visual artifacts. \\(\lambda=100\\) reduces the artifacts. 
+
+L1 vs GAN loss: L1 is minimized by choosing the median of the conditional prob. dist, but adversarial loss can aware that greyish images are not likely to be from GT - showed in figure 7 of color distribution matching
+
+
+<img src="{{ site.url }}/images/deeplearning/gan/pix2pix-fig7.png" class="center" style="width:1000px"/> 
+figure 7 - not RGB, but Lab color space in log scale! (actual difference comes in high prob region, not the low prob regions which are dominant in the figure)
+
+### Generator (Unet + skip conn)
+
+Problem definition : high res img \\(\mapsto\\) high res img, while __preserving same underlying structure__ and differ in surface.
+
+previous works used `encoder-decoder`, which __enforces all information to pass all the layers including bottlenect__.  
+Many image translation problems - great deal of low-lvl info shared between the input and out imgs (Ex - colorization - input and output img shares edges) - residual connection!
+
+U-net + add skip connection between \\(i - n-i\\), where \\(n\\) is the total size of G.
+
+### Discriminator (PatchGAN, Markovian D)
+
+Rely on L1 only to capture low-lvl frequencies
+
+For modeling high-lvl frequencies, introduces `PatchGAN` that only penalizes structure at the scale of patches.
+* tries to classify if each \\(N\times N\\) patch in an image is real of fake.
+* run D convolutionally across the img, averaging all responses to provide the final output of \\(D\\).
+* For h=w=286
+    1. N=1: has no effec on spatial sharpness but does increase the colorfulness
+    2. N=16: sufficient in producing sharp images, but has some artifacts
+    3. N=70 alleviates artifacts, bettee score (standard in the paper)
+    4. N=286: not so effective
+
+__Such a D effectively models the image as a MRF__, assuming independence between pixels separated by more than a patdh diameter (the connection explored in [38], the assumption used in modeling texture [17, 21] and stype [16, 25, 22, 37])  
+Therefore, our `PatchGAN` can be understood as a form of __texture/style loss__
+
+### Optimization
+1. As in original GAN paper, rather than \\( \min log(1-D(x,G(x,z)))\\), performed \\( \max log(D(x,G(x,z)))\\)
+2. divide objective by 2 while optimizing \\(D\\) - slow learning of \\(D\\) compared to \\(G\\)
+3. SGD / ADAM (lr 0.0002, \\(\beta\_1=0.5, \beta\_2=0.999\\))
+
+During the inference, for stocasticity (and implicit handling of mode-collapse problem)
+1. used dropout
+2. did not fix the BN (with bs=1, this is the `instance normalization` of [54] - effective in image generation task?)
+
+### Experiments
+1. `Cityscapes`: seg(condition) to img  
+    1. Removing conditioning resulted in pool images with one mode.
+    2. GAN+L1 also performed well (as much good as cGAN+L1)
+    3. in __img-to-seg__ problem, cGAN did some job (MIOU 22). But GAN+L1 is the best (MIOU 35)
+    4. Figure - color distribution
+
+### Code analysis
+
+<a href="https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix" target="_blank">https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix</a>
+
+1. Discriminator-PatchGAN  
+<img src="{{site.url}}/images/deeplearning/gan/pix2pix_patchgan_d.png" width="1000"/>
+
+2. Generator - Unet256
+<img src="{{site.url}}/images/deeplearning/gan/pix2pix_unet_g.png" width="1000"/>  
+UnetBLK
+* use_bias = norm_layer == nn.InstanceNorm2d
+* upconv = ConvTranspose2d(ksize=4, stride=2, padding=1, use_bias)
+* Code copied from <a href="https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix" target="_blank">https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix</a>  
+```python
+if outermost:
+    upconv = nn.ConvTranspose2d(inner_nc * 2, outer_nc,
+                                kernel_size=4, stride=2,
+                                padding=1)
+    down = [downconv]
+    up = [uprelu, upconv, nn.Tanh()]
+    model = down + [submodule] + up
+elif innermost:
+    upconv = nn.ConvTranspose2d(inner_nc, outer_nc,
+                                kernel_size=4, stride=2,
+                                padding=1, bias=use_bias)
+    down = [downrelu, downconv]
+    up = [uprelu, upconv, upnorm]
+    model = down + up
+else:
+    upconv = nn.ConvTranspose2d(inner_nc * 2, outer_nc,
+                                kernel_size=4, stride=2,
+                                padding=1, bias=use_bias)
+    down = [downrelu, downconv, downnorm]
+    up = [uprelu, upconv, upnorm]
+```
+3. Generator - Resnet - refer to the link

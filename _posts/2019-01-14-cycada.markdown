@@ -1,0 +1,148 @@
+---
+layout: post
+title:  "CyCADA"
+date:   2019-01-14 09:00:05 +0800
+categories: deep_learning
+use_math: true
+tags: deep_learning gan domain_adaptation cycada cityscapes patchgan
+---
+
+<a href="https://arxiv.org/abs/1711.03213" target="_blank">https://arxiv.org/abs/1711.03213</a>
+
+
+### Abstract
+* Adversarial adaptation models applied in __feature spaces__ discover domain invariant representations, but are difficult to visualize and sometimes fail to capture pixel-lvl and low-lvl domain shifts.
+* `GAN`s dombined with `cycle-consistency` constaints are surprisingly effective at __mapping images between domains, even without the use of aligned image pairs.__
+* `CyCADA` adapts repr at both the pixel and feature lvl, enforcing cycle-consistency while leveraging a task loss, and does not require aligned pairs.
+
+### Intro
+* Even a slight departure from a net's training domain can cause it to make spurious predictions and significantly hurt its performance (<a href="https://arxiv.org/abs/1702.05464" target="_blank">Tzeng et al</a>)
+* EX) For example, a state-of-the-art semantic seg model trained on synthetic `dashcam data` fails to segment the road in real imgs, and its overall per-pixel label accuracy drops from __93%(trained on real) to 54%(trained only on synthetic)__
+
+
+### Intro 1. Feature level unsupervised domain adaptation methods
+* Training a feature extractor, which could extract useful & indistinguisable (in some metric sense) in both domains
+* (distribution) alignment?
+* in what distance? Anyone tried Wasserstein?
+
+address this problem by __aligning the features__ extracted from the network across the souce (e.g. synthetic) and target (e.g. real) domains.
+
+`Alignment` typically involves minimizing some distance, e.g.
+1. maximum mean discrepancy
+2. correlation distance
+3. adversarial discriminator accuracy (<a href="https://arxiv.org/abs/1702.05464" target="_blank">Tzeng et al</a>)
+
+Two main limitation of aligning features is,
+1. aligning marginal dist. does not enforce any semantic consistency
+2. aligmnent at high lvl (intermediate features) can fail to model aspects of low-lvl appearance variance which are crucial for the end-visual task.
+
+
+### Intro 2. Generative pixel-level domain adaptation models
+perform similar distribution alignment - not in feature space but rather in __raw pixel space__ - translating source data to the "style" of a target domain.
+
+Limitations are,
+1. The results are __visually compelling,__ but such image-space models have only been shown to __work for small image sizes and limited domain shifts__ (cons of generative models, compared to the discriminative models)
+2. They do not necessarily preserve the contents
+
+Cycle-Consistent Adversarial Domain Adaptation (`CyCADA`) adapts representations at both the 
+1. pixel level, while enforcing local consistency through __pixel cycle-consistency__
+2. global level, while enforcing global structural consistency through semantic loss (+DRN!?)
+
+CyCADA unifies prior feature-lvl and img-lvl adversarial domain adaptation methods, together with cycle-consistent img-to-img translation techniques.
+
+We use a reconstruction (cycle-consistency) loss to encourage the cross-domain transformation to preserve local structural info and a semantic loss to enforce semantic consistency.
+
+
+### Related works-1. Feature level methods
+* Early deep adaptive works focused on feature space aligmment through minimizing the dist bet 1st or 2nd order feature space statistics of the source and taget.  
+* focus on modifications to the `discriminative representation space`
+  
+These __latent distribution alignment approaches__ were further improved through the use of domain adversarial objectives, whereby a domain classifier is trained to distinguish bet the source and target reprs while the domain repr is learned so as to maximize the rerr of the domain classifier. The repr is optimized using the
+1. standard minimax objective
+2. GAN objective
+3. inverted label objective
+
+Improved training procedures for GANS: <a href="https://arxiv.org/abs/1606.03498" target="_blank">(Salimans et al 2016b)</a>, <a href="https://arxiv.org/pdf/1701.07875.pdf" target="_blank">(Arjovsky et al, 2017)</a>
+
+adaptation of Feature-lvl + Img-lvl:
+1. CoGANs: jointly learn a source and target repr through __explicit weight sharing of certain layers__ while each source and targ has a unique generative adversarial objs.
+2. Ghifary et al (2016) uses an additional reconst objs in the raget domain, to encourge alignment in the unsupervised adaptation setting.
+
+
+### Related works-2. Img level methods
+1. Directly converting source imgs to target imgs (including `conditional-GAN`)    
+    1. some require source-target pair.
+    2. unpaired approach
+        * Yoo et al (2016): encoder + decoder with GAN objective on the reconstruction applied for predicting the clothing people are wearing (?!)
+        * `Domain Transfer network` (Taigman et al, 2017b): trains a \\(G\\) to transform a source imge into a target image by __enforcing consistency in the embedding space__
+        * Shrivastava et al (2017): L1 reconstruction loss to force the generated target images to be similar to their original source images - works well for similar domains (!!)
+        * Bousmails et al (2017): `content similarity loss` to ensure similarity; but this requires prior knowledge about which part of the images stay the same across domains
+        * `CycleGAN` (Zhu et al, 2017): cycle-consistency loss
+  
+* Hoffman et al (2016): convolutional domain adversarial based approach, for more general drive cam scenes and for adaptation from simulated to real environments
+* Chen et el, 2017: use an adversarial objective to align both global and class-specific statistics, while mining additional temporal data from street view datasets to learn a static object prior
+* Zhang et al, 2017: perform `segmentation adaptation` (??) by aligning label distributions both globally and across superpixels in an image
+
+
+### Cycle-consistent Adversarial Domain Adaptation
+
+problem: unsupervised adaptation, where we have
+\\[X\_S:=\text\{source data,\}\quad Y\_S:=\text\{source label, \}\quad X\_T:=\text\{target data.\}\\]
+(no target label - unsupervised)
+
+1. learn a source model \\(f\_S\\) for a __given task__ (classification - digit adaptation, semgnetation - Cityscapes) (this will not be our final model on target domain. We'll gonna train \\(f\_T\\)), only using source data / label. For \\(K\\)-way classification,
+\\[L\_\{task\}(f\_S, X\_s, Y\_S)=-E\_\{(x\_s,y\_s \sim (X\_S,Y\_S))\}\sum\_\{k=1\}^K \mathbb\{1\}\_\{[k=y\_s]\}\log \left( \sigma(f\_S^\{(k)\}(x\_s))\right)\\]
+where \\(\sigma\\) refers to the softmax function. This becomes the cross-entropy with empirical distribution
+\\[=-\frac\{1\}\{N\}\log \left( \sigma(f\_S^\{(k)\}(x\_s))\right)\\]
+
+2. However, generally \\(f\_S\\) will perform well only on source data due to `domain shift`. To mitigate the effect of it, we grain a pamming \\(G\_\{S\rightarrow T\}\\) to produce target samples that fool \\(D\_T\\). This corresponds to the adversarial loss
+\\[ L\_\{GAN\}(G\_\{S\rightarrow T\}, D\_T, X\_T, X\_S)=E\_\{x\_t\sim X\_T\}[\log D\_T(x\_t)] + E\_\{x\_s\sim X\_S\}[\log(1-D\_T(G\_\{S\rightarrow T\}(x\_s)))] \\]
+with this we produce convincing target sample \\(X\_T\\). In the end, we are going to improve this process with cycle consistency + feature lvl domain adaptation, and train \\(f\_T\\) by minimizing \\(L\_\{task\}(f\_T, G\_\{\S\rightarrow T\}(X\_S), Y\_S)\\) (note that, the label is \\(Y\_S\\), from the source!)
+3. `Cycle consistency` - use L1 norm to enforce that, 
+\\[x\_s\approx G\_\{T\rightarrow S\}(G\_\{S\rightarrow T\}(x\_s))\\]
+\\[x\_t\approx G\_\{S\rightarrow T\}(G\_\{T\rightarrow S\}(x\_t))\\]
+\\[\rightarrow L\_\{cyc\}(G\_\{S\rightarrow T\}, G\_\{T\rightarrow S\}, X\_S, X\_T)=E\_\{x\_s\sim X\_S\}[\|\| G\_\{T\rightarrow S\}(G\_\{S\rightarrow T\}(x\_s)) - x\_s \|\|] + E\_\{x\_t\sim X\_T\}[\|\| G\_\{S\rightarrow T\}(G\_\{T\rightarrow S\}(x\_t)) - x\_t \|\|]\\]
+In order to do so, we need to train one additional pair \\(D\_S, G\_\{T\rightarrow S\}\\) with GAN loss (inputs are inverted compared to training \\(G\_\{S\rightarrow T\}\\)) 
+\\[ L\_\{GAN\}(G\_\{T\rightarrow S\}, D\_S, X\_S, X\_T)\\]
+1. `Semantic consistency` - fix the weights of \\(f\_s\\) trained in 1, minimize
+\\[L\_\{SEM\}=L\_\{task\}(f\_S, G\_\{T\rightarrow S\}(X\_T), p(f\_S, X\_T)) + L\_\{task\}(f\_S, G\_\{S\rightarrow T\}(X\_S), p(f\_S, X\_S))\\]
+we want to preserve the label (semantics) after the GAN transformation, by using the critic \\(f\_s\\) - similar to `content loss` in style transfer (Gatys et al, 2016) or in pixel adaptation (Taigman et al, 2017a), where the _shared content to preserve is dictated by the source task model \\(f\_S\\)_.
+\\[L\_\{GAN\}(f\_T, D\_\{feat\}, f\_S(G\_\{S\rightarrow T\}(X\_S)), X\_T)\\]
+(remember that, \\(L\_\{GAN\}(\text\{G, D, target, condition of G\})\\). Thus with above gan loss, we want to change \\(f\_T(X\_T)\\) to be similar (with \\(D\_\{feat\}\\) as the critic) to \\(f\_S(G\_\{S\rightarrow T\}(X\_S))\\) )
+
+\\(L\_\{CyCADA\}\\) corrseponds to adding all above 6 losses, which is optimized by
+\\[\mathop\{\text\{arg min\}\}\_\{f\_T\} \min\_\{G\_\{S\rightarrow T\}, G\_\{T\rightarrow S\}\} \max\_\{D\_S, D\_T\}\_\{CyCADA\}\\]
+
+### Experiments
+SHVN to MNIST (figure 3)
+1. semantic consistency ensures labes are maintained
+2. without cycle consistency, even with semantic consisency some labels are not maintained (??!?)
+
+#### Digit Adaptation
+1. ablation: pixel vs feature lvl transfer  
+> Feature lvl adaptation offers a small benefit in this case of a small pixel shift. However, for more difficult shift of SVHN to MNIST, we find that feature lvl adaptation outperforms the pixel lvl,and importantly, __both may be combined to produce an overall model__ which outperforms all competing methods
+2. No semantic consistency: digits label not preserved
+3. No cycle consistency: some label are flipped even with semantic loss - since semantic loss relies on the _weak source labeler_?
+
+#### Semantic segmentation
+Optimizing \\(L\_\{CyCADA\}\\) at once is impossible (mem limit) - 
+1. perform image-space adaptation, map ource data to target domain
+2. using the adapted source data with original source lables, learn a task model that is suited to operating on target data (no fet-lvl adaptation yet?)
+3. perform another round of adaptation between the adapted source data and the target data in feature-space, using one of the intermdeiate layers of the task model
+
+
+Link:  
+Feature-level domain adaptations:  
+<a href="https://arxiv.org/abs/1702.05464" target="_blank">Tzeng et al</a>(next2)  
+<a href="https://arxiv.org/pdf/1409.7495" target="_blank">Garnin and Lempitsky</a>(next1, read once but not posted)  
+
+Improved training procedures for GANS:  
+<a href="https://arxiv.org/abs/1606.03498" target="_blank">(Salimans et al 2016b)</a>  
+<a href="https://arxiv.org/pdf/1701.07875.pdf" target="_blank">(Arjovsky et al, 2017)</a>  
+
+
+
+Next:  
+
+
+

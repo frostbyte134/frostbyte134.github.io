@@ -1,0 +1,16 @@
+---
+layout: post
+title:  "BOJ 2790: F7"
+date:   2018-03-11 15:00:00 +0900
+categories: problem_solving
+use_math: true
+tags: problem_solving greedy sorting
+problem: 2790
+---
+<a target="_blank" href="https://www.acmicpc.net/problem/{{page.problem}}">https://www.acmicpc.net/problem/{{page.problem}}</a><br/><br/>
+
+문제가 쉬워 복습에 넣지 않음.  
+
+1. 정렬 후 낮은순서부터 높은순서를 주고, 여기서의 최대점수를 maxx라 함.
+
+2. score[i]+N이 maxx보다 크다면, score[i]에 N점을 주고 가장 작은 score[0]에 원래 score[i]가 받은 점수를 줌으로서 score[i]가 우승할 수 있는 상황을 만들 수 있다.
