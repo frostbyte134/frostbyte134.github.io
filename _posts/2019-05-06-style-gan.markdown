@@ -78,6 +78,8 @@ We can view
 1. In figure 1(b), draw two \\(z\_1,z\_2\\), and generate \\(w\_1,w\_2\\)
 2. Have the \\(w\_1,w\_2\\) control the style (\\(w\_1\\) b4 the _crossover point_, \\(w\_2\\) after the crossover point)
 
+__fig3__: overriding \\(w\\) partially, for different scales
+
 Next
 * [3]
 * [6] - "self modulate" the G using `AdaIN`s, similary to this work, but do not consider an intermediate latent space or noise inputs
