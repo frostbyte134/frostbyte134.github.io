@@ -246,7 +246,7 @@
   }
   h3 {
   
-    @include relative-font-size(1.625);
+    @include relative-font-size(2);
 
     @include media-query($on-laptop) {
       @include relative-font-size(1.375);
@@ -256,7 +256,7 @@
   }
   h3 {
 	margin-top: 70px;
-    border-bottom: 2px solid $grey-color-light;
+    border-bottom: 2px solid rgb(102, 102, 102);
   }
   h4 {
     @include relative-font-size(1.25);
@@ -264,6 +264,8 @@
     @include media-query($on-laptop) {
       @include relative-font-size(1.125);
     }
+    margin-top: 50px;
+    border-bottom: 2px solid #c0caee;
   }
   
   
