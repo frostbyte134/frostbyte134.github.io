@@ -14,13 +14,25 @@ tags: deep_learning generative style_transfer gan domain_adaptation
 * refercenced in [3]
   * introduce an optimization scheme involving backpropagation for performing content preserving style transfer
 
-#### Perceptual Losses for Real-Time Style Transfer and Super Resolution [6]
-* <a href="{{site.url}}/deep_learning/2019/05/08/perceptual-loss-style-transfer.html" target="_blank">review</a>  
-
 #### CycleGAN [7]
 * refercenced in [3]
     * performs __unpaired__ img2img translation by employing adversarial losses and cycle consistency losses
 
+#### Photographic Image Synthesis with Cascaded Refinement Networks [9]
+* <a href="{{site.url}}/deep_learning/2019/05/08/crn-perceptual.html" target="_blank">review</a>
+* Used perceptual loss [6] only (No GAN)
+* Motivated by __Deep generative image models using a Laplacian pyramid of adversarial networks, NIPS, 2015__ : trained multiple separate GANs, one for each lvl in a Laplacian pyramid. Each model is trained independently to synthesize details at its scale. Assembling separately trained models in this fashion enabled the authors to synthesize imgs up to 96 by 96 
+* As a baseline, used [10]
+
+
+### Perceptual loss related
+
+#### Perceptual Losses for Real-Time Style Transfer and Super Resolution [6]
+* <a href="{{site.url}}/deep_learning/2019/05/08/perceptual-loss-style-transfer.html" target="_blank">review</a>  
+
+#### Generating images with perceptual similarity metrics based on ddep networks [11]
+* Referenced in [3]
+  * introduced a family of composite loss functions for img synthesis, which combine regression over the activations of a fixed "perceiver" network with a GAN loss. Network trained using these composite loss functions were applied to synthesize preimages that include desired excitation patterns in img classification models [11] and imgs that ecites specific elements in such models.
 
 ### Domain Adaptation
 
@@ -38,11 +50,12 @@ tags: deep_learning generative style_transfer gan domain_adaptation
         2. local alignment which aligns class specific statistics by formulating it as a multiple isntance learning problem.
 
 #### Learning from Synthetic Data: Addressing Domain Shift for Semantic Segmentation [3]
-* <a href="{{site.url}}/deep_learning/2019/05/08/crn-perceptual.html" target="_blank">review</a>
+* <a href="{{site.url}}/deep_learning//2019/05/11/learning-from-synthetic-data.html" target="_blank">review</a>
 * CVPR 2018
 * with GAN + feature representation, __targets segmentation__ + `Unsupervised Domain Adaptation`
-* Proposed `style transfer` \\(\rightarrow\\) `domain adaptation` 
-> One possible direction to address the domain adaptation problem is to __employ style transfer__ or __dross-domain mapping network__ to stylize the source domain images as target and __train the segmentation models in this stylized space__.
+* Proposed `style transfer` \\(\rightarrow\\) `domain adaptation`  
+    > One possible direction to address the domain adaptation problem is to __employ style transfer__ or __dross-domain mapping network__ to stylize the source domain images as target and __train the segmentation models in this stylized space__.
+* Sort of __gradient reversial__ between different domains (set the label to false)
 
 
 #### Curriculum domain adaptation for semantic segmentation of urban scenes [4]
@@ -67,3 +80,7 @@ References (added order)
 * [6] : Perceptual Losses for Real-Time Style Transfer and Super Resolution
 * [7] : CycleGAN (fix this)
 * [8] : Cycada: Cycle-consistent adversarial domain adaptation
+* [9] : Photographic Image Synthesis with Cascaded Refinement Networks
+* [10] : Unsupervised representation learning with deep convolutional generative adversarial networks, ICLR 2016
+* [11] : Generating images with perceptual similarity metrics based on ddep networks, NIPS, 2016
+* [12] : Person Transfer GAN to Bridge Domain Gap for Person Re-Identification, CVPR, 2018 

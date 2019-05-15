@@ -18,7 +18,7 @@ tags: deep_learning generative style_transfer perceptual crn
 
 ### Abstarct
 * Given a semantic label map, our approach produces an image with __photographic appearance that conforms to the input layout__ (seg map) - what makes them to say like this in the intro?
-* The approach thus function as a __rendering engine__ that takes a 2dim semantic spcification of the scene and produces a corresponding photographic image.
+* The approach thus function as a __rendering engine__ that takes a 2dim semantic specification of the scene and produces a corresponding photographic image.
 * does not rely on adversarial training
 
 
@@ -42,7 +42,7 @@ Many refs saying how hard the GAN training is
 
 
 ### Notations
-> goal: train a __parametric mapping__ \(g\\) s.t. given a __semantic layout__ \\(L\\), produces a color img \\(I\in \Re^\{m\times n\times 3\}\\) that __conforms to __ \\(L\\)
+> goal: train a __parametric mapping__ \(g\\) s.t. given a __semantic layout__ \\(L\\), produces a color img \\(I\in \Re^\{m\times n\times 3\}\\) that __conforms to__ \\(L\\)
 
 * \\(L\\): one-hot semantic layout, \\(\sum\_\{c\}L(i,j,c)=1\\)
 
@@ -61,12 +61,12 @@ Many refs saying how hard the GAN training is
 * \\(M^0\\): \\(4\times 8\\) (resolution)
 * Resolution is doubled between conseq modules
 
-1. \\(M^0\\) receives segmap \\(L\\) (downsampled to \\(w\_0\times h\_0))
-2. All other modules are structurally identical
-3. \\(M^i\\) receives concat \\(w\_i\times h\_i\times (d\_\{i-1\}\times c)) of the __segmap__ \\(L\\) (downsampled to \\(w\_i\times h\_i\\)) and output of \\(M^\{i-1\}\\)
-4. bilinear upsampe (no upconv, after reading distill(google brain))
-5. Each layer is followed by 3by3 conv, layer normalization (??), `LReLU` (why LReLU?)
-6. The final output is not followed by normalization or nonlinearity. Instead, a linear proj (1by1 conv) is applied to map \\(F^i\\) (\w\_i\times h\_i\times d\_i\\) to output color img \\(w\_i\times h\_i\times 3\\).
+1. \\(M^0\\) receives segmap \\(L\\) (downsampled to \\(w\_0\times h\_0)\\)
+2. All other modules are structurally identical (3 __layers__)
+3. \\(M^i\\) receives concat \\(w\_i\times h\_i\times (d\_\{i-1\}\times c)\\) of the __segmap__ \\(L\\) (downsampled to \\(w\_i\times h\_i\\)) and output of \\(M^\{i-1\}\\)
+4. bilinear upsample (no upconv, after reading distill(google brain))
+5. Each __layer__ is followed by 3by3 conv, layer normalization (??), `LReLU` (why LReLU?)
+6. The final output is not followed by normalization or nonlinearity. Instead, a linear proj (1by1 conv) is applied to map \\(F^i,\\ w\_i\times h\_i\times d\_i\\) to output color img \\(w\_i\times h\_i\times 3\\).
 7. The num of modules: 9 (4x8 to 1024x2048)
 
 ### Training
@@ -75,7 +75,7 @@ Many refs saying how hard the GAN training is
 ex) synthesizing black car instead of a white car, will be severly penalized
 * `perceptual loss`! (=`content loss`, Gayts et al [11], =`feature matching`)
 > The basic idea is to match activations in a visual perception network that is applied to the synthesized image and separately to the reference imag.
-* used `VGG19` conv1_2, conv2_2, conv3_2, conv4_2, conv5_2
+  * used `VGG19` conv1_2, conv2_2, conv3_2, conv4_2, conv5_2
 
 ### Baselines, Experiments
 * \\(L1\\) with same architecture (thus only the perceptual loss is replaced) was the worst
