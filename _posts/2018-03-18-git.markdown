@@ -1,16 +1,76 @@
 ---
 layout: post
-title:  "Git"
+title:  "Git (egoing)"
 date:   2018-03-18 09:26:00
 categories: coding
 use_math: true
 tags: coding git
 ---
 
+
+<a href="https://seomal.org/" target="_blank">https://seomal.org/</a>
+
+
+__git is immutable__
+
+버전관리의 목적: 파일의 이름을 더럽히지 않고 관리하기
+
+.git 파일: repository (version이 만들어지는 곳)
+작업중인 폴더: working directory
+
+
+
+git file management
+- `working dir` ->(add)-> `stage` ->(commit)-> `repo`
+
+git add <filename>
+- <file>을 staging 시키겠다
+  
+git commit
+- working dir -> repo
+- -a 옵션: add생략가능 (unstaged file은 안됨)
+- --amend: 현재 head가 가르키는 commit 수정하기 (파일 내용은 add로 stage에 올려놔야 수정됨)
+
+git checkout
+- __head__ 옮기기
+  - git의 head란?
+    working copy의 origin
+- 원래대로 가려면 checkout to master
+- head 와 current branch (보통 master)를 분리할 수도 있음
+
+git reset
+- 삭제 효과가 있지만 실제 삭제는 아님 (reset --hard로 원래 working dir로 복귀가능!) 
+- master (branch)를 옮기는 것 (딸린 head가 있다면 head도 같이 옮겨감)
+- working directory의 unstaged된것들 다 지우기: git reset --hard HEAD (master로 복귀하면 의미가 좀 다름)
+
+git revert
+- 삭제한 효과가 나면서 기능을 유지한다
+- `git revert commitID`: commitID를 취소한 새로운 commit을 생성
+- git revert를 sequential하게 해주면 충돌이 안난다고 함
+
+git reflog
+- (원인): 결과
+- commit, checkout, reset 결과
+- reset으로 지워버려도 여기서 commitID를 참조해서 복귀가능
+- HEAD@{N}: N번 전에는 해당 상태였다. 이를 이용해 reset도 가능
+  - git reset --hard HEAD@{5} : undo before 5th action (go to corresponding commit id)
+
+git status
+- add 되었는지 확인
+- 현재 dir의 상태를 보여줘 (commit 대기)
+
+git diff
+- (working dir)의 1~2줄정도 주위의 변화도 같이 보여줌
+
+
+
+
+miscs
 - git add filename : 변경사항 스테이징 에어리어에 등록
 - git commit -m "comments"
 - git checkout (branchname/master) : 워킹트리 변경
 - git tag : 현 워킹트리버전에 태그 붙이기
+
 
   
 <a href="https://dogfeet.github.io/articles/2012/git-merge-rebase.html" target="_blank">rebase vs merge</a>
