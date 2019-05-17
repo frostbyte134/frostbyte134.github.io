@@ -51,7 +51,7 @@ git add <filename>
 git commit
 - working dir -> repo
 - -a 옵션: add생략가능 (unstaged file은 안됨)
-- --amend: 현재 head가 가르키는 commit 수정하기 (파일 내용은 add로 stage에 올려놔야 수정됨)
+- --amend: 현재 head가 가르키는 commit (파일 내용 / comment ) 을 복사해서 새로운 커밋 만듬 (이전 commit은 지우지 않음) (파일 내용은 add로 stage에 올려놔야 수정됨)
 
 git checkout
 - __head__ 옮기기
@@ -136,4 +136,63 @@ miscs
 * conflict manual 해결후 git add 
 * git checkout 리베이스를 할 (베이스를 옮길) 브랜치 && git rebase (대상이 될 브랜치)
   
+### 2일차
+* 각 commit은 자신의 부모로만 갈 수 있음
+* `detached head` - branch와 HEAD가 다른 commit을 가르키고 있음. Head를 옮길 시 현재 Commit으로 갈 수 있는 방법을 잃어버리게 됨
+* git checkout : HEAD가 가르키는 commitID를 바꿈
+* git reser : HEAD가 가르키는 branch 의 commitID를 바꿈
+
+3-way merge
+- 항상 base와 비교
+
+
+#### Cherry pick, rebase
+* 여러개의 cherry pick을 자동화시켜 준 것 : rebase
+* cherrypick: 특정 커밋의 변경사항을 다른 커밋에 적용하겠다.
+
 <a href="https://dogfeet.github.io/articles/2012/git-merge-rebase.html" target="_blank">rebase vs merge</a>
+
+### Remote
+* 모든 git project는 여러개의 remote copy를 가질 수 있음 - alias를 붙여줘야 함.
+* base alisas: `origin`
+* git remote add <alias> ~~~.git
+  
+새 폴더를 저장소로 등록하기
+* git init && git remote origin master
+* =`git clone .`
+
+원격 저장소에 "가져온 적 없는 commit이 있다": pull 거절됨
+
+origin/master
+
+* = remote tracking branch (가장 최근 동기화한 것)
+* -set--upstream-to : 원격 branch와 내 local branch가 어떤것이 짝인지 지정해주기
+* git push -u origin master
+
+miscs
+* fetch (download) vs pull (fetch + merge)
+* init vs clone (init + remote)
+
+원격 저장소와 conflict 날 시, 단순 merge말고 rebase로 합치기
+* fetch 해 온것은 건드리면 안되고, 로컬에 있는 것의 부모를 fetch 해 온 커밋으로 해야 함
+* 일반적으로, git checkout master && git rebase origin/master && git push origin HEAD:master 로 하면 됨
+* push에서 origin HEAD:master를 붙여야 하는 이유: rebase완료했을 시, head는 최신 commit에 있으나 origin/master는 그 부모 커밋 (fetch 해 온 최신 커밋)에 있기 때문
+
+
+pull request
+* fork후에 하는것도 가능, branch 후에 merge시에 하는것도 가능
+
+cat ~/.gitconfig
+* username, email 등 포함
+* alias 설정 가능 (l = log --all --graph --decorate --oneline)
+* git config user.name egoing - 현재 repo의 설정만 바꿈. --global로 global 변경가능
+
+
+git revert
+* 1->2->3->4 에서 git revert 2를 했을시, 3way merge는 다음과 같이 동작함
+
+### Gerrit
+* gerrit: git repo hosting (github와 비슷)
+* commit msg에 랜덤생성된 change-id가 붙음. 뭐지? change ID는 투표소 ID? change ID를 같게해서 push하면 같은 투표소가 열리게 된다고 함
+* change ID를 유지하는 커밋 방법 : ammend commit을 하기.
+* git push하면 푸쉬가 안됨. 메인 repo에 바로 push 하는것이기 떄문. git push origin HEAD:refs/for/master로 하면, `Pending changes`로 puch하게 되고 이제 권한이 있는 사람들끼리의 투표가 진행됨
