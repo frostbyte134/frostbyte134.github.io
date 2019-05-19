@@ -7,6 +7,68 @@ use_math: true
 tags: deep_learning generative style_transfer gan domain_adaptation
 ---
 
+Papers with good references
+* `BigGAN`: modification of GANs for stability, conditional GANs
+* Learning from Synthetic Data: Addressing Domain Shift for Semantic Segmentation
+* 
+
+### Conditional GANs
+
+
+#### Conditional image synthesis with auxiliary classifier GANs [14]
+* referenced in [13]
+  * class information provided to \\(G\\) by concatenating a 1-hot class vector to the noise vector
+  * objective function is modified to encourage conditional samples to maximize the corresponding cls probability poredicted by an auxiliary classifier
+
+
+#### Self-attention generative adversarial networks [17]
+* referenced in [13]
+  * found that applying Spectral normalization [15] on \\(G\\) improves stability of \\(G\\) - fewer update of \\(D\\) made possible
+
+#### A learned representation for artistic style [18]
+* ICLR 2017 (review!)
+* referenced in [13]   
+    * modify the way class conditioning is passed to G by supplying it with class conditional gains and biases in BatchNorm
+* old style transfer literature (separation of `style` and `content` without DNN)
+* > objective (of style transfer) is by nature vaguely defined, b/c __similarity in content and style are themselves vaguely defined__
+* Basic formulation of style transfer, (wrt high/low lvl features extracted from DNN)
+* `style` = `A visual texture`, which is conjectured to be spatially homogenous and consist of repeated structural motifs whose minimal sufficient statistics are captured by lower order statistical measurement (Julesz 1962, Portill & Simoncelli, 1999)
+* mentioned similarity of style & contents, based on perceptual loss (not the 1st to define them)
+* Proposed that affine transformation is enough to designate a style!
+
+#### cGANs with projection discriminator. In ICLR, 2018 [19]
+* referenced in [13]   
+    *  \\(D\\) is conditioned by using the cosine similarity between its features and a set of learned class embeddings as additional evidence for distinguishing real and generated samples, effectively encouraging generation of samples whose features match a learned class prototype
+
+#### Modulating early visual processing by language
+* referenced in [13]
+  * referenced as an example of class-conditional GAN (different affine params for each cls)
+
+
+### GAN training
+
+#### ProGAN [21]
+* reference in[13]
+  * `ProGAN` trains high-resolution GANs in the single-class setting by training a single model across a sequence of increasing resolutions.
+
+#### (spectral normalization) Spectral normalization for generative adversarial networks [15] 
+* referenced in [13]
+  * enforces Lipschitz continuity on \\(D\\) by normalizing its parameters with running estimates of their 1st singular values, inducing backwards dynamics that adaptively regularize the top singular direction.
+
+
+#### Is generator conditioning causally related to GAN performance? In ICML, 2018
+* referenced in [13]
+  * analyze the condition number of the Jacobian of \\(G\\) and find that performance is dependent on \\(G\\)'s conditioning
+
+
+#### (BigGAN) Large Scale GAN-Training for High Fidelity Natural Image Synthesis [13]
+* <a href="{{site.url}}/deep_learning/2019/05/18/biggan.html" target="_blank">review</a>
+* truncation trick
+* BigGAN(-deep) architecture
+* instabilities of \\(G\\) and \\(D\\) on large scale
+* shared embedding for the Contitional BN
+
+
 ### Style Transfer
 
 #### Unsupervised Domain Adaptation by Backpropagation [5]
@@ -14,21 +76,41 @@ tags: deep_learning generative style_transfer gan domain_adaptation
 * refercenced in [3]
   * introduce an optimization scheme involving backpropagation for performing content preserving style transfer
 
-#### CycleGAN [7]
-* refercenced in [3]
-    * performs __unpaired__ img2img translation by employing adversarial losses and cycle consistency losses
-
 #### Photographic Image Synthesis with Cascaded Refinement Networks [9]
 * <a href="{{site.url}}/deep_learning/2019/05/08/crn-perceptual.html" target="_blank">review</a>
 * Used perceptual loss [6] only (No GAN)
 * Motivated by __Deep generative image models using a Laplacian pyramid of adversarial networks, NIPS, 2015__ : trained multiple separate GANs, one for each lvl in a Laplacian pyramid. Each model is trained independently to synthesize details at its scale. Assembling separately trained models in this fashion enabled the authors to synthesize imgs up to 96 by 96 
 * As a baseline, used [10]
 
+#### Precomputed real-time texture synthesis with markovian generative adversarial networks
+* referenced in [18]
+  * style transfer with single feedforward net, which is trained to go from content to styleimg in one pass. the style transfer net is tied to a single style
+
+#### Feedforward synthesis of textures and stylized images (2016)
+* referenced in [18]
+  * style transfer with single feedforward net, which is trained to go from content to styleimg in one pass. the style transfer net is tied to a single style
 
 ### Perceptual loss related
 
+
+#### Texture synthesis using convolutional neural networks [22]
+* NIPS (review!)
+* referenced in [18]
+  * used `VGG`-19 to extracat features from (a texture img and a synthesized texture). Then 2 set of features are compared and the synthesized texture is modified by grad descent (so called __optimization based__ approach)
+* style-transfer method with optimization based (feature extracted in DNN)
+
+
+#### A neural algorithm of artistic style [23]
+* reference in [18]
+  * extends [22]'s idea to style transfer by adding the constraint that the syntheiszed img also be close to a content img wrt another set of features extracted by the trained `VGG`-19 net (=`perceltual loss`!)
+* style transfer method with optimization based(no single-pass DNN) + perceptual loss
+
+
 #### Perceptual Losses for Real-Time Style Transfer and Super Resolution [6]
 * <a href="{{site.url}}/deep_learning/2019/05/08/perceptual-loss-style-transfer.html" target="_blank">review</a>  
+* perceptual loss + single pass / end-to-end style transfer
+* referenced in [18]
+  * style transfer with single feedforward net, which is trained to go from content to styleimg in one pass. the style transfer net is tied to a single style
 
 #### Generating images with perceptual similarity metrics based on ddep networks [11]
 * Referenced in [3]
@@ -67,7 +149,16 @@ tags: deep_learning generative style_transfer gan domain_adaptation
 #### Cross-gradient
 #### Generalizing to Unseen Domains via Adversarial Data Augmentation
 #### No More Discrimination: Cross City Adaptation of Road Scene Segmenters
-#### Cycada: Cycle-consistent adversarial domain adaptation
+
+
+
+### Img2Img (including unsupervised)
+
+#### CycleGAN [7]
+* refercenced in [3]
+    * performs __unpaired__ img2img translation by employing adversarial losses and cycle consistency losses
+
+#### Cycada: Cycle-consistent adversarial domain adaptation [8]
 
 <br/>
 <br/>
@@ -84,3 +175,16 @@ References (added order)
 * [10] : Unsupervised representation learning with deep convolutional generative adversarial networks, ICLR 2016
 * [11] : Generating images with perceptual similarity metrics based on ddep networks, NIPS, 2016
 * [12] : Person Transfer GAN to Bridge Domain Gap for Person Re-Identification, CVPR, 2018 
+* [13] : (`BigGAN`) Large Scale GAN-Training for High Fidelity Natural Image Synthesis
+* [14] : Conditional image synthesis with auxiliary classifier GANs, ICML, 2017
+* [15] : Spectral normalization for generative adversarial networks. In ICLR, 2018
+* [16] : Is generator conditioning causally related to GAN performance? In ICML, 2018
+* [17] : Self-attention generative adversarial networks, Zhang et al\
+* [18] : A learned representation for artistic style. In ICLR, 2017.
+* [19] : cGANs with projection discriminator. In ICLR, 2018
+* [20] : Modulating early visual processing by language, Harm de Vries, Florian Strub, Jer´ emie Mary, Hugo Larochelle, Olivier Pietquin, and Aaron ´Courville. In NIPS, 2017
+* [21] : Progressive growing of GANs for improved quality, stability, and variation. In ICLR, 2018, Tero Karras, Timo Aila, Samuli Laine, and Jaakko Lehtinen. 
+* [22] : Texture synthesis using convolutional neural networks, NIPS, Leon Gatys, Alexander S Ecker, and Matthias Bethge. 
+* [23] : A neural algorithm of artistic style. Leon A Gatys, Alexander S Ecker, and Matthias Bethge, arXiv, 
+* [24] : Texture networks: Feedforward synthesis of textures and stylized images. Dmitry Ulyanov, Vadim Lebedev, Andrea Vedaldi, and Victor Lempitsky, arXiv
+* [25] : Chuan Li and Michael Wand. Precomputed real-time texture synthesis with markovian generative adversarial networks. ECCV, 2016

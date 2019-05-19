@@ -1,0 +1,125 @@
+---
+layout: post
+title:  "(BigGAN) Large Scale GAN-Training for High Fidelity Natural Image Synthesis"
+date:   2019-05-18 09:00:05 +0800
+categories: deep_learning
+use_math: true
+tags: deep_learning generative conditional_gan gan
+---
+
+<a href="https://arxiv.org/abs/1809.11096" target="_blank">https://arxiv.org/abs/1809.11096</a>
+
+### Abstract
+
+* study _instabilities specific to such scale?_
+* applying `orthogonal regularization` renedrs \\(G\\) amendable to a simple `truncation trick` (trade-off between quality(sample fidelity) / diversity)
+* imagenet 128X128, IS 166.5, FID 7.4 (52.52 / 18.65 previously)
+
+### Intro
+[1](Self-attention) : IS 52.52, compared to 233 of real data
+
+3 contributions
+* demonstrate that GAN benefit dramatically from scaling (2~4X params, 8X batchsize)
+  * 2 simple, generatl architectural changes that improve scalability
+  * modify regularization scheme to improve conditioning
+* `truncation trick`: tradeoff between sample variety and fidelity
+* instability specific to large scale GAN, __characterize them empirically__. From this, demonstrate that a combination of novel and prev techniques can reduce these, but complete training stability can only be achieved at a dramatic cost to performance
+
+### Background (Related researches)
+
+Modifications of the vanilla GAN procedure to impart stability
+1. changing the objective function to encourage convergence (WGAN)
+2. focus on constraining \\(D\\) through gradient penalties (WGAN-GP)
+3. normalization (=spectral normalization)
+4. Choice of architecture (SA-GAN)
+
+### Methods
+
+#### Scaling up GANs
+baseline: `SA-GAN` (`hinge-loss` GAN objective)
+1. provide cls info to \\(G\\) wiath class-conditioanl B, and to \\(D\) with projection (cGANs with projection)
+2. Optimization hyperparams and regularization followed `SA-GAN` (spectral norm on \\(D,G\\), `TTUR`) 
+3. Moving average strategy (`PG-GAN` + 3 other papers)
+4. Orthognal Inittilization
+5. Sync BN
+6. Found that progressively growing unnecessary, even for 512 X 512
+
+Increasing batch size
+1. __immediately find tremendous benefits in doing so__ (in FID)
+2. We conjecture that this is a result of each batch covering more modes, providign better grads for both networks.
+3. notable side effect: the models reach better final performance in fewer iters, but __become unstable__ and udergo complete training collapse
+
+Increasing width (channels)
+1. increase by 50% (\\(\approx\\) doubling the params), IS improved by 21
+2. which we posit is due to the increased capacity of the model relative to the complexity of the dataset.
+3. doubling the depth did not initially lead to improvement - addressed this later in the BigGAN-deep, which use a __different residual block sturcutre__
+
+Shared embedding
+1. cls embedding \\(c\\) used in __each conditional BN layer__ in \\(G\\) contain a large # of weights
+2. \\(\rightarrow\\) shared embedding, which projected linearly to each layer's gains and biases (Perez et al, 2018).
+   * increase training speed by 37%
+3. add direct skip connections (skip-\\(z\\)) from the noise vector \\(z\\) tro multiple layers of \\(G\\), rather than just the initial layer
+4. in `BigGAN`, splitted \\(z\\) into chunk per resolution, concat each chunk to the conditional vecotr \\(c\\) which gets projected to the BN gains and biasses
+5. in `BigGAN-deep`, used even simpler design (no splitting). Namely,
+   1. Given \\(z\\), feed into 1st layer
+   2. Concat \\(z\\) with `embedding(y)`, and provide to each `CBN` layers
+6. performance improve of 4%, training speed improvement 18%
+
+#### Truncation trick
+> Remarkably , our best results come from using a fidderent latent distribution for sampling than was used in training
+
+`Truncation trick`: truncating a \\(z\\) vector by resampling the values with magnitude above a chosen threshold leads to improvement in individual sample quality at the cost of reduction in overall sample variety.
+
+Related observations: Marchesi, 2016, Pieters & Wiering, 2014.
+
+The distribution shift caused by sampling wht different alents than those seen in training is problematic for many models (saturation artifacts occured)
+* To counteract, we seek to __enforce amenability__ to truncation by conditioning \\(G\\) to be smooth (How they reached this conclusion?), so that the full space of \\(z\\) will map to good output sample.
+* For this, used variant Orthogonal Regulaziation (Brock et al, 2017)
+
+#### Summary
+> We find that current GAN techniques are sufficient to enable scaling to large models and distributed large-batch training.  
+We find that we can dramatically improve the state of the art and train models
+up to 512×512 resolution without need for explicit multiscale methods like Karras et al. (2018).  
+Despite these improvements, our models undergo training collapse, __necessitating early stopping in practice.__ In the next two sections we investigate why settings which were stable in previous works become unstable when applied at scale.
+
+
+### Charactering Instabilities
+> The instabilities we observe occur for settings which are stable at small scale, necessitating direct analysis at large scale
+
+* Monitored a range of weight, grad, and loss statistics during training, similar o Odena et al., 2018
+* found the __top 3 singular values of each weight matrix to be most informative__. They can be efficiently computed using the Alrnoldi iteration method, which extends the power iteration method used in original Spectral norm paper.
+
+#### Instabilities in G
+Most \\(G\\) layers have stable spectra, except for 1st layer (which is over-complete an dnot convolutional (???)) whihc the spectral norms grow ghroughout training and explode at collapse
+* appplied conditioning (singular value clipping, ...)
+* in some cases they mildly improve performance, no combination prevent training collpase  
+> This evidence suggest that while conditioning \\(G\\) mgith improve stability, it is insuffcint to ensure stability.
+
+#### Instabilities in D
+* D's spectra is noise but stable (sigma_0/sigma_1 is well-behaved) in overall.
+* the singular value grow throughout training, but only jump at collapse, instead of exploding
+* Its Frobenious norms are smooth - suggesting that this effect (noise) primarily concentrated on the top few singular directions. We posit that this noise is a result of (adversarial) optimization process
+* To handle the noise, employied gradient penalties, which explicitly regularize changes in D's Jacobian.  
+(D's sigma_0/sigma_1 jumps periodically - D periodically becomes a mapping which gives high weight to 0th singular value direction - the function is not so smooth - make it smooth by constraining Jacobian?)
+* Performance severly degraded with such regularization (stabilities can be achieved)
+
+### Summary
+We find that stability does not come solely from G or D, but from their interaction through the adversarial training process. While the symptoms of their poor conditioning can be used to track and identify instability, ensuring reasonable conditioning proves necessary for training but insufficient to prevent eventual training collapse. It is possible to enforce stability by strongly constraining D, but doing so incurs a dramatic cost in performance. With current techniques, better final performance can be achieved by relaxing this conditioning and allowing collapse to occur at the later stages of training, by which time a model is sufficiently trained to achieve good results
+
+### Experiments
+
+Our observation that D overfits to the training set, coupled with our model’s sample quality, raises the obvious question of whether or not G simply memorizes training points. To test this, we perform
+class-wise nearest neighbors analysis in pixel space and the feature space of pre-trained classifier networks (Appendix A). In addition, we present both interpolations between samples and class-wise interpolations (where z is held constant) in Figures 8 and 9. Our model convincingly interpolates between disparate samples, and the nearest neighbors for its samples are visually distinct, suggesting that our model does not simply memorize training data.
+
+Some failure modes
+* local artifacts (Odena et al, 2016)
+* images consisting of texture blobs instead of objs (Salimans et al, 2016)
+* canonical mode collpase
+* We observe `class leakage`, where  imgs from one class contain properties of another, as exemplified by Figure 4(d)
+
+JFT-300
+* Interestingly, unlike models trained on ImageNet, where training tends to collapse without heavy regularization (Section 4), the models trained on JFT-300M remain stable over many hundreds of thousands of iterations. This suggests that moving beyond ImageNet to larger datasets may partially alleviate GAN stability issues.
+
+<br/><br/>
+Next
+* Odena et al : aux classifier on \\(D\\) 
