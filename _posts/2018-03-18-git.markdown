@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Git (egoing)"
-date:   2018-03-18 09:26:00
+date:   2019-05-19 09:00:05 +0800
 categories: coding
 use_math: true
 tags: coding git
@@ -10,24 +10,47 @@ tags: coding git
 
 <a href="https://seomal.org/" target="_blank">https://seomal.org/</a>
 
-`HEAD` - working tree를 가르킴
+### Git Basics
+<img src="{{site.url}}/images/git/git-commit.png" width="600">
 
-__git is immutable__
+* `master` - Commit을 가르킴. 대표 branch.
+* `HEAD` - Commit을 가르킴. working tree를 represents함
+  * master와 같은 commit을 가르키지 않을 시, __detached head__ 상태가 됨
+  * 깃은 브랜치를 통해 커밋들을 관리한다. 그리고 Detached HEAD 커밋은 브랜치에 연결되어 있지 않아 관리가 불가능하다.  
+  ex) 이 상태에서 commit을 할 시 HEAD (working tree) 다음으로 commit이 되지만, branch에 등록이 되어 있지 않아 git에서 관리가 불가능
+  * `working tree` - 현재 작업 공간 (폴더)
+* `commit`
+  * git의 단위 동작.
+  * 각 commit은 부모 커밋만 가르킴
 
-버전관리의 목적: 파일의 이름을 더럽히지 않고 관리하기
+Miscs
+* 버전관리의 목적: 파일의 이름을 더럽히지 않고 관리하기
+* .git 파일: `repository` (version이 만들어지는 곳)
+* `gistory` (python)
 
-.git 파일: repository (version이 만들어지는 곳)
-작업중인 폴더: working directory
 
-stage area = index = cache
+### stage area = index = cache
 
-`Gistory` (python)
+git file management
+- `working dir` ->(add)-> `stage` ->(commit)-> `repo`
+* git add로 working tree의 파일을 staging area로 등록
+* commit으로 해당 파일의 '버전'을 생성하게 됨
 
-<그림 1>
-master 와 checkout된 commit은 1대1 관계를 가짐
+git add <filename>
+- <file>을 staging 시키겠다
+- index에 파일 등록 (새로 staging 되는 파일은 .git/objects에 저장)
+- add를 하지 않으면, 아직 HEAD (가 가르키는 commit)에 해당 내용이 반영되지 않은 것
 
-파일명이 같아도 git은 내용을 따로 관리 (objects폴더에 본체 존재)
-파일명이 달라도 내용이 같으면, 같은 objects/\*\*를 가르킴 (content 기반 hash)
+### git is immutable
+
+* __git은 아무것도 삭제하지 않음 (접근불가능해지는 경우는 존재)__
+* 파일명이 같아도 git은 내용을 따로 관리 (objects폴더에 본체 존재)
+* 파일명이 달라도 내용이 같으면, 같은 objects를 가르킴 __(content 기반 hash)__
+* git은 모든데이터를 object로 관리.  
+  object 종류
+  * tree: 이름
+  * blob: 파일
+  * commit: 파일에 대한 포인터를 포함하는 commit
 
 git log를 눌렀을 때
 1. git은 .git/HEAD를 참조
@@ -35,19 +58,7 @@ git log를 눌렀을 때
 3. 해당 파일을 열어 보면, master가 가르키는 commit이 있음.
 4. 해당 commit은, tree(생성 시 파일의 이름, 데이터(obejcts/**에 대한 reference 형태) 보유) / parent 2개의 포인트를 보유. 
 
-git은 모든데이터를 object로 관리.  
-object 종류
-* tree: 이름
-* blob: 파일
-* commit
 
-git file management
-- `working dir` ->(add)-> `stage` ->(commit)-> `repo`
-
-git add <filename>
-- <file>을 staging 시키겠다
-- index에 파일 등록 (새로 staging 되는 파일은 .git/objects에 저장)
-  
 git commit
 - working dir -> repo
 - -a 옵션: add생략가능 (unstaged file은 안됨)
@@ -62,14 +73,13 @@ git checkout
 
 git reset
 - 삭제 효과가 있지만 실제 삭제는 아님 (reset --hard로 원래 working dir로 복귀가능!) 
--  branch를 옮기는 것 (__딸린 head가 있다면 head도 같이 옮겨감__) - master가 바라보는 commit ID를 바꾸는 것
+- __branch (보통 master)가 바라보는 commit ID를 바꾸는 것__
+- 딸린 head가 있다면 head도 같이 옮겨감
 - working directory의 unstaged된것들 다 지우기: git reset --hard HEAD (master로 복귀하면 의미가 좀 다름)
 - commitID를 받을수도 있음
 
-git revert
-- 삭제한 효과가 나면서 기능을 유지한다
-- `git revert commitID`: commitID를 취소한 새로운 commit을 생성
-- git revert를 sequential하게 해주면 충돌이 안난다고 함
+
+
 
 git reflog
 - (원인): 결과
@@ -90,7 +100,10 @@ git branch
 * checkout으로 head를 옮겨 다른 branch를 가르킬 수 있음
 * git branch -d \<branch name\> : removing branch
 
-`base`: branch들의 공통의 조상
+
+### Git merge
+
+`base`: merge 대상이 되는 branch들의 공통의 조상
 
 git merge
 * fast forward / merge commit 2가지 방법이 있음
@@ -100,8 +113,15 @@ git merge
 2. merge commit: 서로 다르게 뻗어나간 branch들을 commit으로 병합
   * conflict는 주변 1~2줄도 봄
 
+<img src="https://s3-ap-northeast-2.amazonaws.com/opentutorials-user-file/module/2676/5133.png">  
+<img src="{{site.url}}/images/git/3way.png" width="1000">  
 git 3-way merge
-* 최대한 많이 자동 병합하기 위한 기능?
+* 최대한 많이 자동 병합하기 위한 기능
+* base와 대상 branch들을 비교하여, 변하지 않은 부분을 base로 처리함  
+ - merge 대상이 되는 2개의 branch들에 다른 부분이 있더라도, 한쪽이 base와 같으면 conflict를 일으키지 말고 base와 다른 부분을 반영
+
+
+
 
 merge후 복귀하기
 * git은 위험한 작업을 하기 전에 (merge등), ORIG_HEAD로 HEAD를 복사해 놓음. 따라서 git reset --hard ORIG_HEAD를 하면 merge가 취소됨.
@@ -147,8 +167,13 @@ miscs
 
 
 #### Cherry pick, rebase
-* 여러개의 cherry pick을 자동화시켜 준 것 : rebase
+
 * cherrypick: 특정 커밋의 변경사항을 다른 커밋에 적용하겠다.
+* 여러개의 cherry pick을 자동화시켜 준 것 : rebase
+  * 새로운 commit (merge commit) 이 생기고 분기점이 유지되는 merge commit에 비해, merge commit을 만들지 않고 __history를 sequential하게 유지가능__.
+* <a href="https://marklodato.github.io/visual-git-guide/index-ko.html?no-svg#cherry-pick" target="_blank">https://marklodato.github.io/visual-git-guide/index-ko.html?no-svg#cherry-pick</a>
+
+
 
 <a href="https://dogfeet.github.io/articles/2012/git-merge-rebase.html" target="_blank">rebase vs merge</a>
 
@@ -187,9 +212,11 @@ cat ~/.gitconfig
 * alias 설정 가능 (l = log --all --graph --decorate --oneline)
 * git config user.name egoing - 현재 repo의 설정만 바꿈. --global로 global 변경가능
 
-
+<img src="{{site.url}}/images/git/revert.png" width="600">  
 git revert
-* 1->2->3->4 에서 git revert 2를 했을시, 3way merge는 다음과 같이 동작함
+- 삭제한 효과가 나면서 기능을 유지한다
+- `git revert commitID`: commitID를 취소한 새로운 commit을 생성
+- git revert를 sequential하게 해주면 충돌이 안난다고 함 (뒤로부터?)
 
 ### Gerrit
 * gerrit: git repo hosting (github와 비슷)

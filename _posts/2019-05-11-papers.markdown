@@ -37,13 +37,24 @@ Papers with good references
 * Proposed that affine transformation is enough to designate a style!
 
 #### cGANs with projection discriminator. In ICLR, 2018 [19]
+`CBN`
 * referenced in [13]   
     *  \\(D\\) is conditioned by using the cosine similarity between its features and a set of learned class embeddings as additional evidence for distinguishing real and generated samples, effectively encouraging generation of samples whose features match a learned class prototype
+* referenced in [26], as a paper using CBN
 
 #### Modulating early visual processing by language
+`CBN`
 * referenced in [13]
   * referenced as an example of class-conditional GAN (different affine params for each cls)
+* referenced in [26], as a paper using CBN
 
+#### Learning visual reasoning withou string priors [29]
+`CBN`
+* referenced in [26], as a paper using CBN
+
+#### Semi-parametric image synthesis, CVPR 2018 [30]
+`CBN`
+* referenced in [26], as a paper using CBN
 
 ### GAN training
 
@@ -51,9 +62,11 @@ Papers with good references
 * reference in[13]
   * `ProGAN` trains high-resolution GANs in the single-class setting by training a single model across a sequence of increasing resolutions.
 
-#### (spectral normalization) Spectral normalization for generative adversarial networks [15] 
+#### (spectral normalization) Spectral normalization for generative adversarial networks [15]
+`spectral_normalization`, `hinge_loss`
 * referenced in [13]
   * enforces Lipschitz continuity on \\(D\\) by normalizing its parameters with running estimates of their 1st singular values, inducing backwards dynamics that adaptively regularize the top singular direction.
+* referenced in [26], as a example of paper using hinge-loss
 
 
 #### Is generator conditioning causally related to GAN performance? In ICML, 2018
@@ -68,6 +81,18 @@ Papers with good references
 * instabilities of \\(G\\) and \\(D\\) on large scale
 * shared embedding for the Contitional BN
 
+#### Which training methods for gans do acually converge ICML 2018 [28]
+`CBN`
+* referenced in [26], as a example of paper using CBN
+
+
+#### Geometric GAN (Hinge Loss) [33]
+`hinge-loss`
+* referenced in [26], as a example of paper using hinge-loss
+
+#### Self-attention generative adversarial networks [35]
+`self-attention`, `hinge-loss`
+* referenced in [26], as a example of paper using hinge-loss
 
 ### Style Transfer
 
@@ -77,6 +102,7 @@ Papers with good references
   * introduce an optimization scheme involving backpropagation for performing content preserving style transfer
 
 #### Photographic Image Synthesis with Cascaded Refinement Networks [9]
+`Pretrained-segnet score`
 * <a href="{{site.url}}/deep_learning/2019/05/08/crn-perceptual.html" target="_blank">review</a>
 * Used perceptual loss [6] only (No GAN)
 * Motivated by __Deep generative image models using a Laplacian pyramid of adversarial networks, NIPS, 2015__ : trained multiple separate GANs, one for each lvl in a Laplacian pyramid. Each model is trained independently to synthesize details at its scale. Assembling separately trained models in this fashion enabled the authors to synthesize imgs up to 96 by 96 
@@ -160,6 +186,28 @@ Papers with good references
 
 #### Cycada: Cycle-consistent adversarial domain adaptation [8]
 
+
+#### Multimodal unsupervised img2img translation
+`CBN`
+* referenced in [26], as a example of `CBN`
+
+#### Toward multimodal image to image translation [31]
+* referenced in [26], as a ref that supports a statement "RandN input is a simple and natural way for multimodal synthesis"
+
+#### Multimodal unsupervised image-to-image translation ECCV 2018, NVIDIA [32]
+* referenced in [26], as a ref that supports a statement "RandN input is a simple and natural way for multimodal synthesis"
+
+#### (SPADE) Synthetic Image Synthesis with Spatially-Adaptive Normalization, CVPR 2018 [26]
+`Pretrained-segnet score`, 
+* multi-scale D, same loss as the pix2pixHD (replaced lsgan with hinge loss)
+* spatially (for each channel, for each spatial location y, x) different denormalization, which is learned from feeding (interpolated seg map resized to feature map size) to 2-conv layers
+* tested `WGAN`, `cGAN` on \\(D\\) but not that effective, compared to the GPU memory consumption
+* adding SPADE to \\(D\\) was not that effective also
+
+#### (pix2pixHD) High-resolution image synthesis and semantic manipulation with conditional gans [36]
+`Pretrained-segnet score`, 
+* referenced in [26] : [26] mostly used the settings of this paper.
+
 <br/>
 <br/>
 References (added order)
@@ -188,3 +236,14 @@ References (added order)
 * [23] : A neural algorithm of artistic style. Leon A Gatys, Alexander S Ecker, and Matthias Bethge, arXiv, 
 * [24] : Texture networks: Feedforward synthesis of textures and stylized images. Dmitry Ulyanov, Vadim Lebedev, Andrea Vedaldi, and Victor Lempitsky, arXiv
 * [25] : Chuan Li and Michael Wand. Precomputed real-time texture synthesis with markovian generative adversarial networks. ECCV, 2016
+* [26] : Synthetic Image Synthesis with Spatially-Adaptive Normalization, CVPR 2018, `SPADE`
+* [27] : multimodal unsupervised img2img translation, ICCV 2017
+* [28] : Which training methods for gans do acually converge ICML 2018
+* [29] : Learning visual reasoning withou string priors
+* [30] : Semi-parametric image synthesis, CVPR 2018
+* [31] : Toward multimodal image to image translation, NIPS 2017
+* [32] : Multimodal unsupervised image-to-image translation, ECCV 2018, NVIDIA
+* [33] : `hinge loss` Geometric GAN, arXiv 
+* [34] : `spectral normalization` Spectral normalization for generative adversarial networks , ICLR 2018
+* [35] : `SA-GAN` Self-attention generative adversarial networks 
+* [36] : `pix2pixHD` High-resolution image synthesis and semantic manipulation with conditional gans, CVPR 2018

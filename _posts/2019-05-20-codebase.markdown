@@ -1,0 +1,108 @@
+---
+layout: post
+title:  "PS codebase"
+date:   2019-5-20 09:00:05 +0800
+categories: problem_solving
+use_math: true
+tags: problem_solving need_review coding
+---
+
+### Quicksort
+* Random_shuffle 한 번 돌리고 시작하거나 pivot을 랜덤으로 잡아줄 것
+* 항상 smallto를 -1로 잡네 ㅡㅡ;
+```cpp
+void quicksort(vector<ListNode*>& ary, int from, int to){
+    if(from >= to)return;
+    int piv = to, smallto = from-1;
+    for(int i = from; i<to; i++){
+        if (ary[i]->val < ary[piv]->val){
+            smallto++;
+            ListNode* tmp = ary[smallto];
+            ary[smallto] = ary[i];
+            ary[i] = tmp;
+        }
+    }
+    ListNode* tmp = ary[smallto+1];
+    ary[smallto+1] = ary[piv];
+    ary[piv] = tmp;
+    quicksort(ary, from, smallto);
+    quicksort(ary, smallto+2, to);
+}
+```
+
+### Mergesort
+N=1일때 다음 null처리 깜빡하지 말자 (linked list sorting하는 경우)
+```cpp
+ListNode* mergesort(ListNode* head, int N){
+    if (N == 1){
+        head->next = NULL; //이부분 중요
+        return head;
+    }
+    int mid = (int)(N/2);
+    ListNode* r = head;
+    for(int i = 0; i<mid; i++)r = r->next;
+    head = mergesort(head, mid);
+    r = mergesort(r, N-mid);
+    ListNode* ret = NULL;
+    ListNode* pnt = NULL;
+    if(head->val < r->val){
+        ret = head;
+        head = head->next;
+    }else{
+        ret = r;
+        r = r->next;
+    }
+    pnt = ret;
+    while(head != NULL || r != NULL){
+        if(head != NULL && r != NULL){
+            if(head->val < r->val){
+                pnt->next = head;
+                head = head->next;
+            }else{
+                pnt->next = r;
+                r = r->next;
+            }
+        }else if(head != NULL){
+            pnt->next = head;
+            head = head->next;
+        }else{
+            pnt->next = r;
+            r = r->next;
+        }
+        pnt = pnt->next;
+    }
+    return ret;
+}
+
+```
+
+
+### Heap
+
+### Segtree
+```c++
+int ary[MAXN * 4];
+
+int update(int ind, int val, int node, int from, int to){
+	if (ind < from || to < ind)return ary[node];
+	if (from == to)return ary[node] = val;
+	int mid = (from + to) / 2;
+	return ary[node] = update(ind, val, node * 2, from, mid) + update(ind, val, node * 2 + 1, mid+1, to);
+}
+
+int squery(int x, int y, int node, int from, int to){
+	if (x > y)return 0;
+	if (y < from || to < x)return 0;
+	if (x <= from && to <= y)return ary[node];
+	int mid = (from + to) / 2;
+	return squery(x, y, node * 2, from, mid) + squery(x, y, node * 2 + 1, mid+1, to);
+}
+```
+
+### Dijkstra
+
+### Bellman-ford
+
+### Edmond-Karp
+
+### Dinic
