@@ -194,7 +194,11 @@ Papers with good references
 #### Toward multimodal image to image translation [31]
 * referenced in [26], as a ref that supports a statement "RandN input is a simple and natural way for multimodal synthesis"
 
-#### Multimodal unsupervised image-to-image translation ECCV 2018, NVIDIA [32]
+#### (UNIT) Unsupervised image-to-image translation networks [38]
+* referenced in [32]
+  * While UNIT assumes a fully shared latent space, we postulate that only part of the latent space (the content) can be shared across domains whereas the other part (the style) is domain specific, which is a more reasonable assumption when the cross-domain mapping is many-to-many
+  
+#### (MUNIT) Multimodal unsupervised image-to-image translation ECCV 2018, NVIDIA [32]
 * referenced in [26], as a ref that supports a statement "RandN input is a simple and natural way for multimodal synthesis"
 
 #### (SPADE) Synthetic Image Synthesis with Spatially-Adaptive Normalization, CVPR 2018 [26]
@@ -207,6 +211,22 @@ Papers with good references
 #### (pix2pixHD) High-resolution image synthesis and semantic manipulation with conditional gans [36]
 `Pretrained-segnet score`, 
 * referenced in [26] : [26] mostly used the settings of this paper.
+
+#### Unsupervised cross-domain image generation [37]
+* referenced in [32]
+  * unsupervised img2img is __ill-posed__ problem - some works enforce the translation to preserve certain properties of the source domain data, such as __semantic feature__ [37]
+
+#### Learning from simulated and unsupervised images through adversarial training [40]
+* referenced in [32]
+  * unsupervised img2img is __ill-posed__ problem - some works enforce the translation to preserve certain properties of the source domain data, such as __pixel gradient__ [40]
+
+#### (DistanceGAN) One-sided unsupervised domain mapping [39]
+* referenced in [32]
+  * unsupervised img2img is __ill-posed__ problem - some works enforce the translation to preserve certain properties of the source domain data, such as __pairwise sample distance__ [39]
+
+#### Unsupervised pixel-level domain adaption with generative adversarial networks [41]
+* referenced in [32]
+  * unsupervised img2img is __ill-posed__ problem - some works enforce the translation to preserve certain properties of the source domain data, such as __pixel values, class labels__ [41]
 
 <br/>
 <br/>
@@ -247,3 +267,8 @@ References (added order)
 * [34] : `spectral normalization` Spectral normalization for generative adversarial networks , ICLR 2018
 * [35] : `SA-GAN` Self-attention generative adversarial networks 
 * [36] : `pix2pixHD` High-resolution image synthesis and semantic manipulation with conditional gans, CVPR 2018
+* [37] : Unsupervised cross-domain image generation, ICLR, 2017
+* [38] : Unsupervised image-to-image translation networks, NIPS, 2017
+* [39] : One-sided unsupervised domain mapping, NIPS, 2017
+* [40] : Learning from simulated and unsupervised images through adversarial training, 2017
+* [41] : Unsupervised pixel-level domain adaption with generative adversarial networks, CVPR, 2017
