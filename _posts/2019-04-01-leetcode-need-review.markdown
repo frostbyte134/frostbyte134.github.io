@@ -1,18 +1,90 @@
 ---
 layout: post
-title:  "Leetcode - need reviews"
+title:  "Leetcode problems"
 date:   2019-04-01 09:59:00 +0800
 categories: problem_solving
 use_math: true
 tags: problem_solving leetcode need_review
 ---
 
-### Find All Numbers Disappeared in an Array
+### reference problems
+
+#### LRU Cache
+
+linked list + hash = O(1) LRU Cache!
+
+#### 2-sum problems
+1. 2-sum - lr (O(N))
+2. 3-sum - 2sum * N
+3. 4-sum - 3sum * N
+
+#### Merge Intervals
+
+<a href="https://leetcode.com/problems/merge-intervals/" target="_blank">https://leetcode.com/problems/merge-intervals/</a>
+
+1. 인터벌 (a, b)들을 오름차순으로 정렬
+2. valid non-intersecting interval 집합을 유지한다고 할 시, 현재 고려중인 interval은 
+    1. valid 집합의 마지막 interval보다 a값은 크다
+    2. 따라서, valid 집합의 마지막 interval과 머지되지 않을 시, 나머지들과 머지될 일은 없음.
+
+
+
+#### Best time to buy and sell stock
+<a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/submissions/" target="_blank">https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/</a>
+
+1. DP
+\\[\text\{maxx\}[i] = \max(\text\{maxx\}[i], \text\{maxx\}[i-1], ary[i] - ary[j] + \text\{maxx\}[j-2]),\\ j=1,...,i-1\\]
+when j<2, maxx[j-2] = 0 (there is no profit we can obtain in day=i=0, 1)
+2. __Notice__ that, the term \\(- ary[j] + \text\{maxx\}[j-2])\\) is calculated over and over
+
+#### Next permutation
+
+<a href="https://leetcode.com/problems/next-permutation/" target="_blank">https://leetcode.com/problems/next-permutation/</a>
+
+Permutation의 다음번째는 무엇인가? (lexicographical order)
+
+1. Permutation이므로 swap
+2. lexi-order이므로, 자릿수가 작은 숫자를
+	1. 자기보다 자릿수가 더 낮으면서
+	2. 값은 더 큰 숫자
+	3. 중 최소의 숫자와 바꿔야 함.
+	
+	이렇게 i번째 숫자를 j(<i) 번째 숫자와 바꾸었으면, i-1번째부터는 작은 순으로 정렬해주어야 함. 그래야 바로 다음번이 되니까.
+3. 위에 해당하는 경우가 없을 시, 모든 숫자는 자기보다 자릿수가 낮은 숫자보다 큼. (ex - 4321) 문제에서 이러면 낮은순정렬하랬으므로 1d transpose해줌
+
+
+
+#### Finding cycle in linked list
+<a href="https://leetcode.com/problems/linked-list-cycle-ii/" target="_blank">https://leetcode.com/problems/linked-list-cycle-ii/</a>
+
+1. travel with `slow` (goes 1 pointer in a time) and `fast` (goes 2 point in a time)
+2. Let
+* \\(L\_1\\): distance between the starting point and cycle entrance
+* \\(L\_2\\): distance between the cycle entrance and meeting point
+* \\(C\\): cycle length
+* \\(n\\): number of times `fast` ran through circle until it meets with `slow`
+그러면,
+1. \\(2(L\_1+L\_2)=L\_1+L\_2+nC\\)
+2. \\(n=1\\): 어차피 `fast`와 `slow`는 1번에 1칸씩밖에 차이가 안나기때문에, `fast`는 1번의 순회만으로 `slow`와 만남.
+
+그러므로, \\(L\_1+L\_2=C \quad\rightarrow\quad L\_1=C-L\_2\\). 현재 slow위치에서 계속 앞으로 나가고, starting point에서 앞으로 나가면 만나는곳이 cycle entry가 됨.
+
+
+#### Task Scheduler
+<a href="https://leetcode.com/problems/task-scheduler/" target="_blank">https://leetcode.com/problems/task-scheduler/</a>
+
+1. task 갯수가 n+1번째보다 많을 시, 억지로 n+1에 끼워넣기보단 n+1보다 더 벌리는 것이 좋음. 그림을 그러보면 알기 쉬운데, 전자는 net loss가 발생하기 때문
+2. 위와 같이 하고, 중복 고려해서 마지막 끝나는 시간을 찾으면 됨
+
+
+### Need review
+
+#### Find All Numbers Disappeared in an Array
 https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/
 
 Cycle 찾기 문제. 이게 이지라고?
 
-### search a 2d matrix
+#### search a 2d matrix
 
 <a href="https://leetcode.com/problems/search-a-2d-matrix-ii" target="_blank">https://leetcode.com/problems/search-a-2d-matrix-ii</a>
 
@@ -29,7 +101,7 @@ Cycle 찾기 문제. 이게 이지라고?
 이런 문제를 바로바로 풀어야 할 텐데...
 
 
-### Generate Parentheses
+#### Generate Parentheses
 
 <a href="https://leetcode.com/problems/generate-parentheses/" target="_blank">https://leetcode.com/problems/generate-parentheses/</a>
 
@@ -63,7 +135,7 @@ class Solution:
 ```
 
 
-### Longest Valid Parenthesis
+#### Longest Valid Parenthesis
 <a href="https://leetcode.com/problems/longest-valid-parentheses/submissions/" target="_blank">https://leetcode.com/problems/longest-valid-parentheses/submissions/</a>
 
 핵심: `이전` 레벨의 시작으로 거리를 구하는 것. cur에 저장
@@ -101,7 +173,7 @@ def longestValidParentheses(self, s: str) -> int:
 
 
 
-### N-Queens
+#### N-Queens
 <a href="https://leetcode.com/problems/n-queens/" target="_blank">https://leetcode.com/problems/n-queens/</a>
 
 1. Naive - on the board
@@ -112,7 +184,7 @@ def longestValidParentheses(self, s: str) -> int:
 
 	
 
-### Container With Most Water
+#### Container With Most Water
 
 <a href="https://leetcode.com/problems/container-with-most-water/" target="_blank">https://leetcode.com/problems/container-with-most-water/</a>
 
@@ -136,7 +208,7 @@ class Solution:
                 
 ```
 
-### Smallest Range
+#### Smallest Range
 <a href="https://leetcode.com/problems/smallest-range-ii/" target="_blank">https://leetcode.com/problems/smallest-range-ii/</a>
 
 1. 처음엔 [2][10000]의 동적계획법인가 했었다. 
@@ -168,3 +240,86 @@ class Solution:
         return ans
 ```
 
+
+### Reviewed
+
+#### Coin change
+
+<a href="https://leetcode.com/problems/coin-change/" target="_blank">https://leetcode.com/problems/coin-change/</a>
+
+문제자체는 별거 없는, 동전교환 dp인데..
+```python
+dp[val] = min([dp[val - c]+1 if val - c >= 0 else float("inf") for c in coins])
+```
+으로 푸는게 2차원 배열에 동전갯수번만큼 min 을 해주는 것보다 2배는 빨랐다. ㄷㄷ해.  
+결론:
+1. 다수의 min/max보다는 List comprehension을 쓰자!
+2. `float("inf")`
+
+#### Subarray Sum Equals K
+https://leetcode.com/problems/subarray-sum-equals-k/
+
+부분합문제인데 N^2로 풀면 TLE남.  
+힌트는 값의 범위가 좁다는거였음. dic에 지금까지 나온 값들 저장해놓고 체크하면 됨.  
+`collections.counter`를 쓰면 더 빨라지는듯?
+
+
+#### Find All Numbers Disappeared in an Array
+https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/
+
+리스트 값이 리스트 내부와 range가 같고, 리스트를 체크해야 할 시 리스트 값이 -를 해두면 좋은듯
+
+
+#### Min stack
+<a href="https://leetcode.com/problems/min-stack/" target="_blank">https://leetcode.com/problems/min-stack/</a>
+
+stack의 최소값 - pair를 저장하면 됨. 큐와는 달리 top 밑에 있는 애들이 안빠지므로..
+
+
+#### Rotate image
+
+<a href="https://leetcode.com/problems/rotate-image/submissions/" target="_blank">https://leetcode.com/problems/rotate-image/submissions/</a>
+
+행렬 90도 rotation
+
+1. transpose + column exchange
+2. 4개의 점끼리만 바꾸기. Row 2개로 swap하려고 해서 잘 안풀려서 1번으로 풀음
+
+
+#### Regular expression
+ 
+```python
+class Solution:
+    
+    def cache_memoization(func):
+        __cache = {}
+        def wrapper(*args):
+            if args in __cache:
+                return __cache[args]
+            else:
+                result = func(*args)
+                __cache.update({args:result})
+                return result
+        return wrapper
+    
+    @cache_memoization
+    def isMatch(self, s: 'str', p: 'str') -> 'bool':
+        if not p:
+            return not s
+        
+        if len(p) >= 2 and p[1] == '*':
+            if len(s) > 0:
+                if p[0] == '.' or p[0] == s[0]:
+                    return self.isMatch(s[1:], p) or self.isMatch(s[1:], p[2:]) or self.isMatch(s, p[2:])
+            return self.isMatch(s, p[2:])
+        
+        
+        if len(s) > 0 and len(p) > 0 and (s[0] == p[0] or p[0] == '.'):
+            return self.isMatch(s[1:], p[1:])
+        
+        return False
+        
+```
+
+* 클래스 내부에서 멤버함수 호출: 멤버변수와 같이 self.붙여줘야
+* 메모이제이션 쩌네. 2차원 dp로 풀라다 실패. 생각해보니 이렇게 재귀함수 짜고 2차원 dp했어도 걍 풀었을듯. 재귀 먼저 짜자

@@ -10,6 +10,8 @@ tags: deep_learning generative style_transfer gan domain_adaptation
 Papers with good references
 * `BigGAN`: modification of GANs for stability, conditional GANs
 * Learning from Synthetic Data: Addressing Domain Shift for Semantic Segmentation
+
+Latent reconstruction loss (reconstruct style by style-image-style) (ref can be found at Mul)
 * 
 
 ### Conditional GANs
@@ -94,6 +96,7 @@ Papers with good references
 `self-attention`, `hinge-loss`
 * referenced in [26], as a example of paper using hinge-loss
 
+
 ### Style Transfer
 
 #### Unsupervised Domain Adaptation by Backpropagation [5]
@@ -115,6 +118,14 @@ Papers with good references
 #### Feedforward synthesis of textures and stylized images (2016)
 * referenced in [18]
   * style transfer with single feedforward net, which is trained to go from content to styleimg in one pass. the style transfer net is tied to a single style
+
+#### (AdaIN) Arbitrary Stye Transfer in Real-time with Adaptive Instance [27] 
+* <a href="{{site.url}}/deep_learning/2019/05/04/adain.html" target="_blank">review</a>
+
+####  Decomposing the latent spaces of generative adversarial networks [43]
+`Disentanglement`
+* referenced in [32], no content
+
 
 ### Perceptual loss related
 
@@ -183,23 +194,39 @@ Papers with good references
 #### CycleGAN [7]
 * refercenced in [3]
     * performs __unpaired__ img2img translation by employing adversarial losses and cycle consistency losses
-
+* referenced in [32]
+    * img2img - performs `collection based style transfer` well than `example-guided style transfer`
 #### Cycada: Cycle-consistent adversarial domain adaptation [8]
 
 
-#### Multimodal unsupervised img2img translation
-`CBN`
-* referenced in [26], as a example of `CBN`
 
-#### Toward multimodal image to image translation [31]
-* referenced in [26], as a ref that supports a statement "RandN input is a simple and natural way for multimodal synthesis"
+#### (BicycleGAN) Toward multimodal image to image translation [31]
+`LPIP distance`
+* referenced in [26]
+    * as a ref that supports a statement "RandN input is a simple and natural way for multimodal synthesis"
+    * to improve the diversity of generated imgs, proposed `BycicleGAN`, which tries to model the continuous and multimodal distributions, but requries pair supervision.
+    * `latent reconstruction loss` used
+
+#### (InfoGAN) Interpretable Representation Learning by Information Maximizing Generative Adversarial Nets, NIPS 2016 [42]
+`Content-style separation`
+* __separation of content, style__
+* referenced in [32]
+    * [32] was inspired by this paper
+    * used (latent) style reconstruction loss
 
 #### (UNIT) Unsupervised image-to-image translation networks [38]
+`Content-style separation`
 * referenced in [32]
   * While UNIT assumes a fully shared latent space, we postulate that only part of the latent space (the content) can be shared across domains whereas the other part (the style) is domain specific, which is a more reasonable assumption when the cross-domain mapping is many-to-many
   
 #### (MUNIT) Multimodal unsupervised image-to-image translation ECCV 2018, NVIDIA [32]
-* referenced in [26], as a ref that supports a statement "RandN input is a simple and natural way for multimodal synthesis"
+`content-style separation`, `AdaIN`[27],  `CBN`, `lsgan`, `LPIP distance between imgs`, `Contitional Inception Score`, `Multiscale-D`
+* <a href="{{site.url}}/deep_learning/2019/05/20/multimodal-unsupervised-img2img-translation.html" target="_blank">review</a>
+* referenced in [26]
+    * as a ref that supports a statement "RandN input is a simple and natural way for multimodal synthesis" / as a example of `CBN` (the paper used `AdaIN` though)
+* used `AdaIN`, but the affine params are learned from the network
+* unsupervised - no perceptual loss!
+
 
 #### (SPADE) Synthetic Image Synthesis with Spatially-Adaptive Normalization, CVPR 2018 [26]
 `Pretrained-segnet score`, 
@@ -228,17 +255,22 @@ Papers with good references
 * referenced in [32]
   * unsupervised img2img is __ill-posed__ problem - some works enforce the translation to preserve certain properties of the source domain data, such as __pixel values, class labels__ [41]
 
+### Misc
+
+#### The unreasonable effectiveness of deep features as a perceptual metric, CVPR, 2018 [44]
+* `LPIP distance`
+* referenced in [32] - `LPIP` correlated well with human perception score.
 <br/>
 <br/>
 References (added order)
-* [1] : Unsupervised Domain Adaptaion using Backpropagation
+* [1] : (`Gradient reversal layer`) Unsupervised Domain Adaptaion using Backpropagation
 * [2] : FCNs in the wild
 * [3] : Learning from Synthetic Data: Addressing Domain Shift for Semantic Segmentation
 * [4] : Curriculum domain adaptation for semantic segmentation of urban scenes
 * [5] : Unsupervised Domain Adaptation by Backpropagation
 * [6] : Perceptual Losses for Real-Time Style Transfer and Super Resolution
-* [7] : CycleGAN (fix this)
-* [8] : Cycada: Cycle-consistent adversarial domain adaptation
+* [7] : `CycleGAN` (fix this)
+* [8] : `Cycada`: Cycle-consistent adversarial domain adaptation
 * [9] : Photographic Image Synthesis with Cascaded Refinement Networks
 * [10] : Unsupervised representation learning with deep convolutional generative adversarial networks, ICLR 2016
 * [11] : Generating images with perceptual similarity metrics based on ddep networks, NIPS, 2016
@@ -257,7 +289,7 @@ References (added order)
 * [24] : Texture networks: Feedforward synthesis of textures and stylized images. Dmitry Ulyanov, Vadim Lebedev, Andrea Vedaldi, and Victor Lempitsky, arXiv
 * [25] : Chuan Li and Michael Wand. Precomputed real-time texture synthesis with markovian generative adversarial networks. ECCV, 2016
 * [26] : Synthetic Image Synthesis with Spatially-Adaptive Normalization, CVPR 2018, `SPADE`
-* [27] : multimodal unsupervised img2img translation, ICCV 2017
+* [27] : (AdaIN) Arbitrary Stye Transfer in Real-time with Adaptive Instance Normalization
 * [28] : Which training methods for gans do acually converge ICML 2018
 * [29] : Learning visual reasoning withou string priors
 * [30] : Semi-parametric image synthesis, CVPR 2018
@@ -272,3 +304,6 @@ References (added order)
 * [39] : One-sided unsupervised domain mapping, NIPS, 2017
 * [40] : Learning from simulated and unsupervised images through adversarial training, 2017
 * [41] : Unsupervised pixel-level domain adaption with generative adversarial networks, CVPR, 2017
+* [42] : `InfoGAN`: Interpretable Representation Learning by Information Maximizing Generative Adversarial Nets, NIPS 2016
+* [43] : Semantically decomposing the latent spaces of generative adversarial networks
+* [44] : The unreasonable effectiveness of deep features as a perceptual metric, CVPR, 2018
