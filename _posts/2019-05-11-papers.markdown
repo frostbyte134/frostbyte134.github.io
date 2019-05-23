@@ -139,6 +139,15 @@ Origin of `CBN`
 `Disentanglement`
 * referenced in [32], no content
 
+#### Texture and art with deep neural networks. Current Opinion in Neurobiology [45]
+* referenced in [47]
+    * CNNs can still classify texturised images perfectly well, even if the global shape structure is completely destroyed.
+    * Following [45], we define `texture` as an image (region) with spatially stationary statistics. Note that on a very local level, textures (according to this definition) can have non-stationary elements (such as a local shape): e.g. a single bottle clearly has non-stationary statistics, but many bottles next to each other are perceived as a texture: __things become stuff__ 
+
+#### Texture synthesis using convolutional neural networks, NIPS, 2015, Gatys et al [46]
+* referenced in [47]
+    * discovered that a linear classifier on top of a CNN’s texture representation (Gram matrix) achieves hardly any classification performance loss compared to original network performance. 
+
 
 ### Perceptual loss related
 
@@ -324,5 +333,7 @@ References (added order)
 * [42] : `InfoGAN`: Interpretable Representation Learning by Information Maximizing Generative Adversarial Nets, NIPS 2016
 * [43] : Semantically decomposing the latent spaces of generative adversarial networks
 * [44] : The unreasonable effectiveness of deep features as a perceptual metric, CVPR, 2018
-* [45] : High-fidelity Image Generation with Fewer Labels
-* [46] : 
+* [45] : Texture and art with deep neural networks. Current Opinion in Neurobiology, Gatys et al 2017
+* [46] : Texture synthesis using convolutional neural networks, NIPS, 2015, Gatys et al
+* [47] : ImageNet-Trained CNNs Are Biased Towards Texture, ICLR 2017, Geirhos et al
+* [48] : High-fidelity Image Generation with Fewer Labels
