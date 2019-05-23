@@ -12,7 +12,9 @@ Papers with good references
 * Learning from Synthetic Data: Addressing Domain Shift for Semantic Segmentation
 
 Latent reconstruction loss (reconstruct style by style-image-style) (ref can be found at Mul)
-* 
+
+Origin of `CBN`
+* [18], [20] (confirmed in [46])
 
 ### Conditional GANs
 
@@ -28,6 +30,7 @@ Latent reconstruction loss (reconstruct style by style-image-style) (ref can be 
   * found that applying Spectral normalization [15] on \\(G\\) improves stability of \\(G\\) - fewer update of \\(D\\) made possible
 
 #### A learned representation for artistic style [18]
+* origin of `CBN` (confirmed in [45])
 * ICLR 2017 (review!)
 * referenced in [13]   
     * modify the way class conditioning is passed to G by supplying it with class conditional gains and biases in BatchNorm
@@ -43,9 +46,19 @@ Latent reconstruction loss (reconstruct style by style-image-style) (ref can be 
 * referenced in [13]   
     *  \\(D\\) is conditioned by using the cosine similarity between its features and a set of learned class embeddings as additional evidence for distinguishing real and generated samples, effectively encouraging generation of samples whose features match a learned class prototype
 * referenced in [26], as a paper using CBN
+* referenced in  [45]
+    * We decompose the \\(D\\) into 
+        * a learned discriminator repr \\(\tilde\{D\}\\), which is fed into a 
+        * linear classifier \\(c\_\{r/f\}\\)
+
+        In the `projection discriminator`, one learns an embedding for each class, of the same dimension as the (feature) representation \\(\tilde\{D\}\\). Then for a given img / label input \\(x, y\\), the decision on _real/fake discrimination_ is based on 
+        1. whether the feature repr \\(\tilde\{D\}(x)\\) is consistent with the real data
+        2. whether the feature repr \\(\tilde\{D\}(x)\\) is consistent with the real data __from class__ \\(y\\)
+        \\[D(x,y)=c\_\{r/f\}(\tilde(D)(x)) + \tilde(D)(x)^TWy\\]
+        where \\(y\\) is the one-hot vector of class, and \\(W\\) is the class embedding matrix.
 
 #### Modulating early visual processing by language
-`CBN`
+* origin of `CBN` (confirmed in [45])
 * referenced in [13]
   * referenced as an example of class-conditional GAN (different affine params for each cls)
 * referenced in [26], as a paper using CBN
@@ -220,12 +233,16 @@ Latent reconstruction loss (reconstruct style by style-image-style) (ref can be 
   * While UNIT assumes a fully shared latent space, we postulate that only part of the latent space (the content) can be shared across domains whereas the other part (the style) is domain specific, which is a more reasonable assumption when the cross-domain mapping is many-to-many
   
 #### (MUNIT) Multimodal unsupervised image-to-image translation ECCV 2018, NVIDIA [32]
-`content-style separation`, `AdaIN`[27],  `CBN`, `lsgan`, `LPIP distance between imgs`, `Contitional Inception Score`, `Multiscale-D`
+`content-style separation`, `AdaIN`[27],  `CBN`, `lsgan`, `perceptual loss`, `LPIP distance between imgs`, `Contitional Inception Score`, `Multiscale-D`
 * <a href="{{site.url}}/deep_learning/2019/05/20/multimodal-unsupervised-img2img-translation.html" target="_blank">review</a>
 * referenced in [26]
     * as a ref that supports a statement "RandN input is a simple and natural way for multimodal synthesis" / as a example of `CBN` (the paper used `AdaIN` though)
 * used `AdaIN`, but the affine params are learned from the network
-* unsupervised - no perceptual loss!
+* unsupervised - `style-invariant perceptual loss` with Instance normalizataion!
+* `content-style separation`
+  * `content code`: underlying spatial structure, domain-invariant, encodes the information that should be preserved during tranlation
+  * `style code`: rendering of the structure, captures domain-specific properties, represent remaining variations that are not contained in the input iamge
+  * we futher assume that _the imgs in different domains share a common content space but not the style space_
 
 
 #### (SPADE) Synthetic Image Synthesis with Spatially-Adaptive Normalization, CVPR 2018 [26]
@@ -280,7 +297,7 @@ References (added order)
 * [15] : Spectral normalization for generative adversarial networks. In ICLR, 2018
 * [16] : Is generator conditioning causally related to GAN performance? In ICML, 2018
 * [17] : Self-attention generative adversarial networks, Zhang et al\
-* [18] : A learned representation for artistic style. In ICLR, 2017.
+* [18] : A learned representation for artistic style. In ICLR, 2017, Dumoulin et al
 * [19] : cGANs with projection discriminator. In ICLR, 2018
 * [20] : Modulating early visual processing by language, Harm de Vries, Florian Strub, Jer´ emie Mary, Hugo Larochelle, Olivier Pietquin, and Aaron ´Courville. In NIPS, 2017
 * [21] : Progressive growing of GANs for improved quality, stability, and variation. In ICLR, 2018, Tero Karras, Timo Aila, Samuli Laine, and Jaakko Lehtinen. 
@@ -307,3 +324,5 @@ References (added order)
 * [42] : `InfoGAN`: Interpretable Representation Learning by Information Maximizing Generative Adversarial Nets, NIPS 2016
 * [43] : Semantically decomposing the latent spaces of generative adversarial networks
 * [44] : The unreasonable effectiveness of deep features as a perceptual metric, CVPR, 2018
+* [45] : High-fidelity Image Generation with Fewer Labels
+* [46] : 

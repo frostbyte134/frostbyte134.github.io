@@ -12,23 +12,21 @@ tags: deep_learning generative img2img style_transfer
 * assumes that `latent space` of imgs can be decomposed into a `content space` and a `style space`
   * `content code`: underlying spatial structure, domain-invariant, encodes the information that should be preserved during tranlation
   * `style code`: rendering of the structure, captures domain-specific properties, represent remaining variations that are not contained in the input iamge
+  * we futher assume that _the imgs in different domains share a common content space but not the style space_
 
-* used `GAN`s to __align the distribution of translated images with real images__
-* we assume that the `latent space` of imgs can be decomposed into a `content space` and a `style space`
-* we futher assume that _the imgs in different domains share a common content space but not the style space_
-
-* style transfer - `example-guided style transfer` / `collection based style transfer`. img2img methods performs latter better (CycleGAN), but the proposing method performs both well
-
+* used `GAN`s to __align the distribution of translated images with real images__ (=match output img in adversarial loss)
+    * during within-domain, \\(G\\) is trained as a decoder of autoencoder, and during cross-domain training, \\(G\\) is trained as a generative model of adversarial loss (? need confirm)
+    * 
+* style transfer - `example-guided style transfer` / `collection based style transfer`. img2img methods performs latter better (CycleGAN ref), but the proposing method performs both well
 * `latent reconstruction loss` during domain translation
 
 We note that, although the prior distribution is unimodal, the output image distribution can be multimodal thanks to the nonlinearity of the decoder. \\(G\\)  
 \\(\rightarrow\\) : Multimodality depends on \\(G\\), which already shows severe mode collapse
 
 Cycle-consistency
-* img recon loss only at in-domain
-* says that cross-domain reconstruction loss is __too strong__.   Instead `style-augmented cycle consistency`,  weaker form of cycle consistency is applied
-    * From the img \\(x\_i\\), the encoder extracts style \\(s\_i\\) and the content \\(c\_i\\). The reconstruction is done only with content, while fixing the style.
-    \\[L\_\{cc\}^\{x\_1\}=E\_\{x\_1\sim p(x\_1), s\_2\sim q(s\_2)\} \|\| G\_1(E\_2^c(G\_2(E\_1^c(x\_1),s\_2)),E\_1^s(x\_1))-x\_1 \|\|\_1\\] (Notice that \\(s\_2)\\) is fixed
+* says that cross-domain img reconstruction loss is __too strong__.   Instead `style-augmented cycle consistency`,  weaker form of cycle consistency is applied
+    * From the img \\(x\_i\\), the encoder extracts style \\(s\_i\\) and the content \\(c\_i\\). The reconstruction is done only with content, given the style.
+    \\[L\_\{cc\}^\{x\_1\}=E\_\{x\_1\sim p(x\_1), s\_2\sim q(s\_2)\} \|\| G\_1(E\_2^c(G\_2(E\_1^c(x\_1),s\_2)),E\_1^s(x\_1))-x\_1 \|\|\_1\\] Note the \\(s\_2\\)
 
 `domain-invariant VGG loss`
 * unsupervised - no pair - no conventional VGG loss!  
@@ -75,7 +73,7 @@ Multimodeal UNsupervised Img2img Translation (`MUNIT`) framework/problem
     * cycle consistencies [7, 8, 9]
 
 `Lack of diversity`
-* `BycicleGAN` model continuous and multimodal distributions, but requries pair supervision.
+* `BycicleGAN` model continuous and multimodal distributions, but requires pair supervision.
 
 `Style transfer`
 * `example-guided style transfer`: the target style comes from a single example, classifical style transver
@@ -108,7 +106,7 @@ where \\(c, s\_1, s\_2\\) (content, style1, style2) is generated from some prior
 
 We further that each \\(G\_i^\*\\)s are deterministic, and have their inverse __encoder__ \\(E\_i^\*=(G\_i^\*)^\{-1\}\\)
 \\[(c,s\_i) = E\_i^\*(x\_i)\\]
-(__we can disentangle content / style from this encoder__)
+(__we can disentangle content / style using this encoder__)
 
 Note that even though the encoders and decoders are deterministic, \\(P\_\{X\_\{i\rightarrow j\} \| X\_i\}\\) is a continuous distribution, due to the dependency of \\(s\_2\\).
 
@@ -145,7 +143,7 @@ __loss function__
 1. Latent distribution matching  
 Notice that,  
     * the distribution of styles obtained by the disentangling encoder \\(s\_i=E\_i^s(x\_i)\\) and 
-    * the distribution of style \\(s\_i\\) used in translation period \\(\mathcal\{N\}\\) 
+    * the distribution of style \\(s\_i\\) used in translation period, which follows \\(\mathcal\{N\}\\) 
     
     __can be different.__  
     proposing method does not have explicit constraint enforcing such property. (15, 40 used KDL loss, 17, 42 used adversarial loss) They only shows that at optimality, this property holds (proposition 2)
@@ -156,9 +154,8 @@ Notice that,
     \\[P(X\_\{1\rightarrow 2\}, X\_1), P(X\_\{2\rightarrow 1\}, X\_2)\\]
     which are matched at optimizality (proposition 3)
 3. Style-augmented cycle consistency  
-    Notice that in the figure 2, we __do not have cycle consistency between different domains.__ The paper says __this is too strong__ (for a unsupervised img2img problem), which degenerates the entire model to a deterministic function (Appendix A). Instead, weaker `style-augmented cycle consistency` holds at optimality
+    Notice that in the figure 2, we __do not have cycle consistency__ (Note that __cycle consistency is only defined in cross-domain__) The paper says __this is too strong__ (for a unsupervised img2img problem), which degenerates the entire model to a deterministic function (Appendix A). Instead, weaker `style-augmented cycle consistency` holds at optimality
     * It implies that, if we translate an img to the target domain and translate it back using the original style, 
-    * From the img \\(x\_i\\), the encoder extracts style \\(s\_i\\) and the content \\(c\_i\\). The reconstruction is done only with content, while fixing the style.
     \\[L\_\{cc\}^\{x\_1\}=E\_\{x\_1\sim p(x\_1), s\_2\sim q(s\_2)\} \|\| G\_1(E\_2^c(G\_2(E\_1^c(x\_1),s\_2)),E\_1^s(x\_1))-x\_1 \|\|\_1\\] (Notice that \\(s\_2)\\) is fixed
     * It is enforced implicitly by the proposing `bidirectional reconstruction loss`
     
