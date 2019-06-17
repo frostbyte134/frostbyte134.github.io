@@ -7,26 +7,108 @@ use_math: true
 tags: problem_solving need_review coding
 ---
 
-### Quicksort
-* Random_shuffle 한 번 돌리고 시작하거나 pivot을 랜덤으로 잡아줄 것
-* 항상 smallto를 -1로 잡네 ㅡㅡ;
+### Heap
+* 시작은 1
+* heapsize는 항상 valid한 마지막 item을 가르키게 (0일시 empty)
+
 ```cpp
-void quicksort(vector<ListNode*>& ary, int from, int to){
-    if(from >= to)return;
-    int piv = to, smallto = from-1;
-    for(int i = from; i<to; i++){
-        if (ary[i]->val < ary[piv]->val){
-            smallto++;
-            ListNode* tmp = ary[smallto];
-            ary[smallto] = ary[i];
-            ary[i] = tmp;
+const int max_heap = 501;
+pair<int, int> heap[max_heap];
+int heapSize=0;
+
+void pop(){
+    if (heapSize == 0)return;
+    int nd = 1;
+    heap[nd] = heap[heapSize--];
+    while (nd <= heapSize){
+        int l = -1, r = -1;
+        if (nd * 2 <= heapSize)
+            l = nd * 2;
+        if (nd * 2 + 1 <= heapSize)
+            r = nd * 2 + 1;
+
+        int minI = -1;
+        if (l != -1 and r != -1) minI = heap[l] > heap[r] ? r : l;
+        else if (l == -1) minI = r;
+        else if (r == -1) minI = l;
+
+        if(minI != -1 && heap[minI] < heap[nd]){
+            swap(heap[minI], heap[nd]);
+            nd = minI;
+        }else break;
+    }
+}
+
+void push(pair<int, int> val){
+    heap[++heapSize] = val;
+    int nd = heapSize;
+    while(nd != 1){
+        int p = nd / 2;
+        if(heap[p] > heap[nd]){
+            swap(heap[p], heap[nd]);
+            nd = p;
+        }else break;
+    }
+}
+```
+
+### Segtree
+```c++
+int ary[MAXN * 4];
+
+int update(int ind, int val, int node, int from, int to){
+	if (ind < from || to < ind)return ary[node];
+	if (from == to)return ary[node] = val;
+	int mid = (from + to) / 2;
+	return ary[node] = update(ind, val, node * 2, from, mid) + update(ind, val, node * 2 + 1, mid+1, to);
+}
+
+int squery(int x, int y, int node, int from, int to){
+	if (x > y)return 0;
+	if (y < from || to < x)return 0;
+	if (x <= from && to <= y)return ary[node];
+	int mid = (from + to) / 2;
+	return squery(x, y, node * 2, from, mid) + squery(x, y, node * 2 + 1, mid+1, to);
+}
+```
+
+### Union-and-find
+* rank가 낮은 트리를 높은 트리 밑에 집어넣어야 1자형이 안생긴다
+
+```cpp
+int find(int u){
+    if(u == p[u])return u;
+    return p[u] = find(p[u]);
+}
+
+void merge(int u, int v){
+    u = find(u);
+    v = find(v);
+    if (u == v)return;
+    if (rank[u] > rank[v])swap(u, v);
+    p[u] = v;
+    if(r[u] == r[v])r[v]++;
+}
+```
+
+### Quicksort
+* Random_shuffle 한 번 돌리고 시작하거나 (expert에선 못쓰지 않나) pivot을 랜덤으로 잡아줄 것
+* merge sort가 나은 것 같은디...? 보통 sorting이 가능한데 메모리가 부족한 경우는 없을 테니까?..
+* 항상 smInd=-1 로 잡네 ㅡㅡ;
+
+```cpp
+void qsort(vector<pair<int, int>>& ary, int fr, int to){
+    if(fr >= to)return;
+    int piv = to, smInd = fr-1;
+    for(int ind = fr; ind < to; ind++){
+        if(ary[ind] < ary[piv]){
+            smInd++;
+            swap(ary[ind], ary[smInd]);
         }
     }
-    ListNode* tmp = ary[smallto+1];
-    ary[smallto+1] = ary[piv];
-    ary[piv] = tmp;
-    quicksort(ary, from, smallto);
-    quicksort(ary, smallto+2, to);
+    swap(ary[smInd+1], ary[piv]);
+    qsort(ary, fr, smInd);
+    qsort(ary, smInd+2, to);
 }
 ```
 
@@ -76,28 +158,6 @@ ListNode* mergesort(ListNode* head, int N){
 
 ```
 
-
-### Heap
-
-### Segtree
-```c++
-int ary[MAXN * 4];
-
-int update(int ind, int val, int node, int from, int to){
-	if (ind < from || to < ind)return ary[node];
-	if (from == to)return ary[node] = val;
-	int mid = (from + to) / 2;
-	return ary[node] = update(ind, val, node * 2, from, mid) + update(ind, val, node * 2 + 1, mid+1, to);
-}
-
-int squery(int x, int y, int node, int from, int to){
-	if (x > y)return 0;
-	if (y < from || to < x)return 0;
-	if (x <= from && to <= y)return ary[node];
-	int mid = (from + to) / 2;
-	return squery(x, y, node * 2, from, mid) + squery(x, y, node * 2 + 1, mid+1, to);
-}
-```
 
 ### Dijkstra
 
