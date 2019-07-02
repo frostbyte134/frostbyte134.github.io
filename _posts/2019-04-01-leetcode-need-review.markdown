@@ -18,6 +18,16 @@ linked list + hash = O(1) LRU Cache!
 2. 3-sum - 2sum * N
 3. 4-sum - 3sum * N
 
+### Minimum Window Substring
+<a href="https://leetcode.com/problems/minimum-window-substring/" target="_blank">https://leetcode.com/problems/minimum-window-substring/</a>
+
+* 긴 string s에서 짧은 string t의 permutation을 포함하는 substing의 최소길이를 찾아야 함
+* Permutation을 포함만 하면 되므로, count가 적었다가 같아지는 순간이 중요
+* 윈도우 (2 indices - st, ed)로 체크함.   
+    1. ed : 고정된 st에서, permutation을 포함하는 최소 끝점을 찾음
+    2. st : 해당 ed에서, permutation을 포함할 때 까지 줄여감
+* 왠일로 하드를 수월하게 풀었네...?
+
 #### Merge Intervals
 
 <a href="https://leetcode.com/problems/merge-intervals/" target="_blank">https://leetcode.com/problems/merge-intervals/</a>
