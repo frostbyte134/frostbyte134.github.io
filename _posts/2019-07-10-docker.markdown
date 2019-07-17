@@ -1,0 +1,44 @@
+---
+layout: post
+title:  "Docker notes"
+date:   2019-07-10 09:10:05 +0800
+categories: ops
+use_math: true
+tags: ops docker
+---
+
+### Architecture
+<img src="{{site.url}}/images/coding/docker.png">  
+(img from <a href="https://www.oreilly.com/learning/what-is-docker-networking" target="_blank">link</a>)
+
+1. dockerfile commands - https://towardsdatascience.com/learn-enough-docker-to-be-useful-b0b44222eef5
+   * `FROM` — specifies the base (parent) image.
+   * `LABEL` — provides metadata. Good place to include maintainer info.
+   * `ENV` — sets a persistent environment variable.
+   * `RUN` —runs a command and creates an image layer. Used to install packages into containers.
+   * `COPY` — copies files and directories to the container.
+   * `ADD` — copies files and directories to the container. Can upack local .tar files.
+   * `CMD` — provides a command and arguments for an executing container. Parameters can be overridden. There can be only one CMD.
+   * `WORKDIR` — sets the working directory for the instructions that follow.
+   * `ARG` — defines a variable to pass to Docker at build-time.
+   * `ENTRYPOINT` — provides command and arguments for an executing container. Arguments persist. 
+   * `EXPOSE` — exposes a port.
+   * `VOLUME` — creates a directory mount point to access and store persistent data.
+
+`CMD` vs `ENTRYPOINT`
+* Only one CMD instruction per Dockerfile. Otherwise all but the final one are ignored.
+* CMD can include an executable. If CMD is present without an executable, then an ENTRYPOINT instruction must exist. In that case, both CMD and ENTRYPOINT instructions should be in JSON format.
+* Command line arguments to docker run override arguments provided to CMD in the Dockerfile.
+* The ENTRYPOINT instruction also allows you provide a default command and arguments when a container starts. It looks similar to CMD, but ENTRYPOINT parameters are not overwritten if a container is run with command line parameters.
+
+### Docker networking
+
+- bridge : <a href="http://ebook.pldworld.com/_eBook/-Telecommunications,Networks-/NETWORK_DOCUMENTs/semina/my/comm06/comm6.htm" target="_blank">level 2 router</a>
+    - 두 세그먼트 사이에서 데이타링크 계층간의 패킷 전송을 담당하는 장치이다. 즉, 2개 이상의 독립된 세그먼트를 결합해서, 결과적으로 하나의 network인 것처럼 보이게 한다
+    - 브리지는 상위 프로토콜에 완전 독립적이다. 따라서 브리지는 자신이 수신하여 내보내는 패킷이 어떤 형태를 갖는지 알지 못한다.
+    - 브리지는 tree 구조와 같은 분기부분에 배치되어, 필요하지 않은 패킷을 버리고 가지만 라우터는 폐(廢)loop를 가지는 것과 같은 network을 구성할 수 있어 필요한 패킷만을 최적의 코스로 선정해서 통과시킨다.
+
+https://www.oreilly.com/learning/what-is-docker-networking
+
+1. sharing data with `VOLUME` fast, week protection (e.g., DOS)
+2. using option (-icc?), or networking

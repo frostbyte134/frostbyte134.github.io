@@ -1,0 +1,16 @@
+---
+layout: post
+title:  "Lowest Common Ancester"
+date:   2019-04-01 09:59:00 +0800
+categories: problem_solving
+use_math: true
+tags: problem_solving segtree tree lca dp
+---
+
+### Binary Lifting
+
+### 구간트리 이용
+https://dasu.tistory.com/6
+
+### 일반적?
+http://www.secmem.org/blog/2019/03/27/fast-LCA-with-sparsetable/

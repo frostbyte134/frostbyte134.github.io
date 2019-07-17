@@ -9,6 +9,33 @@ tags: deep_learning
 
 <a href="https://www.cityscapes-dataset.com" target="_blank">https://www.cityscapes-dataset.com</a>
 
+<a href="https://arxiv.org/pdf/1604.01685.pdf" target="_blank">https://arxiv.org/pdf/1604.01685.pdf</a>
+
+### Data Specification
+* Several hundreds of thousands of frames were acquired from a __moving vehicle__ during the span of __several months, covering spring, summer, and fall__ in __50 cities__, primarily in Germany but also in neighboring countries. 
+* We deliberately __did not record in adverse weather conditions, such as heavy rain or snow__, as we believe such conditions to require specialized techniques and datasets
+* Each 16 bit stereo image pair was subsequently __debayered and rectified__
+* For comparability and compatibility with existing datasets we also provide low dynamic-range (LDR) 8 bit RGB images that are obtained by applying a logarithmic compression curve.  
+  Such tone mappings are common in automotive vision, since they can be computed efficiently and independently for each pixel. To facilitate highest annotation quality, we applied a separate tone mapping to each image.  
+  The resulting images are less realistic, but __visually more pleasing and proved easier to annotate__.
+* The annotations (see Sec. 2.2) were done on the __20th frame of a 30-frame video snippet__, which we provide in full to supply context information. 
+* For the remaining 23 cities, a single image every __20s or 20 m driving distance (whatever comes first)__ was selected for `coarse annotation`, yielding 20 000 images in total.
+
+### Annotation Methods
+*  Our 5000 fine pixel-level annotations consist of layered polygons (using LabelME program) and were realized in-house to guarantee highest quality levels
+*  Annotators were asked to label the image from back to front such that no object boundary was marked more than once.   
+ \\(\rightarrow\\) Each annotation thus __implicitly provides a depth ordering of the objects__ in the scene.
+
+(Skipped the dataset splitting, quaility assurance, ...)
+
+
+* The annotators were instructed to make use of the `depth ordering` and occlusions of the scene to accelerate labeling, analogously to LabelMe [60]; see Fig. 6 for an example. 
+* In doing so, __distant objects are annotated first__, while occluded parts are annotated with a coarser, conservative boundary (possibly larger than the actual object). 
+* Subsequently, the occluder is annotated with a polygon that lies in front of the occluded part. Thus, the boundary between these objects is shared and consistent.
+
+
+* `Holes` in an object through which a background region can be seen are considered to be part of the object. 
+* This allows keeping the labeling effort within reasonable bounds such that objects can be described via simple polygons forming simply-connected sets.
 
 ### Deeplab v2
 

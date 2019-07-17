@@ -7,6 +7,9 @@ use_math: true
 tags: problem_solving need_review coding
 ---
 
+### Sparse Table
+
+
 ### Heap
 * 시작은 1
 * heapsize는 항상 valid한 마지막 item을 가르키게 (0일시 empty)

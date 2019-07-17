@@ -1,0 +1,74 @@
+---
+layout: post
+title:  "리눅스 시스템의 프로 엔지니어가 되기 위한 기술 복습노트"
+date:   2019-07-05 09:10:05 +0800
+categories: ops
+use_math: true
+tags: ops linux process os
+---
+
+### Signals
+* `ctrl+c`: SIGINT (2)
+* `ctrl+z`: SIGSTOP (17)
+* `fg` / `bg` command : SIGCONT (19)
+* SIGKILL (9) / SIGSTOP (17) : no handler available
+* SIGTERM (15) : handler available, but terminates anyway
+* Note that `D` status (IO bottlenecked) cannot be interrupted by any signal
+* SIGQUIT (3) : SIGTERM + core dump?
+
+### 프로세스 상태변화
+1. `D`: IO waiting. 인터럽트 대기 불가
+2. `Z`: 종료할 때 부모 프로세스의 안부를 체크하고 종료하나 부모가 먼저 종료해 있어서 멈춘 상태. \<defunct\>
+3. `S`: Sleep.  인터럽트 가능
+4. `T`: Stop. SIGCONT 수신시 일어남
+5. `R`: Running. 가동중
+
+* init: pid=0. 가장 먼저 가동. /sbin/init을 읽어 시작하고 /etc/inittab의 process들을 실행
+
+### 메모리 관리
+* x86 (32bit) : 4gb가 한계. 커널코드를 3~4gb에 올려놓고, 앞 부분은 process codes
+* context switch 시, 페이지 테이블만 (논리메모리 - 물리메모리) 교체 (레지스터에)
+
+### 메모리 오버 커밋
+* malloc등은, 일단 할당한 척 하고 필요할때 실시간으로 물리메모리를 할당함 (`Demand paging`)
+* 따라서 실제 메모리보다 malloc이 잡은 메모리가 많을 수 있음.
+* `out of memory`시,
+    1. process가 잠시 멈출 수 있다면 멈추고, __다음 3가지 중 1개를 선택__
+       * `OOM Killer`를 동작시킴.  다른 죽일 수 있는 프로세스가 있으면 죽이고 메모리 확보
+       * `Disk cache` 삭제
+       * `Swap out` 실행
+    2. 모두 불가능하다면 종료 후 `out of memory` 에러 발생
+
+### Disk cache
+* `tmpfs`: df커맨드 목록에 나옴. RAM을 디스크처럼 사용가능. 
+* interprocess-communication에서도 사용 (POSIX 공유 메모리가 /dev/shm에 명시적으로 mount된 tmpfs 이용)
+* `swap area`: 메모리가 부족할 시, 메모리 내용물을 저장할 hdd의 영역
+
+### 파일시스템 관리
+`ext3`을 표준으로 사용
+* 데이터 블록 / 메타데이터 (아이노드, 슈퍼블록(파일시스템 전체))
+* `ext2` + journaling)
+* 최대 2TB 파일크기
+
+특수 파일시스템 종류
+* `procfs`: 커널 및 커널 모듈(디바이스 드라이버) 정보참조,변경. /proc에 마운트
+* `sysfs`: 시스템의 접속디바이스 확인 / 설정변경. /sys
+* `devfs`: 디바이스 __access__를 위한 파일시스템. /dev에 마운트
+
+`fsck`: 메타데이터의 정합성 체크
+
+### 파일시스템 저널링
+> 파일시스템에서의 파일 쓰기는 리눅스 디스크 캐시를 경유하여 처리됩니다
+
+파일 갱신시, 내용이 처음에는 `메모리의 디스크 캐쉬`에 쓰여지고, 정기적으로 디스크 캐시의 내용이 물리 디스크에 쓰여짐
+
+ex) 메타데이터를 디스크에 쓰다가 강제종료된 경우, fsck는 디스크 캐쉬를 이용하여 복원함
+
+저널링 모드
+* `ordered`, `writeback`: 메타데이터에만 저널링을 수행. 순서가 좀다름
+* `journal`: 실제 데이터에 대해서도 저널링 수행
+
+__NFS의 저널링__  
+sender disk -> sender disk cache -(1)-> recv disk cache -> recv disk 
+1. `sync`모드: (1)을 동기화함
+2. `async`모드: (1)을 동기화하지 않음
