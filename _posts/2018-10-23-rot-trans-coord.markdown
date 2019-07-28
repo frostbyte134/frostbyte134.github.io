@@ -4,7 +4,7 @@ title:  "Linear Transformation Between Coordiante Systems (3D)"
 date:   2018-10-23 5:00:05 +0800
 categories: geometry
 use_math: true
-tags: geometry rotatation coordinate_system
+tags: geometry rotatation
 ---
 
 <img src="{{ site.url }}/images/math/rot.png" class="center" style="width:500px"/>  
@@ -41,7 +41,7 @@ Suppose that we want to perform \\(\text\{ccw\}(\theta)\\): counter-clock direct
 \\]
 
 ### Rotation in 3D
-A __rotation of 3D body from (certain) standard__ can be described as a series (which is strict in order)
+A __rotation of 3D body from (certain) standard__ can be described as a series (which is strict in order) of 2d transformations, in 3 axis
 1. Yawing: movement along \\(z\\)-axis  
 \\(\rightarrow\\) rotation in \\(x, y\\) plane, ignoring \\(z\\) coordinate.  
 The matrix representing such rotation is, \\[R_x:=
@@ -55,14 +55,14 @@ The matrix representing such rotation is, \\[R_x:=
 
 \\[\text\{Rotation mat in 3D = \} R\_\{yaw\}R\_\{pitch\}R\_\{roll\}(\text\{standard\})\\]
 
-### Coordinate Rotation
+### Coordinate Rotation (회전 - Rigid 좌표 변환)
 
-Suppose that we are given a rotation matrix of of an object. Generally the direction is counter-clock wise (in each yaw, pitch and roll).  
+Suppose that we are given a rotation matrix of of an object (That is, we have a world coordinate system and an object coordinate system, and have the rotation matrix of the object). Generally the direction is counter-clock wise (in each yaw, pitch and roll).  
 To simplify the problem, we consider a rotation of coordinate system in 2D (__yawing__ \\(\text\{ccw\}(\theta)\\), for instance).  
 <img src="{{ site.url }}/images/math/rot.png" class="center" style="width:500px"/>  
 Note that, \\[\text\{Rotating the axis(object) ccw\}(\theta)\\]is equivalent to\\[\text\{Rotating the whole points cw\}(\theta)\\]
 Yawing is given as the rotation of the object.  
-Thus, to represent a point \\(p\\) in the world coordinate with target(camera) coordinate which rotated as \\(\text\{ccw\}(\theta)\\),  
+Thus, to represent (a point \\(p\\) in the world coordinate) with the target(camera) coordinate , which rotated in the amount of \\(\text\{ccw\}(\theta)\\) in yawing,  
 we have to rotate all points toward \\(\text\{cw\}(\theta)\\).
 
 Notice that, if \\(R_\{yaw\}\\) is a rotation matrix representing \\(\text\{ccw\}(\theta)\\), then its inverse transformation is its transpose \\(R_\{yaw\}^T\\), representing \\(\text\{cw\}(\theta)\\).  
@@ -71,6 +71,8 @@ Then above statement can be represented as,
 \\[[\text\{target coord\}]=R_\{yaw\}^T[\text\{world coord\}]\\]
 and in reverse,
 \\[[\text\{world coord\}]=R_\{yaw\}[\text\{target coord\}]\\]
+
+__BUT__ note that this only holds in 2D case. (In 3d, the inverse of rotation matrix is not its transpose)
 
 Next:  
 

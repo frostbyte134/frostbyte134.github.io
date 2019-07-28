@@ -7,6 +7,36 @@ use_math: true
 tags: problem_solving need_review coding
 ---
 
+### LCA - Binary Lifting
+* 구간트리와 비슷한 원리 (또는 뭐, 이진법...)
+* 공통부모가 같지 않으면 lift up!
+* 2^level을 까먹지 말자.
+
+```cpp
+for (int lvl = 1; lvl < 20; lvl++) {
+    for (int n = 1; n <= N; n++) {
+        if (dp[n][lvl - 1] != -1) {
+            dp[n][lvl] = dp[dp[n][lvl - 1]][lvl - 1];
+        }
+    }
+}
+int l, r;
+for (int m = 0; m < M; m++) {
+    cin >> l >> r;
+    if (lvls[l] < lvls[r])swap(l, r);
+    for (int lvl = 19; lvl >= 0; lvl--) {
+        if (dp[l][lvl] != -1 && lvls[l] - lvls[r] >= pow(2, lvl))l = dp[l][lvl];
+    }
+    if (l == r) {
+        cout << l << endl;
+        continue;
+    }
+    for (int lvl = 19; lvl >= 0; lvl--) {
+        if (dp[l][lvl] != dp[r][lvl])l = dp[l][lvl], r = dp[r][lvl];
+    }
+    cout << dp[l][0] << endl;
+}
+```
 ### Sparse Table
 
 
