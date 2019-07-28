@@ -11,6 +11,7 @@ tags: problem_solving need_review coding
 * 구간트리와 비슷한 원리 (또는 뭐, 이진법...)
 * 공통부모가 같지 않으면 lift up!
 * 2^level을 까먹지 말자.
+* \\(\text\{dp[nd][lvl] \}\\) : 노드 nd의 \\(2^\text\{lvl\}\\) 번째 조상. 이 값은 노드 nd의 \\(2^\text\{lvl-1\}\\)번째 조상이 있다는 가정하에, 그 조상의 \\(2^\text\{lvl-1\}\\)번째 조상으로 업데이트 할 수 있음
 
 ```cpp
 for (int lvl = 1; lvl < 20; lvl++) {
@@ -38,6 +39,16 @@ for (int m = 0; m < M; m++) {
 }
 ```
 ### Sparse Table
+```cpp
+for (int lvl = 1; lvl < lgN; lvl++) {
+    for (int n = 0; n < max_N; n++) {
+        if (n + pw2[lvl-1] >= max_N)
+            continue; // 이 부분이 속도개선에 중요. 거의 4배차이쯤 나는듯
+        dp[n][lvl] = min(dp[n][lvl - 1], dp[n + pw2[lvl - 1]][lvl - 1]);
+    }
+}
+```
+lg2, pw2계산, 0번 레벨 초기화는 알아서 하시고...
 
 
 ### Heap

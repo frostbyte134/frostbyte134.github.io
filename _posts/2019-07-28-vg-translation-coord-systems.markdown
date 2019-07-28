@@ -15,7 +15,7 @@ Relative coordinate based on an arbitrary fixed point.
 ### 2. Camera coordinate system
 * camera's focus point = origin  
 * same unit (meter / cm / ...) as the world coordinate system
-* <a href="{{site.url}}/geometry/2018/10/23/rot-trans-coord.html" target="_blank">translation between world coordinate system <-> object coordinate system </a>
+* <a href="{{site.url}}/geometry/2018/10/22/rot-trans-coord.html" target="_blank">translation between world coordinate system <-> object coordinate system </a>
 
 
 ### 3. Image coordinate system (pixel coordinate)
