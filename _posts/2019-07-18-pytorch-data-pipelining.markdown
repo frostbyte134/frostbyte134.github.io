@@ -41,6 +41,11 @@ def fast_collate(batch):
 - due to this, cannot use lightweighted thread synchronization. Must be dependent on multiproc sync.
 - Use `native code`s as much as possible (`Numpy`!)
 
+<a href="https://pytorch.org/docs/stable/distributed.html#basics" target="_blank">From the official pytorch documentation,</a>
+> In the single-machine synchronous case, torch.distributed or the torch.nn.parallel.DistributedDataParallel() wrapper may still have advantages over other approaches to data-parallelism, including torch.nn.DataParallel():  
+* Each process maintains its own optimizer and performs a complete optimization step with each iteration. While this may appear redundant, since the gradients have already been gathered together and averaged across processes and are thus the same for every process, this means that no parameter broadcast step is needed, reducing time spent transferring tensors between nodes.  
+* Each process contains an independent Python interpreter, eliminating the extra interpreter overhead and “GIL-thrashing” that comes from driving several execution threads, model replicas, or GPUs from a single Python process. This is especially important for models that make heavy use of the Python runtime, including models with recurrent layers or many small components.  
+
 ### io waiting
 - iostat (nfsiostat)
 - NVME SSD > SATA SSD
@@ -57,3 +62,9 @@ def fast_collate(batch):
 
 ### Profiling?
 - iostats, vmstats, ...whatever 
+
+
+### Graceful termination of child workers
+The workers of `dataloader` are __daemonic__
+* at the termination (of main process), all daemonic processes are terminated with SIGTERM
+* however, it will happen only when the process exits gracefully -> this is where all the <defunts> generated  (Not 100% sure)

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Vision geometry - translation between different coordinate sysems"
+title:  "Pinhole Camera Model"
 date:   2019-07-27 10:58:00  +0800
 categories: geometry
 use_math: true

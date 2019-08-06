@@ -1,0 +1,37 @@
+---
+layout: post
+title:  "08-05 interview"
+date:   2019-08-06 09:04:00 +0900
+categories: coding
+use_math: true
+tags: coding need_revision
+---
+
+TODO: 급할 건 없으니까 (...) 천천히 완성하기. 제목 수정.
+
+
+### 이직 이유
+1. 딥러닝 쪽을 못말하다 보니 (내가 생각한 뱡향과 주제가 어긋나다 보니) 이직 이유를 잘 말하지 못했다. 그냥 지금 있는 팀이 못해서 나간다 처럼 되어버림. 사전 조사가 부족했다고 할 수 있는걸까?
+2. 그렇더라도..좀더 일반적인 관점에서 풀어서 설명한걸 준비했으면 어땠을까. 잘 뒷받침이 되는걸로다가.
+3. 업무 싸이클이 연구 -> 양산 (Mission Critical) 으로 바뀌는건데 준비가 되어 있나? 도 준비를 헀어야 했음
+
+### 커뮤니케이션
+1. 업무 조율 방법, 경험? (기획자 등 비개발자도 포함하여)
+2. logic / engine / front-end 의견 충돌시? 본적이 별로 없어서 잘 모르겠지만 우리 양산쪽하고 대응해서 생각해 봐야 할 듯
+
+### 기술
+1. fork시 메모리가 복사되는데, 엄청 큰 메모리도 바로 복사되는것처럼 보이는 이유는? 난 메모리맵 어쩌고로 헛소리했는데 demand paging 이야기였음. malloc할때 demand paging은 생각했었는데ㅡㅡㅋ fork도 내부에서 말록같은걸 쓰겠지?
+1. socket의 epoll (multiplexing과 관련있다 함)
+2. distributed sort - merge sort를 쓴다고 함 (K-way merge땐 tournament method. 이거 생각 났는데 말을 못했다)
+    - 그냥 각 머신에서 분산으로 heap을 구성한다고만 했음. merge sort는 뭔가 chunk와 연관된 최적화가 있는 듯 (그 selection 관련해서도 있을 수도)
+    - <a href="https://stanford.edu/~rezab/classes/cme323/S16/notes/Lecture04/cme323_lec4.pdf" target="_blank">https://stanford.edu/~rezab/classes/cme323/S16/notes/Lecture04/cme323_lec4.pdf</a>
+3. hash collision - 값 올리기 / 뒤에 링크드리스트 달기까지만 생각나서 바로 말하고 멀티레벨은 좀 나중에 생각남 ㅡㅡ
+4. file descriptor 개수가 바닥나면? 이 주제 예전에 어디서 봤는데...조사해보자
+5. crawler에 url이 1000개 있을 때, 코어갯수만큼 worker를 돌린다고 하면, 각 url마다 처리시간이 다를 텐데 이에 대응하는 방법은? 난 멀티프로세스 큐를 쓴다고 했는데 좀 더 좋은방법이 있을 듯
+6. Daemon process의 생성 방법? 어디에 쓰이는지는 알았지만 어떻게 만드는지는 전혀 몰랐다. 직계 부모 process와의 연결을 끊는다고 했는데 일반상식과 달라서 당황했음
+
+
+시스템 콜/리눅스 등을 아는 것이 생산성 증대로 이어짐  
+- Trouble shooting시, document대로 동작하지 않을 떄 그 이유를 스스로 추론 가능. (아무도 해보지 않은 걸 prototyping 할 때도)
+
+면접이 잘 되든 (특히) 안되든 마지막에 시간을 내 주셔서 감사하다고 했어야 하는데 말이 잘 안 나온다. 뭐 개털린 극한상황이긴 했으니까 ㅡㅡㅋ 면접보기 전에 한번 머리에 박고 시작해야 할 듯
