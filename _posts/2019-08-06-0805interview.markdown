@@ -7,7 +7,7 @@ use_math: true
 tags: coding need_revision
 ---
 
-TODO: 급할 건 없으니까 (...) 천천히 완성하기. 제목 수정.
+TODO: 급할 건 없으니까 (...) 천천히 완성하기. 제목 수정
 
 
 ### 옮기는 이유
