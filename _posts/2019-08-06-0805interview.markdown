@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "08-05 interview"
+title:  "08-05"
 date:   2019-08-06 09:04:00 +0900
 categories: coding
 use_math: true
