@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  "리눅스 시스템의 프로 엔지니어가 되기 위한 기술 복습노트"
+title:  "프로를 위한 리눅스 시스템 구축과 운용의 기술 복습노트"
 date:   2019-07-05 09:10:05 +0800
-categories: ops
+categories: linux
 use_math: true
-tags: ops linux process os
+tags: linux os
 ---
 
 * OS : Abstraction
