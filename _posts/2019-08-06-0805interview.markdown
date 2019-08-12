@@ -34,7 +34,7 @@ TODO: 급할 건 없으니까 (...) 천천히 완성하기. 제목 수정
     그리고 timeout개념이 select와 동일한 방식으로 동작하기 때문에 timeout에 들어온 인자가 어떠냐에 따라 blocking이기도 하고 non-blocking이기도 하다. 따라서 epoll의 전체적인 개념모델은 select와 같다고 생각한다.  
     (차이점 - epoll_wait함수는 관심있는 fd 들에 무슨일이 일어났는지 조사한다. 다만 그 결과는 앞서 살펴본바와 같이 select나 poll과는 차이가 있다. 사건들의 리스트를 (epoll_event).events[] 의 배열로 전달한다. 또, 실제 동시접속수와는 상관없이 maxevents 파라미터로 최대 몇개까지의 event만 처리할 것임을 지정해 주도록 하고 있다.)
     - `c10k` problem 풀어보기
-3. distributed sort - merge sort를 쓴다고 함 (K-way merge땐 tournament method. 이거 생각 났는데 말을 못했다)
+3. distributed sort - merge sort를 쓴다고 함 (K-way merge땐 tournament method. 이거 생각 났는데 말을 못했다 )
     - 그냥 각 머신에서 분산으로 heap을 구성한다고만 했음. merge sort는 뭔가 chunk와 연관된 최적화가 있는 듯 (그 selection 관련해서도 있을 수도)
     - <a href="https://stanford.edu/~rezab/classes/cme323/S16/notes/Lecture04/cme323_lec4.pdf" target="_blank">https://stanford.edu/~rezab/classes/cme323/S16/notes/Lecture04/cme323_lec4.pdf</a>
 4. hash collision - 값 올리기 / 뒤에 링크드리스트 달기까지만 생각나서 바로 말하고 멀티레벨은 좀 나중에 생각남 ㅡㅡ
