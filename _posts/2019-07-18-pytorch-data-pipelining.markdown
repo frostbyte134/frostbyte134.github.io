@@ -68,3 +68,21 @@ def fast_collate(batch):
 The workers of `dataloader` are __daemonic__
 * at the termination (of main process), all daemonic processes are terminated with SIGTERM
 * however, it will happen only when the process exits gracefully -> this is where all the <defunts> generated  (Not 100% sure)
+
+
+### Basics
+1. 가장 비싼 장비 - GPU. 따라서 GPU Utilization을 올려야 함 (실제로 wall-clock time과도 비례)
+2. filesystem
+    * IO-scheduling
+        - severe random access (from shuffling)때문에, 스케쥴링은 효과X
+        - 그리고 대부분 NFS위인데, NFS에서는 스케쥴링도 없음
+        - 쓴다해도 No-OP (contiguous한경우에 병합만 하고, 예측 등은 안함)이 젤 좋음
+    * Chunks
+        - dgx-1환경에서는 무쓸모. 실제로 대부분의 메모리가 page-cache로 활용되기 때문. 초반 로딩에는 의미가 좀 있을지도...
+3. GIL
+    * multi-process (distributed launch, 1 gpu - 1 python)
+    * Torch script - JIT? <a href="https://github.com/pytorch/pytorch/issues/17614" trarget="_blank"> (YOU CAN TRAIN TORCH MODEL IN C++ WITH TORCH SCRIPT!) </a>
+    * use
+4. FP16
+   1. loss scaling. add post
+5. DMA (pin_memory): cat /proc/buddyinfo?

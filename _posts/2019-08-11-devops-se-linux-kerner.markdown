@@ -118,16 +118,25 @@ free명령어의
 
 
 ### TIME_WAIT, CLOSE_WAIT
-* http://tech.kakao.com/2016/04/21/closewait-timewait/
-* http://docs.likejazz.com/time-wait/
+* <a href="http://tech.kakao.com/2016/04/21/closewait-timewait/" target="_blank">http://tech.kakao.com/2016/04/21/closewait-timewait/</a>
+* <a href="http://docs.likejazz.com/time-wait/" target="_blank">http://docs.likejazz.com/time-wait/</a>
 
 결국...
-* TIME_WAIT은 종료요청을 먼저 한 쪽에서 FIN을 보낸 뒤 상대에서 FIN을 받고 일정 시간 기다려주는 시간 (유실된 패킷 등을 위해)이고, 
-* CLOSE_WAIT은 종료요청을 받은 쪽에서 close()함수를 호출해 ACK(FIN에 대한) -> FIN을 보내기 전 상태
-* 클라이언트: `tw_reuse`를 통한 소켓 재사용, 서버: `keepalive`로 연결 살리기, `tw_recycle`로 빠른 회수
+* TIME_WAIT은 종료요청을 먼저 한 쪽에서 FIN을 보낸 뒤 상대에게서 ACK, FIN을 받고 일정 시간 기다려주는 시간 (유실된 패킷 등을 위해)이고, 
+* CLOSE_WAIT은 종료요청을 받은 쪽에서 close()함수를 호출해 ACK(FIN에 대한)를 보낸 뒤, FIN을 보내기 전 상태. 근데 굳이 sleep같은걸 끼워넣지 않으면 이게 문제될 일이 많나?...잘모르것네
+
+
+해결책
+1. Client side: `tw_reuse`를 통한 TIME_WAIT상태 소켓 재사용 (TIME_WAIT의 안정화 효과를 못 보는 것이니 비추천), 코딩 잘 해서 connection less -> connection pool 로 연결 유지 
+2. 서버
+   - 서버는 대부분, (예를들면) get요청을 클라이언트로 받은 후 keepalive가 설정되 있지 않을 시, 시간지나고 서버측에서 자동으로 connection을 끊으며 `TIME_WAIT`이 발생
+   - `keepalive`로 연결 살리기 (추천), `tw_recycle`로 빠른 회수 (RTO의 2배로. RTO는 ms단위이므로 빨리 없어짐) 
+
+
 
 ### Keepalive
 - 3way handshake후, 주기적으로 생존확인패킷을 보내 연결 유지
+- 좀비 소켓연결도 체크 후 응답없으면 파기 - 커널 레벨에서의 소켓 관리
 
 ### TCP 재전송
 - ACK를 못받았을 시, 패킷을 계속 보내는 주기
