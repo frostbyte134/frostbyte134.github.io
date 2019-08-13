@@ -9,7 +9,7 @@ tags: coding need_revision
 
 면접은...쉬울 때가 없네 ㅜㅜ
 
-TODO: 날짜 지우고 내용 위주 제목으로, 내용 보강
+TODO: 날짜 지우고 내용 따로 묶어서, 내용 보강
 
 1. 좀비프로세스는 힙을 남겨 놓는가? 난 GPU메모리를 좀비프로세스가 잡아놓는걸 생각해서 남겨놓는다고 말했는데..
    1. 일단 아는대로 heap은 per process https://stackoverflow.com/questions/3147014/is-heap-memory-per-process-or-common-memory-location-shared-by-different-proc
