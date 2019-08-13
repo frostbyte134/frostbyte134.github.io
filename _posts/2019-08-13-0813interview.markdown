@@ -1,0 +1,27 @@
+---
+layout: post
+title:  "08-13 review"
+date:   2019-08-12 09:04:00 +0900
+categories: coding
+use_math: true
+tags: coding need_revision
+---
+
+면접은...쉬울 때가 없네 ㅜㅜ
+
+TODO: 날짜 지우고 내용 위주 제목으로, 내용 보강
+
+1. 좀비프로세스는 힙을 남겨 놓는가? 난 GPU메모리를 좀비프로세스가 잡아놓는걸 생각해서 남겨놓는다고 말했는데..
+   1. 일단 아는대로 heap은 per process https://stackoverflow.com/questions/3147014/is-heap-memory-per-process-or-common-memory-location-shared-by-different-proc
+   2. https://unix.stackexchange.com/questions/272278/defunct-processes-remain-behind 남겨놓는 것 같은데. 근데 자세한 내용이 없네
+2. 왜 좀비 프로세스가 있는가? 해제해버리면 되는데. 답을 잘 못함. 디버깅 때문이라는 힌트를 줘서 그걸 입밖으로 말한 정도 ㅡㅡㅋ
+3. 윈도에서 우분투 도커를 만들 수 있는가? 되네 ㅡㅡ; https://medium.com/rkttu/wsl%EC%97%90%EC%84%9C-native-docker-%EC%8B%A4%ED%96%89%ED%95%98%EA%B8%B0-ff75b1627a87
+4. 또...?
+
+
+결국 이직 이유에 대해 또 답을 잘 못했다.
+1. 상무님이 반도체 출신이라고 했어야 했나...? 뭔가 상무님을 까는 것 같은 느낌인데..
+2. 너 또 도망갈꺼 아니야? 에 대답할 수 있는 확실한 답이 필요한듯. 어렵다...
+3. 감사하다고는 말할 수 있었지만 (많이 배웠습니다도 했어야 했을듯...) 마지막에 뭔가 갑분싸였다. 질문을 좀 더 생각했어야 하는데..평소에 질문 생각하는 훈련 좀 할껄.
+
+역시 월차가 답이었다. 이멘탈로 회사갔으면 걍 멍때렸을듯. 면접이 오후에 잡히는게 차라리 좋을 듯 한데...

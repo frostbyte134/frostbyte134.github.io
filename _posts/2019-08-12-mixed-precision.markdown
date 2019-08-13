@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Mixed Precision"
-date:   2019-08-12 09:00:05 +0800
+date:   2019-08-12 08:00:05 +0800
 categories: deep_learning
 use_math: true
 tags: deep_learning pytorch
@@ -26,4 +26,4 @@ Using mixed precision requires two steps:
 1. Porting the model to use the FP16 data type where appropriate
 2. Adding loss scaling to preserve small gradient values
     - values computed by large reductions should be left in FP32 (`bn` mean / variance)
-
+3. master copy of weights are maintained in FP32
