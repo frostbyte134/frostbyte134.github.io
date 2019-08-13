@@ -24,6 +24,8 @@ tags: linux os
 3. Grub
    1. 커널 + initrd (initial ram disk) 메모리에 읽어, 커널 기동
    2. init process start (id=0)
+
+
 #### Signals
 * `ctrl+c`: SIGINT (2)
 * `ctrl+z`: SIGSTOP (17)
