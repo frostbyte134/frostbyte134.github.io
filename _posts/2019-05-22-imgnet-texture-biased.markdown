@@ -9,6 +9,8 @@ tags: deep_learning style_transfer basenet
 
 <a href="https://arxiv.org/abs/1811.12231" target="_blank">https://arxiv.org/abs/1811.12231</a>
 
+<a href="https://drive.google.com/file/d/1JimNd1GQbxOuY5XFCNSUxWFAbnxhsveG/view?usp=sharing" target="_blank">read paper in ipad</a>
+
 `cue-conflict` = evident conflict
 
 ### Abstract

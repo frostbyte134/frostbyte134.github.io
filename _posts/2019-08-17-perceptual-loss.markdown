@@ -9,8 +9,8 @@ tags: deep_learning pytorch
 
 The purpose of this document is, recording the reconstruction procedure of 
 
-1. <a href="https://arxiv.org/abs/1812.01187" target="_blank">paper</a>, <a href="{{site.url}}/deep_learning/2019/06/01/bag-of-tricks-classification.html" target="_blank">review</a>,
-2. <a href="https://arxiv.org/abs/1811.12231" target="_blank">paper</a>, <a href="https://nailbrainz.github.io/deep_learning/2019/05/22/imgnet-texture-biased.html" target="_blank">review</a>
+1. `ResNet-50` from Bag of tricks... <a href="https://arxiv.org/abs/1812.01187" target="_blank">paper</a>, <a href="{{site.url}}/deep_learning/2019/06/01/bag-of-tricks-classification.html" target="_blank">review</a>,
+2. `Stylized Imagenet` <a href="https://arxiv.org/abs/1811.12231" target="_blank">paper</a>, <a href="https://nailbrainz.github.io/deep_learning/2019/05/22/imgnet-texture-biased.html" target="_blank">review</a>
 
 to use the `SIN` (Stylized Imagnet Model) as a perceptual loss calculator in GAN training (pix2pix setup). 
 
@@ -29,7 +29,7 @@ to use the `SIN` (Stylized Imagnet Model) as a perceptual loss calculator in GAN
 
 #### Done
 1. <a href="{{site.url}}/deep_learning/2018/08/28/identity-mappings-in-resid-nets.html" target="_blank">pre-activation</a>  
-__Note that, pre-activation was not mentioned in the paper__
+__Note that, pre-activation was not in in the paper__
 2. mixup
 3. LR warmup
 4. zero \\(\gamma\\)
@@ -47,9 +47,10 @@ __Note that, pre-activation was not mentioned in the paper__
 
 __Defaults__: FP16, LR warmup, Zero \\(\gamma\\), no bias decay
 
-Num | Date | top1, top5 | commit | preact | mixup | lr | epochs | time
+Num | Date | top1, top5 | commit | preact | mixup | lr | epochs | jitter
 ---- | -------- | ---- | ---- | ---- | ---- | ---- | ---- | ----
-1 | 2019-08-16 | in progress | <a href="https://github.com/nailbrainz/resnet50_stylized/commit/f8ac759dbf01c489b3fb1a698f1f7838ca94b33d" target="_blank">link</a> | O | X | cosine | 120 | 3.5days
+1 | 2019-08-13 | 77.2, 93.6 | TBU | X | X | cosine | 120 | X
+2 | 2019-08-16 | in progress | <a href="https://github.com/nailbrainz/resnet50_stylized/commit/f8ac759dbf01c489b3fb1a698f1f7838ca94b33d" target="_blank">link</a> | O | X | cosine | 120 | O
 
 Will update exps done in other places soon
 
