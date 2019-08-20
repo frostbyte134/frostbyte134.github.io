@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Reconstructing Bag of tricks + Stylized imagenet"
-date:   2019-08-16 09:00:05 +0800
+date:   2019-08-20 09:00:05 +0800
 categories: deep_learning
 use_math: true
 tags: deep_learning pytorch
@@ -36,11 +36,11 @@ __Note that, pre-activation was not in in the paper__
 5. no-bias decay
 6. FP16
 7. Cosine LR
+8. label smoothing
 
 #### TODO
-1. Implementing label smoothing  
-- not well supported in Pytorch
-2. distillation
+1. distillation
+2. self-attention module (possibley on 64 by 64 module?)
 
 
 #### Experiments
