@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "SWE 곻부"
-date:   2019-8-26 09:00:05 +0800
+title:  "SWE"
+date:   2019-8-25 09:00:05 +0800
 categories: problem_solving
 use_math: true
 tags: problem_solving need_review
