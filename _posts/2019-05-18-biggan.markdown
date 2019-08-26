@@ -1,11 +1,15 @@
 ---
 layout: post
 title:  "(BigGAN) Large Scale GAN-Training for High Fidelity Natural Image Synthesis"
-date:   2019-05-18 09:00:05 +0800
+date:   2019-08-24 09:00:05 +0800
 categories: deep_learning
 use_math: true
 tags: deep_learning generative conditional_gan gan
 ---
+
+revision history
+* written in 2019-05-18
+* added CBN description in 2019.08.24
 
 <a href="https://arxiv.org/abs/1809.11096" target="_blank">https://arxiv.org/abs/1809.11096</a>
 
@@ -34,6 +38,16 @@ Modifications of the vanilla GAN procedure to impart stability
 4. Choice of architecture (SA-GAN)
 
 ### Methods
+
+### CBN, shared_z
+1. Biggan(no deep), not shared embedding  
+- input \\(y\\) of `CBN2d`: pseudo_labels (\\(bs \times 1\\))  
+<img src="{{site.url}}/images/deeplearning/gan/no_shared_embed_biggan.png" width="800">
+1. Biggan(no deep), shared embedding(\\(G\\) has single embedding weight matrix)   
+- input \\(y\\) of `CBN2d`: concat of embedding(y) + z_i (chunk)  
+<img src="{{site.url}}/images/deeplearning/gan/shared_embed_biggan.png" width="800">   
+<img src="{{site.url}}/images/deeplearning/gan/shared_embed_biggan1.png" width="1000">
+
 
 #### Scaling up GANs
 baseline: `SA-GAN` (`hinge-loss` GAN objective)
