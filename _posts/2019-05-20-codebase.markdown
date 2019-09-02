@@ -7,6 +7,54 @@ use_math: true
 tags: problem_solving need_review coding
 ---
 
+### Vector
+* https://www.crocus.co.kr/1141
+* 동적할당을 꼭 써야하나?...static으로 선언하거나 global변수로 하면 안됨?
+
+### Random Access Linked list (or similar sort)
+from <a href="https://blog.naver.com/PostView.nhn?blogId=jinwooo_hong&logNo=221325054415&redirect=Dlog&widgetTypeCall=true&directAccess=false" target="_blank">link</a>
+
+```c++
+#include <iostream>
+using namespace std;
+
+int arr_idx = 0;
+
+struct node {
+    int v;
+    node * prev;
+}a[100000];
+
+node * myalloc(void)
+{
+    return &a[arr_idx++];
+}
+
+void main(void)
+{
+    node * pList = NULL;		// 싱글링크드 리스트 선언 (싱글리스트의 시작)
+    node * p;
+    arr_idx = 0;
+
+    p = myalloc();				// 첫번째 노드 추가
+    p->v = 1;
+    p->prev = pList;
+    pList = p;
+
+    p = myalloc();				// 두번째 노드 추가
+    p->v = 2;
+    p->prev = pList;
+    pList = p;
+
+    for (node * pp = pList; pp != NULL; pp = pp->prev)
+    {
+        cout << pp->v << " " ;
+    }
+    cout << endl;
+    return;
+}
+'''
+
 ### LCA - Binary Lifting
 * 구간트리와 비슷한 원리 (또는 뭐, 이진법...)
 * 공통부모가 같지 않으면 lift up!

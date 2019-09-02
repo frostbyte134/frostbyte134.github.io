@@ -13,7 +13,12 @@ Revision history
 
 <a href="https://arxiv.org/abs/1705.07904" target="_blank">https://arxiv.org/abs/1812.01187</a>
 
+* <a href="https://gluon-cv.mxnet.io/model_zoo/classification.html#resnet" target="_blank">https://gluon-cv.mxnet.io/model_zoo/classification.html#resnet</a>
+* <a href="https://github.com/dmlc/gluon-cv/blob/master/gluoncv/model_zoo/resnetv1b.py" target="_blank">https://github.com/dmlc/gluon-cv/blob/master/gluoncv/model_zoo/resnetv1b.py</a>
+
+
 <a href="https://drive.google.com/file/d/1cX_HJdGHAq7JLoFvsjCr2ZHYv-LNFttf/view" target="_blank">Read paper from ipad</a>
+
 
 ### Abstract, Intro
 * __training procedure refinement__, such as changes in data augmentations and optimization methods
