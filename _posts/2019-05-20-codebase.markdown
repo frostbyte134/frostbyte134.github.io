@@ -86,12 +86,13 @@ for (int m = 0; m < M; m++) {
     cout << dp[l][0] << endl;
 }
 ```
+
 ### Sparse Table
 ```cpp
 for (int lvl = 1; lvl < lgN; lvl++) {
     for (int n = 0; n < max_N; n++) {
         if (n + pw2[lvl-1] >= max_N)
-            continue; // 이 부분이 속도개선에 중요. 거의 4배차이쯤 나는듯
+            continue; // 이 부분이 속도개선에 중요. 거의 4배차이쯤 나는듯. 브레이크가 아니고?
         dp[n][lvl] = min(dp[n][lvl - 1], dp[n + pw2[lvl - 1]][lvl - 1]);
     }
 }
@@ -163,6 +164,7 @@ int squery(int x, int y, int node, int from, int to){
 	return squery(x, y, node * 2, from, mid) + squery(x, y, node * 2 + 1, mid+1, to);
 }
 ```
+
 
 ### Union-and-find
 * rank가 낮은 트리를 높은 트리 밑에 집어넣어야 1자형이 안생긴다

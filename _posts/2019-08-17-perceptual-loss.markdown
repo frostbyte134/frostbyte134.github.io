@@ -12,7 +12,7 @@ The purpose of this document is, recording the reconstruction procedure of
 1. `ResNet-50` from Bag of tricks... <a href="https://arxiv.org/abs/1812.01187" target="_blank">paper</a>, <a href="{{site.url}}/deep_learning/2019/06/01/bag-of-tricks-classification.html" target="_blank">review</a>,
 2. `Stylized Imagenet` <a href="https://arxiv.org/abs/1811.12231" target="_blank">paper</a>, <a href="https://nailbrainz.github.io/deep_learning/2019/05/22/imgnet-texture-biased.html" target="_blank">review</a>
 
-to use the `SIN` (Stylized Imagnet Model) as a perceptual loss calculator in GAN training (pix2pix setup). 
+, in `Pytorch`, to use the `SIN` (Stylized Imagnet Model) as a perceptual loss calculator in GAN training (pix2pix setup). 
 
 
 
@@ -47,12 +47,11 @@ __Note that, pre-activation was not in in the paper__
 
 __Defaults__: FP16, LR warmup, Zero \\(\gamma\\), no bias decay
 
-Num | Date | top1, top5 | commit | preact | mixup | lr | epochs | jitter
+Num | Date | top1, top5 | commit | preact | mixup | smoothing | lr | epochs | jitter
 ---- | -------- | ---- | ---- | ---- | ---- | ---- | ---- | ----
-1 | 2019-08-13 | 77.2, 93.6 | TBU | X | X | cosine | 120 | X
-2 | 2019-08-16 | in progress | <a href="https://github.com/nailbrainz/resnet50_stylized/commit/f8ac759dbf01c489b3fb1a698f1f7838ca94b33d" target="_blank">link</a> | O | X | cosine | 120 | O
-
-Will update exps done in other places soon
+1 | 2019-08-13 | 77.2, 93.6 | TBU | X | X | X | cosine | 120 | X
+2 | 2019-08-16 | in progress | <a href="https://github.com/nailbrainz/resnet50_stylized/commit/f8ac759dbf01c489b3fb1a698f1f7838ca94b33d" target="_blank">link</a> | X | X | X | cosine | 120 | O
+2 | 2019-09-02 | `79.476, 94.704` | <a href="https://github.com/nailbrainz/resnet50_stylized/tree/4b1b7900ee8a2431f8f4dcae801bf0c65a68f447" target="_blank">link</a> | X | O | O | cosine | 200 | O(nohue)
 
 ### Stylized Imagenet
 
@@ -78,4 +77,7 @@ in the fourth row of Table 2, which was fine-tuned for 60 epochs on ImageNet (id
 1. Implementing dataloader which could perform joint `IN+SIN` training
 
 #### Experiments
-Will update exps done in other places soon
+
+Num | Date | top5(SIN->SIN) | commit | preact | mixup | smoothing | lr | epochs | jitter
+---- | -------- | ---- | ---- | ---- | ---- | ---- | ---- | ----
+1 | 2019-09-2 | 80.1 | TBU | X | O | O | cosine | 200 | X
