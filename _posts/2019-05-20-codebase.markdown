@@ -1,15 +1,217 @@
 ---
 layout: post
 title:  "PS codebase"
-date:   2019-5-20 09:00:05 +0800
+date:   2019-9-16 09:00:05 +0800
 categories: problem_solving
 use_math: true
 tags: problem_solving need_review coding
 ---
 
+
+### Map (splay tree)
+* 실수가 잦구나...!
+
+```cpp
+template <class K, class V>
+struct _map{
+
+    struct _node{
+        _node *l = 0, *r = 0, *p = 0;
+        K key;
+        V val;
+    };
+
+    _node* root = 0;
+
+    void rotate(_node *nd){
+        if(nd == root)return;
+        _node *p = nd->p, *b;
+        if(p->l == nd){
+            b = p->l = nd->r; //여기서 함 실수함
+            nd->r = p;
+        }else if(p->r == nd){
+            b = p->r = nd->l;
+            nd->l = p;
+        }
+        if(b)b->p = p;
+        nd->p = p->p;
+        p->p = nd;
+
+        if(nd->p){
+            if(nd->p->l == p)nd->p->l = nd;
+            else if(nd->p->r == p)nd->p->r = nd;
+        }else root = nd;
+    }
+
+    void splay(_node *nd){
+        if(!nd)return;
+        while(nd->p){
+            _node *p = nd->p, *g = nd->p->p;
+            if(g){
+                if((g->l == p && p->l == nd) || g->r == p && p->r == nd)rotate(p);
+                else rotate(nd);
+
+            }
+            rotate(nd);
+        }
+        root = nd;
+    }
+
+    void insert(K _key, V _val){
+        if(!root){ //이거 빼먹은 적 있음
+            root = new _node;
+            root->key = _key;
+            root->val = _val;
+            root->p = root->l = root->r = 0;
+            return;
+        }
+        _node *nd = root, **targ;
+        while(nd){
+            if(_key < nd->key){
+                if(!nd->l){
+                    targ = &(nd->l);
+                    break;
+                }
+                nd = nd->l;
+            }else if(_key > nd->key){
+                if(!nd->r){
+                    targ = &(nd->r);
+                    break;
+                }
+                nd = nd->r;
+            }else{
+                nd->val = _val;
+                return;
+            }
+        }
+        _node *tmp = new _node;
+        tmp->key = _key;
+        tmp->val = _val;
+        *targ = tmp;
+        tmp->p = nd;
+        tmp->l = tmp->r = 0;
+        splay(tmp);
+    }
+
+    bool find(K key){
+        _node* nd = root;
+        while(nd){
+            if(nd->key == key){ //방향 함 실수함
+                splay(nd);
+                return true;
+            }
+            else if(key < nd->key){
+                if(!nd->l){
+                    splay(nd);
+                    return false;
+                }
+                nd = nd->l;
+            }else{
+                if(!nd->r){
+                    splay(nd);
+                    return false;
+                }
+                nd = nd->r;
+            }
+
+        }
+        return false;
+    }
+
+    void erase(K key){
+        if(!find(key))return;
+        _node* nd = root;
+        if(nd->l){
+            if(nd->r){
+                root = nd->l;
+                root->p = 0;
+                _node* findr = root;
+                while(findr->r)findr = findr->r;
+                findr->r = nd->r;
+                nd->r->p = findr;
+            }else{
+                root = nd->l;
+                root->p = 0;
+            }
+        }else if(nd->r){
+            root = nd->r;
+            root->p = 0;
+        }else root = 0; //이 조건 까먹은 적 많음
+        delete nd;
+    }
+
+    void clear(){
+        while(root){
+            erase(root->key);
+        }
+    }
+
+    ~_map(){
+        clear();
+    }
+
+
+    V& operator[](K _key){
+        if (!find(_key)){
+			insert(_key, V(0));
+        }
+        return root->val; //splay tree 이므로..
+    }
+};
+```
+
 ### Vector
-* https://www.crocus.co.kr/1141
-* 동적할당을 꼭 써야하나?...static으로 선언하거나 global변수로 하면 안됨?
+벡터는 항상 push_back / pop_back만 사용하기. 안그러고 멋대로 조작하기 시작하면 머리아퍼진다
+```c++
+template<class V>
+struct _vector{
+    V* ary;
+    int m_size, m_cap;
+    _vector(int _cap = 2){
+        m_cap = _cap;
+        m_size = 0;
+        ary = new V[m_cap];
+    }
+
+    void push_back(const V& val){
+        if(m_size == m_cap){
+            m_cap *= 2;
+            V* tmp = new V[m_cap];
+            for(int i = 0; i<m_size; i++)tmp[i] = ary[i];
+            delete[] ary;
+            ary = tmp;
+        }
+        ary[m_size++]=val;
+    }
+
+    V back(){
+        return ary[m_size-1];
+    }
+
+    void pop_back(){
+        if(m_size)m_size--;
+    }
+
+    int size(){
+        return m_size;
+    }
+
+    void clear(){
+        if(m_size)delete[] ary;
+        m_size = 0;
+        m_cap = 5;
+        ary = new V[m_cap];
+    }
+
+    ~_vector(){
+        delete[] ary;
+    }
+
+    V& operator[](int ind){
+        return ary[ind];
+    }
+};
+```
 
 ### Random Access Linked list (or similar sort)
 from <a href="https://blog.naver.com/PostView.nhn?blogId=jinwooo_hong&logNo=221325054415&redirect=Dlog&widgetTypeCall=true&directAccess=false" target="_blank">link</a>
@@ -53,7 +255,7 @@ void main(void)
     cout << endl;
     return;
 }
-'''
+```
 
 ### LCA - Binary Lifting
 * 구간트리와 비슷한 원리 (또는 뭐, 이진법...)
@@ -186,6 +388,38 @@ void merge(int u, int v){
 ```
 
 ### Quicksort
+
+* `TODO`: 템플릿 입히기 (< 연산자를 comp(a, b)로 바꾸기)
+* 정렬되어 있는 상황에 강한 퀵소트인듯
+* 피봇이 앞에 있고 (종료 시 ri는 피봇보다 작은 마지막 원소를 가르키고, le는 피봇보다 큰 첫 번째 원소를 가르킴. 피봇보다 큰 걸 맨앞으로 보내면 안됨), le가 ri보다 먼저 움직이므로 (le <= ri 조건에 걸려 ri가 업데이트되지 않기 때문), ri의 마지막 위치가 피봇임 
+* 조건문 : `le <= ri && !(위반 조건))`. 따라서
+    1. le의 while문은 위반조건이 피봇보다 큰 원소를 만날 시
+    2. ri의 while문은 위반조건이 피봇보다 작은 원소를 만날 시
+    3. 둘이 스왑해주면 ok
+* 조건문의 상황
+    1. 끝까지 le < ri: 스왑해주면 됨
+    3. 처음인 le <= ri여서 첫번째 while은 좀 가다 le > ri가 됨: 첫 while문은 ri인곳에서 걸림. ri인곳은 swap이 된 영역이므로 피봇보다 큰 (이전에 li가 찾은) 원소가 있기 때문
+    2. 처음부터 le > ri: ri가 맞음
+    4. 모두 피봇보다 작은 경우: le는 r 오른쪽 한칸 더 나감. ri는 끝에서 멈춤
+    5. 모두 피봇보다 큰 경우: le는 제자리, ri는 피봇 자리
+
+```cpp
+void qsort(int l, int r, int ary[MAX]){
+    if(l >= r)return;
+    int pi = l, le = l+1, ri = r;
+    while(le <= ri){
+        while(le <= ri && !(ary[pi] < ary[le]))le++;
+        while(le <= ri && !(ary[ri] < ary[pi]))ri--;
+        if(le < ri)swap(ary[le], ary[ri]);
+    }
+    swap(ary[pi], ary[ri]);
+
+    qsort(l, ri-1, ary);
+    qsort(ri+1, r, ary);
+}
+```
+
+* 밑에건 엄청 느림 (근데 케바케 아닐까?))
 * Random_shuffle 한 번 돌리고 시작하거나 (expert에선 못쓰지 않나) pivot을 랜덤으로 잡아줄 것
 * merge sort가 나은 것 같은디...? 보통 sorting이 가능한데 메모리가 부족한 경우는 없을 테니까?..
 * 항상 smInd=-1 로 잡네 ㅡㅡ;
