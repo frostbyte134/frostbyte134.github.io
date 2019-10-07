@@ -1,11 +1,43 @@
 ---
 layout: post
 title:  "Sigmoid output unit and Logit"
-date:   2018-03-31 15:18:00
+date:   2019-10-01 15:18:00
 categories: deep_learning
 use_math: true
 tags: deep_learning deep_learning(bengio)
 ---
+
+* revision history
+* Written in 2018-03
+* added easy Bayesian intro in 2019.10.1
+
+### Easy Introduction (Added in 2019.10.1)
+Consider a binary classification problem
+* \\(classes Y\in \\{y\_1, y\_2\\}\\)
+* data \\(X=x\\)
+  
+In Bayesian, \\[posterior \propto prior \times likelihood\\]
+so prior \\(\times\\) likelihood is important. Thefore we apply log on it, and define
+\\[a\_1 := \ln \left( P(Y=y\_1)P(X=x\|Y=y\_1) \right)\\]
+\\[a\_2 := \ln \left( P(Y=y\_2)P(X=x\|Y=y\_2) \right)\\]
+\\[\rightarrow a\_1 = \exp\\{ P(Y=y\_1)P(X=x\|Y=y\_1) \\}\\]
+
+Now, the posterior can be expressed as
+\\[ P(Y=y\_1 \| X=x ) = \frac\{ P(Y=y\_1,\\ X=x) \}\{ P(X=x\_1) \}\\]
+\\[= frac\{e^\{a\_1\}\}\{e^\{a\_1\}+e^\{a\_2\}\}\\]
+
+which is, sigmoid / softmax (generalized case)
+
+### logit <-> sigmoid
+Logit function
+\\[\text\{logit\}(y)=frac\{y\}\{1-y\}=t\\]
+and the sigmoid function
+\\[\text\{sigmoid\}(t)=frac\{1\}\{1+e^\{-t\}\}\\]
+are in the inverse relation
+
+
+### Written in 2018-03
+
 We want to solve a binary classification problem.
 
 Starting from MLE, consider a Bernoulli distribution. \\(p(y=1\|x)\in [0, 1]\\) must hold (and vice versa), and satisfying this constraint requires careful design efforts.

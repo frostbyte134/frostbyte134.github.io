@@ -1,0 +1,10 @@
+---
+layout: post
+title:  "Tensor RT"
+date:   2019-09-27 07:00:05 +0800
+categories: deep_learning
+use_math: true
+tags: deep_learning 
+---
+
+TODO: do sth
