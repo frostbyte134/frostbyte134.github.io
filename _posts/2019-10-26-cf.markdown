@@ -1,0 +1,62 @@
+---
+layout: post
+title:  "CF reviews"
+date:   2019-10-26 09:00:05 +0800
+categories: problem_solving
+use_math: true
+tags: problem_solving need_review multiset
+---
+
+천천히 합시다
+
+### 596 Div2
+와씨...망
+1. TV subscriptions  
+   ㅡㅡ...입력이 \\(2\times 10e5\\)였는데 2를 빼먹었다. 근데 왜 TLE가 나는거지? runtime err가 나 줬으면 좋았게쓴ㄴ데..  
+   번외로 단번에 잘 못풀었다. 특정 구간에 나타나는 distinct한 숫자 갯수를 세어야 했고, incremental하게 구간 범위는 증가함. 그냥 count배열에 세 주면서, 0이 되면 빼고 0에서 숫자가 증가하면 ++해주면 됐는데 map도 쓰고 난리났었음 
+2. p-binary  
+   1. binary representation - "최소한으로 해당 숫자를 2의 power들의 합으로 나타낼 수 있음"
+   2. 예를들어 N이 bin rep으로 나타냈을 시 101이라면 (1이 2개), 3번째 1을 2개로 쪼개서 1을 3개로 (2번째에 중복2개) 해서 2의 power들의 합으로 나타낼 수 있음. 문제조건과 완전 동일.
+   3. 예외처리때매 systest에서 망함. N이 너무 클 시 && N이 너무 작을시 (예를 들면, 8을 2의 power들의 합으로 나타내려면, 2^i꼴이 최소 8개는 있어야함) 체크만 해 줬어도 맞았을 듯
+
+당분간은 2, 3번만 풀까...
+
+### 595 Div3
+1. <a href="https://codeforces.com/contest/1249/problem/C2" target="blank">Good Numbers (hard version)</a>   
+N보다 크면서, 중복 없는 3의 배수들을 더한 것 중 가장 작은 숫자 찾기. `3의 배수들을 더한다`는 거에서 3진수를 떠올렸어야 했음. 3진수로 표현 후 3진수법에서 2가 없이 (=중복 없이) 현 숫자보다 크면서 가장 작은 수를 찾으면 됨.
+1. <a href="https://codeforces.com/contest/1249/problem/D2" target="blank">Too Many Segments (hard version)</a>   
+PQ로 easy는 풀었는데, PQ서 가장 큰 객체와 가장 작은 객체를 빼내야 해서 막힘.  
+`multiset`으로 풀었어도 되고...set도 index붙이면 unique해서 됐을듯. 담부턴 multiset 쓰자  
+```c++
+while (pq.size() && pq.begin()->first < p)pq.erase(pq.begin());
+while (pq.size() > K) {
+   auto it = prev(pq.end());
+   pq.erase(it);
+}
+```
+
+마찬가지로 시간이 모자랐음. C, D hard는 못풀었다고 치고, E를 갔으면 바로 풀었을텐데...ㅡㅡ  
+F는 안봄. 141명이 풀었네. 직장인 주제에 사치인듯
+
+### 593 Div2
+1. <a href="https://codeforces.com/contest/1236/problem/B" target="blank">Alice an the List of Presents</a>    
+\\(N\\)개의 아이템을 \\(M\\)개의 bin에, 각 bin별로
+   1. bin 내의 중복은 불가능
+   2. bin끼리의 중복은 가능
+   3. 한번도 안쓰이는 아이템이 없게
+   
+   집어넣을 시 경우의 수.  
+   
+   <details>
+   <summary>editorial</summary>bin을 기준으로 경우의 수를 세려고 해서 못풀었다. 각 아이템 별로 생각하면, \\(2^m-1\\)의 경우의 수가 있음. (1은 모든 bin에 들어가지 않는 경우).
+   </details>
+2. <a href="https://codeforces.com/contest/1236/problem/D" target="blank">Alice and the Doll</a>  
+   N이 너무 커서 완탐은 불가능한 보드판. 소용돌이 모양으로 움직이다 장애물이 나오면 꺾으면 됨 (1번 꺾는것만 허용).  
+   장애물 갯수가 작아 장애물 기준으로 완탐하려다가 실패
+   <details>
+   <summary>editorial</summary>소용돌이 모양 - (xmin, xmax), (ymin, ymax)의 범위를 점점 줄여가면 됨. 각 row/col 별로 col/row좌표를 정렬 후 저장했다 이분탐색으로 장애물 부딪쳤는지를 판별.
+   </details>
+3. <a href="https://codeforces.com/contest/1236/problem/E" target="blank">Alice and the Doll</a>   
+   거꾸로+dp. 의존관계 찾기가 좀 빡셌음. 혼자 생각해서 2시간은 걸린듯. 근데 이 순서를 역순으로 계산해야 한다는건 editorial 보기전까지 생각못함
+
+시간이 엄청 부족하네. 각 안보이면 ㅌㅌ를 빨리 해야할듯. 2번은 풀 만도 했는데..

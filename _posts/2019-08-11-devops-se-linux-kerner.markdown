@@ -7,6 +7,12 @@ use_math: true
 tags: linux process os
 ---
 
+책의 `요약` 부분 복습하기
+
+복습 키워드
+2. Chap2: VIRT, SHR, RES, Memory commit, COW (copy on write), demand paging. process status: D, R, S, T, Z.
+
+
 ### 시스템 구성 정보
 1. `uname -a`: 커널 버전
 2. `dmesg`: 커널 디버그 메시지
@@ -54,12 +60,15 @@ SHR은 일부분이 RES에 포함됨
 
 
 ### Load Average, 시스템 부하
+
+
 > from the `man proc`, `load average`: The first 3 fields in this file are load average figures giving the # of jobs in the run queue (state `R`, `nr_running`) or waiting for disk I/O (state `D`, `nr_interruptable`) average 1, 5, and 15 minutes
 
 > 시스템에 있는 CPU 코어수에 따라 상대적으로 해석해야 함
 
 ex) 코어가 많을 수록, 높은 load average가 문제가 안 될 확률이 높음
 
+* 결국,\\[\text\{(nr_uninterruptable + nr_running) / per time\}\\]
 * `vmstat`에서, `R` 및 `D` 갯수를 확인가능 - 어디에서 부하가 올라가고 있는지 확인
 * CPU기반의 부하 / IO기반의 부하는 상황에 따라 시스템에 주는 임팩트가 다름
 
