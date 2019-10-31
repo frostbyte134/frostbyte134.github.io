@@ -9,6 +9,21 @@ tags: problem_solving need_review multiset
 
 천천히 합시다
 
+### 592 Div2
+1. <a href="https://codeforces.com/contest/1244/problem/C" target="_blank">C. The football season</a>  
+   난 이분탐색으로 도전했다. 안되는 이유는, 각 상태간의 상하관계를 확실히 정의할 수 없어서였음. convex한 문제도 아니었고...
+   <details>
+   <summary>editorial</summary>d, w 범위가 작음. 이긴 횟수가 d를 넘어가면, 결국 d보다 낮은 케이스로 동일 점수로 매핑할 수 있어서, d안에서만 이긴 횟수를 따져보면 됨. 증명 다시 해보자
+   </details>
+
+### Edu 74
+1. C. Standrad Free2play
+   - 경우를 잘 따지고 코딩해서 맞음
+2. <a href="https://codeforces.com/contest/1238/problem/D" target="_blank">D. AB-string</a>
+   <details>
+   <summary>editorial</summary>반대의 경우를 세면 쉽다. 다시 풀어볼 것
+   </details>
+
 ### 596 Div2
 와씨...망
 1. TV subscriptions  
