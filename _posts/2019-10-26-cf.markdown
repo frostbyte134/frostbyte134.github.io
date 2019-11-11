@@ -9,12 +9,38 @@ tags: problem_solving need_review multiset
 
 천천히 합시다
 
+### 599 Div2
+1. B - Character swap  
+   예전이면 못풀었을 것 같은데..어케 나름 일찍 풀긴 풀었네
+2. C - Tile Painting  
+   1. 패턴을 발견해내는 것이 느렸다. transitive 1to1이 생긴다는 걸 이렇게 늦게 보다니..이건 그냥 훈련이 더 필요한 듯
+   2. 나머지는 long long인데 함수 리턴값만 int로 하는 사람이 있다?
+3. <a href="https://codeforces.com/contest/1243/problem/D" target="_blank">D - 0-1 MST</a>  
+   첨엔 진짜 MST로 푸는건가 했음. 이런 패턴의 문제가 좀 나올 것 같은데, 기억해두어도 좋을 듯.
+   <details>
+   <summary>editorial</summary>0끼리는 뭉쳐도 손해가 없으므로 결국 서로 0인 엣지로 갈 수 있는 노드끼리 뭉쳐야 하고, 해당 blob개수 - 1이 답임. union-find로 노드 하나에 대해, 모든 블롭을 대상으로 포문을 돔. 현 노드에서 해당 블롭에 연결된 엣지 개수를 구할 수 있으므로 (u-v에서 find(v)), 그 갯수가 blob노드갯수랑 일치하면 해당 블롭과는 disjoint 한 것. 아니면 0인 엣지가 하나라도 있으니 그런것끼리 merge해주면 됨.  
+   </details>
+
+
+### 598 Div3
+1. <a href="https://codeforces.com/contest/1256/problem/C" target="_blank">C, Platforms Jumping</a>
+   첨에 dp를 생각함. 상태공간을 ary[1000][1000]에 우겨넣으려고 고생했다. 그리디한면이 있어서 될꺼같긴했는데 잘 되지 않았음. 판을 "전부 다 써야" 한다는 제한조건이 꽤나 까다로웠다.
+   <details>
+   <summary>editorial</summary>결국 greedy하게 풀 수 있음. 일단 판을 다 오른쪽에 몰아넣고, d만큼 쩜프 시 착지하는 곳이 물이면 판을 1개씩 끌어옴. 이 때 판을 가장 놓을 수 있는 오른쪽으로 놓음. 놓지 못할 염려는 없고, 왼쪽으로 놔봤자 이득이 없기 때문.
+   </details>
+2. E - 와 이걸 못풀었다고....? 담부터 술1잔이라도 먹으면 코포 ㄴㄴ
+3. F - Equalize Two strings
+
 ### 592 Div2
 1. <a href="https://codeforces.com/contest/1244/problem/C" target="_blank">C. The football season</a>  
    난 이분탐색으로 도전했다. 안되는 이유는, 각 상태간의 상하관계를 확실히 정의할 수 없어서였음. convex한 문제도 아니었고...
    <details>
-   <summary>editorial</summary>d, w 범위가 작음. 이긴 횟수가 d를 넘어가면, 결국 d보다 낮은 케이스로 동일 점수로 매핑할 수 있어서, d안에서만 이긴 횟수를 따져보면 됨. 증명 다시 해보자
+   <summary>editorial</summary>d, w 범위가 작음. 이긴 횟수가 d를 넘어가면, 결국 d보다 낮은 케이스로 동일 점수로 매핑할 수 있어서, d안에서만 이긴 횟수를 따져보면 됨. 증명 다시 해보자. 
    </details>
+   확장 유클리드 호제법 문제였슴. 삼전 professional 공부하다 이걸 보게 됬네 ㄷㄷ  
+   1. Integer programming서, \\(ax + by = c\\)인 경우에서 당연히 \\(gcd(a, b)\\)는 c를 나눌 수 있음.
+   2. 일단 \\(c=gcd(a, b)\\)인 경우에 (아니라면, 원래 c / gcd(a, b)를 곱해주면 되겠지 뭐)
+   3. \\(a=bq+r\\) 이라고 하면 (포인트!), \\[(bq+r)x + by = gcd(a, b)\\] \\[(b(qx + y)+rx = gcd(a,b) = gcd(b, r)\\]이 되고, b는 유클리드gcd처럼 언젠가 0이 됨.
 
 ### Edu 74
 1. C. Standrad Free2play

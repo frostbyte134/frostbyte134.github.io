@@ -34,6 +34,29 @@ tags: problem_solving need_review
 5. 범위가 대충 2000000 안에 떄려박을 수 있나? -> 해시 고려
 6. 좌표압축은 항상 생각하자
 
+### 사진 (D6)
+1. N명이 5번 사진을 찍는데, 각 사람은 max1번만 어디든지로 움직일 수 있다.
+2. 한명만 맨 끝으로 움직여도 순서가 많이 바뀌므로, 백트래킹같은건 힘듬
+3. l ... r이었다 치면, r이 l왼쪽으로 갈수있는 기회는 많아야 1번.
+4. 각 사람 id는 범위가 넘 크므로, 좌표압축을 씀
+5. 머지소트. l, r비교시 5번동안 l이 왼쪽에 많이 있었므면 l이 작은거.
+6. D7쯤 되지 않나 ㄷㄷ 이게 D6이라니. 풀긴 어케 풀었는데...
+
+### 구간 합 (D4)
+<a href="https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWXGGNB6cnEDFAUo" target="_blank">링크</a>. 눈으로 보기만 합세.  
+[8, 12] 의 구간 합은 (8) + (9) + (1 + 0) + (1 + 1) + (1 + 2) = 23  
+123456에서, 4번째 자릿수에 나온 숫자들 합은 몇일까?
+1. 일단 3 X 456 은 자명
+2. 0~9가 120000번 바뀌었기에 자릿수가 그만큼 앞으로 넘어갔겠지
+3. (0+1+2) * 1000도 더해주어야 함.
+
+### 큐브 (D4)
+X이하의 수 중, 세제곱수의 합으로 나타날 시 제일 많은 세제곱수의 합으로 표현되는 것은? (자기보다 작으면서 가장 큰 세제곱수를 빼 나감. <a href="https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWXGPQiKdBUDFAUo&categoryId=AWXGPQiKdBUDFAUo&categoryType=CODE" target="_blank">(링크)</a>)  
+1. X이하의 수 중 가장 큰 경우는? 을 상태공간으로 하는 map dp로 풀음.
+2. 답이 결국 2가지 경우 중 하나로 나뉘어져서, 시간이 좀 빨리 풀린듯. 2^log2N?...
+
+
+
 ### 숫자야구게임 (review, reference problem)
 문제 자체는 쉬운데, 문제에서 요구하는 것이 __빠른 해결 속도__ 가 아니라 __적은 쿼리 호출__ 임을 간과함. 진짜 1시간정도는 고민해 봐야 할듯. 
 
