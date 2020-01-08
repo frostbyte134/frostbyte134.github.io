@@ -7,7 +7,10 @@ use_math: true
 tags: coding need_revision
 ---
 까먹기 전에...  
-면접은...쉬울 때가 없네 ㅜㅜ
+면접은 쉬울 때가 없네 ㅜㅜ
+
+load_average : 의미를 말하지 않고 헛소리만 좀 했던듯. 실제 계산중 + IO load로 구성되어 있다는 점을 잘 말했어야 했음.
+
 
 TODO: 날짜 지우고 내용 따로 묶어서, 내용 보강
 

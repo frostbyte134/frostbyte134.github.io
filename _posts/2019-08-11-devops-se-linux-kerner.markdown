@@ -37,14 +37,14 @@ tags: linux process os
 * __PR + NI__: 낮을수록 프로세스 우선순위 (`Run queue`에서 나오는 순서) 높음. NI는 조절가능
 
 #### 메모리 (Memory commit)
-* `VIRT`: The total amout of vietual memory used by the task
+* `VIRT`: The total amout of vietual memory used by the task (over commit 포함)
 * `RES`: A task's currently used share of available physical memory
 * `SHR`: the amout of shared memory used by a task (공용 커널 라이브러리 등)
 
 \\[\text\{RES\}\subseteq \text\{VIRT\}\\]
 SHR은 일부분이 RES에 포함됨
 
-`memory commit`: `demand paging`. lazy allocation of memory. `fork()`시 일단 복사하고 보는데, 이전 메모리를 아예 안 쓸 수도 있으므로...  
+`memory commit`: `demand paging`. lazy allocation of memory. `fork()`시 일단 복사하고 보는데, 이전 메모리를 아예 안 쓸 수도 있으므로, physical allocation은 나중에 함. 해당 메모리에 write시 (read는?), page fault발생하며 실제 allocation 일어남.
 1. `sar`로 봤을 시, `%commit`란이 메모리 커밋 비율 (실제 할당 X)인 메모리.
 2. 가상메모리를 실제 가용 메모리보다 크게 할당할 수 있음. `vm.overcommit_memory`로 제어 가능
    1. 0: page cache + swap + slab reclaimable

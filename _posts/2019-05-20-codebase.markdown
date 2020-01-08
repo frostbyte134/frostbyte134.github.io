@@ -9,24 +9,29 @@ tags: problem_solving need_review coding
 
 ### hasing (pseudo-random)
 ```cpp
-const int MAX = 987654321, SIZE = 20345677, KEY = 759;
-int table[SIZE];
 
-void push(int key) {
-	int t = key;
-	t = (key + MAX) % SIZE;
-	while (table[t] != MAX && table[t] != key)
-		t = (t + KEY) % SIZE;
-	table[t] = key;
+const int KEY = 769, MOD = 100003, INF = 1e+9;
+int ary[MOD];
+
+void insert(int key) {
+	int tk = key;
+	while (ary[tk] != INF)tk = (tk + KEY) % MOD;
+	ary[tk] = key;
 }
 
-int find(int key) {
-	int t = key;
-	t = (key + MAX) % SIZE;
-	while (table[t] != MAX && table[t] != key)
-		t = (t + KEY) % SIZE;
-	if (table[t] == key)return 1;
-	else return 0;
+bool find(int key) {
+	int tk = key;
+	while (ary[tk] != key && ary[tk] != INF)tk = (tk + KEY) % MOD;
+	return ary[tk] == key;
+}
+
+int s2k(char str[]) {
+	int ret = 0;
+	for (int i = 0; i < strlen(str); i++) {
+		ret = (ret * 29) % MOD;
+		ret = (ret + str[i] - 'A') % MOD;
+	}
+	return ret;
 }
 ```
 * 라빈카프는 알아서 잘 짜시길.
