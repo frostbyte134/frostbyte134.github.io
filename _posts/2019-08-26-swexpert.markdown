@@ -29,6 +29,8 @@ tags: problem_solving need_review
 링크드리스트 문제 풀어야 하는데...
 * https://www.acmicpc.net/problem/5397
 
+TODO:
+* trie + 아호코라식 (10256 돌연변이)
 
 뭐지이건
 * https://www.acmicpc.net/problem/3045
@@ -36,12 +38,41 @@ tags: problem_solving need_review
 
 최적값을 구하는 배열 문제 접근법
 1. 왼 / 오른 / 가운데부터 접근
-2. 각 trial을 쉽게 만들 수 있는가? -> 이분탐색
+2. 각 trial을 쉽게 만들 수 있는가? AND __monotonic한가?__ -> 이분탐색
 3. greedy 속성이 있는가? \\(i<N\\) 번째까지 만든 답 중, monotonic하게 제외할 수 있는 답이 있는가? (그래서 j>i 번째 껄 포함해서 좋은 답을 만들 수 있게) -> PQ
 4. update query가 있는가? 값의 범위가 작은가? -> 구간트리
 5. 범위가 대충 2000000 안에 떄려박을 수 있나? -> 해시 고려
 6. 좌표압축은 항상 생각하자
 
+* https://www.acmicpc.net/blog/view/67
+* https://www.acmicpc.net/blog/view/50
+
+
+### 반복 부분문자열
+- 라빈카프 문자열 충돌은 진짜 많이난다. 1개 문자열 배열서 시작인덱스만 저장 후 비교 등으로 해결
+- MOD = 10007, P = 29
+
+### 정점들의 거리
+- 이제 LCA도 비교적 기억이 잘 나는듯
+- sparse table은 필요한 곳 까지만..
+
+### 휴대폰 자판
+- trie로 느리게 풀긴 풀음
+- 최적화1. trie + 정렬
+- 최적화2. 난 트리에 구성 후, 저장해놓은 문자열로 다시 탐색함. 그냥 트리에 자체만으로도 풀 수 있었음.
+
+### 무한 수열
+- 숫자 작을땐 배열cache. 배열cache크기~속도 였음 
+
+### 돌연변이
+- 라빈 카프
+- trie + 아호코라식도 된다 함. 지금은 안봐도 될텐데...
+
+### C형 블록맞추기
+- 블록끼리 맞는 경우를 너무 소흘히 생각함. 노트에 다 써보고 하자.
+- 답을 제외하는 경우를 또 해깔림.
+- back(){return ary[m_size-1];}
+  
 ### closing the farm (gold)
 순서대로 닫는다 = 역순으로 연다  
 문제를 잘못 이해했었음. 순서대로 닫아도 monotonic한 문제가 아닌데..이부분 실수 많이 하는듯?
@@ -72,7 +103,7 @@ tags: problem_solving need_review
 2. pseudo randon hashing은 쓰지 말자. 그리고 이것도 키를 MOD로 나눌 필요 없이 long long 키를 쓰면 됐었음
 3. merge부분에서, 머지받는 쪽의 셀 갯수를 늘릴 필요가 없는데 계속 늘리고 있었다. 이거 디버깅한다고 1시간 보냄. 각 연산별로 어떤 행동을 해야 하는지 정확하게 종이에 풀고, 검증하고 ㄱㄱ.
 4. 스플레이 트리 지우는 연산에서, toR 또 해깔림. 이건 뭐 조심만 하면...
-
+5. 맞네. 문자가 10개니까 long long 1개로 비트연산으로 저장해버릴 수도 있었네. (26 < 32 = 6bit, 6 * 10 = 60bits < 64bit)
 
 ### 2048 (hard)
 <a href="https://www.acmicpc.net/problem/12094" target="_blank">오졌다</a>
