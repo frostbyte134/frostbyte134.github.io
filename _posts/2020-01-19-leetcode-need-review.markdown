@@ -1,12 +1,24 @@
 ---
 layout: post
 title:  "Leetcode problems"
-date:   2019-04-01 09:59:00 +0800
+date:   2020-01-19 09:59:00 +0800
 categories: problem_solving
 use_math: true
 tags: problem_solving leetcode need_review
 ---
 
+TODO: make a post on
+* https://www.educative.io/courses/grokking-the-system-design-interview
+
+### Amazon
+* https://www.amazon.jobs/en/principles
+
+### Interviews
+* https://leetcode.com/discuss/interview-experience/479413/NDA-Google-Facebook-Amazon-or-L5-E5-L5-or-London-or-Dec-2019-Offer
+  * Here typical advices would apply: think outloud, do not give anything for granted and ask lots of clarifying questions, state from the very beginning what kind of complexity (both time and space) and check with the interviewer if that complexity is ok or you should aim for something better.
+  * System Design: I found this one to be the most complex for two main reasons: I did not have a lot of experience on scaled distributed systems, you do not really know how to prepare on this one (whereas you can prepare well for the coding one). This was the one where I performed the worst both at Google and Facebook, and Facebook asked me to repeat this interview a second time (just the System Design one, not the whole thing). The main takeaway here is: start with a very generic design, and then deep dive and be (very) concrete on 1-2 aspects. If the aspect is the Database, say which technology, which schema, how many replicas, and so on. If you deep dive on one server, say how many servers you need, say what kind of requests/responses, say what happens if one server goes down while serving a request, and so on.
+  * Behavioral: Do not underestimate this one, as for example Google introduced it recently since they understood the importance of such interview. Prepare some answers to questions like Tell me one time where you disagree with your colleagues or Tell me one time that you went outside your normal boundaries to complete some tasks. My suggestion here is be real, try to come up with real scenarios from your experience, which may very well be stuff from university. Do not try to fool the interviewer with cool answers, these guys have been doing interviews for many years and they most likely know how to spot a fake answer. Amazon requires a special preparation, as you need to go through all their principles and associate 1 or 2 stories to each of the principle.
+  * For system design questions I prepared by purchasing the course grokking the system design interview, reading high scalability blog and watch lots of videos on Youtube. Do as many mock interviews as possible, even alone and even if it seems stupid at the beginning.
 ### reference problems
 
 #### LRU Cache
