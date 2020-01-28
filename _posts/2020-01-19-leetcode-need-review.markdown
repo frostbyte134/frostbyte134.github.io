@@ -7,10 +7,19 @@ use_math: true
 tags: problem_solving leetcode need_review
 ---
 
-1. solve the problem while
-   1. explain it to yourself, and write examples
+solve the problem while explain it to yourself, and write examples (must!)
+
+TODO: make a post on
+* https://www.educative.io/courses/grokking-the-system-design-interview
+
 
 ### Google
+#### Time Based Key-Value Store (medium)
+- <a href="https://leetcode.com/problems/time-based-key-value-store/" target="_blank">https://leetcode.com/problems/time-based-key-value-store/</a>
+- 문제를 잘 읽읍시다..
+- 그나저나, 새 item이 계속 추가되는 상태에서 정렬된 배열을 유지하는 건 계속 나오네. 이 문제의 경우는 increasing하는 순서로 주어져서 별 상관 없었지만. 문제를 잘 읽지 않은 덕분에 파이썬으로 어떻게 구현해야 하는지 계속 생각함.
+  1. map (splay tree) - lower_bnd연산을 구현하면 쉬울듯.
+  2. key가 정해져있고 좌표압축이 가능하며 범위가 작은 경우 - random access linked list로 짜면 될 듯. 근데 이거 만들어 본 적이 없어서..연습요망
 
 #### Text justification
 - <a href="https://leetcode.com/problems/text-justification/submissions/" target="_blank">https://leetcode.com/problems/text-justification/submissions/</a>, hard
@@ -19,9 +28,14 @@ tags: problem_solving leetcode need_review
   - 단어가 N개이나 마지막 (1번씩 띄고 left정렬)
   - 단어가 1개 (마지막 whitesapce 둠)
 - 각 case에 규칙을 consistent하게 적용해야 하는데 이게 아직 잘 안되네. 이건 머리로 체크하는 수 밖에 없는 듯.
+- round-robin
 
-TODO: make a post on
-* https://www.educative.io/courses/grokking-the-system-design-interview
+#### Minimum Domino Rotations For Equal Row
+문제자체는 엄청 쉬웠다. 첫 submission은 맞았는데 실행시간이 바닥을 달림. 숫자가 consequtive하게 나와야 한다는 것 (강한 조건)을 이용해 필터링 함.
+
+#### Guess the Word (hard)
+- <a href="https://leetcode.com/problems/guess-the-word/" target="_blank">https://leetcode.com/problems/guess-the-word/</a>
+- SWE B번예시같았다. 현재까지 던진 query와, 대상이 될 문자열들 candidate가 있다고 할 시, query와 최대한 겹치지 않는 걸 candidate에서 찾아서 query넣어봄 (최대한 많은 정보 획득).
 
 ### Amazon
 * https://www.amazon.jobs/en/principles
