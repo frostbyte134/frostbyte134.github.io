@@ -4,7 +4,7 @@ title:  "Open / Closed set (in R)"
 date:   2018-09-27 6:00:05 +0800
 categories: analysis
 use_math: true
-tags: analysis real_number open_set close_set
+tags: analysis real_number open_set closed_set
 ---
 
 

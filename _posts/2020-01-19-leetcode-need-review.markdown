@@ -7,6 +7,19 @@ use_math: true
 tags: problem_solving leetcode need_review
 ---
 
+1. solve the problem while
+   1. explain it to yourself, and write examples
+
+### Google
+
+#### Text justification
+- <a href="https://leetcode.com/problems/text-justification/submissions/" target="_blank">https://leetcode.com/problems/text-justification/submissions/</a>, hard
+- 큰 루프 두고, 예외케이스 3개 두고 풀음
+  - 단어가 N개 (마지막에 whitespace 두지 않음)
+  - 단어가 N개이나 마지막 (1번씩 띄고 left정렬)
+  - 단어가 1개 (마지막 whitesapce 둠)
+- 각 case에 규칙을 consistent하게 적용해야 하는데 이게 아직 잘 안되네. 이건 머리로 체크하는 수 밖에 없는 듯.
+
 TODO: make a post on
 * https://www.educative.io/courses/grokking-the-system-design-interview
 

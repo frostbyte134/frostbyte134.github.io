@@ -4,7 +4,7 @@ title:  "(CAM) Learning Deep Features for Discriminative Localization"
 date:   2018-11-14 09:00:05 +0800
 categories: deep_learning
 use_math: true
-tags: deep_learning cam basenet localization 
+tags: deep_learning basenet
 ---
 
 <a href="https://arxiv.org/abs/1512.04150" target="_blank">https://arxiv.org/abs/1512.04150</a>
