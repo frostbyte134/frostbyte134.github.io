@@ -14,6 +14,10 @@ TODO: make a post on
 
 
 ### Google
+
+#### Minimum Knight Moves (복습요망)
+<a href="https://leetcode.com/problems/minimum-knight-moves/" target="_blank">https://leetcode.com/problems/minimum-knight-moves/</a>
+
 #### Time Based Key-Value Store (medium)
 - <a href="https://leetcode.com/problems/time-based-key-value-store/" target="_blank">https://leetcode.com/problems/time-based-key-value-store/</a>
 - 문제를 잘 읽읍시다..
