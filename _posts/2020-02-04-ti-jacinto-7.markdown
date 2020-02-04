@@ -1,0 +1,131 @@
+---
+layout: post
+title:  "TI TDA4X"
+date:   2020-02-03 09:00:05 +0800
+categories: coding
+use_math: true
+tags: coding C
+---
+
+* http://dev.ti.com/tirex/explore wow
+* `Jacinto 7` - <a href="https://training.ti.com/kr/jacinto7?context=1140070" target="_blank">https://training.ti.com/kr/jacinto7?context=1140070</a> (overall)
+* Download Processor SDK Automotive for Jacinto 7 processors: http://www.ti.com/tool/PROCESSOR-SDK-DRA8X-TDA4X
+
+### TDA4VM
+
+* `TDA4VM` - <a href="https://www.ti.com/product/TDA4VM" target="_blank">https://www.ti.com/product/TDA4VM</a>
+* `MMA`: matrix multiply accelerator
+* `DSP`: Digital signal processor
+* `DMPAC`: Depth and Motion Processing Accelerators
+    * High-resolution stereo depth engine
+    * Dense optical flow
+* Vision Processing Accelerators (`VPAC`) with Image Signal Processor (`ISP`) and multiple vision assist accelerators
+    * 7th generation TI imaging processor
+* Two `C66x` floating point DSP, up to 1.35 GHz,40 GFLOPS, 160 GOPS
+* `CGT`: code generation tool
+* `SYS/BIOS`: TI-RTOS kernel.
+
+TODO: 
+* Park assistant on Jacinto https://training.ti.com/kr/processor-sdk-automotive-jacinto-7-creating-adas-applications?context=1140070-1140101-1140112
+* psdk training - is it different from below? https://training.ti.com/introduction-processor-sdk-training-series?context=519268-1138818-1134304
+* PSDK training - <a href="https://training.ti.com/processor-sdk-training-series" target="_blank">https://training.ti.com/processor-sdk-training-series</a>
+* https://www.ti.com/tool/PROCESSOR-SDK-C667X : psdk for C667x processor
+
+
+
+#### Cores
+<a href="https://training.ti.com/sites/default/files/docs/jacinto7-processing-cores-slides_0.pdf" target="_blank">https://training.ti.com/sites/default/files/docs/jacinto7-processing-cores-slides_0.pdf</a>
+
+TI C71x true 64 bit DSP up to 1 GHz
+* 4-30x performance of previous gen
+* Dual-path CPU with both 64-bit scalar and 512-bit vector operations
+* Math Multiply Accelerator (MMA) for deep learning
+* Cache coherence with system cache
+* OpenVX support for computer vision processing
+* `MMU`(!!!), managed by A72
+
+TI C66x DSP up to 1.3 GHz  
+
+<img src="{{site.url}}/images/coding/ti_c66x.png" width="800">
+
+- 32bit
+- OpenVX support for computer vision processing
+- Fixed and floating-point support (C64x + C67x ISA)
+- Memories
+  * 32kB L1 program cache or RAM
+  * 32kB L1 data cache or RAM
+  * 288kB L2 unified cache (up to 256KB) or RAM
+* https://training.ti.com/c6000-embedded-design-workshop?keyMatch=C6000&tisearch=Search-EN-everything WOW
+* <a href="https://processors.wiki.ti.com/index.php/C6000_Embedded_Design_Workshop" target="_blank">C6000_Embedded_Design_Workshop</a>
+* c6000 linux support (old) - https://processors.wiki.ti.com/index.php?oldid=234132&title=C6000_Linux_Support&keyMatch=C6000&tisearch=Search-EN-everything
+* <a href="https://processors.wiki.ti.com/index.php?oldid=213608&title=Optimization_Techniques_for_the_TI_C6000_Compiler&keyMatch=C6000&tisearch=Search-EN-everything#C6000_Programmer.27s_Guide" target="_blank">Optimization Techniques for the TI C6000 Compiler(old)</a>
+* <a href="http://software-dl.ti.com/sdoemb/sdoemb_public_sw/dsplib/latest/index_FDS.html" target="_blank">C66X DSPLIB </a>
+* c6000 CGT https://www.ti.com/tool/C6000-CGT?keyMatch=C6000&tisearch=Search-EN-everything
+* `RAT`: region adress translator. 32bit -> 64bit (enable access to A72 or C7x)
+
+Arm® Cortex®-`A72` facilitates multi-OS (embedded linux)
+- 64bit
+
+
+#### Hardware accelerators
+Two major processing blocks - the vision processing accelerator, or VPAC, and the depth and motion accelerator, or DMPAC.
+
+The `VPAC` module implements a vision-tuned image signal processor, which implements an industry-first, fully flexible raw-pattern processor to tune the signal stream specifically for vision processing and can eliminate the need for expensive custom FPGAs or external ISP chips. Lens distortion correction, edge filtering, and Region of Interest, or ROI.
+
+The `DMPAC` module implements high-performance best-in-class algorithms, including high-resolution stereo disparity and unique dense optical flow algorithms, tracking many points, versus sparse flow, which is used in traditional systems. These features can highly augment CNN and deep-learning system performance and also augment multi-mode systems, including other sensor types, such as lidar or radar. 
+
+`MMA`
+- The MMA is architected to optimize data flow management for deep learning, while minimizing power and external memory devices.
+- The MMA is accessed as an extension of the C71x instruction set, and leverages the same highly parallel data path as the C71x. This streaming engine is a six-dimensional data movement engine, which is able to keep the MMA constantly fed with data from the L2 memory.
+
+
+### PSDK
+https://training.ti.com/kr/processor-sdk-automotive-jacinto-7-software-overview?context=1140070-1140101-1140102
+
+<img src="{{site.url}}/images/coding/ti_psdk.png" width="800">
+* `U-Boot` is used as the bootloader for Linux. U-Boot is also used for booting RTOS CPUs earlier in the boot flow. TI additionally also provide a bare-metal bootloader as part of the RTOS SDK. This can be used by third party OS vendors, or, in some cases, it can also be used to fast-boot Linux and RTOS CPUS.
+* Next, we have the `OS` itself. This consists of Linux kernel and, optionally, a hypervisor on A72. On the DSPs and R5F, we have the TI RTOS called SYS-BIOS.
+* `IPC` message exchange is done using a common shared memory and interrupts to help reduce message passing, overheads, and latency.
+*  `OpenVX` __runs on RTOS CPUs__ and allow to access RTOS functions for deep learning, camera, and hardware accelerators from A72. The various middlewares abstract the heterogeneous nature of the SOC and present a unified and simplified view for the Linux A72 applications.
+
+RTOS SDK package follows a modular approach, and most SDK components are placed on the respective component levels of folders. To start with, __RTOS SDK is built on top of SYS-BIOS as the operating system__. This runs on the R5F core and the C7X and `C66X` DPS.
+
+TI's bare-metal bootloader, system firmware binaries, interprocessor communication library, and various peripheral drivers are included as part of the PDK component. Then we have the ethernet switch firmware running on the R5F core that manages the integrated ethernet switch on the Jacinto 7 platform. Switch firmware is responsible for configuration of the switch and enables clients running from the various other CPU cores to directly send and receive traffic through the switch.
+
+Computer vision and deep learning libraries that are hardware-accelerated are included as separate components under the RTOS SDK. OpenVX-enabled flexible graph pipelining-based approach for realizing vision and compute applications, leveraging the heterogeneous architecture, and the accelerator cores on the Jacinto 7 platform. TI's implementation of the OpenVX standard is included under the TIOVX component.
+
+Software that runs on the safety MCU island-- namely MCAL support for AUTOSAR and demos for [INAUDIBLE] CAN response safety entitlement are included as part of the MCU software component.
+
+The /vision_apps folder holds multiple demos that integrate various components from the SDK to realize system applications for vision processing, like the surround view application and auto valet park assist. Also included under the /vision_apps folder are basic demos that can be used for quick hardware checkout or as a starting point for other application development. The /gateway-demos component includes an illustration for the CAN ethernet bridging application.
+
+In addition to the contents of the SDK package, additional tools like the GCC compiler need to be downloaded separately. Please refer to the user guide for details on setting up the host development environment.
+
+Now let's look at the steps to set up the build environment, build, and run out-of-the-box demos on the Jacinto 7 EVM. Build and run instructions are included as part of the Vision Apps user guide. You can navigate to this from the top-level PSDK [INAUDIBLE] documentation link.
+
+As a first step, the [? whole ?] [? site ?] build environment needs to be set up. Follow instructions described under the "Build Environment Setup" section of the User Guide. Once the build environment is set up, you can use the makefile-based build mechanism to build the SDK or specific components. Steps for building the SDK, including supported build configurations and makefile options are described under the build instruction section of the user guide. Lastly, steps to prepare the SD card with the build binaries and running the SDK demos are described under the "Run instructions" section of the user guide.
+
+With this, we have successfully completed the training session on process SDK Automotive for the Jacinto 7 platform. As part of this, training we looked at steps for downloading and installing the Linux and RTOS SDK packages. We then delved into various components that constitute the SDK and steps for building the individual components and running out-of-the-box demos.
+
+Included as part of the slide are other useful links related to the Processor SDK, links for the SDK package download, links for SDK documentation, and E2E support forum link for any further clarifications. Thanks for your time in going through this "Getting Started With Processor SDK Automotive" training video.
+
+
+#### RTOS concept overview
+https://training.ti.com/rtos-concepts-overview
+
+* `NON-RTOS` : `Bare-metal`. While(true) + interrupts
+* `Bare-bones`: init idle loop (kernel scheduler). Easy to move to RTOS
+* `RTOS`: main: bios_start. `ISR` now stacks (which is not available at above)
+
+#### TI-RTOS
+- TI-RTOS kernel (=SYS/BIOS) is a multi-threaded `preemptive` (no round robin)
+
+
+#### RTOS terminology
+4 main threading models
+- hard / sw interrupts (similar) (`HWI`, `SWI`)
+- `Task` (run till completetion, terminates, fire again), `Idle` (lowest priority)
+- blocking vs polling: A task is blocked if it is waiting on a resource and not consuming any of the CPU. Spinning on a register in a tight loop is not blocking. It is polling.
+
+- POSIx available (pthreads, semacphores, msg_queues), but still can use TI-RTOS for this (same for malloc)
+
+<img src="{{site.url}}/images/coding/ti_rtos.png" width="800">
