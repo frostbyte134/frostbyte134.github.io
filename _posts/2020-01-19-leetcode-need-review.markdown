@@ -15,6 +15,16 @@ TODO: make a post on
 
 ### Google
 
+#### https://leetcode.com/problems/shortest-way-to-form-string/ (review)
+<a href="https://leetcode.com/problems/shortest-way-to-form-string/" target="_blank">https://leetcode.com/problems/shortest-way-to-form-string/</a>
+
+1. 그리디함 증명
+2. next table - 뒤부터 iter돌면서 만듬
+
+#### Design Hit Counter
+<a href="https://leetcode.com/problems/design-hit-counter/" target="_blank">https://leetcode.com/problems/design-hit-counter/</a>
+increasing하게 들어오는 timestamp. 특정 시점의 300초전까지의 hit수를 구해야 함. 제약조건을 이용해 이진탐색으로 풀음
+
 #### Minimum Knight Moves (복습요망)
 <a href="https://leetcode.com/problems/minimum-knight-moves/" target="_blank">https://leetcode.com/problems/minimum-knight-moves/</a>
 
