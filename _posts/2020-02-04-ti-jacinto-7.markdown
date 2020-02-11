@@ -26,6 +26,7 @@ tags: coding C
 * `SYS/BIOS`: TI-RTOS kernel.
 
 TODO: 
+* `MUST`: https://e2e.ti.com/support/processors/f/791/t/684459
 * Park assistant on Jacinto https://training.ti.com/kr/processor-sdk-automotive-jacinto-7-creating-adas-applications?context=1140070-1140101-1140112
 * psdk training - is it different from below? https://training.ti.com/introduction-processor-sdk-training-series?context=519268-1138818-1134304
 * PSDK training - <a href="https://training.ti.com/processor-sdk-training-series" target="_blank">https://training.ti.com/processor-sdk-training-series</a>
