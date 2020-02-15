@@ -1,13 +1,27 @@
 ---
 layout: post
 title:  "CF reviews"
-date:   2019-10-26 09:00:05 +0800
+date:   2020-02-13 09:00:05 +0800
 categories: problem_solving
 use_math: true
 tags: problem_solving need_review multiset
 ---
 
 천천히 합시다
+
+
+### 619 Div2
+<a href="https://codeforces.com/contest/1301" targeg="_blank">https://codeforces.com/contest/1301</a>
+
+1. C - Ayoub's function  
+   1. 전체 - 0만 있는 경우로 1이 들어간 경우를 계산함
+   2. 1이 1개만 있을 시, 가운데에 집어넣는게 가장 좋고
+   3. 1이 N개일시, N+1개의 빈칸의 길이를 가장 크게 하는것이 좋다. 전체가 N+1개로 안나뉘면, 앞 remnant개는 +1개로 해줌 - `분배문제`
+2. D - Time to run
+   1. 오일러 패스 - 답이 항상 존재
+   2. 예외케이스때매 3번쯤 틀린듯. 0이 될때를 고려하지 않고 등...
+   3. 어케 혼자 풀긴 풀었는데  ㅜㅜ 그래도 D까지 풀리는 거 보니 아직 완전히 죽진 않은듯
+
 
 ### 599 Div2
 1. B - Character swap  

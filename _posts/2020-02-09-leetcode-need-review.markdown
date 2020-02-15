@@ -15,8 +15,40 @@ TODO: make a post on
 
 ### Google
 
+
+#### Search Autocomplete system (need review)
+<a href="https://leetcode.com/problems/design-search-autocomplete-system/" target="_blank">https://leetcode.com/problems/design-search-autocomplete-system/</a>
+- B형이랑 쪼까 비슷한듯
+- 연관문제도 풀어볼까
+- 제약조건이 좀 약하긴 함. 그래서 매 query마다 소팅을 하는데, 효율적으로 풀 수 없을까
+
+#### Valid square
+<a href="https://leetcode.com/problems/valid-square/" target="_blank">https://leetcode.com/problems/valid-square/</a>
+
+4개의 점이 주어졌을 시, 정사각형인가?
+* 첨에 회전을 생각안해서 함 틀림
+* 좌표가 같은지아닌지로 하려다 계속 틀려서, 벡터 + 내적 (90도 판별)로 풀음.
+* 말하면서 풀어야 하는데..넘모 귀찮은 것임
+
+#### Path with Maximum Gold
+<a href="https://leetcode.com/problems/valid-square/" target="_blank">https://leetcode.com/problems/valid-square/</a>
+
+
+2차원 grid에서, 재방문이 불가 & 0을 방문하지 못할 시, 모을 수 있는 가장 많은 값은? (방문시 값 get)
+* n, m이 해봐야 15, 논제로 아이템이 25개가 맥시멈 -> 완탐
+* dp도 되지 않을까? 논제로 아이템 25개에 대한 상태공간 (25bit)만...안되겠네
+
+#### Split Array Largest Sum
+<a href="https://leetcode.com/problems/split-array-largest-sum/" target="_blank">https://leetcode.com/problems/split-array-largest-sum/</a>
+
+
+* 배열을 m개의 non-empty subarray로 나눔.
+* 각 subary의 합의 최대를 x라 하면, 최소의 x는?
+* x를 픽스했을 시 각 trial을 만들기 쉽고, 범위가 정해져 있음 (0~원래 array의 합)
+  * 이분탐색
+
 #### https://leetcode.com/problems/shortest-way-to-form-string/ (review)
-<a href="https://leetcode.com/problems/shortest-way-to-form-string/" target="_blank">https://leetcode.com/problems/shortest-way-to-form-string/</a>
+<a href="https://leetcode.com/problems/path-with-maximum-gold/" target="_blank">https://leetcode.com/problems/path-with-maximum-gold/</a>
 
 1. 그리디함 증명
 2. next table - 뒤부터 iter돌면서 만듬
