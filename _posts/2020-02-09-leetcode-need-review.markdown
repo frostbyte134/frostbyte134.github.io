@@ -12,9 +12,99 @@ solve the problem while explain it to yourself, and write examples (must!)
 TODO: make a post on
 * https://www.educative.io/courses/grokking-the-system-design-interview
 
+#### Minimum Swaps To Make Sequences Increasing
+- <a href="https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing/" target="_blank">https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing/</a>
+- 미디엄이라 쉽게 보고 O(N^2) dp로 풀음
+- O(N) 풀이가 존재하네....? 다시 풀어봅시다
+
+#### Longest Increasing Path in a Matrix
+- <a href="https://leetcode.com/problems/longest-increasing-path-in-a-matrix/" target="_blank">https://leetcode.com/problems/longest-increasing-path-in-a-matrix/</a>
+- 하드인데 쉬웠음. 보드에서의 increasing path이므로, 왔던 곳으로 다시 못 감 - cache 이용가능 
+
+#### Shortest Subarray with Sum at Least K
+- <a href="https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/" target="_blank">https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/</a>
+- 못풀고 답 봤다. 디큐문제는 항상 어렵네...다시 풀어보자
+
+#### Minimum Area Rectangle
+- <a href="https://leetcode.com/problems/minimum-area-rectangle/" target="_blank">Minimum Area Rectangle</a>
+- 쉬운 문제고 어렵지 않게 풀긴 했는데, 검사조건을 명확하게 도출하지 못함. 다시 해보자.
+
 
 ### Google
+Google Interview Experience
+I think now it's my turn of giving back to the community. I had been recently interviewed at Google, unfortunately couldn't clear it.
 
+Phone Screen:
+
+Problem : Variation of the Course scheduled problem, Given the dependency of the courses, if a course A is prerequisite for course B then course A must be completed in some semester before the semester in which course B is completed, find the minimum no. of semesters required to complete all the courses.
+
+I could solve this problem and then I was invited for the onsite to Google's Hyderabad office. In Hyderabad office, there were five back to back coding rounds and no G & L round.
+
+Round - 1 :
+
+Problem - 1:
+You have a machine with one core and you are given start time and end time of the programs, check whether new program can be scheduled or not. You are basically given query describing schedule of the new program i.e, [s, e] s and e are the start and end time of the new program, return true if it can be scheduled, false otherwise.
+
+Follow-up:
+Your are given machine with 4 cores (4 programs can run simultaneously) check whether new program can be added or not.
+
+Firstly I gave the brute force solution(O(N)) then I suggested then optimized solution using binary search** O(Log N)**.
+
+Ran out of time for the follow up question, so I could solve this partially.
+
+Round - 2
+Problem - 1:
+Given an array and an integer K, find the length of longest subarray that has sum less than or equal to K.
+
+First gave O(N2) solution, then gave O(N) solution using sliding window.
+
+Follow-up:
+Given a matrix of M * N find the size of the biggest square that has sum less than or equal to K.
+
+First gave brute force solution, then optimzed one using DP.
+
+Problem - 2:
+Find the length of longest AP sequence which is there in the tree.
+
+Couldn't solve this one, ran out of time.
+
+Round - 3
+
+Problem - 1:
+You are given D units of data that needs to be transferred over the network and packet size K, find minimum no of packets required to transfer all the data.
+
+This was a no brainer, I think this was the warmup problem.
+
+Follow up:
+Distribute data in each packet such that difference between data in any two packets should be minimum.
+
+Round - 4:
+
+Given an array of integers that is already sorted based on first 28 bits, solve the array by all the bits.
+
+Couldn't solve this problem
+
+Round - 5:
+
+Problem - 1:
+
+Given a binary locking system, you are also given initial and final state of the lock and all the states that are safe.
+
+From one state you can go to another state by flipping one bit at a time and the new generated state should be same.
+
+You need to check whether you can unlock the given binary lock or not.
+
+Follow Up:
+Later he limited the size of safe states to 100 and asked me to optimize.
+
+First I gave the DFS solution, later optimized using DSU. couldn't derive time complexity for this solution.
+
+Lessons Learned
+
+Focus on speed, take the timed contests when you are preparing.
+Do not take more than 2-3 minutes to discuss brute force solution.
+If you already know the solution, immediately after brute force jump to it, don't waste time in discussing two three alternative approaches.
+Many of you may not agree with the third point, but the thing is that when you are interviewing with google, each round last for exactly 45 mins and you are expected to write the complete code.
 
 #### Search Autocomplete system (need review)
 <a href="https://leetcode.com/problems/design-search-autocomplete-system/" target="_blank">https://leetcode.com/problems/design-search-autocomplete-system/</a>
