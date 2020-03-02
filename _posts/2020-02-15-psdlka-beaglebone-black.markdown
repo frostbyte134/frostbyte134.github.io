@@ -79,3 +79,7 @@ run pdk_path / pdkProjectCreate.sh (source pdksetupenv.sh first) to generate exa
 - https://processors.wiki.ti.com/index.php/SYS/BIOS_FAQs
 - build outside CCS
 
+
+
+### QNX
+- http://community.qnx.com/sf/wiki/do/viewPage/projects.bsp/wiki/TiAm335Beaglebone

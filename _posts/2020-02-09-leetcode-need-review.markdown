@@ -12,6 +12,40 @@ solve the problem while explain it to yourself, and write examples (must!)
 TODO: make a post on
 * https://www.educative.io/courses/grokking-the-system-design-interview
 
+
+#### Minimum Swaps to make subsequences increasing
+* <a href="https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing/" target="_blank">https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing/</a>
+* 일단 O(N * range(val))dp로 풀음
+* <details>
+   <summary>다시 풀어 보기</summary> O(N) dp로 가능. swap[i] = i번째 스왑이 일어났다는 가정 하에, 필요한 최소의 스왑 / notswap[i] = i번째 스왑이 일어나지 않았다는 가정 하에, 필요한 최소의 스왑. 밑에번부터 어떻게 채울지 생각하면 풀린다. 
+   </details>
+
+#### Split Array into Consecutive Subsequences
+* <a href="https://leetcode.com/problems/split-array-into-consecutive-subsequences/" target="_blank">https://leetcode.com/problems/split-array-into-consecutive-subsequences/</a>
+* 무식하게 풀었던 거 같음. 구현연습에 좋은듯.
+* 아니면 각 숫자별로 count 샌 다음에 없애면서 나가도 되지 않나?
+* <details>
+   <summary>다시 풀어 보기</summary> 그리디하게 가능. 작은 숫자부터, 1. 이 숫자가 기존 list의 맨 뒤에 붙거나, 2. 그 숫자로부터 이어지는 숫자 2개가 더 있어야 함. 그리디네...
+   </details>
+
+#### Minimum Window Subsequence
+* <a href="https://leetcode.com/problems/minimum-window-subsequence/" target="_blank">https://leetcode.com/problems/minimum-window-subsequence/</a>
+* 몇시간 삽질해서 dp로 풀긴 함. dp 식이나 다시 세워보자
+* 난 O(NM) dp로 풀었는데 더 효율적으로 푸는 dp가 있다네. 그럴 꺼 같긴 했는데...
+
+#### Optimal Account Balancing
+* <a href="https://leetcode.com/problems/optimal-account-balancing/" target="_blank">https://leetcode.com/problems/optimal-account-balancing/</a>
+* 다시
+
+#### Copy list with Random Pointer
+* 다시 풀 필요는 없고, 생각정도는 해볼 만 함
+* linked list를 deep copy할 시, random pointer도 갖고 있으면 이건 어떻게 deep copy에 반영하나?
+* 일단 풀기는 python으로, `dic[node]=len(lis)` 를 통해 주소를 넣으면 index를 주는 dic만들어 풀음
+* 이게 결국, 주소를 받았을 때 이 주소가 몇 번째 아이템인지 (내지는 deep copy된 배열의 corresponding item의 주소를) 받을 수 있어야 함.
+* C++이면 어캐해야 하나. 지금 생각나는 건, 결국 포인터도 정수이므로 pair{pointer, index}를 만들고 정렬시킨 후 pointer를 받으면 binary search 로 찾으면 될듯.
+* Damn! give this guy a Novel prize! https://raw.githubusercontent.com/hot13399/leetcode-graphic-answer/master/138.%20Copy%20List%20with%20Random%20Pointer.jpg
+* 에전에 K사 면접문제. 끝을 모르는 링크드 리스트에서 뒤에서 K번째를 찾을 때 그 느낌하고 비슷한가 했는데 비슷하진 않네
+
 #### Minimum Swaps To Make Sequences Increasing
 - <a href="https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing/" target="_blank">https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing/</a>
 - 미디엄이라 쉽게 보고 O(N^2) dp로 풀음
@@ -24,14 +58,15 @@ TODO: make a post on
 #### Shortest Subarray with Sum at Least K
 - <a href="https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/" target="_blank">https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/</a>
 - 못풀고 답 봤다. 디큐문제는 항상 어렵네...다시 풀어보자
+- 다시 풀었는데도 못풀었다. 디큐보다는 그리디네. 는 디큐 안쓰면 TLE나구요.
 
 #### Minimum Area Rectangle
 - <a href="https://leetcode.com/problems/minimum-area-rectangle/" target="_blank">Minimum Area Rectangle</a>
-- 쉬운 문제고 어렵지 않게 풀긴 했는데, 검사조건을 명확하게 도출하지 못함. 다시 해보자.
+- 쉬운 문제고 어렵지 않게 풀긴 했는데, 검사조건을 명확하게 도출하지 못함. 다시 해보자. 다시 했음. 이전문제는 좀 naive하게 풀었던거 같음.
 
 
 ### Google
-Google Interview Experience
+#### Google Interview Experience
 I think now it's my turn of giving back to the community. I had been recently interviewed at Google, unfortunately couldn't clear it.
 
 Phone Screen:
@@ -105,6 +140,98 @@ Focus on speed, take the timed contests when you are preparing.
 Do not take more than 2-3 minutes to discuss brute force solution.
 If you already know the solution, immediately after brute force jump to it, don't waste time in discussing two three alternative approaches.
 Many of you may not agree with the third point, but the thing is that when you are interviewing with google, each round last for exactly 45 mins and you are expected to write the complete code.
+
+#### Google 2
+I think it's my turn to give back to the wonderful leetcode community. I recently received an offer from Google. Following is my experience.
+
+Journey
+
+I have about 3.5 years of experience working as a Software Engineer. I actively started looking for Job 4 months back wherein I interviewed for Facebook and Google. I got rejected in onsite interviews of Facebook. I have solved around 110 questions on leetcode around 32 Easy 60 Medium and 20 Hard. I have found difficult implementing Hard level leetcode questions (to this date I still do).I didn't want to loose out on any of my options hence I purchased Leetcode premium which was definitely helpful for Facebook's preparation(All the questions I received in my phone screen and onsite were already part of Premium problems)although not that helpful for Google. I tried to solve problems on codeforces and topcoder back during my college days and was on and off with leetcode during past couple of months. In retrospect I should have tried to implement more problems on Leetcode as I have been scared of problems which involve heavy implementation :(
+
+I had already interviewed with Google around 2 years back which went very bad according to the recruiter neverthless I was given one more shot.I thought I would share my Interview experience with Leetcode community below post summarises my Interview experience.
+
+Interview Experience
+
+Phone Screen (45 Minutes)
+
+It was fairly easy question involving priority queue. I had already seen some similar questions hence wasn't difficult for me to come up with approach. The interviewer was happy with the approach and asked me to code it up which I did. Afterwards the interviewer found some syntatical errors in my code which I corrected immediately (nothing logical). I thought I did good.
+
+The recruiter followed up and said the feedback was quite positive and I will move to onsite. She told me that there will be 3 Algo/DS round with 1 Algorithm Design round and 1 behavioural round. I scheduled my onsite after approximately 30 days of my phone screen.
+
+**Onsite Interviews **
+
+Round 1 (Googlyness)
+
+I think the focus of this round is to eliminate false positives. I made sure to give examples for most of the questions. In retrospect I think this round went well although you can never tell :) .
+
+Round 2 (Technical)
+
+It was fairly easy question on rectangles. I made sure to ask some clarifying questions which helped me narrow down my approach. I could come up with n^2 solution in no time (which i think was the best possible approach). I coded the solution but the interviewer found 1 very small logical bug which I found and corrected. After which there was a follow up question for which I gave couple of different solutions although I am not sure if the interviewer was looking for some thing else. In retropspect I think this round was meh meh.
+
+Round 3 (Technical)
+
+I bombed this interview. It was so bad that after 25 minutes the interviewer gave up and asked me to code it up(I guess he wasn't even looking at the solution). The Question involved thinking along lines of Dp (2D dp Specifically). I was able to figure out the states quite early but it was the transition between the states which I had problem with. In retrospect this round was very bad. If I get denied it will be most certainly because of this round.
+
+Round 4 (Algorithm Design)
+
+The problem statement was quite easy to comprehend although I had to make sure what tradeoffs have to be considered before presenting an optimal solution and refining it further. After I clarified everything I made sure to put a brute force solution and then afterwards an optimal approach using Stacks. The interviewer asked me to code it up which I did. The interviewer looked happy with my code and no modifications was required in the code. The key in this round is to balance thinking part with coding part. In retrospect I think I did well in this round
+
+Round 5 (Technical)
+
+This was my best round. The problem statement was an easy graph problem which I recognized and gave the interviewer the most optimal solution. The interviewer seemed happy with my approach and I coded up instantly in C++. We still had around 15 mins left so there was a follow up question which I was able to explain but there wasn't any coding part involved. In retrospect I think I aced this round.
+
+Post Interview
+
+After 1 week the recruiter reached to me telling that my feedback was tending positive although it's mixed. I was well aware that this was bound to happen. I also have to talk to Managers from different teams this week for Team matching(although I am not sure if this will help Hiring Committee or not). Fingers crossed 🤞. I think I have like 20% chance since I completely bombed one of my interviews. What do you guys think ?
+
+#### Amazon - India
+Getting help from the Leetcode community for a long time. I just wanted to give something back as well. :)
+I gave an amazon interview last week and wanted to share my experience. I had given an online test prior to the onsites some time back but i do not remember the questions that well. Two weeks later, I was asked to come for onsites.
+Pointers before discussing about onsites questions:
+
+Every round was a coding round alongside LP round.
+The rounds also consisted of a few questions asked in relation to core subjects like Operating Systems, DBMS, Networks etc.
+Each round had atleast two coding questions asked.
+Each round went on for atleast an hour in my case
+Round 1: I was asked two questions. Both being from leetcode and of medium difficulty. Topics begin Trees and Arrays.
+
+Given a binary tree and a sum. Find if there exists a path from root to leaf with sum of node values to be equal to the target value given.- https://leetcode.com/problems/path-sum/
+I was able to come up with an O(n) solution and was able to code up pretty fast.
+Trapping rainwater problem-https://leetcode.com/problems/trapping-rain-water/
+This is a pretty well known problem and I did remember it doing a long time back. I had a discussion with the interviewer and was able to come up with an O(n) time and space solution. We went further discussing on STLs in C++ and couple of other topics.
+Apart from this there was a resume discussion and couple of LP questions as well.
+Round 2: Questions again were from leetcode. The topics asked were from stacks and heaps.
+
+Given a stream of integers, find the median of numbers at any point.
+I had never seen this question before hand, but first come up with a brute-force approach, but with a couple of hints from the interviewer I came up with a heap solution there. Later saw that this question is pretty well known leetcode-hard question.
+https://leetcode.com/problems/find-median-from-data-stream/
+Perform Push, Pop and Get_Min in O(1) complexity.
+This question was easy and I had a good discussion with the interviewer about different approaches.
+Here I was asked questions from OOPS and Networking. I was able to answer question from OOPS but unable to answer the questions from networking.
+Round 3: I was asked three questions in this round. I was asked mostly DP and one Heap question in this round.
+
+The question was given s1, s2, s3, find whether s3 is formed by the interleaving of s1 and s2.
+I had never seen this question before and DP being a weak spot for me, I was unable to come up with a DP solution of this problem. I gave a recursive approach but was unable to further optimise it. Later found out that this question was available on leetcode as well.
+https://leetcode.com/problems/interleaving-string/
+The next question was again from DP, and I had seen the question before. The question was Decode Ways-https://leetcode.com/problems/decode-ways/
+I was able to come up with both a tabularised and a recursive approach for this problem. I had a good amount of discussion with the interviewer on this question.
+Later on, I was asked the question on K-frequent words from a stream of words incoming. I was able to come up with a brute force solution and then the interviewer asked me to code it up. Post that we had a discussion on everything in relation to designing of the hashmap and priority queues which was in relation to the question.
+The interviewer also asked a couple of DBMS questions like ACID properties and some SQL queries.
+Round 4: This was the last round. I was asked two questions here. I bombed this interview pretty badly, even though I was able to code it up but I took a lot of time even though the questions weren't that tough.
+
+I was asked a couple of LP questions and things from my resume. Even though I was able to answer LP questions comfortably, I had not revised my resume projects that thoroughly and the interviewer went in depth analysis of my projects where I was unable to answer a couple of questions mainly because I hadn't revised.
+It was a graph problem to be done using minheaps. I coded up that solution pretty fast. We had a discussion on minheaps and I was asked to write a code for minheap extraction which was the part where I made a mistake. I got confused in one point and I took a lot of time thinking and kept getting confused further. After sometime, the interviewer started getting slighly frustrated gave me a hint from which I was able to code up the question. I got so nervous and then gave the incorrect complexity analysis of it.
+The second question was Word ladder - https://leetcode.com/problems/word-ladder/
+I gave the brute force analysis and since I was nervous from the prior mistake I ended up again giving incorrect time complexity analysis. The interviewer helped me a bit further and I was able to come up with a optimised solution but since I had already taken a lot of time, I was unable to code that up.
+Mistakes that I actually learnt from after giving the inteviews:
+
+Revise everything on your resume that you think can be asked from you. Getting rejected just because you weren't able to answer something you had done a long time back sucks badly.
+Even if you have made mistakes in one round or asked too many hints don't let that boggle you down. Consider every question a new opportunity in that interview irrespective of how the previous one went.
+Get your time complexity analysis right. I realised that this concept still is an extremly weak portion of mine.
+Interviews are luck based, but the only thing you can do is give your best shot so that you never have regret of not trying.
+Rejections happen all the time and I'm pretty sure everyone here must have faced that atleast once. Just take it as a learning experience and move forward. Maybe that company wasn't for you right now, but that doesn't mean it will never be in the future.
+I hope this experience is helpful to anyone who is trying in Amazon and I hope you do get in. All the best :)
+
 
 #### Search Autocomplete system (need review)
 <a href="https://leetcode.com/problems/design-search-autocomplete-system/" target="_blank">https://leetcode.com/problems/design-search-autocomplete-system/</a>
