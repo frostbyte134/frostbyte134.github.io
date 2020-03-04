@@ -11,6 +11,40 @@ tags: coding C
 * `Jacinto 7` - <a href="https://training.ti.com/kr/jacinto7?context=1140070" target="_blank">https://training.ti.com/kr/jacinto7?context=1140070</a> (overall)
 * Download Processor SDK Automotive for Jacinto 7 processors: http://www.ti.com/tool/PROCESSOR-SDK-DRA8X-TDA4X
 
+
+### J721e SOC
+
+#### Terminology
+* `DMSC`: <a href="https://e2e.ti.com/support/processors/f/791/t/872281?-FAQ-What-is-DMSC-and-System-Firmware-and-how-does-my-software-depend-on-it-" target="_b;lank">Device Management and Security Control (DMSC) subsystem</a> performs centralized boot, power, security, and resource mgmt.
+* `System firmware` (same link above): System Firmware implements the Texas Instruments System Control Interface (`TISCI`) which client software can use to request various services related to device power, resources, and security functions.
+* `PDK`: TI’s bare-metal bootloader, system firmware binaries, interprocessor communication library, and various peripheral drivers are included as part of the `PDK` (Platform Development Kit) + HWA, DMA, .... <a href="http://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/latest/exports/docs/pdk/docs/pdk_introduction.html#Trainings" target="_blank">(link)</a> - has almost everything we need to know about LDC.  <a href="http://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/latest/exports/docs/pdk/docs/user_guide/html/group__DRV__LDC__MODULE.html" target="_blank">PDK LDC module</a>
+  
+
+#### Memory map
+* http://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/latest/exports/docs/psdk_rtos_auto/docs/user_guide/developer_notes_memory_map.html
+| CPU name in RTOS | CPU name in Linux |
+|-------|--------|---------|
+| mcu1_0 / mcu1_1 | mcu_r5fss0_core0 / mcu_r5fss0_core1 |
+| mcu2_0 / mcu2_1| main_r5fss0_core0 / main_r5fss0_core1 |
+| mcu3_0 / mcu3_1 | granny smith | main_r5fss1_core0 / main_r5fss1_core1 |
+| mpu1 | na |
+| c6x_1 | c66_0 |
+| c6x_2 | c66_1 |
+| c7x_1 | c71_0 |
+* `TODO`: find ppt about applying the memory map (for c7x)
+
+
+#### Scratch memory
+* https://processors.wiki.ti.com/images/0/04/DSKT2.pdf
+  * Algo authors can request memory as `scratch` or `persistent`
+    * `Persistent` : ownership of resource must persist during life of algo. Often an extensive resource (e.g. External RAM)
+    * `Scratch` : ownership or resource required only when algo is running. Usually a limited resource (e.g. Internal RAM)
+
+* Framework can assign a permanent resource to a Scratch request
+
+#### Adding Custom Kernels
+* <a href="http://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/latest/exports/docs/tiovx/docs/user_guide/TIOVX_TARGET_KERNEL.html#USER_KERNELS" target="_blank">http://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/latest/exports/docs/tiovx/docs/user_guide/TIOVX_TARGET_KERNEL.html#USER_KERNELS</a>
+
 ### TDA4VM
 
 * `TDA4VM` - <a href="https://www.ti.com/product/TDA4VM" target="_blank">https://www.ti.com/product/TDA4VM</a>
