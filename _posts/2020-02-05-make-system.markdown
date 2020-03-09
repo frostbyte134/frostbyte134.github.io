@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "MAKE wdfl"
+title:  "Make 정리"
 date:   2020-02-09 09:00:05 +0800
 categories: coding
 use_math: true
@@ -71,7 +71,7 @@ OBJS = $(SRCS:%.c=%.o)
 경험적으로 봤을 때도, 소스 코드 사이의 의존성 부분은 Makefile에서 빼는 게 좋더라는 겁니다  
 -include $(DEPEND_FILE)
 
-이거 왜 이러세요, 코드 중복보다 더 무서운게 소스 파일의 중복이란 것쯤은 다 아시잖아요…그 보다는 MyClient로부터 각 테스트에 공통으로 사용되는 부분을 분리해서 하나의 라이브러리로 만들면 어떨까요? 
+이거 왜 이러세요, __코드 중복보다 더 무서운게 소스 파일의 중복__이란 것쯤은 다 아시잖아요…그 보다는 MyClient로부터 각 테스트에 공통으로 사용되는 부분을 분리해서 하나의 라이브러리로 만들면 어떨까요? 
 
 
 
@@ -95,14 +95,6 @@ make는 크게 2개의 단계로 Makefile을 읽어 들입니다. 첫 번째 단
 @echo "================================================"
 
 
-2
-3
-4
-5
-6
-7
-8
-	
 MKDIR = mkdir
 ...
 $(OBJS_DIR)/%.o : %.c
@@ -113,3 +105,185 @@ $(OBJS_DIR)/%.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 why we add `$(OBJS_DIR)/%.o : %.c` -  In default, Makefile can only handle `$(name).o : $(name).c`, not `src/$(name).o : $(name).c`
+
+
+```make
+# Makefile template
+ 
+include $(PROJ_ROOT)/IncludePre.mk
+ 
+# 서브 디렉토리 목록입니다. 
+SUB_DIRS = # 
+ 
+# 링킹할 때 사용되는 링커 이름입니다.
+LIB_NAME = # Example
+ 
+# 공유 라이브러리 여부를 나타냅니다. (IS_SHARED = 1 이면 공유 라이브러리)
+IS_SHARED = # 1
+# 공유 라이브러리 버전입니다. \
+	soname은 lib$(LIB_NAME).so.$(MAJOR_VERSION) 으로 지정됩니다. \
+	실제이름은 lib$(LIB_NAME).so.$(MAJOR_VERSION).$(MINOR_VERSION) 으로 지정됩니다.
+MAJOR_VERSION = # 1
+MINOR_VERSION = # 0
+ 
+# 라이브러리 소스 파일들의 목록입니다.
+LIB_SRCS = # LibSource1.c LibSource2.c ...
+ 
+# 라이브러리를 사용하는 실행 파일들의 소스 파일 목록입니다.
+TARGET_SRCS = # TargetBin1.c TargetBin2.c ...
+ 
+# 의존성 규칙에 포함시킬 라이브러리 목록입니다.
+DEPEND_LIBS = # -lLibrary1 -lLibrary2
+ 
+# 외부 시스템 라이브러리 목록입니다.
+LIBS += # -lExtLibrary1 -lExtLibrary2
+ 
+include $(PROJ_ROOT)/IncludePost.mk
+```
+
+```make
+# IncludePre.mk
+ 
+CC = gcc
+AR = ar
+RANLIB = ranlib
+RM = rm
+MV = mv
+MKDIR = mkdir
+MAKE = make
+LN = ln
+STRIP = strip
+ 
+ROOT_SRC_DIR = $(PROJ_ROOT)/Source
+ROOT_OUT_DIR = $(PROJ_ROOT)/Out
+ROOT_LIB_DIR = $(ROOT_OUT_DIR)/Library
+ 
+INC_DIRS = -I$(PROJ_ROOT)/Include
+ 
+ifeq ($(RELEASE), 1)
+OBJS_DIR = Release
+DBG_FLAGS = -O2 -DNDEBUG
+else
+OBJS_DIR = Debug
+DBG_FLAGS = -g -O0 -DDEBUG
+endif
+ 
+DEPEND_FILE = $(OBJS_DIR)/depend_file
+ 
+LIB_DIRS = -L$(ROOT_LIB_DIR)/$(OBJS_DIR)
+```
+
+```make
+# IncludePost.mk
+ 
+ifeq ($(IS_SHARED),1)
+SHARED_FLAGS = -fPIC
+SHARED_SO_NAME = lib$(LIB_NAME).so.$(MAJOR_VERSION)
+SHARED_REAL_NAME = $(SHARED_SO_NAME).$(MINOR_VERSION)
+LIB_FULL_NAME = $(ROOT_LIB_DIR)/$(OBJS_DIR)/$(SHARED_REAL_NAME)
+else
+LIB_FULL_NAME = $(ROOT_LIB_DIR)/$(OBJS_DIR)/lib$(LIB_NAME).a
+endif
+ 
+LIB_OBJS = $(LIB_SRCS:%.c=$(OBJS_DIR)/%.o)
+ 
+ALL_LIBS = -l$(LIB_NAME) $(DEPEND_LIBS) $(LIBS)
+ 
+TARGET_OBJS = $(TARGET_SRCS:%.c=$(OBJS_DIR)/%.o)
+TARGET_NAMES = $(TARGET_SRCS:%.c=$(OBJS_DIR)/%)
+ 
+.SUFFIXES : .c .o
+ 
+all : lib subdirs targets
+ 
+subdirs : 
+	@for dir in $(SUB_DIRS); do \
+		$(MAKE) -C $$dir all; \
+		if [ $$? != 0 ]; then exit 1; fi; \
+	done
+ 
+lib : $(LIB_FULL_NAME)
+ 
+liball : $(LIB_FULL_NAME) 
+	@for dir in $(SUB_DIRS); do \
+		$(MAKE) -C $$dir liball; \
+		if [ $$? != 0 ]; then exit 1; fi; \
+	done
+ 
+targets : $(TARGET_NAMES)
+ 
+$(LIB_FULL_NAME) : $(LIB_OBJS)
+	@`[ -d $(ROOT_LIB_DIR)/$(OBJS_DIR) ] || $(MKDIR) -p $(ROOT_LIB_DIR)/$(OBJS_DIR)`
+ifeq ($(IS_SHARED),1)
+	$(CC) -shared -Wl,-soname,$(SHARED_SO_NAME) -o $@ $(LIB_OBJS)
+	$(LN) -fs $(SHARED_REAL_NAME) $(SHARED_SO_NAME)
+	$(LN) -fs $(SHARED_SO_NAME) lib$(LIB_NAME).so
+	$(MV) $(SHARED_SO_NAME) lib$(LIB_NAME).so $(ROOT_LIB_DIR)/$(OBJS_DIR)/
+else
+	$(AR) rcv $@ $(LIB_OBJS)
+	$(RANLIB) $@
+endif
+ 
+$(OBJS_DIR)/%.o : %.c
+	@echo "==================================================="
+	@echo "= Compiling $@"
+	@echo "==================================================="
+	@`[ -d $(OBJS_DIR) ] || $(MKDIR) -p $(OBJS_DIR)`
+	$(if $(findstring $<, $(TARGET_SRCS)), \
+		$(CC) $(CFLAGS) $(DBG_FLAGS) $(INC_DIRS) -c $< -o $@, \
+		$(CC) $(CFLAGS) $(DBG_FLAGS) $(SHARED_FLAGS) $(INC_DIRS) -c $< -o $@)
+ 
+.SECONDEXPANSION:
+$(TARGET_NAMES): $$@.o
+	@echo "==================================================="
+	@echo "= Linking $@"
+	@echo "==================================================="
+ifeq ($(LIBS_CYCLING_DEPEND),1)
+	$(CC) -o $@ $< $(LIB_DIRS) -Wl,-\( $(ALL_LIBS) -Wl,-\)
+else
+	$(CC) -o $@ $< $(LIB_DIRS) $(ALL_LIBS)
+endif
+ 
+depend :
+	@`[ -d $(OBJS_DIR) ] || $(MKDIR) $(OBJS_DIR)`
+	@$(RM) -f $(DEPEND_FILE)
+	@for FILE in $(LIB_SRCS:%.c=%); do \
+		$(CC) -MM -MT $(OBJS_DIR)/$$FILE.o $$FILE.c $(CFLAGS) $(DBG_FLAGS) $(SHARED_FLAGS) $(INC_DIRS) >> $(DEPEND_FILE); \
+	done
+	@for FILE in $(TARGET_SRCS:%.c=%); do \
+		$(CC) -MM -MT $(OBJS_DIR)/$$FILE.o $$FILE.c $(CFLAGS) $(DBG_FLAGS) $(INC_DIRS) >> $(DEPEND_FILE); \
+	done
+ 
+dependall : depend
+	@for dir in $(SUB_DIRS); do \
+		$(MAKE) -C $$dir dependall; \
+		if [ $$? != 0 ]; then exit 1; fi; \
+	done
+ 
+clean :
+	$(RM) -fr $(OBJS_DIR) $(LIB_FULL_NAME)
+ifeq ($(IS_SHARED),1)
+	$(RM) -f $(ROOT_LIB_DIR)/$(OBJS_DIR)/lib$(LIB_NAME).so*
+endif
+ 
+cleanall : clean
+	@for dir in $(SUB_DIRS); do \
+		$(MAKE) -C $$dir cleanall; \
+		if [ $$? != 0 ]; then exit 1; fi; \
+	done
+ 
+$(TARGET_NAMES) : $(LIB_FULL_NAME) \
+	$(patsubst -l%, $(wildcard %.*), $(DEPEND_LIBS))
+ 
+ifneq ($(MAKECMDGOALS), clean)
+ifneq ($(MAKECMDGOALS), cleanall)
+ifneq ($(MAKECMDGOALS), depend)
+ifneq ($(MAKECMDGOALS), dependall)
+ifneq ($(strip $(LIB_SRCS) $(TARGET_SRCS)),)
+-include $(DEPEND_FILE)
+endif
+endif
+endif
+endif
+endif
+```

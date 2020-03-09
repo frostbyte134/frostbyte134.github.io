@@ -13,6 +13,16 @@ TODO: make a post on
 * https://www.educative.io/courses/grokking-the-system-design-interview
 
 
+### number of submatrices that sums to target (need review!!!)
+- 오우...<a href="https://leetcode.com/problems/number-of-submatrices-that-sum-to-target/" target="_blank">https://leetcode.com/problems/number-of-submatrices-that-sum-to-target/</a>
+- <details>
+   <summary>다시 풀어 보기</summary> 300^4이고 범위가 좁아서, 하나정도는 cache로 바꿔야 한다는 생각은 헀었는데 거기서 멈춤
+   </details>
+
+### delete nodes and return forest
+- <a href="https://leetcode.com/problems/delete-nodes-and-return-forest/" target="_blank">https://leetcode.com/problems/delete-nodes-and-return-forest</a>
+- 복습까진 필요없는 듯. 중복정보를 본인도 처리하고 자손도 중복으로 처리해서 느렸다. 자손에서 return으로 보내 줬으면 됐을 껄...이거 면접에서 이래 죽쓰면 풀긴 풀었는데 감점 엄청 당할듯.
+
 #### Minimum Swaps to make subsequences increasing
 * <a href="https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing/" target="_blank">https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing/</a>
 * 일단 O(N * range(val))dp로 풀음
