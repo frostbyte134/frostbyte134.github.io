@@ -13,11 +13,15 @@ TODO: make a post on
 * https://www.educative.io/courses/grokking-the-system-design-interview
 
 
-### number of submatrices that sums to target (need review!!!)
-- 오우...<a href="https://leetcode.com/problems/number-of-submatrices-that-sum-to-target/" target="_blank">https://leetcode.com/problems/number-of-submatrices-that-sum-to-target/</a>
-- <details>
-   <summary>다시 풀어 보기</summary> 300^4이고 범위가 좁아서, 하나정도는 cache로 바꿔야 한다는 생각은 헀었는데 거기서 멈춤
-   </details>
+### Hand of Straights	
+- consecutive한 그룹으로 숫자를 쪼개는 문제 (미디엄). counter 배열로 해결. 어서 풀어본 거 같은데..
+- 각 그룹이 conseq한 숫자들로 이루어져야 하기 떄문에 답이 있다면 구성이 deterministic함
+
+### Robot Room Cleaner
+- 재밌는 하드 문제였음
+- __범위가 주어지지 않은 보드판__을, 로봇이 front / left, right만 갈 수 있을 때 완전탐색하는 법
+- 상대좌표로 vis를 찍는 dfs. dfs이기 때문에, 돌아오는 연산도 구현해 줘야 함 (왼2, 전진, 다시 왼2). 안그럼 vis가 정확하지 않기 때문에 무한루프 돔. 
+
 
 ### delete nodes and return forest
 - <a href="https://leetcode.com/problems/delete-nodes-and-return-forest/" target="_blank">https://leetcode.com/problems/delete-nodes-and-return-forest</a>
