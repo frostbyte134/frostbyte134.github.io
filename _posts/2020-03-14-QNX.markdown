@@ -1,0 +1,136 @@
+---
+layout: post
+title:  "QNX"
+date:   2020-02-15 09:00:05 +0800
+categories: coding
+use_math: true
+tags: coding C
+---
+
+
+TODO: refering <a href="https://www.qnx.com/developers/docs/7.0.0/com.qnx.doc.neutrino.user_guide/topic/environment_PATH.html" target="_blank">https://www.qnx.com/developers/docs/7.0.0/com.qnx.doc.neutrino.user_guide/topic/environment_PATH.html</a>, set ld path of visionapps
+
+<a href="https://www.qnx.com/developers/docs/7.0.0/#com.qnx.doc.ide.userguide/topic/about.html" target="_blank">https://www.qnx.com/developers/docs/7.0.0/#com.qnx.doc.ide.userguide/topic/about.html</a>
+
+* `PIC`: position independent code
+* `proctno`: microkernel. process manager.
+
+### Boot
+
+`IPL`: Initial program loader  
+- configure the memory controller
+- loads the `IFS` (Image filesystem) into RAM
+- jumps to `IFS`
+
+`IFS`: Image filesystem  
+- startup program, kernel, boot script, device drivers
+
+#### Startup program
+- initialize system page, callouts
+- load and transfer control to the kernel (`procnto` or `procnto-smp` : QNX Neutrino microkernel and __process manager__ (QNX Neutrino))
+- `proctno` firstly performs script parts of OS image
+
+
+#### Build script
+
+As well as carefully setting the launch sequence, you should limit what the build script does because:
+* __The build script is included in the IFS__; everything that's added to it increases the size of the IFS, and, therefore, the time it takes to load.
+* The System Launch and Monitor (`SLM`) is more efficient at launching services, with the added benefit that it allows you to monitor and restart services as required.
+* Things you might want to load on boot script:  
+    - screen and camera services
+    - audio service and the early chime utility
+    - disk drivers (and then mount the disks)
+    - PPS service
+    - debugging utilities, such as `slogger2` and dumper
+    - BSP drivers, like the serial driver, realtime clock, and other hardware utilities
+    - `SLM` and the system debug console
+* <a href="https://www.qnx.com/developers/docs/7.0.0/index.html#com.qnx.doc.neutrino.building/topic/config/tcpip_example.html" target="_blank">buildfile network setting</a>
+* <a href="https://www.qnx.com/developers/docs/7.0.0/index.html#com.qnx.doc.neutrino.building/topic/config/shared_libraries.html" target="_blank">buildfile so setting</a>
+
+#### slogger2
+The system logger, which allows QNX components to report errors, is useful during development. However, your production systems may not have any way to access the errors reported. If so, you don't need slogger2 (or slog2info for that matter) in the final build. You can also remove slogger2 if you use your own logging subsystem.
+
+#### Startup optimization
+https://www.qnx.com/developers/docs/7.0.0/#./com.qnx.doc.neutrino.fastboot/topic/cscreen_optimize_screen_startup.html
+
+
+#### SLM
+* System Launch and Monitor (SLM)  
+The System Launch and Monitor (SLM) service can be used to complete the startup process after the startup code has finished and the OS kernel and procnto are running. If a component isn't required for the initial startup, you can take the component binary out of the IFS and manage its launch with the SLM. This approach allows you both reduce the size of the IFS, and make it easier to modifying your startup sequence.
+
+The SLM service can launch complex applications consisting of many processes that must be started in a specific order. It is controlled by a set of XML configuration files, so you can change the order in which components are started without modifying the startup scripts. For more information, see slm in the Utilities Reference).
+
+* <a href="https://www.qnx.com/developers/docs/7.0.0/#com.qnx.doc.neutrino.utilities/topic/s/slm.html" target="_blank">sample configuration</a>
+
+
+### Booting
+
+####T he linker file
+For both x86 and non-x86 boards, the file with the assembly code at the reset vector is specified in the linker file (e.g., qnx-x86.lnk or qnx-arm.lnk). For example, assuming that the QNX ARM Estragon board is 32-bit little endian, qnx-arm-board_name.lnk might begin as follows:
+
+```
+TARGET(elf32-littlearm)
+OUTPUT_FORMAT(elf32-littlearm)
+ENTRY(_start-arm-board_name)
+MEMORY
+{
+    stack_top      :    ORIGIN = 0x402f93FC,    LENGTH = 0x0
+    stack_space    :    ORIGIN = 0x402f7400,    LENGTH = 0x2000
+    ram            :    ORIGIN = 0x402f0400,    LENGTH = 0x7000
+
+    /* TLB table must be aligned to 16K (0x4000) */
+    tlb         :   ORIGIN = 0x40310000,    LENGTH = 0x4000
+
+    /* dedicated for non-cacheble buffer */
+    scratch     :   ORIGIN = 0x80000000,    LENGTH = 0x100000
+
+}
+
+SECTIONS
+{
+    .text : {
+            _start.o(.text)
+            *(.text)
+            ... 
+```
+
+#### Initializations
+The name of the first part of an ARM IPL usually begins with “init”. Written in assembly, it looks after hardware initialization. These tasks may include configuring the chip selects and/or the PCI controller, the clocks, and the memory controller; setting Power Management IC (PMIC (Power Management IC) voltage rails via I2C; setting some GPIO pins to control reset pins; and configuring a timer to accurately measure delays.
+
+When it completes its initializations and the system DRAM is available, the assembly portion of the IPL sets up a stack. The stack allows the second part of the IPL (the main.c function, written C language) to get, validate, and load the IFS.
+
+Depending on what the board firmware and the assembly portion of the IPL look after, the main() function may have to complete the initialization tasks the assembly portion of the IPL didn't complete. These initializatins can include anything from setting clocks to initializing the debug output. For example:
+
+
+#### Buildfile explanation
+https://www.qnx.com/developers/docs/7.0.0/#com.qnx.doc.neutrino.building/topic/buildfiles/buildfile_structure.html
+
+
+
+### shell
+* <a href="https://www.qnx.com/developers/docs/7.0.0/#com.qnx.doc.neutrino.user_guide/topic/cmdline_Utilities.html" target="_blank">https://www.qnx.com/developers/docs/7.0.0/#com.qnx.doc.neutrino.user_guide/topic/cmdline_Utilities.html</a>
+* <a href="https://www.qnx.com/developers/docs/7.0.0/#com.qnx.doc.neutrino.user_guide/topic/cmdline_BasicCommands.html" target="_blank">basic commands</a>
+* <a href="https://www.qnx.com/developers/docs/7.0.0/#com.qnx.doc.neutrino.user_guide/topic/environment_EnvironmentVars.html" target="_blank">Env vars</a>
+
+history : rc, up/down arrow
+
+[ ]  
+- The enclosed item is optional.
+|  
+- You can use only one of the items (e.g., -a|-f).
+
+
+
+### performance
+* <a href="https://www.qnx.com/developers/docs/7.0.0/#com.qnx.doc.neutrino.user_guide/topic/fine_tuning_Performance.html" target="_blank">fine-tuning</a>
+* <a href="https://www.qnx.com/developers/docs/7.0.0/#com.qnx.doc.neutrino.user_guide/topic/limits.html" target="_blank">system limits</a>
+
+
+### Resource management
+* <a href="https://www.qnx.com/developers/docs/7.0.0/com.qnx.doc.neutrino.lib_ref/topic/d/devctl.html" target="_blank">devctl</https://www.qnx.com/developers/docs/7.0.0/com.qnx.doc.neutrino.lib_ref/topic/d/devctl.html>
+* <a href="https://www.qnx.com/developers/docs/7.0.0/#com.qnx.doc.neutrino.sys_arch/topic/resource.html" target="_blank">Resource manager</a>
+
+
+### Programming
+* <a href="https://www.qnx.com/developers/docs/7.0.0/#com.qnx.doc.neutrino.prog/topic/about.html" target="_blank">https://www.qnx.com/developers/docs/7.0.0/#com.qnx.doc.neutrino.prog/topic/about.html</a>
+

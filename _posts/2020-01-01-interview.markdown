@@ -7,7 +7,328 @@ use_math: true
 tags: coding
 ---
 
+### GOogle and amazon
+<a href="https://leetcode.com/discuss/compensation/544859/google-l4-amazon-l5-seattle-jan-2020" target="_blank">https://leetcode.com/discuss/compensation/544859/google-l4-amazon-l5-seattle-jan-2020</a>
+Overview
+I was luckily contacted by two sources from both Google and Amazon in October of 2019. I ended up getting offers from both companies.
+
+Experience
+4 Years of Experience (Another top tech company)
+BS Computer Engineering
+
+Preperation
+Non-LeetCode
+
+I read the entire Cracking the Coding Interview and looked over the solutions to every problem.
+Memorized and watched all design questions on HackerRank Youtube Channel which is produced by the same author as cracking the coding interview. Specifically, memorize Hashtable, DFS, BFS, Binary Search, MergeSort, BubbleSort, Linked List ... basically everything.
+Watched some videos from Clément Mihailescu but directed more towards College Students.
+Videos from TechLead
+System design videos all over youtube
+Example coding interviews on youtube (but most of them were on the easier side and really just as analysis of what kinds of follow up questions to do and how to talk through problems)
+LeetCode
+I purchased premium (do it) and looked over/solved all the questions common to both Amazon and Google. Other problems I did I sorted by frequency. If I found a problem that I could come up with the answer to in a minute, I skipped it and went to the next problem.
+11 Easy, 18 Medium, 7 Hard (like 60+ almost-solved, didn't waste time with small bugs)
+4 practice interviews
+
+Interviews
+
+Google
+Onsite:
+
+Given nodes, tell if they connect Quora
+Snapshot Array
+Binary Search Question Something Like this but a little more complex
+Design a rubiks cube (open ended)
+Behavioral (How do you prioritize, when did you lead something, etc.)
+Amazon
+Online Screen:
+
+Number of Islands
+Something like Find all anagrams in a string
+Onsite:
+
+Given edges, create a tree and validate (Similar: Graph Valid Tree)
+Behavioral (But every interview had 30 minutes of behavioral)
+Design Question: Design subscribe and save
+Is linked list a palindrome, solve O(n) constant memory (Palindrome Linked List)
+Design a command line system (looking for use of interfaces, inheritence, extensibility)
+Offers
+
+Google
+Salary: 150K
+Sign-on: 30K
+Stocks: 300K
+Bonus: 15% Salary (24K)
+TC ~280K
+
+Amazon
+Salary: 150K
+Sign-on: 120K first year, 80K second year
+Stock: 180K (5%->15%->40%->40%)
+TC ~280K
+
+Was very happy with the process and ended up picking Google for benefits reasons (401K match is greater, free food, etc) and had other co-workers around the team I would be working on.
+
+Hopefully some of this insight helps and helps others negotiate and land a job at one of these tech companies :)
+
+
+### Google and amazon
+
+<a href="https://leetcode.com/discuss/compensation/544859/google-l4-amazon-l5-seattle-jan-2020" target="_blank">https://leetcode.com/discuss/compensation/544859/google-l4-amazon-l5-seattle-jan-2020</a>
+
+Status: Entry Level Software Engineer at a public company, BS in CS at an unknown university in the U.S.
+Position: Level 3 Software Engineer at Google and Level 4 at Amazon (both entry level)
+Location: Mountain View, CA for Google and Seattle, WA for Amazon
+Date: Feb 25th for Google and March 2nd for Amazon
+
+How I got my resume picked up and got an interview?
+I graduated in 2018 from college and applied to 40+ companies, including Google. All applications were done online. Luckily, a Technical Sourcer from Google sent me an email the same day (This almost never happens, please do not apply online, I'll tell you how else to do it).
+
+However, my current company made me an exciting offer even before I scheduled my technical phone screen with Google, and they gave me 72 hours to make a decision. I had no choice but to take the offer and email the Sourcer at Google, telling her that I'm gonna have to bail on the Google opportunity.
+
+I kept her on my contact list and contacted her in January of this year, asking if there's any openings.
+
+And for Amazon, I got an employee referral.
+
+Advice on how to get an interview
+Do not apply online, talk to a recruiter directly or ask for an employee referral. Don't know anyone working at FAANG? Me neither! What did I do to get a referral from Amazon? I have been adding a few people on LinkedIn everyday since graduation! I now have close to 2,000 connections. Every time I want to apply for a job, I have like 8 - 15 connections who work at that company. I simply message all of them to kindly ask for a referral. Do the same!!!
+
+Technical phone screen with Google (45 mins):
+Conducted on Jan 29th. Very standard string manipulation question, easy/medium on LeetCode. A related question that I can think of would be https://leetcode.com/problems/longest-substring-without-repeating-characters/. Everything went smoothly, I knew I was going to get an onsite interview after this one.
+
+Got a response from my recruiter on Feb 4th, telling me that they were moving forward to an onsite.
+
+Technical phone screen with Amazon (1 hour):
+Conducted on Feb 10th. First 15 mins were all behavioral questions. Simply google "Top Amazon Behavioral Questions" and prepare for like 25 of them. It is much easier to prepare for BQ than for algorithm or system design questions.
+
+Next 20 mins was a system design question. I had NEVER prepared for system design questions and I didn't know how to answer a system design question. I won't share too much with you about this, because I knew I messed up the second he asked me that question. I still got an onsite interview probably for 2 reasons: First, I'm just entry level, second, I did well in the algorithm question.
+
+Next 20 mins was an algorithm question. Medium level question, a related question on LeetCode would be https://leetcode.com/problems/k-closest-points-to-origin/.
+
+Got a response from my recruiter on Feb 12th, telling me that they were moving forward to an onsite.
+
+Onsite Interview with Google
+Conducted on Feb 25th at Google Mountain View. 10 AM - 3 PM.
+
+10:00 - 10:45. A fairly simple BFS question. A related LeetCode question would be https://leetcode.com/problems/number-of-islands/. Didn't need a hint, performed well.
+10:45 - 11:30. Medium level question. Cannot find any related questions on LeetCode, but it involved recursion memoization and string manipulation. Didn't need a hint solving the question itself, but doing Time/Space complexity analysis was a bit tricky for me, I had to get a hint. But overall, performed well.
+11:30 - 12:15. Medium level question, involves sorting. Related questions on LeetCode would be https://leetcode.com/problems/meeting-rooms-ii/. Didn't perform well at all. Interviewer was late due to a metting, she got there almost 10 mins late. The worst part is, I knew how to do it, because I had seen similar questions on LeetCode. However, the interviewer didn't seem to understand what I was talking about. I didn't even ask for a hint, but she gave me one, implying that I should do it her way, instead of my way. I know I probably should've listened to her, but I already had a solution in mind, and by the time she gave me that hint, we only had about 20 mins left. I did it my way in the end anyway and she was completely silent in the last 5 mins or so. I felt horrible after this round.
+12:15 - 13:15. Lunch interview.
+13:15 - 14:00. Hard level question. Related question on LeetCode would be https://leetcode.com/problems/student-attendance-record-ii/. I proposed a brute force solution, even that solution took me about 20 mins to think & write. Was asked to optimize, had to take two hints before I could solve it. Felt OK considering I did have both brute force solution & an optimized solution.
+14:15 - 15:00. Behavioral Questions. Nobody could tell whether they performed well in this one, but I felt I did OK, at least if I ever get rejected, it wouldn't be because of this one.
+Timeline after the onsite interview with Google:
+
+Feb 25th: The onsite interview
+Feb 27th: Recruiter started collecting feedback from interviewers
+Mar 5th: All feedback collected, recruiter decided to present my candidacy to the Hiring Committee (HC). When I asked him if he thinks I'd have a good chance of passing the HC, his exact words were "I'm very hopeful" (that made me feel sad because I thought that meant I was a borderline candidate).
+Mar 5th: Also on the same day, I started my team matching process.
+Mar 6th: Approval from HC. However, I got downleveled to L3 from L4 because one of the interviewers expressed his/her concern regarding my level. He/She thinks that I should be a level 3 engineer, not level 4. I'm gonna assume it was the third interviewer who provided this feedback, because that was the only interview that I horribly messed up.
+Mar 12th: Team match successful.
+Mar 13th: Official Offer Letter received. Did not negotiate further, because I had a competing offer from Amazon, and my recruiter at Google had already given the information to the compensation team, and the team adjusted the compensation to match Amazon's + a bit more.
+Mar 14th: Accepted official offer letter and started background check process.
+Mar 17th: Background check completed, all set for my first day on April 06th.
+Onsite Interview with Amazon:
+Conducted on Mar 2nd. Switched to a virtual onsite interview due to Coronavirus. 9 AM - 2 PM.
+
+First 25 - 30 mins of every single round involves behavioral questions, I'll just provide info on the second half of the interviews.
+
+9:00 - 10:00. With a manager on the team. Asked a system design question, again, bombed it, but I didn't feel awful at all for some reason. I guess, subconciously, I didn't think system design question for an entry level developer really matter that much.
+10:00 - 11:00. Medium Level, pattern matching. Related question on LeetCode https://leetcode.com/problems/word-search/. Follow-up question involves KMP algorithm. No hint needed, performed well.
+11:00 - 12:00. Medium level, DFS/Topological sort. Related question on LeetCode https://leetcode.com/problems/course-schedule-ii/. No hint needed, performed well.
+12:00 - 13:00. Lunch break, would've been a lunch interview if it weren't because of this virus, I had so many questions.
+13:00 - 14:00. 2 related questions, first Medium level BFS. Related question on LeetCode https://leetcode.com/problems/word-ladder/. Follow-up question was a bit harder, related question on LeetCode https://leetcode.com/problems/word-ladder-ii/. NOTE, I didn't have to finish the follow-up question, he simply asked me what ideas I had in my head. After all, there was only 30 mins for the coding part. No hint needed, performed well.
+Timeline after the "onsite" interview with Amazon:
+
+Mar 3rd: less than 24 hours after my interview, my recruiter called me and told me they intend on making me an offer.
+Mar 5th: Official offer received.
+Mar 9th: Had already gotten approved by HC at Google, so negotiated with Amazon to get a better offer.
+Mar 11th: Approved, updated official offer letter received.
+Mar 17th: Declined offer.
+Google Offer: $210K first year total compensation.
+Amazon Offer: $176K first year total compensation.
+2 offers are very similar if you factor in the state tax & cost of living.
+
+Please ask any questions you may have, I'll be sure to answer all of your questions.
+
+UPDATE 1
+Got asked this question by a few people, so I'll just answer it here: How did I prepare for the interviews and how long did it take?
+I don't have any "smart" strategy, but this is what I did in preparation for the interviews.
+I started 8 months prior to applying, but most of the work was done during the last 3 months.
+
+I solved all easy + medium questions and 60+ hard questions, that sums up to 700+ questions on LeetCode. I also skipped all questions that have a lot more "dislikes" than "likes", because I think they're mostly brain teasers, not practical at all.
+
+I also finished Crack The Coding Interview. I should've finished this book first before I did LeetCode, because I wasted a lot of time googling "recursion with memoization", "dynamic programming", etc., while all of them were very well explained in that book.
+
+I did not use any other coding platform or book to prepare for my interview. I did not join any contest on LeetCode. I did not do competitive programming. But again, don't take me as an example, because I'm just an entry level developer. If you're aiming for Level 5 or above, you'd probably have to do a lot more.
+
+UPDATE 2
+Asked in the comment section, full timeline, from the point I talked to a recruiter to the point I receive an offer
+
+GOOGLE:
+
+Jan 8th. Emailed a recruiter at Google (she's been on my contact list for a year). In the email, I included some basic information about myself, e.g., My skillset, what positions I'm interested in at Google, what project I'm working on, is there a good time to have a phone call with you? etc.
+Jan 8th. On the same day, several hours after my email, the recruiter replied and told me "Let's chat!".
+Jan 9th. At 2 PM, initial recruiter screen. We talked about my experience and skillset. The phone call lasted 20 mins. I let her know I am all ready to do technical phone screen with a Google engineer.
+Jan 9th. I emailed her after the phone call to give her a list of my availablity.
+Jan 16th. I received an email from an Software Engineer at Google, he asked me to confirm the date and time of the phone screen, which would be on Jan 29th. I gladly accepted the invitation for interview.
+Jan 29th. The phone screen.
+Feb 4th. Got an email from the recruiter. She asked me "Do you have time today to chat?" I was extremely nervous when I saw that.
+Feb 4th. Later that day, I had a call with the recruiter. She told me we were moving to onsite (God bless her!). Didn't talk about when to have the onsite interview during the phone call. All I told was to give her a list of availability for onsite and then wait.
+Feb 12th. Got an email from another recruiter, to confirm my onsite interview on Feb 25th.
+Whatever happened after that has already been included in the original post.
+A little over 2 months for the entire process.
+
+AMAZON:
+
+Jan 20th. Started messaging every LinkedIn connection who work at Amazon to kindly ask for a referral.
+Jan 30th. A Software Engineer replied and submitted the referral.
+Jan 30th. A few hours later, a recruiter at Amazon emailed me "Hi XXX. Thank you for your interest in the position. I would love to set up a time to speak with you ....".
+Jan 30th. Phone call with the recruiter. (Yes, all of the 3 steps above took place on the same day!!!!!!!!!!). Since I was already ready for the interview, I also told him I'd like to interview with Amazon ASAP, and I'm available every day.
+Feb 3rd. Initial phone screen scheduled for Feb 10th.
+Feb 10th. The phone screen.
+Feb 12th. Received an email from the recruiter, saying that we are moving forward to onsite. I told him I'd be available everyday for the onsite.
+Feb 14th. Received an email from another recruiter at Amazon, confirming my availability for the onsite for Mar 2nd.
+Whatever happened after that has already been included in the original post.
+A little less than 2 months for the entire process.
+
+UPDATE 3
+How did I practice LeetCode?
+Disclaimer: I'm not an expert on algorithm questions, I'm just a lucky guy who happened to pass the interviews. If you ask me to do it again, I wouldn't be 100% confident that I can pass again.
+
+When I couldn't solve a problem, I did the following things, at each step, I went back to the question and thought about it a little longer:
+
+Expand "Topic". I use this as a hint, for example, when the question is tagged "binary search", I try to apply binary search algorithm.
+Expand "Hint".
+Go to "Discussion" but don't open any posts. Usually people title their posts with "Java Implementation using Binary Search", etc., so I know I should use binary search to solve the problem.
+After the first 3 steps, if I still couldn't figure out, I look at the solutions.
+Every time I encounter a topic that I had never seen before, I went straight to the solution or watch YouTube videos on this topic. For example, the very first Hard question I did was https://leetcode.com/problems/critical-connections-in-a-network/, which made use of Tarjan's Algorithm. After the hint, I went to YouTube to learn this algorithm first because I had never even heard of it before. Then I came back and looked at the solution.
+
+I did all questions 3 times. Skipped a lot of them when reviewing because they became very easy, even some of the medium level questions.
+
+I struggled a lot at first, meaning I had to frequently check the discussion/solution. It was extremely discouraging, but remember, nobody was born being good at algorithms, don't give up.
+
+### Facebook
+Hi everyone,
+I have learnt a lot from the leetcode community and would like to share my experience for all you hardworkers out there!
+
+Status: New grad, BA - top 50 CS school, International student in a top Canadian University
+Position: New Grad / SDE1 at Amazon
+Final Round Interviews Date: 29 Jan 2020
+
+Interview Timeline
+Applied - 15th September (with referral)
+1st OA received - 9th November
+OAs completed - 21st November
+OAs completion email - 25th November
+Final Interviews scheduling email - 18th January
+
+I booked a slot for January 23 but HR soon reached out saying the slots were filled and I'll be reached out again when more interview slots open up.
+
+Final round interviews (3) scheduled - 29th January
+Waitlist email - 3rd February
+Offer - 11th March
+
+OA questions
+
+Merge two sorted lists
+Symmetric tree
+Passed all test cases for both.
+Other assessments went fine too.
+
+Final Round Interviews:
+I should probably mention that I had gone back home after college ended for me in December and so there was a time difference of 12 hours. So I basically had to interview from 2am to 5am.
+
+Round 1
+LP: Very general questions
+
+Tell me about yourself, Past work experience
+Who is a good leader according to you? Tell me about a time when you exhibited great leadership
+Why Amazon? What do you want to achieve from working here?
+How do you keep yourself updated in the field of technology
+TECHNICAL: Custom Question - What data structure would be able to depict a very basic social media network. I answered (graph) and then he was like okay design the classes and everything. So I asked a couple of questions and he seemed to want a very basic graph with just the person name and a list of his friends as attributes. Thereafter, he asked me to make a recommendation system wherein given a person, the algo should output the list of friends he should be recommended. I asked him questions here too and worked out a simple BFS solution. Then, I talked about edge cases, however, I missed an important one which he pointed out and so I quickly introduced a set to resolve the issue. For some reason, he thought that my code was wrong initially and confronted me about it but I rechecked and told him that it is indeed correct. He looked again and then realised his mistake. This took away some time though. Thereafer, he asked me to modify the code so as to only a specified number of recommendations are shown. I said the algo verbally and quickly modified my code for it. I missed out on telling one little thing because of time (that a heap will be used to filter out) which I felt bad about later since it seems trivial. However, the interviewer seemed very happy and I was sure that my interviews had kicked off well.
+
+Round 2
+LP: Specifics from my previous experience - what did I do in this role etc. Turned out the work i did during my internship and his first gig ever were very similar so we bonded well over the talks from it. He just basically dived deep into this one experience I had had and kept asking me questions to test both my technical knowledge pertaining to it and my behavior to some circumstances while I worked there.
+
+TECHNICAL: Strange Question - Given a list of words, print all words which has components (words too) of itself in the list. For example - and input of [rockstar, rocks, stars, rock, super, high, way, highways, superhigh] would yield output - superhigh = super + high. and nothing else. I was stumped at first but I quickly arrived at a brute force n^3 solution. Thereafter, I got lost quite a few times but kept talking. My interviewer gave me a lot of hints and a lot of direction for this question I think and in the end I wrote a good piece of code for it and he was happy. I felt that if I get a rejection, it would probably be because of this interview since it felt as if I didn't arrive at the optimal soution myself.
+EDIT: Question Concatenated Words
+
+Round 3
+LP: Very general questions again
+
+Tell me about yourself
+A team experience where you contributed a lot
+An experience you found the most fruitful and why
+TECHNICAL: Reorder Linkedlist - this one I got lucky cause I had solved this before. However, I kind of blanked out for a couple minutes when I saw the question. But then I thought for a few minutres and arrived at the solution and after discussing the optimal approach, started coding it. However, at this point I was extremely tired and couldn't think straight it was 4am. I think that kind of made me lose my thoughts and I wavered a few times and was generally way slower than I would be considering I knew the algo. Towards the end of the interview time, I did a silly mistake in one area which I pointed out but was too late to correct it. The interviewers (one was shadowing I believe) seemed very happy though so I felt as if I did finee on this one too.
+
+I got my offer a month and a half after my interview - I am grateful about it nevermind the long frustrating wait.
+
+Some background, some advice
+I wanted to mention that this has come after a very tough year for me. I interned at a tier 2 company in summer 2018 and felt confident (perhaps overconfident) that I'll be able to score tier 1 internships next summer. And that confidence was crushed, shattered countless number of times the entire 2018-2019 year because the rejections flowed through my inbox on a daily basis. It was particularly devastating since I had set some expectations for myself and I was failing miserably at attaining these to say the least. I was not even getting jobs I wouldn't want at all. I started blaming myself - started stressing and doubting my abilities.
+
+I worked a regular job that my college offered during the summer of 2019 since I was refused everywhere I sought employment. All summer was spent stressing and preparing for the next season - the full time application season. The season started very rocky actually so I was again quite low for a while actually - I must point that out. It wasn't like I worked really hard for a summer and everything fell in place. Not at all. The process was gruelling and long. I started to get so stressed that before my Microsoft and Google final Interviews, I got too sick - it was as if my body had started to exhibit this heightened stress and I felt helpless
+
+Anyway, my point was that
+
+There were highs and lows, and I'm sure you have those too. But we must go easy on ourselves.
+System is not fair, Life is not fair. A reality that is just unfair in itself.
+Compensation is important but only till a point - relationships / close people are way more important than that. They are the ones that make you stay sane during the hard times. So don't let the hard times take away the only thing that makes you stronger.
+If you ask me what I loved the most about 2019, I would say, without a doubt, the times my girlfriend "forced" me out to enjoy the beautiful summer. And I remember I used fight with her that I want to prep lol. Literally, the entire time spent on leetcode is one hazy memory, but the times spent together with her are vivid in my head and still don't fail to bring a smile to my face. You might say now that I have an offer I am saying all this, but to be brutally honest, this was my answer even like 6 months ago. I don't remember how I came to realise it but I'm so glad I did realise it.
+
+Resources
+I think I must have done around 200 LC questions in total. I used premium and I definitely think it's helpful - would recommend. I used groking the DP interview too cause I just always struggled with DP. It was useful too. I did 75% of the CTCI too (mostly in the summer). For Amazon, in particular, I didnt do much for the LPs - just memorized what they were and thought of them on the spot when a question was asked.
+
+
+### Facebook, E4
+My turn to give it back to the community.
+
+Question 0. Similar strings ("face", "eacf") returns true if only 2 positions in the strings are swapped. Here 'f' and 'e' are swapped in the example.
+Question 1. Number Of connected components in a Graph,
+Question 2 (Behavior interview/ coding). Is there a way to reach (0,0) from a mXn matrix to (m-1,n-1) position and give the path.
+Question 3 System Design : Design a Content publishing site with privacy restrictions.
+Questions 4. https://leetcode.com/problems/simplify-path/
+Question 5. n-ary Tree with each node having a boolean flag. Traverse all the nodes with only boolean flag = True. Return the total distance traveled from root to all those nodes.
+
+
+### Facebook, Research Scientist
+Status: New grad, PhD CS
+Position: Research Scientist at Facebook
+Location: Seattle, WA
+Date: December 9th, 2019
+
+I was contacted by a recruiter from Facebook when I haven't even started looking and preparing. But I went with it anyway since I had 8 months until graduation and this would be a great experience. This was my first ever interview and it was a stressful one as well since I only had a month to prepare.
+
+Technical phone screen (45 minutes):
+Two technical questions:
+
+The first one I don't actually remember but it was pretty easy and straighforward. It took about 15 minutes to finish both explaining and writing.
+The second one was also straightforward but it was a little bit tricky and had a lot of edge cases. He asked me to implement an API class to be a middle man between another API which provided files in 1024 bytes only and users. However, users could ask for any amount of bytes from our API. This class should have a buffer to store all the recieving data and passes it to users. There was just a lot of cases, e.g. what if the user asks for a data size bigger than what it is left, what if the file was too large, and few more.
+Onsite:
+I had my onsite on Monday and started around 10AM. The interviewer arrived few minutes late but we still had time since the actual interviews started at 10:15AM. I had 2 technical interview (had 3 but last one got cancelled) and 1 research interview.
+In the 2 interviews I finished answering all 4 questions. I don't remember the order but here are 3 of them:
+
+Validate BST: This one I suggested a recursive implmentation and he asked me to go ahead and implement it. I ended up with 2 functions but at the end I suggested that we could do it with 1 function as well.
+Sort alien dictionary: The question was given a list of words and string which gives the order of alphabet, sort the words. e.g. "bac" means b comes before a and a comes before c. I think I used hashtable to store the orders and then went ahead and implemented it with a regular sort using the hashtable. I think this was the one I messed in implementation in few places. I just had hiccups since it was the last question and I was very tired.
+Sum of consecutive element in array: Similar to this, however, the integers where non-negative. GIven an unordered list of non negative integers, find the range where the sum of range was equal to target. First I suggested a bruteforce method. He asked if I can improve it. I thought about it out loud for 2 minutes ish! And came up with an O(n) solution using two pointers. He asked me to go ahead and implement it and the implementation was pretty quick. Once you figure out the optimal solution it was easy to implement.
+(Unfortunately I don't remember the last, which was the easiest)
+My research interview was nothing interesting, it was basically about my PhD research and asked questions about my approach in solving research problems.
+
+They told me it should take about two weeks to get back. Exactly after two weeks, on Monday, I got email that they went ahead with someone else. I asked for the reason of rejection and they told me they can't give me any details but I should try again in a year.
+
+Takeaway from this interview: I think I came up with solutions pretty fast, however, I was a little rusty in implementations. Since then I have been practicing a lot more and hopefully, soon will join all the 9 to 5ers. Until then happy coding!
+
+All the best to all who have upcoming interviews.! Hope this helps!
+
+UPDATE: I forgot that I had a design interview as well. The question was to design a website for Programming Contests. I had experiment in ACM competitions so I did come up with a solution and designed a full system with APIs and Databases.
+
+The second one was also straightforward but it was a little bit tricky and had a lot of edge cases. He asked me to implement an API class to be a middle man between another API which provided files in 1024 bytes only and users. However, users could ask for any amount of bytes from our API. This class should have a buffer to store all the receiving data and passes it to users. There were just a lot of cases, e.g. what if the user asks for a data size bigger than what it is left, what if the file was too large, and a few more.
+
+Can anybody please tell me the answer to this question?
+
 Also interviews are not only solving problems, it's also about showing that you understand the problem, your solution, what corner cases to cover, how to test and how to discuss it with others
+
+Alien Dictionary: https://zhuhan0.blogspot.com/2017/06/leetcode-269-alien-dictionary.html
+Sum of the consecutive element in the array: https://leetcode.com/problems/subarray-sum-equals-k/
 
 
 ### Amazon
