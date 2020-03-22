@@ -133,4 +133,6 @@ history : rc, up/down arrow
 
 ### Programming
 * <a href="https://www.qnx.com/developers/docs/7.0.0/#com.qnx.doc.neutrino.prog/topic/about.html" target="_blank">https://www.qnx.com/developers/docs/7.0.0/#com.qnx.doc.neutrino.prog/topic/about.html</a>
-
+* <a href="https://www.qnx.com/developers/docs/7.0.0/#com.qnx.doc.neutrino.prog/topic/devel_Debugging_cross_development.html" target="_blank">debugger and debugging agent </a>
+* <a href="https://www.qnx.com/developers/docs/7.0.0/#com.qnx.doc.neutrino.prog/topic/hat.html" target="_blank">heap analysis</a>
+* <a href="https://www.qnx.com/developers/docs/7.0.0/index.html#com.qnx.doc.ide.userguide/topic/analyze_mem_rsc_usage.html" target="_blank">memory analysis in QNX IDE</a>
