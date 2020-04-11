@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Python - copy"
-date:   2020-04-11 16:04:00 +0900
+date:   2020-04-10 05:04:00 +0900
 categories: coding
 use_math: true
 tags: coding python
