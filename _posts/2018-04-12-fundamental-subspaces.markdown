@@ -25,7 +25,7 @@ tags: linear_algebra
 
 ### (3) Column space (\\(R^m\\), with \\(r\\) basis)
 * Space spanned by the columns
-* Row operation does not change the column space, since the nullspace remains same  
+* Row operation does not change the dependencies between column space (the combination which produced 0 with columns remain the same)  
 __Proof__: After the row operation, the matrix (in row sense) will look like \\[\begin{bmatrix} \textrm{row a} \\\ \vdots \\\ \textrm{row a + row b} \end{bmatrix}\\]  
 1. Linear combinations of columns which produced 0 vector remains the same, since the \\(\textrm{row a}\\) is copied directly into another row.
 2. Linear combinations of columns which did not produced 0 vector remains the same, for the same reason
@@ -34,7 +34,7 @@ Therefore, the basis of the column vector remains the same after the row operati
 
 ### (4) Left-nullspace (\\(R^m\\), with \\(m-r\\) basis)
 * Orthogonal complement of the column space
-* Row operation does not change the left-nullspace, since it does not change the column space
+
 
 
 ### (5) \\(Ax=b\\) is solvable when

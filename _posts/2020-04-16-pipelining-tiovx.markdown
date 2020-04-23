@@ -19,6 +19,12 @@ tags: coding C
 6. Pipeline depth (tivxSetGraphPipelineDepth의 파라미터) != buffer queue depth (==graph_parameters_queue_params_list[graph_parameter_index].refs_list_size). buffer queue depth만큼 
 
 
+BUFFER_QUEUE_DEPTH
+- replicateNode와 관련 있음. replicate 되는 노드의 갯수
+- 실제 replicate되는 노드의 갯수는, 노드의 입력/출력이 담겨있는 object_array의 길이
+- pipeline depth는 
+
+
 * <a href="https://www.khronos.org/registry/OpenVX/extensions/vx_khr_pipelining/1.0.1/vx_khr_pipelining_1_0_1.html" target="_blank">OpenVX guide</a>
 * <a href="http://software-dl.ti.com/jacinto7/esd/processor-sdk-rtos-jacinto7/latest/exports/docs/tiovx/docs/user_guide/TIOVX_USAGE_REC.html#TIOVX_USAGE_REC_SET_NODE_TARGET" target="_blank">TI guide</a>
 * TI forum
