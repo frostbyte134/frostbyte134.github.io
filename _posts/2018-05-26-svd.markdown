@@ -14,11 +14,11 @@ However for __rectangular__ \\(A\\), eigenvalues are not even defined
 \\[(m\times n)\times (n) = m \neq n.\\]
 so that \\(A\neq Q\Lambda Q^T\\).  
 
-In such case, we allow \\(Q=U,\\>Q^T=V^T\\) for some orthogonal \\(U\\) and \\(V\\), not necessarily in transpose relation. Then
+In such case, we allow \\(Q=U,\\>Q^T=V^T\\) for some unitary \\(U\\) and \\(V\\), not necessarily in transpose relation. Then
 \\[\textrm\{every matrix will split into \} A=U\Sigma V^T.\\] 
 
 <h3 id="svd">Singular Value Decomposition</h3>
-> Singular value decomposition (SVD): Any \\(m\times n\\) matrix \\(A\\) can be decomposed into \\[A=U\Sigma V^T = (m\times m\textrm\{ orthogonal\})(m\times n\textrm\{ diagonal\})(n\times n\textrm\{ orthogonal\}).\\]
+> Singular value decomposition (SVD): Any \\(m\times n\\) matrix \\(A\\) can be decomposed into \\[A=U\Sigma V^T = (m\times m\textrm\{ unitary \})(m\times n\textrm\{ diagonal\})(n\times n\textrm\{ unitary\}).\\]
 
 
 1. \\(\Sigma:\\>m\times n\\). Has \\(r=\textrm\{rank\}A\\) nonzero singular values on the main diagonal, which are square roots of the nonzero eigenvalues of \\(AA^T\\) (or equivalently, of \\(A^TA\\)).

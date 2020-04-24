@@ -13,6 +13,18 @@ TODO: make a post on
 * https://www.educative.io/courses/grokking-the-system-design-interview
 
 
+### divide array in sets of k consecutive numbers (need review)
+<a href="https://leetcode.com/problems/divide-array-in-sets-of-k-consecutive-numbers" target="_blank">https://leetcode.com/problems/divide-array-in-sets-of-k-consecutive-numbers</a>
+* 일단 하위30퍼로 풀긴 풀음
+* consequtive란 단서 때문에 더 빠르게 풀 수 있음. 그림을 잘 그려 보자
+
+### minimum distance to type a word using two fingers (need review)
+<a href="https://leetcode.com/problems/minimum-distance-to-type-a-word-using-two-fingers/" target="_blank">https://leetcode.com/problems/minimum-distance-to-type-a-word-using-two-fingers/</a>
+* 일단 O(KN^2) dp로는 쉽게 풀음
+* <details>
+   <summary>O(N)</summary> iterative dp로 풀면 K를 없애도 됨. 왼/오를 구분하지 않아도 되고, 항상 한쪽 손가락만 움직이는 경우보다 얼만큼 절약할 수 있나를 a[26] 상태공간에 넣으면 O(N)임 
+   </details>
+
 ### Hand of Straights	
 - consecutive한 그룹으로 숫자를 쪼개는 문제 (미디엄). counter 배열로 해결. 어서 풀어본 거 같은데..
 - 각 그룹이 conseq한 숫자들로 이루어져야 하기 떄문에 답이 있다면 구성이 deterministic함
