@@ -13,6 +13,84 @@ TODO: make a post on
 * https://www.educative.io/courses/grokking-the-system-design-interview
 
 
+### Sliding Puzzle
+* <a href="https://leetcode.com/problems/sliding-puzzle/" target="_blank"> 보드가 작아 bijection 가능</a>
+
+
+### Alien Dictionary  (보기만)
+* <a href="https://leetcode.com/problems/alien-dictionary/" target="_blank">단어 사전이 valid한가?</a>
+* <details>
+   <summary>다시보가</summary> 
+   dfs 로 사이클 찾기 
+   </details>
+
+### Meeting Rooms II (need review)
+* <a href="https://leetcode.com/problems/meeting-rooms-ii/" target="_blank">그냥 풀기</a>
+* <details>
+   <summary>다시보가</summary> 
+   범위 더하기 되는 구간트리 / 이분탐색으로도 풀어볼 만은 한 듯...?
+   </details>
+
+### String Transforms Into Another String (보기만)
+* <a href="https://leetcode.com/problems/string-transforms-into-another-string/" target="_blank">예외케이스를 찾아보자</a>
+* <details>
+   <summary>다시보가</summary> 
+   둘 다 26개씩 쓰였으면, 완전히 같지 않은 이상 못바꿈
+   </details>
+
+### Max Sum of Rectangle No Larger Than K (need review)
+
+* <a href="https://leetcode.com/problems/max-sum-of-rectangle-no-larger-than-k/" target="_blank">2차원 부분합이지만 진짜로 2차원 부분합으로 풀면 못풀음</a>
+* <details>
+   <summary>다시풀기</summary> 
+   1차원 부분합 (row)들만 구하고, i - j 로 로우를 고정해놓고 컬럼은 k를 0부터 증가시켜가며, 정렬된 ary를 만들고 여기서 이분탐색으로 답도 찾고 인덱스도 찾음
+   </details>
+
+
+### Insert Delete GetRandom O(1) (다시보기)
+* <a href="https://leetcode.com/problems/insert-delete-getrandom-o1/" target="_blank">dict를 잘 쓰자.</a>
+
+### Validate Stack Sequences
+* <a href="https://leetcode.com/problems/validate-stack-sequences/" target="_blank">꼭 다시 보자 (보기만)</a>
+* <details>
+   <summary>다시보기</summary> 
+   we can try man
+   </details>
+
+### basic calculator 2
+* https://leetcode.com/problems/basic-calculator-ii/
+* 외우는게 좋은듯
+
+
+### Minimum Distance to Type a Word Using Two Fingers
+* <a href="https://leetcode.com/problems/minimum-distance-to-type-a-word-using-two-fingers/' target="_blank">다시 풀어봅시다</a>
+* <details>
+   <summary>다시풀기</summary> 
+   1. 왼쪽/오른쪽 구분은 필요없음 (이전의 왼/오를 오른/왼으로 바꾸면 됨). <br/>
+   2. O(N * 24) 로 풀 수 있지 않을까?
+   </details>
+
+
+### Flip Equivalent Binary Trees
+- https://leetcode.com/problems/flip-equivalent-binary-trees/
+- 그냥 생각만...일부 노드면 flip된 경우를 flip equivalent라고 할 경우, 두 트리가 서로 flip equivalent일 조건은?
+
+### Minimum Remove to Make Valid Parentheses
+- https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/
+- 이것도 생각만. 2-pass로 품.
+
+### Next Closest Time
+- <a href="https://leetcode.com/problems/next-closest-time/" target="_blank">https://leetcode.com/problems/next-closest-time/</a>
+- 구현이 거지같았던 문제. 근데 시간이 넘어가면 다음 날 시간을 계산안해도 되서 풀만했던듯?
+
+### First Missing Positive (need review)
+<a href="https://leetcode.com/problems/first-missing-positive/" target="_blank">https://leetcode.com/problems/first-missing-positive/</a>
+* smallest nonnegative
+* <details>
+   <summary>다시풀기</summary> 
+   smallest nonnegative = 배열에 저장 가능
+   </details>
+
 ### divide array in sets of k consecutive numbers (need review)
 <a href="https://leetcode.com/problems/divide-array-in-sets-of-k-consecutive-numbers" target="_blank">https://leetcode.com/problems/divide-array-in-sets-of-k-consecutive-numbers</a>
 * 일단 하위30퍼로 풀긴 풀음
@@ -25,9 +103,6 @@ TODO: make a post on
    <summary>O(N)</summary> iterative dp로 풀면 K를 없애도 됨. 왼/오를 구분하지 않아도 되고, 항상 한쪽 손가락만 움직이는 경우보다 얼만큼 절약할 수 있나를 a[26] 상태공간에 넣으면 O(N)임 
    </details>
 
-### Hand of Straights	
-- consecutive한 그룹으로 숫자를 쪼개는 문제 (미디엄). counter 배열로 해결. 어서 풀어본 거 같은데..
-- 각 그룹이 conseq한 숫자들로 이루어져야 하기 떄문에 답이 있다면 구성이 deterministic함
 
 ### Robot Room Cleaner
 - 재밌는 하드 문제였음
@@ -89,174 +164,6 @@ TODO: make a post on
 #### Minimum Area Rectangle
 - <a href="https://leetcode.com/problems/minimum-area-rectangle/" target="_blank">Minimum Area Rectangle</a>
 - 쉬운 문제고 어렵지 않게 풀긴 했는데, 검사조건을 명확하게 도출하지 못함. 다시 해보자. 다시 했음. 이전문제는 좀 naive하게 풀었던거 같음.
-
-
-### Google
-#### Google Interview Experience
-I think now it's my turn of giving back to the community. I had been recently interviewed at Google, unfortunately couldn't clear it.
-
-Phone Screen:
-
-Problem : Variation of the Course scheduled problem, Given the dependency of the courses, if a course A is prerequisite for course B then course A must be completed in some semester before the semester in which course B is completed, find the minimum no. of semesters required to complete all the courses.
-
-I could solve this problem and then I was invited for the onsite to Google's Hyderabad office. In Hyderabad office, there were five back to back coding rounds and no G & L round.
-
-Round - 1 :
-
-Problem - 1:
-You have a machine with one core and you are given start time and end time of the programs, check whether new program can be scheduled or not. You are basically given query describing schedule of the new program i.e, [s, e] s and e are the start and end time of the new program, return true if it can be scheduled, false otherwise.
-
-Follow-up:
-Your are given machine with 4 cores (4 programs can run simultaneously) check whether new program can be added or not.
-
-Firstly I gave the brute force solution(O(N)) then I suggested then optimized solution using binary search** O(Log N)**.
-
-Ran out of time for the follow up question, so I could solve this partially.
-
-Round - 2
-Problem - 1:
-Given an array and an integer K, find the length of longest subarray that has sum less than or equal to K.
-
-First gave O(N2) solution, then gave O(N) solution using sliding window.
-
-Follow-up:
-Given a matrix of M * N find the size of the biggest square that has sum less than or equal to K.
-
-First gave brute force solution, then optimzed one using DP.
-
-Problem - 2:
-Find the length of longest AP sequence which is there in the tree.
-
-Couldn't solve this one, ran out of time.
-
-Round - 3
-
-Problem - 1:
-You are given D units of data that needs to be transferred over the network and packet size K, find minimum no of packets required to transfer all the data.
-
-This was a no brainer, I think this was the warmup problem.
-
-Follow up:
-Distribute data in each packet such that difference between data in any two packets should be minimum.
-
-Round - 4:
-
-Given an array of integers that is already sorted based on first 28 bits, solve the array by all the bits.
-
-Couldn't solve this problem
-
-Round - 5:
-
-Problem - 1:
-
-Given a binary locking system, you are also given initial and final state of the lock and all the states that are safe.
-
-From one state you can go to another state by flipping one bit at a time and the new generated state should be same.
-
-You need to check whether you can unlock the given binary lock or not.
-
-Follow Up:
-Later he limited the size of safe states to 100 and asked me to optimize.
-
-First I gave the DFS solution, later optimized using DSU. couldn't derive time complexity for this solution.
-
-Lessons Learned
-
-Focus on speed, take the timed contests when you are preparing.
-Do not take more than 2-3 minutes to discuss brute force solution.
-If you already know the solution, immediately after brute force jump to it, don't waste time in discussing two three alternative approaches.
-Many of you may not agree with the third point, but the thing is that when you are interviewing with google, each round last for exactly 45 mins and you are expected to write the complete code.
-
-#### Google 2
-I think it's my turn to give back to the wonderful leetcode community. I recently received an offer from Google. Following is my experience.
-
-Journey
-
-I have about 3.5 years of experience working as a Software Engineer. I actively started looking for Job 4 months back wherein I interviewed for Facebook and Google. I got rejected in onsite interviews of Facebook. I have solved around 110 questions on leetcode around 32 Easy 60 Medium and 20 Hard. I have found difficult implementing Hard level leetcode questions (to this date I still do).I didn't want to loose out on any of my options hence I purchased Leetcode premium which was definitely helpful for Facebook's preparation(All the questions I received in my phone screen and onsite were already part of Premium problems)although not that helpful for Google. I tried to solve problems on codeforces and topcoder back during my college days and was on and off with leetcode during past couple of months. In retrospect I should have tried to implement more problems on Leetcode as I have been scared of problems which involve heavy implementation :(
-
-I had already interviewed with Google around 2 years back which went very bad according to the recruiter neverthless I was given one more shot.I thought I would share my Interview experience with Leetcode community below post summarises my Interview experience.
-
-Interview Experience
-
-Phone Screen (45 Minutes)
-
-It was fairly easy question involving priority queue. I had already seen some similar questions hence wasn't difficult for me to come up with approach. The interviewer was happy with the approach and asked me to code it up which I did. Afterwards the interviewer found some syntatical errors in my code which I corrected immediately (nothing logical). I thought I did good.
-
-The recruiter followed up and said the feedback was quite positive and I will move to onsite. She told me that there will be 3 Algo/DS round with 1 Algorithm Design round and 1 behavioural round. I scheduled my onsite after approximately 30 days of my phone screen.
-
-**Onsite Interviews **
-
-Round 1 (Googlyness)
-
-I think the focus of this round is to eliminate false positives. I made sure to give examples for most of the questions. In retrospect I think this round went well although you can never tell :) .
-
-Round 2 (Technical)
-
-It was fairly easy question on rectangles. I made sure to ask some clarifying questions which helped me narrow down my approach. I could come up with n^2 solution in no time (which i think was the best possible approach). I coded the solution but the interviewer found 1 very small logical bug which I found and corrected. After which there was a follow up question for which I gave couple of different solutions although I am not sure if the interviewer was looking for some thing else. In retropspect I think this round was meh meh.
-
-Round 3 (Technical)
-
-I bombed this interview. It was so bad that after 25 minutes the interviewer gave up and asked me to code it up(I guess he wasn't even looking at the solution). The Question involved thinking along lines of Dp (2D dp Specifically). I was able to figure out the states quite early but it was the transition between the states which I had problem with. In retrospect this round was very bad. If I get denied it will be most certainly because of this round.
-
-Round 4 (Algorithm Design)
-
-The problem statement was quite easy to comprehend although I had to make sure what tradeoffs have to be considered before presenting an optimal solution and refining it further. After I clarified everything I made sure to put a brute force solution and then afterwards an optimal approach using Stacks. The interviewer asked me to code it up which I did. The interviewer looked happy with my code and no modifications was required in the code. The key in this round is to balance thinking part with coding part. In retrospect I think I did well in this round
-
-Round 5 (Technical)
-
-This was my best round. The problem statement was an easy graph problem which I recognized and gave the interviewer the most optimal solution. The interviewer seemed happy with my approach and I coded up instantly in C++. We still had around 15 mins left so there was a follow up question which I was able to explain but there wasn't any coding part involved. In retrospect I think I aced this round.
-
-Post Interview
-
-After 1 week the recruiter reached to me telling that my feedback was tending positive although it's mixed. I was well aware that this was bound to happen. I also have to talk to Managers from different teams this week for Team matching(although I am not sure if this will help Hiring Committee or not). Fingers crossed 🤞. I think I have like 20% chance since I completely bombed one of my interviews. What do you guys think ?
-
-#### Amazon - India
-Getting help from the Leetcode community for a long time. I just wanted to give something back as well. :)
-I gave an amazon interview last week and wanted to share my experience. I had given an online test prior to the onsites some time back but i do not remember the questions that well. Two weeks later, I was asked to come for onsites.
-Pointers before discussing about onsites questions:
-
-Every round was a coding round alongside LP round.
-The rounds also consisted of a few questions asked in relation to core subjects like Operating Systems, DBMS, Networks etc.
-Each round had atleast two coding questions asked.
-Each round went on for atleast an hour in my case
-Round 1: I was asked two questions. Both being from leetcode and of medium difficulty. Topics begin Trees and Arrays.
-
-Given a binary tree and a sum. Find if there exists a path from root to leaf with sum of node values to be equal to the target value given.- https://leetcode.com/problems/path-sum/
-I was able to come up with an O(n) solution and was able to code up pretty fast.
-Trapping rainwater problem-https://leetcode.com/problems/trapping-rain-water/
-This is a pretty well known problem and I did remember it doing a long time back. I had a discussion with the interviewer and was able to come up with an O(n) time and space solution. We went further discussing on STLs in C++ and couple of other topics.
-Apart from this there was a resume discussion and couple of LP questions as well.
-Round 2: Questions again were from leetcode. The topics asked were from stacks and heaps.
-
-Given a stream of integers, find the median of numbers at any point.
-I had never seen this question before hand, but first come up with a brute-force approach, but with a couple of hints from the interviewer I came up with a heap solution there. Later saw that this question is pretty well known leetcode-hard question.
-https://leetcode.com/problems/find-median-from-data-stream/
-Perform Push, Pop and Get_Min in O(1) complexity.
-This question was easy and I had a good discussion with the interviewer about different approaches.
-Here I was asked questions from OOPS and Networking. I was able to answer question from OOPS but unable to answer the questions from networking.
-Round 3: I was asked three questions in this round. I was asked mostly DP and one Heap question in this round.
-
-The question was given s1, s2, s3, find whether s3 is formed by the interleaving of s1 and s2.
-I had never seen this question before and DP being a weak spot for me, I was unable to come up with a DP solution of this problem. I gave a recursive approach but was unable to further optimise it. Later found out that this question was available on leetcode as well.
-https://leetcode.com/problems/interleaving-string/
-The next question was again from DP, and I had seen the question before. The question was Decode Ways-https://leetcode.com/problems/decode-ways/
-I was able to come up with both a tabularised and a recursive approach for this problem. I had a good amount of discussion with the interviewer on this question.
-Later on, I was asked the question on K-frequent words from a stream of words incoming. I was able to come up with a brute force solution and then the interviewer asked me to code it up. Post that we had a discussion on everything in relation to designing of the hashmap and priority queues which was in relation to the question.
-The interviewer also asked a couple of DBMS questions like ACID properties and some SQL queries.
-Round 4: This was the last round. I was asked two questions here. I bombed this interview pretty badly, even though I was able to code it up but I took a lot of time even though the questions weren't that tough.
-
-I was asked a couple of LP questions and things from my resume. Even though I was able to answer LP questions comfortably, I had not revised my resume projects that thoroughly and the interviewer went in depth analysis of my projects where I was unable to answer a couple of questions mainly because I hadn't revised.
-It was a graph problem to be done using minheaps. I coded up that solution pretty fast. We had a discussion on minheaps and I was asked to write a code for minheap extraction which was the part where I made a mistake. I got confused in one point and I took a lot of time thinking and kept getting confused further. After sometime, the interviewer started getting slighly frustrated gave me a hint from which I was able to code up the question. I got so nervous and then gave the incorrect complexity analysis of it.
-The second question was Word ladder - https://leetcode.com/problems/word-ladder/
-I gave the brute force analysis and since I was nervous from the prior mistake I ended up again giving incorrect time complexity analysis. The interviewer helped me a bit further and I was able to come up with a optimised solution but since I had already taken a lot of time, I was unable to code that up.
-Mistakes that I actually learnt from after giving the inteviews:
-
-Revise everything on your resume that you think can be asked from you. Getting rejected just because you weren't able to answer something you had done a long time back sucks badly.
-Even if you have made mistakes in one round or asked too many hints don't let that boggle you down. Consider every question a new opportunity in that interview irrespective of how the previous one went.
-Get your time complexity analysis right. I realised that this concept still is an extremly weak portion of mine.
-Interviews are luck based, but the only thing you can do is give your best shot so that you never have regret of not trying.
-Rejections happen all the time and I'm pretty sure everyone here must have faced that atleast once. Just take it as a learning experience and move forward. Maybe that company wasn't for you right now, but that doesn't mean it will never be in the future.
-I hope this experience is helpful to anyone who is trying in Amazon and I hope you do get in. All the best :)
 
 
 #### Search Autocomplete system (need review)
@@ -345,6 +252,9 @@ linked list + hash = O(1) LRU Cache!
 1. 2-sum - lr (O(N))
 2. 3-sum - 2sum * N
 3. 4-sum - 3sum * N
+
+
+
 
 ### Minimum Window Substring
 <a href="https://leetcode.com/problems/minimum-window-substring/" target="_blank">https://leetcode.com/problems/minimum-window-substring/</a>

@@ -7,6 +7,83 @@ use_math: true
 tags: coding
 ---
 
+### Google
+<a href="https://leetcode.com/discuss/interview-experience/599883/google-tokyo-l3-virtual-onsite-april-2020-reject" target="_blank">https://leetcode.com/discuss/interview-experience/599883/google-tokyo-l3-virtual-onsite-april-2020-reject</a>
+
+
+Status: New grad, a local top uni in Hong Kong
+Position: L3 at Google
+Location: Tokyo
+Date: mid-April, 2020
+
+Preparation
+
+~2 months of revision and leetcode
+~4 hours/day on LeetCode (3 weeks before the on-site)
+~10 Mock Interviews on a shared document
+Interview Timeline
+
+Jan 2020 - Applied through referral
+Feb 2020 - Completed Online Quiz
+March 2020 - Completed Phone Interview (1 round of coding, 45 mins)
+April 2020 - Completed Virtual Onsite (4 rounds of coding, 45 mins each)
+April 2020 - Rejection
+Feedback
+My recruiter said my communication skills are highly rated, especially in articulating complicated logic, defining inputs, outputs, and corner cases. However, the speed of problem solving, as well as optimality of solutions have not passed the bar yet.
+
+Insights
+Since my strengths are about communications, I would like to share some unique insights about coding communication (especially for some companies that require you to code on a shared document), that I have learnt from the interviews, instead of directly posting the questions here due to NDA.
+
+1. Expect differnet styles of interviewers
+
+High-frequency leetcode solvers may be confident enough to solve a question given a well-defined statement, with inputs and outputs clearly stated. However, not all interviewers will give you such a well-formatted setting. In fact, most are intentionally giving vague instructions. From my experiences, there are these few types of interviewers and you would apply different frameworks for each of them.
+
+Type 1: The interviewer pasted the detailed question with inputs and outputs on the doc.
+This is your best luck. Just solve it as if you were solving a leetcode question.
+
+Type 2: Throwing you a story and expect you to ask more.
+For example, a story could be like "A company follows certain hierachy. There are employees with different levels. A higher level can send message to a lower level. How much time is needed for all employees to receive the message from the top manager?" You need to translate the problem to "finding the maximum depth of the N-ary tree from root to leaf" and solve it.
+
+Type 3: Mention the problems verbally without typing anything
+This happen more than 50% of my interviews. You must type the requirements or story to prevent forgetting any, and go on with clarification questions and approaches.
+
+2. Clarification on Inputs, Outputs and Data formats
+
+Often we implicitly assumed the inputs, outputs and other data formats. However, interviewers expect you to mention them clearly. Using the "1057. Campus Bikes" question as an example, the question asked in actual interview could be as simple as "Can you design an algorithm that matches every bike and person such that each individual distance is minimized?" You need to ask the following questions.
+
+How are the bikes and people represented? Are they lists, tuples or graphs (e.g. 2D matrix)?
+How are locations represented? Are they coordinates, latitude and longitude, or something else?
+How is the data coming from? Are they in main memory? file? or streaming data? (need different DS/approach to handle each of them)
+Are they sorted? Any range of locations? Are they floating points or integers?
+Your goal is to get as much information as possible such that the final question looks like a solvable leetcode question.
+
+3. Prepare elementary math concepts
+
+Sometimes some elementary math comes into play. You may need them in certain questions. The examples are but not limited to:
+
+Geometry (Slope, Areas, Perimeters, Vectors, Matrices, Orthogonality)
+Characters Encoding (ASCII, bit representations)
+Common distance formula (L1 norm, L2 norm)
+Distributions (Uniform Distribution, Random Sampling)
+4. Be ready to discuss scalability/distributed system-related quetions
+
+If you are very good to be reaching this stage, you will probably need these mindsets to further increase your chance of passing.
+
+Common questions regarding these topics are:
+
+What if now I have a very very large input and I need to run the algorithm many many times? How do you optimize it?
+I made an example for 973. K Closest Points to Origins
+(https://leetcode.com/problems/k-closest-points-to-origin/discuss/576025/python-3-lines-knn-search-using-kd-tree-for-large-number-of-queries)
+What if I have a lot of computers as resources? How would you optimize the algorithm given such resources?
+Some strategies to address the above questions are but not limited to:
+
+Time-space trade off (Use alternative DS such that more memory is taken but less time cost for each run)
+Pre-processing tactics (A higher time complexity for pre-processing is fine as you only need to pre-process once, but then later on have much better time cost for each run)
+Concurrency optimization (Map Reduce, Multi-threads, etc)
+Feeling
+A bit of a bummer knowing that I have failed. One failure has higher opportunity cost for me (and other Hong Kong students) as there are not much SWE posts available. However, I think I am on the right track. I just need more time to solve more questions with speed and accuracy, which is a time game.
+
+
 ### GOogle and amazon
 <a href="https://leetcode.com/discuss/compensation/544859/google-l4-amazon-l5-seattle-jan-2020" target="_blank">https://leetcode.com/discuss/compensation/544859/google-l4-amazon-l5-seattle-jan-2020</a>
 Overview
@@ -515,6 +592,174 @@ TODO: 날짜 지우고 내용 따로 묶어서, 내용 보강
 - Trouble shooting시, document대로 동작하지 않을 떄 그 이유를 스스로 추론 가능. (아무도 해보지 않은 걸 prototyping 할 때도)
 
 잘 되든 (특히) 안되든 마지막에 시간을 내 주셔서 감사하다고 했어야 하는데 말이 잘 안 나온다. 뭐 개털린 극한상황이긴 했으니까 ㅡㅡㅋ 면접보기 전에 한번 머리에 박고 시작해야 할 듯
+
+### Google
+#### Google Interview Experience
+I think now it's my turn of giving back to the community. I had been recently interviewed at Google, unfortunately couldn't clear it.
+
+Phone Screen:
+
+Problem : Variation of the Course scheduled problem, Given the dependency of the courses, if a course A is prerequisite for course B then course A must be completed in some semester before the semester in which course B is completed, find the minimum no. of semesters required to complete all the courses.
+
+I could solve this problem and then I was invited for the onsite to Google's Hyderabad office. In Hyderabad office, there were five back to back coding rounds and no G & L round.
+
+Round - 1 :
+
+Problem - 1:
+You have a machine with one core and you are given start time and end time of the programs, check whether new program can be scheduled or not. You are basically given query describing schedule of the new program i.e, [s, e] s and e are the start and end time of the new program, return true if it can be scheduled, false otherwise.
+
+Follow-up:
+Your are given machine with 4 cores (4 programs can run simultaneously) check whether new program can be added or not.
+
+Firstly I gave the brute force solution(O(N)) then I suggested then optimized solution using binary search** O(Log N)**.
+
+Ran out of time for the follow up question, so I could solve this partially.
+
+Round - 2
+Problem - 1:
+Given an array and an integer K, find the length of longest subarray that has sum less than or equal to K.
+
+First gave O(N2) solution, then gave O(N) solution using sliding window.
+
+Follow-up:
+Given a matrix of M * N find the size of the biggest square that has sum less than or equal to K.
+
+First gave brute force solution, then optimzed one using DP.
+
+Problem - 2:
+Find the length of longest AP sequence which is there in the tree.
+
+Couldn't solve this one, ran out of time.
+
+Round - 3
+
+Problem - 1:
+You are given D units of data that needs to be transferred over the network and packet size K, find minimum no of packets required to transfer all the data.
+
+This was a no brainer, I think this was the warmup problem.
+
+Follow up:
+Distribute data in each packet such that difference between data in any two packets should be minimum.
+
+Round - 4:
+
+Given an array of integers that is already sorted based on first 28 bits, solve the array by all the bits.
+
+Couldn't solve this problem
+
+Round - 5:
+
+Problem - 1:
+
+Given a binary locking system, you are also given initial and final state of the lock and all the states that are safe.
+
+From one state you can go to another state by flipping one bit at a time and the new generated state should be same.
+
+You need to check whether you can unlock the given binary lock or not.
+
+Follow Up:
+Later he limited the size of safe states to 100 and asked me to optimize.
+
+First I gave the DFS solution, later optimized using DSU. couldn't derive time complexity for this solution.
+
+Lessons Learned
+
+Focus on speed, take the timed contests when you are preparing.
+Do not take more than 2-3 minutes to discuss brute force solution.
+If you already know the solution, immediately after brute force jump to it, don't waste time in discussing two three alternative approaches.
+Many of you may not agree with the third point, but the thing is that when you are interviewing with google, each round last for exactly 45 mins and you are expected to write the complete code.
+
+#### Google 2
+I think it's my turn to give back to the wonderful leetcode community. I recently received an offer from Google. Following is my experience.
+
+Journey
+
+I have about 3.5 years of experience working as a Software Engineer. I actively started looking for Job 4 months back wherein I interviewed for Facebook and Google. I got rejected in onsite interviews of Facebook. I have solved around 110 questions on leetcode around 32 Easy 60 Medium and 20 Hard. I have found difficult implementing Hard level leetcode questions (to this date I still do).I didn't want to loose out on any of my options hence I purchased Leetcode premium which was definitely helpful for Facebook's preparation(All the questions I received in my phone screen and onsite were already part of Premium problems)although not that helpful for Google. I tried to solve problems on codeforces and topcoder back during my college days and was on and off with leetcode during past couple of months. In retrospect I should have tried to implement more problems on Leetcode as I have been scared of problems which involve heavy implementation :(
+
+I had already interviewed with Google around 2 years back which went very bad according to the recruiter neverthless I was given one more shot.I thought I would share my Interview experience with Leetcode community below post summarises my Interview experience.
+
+Interview Experience
+
+Phone Screen (45 Minutes)
+
+It was fairly easy question involving priority queue. I had already seen some similar questions hence wasn't difficult for me to come up with approach. The interviewer was happy with the approach and asked me to code it up which I did. Afterwards the interviewer found some syntatical errors in my code which I corrected immediately (nothing logical). I thought I did good.
+
+The recruiter followed up and said the feedback was quite positive and I will move to onsite. She told me that there will be 3 Algo/DS round with 1 Algorithm Design round and 1 behavioural round. I scheduled my onsite after approximately 30 days of my phone screen.
+
+**Onsite Interviews **
+
+Round 1 (Googlyness)
+
+I think the focus of this round is to eliminate false positives. I made sure to give examples for most of the questions. In retrospect I think this round went well although you can never tell :) .
+
+Round 2 (Technical)
+
+It was fairly easy question on rectangles. I made sure to ask some clarifying questions which helped me narrow down my approach. I could come up with n^2 solution in no time (which i think was the best possible approach). I coded the solution but the interviewer found 1 very small logical bug which I found and corrected. After which there was a follow up question for which I gave couple of different solutions although I am not sure if the interviewer was looking for some thing else. In retropspect I think this round was meh meh.
+
+Round 3 (Technical)
+
+I bombed this interview. It was so bad that after 25 minutes the interviewer gave up and asked me to code it up(I guess he wasn't even looking at the solution). The Question involved thinking along lines of Dp (2D dp Specifically). I was able to figure out the states quite early but it was the transition between the states which I had problem with. In retrospect this round was very bad. If I get denied it will be most certainly because of this round.
+
+Round 4 (Algorithm Design)
+
+The problem statement was quite easy to comprehend although I had to make sure what tradeoffs have to be considered before presenting an optimal solution and refining it further. After I clarified everything I made sure to put a brute force solution and then afterwards an optimal approach using Stacks. The interviewer asked me to code it up which I did. The interviewer looked happy with my code and no modifications was required in the code. The key in this round is to balance thinking part with coding part. In retrospect I think I did well in this round
+
+Round 5 (Technical)
+
+This was my best round. The problem statement was an easy graph problem which I recognized and gave the interviewer the most optimal solution. The interviewer seemed happy with my approach and I coded up instantly in C++. We still had around 15 mins left so there was a follow up question which I was able to explain but there wasn't any coding part involved. In retrospect I think I aced this round.
+
+Post Interview
+
+After 1 week the recruiter reached to me telling that my feedback was tending positive although it's mixed. I was well aware that this was bound to happen. I also have to talk to Managers from different teams this week for Team matching(although I am not sure if this will help Hiring Committee or not). Fingers crossed 🤞. I think I have like 20% chance since I completely bombed one of my interviews. What do you guys think ?
+
+#### Amazon - India
+Getting help from the Leetcode community for a long time. I just wanted to give something back as well. :)
+I gave an amazon interview last week and wanted to share my experience. I had given an online test prior to the onsites some time back but i do not remember the questions that well. Two weeks later, I was asked to come for onsites.
+Pointers before discussing about onsites questions:
+
+Every round was a coding round alongside LP round.
+The rounds also consisted of a few questions asked in relation to core subjects like Operating Systems, DBMS, Networks etc.
+Each round had atleast two coding questions asked.
+Each round went on for atleast an hour in my case
+Round 1: I was asked two questions. Both being from leetcode and of medium difficulty. Topics begin Trees and Arrays.
+
+Given a binary tree and a sum. Find if there exists a path from root to leaf with sum of node values to be equal to the target value given.- https://leetcode.com/problems/path-sum/
+I was able to come up with an O(n) solution and was able to code up pretty fast.
+Trapping rainwater problem-https://leetcode.com/problems/trapping-rain-water/
+This is a pretty well known problem and I did remember it doing a long time back. I had a discussion with the interviewer and was able to come up with an O(n) time and space solution. We went further discussing on STLs in C++ and couple of other topics.
+Apart from this there was a resume discussion and couple of LP questions as well.
+Round 2: Questions again were from leetcode. The topics asked were from stacks and heaps.
+
+Given a stream of integers, find the median of numbers at any point.
+I had never seen this question before hand, but first come up with a brute-force approach, but with a couple of hints from the interviewer I came up with a heap solution there. Later saw that this question is pretty well known leetcode-hard question.
+https://leetcode.com/problems/find-median-from-data-stream/
+Perform Push, Pop and Get_Min in O(1) complexity.
+This question was easy and I had a good discussion with the interviewer about different approaches.
+Here I was asked questions from OOPS and Networking. I was able to answer question from OOPS but unable to answer the questions from networking.
+Round 3: I was asked three questions in this round. I was asked mostly DP and one Heap question in this round.
+
+The question was given s1, s2, s3, find whether s3 is formed by the interleaving of s1 and s2.
+I had never seen this question before and DP being a weak spot for me, I was unable to come up with a DP solution of this problem. I gave a recursive approach but was unable to further optimise it. Later found out that this question was available on leetcode as well.
+https://leetcode.com/problems/interleaving-string/
+The next question was again from DP, and I had seen the question before. The question was Decode Ways-https://leetcode.com/problems/decode-ways/
+I was able to come up with both a tabularised and a recursive approach for this problem. I had a good amount of discussion with the interviewer on this question.
+Later on, I was asked the question on K-frequent words from a stream of words incoming. I was able to come up with a brute force solution and then the interviewer asked me to code it up. Post that we had a discussion on everything in relation to designing of the hashmap and priority queues which was in relation to the question.
+The interviewer also asked a couple of DBMS questions like ACID properties and some SQL queries.
+Round 4: This was the last round. I was asked two questions here. I bombed this interview pretty badly, even though I was able to code it up but I took a lot of time even though the questions weren't that tough.
+
+I was asked a couple of LP questions and things from my resume. Even though I was able to answer LP questions comfortably, I had not revised my resume projects that thoroughly and the interviewer went in depth analysis of my projects where I was unable to answer a couple of questions mainly because I hadn't revised.
+It was a graph problem to be done using minheaps. I coded up that solution pretty fast. We had a discussion on minheaps and I was asked to write a code for minheap extraction which was the part where I made a mistake. I got confused in one point and I took a lot of time thinking and kept getting confused further. After sometime, the interviewer started getting slighly frustrated gave me a hint from which I was able to code up the question. I got so nervous and then gave the incorrect complexity analysis of it.
+The second question was Word ladder - https://leetcode.com/problems/word-ladder/
+I gave the brute force analysis and since I was nervous from the prior mistake I ended up again giving incorrect time complexity analysis. The interviewer helped me a bit further and I was able to come up with a optimised solution but since I had already taken a lot of time, I was unable to code that up.
+Mistakes that I actually learnt from after giving the inteviews:
+
+Revise everything on your resume that you think can be asked from you. Getting rejected just because you weren't able to answer something you had done a long time back sucks badly.
+Even if you have made mistakes in one round or asked too many hints don't let that boggle you down. Consider every question a new opportunity in that interview irrespective of how the previous one went.
+Get your time complexity analysis right. I realised that this concept still is an extremly weak portion of mine.
+Interviews are luck based, but the only thing you can do is give your best shot so that you never have regret of not trying.
+Rejections happen all the time and I'm pretty sure everyone here must have faced that atleast once. Just take it as a learning experience and move forward. Maybe that company wasn't for you right now, but that doesn't mean it will never be in the future.
+I hope this experience is helpful to anyone who is trying in Amazon and I hope you do get in. All the best :)
+
 
 ### Google
 #### Google Interview Experience
