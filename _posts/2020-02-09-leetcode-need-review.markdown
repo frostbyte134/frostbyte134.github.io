@@ -62,14 +62,6 @@ TODO: make a post on
 * 외우는게 좋은듯
 
 
-### Minimum Distance to Type a Word Using Two Fingers
-* <a href="https://leetcode.com/problems/minimum-distance-to-type-a-word-using-two-fingers/' target="_blank">다시 풀어봅시다</a>
-* <details>
-   <summary>다시풀기</summary> 
-   1. 왼쪽/오른쪽 구분은 필요없음 (이전의 왼/오를 오른/왼으로 바꾸면 됨). <br/>
-   2. O(N * 24) 로 풀 수 있지 않을까?
-   </details>
-
 
 ### Flip Equivalent Binary Trees
 - https://leetcode.com/problems/flip-equivalent-binary-trees/
@@ -100,7 +92,7 @@ TODO: make a post on
 <a href="https://leetcode.com/problems/minimum-distance-to-type-a-word-using-two-fingers/" target="_blank">https://leetcode.com/problems/minimum-distance-to-type-a-word-using-two-fingers/</a>
 * 일단 O(KN^2) dp로는 쉽게 풀음
 * <details>
-   <summary>O(N)</summary> iterative dp로 풀면 K를 없애도 됨. 왼/오를 구분하지 않아도 되고, 항상 한쪽 손가락만 움직이는 경우보다 얼만큼 절약할 수 있나를 a[26] 상태공간에 넣으면 O(N)임 
+   <summary>O(N)</summary> iterative dp로 풀면 K를 없애도 됨. 왼/오를 구분하지 않아도 되고, 항상 한쪽 손가락만 움직이는 경우보다 얼만큼 절약할 수 있나를 a[26] 상태공간에 넣으면 O(N X 26)임 
    </details>
 
 
