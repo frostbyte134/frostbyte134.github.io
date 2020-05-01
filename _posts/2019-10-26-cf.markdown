@@ -72,7 +72,7 @@ tags: problem_solving need_review multiset
    <details>
    <summary>editorial</summary>d, w 범위가 작음. 이긴 횟수가 d를 넘어가면, 결국 d보다 낮은 케이스로 동일 점수로 매핑할 수 있어서, d안에서만 이긴 횟수를 따져보면 됨. 증명 다시 해보자. 
    </details>
-   확장 유클리드 호제법 문제였슴. 삼전 professional 공부하다 이걸 보게 됬네 ㄷㄷ  
+   확장 유클리드 호제법 문제였슴. 
    1. Integer programming서, \\(ax + by = c\\)인 경우에서 당연히 \\(gcd(a, b)\\)는 c를 나눌 수 있음.
    2. 일단 \\(c=gcd(a, b)\\)인 경우에 (아니라면, 원래 c / gcd(a, b)를 곱해주면 되겠지 뭐)
    3. \\(a=bq+r\\) 이라고 하면 (포인트!), \\[(bq+r)x + by = gcd(a, b)\\] \\[(b(qx + y)+rx = gcd(a,b) = gcd(b, r)\\]이 되고, b는 유클리드gcd처럼 언젠가 0이 됨.
