@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "CF reviews"
+title:  "Codeforces reviews"
 date:   2020-02-13 09:00:05 +0800
 categories: problem_solving
 use_math: true
@@ -9,6 +9,27 @@ tags: problem_solving need_review multiset
 
 천천히 합시다
 
+### EDU 86
+1. C  
+   (1, maxx-1)까지 특정 0/1 패턴이 나타나는데, (l, r)구간에서의 합은?  
+   4개의 포인트를 고려해야 해서 썡으로 풀면 어렵다. 
+   ```c++
+   ll left_to = l / (maxx);
+   ll right_to = r / (maxx);
+   ```
+   로 해 놓고,  
+   1. left_to == right_to 이면, 둘이 같은 (1, maxx-1) 구간에 들어 간 거니까 그 안에서 계산
+   2. !=이면, 왼쪽/오른쪽 따로 (1, maxx-1)구간을 계산하고, `(right_to - left_to - 1)` 번 만큼 (1, 1-maxx)구간이 반복되는 것임
+2. D  
+   [1, K] 구간에 아이템이 있나 없나 빨리 봐야 했음. map과 lower_bound를 써서 품.   
+   `lower_bound(key)`: inclusive. key에 대해 lower_bound인 아이템을 반환하는 게 아니고, key본인이 lower_bound가 될 수 있는 아이템을 반환하는 것 (본인 포함, 오른쪽)  
+   `upper_bound(key)`: not inclusive (본인 미포함 왼쪽)  
+   오른쪽 왼쪽 계속 햇갈린다. 
+3. E   
+   <details>
+   <summary>다시풀기</summary> 
+    inclusion-exclusion / 2배 하기. 이걸 대회시간내에 어케 풀지. 풀면 바로 퍼플 갈텐데...
+   </details>
 
 ### 619 Div2
 <a href="https://codeforces.com/contest/1301" targeg="_blank">https://codeforces.com/contest/1301</a>

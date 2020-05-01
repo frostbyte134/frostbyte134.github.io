@@ -37,6 +37,7 @@ EX) GPIO 2번 핀 쓰기 (레지스터로 조종)
 3. 25.4.1에서 GPIO_OE는 offset이 134h임: `0x481A_CFFF + 0x134`에 핀번호 참고해서 (ex: 3번핀: 1\<\<3) 쓰면 됨
 4. 데이터아웃 레지스터도 참고해서 쓰면 됨
 
+recent kernel - GPIO 1, 2, 3 is not automatically enabled - must enable CM_PER_GPIO2_CLKCTRL?
 
 ### PRU
 * <a href="http://www.ti.com/lit/ug/spruij2/spruij2.pdf?ts=1588210569067" target="_blank">TI manual</a>

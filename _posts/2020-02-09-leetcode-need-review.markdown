@@ -12,6 +12,18 @@ solve the problem while explain it to yourself, and write examples (must!)
 TODO: make a post on
 * https://www.educative.io/courses/grokking-the-system-design-interview
 
+### Cherry pickup (need review)
+* <a href="https://leetcode.com/problems/cherry-pickup/" target="_blank">https://leetcode.com/problems/cherry-pickup/</a>
+* 워매...
+* <details>
+   <summary>다시풀기</summary> 
+    왔다-갔다 X. 2개를 동시에 앞으로. 매턴마다 아래/오른은 가야 하므로, 둘이 겹치는 경우도 쉽게 처리가능. 덤으로 x+y=p+q이므로 x, y, p만 상태공간이 됨. 마지막에 계속 틀린건, -1때문에 아래/오른을 못가는 경우에도 (막다른 골목!) 적당한 답을 반환해서 그랬음. 엄청 큰 -로 페널티를 줘야 함.
+   </details>
+
+
+### Range Sum Query 2D - Mutable
+- 2차원 구간합인데 mutable함. 이거 맨날 생각하는데 해싱같은거로 대충 풀지 않았나? 백준에서..
+- 2차원 세그트리같은건 아니었고...1차원 구간합을 효율적으로 갱신하면 상위권 됨
 
 ### Sliding Puzzle
 * <a href="https://leetcode.com/problems/sliding-puzzle/" target="_blank"> 보드가 작아 bijection 가능</a>
