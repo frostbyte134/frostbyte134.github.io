@@ -13,7 +13,7 @@ A ```Programmer```.<br/>Owns ```PS4```.<br/>
 
 <a target="_blank" href="https://codeforces.com/profile/frostbyte1231">Codeforces</a>
 
-contact: nailbrainz@gmail.com
+contact: nailbrainz at gmail dot com
 
 
 [topcoder-nailbrainz]: https://www.topcoder.com/members/nailbrainz/details/?track=DATA_SCIENCE&subTrack=SRM

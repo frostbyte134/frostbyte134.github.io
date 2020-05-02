@@ -1,0 +1,45 @@
+---
+layout: post
+title:  "Memory management of OS"
+date:   2020-05-01 09:00:05 +0800
+categories: coding
+use_math: true
+tags: coding C
+---
+
+맨날 해깔려서..정리 ㄱㄱ
+
+* <a href="https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/8_MainMemory.html" target="_blank">https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/8_MainMemory.html</a>
+* <a href="https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/9_VirtualMemory.html" target="_blank">https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/9_VirtualMemory.html</a>
+
+### Copy on write
+
+* <a href="https://en.wikipedia.org/wiki/Copy-on-write#In_virtual_memory_management" target="_blank">https://en.wikipedia.org/wiki/Copy-on-write#In_virtual_memory_management</a>
+
+>  The idea behind a copy-on-write fork is that the pages for a parent process do not have to be actually copied for the child until one or the other of the processes changes the page.
+
+
+### Demand paging
+>  A crucial part of the process is that the instruction must be restarted from scratch once the desired page has been made available in memory
+
+
+### Memory Commit
+
+### C data sections
+* `.text`: 코드. 문자열
+* `.bss` : 초기값 없는 전역변수. 임베디드 기기를 예로 들면, 메모리 섹션 로딩하면서 0으로 다 초기화됨
+* `.rodata`: 상수 전역변수
+* `.data`:  초기값 있는 전역변수
+
+
+### Memory map
+> Rather than accessing data files directly via the file system with every file access, data files can be paged into memory the same as process files, resulting in much faster accesses ( except of course when page-faults occur. ) This is known as memory-mapping a file.
+
+* Basically a file is mapped to an address range within a process's virtual address space, and then paged in as needed using the ordinary demand paging system.
+
+#### Memory-Mapped I/O
+* All access to devices is done by writing into ( or reading from ) the device's registers. Normally this is done via special I/O instructions.
+* For certain devices it makes sense to simply map the device's registers to addresses in the process's virtual address space, making device I/O as fast and simple as any other memory access. Video controller cards are a classic example of this.
+* Serial and parallel devices can also use memory mapped I/O, mapping the device registers to specific memory addresses known as I/O Ports, e.g. `0xF8`. Transferring a series of bytes must be done one at a time, moving only as fast as the I/O device is prepared to process the data, through one of two mechanisms:
+    - `Programmed I/O ( PIO )`, also known as `polling`. The CPU periodically checks the control bit on the device, to see if it is ready to handle another byte of data.  
+    - `Interrupt Driven`. The device generates an interrupt when it either has another byte of data to deliver or is ready to receive another byte.  

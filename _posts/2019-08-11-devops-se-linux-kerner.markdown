@@ -44,7 +44,11 @@ tags: linux process os
 \\[\text\{RES\}\subseteq \text\{VIRT\}\\]
 SHR은 일부분이 RES에 포함됨
 
-`memory commit`: `demand paging`. lazy allocation of memory. `fork()`시 일단 복사하고 보는데, 이전 메모리를 아예 안 쓸 수도 있으므로, physical allocation은 나중에 함. 해당 메모리에 write시 (read는?), page fault발생하며 실제 allocation 일어남.
+`memory commit`: 메모리 동적 할당시 (`malloc`) physical allocation은 나중에 함. 해당 메모리에 write시 (read는?), page fault발생하며 실제 allocation 일어남.  
+`demand paging`: 컨텍스트 스위치 된 이후, 페이지를 전부 로딩하지 않음. 프로세스의 메모리가 전부 메모리에 올라와 있지 않고, 일부는 HDD에 있어도 된다.
+`Copy On Write`: 예를 들어 Fork시, shared page를 통해 write전까지는 부모자식이 같은 프로세스를 공유함
+
+
 1. `sar`로 봤을 시, `%commit`란이 메모리 커밋 비율 (실제 할당 X)인 메모리.
 2. 가상메모리를 실제 가용 메모리보다 크게 할당할 수 있음. `vm.overcommit_memory`로 제어 가능
    1. 0: page cache + swap + slab reclaimable
