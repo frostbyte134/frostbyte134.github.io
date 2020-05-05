@@ -1,0 +1,77 @@
+---
+layout: post
+title:  "NLLS and Levenberg-Marquardt"
+date:   2020-05-04 09:00:05 +0800
+categories: math
+use_math: true
+tags: math linear_algebra optimization
+---
+
+* https://see.stanford.edu/materials/lsoeldsee263/07-ls-reg.pdf
+* https://darkpgmr.tistory.com/142
+* https://math.stackexchange.com/questions/236587/newton-iteration-method-derivation
+
+### Non Linear Least Square problem formulation
+
+Given a set of \\(m\\) observations \\((x\_i,y\_i)\in (R^k, R)\\) and a model \\(f(x;p)\\) with a parameters set \\(p \in x^n\\), We want to find a parameter \\(p^*\\) which minimizes the following non linear objective (`residual`)
+\\[E(p) := \sum\_\{i=1\}^\{m\} \|\| y\_i - f(x\_i;p)\|\|,\quad\quad R^n \mapsto R. \\]
+
+If we use the standard `Euclidian norm`, \\(E(p)\\) can be expressed as a vector form
+\\[E(p) = r(p)^Tr(p)\\]
+with 
+\\[r\_i(p) = y\_i - f(x\_i;p)\\]
+
+For \\(E(p)\\), <a href="{{site.url}}/linear_algebra/2018/05/13/psd-mat-and-hessian.html" target="_blank">jacobian</a> at a point \\(x^\{n\}\\) (transpose of a <a href="{{site.url}}/deep_learning/2018/03/27/derivative-of-tensors.html" target="_blank">gradient</a>) is defined as a linear mapping (matrix)
+\\[J\in \Re^\{n\} = 
+\begin{bmatrix}
+\frac\{\partial E(p) \}\{ \partial p\_1 \}  &   \ldots   &  \frac\{\partial E(p) \}\{ \partial p\_n \} \\\
+\end{bmatrix}^T
+\\]
+We see that \\(\frac\{\partial E(p) \}\{ \partial p\_1 \} = \frac\{\partial r(p)^Tr(p) \}\{ \partial p\_1 \} \\) is actually a inner product (sum over \\(m\\) given data), and considering its __quadratic form__, 
+\\[
+\frac\{\partial r(p)^Tr(p) \}\{ \partial p\_1 \}
+\\]
+\\[
+= \frac\{\partial r\_1(p)^2 \}\{ \partial p\_1 \} + ... + \frac\{\partial r\_m(p)^2 \}\{ \partial p\_1 \}  
+\\]
+\\[
+= 2r\_1(p)\frac\{\partial r\_1(p) \}\{ \partial p\_1 \} + ... + 2r\_m(p)\frac\{\partial r\_m(p) \}\{ \partial p\_1 \}  
+\\]
+\\[
+= 2 \begin{bmatrix}
+\frac\{\partial r\_1(p) \}\{ \partial p\_1 \}  &   \ldots   &  \frac\{\partial r\_m(p) \}\{ \partial p\_1 \} \\\
+\end{bmatrix}
+\begin{bmatrix}
+r\_1(p)   \\\
+\ldots  \\\
+r\_m(p)  \\\
+\end{bmatrix}
+\\]
+
+so that \\(J\\) can be __decomposed__ as
+\\[ \begin{bmatrix}
+\frac\{\partial r\_1(p) \}\{ \partial p\_1 \}  &   \ldots   &  \frac\{\partial r\_m(p) \}\{ \partial p\_1 \} \\\
+\vdots  &   \ldots   &  \vdots \\\
+\frac\{\partial r\_1(p) \}\{ \partial p\_n \}  &   \ldots   &  \frac\{\partial r\_m(p) \}\{ \partial p\_n \} \\\
+\end{bmatrix}
+\begin{bmatrix}
+r\_1(p)   \\\
+\ldots  \\\
+r\_m(p)  \\\
+\end{bmatrix}
+= A^Tr(p)
+\\] 
+
+
+
+### Gradient descent
+For a continuous function, the opposite direction of the gradient is the steepest descent direction (add link), which gives following iterative process
+\\[x^\{k+1\}=x^\{k\} - \alpha J(x^\{K\})\\\]
+\\[\rightarrow x^\{k+1\}=x^\{k\} - \alpha A^Tr(p) \\]
+
+
+### Gauss-Newton
+- link pseudoinverse, normal problem
+
+
+### Levenberg-Marquart

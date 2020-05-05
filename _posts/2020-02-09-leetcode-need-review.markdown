@@ -237,19 +237,10 @@ increasing하게 들어오는 timestamp. 특정 시점의 300초전까지의 hit
 - <a href="https://leetcode.com/problems/guess-the-word/" target="_blank">https://leetcode.com/problems/guess-the-word/</a>
 - SWE B번예시같았다. 현재까지 던진 query와, 대상이 될 문자열들 candidate가 있다고 할 시, query와 최대한 겹치지 않는 걸 candidate에서 찾아서 query넣어봄 (최대한 많은 정보 획득).
 
-### Amazon
-* https://www.amazon.jobs/en/principles
-
-### Interviews
-* https://leetcode.com/discuss/interview-experience/479413/NDA-Google-Facebook-Amazon-or-L5-E5-L5-or-London-or-Dec-2019-Offer
-  * Here typical advices would apply: think outloud, do not give anything for granted and ask lots of clarifying questions, state from the very beginning what kind of complexity (both time and space) and check with the interviewer if that complexity is ok or you should aim for something better.
-  * System Design: I found this one to be the most complex for two main reasons: I did not have a lot of experience on scaled distributed systems, you do not really know how to prepare on this one (whereas you can prepare well for the coding one). This was the one where I performed the worst both at Google and Facebook, and Facebook asked me to repeat this interview a second time (just the System Design one, not the whole thing). The main takeaway here is: start with a very generic design, and then deep dive and be (very) concrete on 1-2 aspects. If the aspect is the Database, say which technology, which schema, how many replicas, and so on. If you deep dive on one server, say how many servers you need, say what kind of requests/responses, say what happens if one server goes down while serving a request, and so on.
-  * Behavioral: Do not underestimate this one, as for example Google introduced it recently since they understood the importance of such interview. Prepare some answers to questions like Tell me one time where you disagree with your colleagues or Tell me one time that you went outside your normal boundaries to complete some tasks. My suggestion here is be real, try to come up with real scenarios from your experience, which may very well be stuff from university. Do not try to fool the interviewer with cool answers, these guys have been doing interviews for many years and they most likely know how to spot a fake answer. Amazon requires a special preparation, as you need to go through all their principles and associate 1 or 2 stories to each of the principle.
-  * For system design questions I prepared by purchasing the course grokking the system design interview, reading high scalability blog and watch lots of videos on Youtube. Do as many mock interviews as possible, even alone and even if it seems stupid at the beginning.
 ### reference problems
 
 #### LRU Cache
-
+<a href="https://leetcode.com/problems/lru-cache/" target="_blank">https://leetcode.com/problems/lru-cache/</a>
 linked list + hash = O(1) LRU Cache!
 
 #### 2-sum problems
@@ -319,8 +310,9 @@ Permutation의 다음번째는 무엇인가? (lexicographical order)
 1. \\(2(L\_1+L\_2)=L\_1+L\_2+nC\\)
 2. \\(n=1\\): 어차피 `fast`와 `slow`는 1번에 1칸씩밖에 차이가 안나기때문에, `fast`는 1번의 순회만으로 `slow`와 만남.
 
-그러므로, \\(L\_1+L\_2=C \quad\rightarrow\quad L\_1=C-L\_2\\). 현재 slow위치에서 계속 앞으로 나가고, starting point에서 앞으로 나가면 만나는곳이 cycle entry가 됨.
+그러므로, \\(L\_1+L\_2=C \quad\rightarrow\quad L\_1=C-L\_2\\). 만일 fast와 slow가 만났다면 (cycle 있음), 현재 slow위치에서 1칸씩 앞으로 나가고, 다시 starting point에서 1칸씩 앞으로 나가서 만나는곳이 cycle entry가 됨.
 
+<a href="https://leetcode.com/problems/linked-list-cycle-ii/discuss/44781/Concise-O(n)-solution-by-using-C%2B%2B-with-Detailed-Alogrithm-Description" target="_blank">editorial</a>
 
 #### Task Scheduler
 <a href="https://leetcode.com/problems/task-scheduler/" target="_blank">https://leetcode.com/problems/task-scheduler/</a>
@@ -328,6 +320,7 @@ Permutation의 다음번째는 무엇인가? (lexicographical order)
 1. task 갯수가 n+1번째보다 많을 시, 억지로 n+1에 끼워넣기보단 n+1보다 더 벌리는 것이 좋음. 그림을 그러보면 알기 쉬운데, 전자는 net loss가 발생하기 때문
 2. 위와 같이 하고, 중복 고려해서 마지막 끝나는 시간을 찾으면 됨
 
+우선순위 큐를 써서 O(NlogN)에 풀수도 있지만, 좀 잘 생각해보면 O(N * 26)이 가능. 근데 logN이 26을 넘을라면 N이 2의 26승...?
 
 ### Need review
 
@@ -403,6 +396,8 @@ cur = -1
 
 이렇게 하는 이유는, ()()나 (()()) 같은 경우를 해결하기 위해서.
 
+
+
 ```python
 def longestValidParentheses(self, s: str) -> int:
     st = []
@@ -425,7 +420,7 @@ def longestValidParentheses(self, s: str) -> int:
 
 
 
-#### N-Queens
+#### N-Queens (reference problem)
 <a href="https://leetcode.com/problems/n-queens/" target="_blank">https://leetcode.com/problems/n-queens/</a>
 
 1. Naive - on the board
@@ -460,7 +455,7 @@ class Solution:
                 
 ```
 
-#### Smallest Range
+#### Smallest Range 
 <a href="https://leetcode.com/problems/smallest-range-ii/" target="_blank">https://leetcode.com/problems/smallest-range-ii/</a>
 
 1. 처음엔 [2][10000]의 동적계획법인가 했었다. 
@@ -475,7 +470,7 @@ class Solution:
 	2. K를 빼는 쪽의 마지막 - K
 	
 	4개만 검사하면 됨.
-	
+4. 면접에 나오는 문제는 아니지만...함 봐보자
 
 ```python
 class Solution:
@@ -510,22 +505,30 @@ dp[val] = min([dp[val - c]+1 if val - c >= 0 else float("inf") for c in coins])
 
 #### Subarray Sum Equals K
 https://leetcode.com/problems/subarray-sum-equals-k/
-
-부분합문제인데 N^2로 풀면 TLE남.  
+<summary>보기만</summary> 
+    부분합문제인데 N^2로 풀면 TLE남.  
 힌트는 값의 범위가 좁다는거였음. dic에 지금까지 나온 값들 저장해놓고 체크하면 됨.  
 `collections.counter`를 쓰면 더 빨라지는듯?
+   </details>
 
 
-#### Find All Numbers Disappeared in an Array
-https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/
-
-리스트 값이 리스트 내부와 range가 같고, 리스트를 체크해야 할 시 리스트 값이 -를 해두면 좋은듯
 
 
-#### Min stack
+#### Find All Numbers Disappeared in an Array (reference problem)
+<a href="https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/" target="_blank">https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/</a>
+
+<summary>보기만</summary> 
+    리스트 값이 리스트 내부와 range가 같고, 리스트를 체크해야 할 시 리스트 값이 -를 해두면 좋은듯
+   </details>
+
+
+
+#### Min stack (reference problem))
 <a href="https://leetcode.com/problems/min-stack/" target="_blank">https://leetcode.com/problems/min-stack/</a>
+<summary>보기만</summary> 
+    stack의 최소값 - pair를 저장하면 됨. 큐와는 달리 top 밑에 있는 애들이 안빠지므로..
+   </details>
 
-stack의 최소값 - pair를 저장하면 됨. 큐와는 달리 top 밑에 있는 애들이 안빠지므로..
 
 
 #### Rotate image
@@ -533,9 +536,11 @@ stack의 최소값 - pair를 저장하면 됨. 큐와는 달리 top 밑에 있�
 <a href="https://leetcode.com/problems/rotate-image/submissions/" target="_blank">https://leetcode.com/problems/rotate-image/submissions/</a>
 
 행렬 90도 rotation
+<details>
+   <summary>보기만</summary> 
+    transpose + column exchange / 4개의 점끼리만 바꾸기. Row 2개로 swap하려고 해서 잘 안풀려서 1번으로 풀음
+   </details>
 
-1. transpose + column exchange
-2. 4개의 점끼리만 바꾸기. Row 2개로 swap하려고 해서 잘 안풀려서 1번으로 풀음
 
 
 #### Regular expression

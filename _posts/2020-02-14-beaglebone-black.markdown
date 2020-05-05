@@ -17,10 +17,16 @@ tags: coding C
 <img src="{{site.url}}/images/embedded/bbb_ports.png" width="600">
 
 
-### Installing embedded linux
-eMMC linux is not portable with vscode (glibc dependency).
+### Compiling & Installing embedded linux
+eMMC linux is not compatible with vscode ssh extension (glibc dependency).
 
 <a href="https://www.digikey.com/eewiki/display/linuxonarm/BeagleBone+Black" target="_blank">https://www.digikey.com/eewiki/display/linuxonarm/BeagleBone+Black</a>
+* 써있는대로 하면 잘 됨. `bb-kernel`만 쓰는 거 같은데 다른 임베디드리눅스는 왜 받으라고 한거지
+* 커널 컴파일 완료. `load_average()` 계산하는 함수에 printk 넣음. 5초마다 잘 찍히는 것 확인  
+<img src="{{site.url}}/images/embedded/prinkt.jpg" width="300">
+* dmesg 가 `/var/log/messages`가 아니고 `/var/log/syslog`로 메시지를 보내도록 바뀌였네..
+* device tree 함 봐야되는데..이번주내로 보자
+* 이번 설치한 리눅스에 vscode원격접속 되면, eMMC의 리눅스도 이걸로 바꾸자
 
 ### UART
 <img src="{{site.url}}/images/embedded/bbb_uart.jpg" width="600">
