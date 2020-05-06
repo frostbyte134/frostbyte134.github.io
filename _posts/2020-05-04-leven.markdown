@@ -7,9 +7,9 @@ use_math: true
 tags: math linear_algebra optimization
 ---
 
-* https://see.stanford.edu/materials/lsoeldsee263/07-ls-reg.pdf
-* https://darkpgmr.tistory.com/142
-* https://math.stackexchange.com/questions/236587/newton-iteration-method-derivation
+* <a href="https://darkpgmr.tistory.com/142" target="_blank">https://darkpgmr.tistory.com/142</a>
+* <a href="https://see.stanford.edu/materials/lsoeldsee263/07-ls-reg.pdf" target="_blank">https://see.stanford.edu/materials/lsoeldsee263/07-ls-reg.pdf</a>
+* <a href="https://en.wikipedia.org/wiki/Newton%27s_method_in_optimization" target="_blank">Newton method derivation</a>
 
 ### Non Linear Least Square problem formulation
 
@@ -21,13 +21,14 @@ If we use the standard `Euclidian norm`, \\(E(p)\\) can be expressed as a vector
 with 
 \\[r\_i(p) = y\_i - f(x\_i;p)\\]
 
-For \\(E(p)\\), <a href="{{site.url}}/linear_algebra/2018/05/13/psd-mat-and-hessian.html" target="_blank">jacobian</a> at a point \\(x^\{n\}\\) (transpose of a <a href="{{site.url}}/deep_learning/2018/03/27/derivative-of-tensors.html" target="_blank">gradient</a>) is defined as a linear mapping (matrix)
-\\[J\in \Re^\{n\} = 
+For \\(E(p)\\), the derivative at a point \\(p\\) is defined as a linear mapping (matrix)
+\\[
+\frac\{\partial E(p) \}\{ \partial p \}\in \Re^\{n\} = 
 \begin{bmatrix}
 \frac\{\partial E(p) \}\{ \partial p\_1 \}  &   \ldots   &  \frac\{\partial E(p) \}\{ \partial p\_n \} \\\
 \end{bmatrix}^T
 \\]
-We see that \\(\frac\{\partial E(p) \}\{ \partial p\_1 \} = \frac\{\partial r(p)^Tr(p) \}\{ \partial p\_1 \} \\) is actually a inner product (sum over \\(m\\) given data), and considering its __quadratic form__, 
+We see that \\(\frac\{\partial E(p) \}\{ \partial p\_1 \} = \frac\{\partial r(p)^Tr(p) \}\{ \partial p\_1 \} \\) is actually an inner product (sum over \\(m\\) given data), and considering its __quadratic form__, 
 \\[
 \frac\{\partial r(p)^Tr(p) \}\{ \partial p\_1 \}
 \\]
@@ -48,8 +49,8 @@ r\_m(p)  \\\
 \end{bmatrix}
 \\]
 
-so that \\(J\\) can be __decomposed__ as
-\\[ \begin{bmatrix}
+so that \\(\frac\{\partial E(p) \}\{ \partial p \}\\) can be __decomposed__ as
+\\[ 2\begin{bmatrix}
 \frac\{\partial r\_1(p) \}\{ \partial p\_1 \}  &   \ldots   &  \frac\{\partial r\_m(p) \}\{ \partial p\_1 \} \\\
 \vdots  &   \ldots   &  \vdots \\\
 \frac\{\partial r\_1(p) \}\{ \partial p\_n \}  &   \ldots   &  \frac\{\partial r\_m(p) \}\{ \partial p\_n \} \\\
@@ -59,19 +60,37 @@ r\_1(p)   \\\
 \ldots  \\\
 r\_m(p)  \\\
 \end{bmatrix}
-= A^Tr(p)
+= 2A^Tr(p)
 \\] 
 
-
+> Notice that, \\(A^T\\) is a <a href="{{site.url}}/linear_algebra/2018/05/13/psd-mat-and-hessian.html" target="_blank">Jacobian</a> of \\(r:R^n\mapsto R^m\\) (not a Jacobian of \\(E\\), which is a function \\(E : R^n \mapsto R\\)).
 
 ### Gradient descent
 For a continuous function, the opposite direction of the gradient is the steepest descent direction (add link), which gives following iterative process
-\\[x^\{k+1\}=x^\{k\} - \alpha J(x^\{K\})\\\]
-\\[\rightarrow x^\{k+1\}=x^\{k\} - \alpha A^Tr(p) \\]
+\\[p^\{k+1\}=p^\{k\} - \alpha \frac\{\partial E(p) \}\{ \partial p \}\\\]
+\\[\rightarrow p^\{k+1\}=p^\{k\} - 2\alpha A^Tr(p) \\]
 
 
 ### Gauss-Newton
-- link pseudoinverse, normal problem
 
+Firstly, notice that \\(E(p)=0\\) is equivalent to \\(r(p)=0\\) (we are dealing with a euc norm). Then,
+
+<img src="{{site.url}}/images/math/newton.jpg" width="600">
+
+We see that we are optimizing linearized \\(r(p)\\) to find \\(p^\{k+1\}\\). The linear equation has a slope \\(\frac\{\partial r(p) \}\{ \partial p^k \} = A\\)  and must pass \\((p^k, r(p^k)) \in (R^n, R^m)\\), so it must have a form of
+\\[y=A(x-p^k) + r(p^k).\\]
+
+We want \\(y=p^\{k+1\}\\), which gives
+\\[A(p^\{k+1\}-p^k) + r(p^k)=0\\]
+\\[A^TAp^\{k+1\}=A^TAp^k - A^Tr(p^k)\\]
+\\[p^\{k+1\}=p^k - (A^TA)^\{-1\}A^Tr(p^k)\\]
+
+We see that \\((A^TA)^\{-1\}\\) is a pseudoinverse of the Jacobian of \\(r\\) at \\(p^k\\), which is a
 
 ### Levenberg-Marquart
+is a combination of gradient descent and Gauss-Newton
+
+\\[p^\{k+1\}=p^\{k\} - (A^TA + \mu\_k\alpha\text\{diag\}(A^TA) )^\{-1\}A^Tr(p)\\]
+
+1. \\(\mu\_k\\) dampens. Specifically, when the error \\(E(p)\\) is decreasing well, \\(\mu\_k\\) is set to be small (behave like Gauss-Newton). Otherwise \\(\mu\_k\\) is set to be large.
+2. Why \\(\text\{diag\}(A^TA)\\)? : \\(\text\{diag\}(A^TA)\\) is an approximate to the hessian of \\(r\\) at \\(p^k\\). Hessian includes the information of curvatures. We wish to accelerate the convergence by multiplying large scalar when the (approximate to) curvature is steep.
