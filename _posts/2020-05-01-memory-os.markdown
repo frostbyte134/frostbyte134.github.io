@@ -22,17 +22,35 @@ tags: coding C
 ### Demand paging
 >  A crucial part of the process is that the instruction must be restarted from scratch once the desired page has been made available in memory
 
+- `=lazy swap-in`. demang paging에도 `page fault`발생. 예를 들면 새 프로그램을 적재할 시, 필요한 메모리 구역과 그 locality만 실제 메모리에 올리고, 나머진 memory commit으로 처리 (fault = software interrupt발생시켜 diskio를 일으켜 처리)
 
 ### Memory Commit
+`VIRT`: 사용을 예약받은 메모리 (리눅스 기준). malloc()으로 큰 메모리를 잡을 시 생김. 해당 영역에 실제로 access시 `page fault`발생, 인터럽트 - 실제 메모리 할당.  
+이거나 디맨드 페이징이나 같은 거 아닌가?
 
 ### C data sections
-* `.text`: 코드. 문자열
-* `.bss` : 초기값 없는 전역변수. 임베디드 기기를 예로 들면, 메모리 섹션 로딩하면서 0으로 다 초기화됨
-* `.rodata`: 상수 전역변수
-* `.data`:  초기값 있는 전역변수
+
+* `.text`: 코드. 바이너리 (컴파일된 기계어).
+* `.bss` : 초기값 없는 전역변수. 임베디드 기기를 예로 들면, 메모리 섹션 로딩하면서 0으로 다 초기화됨. static포함. 
+* `.data`:  초기값 있는 전역변수 static 포함. ROM등에 초기값이 있어야 함
+* `.rodata`: 상수 전역변수 static포함
+
+<a href="http://recipes.egloos.com/5011946" target="_blank">http://recipes.egloos.com/5011946의 내용 추가</a>
+* `.symtab` : symbol table이며 , symbol이란 실제 주소를 가질 수 있는 단위를 말합니다. 보통은 전역변수이름과 함수이름
+* `.rel.text/data` : relocatable text이며, 말 그대로 op code가 들어 있음 (symbol reference resolving에서 언급한 구멍 난 text - extern 함수 등)
+* `.debug` : 이 section이야 말로 -g option에 의한 debug symbol table입니다. 지역, 전역 변수들에 대한 디버깅 심볼
+* `.line`: -g option으로 compile했을 때, text section의 opcode와 원본 C의 line을 연결하여, code를 보면서 debugging 가능하게 해줍니다
+* `.strtab`:  .symtab와 .debug section에 사용되는 const data인 string등을 가지고 있습니다. 
+
+위 링크에 global symbol이 중복 시에도 컴파일 되는 경우에 대한 설명이 있음
+
+memory `Segment` = \\(\Sigma\\) Sections
 
 
-### Memory map
+### XIP?
+- 어디 책에서 flash 에 있는 코드를 실행하는거라고 본 거 같은데...
+
+### mmap
 > Rather than accessing data files directly via the file system with every file access, data files can be paged into memory the same as process files, resulting in much faster accesses ( except of course when page-faults occur. ) This is known as memory-mapping a file.
 
 * Basically a file is mapped to an address range within a process's virtual address space, and then paged in as needed using the ordinary demand paging system.
@@ -43,3 +61,28 @@ tags: coding C
 * Serial and parallel devices can also use memory mapped I/O, mapping the device registers to specific memory addresses known as I/O Ports, e.g. `0xF8`. Transferring a series of bytes must be done one at a time, moving only as fast as the I/O device is prepared to process the data, through one of two mechanisms:
     - `Programmed I/O ( PIO )`, also known as `polling`. The CPU periodically checks the control bit on the device, to see if it is ready to handle another byte of data.  
     - `Interrupt Driven`. The device generates an interrupt when it either has another byte of data to deliver or is ready to receive another byte.  
+
+
+`Volatile`: 생략불가
+
+
+### Symbol and Linker
+<a href="http://recipes.egloos.com/5009181" target="_blank">http://recipes.egloos.com/5009181</a>
+- `symbol`: 링커가 식별할 수 있는 최소 단위. 자신만의 주소를 가짐. 컴파일/링크의 기본 단위
+- `ELF objfile`내에 symbol table보유
+- 심볼의 내용이 그대로 메모리에 적재되지는 않음. 바이너리 형태로 실행파일이 되는것
+
+
+### Linux
+
+#### Linux memory 
+- `VIRT`: task들의 가상메모리 총량 / `RES`: 물리메모리 총량 / `SHR`: 공유메모리 총량
+- `free`: total / used / free / shared (so파일, 커널 등) / buffers (`buffer cache`: 파일시스템 메타데이터 캐시) / cached (`page cache`: 파일에 대한 캐시)
+- `/proc/meminfo`
+- 리눅스 메모리 할당
+    1. 할당가능: 할당
+    2. 불가능 : swap or OOM
+
+#### vfork vs COW
+- `fork()`: 부모의 메모리를 일단 복사함. 근데 이후에 - `execl()`을 실행하면 기존 메모리를 다 지워버려서 불필요한게 됨. vfork는 일단 복사하지 않고 같은 공간을 가르킨다 함.
+- COW와 비슷하긴 한데 약간 다른듯

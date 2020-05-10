@@ -33,7 +33,7 @@ tags: os linux
 #### 프로세스 스케쥴링
 * 1 CPU = 1 Run Queue
 
-1. 프로세스 처음 생성시, init_test가 해드인 doubly linked list 뒤에 붙음
+1. 프로세스 처음 생성시, init_test가 해드인 doubly linked list 뒤에 붙음 (모든 프로세스는 tasklist라는 이중 연결리스트로 연결되어 있음)
 2. TASK_RUNNING이 될 시, 특별한 일이 없으면 부모 task가 돌아가는 run queue로 먼저 삽입 (cache affinity
 
 #### Deadline 스케쥴링
