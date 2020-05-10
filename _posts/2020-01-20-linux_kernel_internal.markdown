@@ -84,3 +84,8 @@ https://it.donga.com/files/2010/05/19/03.jpg
 3. 해당 메모리가 엑세스됨 - page fault - interrupt후 실제 메모리에 적재 (`demang paging`!)
 4. 보통 페이지 테이블은 3~4단계의 해싱 (`MMU`라는 하드웨어 이용)
 5. 연속적인 가상 메모리는 실제로 불연속적일 수 있음 - `vmalloc()`으로 이런식으로 할당가능
+
+
+- `region`: 같은 내용을 가지는 연속적인 __가상 메모리__ 영역. vm_area_struct라는 구조체로 RB트리로 관리됨
+- `page frame`: 물리메모리의 최소할당 단위
+- `page`:가상 메모리의 최소할당 단위

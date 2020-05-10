@@ -12,6 +12,12 @@
 - geometric multiplicity of an eval: 연관된 eigenspace (A-eI의 nullspace!!!)의 dimension
 - n x n square matrix A가 서로 다른 고유값 \lambda_1,...,\lambda_n 을 지니면, 대응하는 고유벡터를 나열한 행렬 \\(P\\)는 정칙이고, P^-1AP=diag\(\lambda\_1,...,\lambda\_n\)로 대각화할 수 있다.
 
+- 서로 다른 고유값n개는
+  - singularity하고 관련이 전혀 없음.
+    - 서로 다른 고유값n개를 가지는 경우에도 singular인 행렬
+    - 서로 다른 고유값 n개가 없어도 non-singular한 행렬 다 가능
+  - 
+
 
 
 ### 선형대수 - SVD, Spectral decomposition

@@ -40,15 +40,15 @@ Let
 #### Canonical camera
 - Let \\(K\_1=K\_2=I\\) (canonical camera setting). Then now we have camera matrix (1) as \\[M\_1=[I\ 0]\quad\quad M\_2=[R\ T]\\]
 1. The location of \\(p\_2\\) in the CAM1 coordinates will be
-\\[p\_2=Rx+T\\]
-\\[R^Tp\_2-R^TT=x\\]
+\\[p\_2=Rx_1+T\\]
+\\[R^Tp\_2-R^TT=x_1\\]
 2. The location of \\(2T\\) (remember that \\(T\\) is the location of CAM1 in CAM2 coordinate. Thus \\(2T\\) is also in the epipolar plane) in the CAM1 coordinate will be
-\\[2T=Rx+T\\]
-\\[R^TT=x\\]
+\\[2T=Rx_2+T\\]
+\\[R^TT=x_2\\]
 3. Both points lie in the epipolar plane. To get the normal of the epipolar plane, we perform <a href="{{site.url}}/analysis/2018/04/03/vector-projection.html" target="_blank">outer product</a>
-\\[R^TT\times (R^Tp\_1-R^TT)\\]
-\\[R^TT\times R^Tp\_1\\]
-\\[R^T(T\times p\_1)\tag\{2\}\\]
+\\[R^TT\times (R^Tp\_2-R^TT)\\]
+\\[R^TT\times R^Tp\_2\\]
+\\[R^T(T\times p\_2)\tag\{2\}\\]
 4. From the linear algebra, we can represen cross prod between two vector as matrix-vector multiplication
 \\[a\times b=
 \begin\{bmatrix\}\{\}
@@ -57,10 +57,10 @@ a\_z& 0 & -a\_x\\\
 -a\_y& a\_x & 0\\\
 \end\{bmatrix\}
 =[a\_x]b\\]
-5. Using this notation, and the fact that (2) is the unit vector of epipolar plane, we obtain linear equality
-\\[R^T([T\_x]p\_2)^Tp\\]
-\\[([T\_x]p\_2)^TRp\\]
-\\[p\_2^{T}([T\_x])^TRp\tag\{3\}\\]
+5. Using this notation, and the fact that (2) is the unit vector of epipolar plane, we obtain linear equality (remember that \\(p_1\\) lies in the epipolar plane)
+\\[\left( R^T([T\_x]p\_2) \right)^Tp_1=0\\]
+\\[([T\_x]p\_2)^TRp_1=0\\]
+\\[p\_2^{T}([T\_x])^TRp_1=0\tag\{3\}\\]
 The matrix
 \\[E=[T\_x]R\\]
 is known as the __Essential matrix__, creating a compact expression for the epipolar constraint:
