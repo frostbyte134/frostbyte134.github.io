@@ -63,7 +63,7 @@ r\_m(p)  \\\
 = 2A^Tr(p)
 \\] 
 
-> Notice that, \\(A^T\\) is a <a href="{{site.url}}/linear_algebra/2018/05/13/psd-mat-and-hessian.html" target="_blank">Jacobian</a> of \\(r:R^n\mapsto R^m\\) (not a Jacobian of \\(E\\), which is a function \\(E : R^n \mapsto R\\)).
+> Notice that, \\(A\\) is a <a href="{{site.url}}/linear_algebra/2018/05/13/psd-mat-and-hessian.html" target="_blank">Jacobian</a> of \\(r:R^n\mapsto R^m\\) (not a Jacobian of \\(E\\), which is a function \\(E : R^n \mapsto R\\)).
 
 ### Gradient descent
 For a continuous function, the opposite direction of the gradient is the steepest descent direction (add link), which gives following iterative process
@@ -85,7 +85,7 @@ We want \\(y=p^\{k+1\}\\), which gives
 \\[A^TAp^\{k+1\}=A^TAp^k - A^Tr(p^k)\\]
 \\[p^\{k+1\}=p^k - (A^TA)^\{-1\}A^Tr(p^k)\\]
 
-We see that \\((A^TA)^\{-1\}\\) is a pseudoinverse of the Jacobian of \\(r\\) at \\(p^k\\), which is a
+We see that \\((A^TA)^\{-1\}A^T\\) is a pseudoinverse of the Jacobian of \\(r\\) (\\(=A\\)) at \\(p^k\\)
 
 ### Levenberg-Marquart
 is a combination of gradient descent and Gauss-Newton

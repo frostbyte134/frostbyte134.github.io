@@ -1,4 +1,6 @@
 
+
+
 ### Detection Decoder over Quantized network
 
 __카운팅소트ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ__
@@ -50,6 +52,15 @@ __view angle이 뭐지?__
 ### Egomotion
 - optical flow는 TI꺼를 쓰고 나는 잘 모른다. sparse optical flow를 뽑아주는 부분도 내가 안하고 유럽연이 함
 - 선택된 optical flow에서 답을 만드는 levelberg-marquart알고리즘을 담당함
-  
+- 카메라도 계속 바껴서요 optical flow가 제대로 된게 없슴다 - 난 천재야!!!!!!!!!!!!!!!
+
 ### epipolar geometry
 
+현재 축에서 R, T에 있는 축으로 가고싶으면, 모든 포인트들에는 반대로 해 줘야 함
+
+
+Choleskey decomposition: LL^T=A. postitive definite한 경우에만. A[0][0]부터 차례로 계산하면 됨
+
+LL^Tx=b 에도 쓰임. Ly=b 먼저 계산하고 L^Tx=y를 계산하면 됨. 이거도 마찬가지로 차례대로
+
+reprojection error: 실제 움직인 거리와 estimate의 차이 - sum of least squares. 근데 실제 움직인 거리를 어떻게 알지?

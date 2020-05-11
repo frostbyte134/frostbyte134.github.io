@@ -1,6 +1,8 @@
 
 fixed C 나 value matching 꼭 말하자
 
+https://m.sosconhistory.net/2015/download/day28/ST3/S_28_1000_%EC%A1%B0%EB%A7%8C%EC%84%9D.pdf
+
 중간 버퍼 크기도 설정 가능
 
 ### 커널의 개념 설명
@@ -15,6 +17,9 @@ fixed C 나 value matching 꼭 말하자
 
 ### 커널 메모리 (dsti to linker script)
 - = 무슨 트러블슈팅을 하셨어요?
+- 계산그래프 - 계산용 코어들은 DSP임. 각 dsp의 로컬 메모리는 디바이스 트리에 `reserved-memory`로 잡혀 있음. (reserve memory regions for special usage, excluding it from the usage of Linux kernel and making it available only for a custom device driver. T)
+- TI는 .cmd파일에 링커 관련 설정 (http://software-dl.ti.com/ccs/esd/documents/sdto_cgt_Linker-Command-File-Primer.html) 가능. TIRTOS의 링커 설정도 고쳐주어야 함.
+- 부팅때 device tree node 로딩
 
 
 ### 임베디드랑 값이 다를 때 어떻게 하는가?
