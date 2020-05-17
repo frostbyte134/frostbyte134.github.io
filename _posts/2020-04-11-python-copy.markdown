@@ -7,7 +7,7 @@ use_math: true
 tags: coding python
 ---
 <a href="https://blueshw.github.io/2016/01/20/shallow-copy-deep-copy/" target="_blank">https://blueshw.github.io/2016/01/20/shallow-copy-deep-copy/</a>
-
+<a href="https://tech.ssut.me/new-interesting-data-structures-in-python-3/" target="_blank">https://tech.ssut.me/new-interesting-data-structures-in-python-3/</a>
 
 맨날 해깔려서...
 

@@ -25,6 +25,10 @@
 
 
 ### (랩스 - 목욜) 칼만 필터 기본만 
+* https://medium.com/@celinachild/kalman-filter-%EC%86%8C%EA%B0%9C-395c2016b4d6
+* 모션 모델과 측정 모델이 linear할 경우
+* 모션 모델과 측정 모델이 Gaussian 분포를 따를 경우
+* Using a Kalman filter assumes that the errors are Gaussian.[3]
 
 ### (랩스 - 목욜) 파티클 필터 기본만 - SLAM과 연동?
 
