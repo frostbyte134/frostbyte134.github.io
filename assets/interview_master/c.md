@@ -65,3 +65,5 @@ https://d2.naver.com/helloworld/0315536
 ### 코루틴
 코루틴은 항상 반드시 하나의 코루틴만 실행되기 때문에, 여러 쓰레드들을 사용할 때처럼 락을 관리할 필요가 없다. 다른 코루틴으로 제어권을 넘겨주려면 await 문을 사용하여 언제든지 넘겨줄 수 있다. 그렇기 때문에 코루틴은 안전하게 취소할 수 있다. 코루틴이 멈춰있던 await 문에서 CancelledError 를 처리해서 마무리하면 된다.
 
+
+http://judis.me/wordpress/x86-flags-register/

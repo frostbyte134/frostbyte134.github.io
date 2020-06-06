@@ -1,11 +1,23 @@
 ---
 layout: post
 title:  "Beaglebone black (setting, GPIO, PRU, Camera)"
-date:   2020-02-14 09:00:05 +0800
+date:   2020-06-04 09:00:05 +0800
 categories: coding
 use_math: true
 tags: coding C
 ---
+
+Plans (7월까지 하기)
+- elf파일 분석하는 절차 어디 적어놓기
+  - /home/nailbrainz/ti/gcc-arm-none-eabi-7-2018-q2-update/bin/arm-none-eabi-gcc -o main.out main.c --specs=nosys.specs
+  - /home/nailbrainz/ti/gcc-arm-none-eabi-7-2018-q2-update/bin/arm-none-eabi-objdump -d main.out > main_swap_objdump_d.txt
+  - /home/nailbrainz/ti/gcc-arm-none-eabi-7-2018-q2-update/bin/arm-none-eabi-objdump -x main.out > main_swap_objdump.txt
+- NO OS booting (U-boot)
+- ISR하나 추가해보기
+- PRU사용
+- Context switch 실제로 보기 (리눅스로 보는게 편할듯)
+- 디버거는..돈이 없어서요
+
 
 * <a href="https://cdn-shop.adafruit.com/datasheets/BBB_SRM.pdf" target="_blank">BBB Datasheet</a>
 * <a href="https://github.com/derekmolloy/boneDeviceTree" target="_blank">BBB debice tree</a>

@@ -35,6 +35,7 @@ running an asyncio program: `asyncio.run(coro)`
 creating task: `asyncio.create_task(coro)`
 Sleeping: `coroutine asyncio.sleep(coro)`  
 Running Tasks Concurrently: `awaitable asyncio.gather(coro)`
+* Run awaitable objects in the aws sequence __concurrently.__
 
 ### Coroutines and Tasks
 

@@ -18,6 +18,11 @@ tags: coding C
 ### BUS
 - 보통 CPU의 `CU`가 아비터 역, CU가 안하고 Arbiter가 할때도 있다고 함 (언제?)
 
+### Register
+- `R13` : SP
+- `R14` : LR (Link register). BL 후 복귀 용. 복귀 시 MOV로 LR값을 PC에 복원
+
+
 ### Memory
 - `NAND` flash vs `XOR` flash : 낸드는 page단위 (512bytes~2KB)로만 r/w가 가능 (random access 불가). XOR는 word단위의 read가 되어서 코드 실행이 됨 (`XIP`!)
 - 잘 알다시피, 주소 1개에 1byte (8bit). 예를 들어 메모리 offset이 `#define GPIO_OE 0x134` 인 곳을 int* arr로 접근하려면, `arr[GPIO_OE/4]`로 가야 됨.
