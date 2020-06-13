@@ -34,9 +34,9 @@ MEND
 이렇게 하고 mmu_page_table 0x80000 으로 불러 쓰면, $address에 0x80000이 대입
 
 ### Assembly
-`명령어 Rd, etc` 포멧
+`명령어 Rd, etc` 형태
 - etc를 명령어 해서 Rd에 넣는다 (`STR`은 반대)
-- 이건 레시피 책 282page를 읽는 게 빠를 듯
+- 이건 __레시피 책 282p__ 를 읽는 게 빠를 듯
 - `SWP` : 버스에 락을 걸고 스왑. 이거 없어졌다고 하던데?
 
 ### ADS vs GNU

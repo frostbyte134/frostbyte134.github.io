@@ -18,3 +18,6 @@ __대입 연산__시
 immutable 객체 내에 mutable 객체가 있을 시 `([1, 2], [3, 4])`
 1. 대입 연산을 하면 얕은 복사가 진행됨
 2. copy.deepcopy를 한 뒤 이걸로 생긴 객체를 print해보니 그 때 `ideone`에서 런타임 에러 발생. 왜이러지?
+
+
+<a href="https://zzsza.github.io/development/2018/08/25/python-object/" target="_blank">https://zzsza.github.io/development/2018/08/25/python-object/</a> 마지막 예제 좋네
