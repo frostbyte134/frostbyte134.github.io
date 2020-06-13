@@ -7,9 +7,19 @@ use_math: true
 tags: coding python
 ---
 
+시작 전
+- <a href="https://jins-dev.tistory.com/entry/Compiler-%EC%99%80-Interpreter-%EC%9D%98-%EA%B0%9C%EB%85%90%EA%B3%BC-%EC%B0%A8%EC%9D%B4%EC%A0%90" target="_blank">인터프리터 vs 컴파일러</a>
+
 <a href="https://wiki.python.org/moin/GlobalInterpreterLock" target="_blank">https://wiki.python.org/moin/GlobalInterpreterLock</a>
 * In CPython, the global interpreter lock, or GIL, is a mutex that protects access to Python objects, preventing multiple threads from executing Python bytecodes at once. This lock is necessary mainly because CPython's memory management is not thread-safe. (However, since the GIL exists, other features have grown to depend on the guarantees that it enforces.)
 * CPython extensions must be GIL-aware in order to avoid defeating threads. For an explanation, see <a href="https://docs.python.org/3/c-api/init.html#thread-state-and-the-global-interpreter-lock" target="_blank">Global interpreter lock.</a>
+* GC를 ref count 방식으로 함 - 각 객체의 ref count가 critical section이 됨. 각자에 mutex변수를 두는 것 보단 interpreter를 잠그는 것을 선택 <a href="https://dgkim5360.tistory.com/entry/understanding-the-global-interpreter-lock-of-cpython" target="_blank">https://dgkim5360.tistory.com/entry/understanding-the-global-interpreter-lock-of-cpython</a>
+* <a href="https://stackoverflow.com/questions/6319207/are-lists-thread-safe" target="_blank">그렇다면, 왜 list중 thread-safe한 연산이 따로 있는 것인가? (append() is thread safe, while += is not)</a> : 연산 도중에 GIL을 놓을 수 있기 때문. 
+> All Python objects have the same kind of thread-safeness -- they themselves don't go corrupt, but their data may. 
+* Non-CPython implementations
+  * Jython and IronPython have no GIL and can fully exploit multiprocessor systems
+  * PyPy currently has a GIL like CPython
+  * in Cython the GIL exists, but can be released temporarily using a "with" statement
 
 
 <a href="http://www.dabeaz.com/python/GIL.pdf" target="_blank">http://www.dabeaz.com/python/GIL.pdf</a>
