@@ -64,6 +64,9 @@ tags: coding C
    - `global` : 함수, 전역변수, static 변수 (함수 내의 static 변수도 global임) (RO, RW, ZI 전부 포함)
    - `local` : 나머지 (stack, heap)
 
+> symbol인 것 = local vs symbol이 아닌 것 = global (자기 자신만의 주소를 가짐)
+
+
 RO, RW, ZI는 Flash MCP에서 어디에 위치할 것인가
 - RO: Flash에만 있으면 됨
 - RW: Flash에도 있고 (loading view), RAM에도 있음 (execution view)
@@ -73,22 +76,24 @@ RO, RW, ZI는 Flash MCP에서 어디에 위치할 것인가
 - `.o` 파일. 어셈블러의 출력. `relocatable file`. 
 - ex) `fromelf -c spaghetti.o`
 
-구조
+`.o` 파일의 구조
 - ELF 헤더 (엔디안, CPU, ...)
 - opcode - 기계어
 - data
-- sections
+- __sections__
   - `.text` : complile된 기계어
   - `.rel.text` : 구멍 난 `.text`들. 링킹거쳐야 실행가능
   - `.data` : 초기값 있는 전역변수들
   - `.rel.data` : 구멍 난 `.data`들. 링킹거쳐야 실행가능
   - `.rodata` : const데이터, switch case문에 의한 jump table?
-  - `.symtab` : symbol table. 링킹시 이부분을 참고. -`-g`를 쓰지 않아도 생성됨. 링킹시 필요하니까
+  - `.symtab` : symbol table. 심볼의 목록/주소 (각 section에서의 해당 symbol의 시작 offset) / 크기 / type, scope 보유 링킹시 이부분을 참고. -`-g`를 쓰지 않아도 생성됨. 링킹시 필요하니까
   - `.debug` : DWARF. 지역/젼역 변수들에 대한 디버깅 심볼 포함
   - `.bss` : ZI
 - `section header table`
 
 `segment`: sum of sections
+
+### ELF - Execution view (after linking) (216p)
 
 위 .o파일이 링킹 후 executable view로 바뀌면, `.rel.x`가 전부 없어지고, segment별로 section들이 정리되고, `.init` 섹션이 생김. 임베디드 시스템에서는 위 중 ELF header / symbol table / debug 정보 등은 제외하고, `.text` + `.rodata` 를 `RO`, `.data` 를 `RW` 라는 2개의 section으로 나눈 binary를 flash memory에 burining함.
 
