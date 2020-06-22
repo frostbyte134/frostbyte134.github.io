@@ -9,6 +9,40 @@ tags: coding C
 
 맨날 해깔려서..정리 ㄱㄱ
 
+* jake.dothome.co.kr
+
+<a href="http://www.iamroot.org/xe/index.php?mid=Programming&document_srl=14356" target="_blank">http://www.iamroot.org/xe/index.php?mid=Programming&document_srl=14356</a>
+1. 저의 접근이 맞는 것인지 궁금하구요.
+2. 만약 malloc()으로 virtual address에 대한 physical mapping이 된다면 이것을 처리해주는 routine이 무엇일까요..?
+(적어도 brk() 같은 system call 이나 page fault exception은 아닌 것 같아서 헤깔리네요..ㅠ)
+
+=> 네 맞습니다. linux는 메모리 할당을 최대한 지연시키기 위해 demand paging을 사용합니다.  
+user space memory allocator(malloc) 내부에서 free memory chunk을 관리하게 됩니다.  
+user가 요청한 메모리 크기를 만족하는 free memory chunk가 없다면 brk() system call을 사용하여 heap을 grow합니다.  
+이때 physical 메모리가 바로 할당되는 것이 아니라 VMA(virtual memory area) space 영역의 크기을 늘리기만 합니다.  
+
+이후 user program에서 heap grow된 영역에 접근을 하게되면 page fault가 발생하고 되고,  
+linux page fault handler에서 fault address을 체크하여 VMA list을 체크하여 VMA list에 존재하면, 즉 user program에서 사용 요청한 영역이면,  
+pyhsical 메모리을 할당하고 page table을 갱신하여 fault가 발생한 위치에서 user program을 다시 시작하게 됩니다.  
+만약, VMA list에서 없는 주소이고, user space주소이면 segment fault을, kernel space 주소이면 panic을 발생시키게 됩니다.  
+
+
+실제로 malloc으로 새로운 virtual space를 할당받은 뒤  
+page table을 읽어보면 1개의 page에 대한 physical mapping이 이루어져 있습니다.(read/write를 안했음에도 불구하고)  
+예를들어 40KB(10개 page) 공간을 요청하면 처음 4KB(1개 page)에 대해서는 physical mapping이 되어있는 것이 확인됩니다.  
+
+=> 아마 이건 malloc 모듈 내부 구현을 조금 보시면 될것 같은데, 김남형씨 블로그의 glibc 동적 메모리 관리(http://studyfoss.egloos.com/5206220) 부분을 보시면 될것 같습니다.  
+(저도 설명할 수 있을 정도로 알고 있는건 아니라서 ㅡ.ㅡ)  
+malloc 모듈은 내부적으로 메모리을 chunk 자료구조로 관리하는데 실제 user가 요청하는 메모리 크기 + chunk header가 붙게 됩니다.  
+
+(사실 내부적으로 bins 자료구조로 관리되는데, 복잡하기 때문에 user가 요청한 메모리 크기라고 적었습니다.  
+작은 메모리는 고정된 크기, 조금 더 큰 메모리는 tree 구조로, 그리로 특정 thresh hold이상이면 메모리 할당을 mmap() system call을 이용하여 바로 할당하게 됩니다.)  
+따라서, malloc호출해서 메모리을 할당하게 되면 chunk header 정보가 설정되기 때문에 write operation이 일어나서  
+최초  1 page에 대해서는 physical mapping이 되어있을것으로 생각됩니다.  
+
+
+
+
 * <a href="https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/8_MainMemory.html" target="_blank">https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/8_MainMemory.html</a>
 * <a href="https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/9_VirtualMemory.html" target="_blank">https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/9_VirtualMemory.html</a>
 
