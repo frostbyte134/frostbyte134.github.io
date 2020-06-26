@@ -1,0 +1,11 @@
+---
+layout: post
+title:  "ftrace"
+date:   2020-06-25 09:00:05 +0800
+categories: coding
+use_math: true
+tags: coding C
+---
+
+* https://stackoverflow.com/questions/38311946/unable-to-trace-syscall-via-ftrace?rq=1
+  * /sys/kernel/debug/tracing/available_filter_functions 파일 내용을 grep해보면 필터가능한 함수목록을 찾을 수 있음
