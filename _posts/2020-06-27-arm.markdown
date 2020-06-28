@@ -1,0 +1,79 @@
+---
+layout: post
+title:  "ARM System Developer's Guide"
+date:   2020-06-27 09:00:05 +0800
+categories: coding
+use_math: true
+tags: coding C
+---
+
+### Chap1
+
+#### 1.1 The RISC design philosophy
+The `RISC` philosophy concentrates on __reducing the complexity of instructions performed by the hardware__ because it is easier to provide greater flexibility and intelligence in software rather than hardware. As a result, a __RISC design places greater demands on the compiler.__ In contrast, the traditional complex instruction set computer (CISC) relies more on the hardware for instruction functionality, and consequently the CISC instructions are more complicated. 
+
+<img src="{{ site.url }}/images/coding/arm/cisc_risc.jpg" width="600" class="center"/>  
+
+The RISC philosophy is implemented with four major design rules:
+1. The compiler or programmer synthesizes complicated operations (for example, a divide operation) by combining several simple instructions.  
+2. `Pipelines` — The processing of instructions is broken down into smaller units that can be executed in parallel by pipelines.  
+3. `Registers` — RISC machines have a large general-purpose register set. Any register can contain either data or an address. Registers act as the fast local memory store for all data processing operations. In contrast, CISC processors have dedicated registers for specific purposes.  
+4. `Load-store architecture` — The processor operates on data held in registers. Separate load and store instructions transfer data between the register bank and external memory. Memory accesses are costly, so separating memory accesses from data processing provides an advantage because you can use data items held in the register bank multiple times without needing multiple memory accesses. In contrast, with a CISC design the data processing operations can act on memory directly.
+
+
+#### 1.2 The ARM design philosophy
+
+The ARM core is not a pure RISC architecture because of the constraints of its primary application—the embedded system. In some sense, the strength of the ARM core is that it does not take the RISC concept too far. In today’s systems the key is not raw processor speed but total effective system performance and power consumption.
+
+1. Instruction Set for Embedded systems  
+The ARM instruction set differs from the pure RISC definition in several ways
+   * Variable cycle execution for certain instructions—Not every ARM instruction executes in a single cycle. For example, load-store-multiple instructions vary in the number of execution cycles depending upon the number of registers being transferred.
+   *  `Inline barrel shifter` leading to more complex instructions—The inline barrel shifter is a hardware component that preprocesses one of the input registers before it is used by an instruction. (while transfered from register to cpu)
+   * `Thunb 16-bit instruction set` - The 16-bit instructions improve code density by about 30% over 32-bit fixed-length instructions.
+   * `Conditional execution` — An instruction is only executed when a specific condition has been satisfied. This feature improves performance and code density by reducing branch instructions.
+
+
+#### 1.3 Embedded System Hardward
+Each box represents a feature or function. The lines connecting the boxes are the buses carrying data.  
+We can separate the device into four main hardware components: `ARM`, `controller` (Interrupt / Memory / ...), peripherals, bus
+
+<img src="{{ site.url }}/images/coding/arm/soc.jpg" width="600" class="center"/>  
+
+bus: AMBA. The ARM processor cor is a bus master, perihperals tend to be bus slaves
+
+
+__memory__  
+- Although the cache increases the general performance of the system, it does not help real-time system response.
+- `DRAM` is dynamic — it needs to have its storage cells refreshed and given a new electronic charge every few milliseconds, so you need to set up a DRAM controller before using the memory. 
+- Static random access memory (`SRAM`) is faster than the more traditional DRAM, but requires more silicon area. SRAM is static—the RAM does not require refreshing.
+- Synchronous dynamic random access memory (`SDRAM`) is one of many subcategories of DRAM. It can run at much higher clock speeds than conventional
+- All ARM peripherals are memory mapped — the programming interface is a set of memory-addressed registers. The address of these registers is an offset from a specific peripheral base address. Controllers are specialized peripherals that implement higher levels of functionality within an embedded system. Two important types of controllers are memory controllers and interrupt controllers.
+- `memory controller` - Memory controllers connect different types of memory to the processor bus. On power-up a memory controller is configured in hardware to allow certain memory devices to be active. These memory devices allow the initialization code to be executed. Some memory devices must be set up by software; for example, when using DRAM, you first have to set up the memory timings and refresh rate before it can be accessed.
+- `interrupt controller` (1.3.4.2) - When a peripheral or device requires attention, it raises an interrupt to the processor. An interrupt controller provides a programmable governing policy that allows software to determine which peripheral or device can interrupt the processor at any specific time by setting the appropriate bits in the interrupt controller registers. There are two types of interrupt controller available for the ARM processor: the standard interrupt controller and the vector interrupt controller (`VIC`).
+
+
+#### 1.4 Embedded System Software
+- `Booting` involves loading an image and handing control over to that image.
+- Booting an image is the final phase, but first you must load the image. Loading an image involves anything from copying an entire program including code and data into RAM, to just copying a data area containing volatile variables into RAM. Once booted, the system hands over control by modifying the program counter to point into the start of the image.
+
+__Example 1.1__  
+- Initializing or organizing memory is an important part of the initialization code because many operating systems expect a known memory layout before they can start. 
+- Figure 1.5 shows memory before and after reorganization. It is common for ARM-based embedded systems to provide for memory remapping because it allows the system to start the initialization code from ROM at power-up. The initialization code then redefines or remaps the memory map to place RAM at address 0x00000000—an important step because then the exception vector table can be in RAM and thus can be reprogrammed. We will discuss the vector table in more detail in Section 2.4.
+
+<img src="{{ site.url }}/images/coding/arm/mem_remap.jpg" width="600" class="center"/>  
+
+#### SUMMARY
+- Pure RISC is aimed at high performance, but ARM uses a modified RISC design philosophy that also targets good code density and low power consumption. An embedded system consists of a processor core surrounded by caches, memory, and peripherals. The system is controlled by operating system software that manages application tasks. 
+- The key points in a RISC design philosophy are to improve performance by reducing the complexity of instructions, to speed up instruction processing by using a pipeline, to provide a large register set to store data near the core, and to use a load-store architecture. 
+ 
+The ARM design philosophy also incorporates some non-RISC ideas:
+- It allows variable cycle execution on certain instructions to save power, area, and code size.  
+- It adds a barrel shifter to expand the capability of certain instructions.  It uses the Thumb 16-bit instruction set to improve code density.  
+- It improves code density and performance by conditionally executing instructions.  
+- It includes enhanced instructions to perform digital signal processing type functions. 
+ 
+An embedded system includes the following hardware components: `ARM processors` are found embedded in chips. Programmers access `peripherals` through memory-mapped registers. There is a special type of peripheral called a `controller`, which embedded systems use to configure higher-level functions such as memory and interrupts. The `AMBA` on-chip bus is used to connect the processor and peripherals together. 
+
+An embedded system also includes the following software components: Initialization code configures the hardware to a known state. Once configured, operating systems can be loaded and executed. Operating systems provide a common programming environment for the use of hardware resources and infrastructure. Device drivers provide a standard interface to peripherals. An application performs the task-specific duties of an embedded system.
+
+Sloss, Andrew (2004-05-09T22:58:59). ARM System Developer's Guide (ISSN) . Elsevier Science. Kindle Edition. 
