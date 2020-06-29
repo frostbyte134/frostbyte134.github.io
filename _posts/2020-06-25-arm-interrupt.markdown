@@ -129,3 +129,10 @@ SWI_Handler
 #### GPIO(Tristate Buffer)의 정체와  GPIO ISR (557p)
 - ARM base의 입장에서의 GPIO는 AMBA bus에 연결된 SOC peripheral
   - =ARM bus에 연결된 slave이므로 register를 통해서 control가능
+
+
+
+
+### 디버깅을 통해 배우는 리눅스 커널의 구조와 원리
+- otg인터럽트가 없어서 보기 힘드네..뭐 발생시킬 수 없나 gpio라도?
+- `cat /proc/interrupts`

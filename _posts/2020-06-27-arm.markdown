@@ -7,6 +7,9 @@ use_math: true
 tags: coding C
 ---
 
+> Sloss, Andrew (2004-05-09T22:58:59). ARM System Developer's Guide (ISSN) . Elsevier Science. Kindle Edition. 
+
+
 ### Chap1
 
 #### 1.1 The RISC design philosophy
@@ -60,7 +63,7 @@ __Example 1.1__
 - Initializing or organizing memory is an important part of the initialization code because many operating systems expect a known memory layout before they can start. 
 - Figure 1.5 shows memory before and after reorganization. It is common for ARM-based embedded systems to provide for memory remapping because it allows the system to start the initialization code from ROM at power-up. The initialization code then redefines or remaps the memory map to place RAM at address 0x00000000—an important step because then the exception vector table can be in RAM and thus can be reprogrammed. We will discuss the vector table in more detail in Section 2.4.
 
-<img src="{{ site.url }}/images/coding/arm/mem_remap.jpg" width="600" class="center"/>  
+<img src="{{ site.url }}/images/coding/arm/mem_remap.jpg" width="400" class="center"/>  
 
 #### SUMMARY
 - Pure RISC is aimed at high performance, but ARM uses a modified RISC design philosophy that also targets good code density and low power consumption. An embedded system consists of a processor core surrounded by caches, memory, and peripherals. The system is controlled by operating system software that manages application tasks. 
@@ -75,5 +78,3 @@ The ARM design philosophy also incorporates some non-RISC ideas:
 An embedded system includes the following hardware components: `ARM processors` are found embedded in chips. Programmers access `peripherals` through memory-mapped registers. There is a special type of peripheral called a `controller`, which embedded systems use to configure higher-level functions such as memory and interrupts. The `AMBA` on-chip bus is used to connect the processor and peripherals together. 
 
 An embedded system also includes the following software components: Initialization code configures the hardware to a known state. Once configured, operating systems can be loaded and executed. Operating systems provide a common programming environment for the use of hardware resources and infrastructure. Device drivers provide a standard interface to peripherals. An application performs the task-specific duties of an embedded system.
-
-Sloss, Andrew (2004-05-09T22:58:59). ARM System Developer's Guide (ISSN) . Elsevier Science. Kindle Edition. 
