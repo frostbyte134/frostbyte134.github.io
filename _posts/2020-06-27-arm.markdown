@@ -217,5 +217,3 @@ refer to the book
   * `Memory management` is used to organize memory and protect system resources.  
   * `Coprocessors` are used to extend the instruction set and functionality. Coprocessor 15 controls the cache, TCMs, and memory management. 
 * An ARM processor is an implementation of a specific `instruction set architecture (ISA)`. The ISA has been continuously improved from the first ARM processor design. Processors are grouped into implementation families (ARM7, ARM9, ARM10, and ARM11) with similar characteristics.
-
-Sloss, Andrew. ARM System Developer's Guide (ISSN) . Elsevier Science. Kindle Edition. 

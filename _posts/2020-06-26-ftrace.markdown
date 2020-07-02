@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Embedded linux debugging"
+title:  "Embedded linux kernel debugging"
 date:   2020-06-26 09:00:05 +0800
 categories: coding
 use_math: true
@@ -46,7 +46,15 @@ tags: coding C
 ### printk
 * <a href="http://egloos.zum.com/rousalome/v/9992580" target="_blank">http://egloos.zum.com/rousalome/v/9992580</a>
 * 책 1권 92p
+* `printk("[+][irq_debug] irq_num ; %d, func : %s, line : %d, caller : %pS \n", irq, __func__, __LINE__, (void *)__builtin_return_address(0));`
+  * `__func__` : 실행되는 커널코드의 함수이름
+  * `__LINE__` : 실행되는 커널코드의 파일에서의 라인
+  * `(void *)__builtin_return_address(0)` : GCC컴파일러의 built-in macro. 자기 자신을 호출한 함수를 알려줌.
 
+### dump_stack()
+- 콜 스택을 `/var/log/kern.log`에 커널 로그로 저장?
+- 일단 내 BBB리눅스에는 dmesg에도 뜸
+- 위에도 뜨고 아래도 뜸 ㅎㅎ
 
 ### gdb
 - 어셈블러 볼때 좋은듯

@@ -132,7 +132,65 @@ SWI_Handler
 
 
 
+### 비글본 블랙에서 gpio 인터럽트 만들기
+- <a href="{{site.url}}/coding/2020/06/30/beaglebone-black.html#gpio" target="_blank">링크</a>
+- gpio 30번하고 60번을 이어주고, 30번에 sysfs (`/sys/class/gpio/gpio30/value`)  로 값을 넣어 줘야 함. 난 edge인터럽트 만들었으니 0에서 1로. (down edge는 없나?)
 
 ### 디버깅을 통해 배우는 리눅스 커널의 구조와 원리
-- otg인터럽트가 없어서 보기 힘드네..뭐 발생시킬 수 없나 gpio라도?
-- `cat /proc/interrupts`
+- eMMC 리눅스엔 otg인터럽트가 없음. 근데 이게 뭐지.
+- `cat /proc/interrupts` : 인터럽트 기록
+- `in_interrupt()` 커널 함수 : 인터럽트 컨텍스트에 있는지 여부 반환 (CPU는 IRQ/FIQ 모드로 되겠지? 잘 모르지만..디버거가 있어야 확인가능한가.)
+- `BUG_ON()` 커널 함수 : 커널 패닉 유발 (시스템 리셋의 의도). 코어 덤프 출력하고 종료하겠다.
+- `register unsigned long current_stack_pointer asm ("sp")`
+  - <a href="https://gcc.gnu.org/onlinedocs/gcc/Local-Register-Variables.html#Local-Register-Variables" target="_blank">You can define a global register variable and associate it with a specified register like this</a> : 
+- 인터럽트 컨텍스트에서 스케쥴링 시도 시 (뮤택스 선언도 포함), 보통 BUG()함수를 호출해 강제종료한다 함
+  - 뮤텍스는 스케쥴링을 지원하는 기능이기 떄문 (lock걸린 뮤텍스에 다른 프로세스가 접근하면 휴면상태갸 됨)
+- `__irq_svc` : 인터럽트 벡터. 커널로그에 이거 뜨면 인터럽트임
+  ```
+  __irq_svc:
+	  svc_entry
+	  irq_handler
+  ```
+  - `KERNEL/arch/arm.kernel/entry-armv.S` 에 `__irq_svc` 레이블이 있음. 이 레이블의 svc_entry 매크로를 따라가면 (`.macro	svc_entry`),  
+  ```
+  stmia	sp, {r1 - r12}
+
+	ldmia	r0, {r3 - r5}
+	add	r7, sp, #S_SP - 4	@ here for interlock avoidance
+	mov	r6, #-1			@  ""  ""      ""       ""
+	add	r2, sp, #(SVC_REGS_SIZE + \stack_hole - 4)
+ SPFIX(	addeq	r2, r2, #4	)
+	str	r3, [sp, #-4]!		@ save the "real" r0 copied
+					@ from the exception stack
+
+	mov	r3, lr
+
+	@
+	@ We are now ready to fill in the remaining blanks on the stack:
+	@
+	@  r2 - sp_svc
+	@  r3 - lr_svc
+	@  r4 - lr_<exception>, already fixed up for correct return/restart
+	@  r5 - spsr_<exception>
+	@  r6 - orig_r0 (see pt_regs definition in ptrace.h)
+	@
+	stmia	r7, {r2 - r6}
+  ```
+  부분이 나옴. 아직 완벽하게 해석은 어렵네...
+  - 결국 다 처리하고 난 뒤 `irq_handler` 에서 `handle_arch_irq`로 브랜치함. 여기에 인터럽트를 처리하는 커널 내부 함수가 있는 듯
+  - `인터럽트 디스크립터`를 읽어 어떤 인터럽트인지 안 뒤, 핸들러를 호출한다고 함 (`KERNEL/kernel/irq/handle.c - __handle_irq_event_percpu` 부분)
+
+
+인터럽트 등록
+- `request_irq`함수 (BBB코드 참조)로 수행 (`KERNEL/include/inlux/interrupt.h`)
+- `dump_stack()`을 핸들러에 찍은 결과 (dmesg)  
+  ```  
+  [ 5478.899900] [<c0015191>] (unwind_backtrace) from [<c0011765>] (show_stack+0x11/0x14)
+  [ 5478.899965] [<c0011765>] (show_stack) from [<c06c446f>] (dump_stack+0x63/0x74)
+  [ 5478.900036] [<c06c446f>] (dump_stack) from [<bf92e09b>] (irq_gpio+0x62/0x68 [dwkang_gpio_driver])
+  [ 5478.900128] [<bf92e09b>] (irq_gpio [dwkang_gpio_driver]) from [<c007548d>] (irq_forced_thread_fn+0x19/0x38)
+  [ 5478.900177] [<c007548d>] (irq_forced_thread_fn) from [<c0075691>] (irq_thread+0xd5/0x164)
+  [ 5478.900236] [<c0075691>] (irq_thread) from [<c0047acb>] (kthread+0x93/0xa8)
+  [ 5478.900296] [<c0047acb>] (kthread) from [<c000e9e1>] (ret_from_fork+0x11/0x30)
+  ```
+  
