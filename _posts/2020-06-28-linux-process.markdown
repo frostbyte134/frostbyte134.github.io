@@ -1,19 +1,20 @@
 ---
 layout: post
 title:  "Linux process"
-date:   2020-07-06 09:00:05 +0800
+date:   2020-06-28 09:00:05 +0800
 categories: coding
 use_math: true
 tags: coding C
 ---
 
-> 디버깅을 통해 배오는 리눅스 커널의 구조와 원리
+> 디버깅을 통해 배우는 리눅스 커널의 구조와 원리
+
+파일 디스크립터를 프로세스끼리 바로 못나누는지는 몰랐네...
 
 ### task_struct 구조체
-- `Task descriptor`
-- `TCB` in other embedded OS
-- 프로세스를 관리하는 자료구조이자 객체
-- 아키텍처 독립적인 부분을 저장
+- = `Task descriptor`
+- `TCB` in embedded OS
+- 프로세스를 관리하는 자료구조이자 객체. 아키텍처 독립적인 부분을 저장
 - 리눅스 커널은 프로세스를 중심으로 중요한 데이터를 저장하고 로딩
   - __프로세스 리소스 : 파일 디스크립터, 가상메모리, 시그널, ...(추가바람)__
   - `char comm[TASK_COMM_LEN];` : 프로세스 이름
@@ -24,7 +25,7 @@ tags: coding C
     - `TASK_RUNNING` : CPU 에서 실행 중이거나, 런큐에서 대기 중인 상태
     - `TASK_INTERRUPTABLE` : 웨이트 중이라 인터럽트 가능
     - `TASK_UNINTERRUPTIBLE` : IO연산 등 중이라, 인터럽트 불가능
-  - `unsigned int flags` : 플레그 (KERNEL/include/linux/sched.h)
+  - `unsigned int flags` : 플래그 (KERNEL/include/linux/sched.h)
     - ```
       #define PF_IDLE			0x00000002	/* I am an IDLE thread */
       #define PF_EXITING		0x00000004	/* Getting shut down */
