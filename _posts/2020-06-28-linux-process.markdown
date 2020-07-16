@@ -11,6 +11,9 @@ tags: coding C
 
 파일 디스크립터를 프로세스끼리 바로 못나누는지는 몰랐네...
 
+TODO
+- current 매크로 추가
+
 ### task_struct 구조체
 - = `Task descriptor`
 - `TCB` in embedded OS
@@ -24,7 +27,7 @@ tags: coding C
   - `volatile long state` : 프로세스 상태 저장
     - `TASK_RUNNING` : CPU 에서 실행 중이거나, 런큐에서 대기 중인 상태
     - `TASK_INTERRUPTABLE` : 웨이트 중이라 인터럽트 가능
-    - `TASK_UNINTERRUPTIBLE` : IO연산 등 중이라, 인터럽트 불가능
+    - `TASK_UNINTERRUPTIBLE` : IO연산 등 중이라, 인터럽트 불가능. 뮤텍스도 포함
   - `unsigned int flags` : 플래그 (KERNEL/include/linux/sched.h)
     - ```
       #define PF_IDLE			0x00000002	/* I am an IDLE thread */

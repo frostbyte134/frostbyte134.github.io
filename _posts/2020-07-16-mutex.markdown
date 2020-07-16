@@ -1,0 +1,303 @@
+---
+layout: post
+title:  "Mutex (Linux, ARM)"
+date:   2020-07-10 09:00:05 +0800
+categories: coding
+use_math: true
+tags: coding C
+---
+
+- 디버깅을 통해 배우는 리눅스 커널의 구조와 원리 (김동현 저)
+- 비글본 커널 : `kernel_version=4.14.185-bone37`
+- 아토믹 어셈블리 연산 - <a href="http://jake.dothome.co.kr/atomic/" target="_blank">http://jake.dothome.co.kr/atomic/</a>
+
+뮤택스엔 `slowpath`와 `fastpath`가 있음
+- 아무도 해당 뮤텍스를 사용하지 않을 때, 바로 점거
+- 누가 쓰고 있다면, slowpath로 진입해 대기 (uninterruptable!)
+
+### 뮤텍스 자료구조
+```c++
+struct mutex {
+	atomic_long_t		owner;
+	spinlock_t		wait_lock;
+#ifdef CONFIG_MUTEX_SPIN_ON_OWNER
+	struct optimistic_spin_queue osq; /* Spinner MCS lock */
+#endif
+	struct list_head	wait_list;
+#ifdef CONFIG_DEBUG_MUTEXES
+	void			*magic;
+#endif
+#ifdef CONFIG_DEBUG_LOCK_ALLOC
+	struct lockdep_map	dep_map;
+#endif
+};
+```
+1. 뮤텍스 empty : owner=0x00
+2. 뮤택스 점거 : `current`매크로로 현재 프로세스의 task_struct주소를 owner에 저장
+3. `wait_list` : 뮤텍스에 대기중인 프로세스들 linked list (mutex_waiter 객체들이 연결돼있는듯). 아래의 mutex_waiter 객체들이 매달려 있음
+
+```c++
+/*
+ * This is the control structure for tasks blocked on mutex,
+ * which resides on the blocked task's kernel stack:
+ */
+struct mutex_waiter {
+	struct list_head	list;
+	struct task_struct	*task;
+	struct ww_acquire_ctx	*ww_ctx;
+#ifdef CONFIG_DEBUG_MUTEXES
+	void			*magic;
+#endif
+};
+```
+
+### mutex_lock() 함수 - fastpath
+
+1. `mutex_lock()` : KERNEL/kernel/locking/mutex.c  
+    ```c++
+    #define __sched		__attribute__((__section__(".sched.text")))
+    ...
+    void __sched mutex_lock(struct mutex *lock)
+    {
+        might_sleep();
+
+        if (!__mutex_trylock_fast(lock))
+            __mutex_lock_slowpath(lock);
+    }
+    ```
+    __mutex_trylock_fast 성공 시 fastpath, 아니면 slowpath로 진입
+2. `__mutex_trylock_fast()` : KERNEL/kernel/locking/mutex.c   
+    ```c++
+    static __always_inline bool __mutex_trylock_fast(struct mutex *lock)
+    {
+        unsigned long curr = (unsigned long)current;
+
+        if (!atomic_long_cmpxchg_acquire(&lock->owner, 0UL, curr))
+            return true;
+
+        return false;
+    }
+    ```
+    `current` 매크로를 써서 현재 프로세스의 task_struct주소를 owner에 넣는 것을 볼 수 있음
+3. `atomic_cmpxchg()` : KERNEL/arch/arm/include/asm/atomic.h
+    아토믹 어셈블리 연산 - <a href="http://jake.dothome.co.kr/atomic/" target="_blank">mutex(optimistic spin lock), futex, qrwlock 등에서 사용하는 함수라고 함</a>  
+    `atomic_cmpxchg` 구현은 어셈을 안쓰고 irq만 막네. 이래도 되나? - 위 링크 페이지에 의하면
+    > 인터럽트를 막음으로 atomic operation을 수행 중 다른 태스크가 preemption 되지 않게 한다.
+      ARMv5까지는 UP(Uni Processor) 시스템이므로 현재 CPU의 인터럽트만 막아도 atomic operation이 성립한다.
+      참고로 SDRAM에 존재하는 한 변수를 증감하려 할 때 cpu clock은 캐시 상태(hit/miss)에 따라 수 cycle ~ 수십 cycle이 소요된다.
+    
+    ```c++    
+    static inline int atomic_cmpxchg(atomic_t *v, int old, int new)
+    {
+        int ret;
+        unsigned long flags;
+
+        raw_local_irq_save(flags);
+        ret = v->counter;
+        if (likely(ret == old))
+            v->counter = new;
+        raw_local_irq_restore(flags);
+
+        return ret;
+    }
+    
+    static inline int atomic_cmpxchg_relaxed(atomic_t *ptr, int old, int new)
+    {
+        int oldval;
+        unsigned long res;
+
+        prefetchw(&ptr->counter);
+
+        do {
+            __asm__ __volatile__("@ atomic_cmpxchg\n"
+            "ldrex	%1, [%3]\n"
+            "mov	%0, #0\n"
+            "teq	%1, %4\n"
+            "strexeq %0, %5, [%3]\n"
+                : "=&r" (res), "=&r" (oldval), "+Qo" (ptr->counter)
+                : "r" (&ptr->counter), "Ir" (old), "r" (new)
+                : "cc");
+        } while (res);
+
+        return oldval;
+    }
+    #define atomic_cmpxchg_relaxed		atomic_cmpxchg_relaxed
+    ```
+
+### mutex_lock() - slowpath
+1. `__mutex_lock_slowpath(), __mutex_lock()` : KERNEL/kernel/locking/mutex.c
+    ```c++   
+    static noinline void __sched
+    __mutex_lock_slowpath(struct mutex *lock)
+    {
+        __mutex_lock(lock, TASK_UNINTERRUPTIBLE, 0, NULL, _RET_IP_);
+    }
+    ...
+    
+    static int __sched
+    __mutex_lock(struct mutex *lock, long state, unsigned int subclass,
+            struct lockdep_map *nest_lock, unsigned long ip)
+    {
+        return __mutex_lock_common(lock, state, subclass, nest_lock, ip, NULL, false);
+    }
+    ```
+    TASK_UNINTERRUPTIBLE에 빠지는 것을 볼 수 있음
+
+    2. `__mutex_lock_common()` : KERNEL/kernel/locking/mutex.c    
+    
+    ```c++
+    /*
+    * Lock a mutex (possibly interruptible), slowpath:
+    */
+    static __always_inline int __sched
+    __mutex_lock_common(struct mutex *lock, long state, unsigned int subclass,
+                struct lockdep_map *nest_lock, unsigned long ip,
+                struct ww_acquire_ctx *ww_ctx, const bool use_ww_ctx)
+    {
+        struct mutex_waiter waiter;
+        bool first = false;
+        struct ww_mutex *ww;
+        int ret;
+
+        might_sleep();
+
+        ww = container_of(lock, struct ww_mutex, base);
+        if (use_ww_ctx && ww_ctx) {
+            if (unlikely(ww_ctx == READ_ONCE(ww->ctx)))
+                return -EALREADY;
+        }
+
+        preempt_disable();
+        mutex_acquire_nest(&lock->dep_map, subclass, 0, nest_lock, ip);
+
+        if (__mutex_trylock(lock) ||
+            mutex_optimistic_spin(lock, ww_ctx, use_ww_ctx, NULL)) {
+            /* got the lock, yay! */
+            lock_acquired(&lock->dep_map, ip);
+            if (use_ww_ctx && ww_ctx)
+                ww_mutex_set_context_fastpath(ww, ww_ctx);
+            preempt_enable();
+            return 0;
+        }
+
+        spin_lock(&lock->wait_lock);
+        /*
+        * After waiting to acquire the wait_lock, try again.
+        */
+        if (__mutex_trylock(lock)) {
+            if (use_ww_ctx && ww_ctx)
+                __ww_mutex_wakeup_for_backoff(lock, ww_ctx);
+
+            goto skip_wait;
+        }
+
+        debug_mutex_lock_common(lock, &waiter);
+        debug_mutex_add_waiter(lock, &waiter, current);
+
+        lock_contended(&lock->dep_map, ip);
+
+        if (!use_ww_ctx) {
+            /* add waiting tasks to the end of the waitqueue (FIFO): */
+            list_add_tail(&waiter.list, &lock->wait_list);
+
+    #ifdef CONFIG_DEBUG_MUTEXES
+            waiter.ww_ctx = MUTEX_POISON_WW_CTX;
+    #endif
+        } else {
+            /* Add in stamp order, waking up waiters that must back off. */
+            ret = __ww_mutex_add_waiter(&waiter, lock, ww_ctx);
+            if (ret)
+                goto err_early_backoff;
+
+            waiter.ww_ctx = ww_ctx;
+        }
+
+        waiter.task = current; // 뮤텍스 획득을 시도하는 프로세스의 task_struct 주소 저장
+
+        if (__mutex_waiter_is_first(lock, &waiter))
+            __mutex_set_flag(lock, MUTEX_FLAG_WAITERS);
+
+        set_current_state(state);  //uninterruptable 상태로 설정
+        for (;;) {
+            /*
+            * Once we hold wait_lock, we're serialized against
+            * mutex_unlock() handing the lock off to us, do a trylock
+            * before testing the error conditions to make sure we pick up
+            * the handoff.
+            */
+            if (__mutex_trylock(lock))
+                goto acquired;
+
+            /*
+            * Check for signals and wound conditions while holding
+            * wait_lock. This ensures the lock cancellation is ordered
+            * against mutex_unlock() and wake-ups do not go missing.
+            */
+            if (unlikely(signal_pending_state(state, current))) {
+                ret = -EINTR;
+                goto err;
+            }
+
+            if (use_ww_ctx && ww_ctx && ww_ctx->acquired > 0) {
+                ret = __ww_mutex_lock_check_stamp(lock, &waiter, ww_ctx);
+                if (ret)
+                    goto err;
+            }
+
+            spin_unlock(&lock->wait_lock);
+            schedule_preempt_disabled(); //여기가 되면 휴면중이라고 함
+
+            /*
+            * ww_mutex needs to always recheck its position since its waiter
+            * list is not FIFO ordered.
+            */
+            if ((use_ww_ctx && ww_ctx) || !first) {
+                first = __mutex_waiter_is_first(lock, &waiter);
+                if (first)
+                    __mutex_set_flag(lock, MUTEX_FLAG_HANDOFF);
+            }
+
+            set_current_state(state);
+            /*
+            * Here we order against unlock; we must either see it change
+            * state back to RUNNING and fall through the next schedule(),
+            * or we must see its unlock and acquire.
+            */
+            if (__mutex_trylock(lock) ||
+                (first && mutex_optimistic_spin(lock, ww_ctx, use_ww_ctx, &waiter)))
+                break;
+
+            spin_lock(&lock->wait_lock);
+        }
+        spin_lock(&lock->wait_lock);
+    acquired:
+        __set_current_state(TASK_RUNNING);           //running상태로 설정
+
+        mutex_remove_waiter(lock, &waiter, current);  //뮤택스 대기열 해제
+        if (likely(list_empty(&lock->wait_list)))
+            __mutex_clear_flag(lock, MUTEX_FLAGS);
+
+        debug_mutex_free_waiter(&waiter);
+    skip_wait:                                        //뮤택스를 acquired했을 떄나, skip_wait레이블을 실행했을 때 둘 다 여기로 오는듯
+        /* got the lock - cleanup and rejoice! */
+        lock_acquired(&lock->dep_map, ip);
+
+        if (use_ww_ctx && ww_ctx)
+            ww_mutex_set_context_slowpath(ww, ww_ctx);
+
+        spin_unlock(&lock->wait_lock);
+        preempt_enable();
+        return 0;
+    err:
+        __set_current_state(TASK_RUNNING);
+        mutex_remove_waiter(lock, &waiter, current);
+    err_early_backoff:
+        spin_unlock(&lock->wait_lock);
+        debug_mutex_free_waiter(&waiter);
+        mutex_release(&lock->dep_map, 1, ip);
+        preempt_enable();
+        return ret;
+    }
+    ```
+
+    한글 코멘트 참조
