@@ -121,3 +121,29 @@ TODO
   - task_struct에 상태를 `TASK_DEAD`로 기록
   - `do_task_dead`함수를 호출해 스케쥴링 실행
     - 다음 실행되는 프로세스가 `task_struct`와 프로세스 스택 해제 (`do_exit`이 스택에서 실행되고 있었으므로, 자기가 해제 못함)
+
+
+
+### 데몬 프로세스 만들기
+1. read <a href="https://stackoverflow.com/questions/17954432/creating-a-daemon-in-linux">https://stackoverflow.com/questions/17954432/creating-a-daemon-in-linux</a>, and theoritical background <a href="http://www.enderunix.org/docs/eng/daemon.php" target="_blank">http://www.enderunix.org/docs/eng/daemon.php</a>
+2. clone <a href="https://github.com/pasce/daemon-skeleton-linux-c" target="_blank">https://github.com/pasce/daemon-skeleton-linux-c</a>
+3. steps
+  1. `fork` off the parent process & let it terminate if forking was successful. -> Because the parent process has terminated, the child process now __runs in the background.__   
+  2. `setsid` - Create a new session. The calling process becomes the leader of the new session and the process group leader of the new process group. The process is now detached from its controlling terminal (CTTY).
+    - `session`과 `process group` : <a href="https://mug896.github.io/bash-shell/session_and_process-group.html" target="_blank">https://mug896.github.io/bash-shell/session_and_process-group.html</a>
+  3. `Catch signals` - Ignore and/or handle signals.
+  4. `fork again` & let the parent process terminate to ensure that you get rid of the session leading process. __(Only session leaders may get a TTY again.)__
+  5. `chdir` - Change the working directory of the daemon.
+  6. `umask` - Change the file mode mask according to the needs of the daemon.
+  7. (optional?) redirect stdin, stdout, stderr since we dont have connected terminal anymore
+  8. `close` - Close all open file descriptors that may be inherited from the parent process.
+4. `ps -ejH` : 생성된 데몬 프로세스 (파일명)는 session leader도 아니고 (내 실험의 경우, `pid=5635`, `sid=5634`였음), 연결된 터미널도 없는 것을 확인할 수 있음.
+
+
+### 좀비 프로세스
+- <a href="https://iprize.tistory.com/647" target="_blank">https://iprize.tistory.com/647</a>  
+  - > 프로세스가 리눅스에서 종료될 때 그 즉시 메모리에서 제거되지 않는다. Process Descriptor가 메모리에 남는다. (Process Descriptor는 매우 적은양의 메모리만 차지한다) 프로세스 상태는 EXIT_ZOMBIE가 되며 부모 프로세스에게 자식 프로세스가 SIGCHLD 신호로 종료되었음을 알린다. 그러면 부모 프로세스는 자식 프로세스의 종료 상태와 기타 정보를 읽기 위해 wait() 시스템 콜을 실행하여야 한다. 부모 프로세스는 죽은 프로세스로부터 정보를 얻는 것이 허용되어 있다. wait()이 호출된 후 좀비 프로세스는 메모리에서 완전히 제거된다.   
+  이러한 과정은 매우 빠르게 일어나기 때문에 시스템에 좀비 프로세스에 누적되는 것을 볼 수 없을 것이다. 하지만 부모 프로세스가 제대로 프로그래밍되지 않았다면 wait()을 호출하지 않을 것이며 좀비 프로세스는 메모리에 존재할 것이다. 
+  - <a href="http://navigatorkernel.blogspot.com/2017/01/ch02-process-management3-process.html" target="_blank">process descriptor = task_struct</a>
+- <a href="https://bencane.com/2012/07/02/when-zombies-invade-linux-what-are-zombie-processes-and-what-to-do-about-them/" target="_blank">https://bencane.com/2012/07/02/when-zombies-invade-linux-what-are-zombie-processes-and-what-to-do-about-them/</a>
+

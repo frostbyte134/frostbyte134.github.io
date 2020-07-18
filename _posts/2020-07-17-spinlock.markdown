@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spinlock (Linux, ARM)"
-date:   2020-07-10 09:00:05 +0800
+date:   2020-07-17 09:00:05 +0800
 categories: coding
 use_math: true
 tags: coding C
@@ -139,7 +139,9 @@ void kernel_function()
     ```
 
     1. `arch_spin_lock()` : KERNEL/arch/arm/include/asm/spinlock.h  
+    
     ARMv7, ARMv8까지는 ldrex/strex에 의한 exclusive store방식을 사용함. <a href="http://jake.dothome.co.kr/atomic/" target="_blank">ARMv8.1은 다른걸 쓴다 함</a>   
+    
     ```c++               
     #define arch_spin_lock_flags(lock, flags) arch_spin_lock(lock)
 

@@ -217,3 +217,105 @@ refer to the book
   * `Memory management` is used to organize memory and protect system resources.  
   * `Coprocessors` are used to extend the instruction set and functionality. Coprocessor 15 controls the cache, TCMs, and memory management. 
 * An ARM processor is an implementation of a specific `instruction set architecture (ISA)`. The ISA has been continuously improved from the first ARM processor design. Processors are grouped into implementation families (ARM7, ARM9, ARM10, and ARM11) with similar characteristics.
+
+
+
+### Chapter 3 Intro to the ARM instruction SET
+- read the book. Too many things to write on the blog
+
+#### pre/post conditions  
+<img src="{{ site.url }}/images/coding/arm/pre_post.jpg" width="400" class="center"/>  
+
+- In the pre and post conds, __memory__ is denoted as  
+  `mem<data_size>[address]`  
+  ex) `mem32[1024]` : 32bit memory located at addr 1k.
+
+__ARM instructions process data held in registers and only access memory with load and store instructions.__
+
+| Instruction syntax | destination reg (Rd) | source reg 1 (Rn) | source reg 2 (Rm) |
+|-------|--------|---------|---------|
+| ADD r3, r1, r2 | r3 | r1 | r2 | 
+
+__S suffix__
+- If you use the __S suffix__ on a data processing instruction, then it updates the flags in the cpsr. Move and logical operations update the `carry flag C`, `negative flag N`, and `zero flag Z`. 
+  - `The carry flag` is set from the result of the barrel shift as the last bit shifted out. 
+  - `The N flag` is set to bit 31 of the result. 
+  - `The Z flag` is set if the result is zero.
+
+#### MOV, LDR
+<img src="{{ site.url }}/images/coding/arm/mov.jpg" width="450" class="center"/>  
+
+- mov vs ldr
+  - <a href="https://www.raspberrypi.org/forums/viewtopic.php?t=16528" target="_blank">https://www.raspberrypi.org/forums/viewtopic.php?t=16528</a>
+    - `ldr` is capable of loading any constant, but at the cost of speed and space.  If you open kernel.list, you'll see the ldr instruction actually get's converted to something like ldr rn,[pc,#x] and then later down the listing you'll see the constant. What the assembler has done is store the constant near the instruction in memory, and then write an instruction that loads this value from the memory.
+    - `mov` is more restricted, but faster and smaller. If you look in kernel.list, you'll see the mov instruction is unchanged. It is just one instruction, and doesn't access memory. This means it will be faster, and takes less space. Unfortunately for us, mov can only load certain numbers; numbers who's binary representation is 8 1s or 0s, followed by any number of 0s, for example 1024 is valid (10000000000 in binary) but 1025 is not (10000000001 in binary).
+
+#### Barrel shift operations
+
+| Mnemonic | Desription | shift | Result | shift amount y |
+|-------|--------|---------|---------|--------|
+| LSL | logical shift left | x`LSL`y | x\<\<y | \#0~31 or Rs |
+| LSR | logical shift right | x`LSR`y | x\>\>y | \#1~31 or Rs |
+| ASR | arimethic right shift | x`ASL`y | (signed)x\>\>y | \#1~31 or Rs |
+| ROR | rorate right | x`ROR`y | ((unsigned)x\>\>y) \| (x \<\< (32 - y)) | \#1~31 or Rs |
+| RRX | rorate right extended | x`RRX`y | (c_flag \<\< 31) \| ((unsigned)x\>\>1) | none |
+
+
+#### Misc
+multiply instructions
+- The long multiply instructions (`SMLAL`, `SMULL`, `UMLAL`, and `UMULL`) produce a 64-bit result. The result is too large to fit a single 32-bit register so the result is placed in two registers labeled RdLo and RdHi.
+- The number of cycles taken to execute a multiply instruction depends on the processor implementation. For some implementations the cycle timing also depends on the value in Rs. For more details on cycle timings, see Appendix D.
+- The __branch with link__, or `BL`, instruction is similar to the B instruction but overwrites the link register lr with a return address. It performs a `subroutine call`.  
+  <img src="{{ site.url }}/images/coding/arm/branch.jpg" width="350" class="center"/>  
+- `LDR` and `STR` instructions can load and store data on a boundary alignment that is the same as the datatype size being loaded or stored. For example, LDR can only load 32-bit words on a memory address that is a multiple of four bytes—0, 4, 8, and so on.
+  - `preindex with writeback`   
+  <img src="{{ site.url }}/images/coding/arm/preind1.jpg" width="350" class="center"/>   
+  <img src="{{ site.url }}/images/coding/arm/preind2.jpg" width="350" class="center"/>  
+  - `LDM` : load multiple regs, `STM` : save multiple regs
+  - `IA` : increment after, `IB` : increment before
+  - `DA` : decrement after, `DB` : decrement before
+  - ex) `STMIA` - `LDMIA`
+- The `BNE` is the branch instruction B with a condition mnemonic NE (not equal). If the previous compare instruction sets the condition flags of `CPSR` to not equal, the branch instruction is executed.
+
+
+#### stack operations
+
+| addressing mode | Desription | pop | =LDM | push | =STM |
+|-------|--------|---------|---------|--------|----------|
+| FA | full ascending | LDMFA | LDMDA | STMFA | STMIB |
+
+> In the ATPCS, stacks are defined as being full descending stacks. Thus, the LDMFD and STMFD instructions provide the pop and push functions,
+
+<img src="{{ site.url }}/images/coding/arm/stack_desc.jpg" width="450" class="center"/>  
+
+
+When handling a checked stack there are three attributes that need to be preserved: the stack base, the stack pointer, and the stack limit. The stack base is the starting address of the stack in memory. The stack pointer initially points to the stack base; as data is pushed onto the stack, the stack pointer descends memory and continuously points to the top of stack. If the stack pointer passes the stack limit, then a stack overflow error has occurred. Here is a small piece of code that checks for stack overflow errors for a descending stack:
+
+
+#### CPSR operation
+
+#### LDR
+As you can see, there are alternatives to accessing memory, but they depend upon the constant you are trying to load. Compilers and assemblers use clever techniques to avoid loading a constant from memory. These tools have algorithms to find the optimal number of instructions required to generate a constant in a register and make extensive use of the barrel shifter. If the tools cannot generate the constant by these methods, then it is loaded from memory. The LDR pseudoinstruction either inserts an MOV or MVN instruction to generate a value (if possible) or generates an LDR instruction with a pc-relative address to read the constant from a literal pool—a data area embedded within the code.
+
+`pseudoinstruction`
+
+
+| pseudo instruction | actual instruction | 
+|-------|--------|
+| LDR r0, =0xff | MOV r0, \#0xff |
+| LDR r0, =0x55555555 | LDR r0, \[PC, \#offset_12\] |
+
+
+#### Conditional execution
+Most ARM instructions are conditionally executed—you can specify that the instruction only executes if the condition code flags pass a given condition or test. By using conditional execution instructions you can increase performance and code density. 
+
+__The condition field is a two-letter mnemonic appended to the instruction mnemonic.__ The default mnemonic is `AL`, or __always execute.__ Conditional execution reduces the number of branches, which also reduces the number of pipeline flushes and thus improves the performance of the executed code. Conditional execution depends upon two components: the condition field
+
+Sloss, Andrew. ARM System Developer's Guide (ISSN) . Elsevier Science. Kindle Edition. 
+
+#### Summary
+In this chapter we covered the ARM instruction set. All ARM instructions are 32 bits in length. The arithmetic, logical, comparisons, and move instructions can all use the inline barrel shifter, which pre-processes the second register Rm before it enters into the ALU. 
+
+The ARM instruction set has three types of load-store instructions: single-register load-store, multiple-register load-store, and swap. The multiple load-store instructions provide the push-pop operations on the stack. The ARM-Thumb Procedure Call Standard (ATPCS) defines the stack as being a full descending stack. 
+
+The software interrupt instruction causes a software interrupt that forces the processor into SVC mode; this instruction invokes privileged operating system routines. The program status register instructions write and read to the cpsr and spsr. There are also special pseudoinstructions that optimize the loading of 32-bit constants.
