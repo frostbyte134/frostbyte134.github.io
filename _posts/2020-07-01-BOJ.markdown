@@ -1,0 +1,84 @@
+---
+layout: post
+title:  "BOJ"
+date:   2020-07-01 09:00:05 +0800
+categories: problem_solving
+use_math: true
+tags: problem_solving need_review
+---
+
+<a href="https://www.acmicpc.net/user/nailbrainz" target="_blank">https://www.acmicpc.net/user/nailbrainz</a>
+
+`TODO` : 예전 포스팅한 문제들, reference problems 들만이라도 링크하기
+
+### Reference problems
+
+#### 1867 돌멩이 제거
+- <a href="https://www.acmicpc.net/problem/1867" target="_blank">https://www.acmicpc.net/problem/1867</a>
+- 그냥 나이브하게 찾으려면 dp도 어렵고 한번 결정을 내릴 때 마다 N번의 갱신을 해 줘야 했음. 보통 이러면 먼가 방법이 있더라...
+
+
+<details>
+   <summary>보기만</summary> 
+    min vertex corver = max matching in bipartite graph
+   </details>
+
+#### 12921 제한된 메모리
+- 이걸 parallel binary search라고 불러야 하나...?
+- 엄청 긴 배열이 있고, 쿼리 (해당 배열에서 q\[i\]번째 숫자가 무엇인가)가 있음. 배열을 메모리에 저장할 수 없고 on-the-fly로 만들어 낼 수만 있음 (....)
+- 이떄 q\[i\]를 찾는 방법은 candidate value = (l + r) / 2 를 가능한 값의 중간값으로 두고 __이진탐색을__ 하는 것임
+  - 배열을 한번 만드는 데 O(N)이 들음. 한번 만들 때 마다, candidate value보다 작은 것의 개수를 셈.
+  - 이 결과가 q\[i\]보다 크면 r=mid-1 (candidate을 작게), 작으면 l=mid+1으로. 
+- 까다로웠던 건 경계값이었음.
+  - 배열에서 candidate value보다 작은 값을 세야 하나, 작거나 같은 값을 세야 하나?
+    - 작은 값을 세고, 이진탐색의 결과로 r의 값을 택하는 것으로 함. 동점이 있을 시 q\[i\] 보다 작은 값 중의 최대 (동점 index의 맨 처음 값)을 택해야 하기 떄문. 그림 그려보면 됨
+- 이제 1개 q\[i\]는 처리 가능한데, Q개는?
+  - q는 작으니까 정렬 가능. 오름차순으로 정렬한 뒤 이분탐색을 함. candidate value도 (처음에는 전부 중간값이지만) 오름차순일 것임
+  - 배열 한번을 O(N)으로 만들면서, 현재 ary\[i\]가 Q개의 candidate중 몇 번째보다 strictly less than인지  __이진탐색으로 찾아서__ 기록해 뒀다가 부분합을 함. 
+    - 여기의 부분합 배열에는, candidate\[i\]보다 strictly less than한 배열 값이 몇 개 인지가 있음. 
+  - Q개의 쿼리에 대해, 나이브하게 하면 O(NQ^2)이지만 이제 O(NQ)로 처리가능.
+
+아직도 해깔리네..다시풀어보자 ㅡㅡ
+
+
+#### 1109 섬
+- 섬의 높이가 스택의 높이가 아니고, 반대 높이여서 까다로웠음
+- 섬을 발견한 순서대로 부모관계를 트리로 만들고, 트리에서 답을 찾음
+- 섬 사이에 빈공간도 있기 때문에, 빈공간(lvl 2) -- 섬 (lvl 2) -- 빈공간 (lvl 1) -- 섬 (lvl 1) 처럼, 바깥의 빈공간도 내부의 섬과 같은 레벨을 줌
+- 2차원 공간 사이의 레벨이기 떄문에, 2차원 공간을 대표하기 위해 djset 씀
+
+#### 2842 집배원 한상덕
+- <a href="https://www.acmicpc.net/problem/2842" target="_blank">https://www.acmicpc.net/problem/2842</a> 엄청 해맸네 ㅡㅡ;
+- 첨엔 단순한 이분탐색이겠거니 했는데, 값에 대해 그리디하지 않아 이분탐색이 쉽지않았음
+
+<details>
+   <summary>보기만</summary> 
+    투포인터였음. 이분탐색도 가능하긴 한데 투포인터가 되므로 더 빠름. 값에 대해 그리디하지 않지만 문제 특성상 투포인터로 모든 optimal answer를 체크 가능함. 알아둬야 하는 문제인듯
+   </details>
+   
+
+
+### Need review
+
+
+#### 15352 욱제와 그의 팬들
+- <a href="https://www.acmicpc.net/problem/15352" target="_blank">https://www.acmicpc.net/problem/15352</a>
+- 첨엔 구간트라도 짰다가, 뒤에서부터 disjoint set으로 푸는 건가 했다가, 난리났었음
+
+<details>
+   <summary>보기만</summary> 
+   배열에서 아이템을 삭제할 때마다, 삭제된 것들을 건너뛴 이웃들끼리 (길어질 수 있음) 서로 같은 값을 갖는지 체크해야 함. linked list (array) + disjoint set으로 풀음 
+   </details>
+
+
+#### 1071 소트
+<a href="https://www.acmicpc.net/problem/1071" target="_blank">https://www.acmicpc.net/problem/1071</a>
+
+
+<details>
+   <summary>보기만</summary> 
+   약간 머리를 써야 되는 그리디
+   </details>
+
+
+### Reviewed

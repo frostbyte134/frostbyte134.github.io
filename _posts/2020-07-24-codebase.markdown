@@ -1,11 +1,41 @@
 ---
 layout: post
 title:  "PS codebase"
-date:   2019-10-04 09:00:05 +0800
+date:   2020-07-24 09:00:05 +0800
 categories: problem_solving
 use_math: true
 tags: problem_solving need_review coding
 ---
+
+### bipartite matching
+```cpp
+bool vis[max_N];
+int colMatched[max_N]; //matched row number of column
+
+bool dfs(int nd) {
+	if (vis[nd]) return false;
+	vis[nd] = true;
+	for (const auto& nxt : adjRow[nd]) {
+		if (colMatched[nxt] == -1 || dfs(colMatched[nxt])) {
+			colMatched[nxt] = nd;
+			return true;
+		}
+	}
+	return false;
+}
+
+....
+
+
+int ans = 0;
+memset(colMatched, -1, sizeof(colMatched));
+for (int i = 0; i < N; i++) {
+    memset(vis, 0, sizeof(vis));
+    if (dfs(i))ans++;
+}
+
+
+```
 
 ### hasing (pseudo-random)
 ```cpp
