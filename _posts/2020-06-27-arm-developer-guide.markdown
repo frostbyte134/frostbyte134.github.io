@@ -309,9 +309,8 @@ As you can see, there are alternatives to accessing memory, but they depend upon
 #### Conditional execution
 Most ARM instructions are conditionally executed—you can specify that the instruction only executes if the condition code flags pass a given condition or test. By using conditional execution instructions you can increase performance and code density. 
 
-__The condition field is a two-letter mnemonic appended to the instruction mnemonic.__ The default mnemonic is `AL`, or __always execute.__ Conditional execution reduces the number of branches, which also reduces the number of pipeline flushes and thus improves the performance of the executed code. Conditional execution depends upon two components: the condition field
+__The condition field is a two-letter mnemonic appended to the instruction mnemonic.__ The default mnemonic is `AL`, or __always execute.__ Conditional execution reduces the number of branches, which also reduces the number of pipeline flushes and thus improves the performance of the executed code. Conditional execution depends upon two components: the condition field and condition flags. The condition field is located in the instruction, and the condition flags are located in the cpsr.
 
-Sloss, Andrew. ARM System Developer's Guide (ISSN) . Elsevier Science. Kindle Edition. 
 
 #### Summary
 In this chapter we covered the ARM instruction set. All ARM instructions are 32 bits in length. The arithmetic, logical, comparisons, and move instructions can all use the inline barrel shifter, which pre-processes the second register Rm before it enters into the ALU. 
