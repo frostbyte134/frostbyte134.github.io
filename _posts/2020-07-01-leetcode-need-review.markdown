@@ -9,6 +9,24 @@ tags: problem_solving leetcode need_review
 
 solve the problem while explain it to yourself, and write examples (must!)
 
+### 윈도우 문제
+- monotonic하게 움직이는 윈도우에서, __최대__ (=최소) 빠르게 찾기
+  - 윈도우가 움직이므로 가장 옛날 값을 제거해야 하고 새 값도 넣어야 하는 와중에, 최대 최소도 빨리 (logN / 1) 만에 찾아야 함
+  - 직관적으로는 AVL tree (map)임 (logN)
+  - 최대값을 구해야 하므로
+    - 현재보다 이전 인덱스인데 현 값보다 작으면 필요없음. 윈도우는 점점 ->로 가므로 현재 값에 가려저서 답에 contribution할 일은 없을 것임. 
+    - 따라서 decreasing dequeue를 유지하면서 맨 앞의 값을 가져오면 됨
+
+### Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit (window problem, need review)
+- 윈도우 안의 최대/최소의 차이. map으로 풀어서 하위 20퍼로 풀긴 함
+- 윈도우 문제로 보고, 최대 윈도우 문제 / 최소 윈도우 문제를 동시에 풀면 됨
+
+
+### Minimum Cost to Make at Least One Valid Path in a Grid (보기만)
+- 금방 생각난 것 - level (trial횟수) 별로 bfs하기. 여기서 특정 지역을 1번만 바꿀 수 있다는 제약조건이 걸리긴 했지만, 문제 특성상 최적의 답에 특정 지역을 두번 바꾼 게 들어갈 수 없기에 그냥 함 (한번만 바꾼 것 만 있는 답을 더 빨리 발견할 것이여서)
+- 결국 level별로 할 필요도 없었음. 레벨별로 하면 O(보드크기 X 맥스 레벨 (200)) 이지만, bfs하고 - 경계 저장 - 경계에서 다시 BFS - ...로 하면 O(보드크기)로 끝낼 수 있음
+- 디큐도 재밌었음. 디큐를 바로 생각할 수 있는 근거는 뭘까. 같은 레벨이면 앞에 더하고 (DFS?), 다음 레벨은 뒤에 더하는 식으로 함 (레벨 별). 결국 레벨은 현재에서 현재+1을 찾게 되므로, 항상 디큐에는 레벨이 증가하는 순서로 들어가게 됨
+
 TODO: make a post on
 * https://www.educative.io/courses/grokking-the-system-design-interview
 

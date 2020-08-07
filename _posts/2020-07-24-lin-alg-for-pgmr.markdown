@@ -4,11 +4,9 @@ title:  "프로그래머를 위한 선형대수 복습노트"
 date:   2020-07-31 09:00:05 +0800
 categories: linear_algrbra
 use_math: true
-tags: linear_algrbra math need_review
+tags: linear_algrbra math need_review dimensionality_theorem
 ---
 
-TODO
-- 차원정리 증명
 
 ### Chap 1
 - 선형대수 : 공간, 근사에 대한 학문
@@ -32,6 +30,23 @@ TODO
       - 2nd column = a_12는 1번째 좌표축 성분이고, 무시해도 됨. 2번째 좌표축 성분만 넓이에 기여
       - ...
 
+#### 차원 정리의 증명
+- \\(\text{Ker}A\\)의 기저, \\(\text{Im}A\\)의 기저에 해당하는 원래 공간의 벡터들이 \\(R^n\\)의 기저라는 것을 증명
+
+Let \\(A\in R^\{m\times n\}\\), and consider \\(\text{Ker}A, \text{Im}A\\).  
+Let \\[\\{u\_1,...,u\_k\\}, u\_i \in R^m\\] be a basis of \\(\text{Ker}A\\), and \\[\\{v'\_1,...,v'\_r\\}, v'\_i \in R^n \\] be a basis of \\(\text{Im}A\\).  
+Since \\(v'\_i \in \text\{ImA\}\\), there must be vectors \\(v\_i\\) corresponds to \\(v'\_i\\). We want to show that \\(\\{u\_1,...,u\_k, v\_1,...,v\_r\\}\\) are the basis of \\(R^n\\), so that \\(r+k=n\\).
+
+
+For an arbitrary vector \\(x\in R^n\\), 
+1. We can represent it using \\(\\{u\_1,...,u\_k, v\_1,...,v\_r\\}\\)  
+  Map \\(x\\) using \\(A\\), and define \\(y=Ax\\). Since \\(y\in \text\{Im\}A\\), there must be a vector \\(\hat\{x\}\\) which can be represented by  \\(\\{v\_1,...,v\_r\\}\\). The difference between \\(x\\) and \\(\hat\{x\}\\) can be represented by \\(\\{u\_1,...,u\_k\\), since it must become zero vector when mapped by \\(A\\). 
+2. The representation is unique   
+    The vector \\(\hat\{x\}\\), which contains no nullspace basis and maps to \\(y=A\hat\{x\}\\), is uniquely represented by \\(v\_1,...,v\_r\\).   
+    Suppose not. Then \\[x=c\_1u\_1 + ... + c\_ku\_k + d\_1v\_1 + ... + d\_rv\_r = \tilde\{c\}\_1u\_1 + ... + \tilde\{c\_k\}u\_k + \tilde\{d\_1\}v\_1 + ... + \tilde\{d\_r\}v\_r.\\]
+    1. Multiplying \\(A\\) gives \\[y = Ax = d\_1Av\_1 + ... + d\_rAv\_r =  \tilde\{d\_1\}Av\_1 + ... + \tilde\{d\_r\}Av\_r\\] Since \\( Av\_i = v'\_i\\), and \\(v\_i\\)s are the basis of \\(ImA\\), and considering \\(y\in imA\\) \\(d\_i=\tilde\{d\}\_i\\).
+    2. Subtraction gives \\[0 = A(c\_1u\_1 + ... + c\_ku\_k) = A(\tilde\{c\}\_1u\_1 + ... + \tilde\{c\_k\}u\_k).\\] Since \\(c\_i\\)s are the basis of the nullspace of \\(A\\), QED.
+
 
 ### Chap 2
 <img src="{{ site.url }}/images/math/linear_alg/mapping.jpg" width="1000" class="center"/>  
@@ -41,14 +56,14 @@ TODO
 
 Let \\(x\in R^n, y\in R^m, A\in R^\{n\times m\}\\)
 - 결국 중요한 것은
-  - \\(\text{dim ker}A\\) = 커널 (널스페이스)의 차원. 일단 원래 공간 \\(R^n\\)에서의 값임 \\(\text{dim ker}A \leq n\\)
-  - \\(\text{dim im}A\\) = 사상의 이미지의 차원. 일단 목적공간 \\(R^m\\)에서의 값임 \\(\text{dim im}A \leq m\\) 
-- \\(\text{rank}A\\) = \\(\text{dim im}A\\) 가 원래 공간의 차원 수 n와 같으면 단사, 목적 공간의 차원 수 m과 같으면 전사
-- 차원정리 \\(\text{dim ker}A+\text{dim im}A=n\\). 증명 책에 있는데 귀찮아서 아직 안봄...
+  - \\(\text{dim Ker}A\\) = 커널 (널스페이스)의 차원. 일단 원래 공간 \\(R^n\\)에서의 값임 \\(\text{dim Ker}A \leq n\\)
+  - \\(\text{dim Im}A\\) = 사상의 이미지의 차원. 일단 목적공간 \\(R^m\\)에서의 값임 \\(\text{dim Im}A \leq m\\) 
+- \\(\text{rank}A\\) = \\(\text{dim Im}A\\) 가 원래 공간의 차원 수 n와 같으면 단사, 목적 공간의 차원 수 m과 같으면 전사
+- 차원정리 \\(\text{dim Ker}A+\text{dim Im}A=n\\). 증명 책에 있는데 귀찮아서 아직 안봄...
 
 1. 단서가 부족한 경우 = 가로가 긴 경우 = \\(m<n\\)
    - surjective는 가능. injective는 안됨
-   - injective하려면 \\(\text{dim ker }A=0\\)이어야 함. \\(\text{dim im}A \leq m < n\\)이므로, 차원정리에 따라 \\(\text{dim ker }A>0\\)
+   - injective하려면 \\(\text{dim Ker }A=0\\)이어야 함. \\(\text{dim Im}A \leq m < n\\)이므로, 차원정리에 따라 \\(\text{dim Ker }A>0\\)
 2. 단서가 너무 많은 경우 = 세로가 긴 경우 = \\(n<m\\)
    - injective는 가능.  surjective는안됨
-   - surjective하려면 \\(\text{dim im}A=m\\)이어야 함. 차원정리에 따라  \\(\text{dim ker}A+\text{dim im}A=n<m\\)이므로 불가
+   - surjective하려면 \\(\text{dim Im}A=m\\)이어야 함. 차원정리에 따라  \\(\text{dim Ker}A+\text{dim Im}A=n<m\\)이므로 불가

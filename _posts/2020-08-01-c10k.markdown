@@ -1,0 +1,42 @@
+---
+layout: post
+title:  "C10K Problem"
+date:   2020-07-24 09:00:05 +0800
+categories: problem_solving
+use_math: true
+tags: problem_solving need_review coding
+---
+
+<a href="https://github.com/nailbrainz/c10k_test" target="_blank">github sources link</a>
+
+계획
+1. select 기반 - 해봐야 1000개밖에 안될테지만..
+    - 링크
+2. epoll
+3. 커널 컴파일 - 제로 카피?
+4. nginx
+5. TODO
+   1. <a href="https://gist.github.com/Alexey-N-Chernyshov/4634731" target="_blank">https://gist.github.com/Alexey-N-Chernyshov/4634731</a> : catch sigint, sigterm and terminate gracefully
+
+이슈들
+- select최대는 1000개. 컴파일 타임에 변경도 못한다 함
+- socket생성 - bind (app과 포트번호 바인딩) - listen (server socket 활성화) 까지는 전부 동일하므로, 그 이후를 함수포인터로 추상화해서 메인의 중복을 줄임
+
+
+
+### 공부할 것
+- https://recipes4dev.tistory.com/153 TCP IP conn process. must review
+- https://m.blog.naver.com/PostView.nhn?blogId=rev7707&logNo=10005157701&proxyReferer=https:%2F%2Fwww.google.com%2F 클라이언트는 포트 번호를 특정한 값으로 지정할 필요가 없다 (클라이언트에서는 보통 시스템이 자동적으로 배정하는 포트 번호를 사용한다.).
+- why select is N^2? https://stackoverflow.com/questions/19282784/why-is-poll-better-than-select Many programs use other approaches. For instance sshd, the SSH daemon, spawns a child process for each connection. Others handle each connection in a thread.
+- http://www.kegel.com/c10k.html#nb from the basics
+- http://highscalability.com/blog/2013/5/13/the-secret-to-10-million-concurrent-connections-the-kernel-i.html kernel matters
+- https://github.com/trptcolin/c10k I like the code
+- https://stackoverflow.com/questions/10538291/what-is-the-point-of-noreturn attribute noreturn
+- https://github.com/mrkschan/c10k-experiment python c10k
+- https://www.slideshare.net/igalarzab/communication-in-python-and-the-c10k-problem comminication in python and c10k problem
+- http://youngrok.com/asyncio%EC%97%90%20%EB%8C%80%ED%95%9C%20%ED%9A%8C%EC%9D%98 asyncio에 대한 회의
+- https://github.com/aaugustin/django-c10k-demo
+
+
+### Kernel compiles
+- 여기에 정리해놓자

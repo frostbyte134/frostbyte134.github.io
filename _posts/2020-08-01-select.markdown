@@ -1,0 +1,25 @@
+---
+layout: post
+title:  "select / epoll"
+date:   2020-07-24 09:00:05 +0800
+categories: problem_solving
+use_math: true
+tags: problem_solving need_review coding
+---
+
+- https://daniel.haxx.se/docs/poll-vs-select.html poll vs select
+
+<a href="https://github.com/nailbrainz/c10k_test/blob/master/src/c10k_select.c" target="_blank">c10k select example</a>
+
+### controls
+```cpp
+fd_set readfds;
+FD_ZERO(&readfds);
+FD_SET(0, &readfds);  //readfds의 0번 비트를 1로
+FD_SET(socketfd, &readfds); //readfds의 sockfd번 비트를 1로
+FD_CLR(i, &reads); //readfds의 i 비트를 0으로
+if(FD_ISSET(i, &cpy_reads)); //cpy_reads i 비트가 1인가?
+
+sock_fd = accept(serv_fd, (struct sockaddr *)&client_addr, &add_struct_size);
+FD_SET(sock_fd, &reads); //새로 할당하기
+```
