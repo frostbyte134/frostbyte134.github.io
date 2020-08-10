@@ -1,13 +1,16 @@
 ---
 layout: post
-title:  "C10K Problem"
+title:  "TCP socket + C10K Problem"
 date:   2020-07-24 09:00:05 +0800
 categories: problem_solving
 use_math: true
 tags: problem_solving need_review coding
 ---
 
-<a href="https://github.com/nailbrainz/c10k_test" target="_blank">github sources link</a>
+유용한 링크들
+- <a href="https://github.com/nailbrainz/c10k_test" target="_blank">github sources link</a>  
+- <a href="https://d2.naver.com/helloworld/47667" target="_blank">TCP-IP의 근본</a>
+
 
 계획
 1. select 기반 - 해봐야 1000개밖에 안될테지만..
@@ -37,6 +40,59 @@ tags: problem_solving need_review coding
 - http://youngrok.com/asyncio%EC%97%90%20%EB%8C%80%ED%95%9C%20%ED%9A%8C%EC%9D%98 asyncio에 대한 회의
 - https://github.com/aaugustin/django-c10k-demo
 
+
+
+### TCP Socket
+- `sudo sysctl -w net.core.somaxconn="2048"` : 무슨 효과가 있는거지? 엄청 낮게 설정해도 별거 없음
+- 
+
+### 파일 디스크립터 갯수 늘리기
+내 C10K 첫번째 이슈였음. soft limit이 1024여서 930개 정도까지밖에 안열림. 근데 생각해보면 반만 열렸어야 하는 거 아닌가? 프로세스별이라서 그런가.
+
+
+1. `soft` vs `hard` limit
+    - soft리밋은 hard리밋을 넘을 수 없고, hard리밋은 줄어들기만 함 <a href="https://askubuntu.com/questions/162229/how-do-i-increase-the-open-files-limit-for-a-non-root-user" target="_blank">(링크)</a>
+    - __soft limit__ 이 실제 적용됨
+    - `umlimit -a` : soft리밋만 나오는듯
+    - `ulimit -Hn` : 하드리밋, `ulimit -Sn` : 소프트 리밋
+    - cat /proc/\{procNum\}/limits `proc 파일시스템` 이 제일 자세함
+2. hard limit 바꾸기
+    - 링크 : <a href="https://m.blog.naver.com/PostView.nhn?blogId=gura2013&logNo=80206126707&proxyReferer=https:%2F%2Fwww.google.com%2F" target="_blank">https://m.blog.naver.com/PostView.nhn?blogId=gura2013&logNo=80206126707&proxyReferer=https:%2F%2Fwww.google.com%2F</a>
+    ```
+    이를 늘려주기 위해서는
+    vim /etc/security/limits.conf
+    맨아래에 아래를 추가해준다
+    *                soft    nofile          100000
+    *                hard    nofile          100000
+    *                soft    noproc          100000
+    *                hard    noproc          100000
+    ulimit -n 40960
+    ```
+    - 
+3. 전체 프로세스의 fd리밋 합은 따로 있음
+
+
+#### 포트의 개념
+- 4레이어에만 있는 거고, 논리적인 번호임. 어플리케이션을 구분하기 위한 것
+- <a href="https://memoweb.tistory.com/entry/%ED%8F%AC%ED%8A%B8%EC%9D%98-%EA%B0%9C%EB%85%90%EA%B3%BC-%EB%B3%B8%EC%A7%88-port" target="_blank">참고</a>
+- 커널은 소켓을 (serv ip, serv port, cli ip, cli port)의 키로 구분함
+
+#### TCP backlog
+- `listen`시에 넣어주는 파라미터
+- `SYN`을 받은 서버가 `SYN+ACK`을 보내고 아직 `ACK`를 못받아 established되지 않은 소켓을 몇개까지 유지할거냐 하는 것. 넘 크면 flooding같은걸 당하는듯
+
+#### MISCS
+- clinet 포트번호 지정 - `bind()`로 가능 <a href="https://www.geeksforgeeks.org/explicitly-assigning-port-number-client-socket/" target="_blank">https://www.geeksforgeeks.org/explicitly-assigning-port-number-client-socket/</a>. 평소엔 자동으로 지정되고 있었는듯
+  - 하긴 클라이언트가 포트번호를 지정하면 오히려 범용성이 좀 떨어질듯 <a href="https://m.blog.naver.com/rev7707" target="_blank">https://m.blog.naver.com/rev7707</a> 이블로그 뭔가 나랑 겹치는게 많음
+- `Slow consumer` 이슈 : 로컬 tcp buffer가 꽉 차있지 않아도, 원격 TCP버퍼가 꽉 차 있으면 block이 걸림 (you can think of the remote TCP buffer, the network and the local sending TCP buffer, as one big buffer) <a href="https://stackoverflow.com/questions/11037867/socket-send-call-getting-blocked-for-so-long" target="_blank">https://stackoverflow.com/questions/11037867/socket-send-call-getting-blocked-for-so-long</a>
+
+### thread per socket + blocking 
+- 왜이렇게 느린가? 500도 제대로 처리 못함
+- 프로세스 1000개는 껌으로 만드는데. 500개가 polling하는 시나리오가 문제가 되는 건가?
+
+
+### C500K
+- <a href="https://threadbuilder.wordpress.com/2013/06/20/linux-kernel-tuning-for-c500k/" target="_blank">https://threadbuilder.wordpress.com/2013/06/20/linux-kernel-tuning-for-c500k/</a>
 
 ### Kernel compiles
 - 여기에 정리해놓자

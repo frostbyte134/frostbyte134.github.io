@@ -147,3 +147,7 @@ TODO
   - <a href="http://navigatorkernel.blogspot.com/2017/01/ch02-process-management3-process.html" target="_blank">process descriptor = task_struct</a>
 - <a href="https://bencane.com/2012/07/02/when-zombies-invade-linux-what-are-zombie-processes-and-what-to-do-about-them/" target="_blank">https://bencane.com/2012/07/02/when-zombies-invade-linux-what-are-zombie-processes-and-what-to-do-about-them/</a>
 
+
+### idle 쓰레드
+- 스케쥴러 순서 : `stop_sched_class` -> `dl_sched_class` -> `rt_sched_class` -> `fair_sched_class` -> `idle_sched_class` -> NULL. 따라서 스케쥴러가 실행할 것이 없을 때 동작
+- 모든 CPU는 1개의 idle 스레드를 지님
