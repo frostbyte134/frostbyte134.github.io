@@ -9,6 +9,15 @@ tags: problem_solving leetcode need_review
 
 solve the problem while explain it to yourself, and write examples (must!)
 
+### Missing Element in Sorted Array
+- O(N)으로 일단 품.
+- nums[i]와 nums[i+1]간의 missing element가 누적된 값이 아닌데 어떻게 이진검색을 하나 고민했음 (부분합 배열을 만들면 이미 O(N))
+<details>
+   <summary>다시보기</summary> 
+    nums[j] - nums[i] - 1 - (j - i) 가 i --- j 사이에 있는 missing elements. low번째를 i로 두고, low밑에껀 k에서 빼 가면 됨
+   </details>
+
+
 ### 윈도우 문제
 - monotonic하게 움직이는 윈도우에서, __최대__ (=최소) 빠르게 찾기
   - 윈도우가 움직이므로 가장 옛날 값을 제거해야 하고 새 값도 넣어야 하는 와중에, 최대 최소도 빨리 (logN / 1) 만에 찾아야 함
