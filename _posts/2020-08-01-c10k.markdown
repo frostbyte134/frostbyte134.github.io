@@ -12,6 +12,7 @@ tags: problem_solving need_review coding
 - <a href="https://d2.naver.com/helloworld/47667" target="_blank">TCP-IP의 근본</a>
 - <a href="http://docs.likejazz.com/time-wait/" target="_blank">엄청 잘쓴 블로그</a> 여기 코드 좀 참고할 만 한듯
 - <a href="https://blog.cloudflare.com/syn-packet-handling-in-the-wild/" target="_blank">https://blog.cloudflare.com/syn-packet-handling-in-the-wild/</a>
+- <a href="https://www.cs.dartmouth.edu/~sergey/netreads/path-of-packet/Network_stack.pdf" target="_blank">PATH OF A PACKET IN THE LINUX KERNEL STACK</a>
 
 계획
 1. select 기반 - 해봐야 1000개밖에 안될테지만..
@@ -45,7 +46,17 @@ tags: problem_solving need_review coding
 
 ### TCP Socket
 - 소켓의 식별자 = (source ip, source port, dest ip, dest port)
-### establish, closing
+
+#### basics
+> <a href="https://d2.naver.com/helloworld/47667" target="_blank">https://d2.naver.com/helloworld/47667</a>
+
+- `Flow control` : 송신자는 수신자가 받을 수 있는 만큼 데이터를 전송한다. 수신자가 자신이 받을 수 있는 바이트 수 (사용하지 않은 버퍼 크기, receive window)를 송신자에게 전달한다. 송신자는 수신자 receive window가 허용하는 바이트 수만큼 데이터를 전송한다.
+- `Congestion control` : 네트워크 정체를 방지하기 위해 receive window와 별도로 congestion window를 사용하는데 이는 네트워크에 유입되는 데이터양을 제한하기 위해서이다. Receive window와 마찬가지로 congestion window가 허용하는 바이트 수만큼 데이터를 전송하며 여기에는 TCP Vegas, Westwood, BIC, CUBIC 등 다양한 알고리즘이 있다. __Flow control과 달리 송신자가 단독으로 구현한다.__
+- 여러 레이어가 있지만, 크게 유저(user) 영역, 커널(kernel) 영역, 디바이스로(device) 영역으로 나눌 수 있다. 유저 영역과 커널 영역에서의 작업은 CPU가 수행한다. __이 유저 영역과 커널 영역은 디바이스 영역과 구별하기 위해 호스트(host)라고 부른다__
+- 
+
+
+establish, closing
 - 당연한 말이지만 연결시 클라이언트가 무조건 먼저 걸음 (syn - syn+ack - ack)
 - 종료시에는 서버/클라이언트 둘 다 active closer가 될 수 있음 (fin - ack, fin - ack)
 
