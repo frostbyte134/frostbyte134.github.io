@@ -149,8 +149,10 @@ free명령어의
 
 ### Keepalive
 - 3way handshake후, 주기적으로 생존확인패킷을 보내 연결 유지
+- 기존 연결 유지 + 좀비 소켓 연결 관리 효과 (한쪽은 close시켰으나 다른쪽이 남아있는 경우)
 - 좀비 소켓연결도 체크 후 응답없으면 파기 - 커널 레벨에서의 소켓 관리
 
 ### TCP 재전송
 - ACK를 못받았을 시, 패킷을 계속 보내는 주기
 - RTO (Retransmission timeout): 기본 RTT (Round Trip Time) 2배씩
+- handshake 시 RTO값은 RTT를 알지 못하므로, 미리 고정된 값 (리눅스 = 1초) 사용
