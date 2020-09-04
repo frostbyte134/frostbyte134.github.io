@@ -13,6 +13,8 @@ tags: coding C
   - <a href="http://jake.dothome.co.kr/arm-exception-vector/" target="_blank">http://jake.dothome.co.kr/arm-exception-vector/</a>
 - <a href="https://blog.naver.com/PostView.nhn?blogId=eom913&logNo=123249122" target="_blank">https://blog.naver.com/PostView.nhn?blogId=eom913&logNo=123249122</a>
 - <a href="https://www.linux.com/training-tutorials/beaglebone-black-how-get-interrupts-through-linux-gpio/" target="_blank">https://www.linux.com/training-tutorials/beaglebone-black-how-get-interrupts-through-linux-gpio/</a>
+- <a href="https://blog.dasomoli.org/tag/gpio_to_irq/" target="_blank">https://blog.dasomoli.org/tag/gpio_to_irq/</a>
+
 
 
 ### Embedded recipes
@@ -181,8 +183,10 @@ SWI_Handler
   - `인터럽트 디스크립터`를 읽어 어떤 인터럽트인지 안 뒤, 핸들러를 호출한다고 함 (`KERNEL/kernel/irq/handle.c - __handle_irq_event_percpu` 부분)
 
 
+
 인터럽트 등록
 - `request_irq`함수 (BBB코드 참조)로 수행 (`KERNEL/include/inlux/interrupt.h`)
+  - request_irq(interrupt 주소, interrupt 발생시 실행할 함수, 옵션1, 소유자 이름, 옵션2)
 - `dump_stack()`을 핸들러에 찍은 결과 (dmesg)  
   ```  
   [ 5478.899900] [<c0015191>] (unwind_backtrace) from [<c0011765>] (show_stack+0x11/0x14)
@@ -193,4 +197,4 @@ SWI_Handler
   [ 5478.900236] [<c0075691>] (irq_thread) from [<c0047acb>] (kthread+0x93/0xa8)
   [ 5478.900296] [<c0047acb>] (kthread) from [<c000e9e1>] (ret_from_fork+0x11/0x30)
   ```
-  
+- `gpio_to_irq(gpio 번호)` : 해당 gpio의 interrupt 번호 반환. 내생각에 SWI인 것 같음 

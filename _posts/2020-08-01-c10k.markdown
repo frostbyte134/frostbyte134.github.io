@@ -2,10 +2,27 @@
 layout: post
 title:  "TCP socket + C10K Problem"
 date:   2020-07-24 09:00:05 +0800
-categories: problem_solving
+categories: coding
 use_math: true
-tags: problem_solving need_review coding
+tags: os need_review coding
 ---
+
+09.01 실험 정리
+1. 구린컴(클라이언트) -> 신컴(서버)로, 90mb/s밖에 데이터가 안 옴. 내생각엔 구린컴 한계인 듯
+2. 클라/서버를 반대로 하면 구린컴이 느려서 터짐
+3. 신컴(클라) -> 신컴(서버) 로 하기로 함. 클라이언트 개선 (10000개 소켓 - 4개에 프로세스에 나눠서, 랜덤으로 데이터 전송)했는데, 로컬호스트 (NIC) 에 걸리는 로드가 초당300mb이 한계인 듯. 이걸로는 서버의 load_avg가 1이하임
+4. 결국 클라이언트를 구리게 하면, 멀티쓰레드일시는 멈추고 epoll은 빠름. difference를 찾았으니 그만할까..
+   1. 근데 또, epoll에서는 클라이언트를 10000개로 하면 packet drop (sigpipe) 이 발생. 1 process epoll으로는 처리불가능해서 그런 듯. 2thread로 돌려도 되겠지만 그냥 클라갯수를 5000개로 줄임
+      1. 스택오버플로우에선 sigpipe를 무시해야 한다고 하네? <a href="https://stackoverflow.com/questions/108183/how-to-prevent-sigpipes-or-handle-them-properly" target="_blank">링크</a>
+   2. 라즈베리 파이/비글본을 서버로 해도 되겠지만...귀찮아서....일단 여기서 끝내자. nginx 해보는 게 더 도움이 될 듯
+   3. 이 종료상황 잘 이해가 안되는데 함 보자 https://stackoverflow.com/questions/33053507/econnreset-in-send-linux-c
+
+
+### 파일디스크립터 리밋 변경하기
+- https://qastack.kr/ubuntu/1049058/how-to-increase-max-open-files-limit-on-ubuntu-18-04
+- /etc/systemd/system.conf, /etc/systemd/user.conf 에서 DefaultLimitNOFILE 찾아서 주석해제하고 값 입력 (프로세스 수도 동일하게 변경가능)
+- "ulimit -n 65536" 해줘야 할 수도 있음
+- /etc/security/limits.conf 여기는 안바꿔도 되는 것 같은데 잘 모르겠음
 
 유용한 링크들
 - <a href="https://github.com/nailbrainz/c10k_test" target="_blank">github sources link</a>  

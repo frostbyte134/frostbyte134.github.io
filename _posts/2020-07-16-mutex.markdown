@@ -11,6 +11,9 @@ tags: coding C
 - 비글본 커널 : `kernel_version=4.14.185-bone37`
 - 아토믹 어셈블리 연산 - <a href="http://jake.dothome.co.kr/atomic/" target="_blank">http://jake.dothome.co.kr/atomic/</a>
 
+
+> 뮤텍스 락을 잡고 슬립에 빠지거나 뮤텍스 락을 기다리리며 잠들어 있는 프로세스들은 Interrupt을 받으면 안되기 때문에, 프로세스 상태가 Uninterruptible 상태(struct task_struct->state = TASK_UNINTERRUPTIBLE)이거든요. <a href="http://egloos.zum.com/rousalome/v/9966406" target="_blank">(출처)</a>
+
 뮤택스엔 `slowpath`와 `fastpath`가 있음
 - 아무도 해당 뮤텍스를 사용하지 않을 때, 바로 점거
 - 누가 쓰고 있다면, slowpath로 진입해 대기 (uninterruptable!)

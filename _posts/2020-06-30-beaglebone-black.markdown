@@ -17,7 +17,7 @@ Plans (7월까지 하기)
 - PRU사용
 - Context switch 실제로 보기 (리눅스로 보는게 편할듯)
 - 디버거는..돈이 없어서요
-
+- GPIO interrupt는 SWI가 아니고, IRQ에 등록된 번호가 있음!
 
 * <a href="https://cdn-shop.adafruit.com/datasheets/BBB_SRM.pdf" target="_blank">BBB Datasheet</a>
 * <a href="https://github.com/derekmolloy/boneDeviceTree" target="_blank">BBB debice tree</a>
@@ -228,6 +228,23 @@ recent kernel - GPIO 1, 2, 3 is not automatically enabled - must enable CM_PER_G
    3. `insmod ~.ko`, `rmmod ~`사용해서 커널 모듈 등록/제거 함. dmesg로 확인 가능
    4. `dmesg -C` 로 깔끔하게 보는 것도 가끔 좋은듯
    5. `register_chrdev` 는 왜 쓰는 거지? 지금 이해로는, ISR은 뭔가 장치파일로 동작하는 듯 (핸들러 등록하는 형식 보면 그런 거 같음)하며 이 장치파일을 등록할 때 필요한 듯
+
+
+
+인터럽트 등록
+- `request_irq`함수 (BBB코드 참조)로 수행 (`KERNEL/include/inlux/interrupt.h`)
+  - request_irq(interrupt 주소, interrupt 발생시 실행할 함수, 옵션1, 소유자 이름, 옵션2)
+- `dump_stack()`을 핸들러에 찍은 결과 (dmesg)  
+  ```  
+  [ 5478.899900] [<c0015191>] (unwind_backtrace) from [<c0011765>] (show_stack+0x11/0x14)
+  [ 5478.899965] [<c0011765>] (show_stack) from [<c06c446f>] (dump_stack+0x63/0x74)
+  [ 5478.900036] [<c06c446f>] (dump_stack) from [<bf92e09b>] (irq_gpio+0x62/0x68 [dwkang_gpio_driver])
+  [ 5478.900128] [<bf92e09b>] (irq_gpio [dwkang_gpio_driver]) from [<c007548d>] (irq_forced_thread_fn+0x19/0x38)
+  [ 5478.900177] [<c007548d>] (irq_forced_thread_fn) from [<c0075691>] (irq_thread+0xd5/0x164)
+  [ 5478.900236] [<c0075691>] (irq_thread) from [<c0047acb>] (kthread+0x93/0xa8)
+  [ 5478.900296] [<c0047acb>] (kthread) from [<c000e9e1>] (ret_from_fork+0x11/0x30)
+  ```
+- `gpio_to_irq(gpio 번호)` : 해당 gpio의 IRQ 번호 반환. 
 
 ### PRU
 * <a href="http://www.ti.com/lit/ug/spruij2/spruij2.pdf?ts=1588210569067" target="_blank">TI manual</a>
