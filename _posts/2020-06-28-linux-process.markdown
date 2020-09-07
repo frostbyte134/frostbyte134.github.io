@@ -70,6 +70,8 @@ TODO
 ### PS 명령어
 - 유저 프로세스 = init프로세스를 표현하는 자료구조인 init_task 전역변수의 tasks 필드에 모든 프로세스가 linked list로 등록됨 - 이를 순회하며 task_struct의 정보를 출력
 
+### 프로세스 관계
+- <a href="https://www.joinc.co.kr/w/Site/system_programing/process/Process_Relation" target="_blank">https://www.joinc.co.kr/w/Site/system_programing/process/Process_Relation</a>
 
 ### init process
 - <a href="https://stackoverflow.com/questions/44274648/which-one-is-pid1-sbin-init-or-systemd" target="_blank">systemd vs /sbin/init</a>  
@@ -125,6 +127,9 @@ TODO
 
 
 ### 데몬 프로세스 만들기
+
+<a href="https://www.joinc.co.kr/w/Site/system_programing/process/daemon" target="_blank">https://www.joinc.co.kr/w/Site/system_programing/process/daemon</a>
+
 1. read <a href="https://stackoverflow.com/questions/17954432/creating-a-daemon-in-linux">https://stackoverflow.com/questions/17954432/creating-a-daemon-in-linux</a>, and theoritical background <a href="http://www.enderunix.org/docs/eng/daemon.php" target="_blank">http://www.enderunix.org/docs/eng/daemon.php</a>
 2. clone <a href="https://github.com/pasce/daemon-skeleton-linux-c" target="_blank">https://github.com/pasce/daemon-skeleton-linux-c</a>
 3. steps
