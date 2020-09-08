@@ -72,6 +72,15 @@ TODO
 
 ### 프로세스 관계
 - <a href="https://www.joinc.co.kr/w/Site/system_programing/process/Process_Relation" target="_blank">https://www.joinc.co.kr/w/Site/system_programing/process/Process_Relation</a>
+- 세션 == 터미널 (`/dev/ttyX`)
+  - 세션 1개는 최대 1개의 foreground process group을 가질 수 있음. foreground process group이외에서 터미널의 signal을 받으려고 하면 `SIGTTIN` 발생
+  - N개 프로세스 그룹 \\(\in\\) 1개 세션
+    - 세션 리더 - session id == pid.
+    - 데몬은  
+  - N개 프로세스 \\(\in\\) 1개 프로세스 그룹
+    - 프로세스 그룹 리더 - pgid == pid
+    - fg에 준 시그널이 bg에 가면 안됨 - 시그널/pipe등은 내부 프로세스 그룹끼리만 유효
+- <a href="https://mug896.github.io/bash-shell/session_and_process-group.html" target="_blank">잘 쓴듯. 읽어볼 만 함</a>
 
 ### init process
 - <a href="https://stackoverflow.com/questions/44274648/which-one-is-pid1-sbin-init-or-systemd" target="_blank">systemd vs /sbin/init</a>  
@@ -143,7 +152,7 @@ TODO
   7. (optional?) redirect stdin, stdout, stderr since we dont have connected terminal anymore
   8. `close` - Close all open file descriptors that may be inherited from the parent process.
 4. `ps -ejH` : 생성된 데몬 프로세스 (파일명)는 session leader도 아니고 (내 실험의 경우, `pid=5635`, `sid=5634`였음), 연결된 터미널도 없는 것을 확인할 수 있음.
-
+5. 언제 부모가 systemd가 되는가? - <a href="https://stackoverflow.com/questions/35705451/is-changing-parent-process-necessary-when-daemonize-a-process" target="_blank">stackoverflow</a>
 
 ### 좀비 프로세스
 - <a href="https://iprize.tistory.com/647" target="_blank">https://iprize.tistory.com/647</a>  

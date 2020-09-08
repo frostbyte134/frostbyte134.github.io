@@ -7,6 +7,8 @@ use_math: true
 tags: os need_review coding
 ---
 
+https://vincent.bernat.ch/en/blog/2014-tcp-time-wait-state-linux
+
 09.01 실험 정리
 1. 구린컴(클라이언트) -> 신컴(서버)로, 90mb/s밖에 데이터가 안 옴. 내생각엔 구린컴 한계인 듯
 2. 클라/서버를 반대로 하면 구린컴이 느려서 터짐
