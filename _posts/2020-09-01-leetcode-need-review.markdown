@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Leetcode problems"
-date:   2020-02-09 09:59:00 +0800
+date:   2020-09-01 09:59:00 +0800
 categories: problem_solving
 use_math: true
 tags: problem_solving leetcode need_review
@@ -9,12 +9,37 @@ tags: problem_solving leetcode need_review
 
 solve the problem while explain it to yourself, and write examples (must!)
 
+막히면?
+- 뒤에서
+- 가운데부터
+- 문제 재정의, 다시 읽기
+- 웰노운들 적용시켜 보기
+
+
+### Bricks Falling When Hit
+<a href="https://leetcode.com/problems/bricks-falling-when-hit/" target="_blank">https://leetcode.com/problems/bricks-falling-when-hit/</a>
+
+<details>
+   <summary>다시 풀면 좋을텐데 코드가 넘 김</summary> 
+    뒤로부터 풀기 + 마킹 + djset. 천장에 붙으면 vis인거고. 아니근데 djset 필요없지 않나? 없이 한번 풀어보자
+   </details>
+
+
+### consecutive Numbers Sum
+<a href="https://leetcode.com/problems/consecutive-numbers-sum/" target="_blank">https://leetcode.com/problems/consecutive-numbers-sum/</a>
+<details>
+   <summary>다시보기</summary> 
+    구간합 공식을 이용한 투포인터
+   </details>
+
+
+
 ### Missing Element in Sorted Array
 - O(N)으로 일단 품.
 - nums[i]와 nums[i+1]간의 missing element가 누적된 값이 아닌데 어떻게 이진검색을 하나 고민했음 (부분합 배열을 만들면 이미 O(N))
 <details>
    <summary>다시보기</summary> 
-    nums[j] - nums[i] - 1 - (j - i) 가 i --- j 사이에 있는 missing elements. low번째를 i로 두고, low밑에껀 k에서 빼 가면 됨
+    nums[j] - nums[i] - 1 - (j - i) 가 i --- j 사이에 있는 missing elements. low번째를 i로 두고, low밑에껀 k에서 빼 가면 됨. while lo+1 < hi: 포문으로 푸는게 훨 쉽네..(lo = mid, hi = mid로 갱신)
    </details>
 
 
@@ -25,13 +50,17 @@ solve the problem while explain it to yourself, and write examples (must!)
   - 최대값을 구해야 하므로
     - 현재보다 이전 인덱스인데 현 값보다 작으면 필요없음. 윈도우는 점점 ->로 가므로 현재 값에 가려저서 답에 contribution할 일은 없을 것임. 
     - 따라서 decreasing dequeue를 유지하면서 맨 앞의 값을 가져오면 됨
+- 투포인터와 겹치는 부분이 있는 듯. increasing 이든 decreasing 이든 배열을 유지하는건, 앞+뒤 정보를 가지고 있는 것이니까.
 
 ### Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit (window problem, need review)
+- <a href="https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/" target="_blank">https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/</a>
 - 윈도우 안의 최대/최소의 차이. map으로 풀어서 하위 20퍼로 풀긴 함
-- 윈도우 문제로 보고, 최대 윈도우 문제 / 최소 윈도우 문제를 동시에 풀면 됨
+- 디큐 - increasing_deque는 맨 앞이 구간의 최소값, decreasing_deque는 맨 앞이 구간의 최대값임 (맨 뒤는 항상 새로 추가된 원소).
+  - 이 때 조심해야 할 게, 현재 구간 (디큐들에 들어있는 아이템들의 min, max정보가 유효한 구간)은 max(inc디큐에서 제일 최근에 빠진 인덱스+1, dec디큐에서 제일 최근에 빠진 인덱스+1)이라는 것
 
 
 ### Minimum Cost to Make at Least One Valid Path in a Grid (보기만)
+- <a href="https://leetcode.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid/" target="_blank">https://leetcode.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid/</a>
 - 금방 생각난 것 - level (trial횟수) 별로 bfs하기. 여기서 특정 지역을 1번만 바꿀 수 있다는 제약조건이 걸리긴 했지만, 문제 특성상 최적의 답에 특정 지역을 두번 바꾼 게 들어갈 수 없기에 그냥 함 (한번만 바꾼 것 만 있는 답을 더 빨리 발견할 것이여서)
 - 결국 level별로 할 필요도 없었음. 레벨별로 하면 O(보드크기 X 맥스 레벨 (200)) 이지만, bfs하고 - 경계 저장 - 경계에서 다시 BFS - ...로 하면 O(보드크기)로 끝낼 수 있음
 - 디큐도 재밌었음. 디큐를 바로 생각할 수 있는 근거는 뭘까. 같은 레벨이면 앞에 더하고 (DFS?), 다음 레벨은 뒤에 더하는 식으로 함 (레벨 별). 결국 레벨은 현재에서 현재+1을 찾게 되므로, 항상 디큐에는 레벨이 증가하는 순서로 들어가게 됨

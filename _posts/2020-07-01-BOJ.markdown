@@ -16,7 +16,7 @@ tags: problem_solving need_review
 #### 1867 돌멩이 제거
 - <a href="https://www.acmicpc.net/problem/1867" target="_blank">https://www.acmicpc.net/problem/1867</a>
 - 그냥 나이브하게 찾으려면 dp도 어렵고 한번 결정을 내릴 때 마다 N번의 갱신을 해 줘야 했음. 보통 이러면 먼가 방법이 있더라...
-
+  - N^3이 되고, 먼가 exclusive한 선택을 최대로 하기 = bipartite matching
 
 <details>
    <summary>보기만</summary> 
