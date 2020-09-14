@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "TCP socket + C10K Problem"
-date:   2020-07-24 09:00:05 +0800
+title:  "C10K Problem"
+date:   2020-08-01 09:00:05 +0800
 categories: coding
 use_math: true
 tags: os need_review coding
@@ -28,7 +28,6 @@ https://vincent.bernat.ch/en/blog/2014-tcp-time-wait-state-linux
 
 유용한 링크들
 - <a href="https://github.com/nailbrainz/c10k_test" target="_blank">github sources link</a>  
-- <a href="https://d2.naver.com/helloworld/47667" target="_blank">TCP-IP의 근본</a>
 - <a href="http://docs.likejazz.com/time-wait/" target="_blank">엄청 잘쓴 블로그</a> 여기 코드 좀 참고할 만 한듯
 - <a href="https://blog.cloudflare.com/syn-packet-handling-in-the-wild/" target="_blank">https://blog.cloudflare.com/syn-packet-handling-in-the-wild/</a>
 - <a href="https://www.cs.dartmouth.edu/~sergey/netreads/path-of-packet/Network_stack.pdf" target="_blank">PATH OF A PACKET IN THE LINUX KERNEL STACK</a> <a href="https://pigbrain.github.io/network/2016/05/29/PathOfAPacketInTheLinuxKernelStack_on_Network" target="_blank">(한국어)</a>
@@ -86,58 +85,6 @@ States
 
 
 
-### TCP Socket
-- 소켓의 식별자 = (source ip, source port, dest ip, dest port)
-
-#### basics
-> <a href="https://d2.naver.com/helloworld/47667" target="_blank">https://d2.naver.com/helloworld/47667</a>
-
-- `Flow control` : 송신자는 수신자가 받을 수 있는 만큼 데이터를 전송한다. 수신자가 자신이 받을 수 있는 바이트 수 (사용하지 않은 버퍼 크기, receive window)를 송신자에게 전달한다. 송신자는 수신자 receive window가 허용하는 바이트 수만큼 데이터를 전송한다.
-- `Congestion control` : 네트워크 정체를 방지하기 위해 receive window와 별도로 congestion window를 사용하는데 이는 네트워크에 유입되는 데이터양을 제한하기 위해서이다. Receive window와 마찬가지로 congestion window가 허용하는 바이트 수만큼 데이터를 전송하며 여기에는 TCP Vegas, Westwood, BIC, CUBIC 등 다양한 알고리즘이 있다. __Flow control과 달리 송신자가 단독으로 구현한다.__
-- 여러 레이어가 있지만, 크게 유저(user) 영역, 커널(kernel) 영역, 디바이스로(device) 영역으로 나눌 수 있다. 유저 영역과 커널 영역에서의 작업은 CPU가 수행한다. __이 유저 영역과 커널 영역은 디바이스 영역과 구별하기 위해 호스트(host)라고 부른다__
-- 현재 TCP 상태가 데이터 전송을 허용하면 새로운 `TCP segment, 즉 패킷`을 생성한다. Flow control 같은 이유로 데이터 전송이 불가능하면 시스템 콜은 여기서 끝나고, 유저 모드로 돌아간다(즉, 애플리케이션으로 제어권이 넘어간다).
-- TCP segment에는 TCP 헤더와 페이로드(payload)가 있다. 페이로드에는 ACK를 받지 않은 send socket buffer에 있는 데이터가 담겨 있다. __페이로드의 최대 길이는 receive window, congestion window, MSS(Maximum Segment Size) 중 최대 값이다.__
-- NIC가 패킷을 전송할 때 NIC는 호스트 CPU에 인터럽트(interrupt)를 발생시킨다. 모든 인터럽트에는 인터럽트 번호가 있으며, 운영체제는 이 번호를 이용하여 이 인터럽트를 처리할 수 있는 적합한 드라이버를 찾는다. 드라이버는 인터럽트를 처리할 수 있는 함수(인터럽트 핸들러)를 드라이브가 가동되었을 때 운영체제에 등록해둔다. 운영체제가 핸들러를 호출하고, 핸들러는 전송된 패킷을 운영체제에 반환한다.
-- 애플리케이션이 쓰기 요청을 직접적으로 하지 않아도 커널이 TCP를 호출해서 패킷을 전송하는 경우가 있다. 예를 들어 ACK을 받아 receive window가 늘어나면 socket buffer에 남아있는 데이터를 포함한 TCP segment를 생성하여 상대편에 전송한다.
-- NIC가 패킷을 받았는데, 드라이버가 미리 할당해 놓은 호스트 메모리 버퍼가 없으면 NIC가 패킷을 버릴 수 있다 (packet drop).
-
-#### Layers
-- `Ethernet layer` : 2계층과 관련있음 (data link). ARP, MAC주소.
-  - Ethernet 레이어는 ARP(Address Resolution Protocol)를 사용해서 next hop IP의 MAC 주소를 찾는다. 그리고 Ethernet 헤더를 패킷에 추가한다. Ethernet 헤더까지 붙으면 (전송 시) 호스트의 패킷은 완성이다.
-- `IP layer` : 3계층
-  - 생성된 TCP segment는 IP 레이어로 이동한다(내려 간다). IP 레이어에서는 TCP segment에 IP 헤더를 추가하고, `IP routing`을 한다. 
-  - `IP routing`이란 목적지 IP 주소(destination IP)로 가기 위한 다음 장비의 IP 주소(next hop IP)를 찾는 과정을 말한다. IP 레이어에서 IP 헤더 checksum을 계산하여 덧붙인 후, Ethernet 레이어로 데이터를 보낸다.
-  - IP routing을 하면 그 결과물로 next hop IP와 해당 IP로 패킷 전송할 때 사용하는 인터페이스(transmit interface, 혹은 NIC)를 알게 된다.
-
-
-establish, closing
-- 당연한 말이지만 연결시 클라이언트가 무조건 먼저 걸음 (syn - syn+ack - ack)
-- 종료시에는 서버/클라이언트 둘 다 active closer가 될 수 있음 (fin - ack, fin - ack)
-
-#### TIME_WAIT
-- active closer측에서 fin을 받고 (4-way에서 3번째) ack를 보낸 뒤 (4번째), 잠시동안 소켓을 유지하는 기간
-- <a href="http://docs.likejazz.com/time-wait/" target="_blank">참고 링크</a>
-- 왜 있나?
-  - 지연된 데이터 패킷 대응 (FIN - ACK, FIN - ACK 정상 종료 후 수신되는 데이터 패킷)
-  - active closer가 보내는 마지막 (4-way에서 4th) ack유실시, 상대방 (passive closer)은 `LAST-ACK`상태를 유지하고 (확인 필요) FIN 을 다시 보냄. 이 때 time_wait이 짧으면 active closer는 이미 자체적으로 소켓을 회수한 상태라, 유실된 ACK를 다시 보내주지 않고 RST를 보내게 됨
-    - 결국 __Active closer는 자기가 보낸 마지막 ACK가 잘 갔는지 말았는지 모르기 때문에, 일정기간 기다려 줘야 하는 것__
-
-소켓 생성/삭제가 잦은 경우, TIME_WAIT때문에 file descriptor (이건 좀...기본제한이 커서)/로컬 포트가 부족해 질 수 있다 함. ex) 서버는 DB 등에 대해 클라이언트가 되기도
-- 클라이언트 : 항상 연결을 거는 입장이므로, 걸기 전 connection pool을 활용 (세션의 cache)
-  - `net.ipv4.tcp_tw_reuse` : 로컬 포트 고갈 시 TIME_WAIT상태에 있는 소켓을 빨리 회수해 재사용 가능하게 해 줌
-- `서버는 소켓을 열어 놓고 요청을 받는 입장이기 때문에 로컬포트고갈이 일어나지 않는다`
-  - 위에도 있다시피, 소켓의 identifier 중 source port가 고정됨. connection은 여러 개 열지만, 다 같은 (source ip, source port) 로 여는 것 
-  - `net.ipv4.tcp_tw_recycle` : TIME_WAIT값을 고정된 값이 아니라, RTO기반의 짧은 값으로 바꿔 줌. 
-  - 또는 서버측에서 nginx / http keepalive를 세팅하면, GET등의 요청 처리 후 소켓을 잠시 살려 둠
-
-예시
-- 웹 --- nginx / 아파치 (웹 서버) --- tomcat (앱 서버) 에서, 웹서버-앱서버 간 `keepalive`를 적용하지 않으면 `TIME_WAIT` 발생
-  - 소켓 고갈 (클라이언트=웹서버)은 tw_reuse로 어느정도 해결가능
-  - 불필요한 3,4 way handshakes - 성능 낭비 발생
-  - 웹 서버를 두는 이유 = HTTPS를 사용시, 인증서 설정/관리, <a href="https://www.popit.kr/%EB%82%B4-%EC%84%9C%EB%B2%84%EC%97%90%EB%8A%94-%EB%88%84%EA%B0%80-%EB%93%A4%EC%96%B4%EC%98%A4%EB%8A%94%EA%B1%B8%EA%B9%8C-%EC%8B%A4%EC%8B%9C%EA%B0%84-user-agent-%EB%B6%84%EC%84%9D%EA%B8%B0/" target="_blank">UserAgent</a> 확인, <a href="https://damedame.tistory.com/entry/HTTP-referer" target="_blank">HTTP Referer확인</a> 등 서비스 외적인 요소가 많기 때문에, __서비스 외적 (웹서버) / 서비스 (앱서버)__ 분리용
-    - <a href="https://ko.wikipedia.org/wiki/HTTP_%EB%A6%AC%ED%8D%BC%EB%9F%AC" target="_blank">위키 리퍼러 페이지</a>
-
-
 #### MISC
 - `sudo sysctl -w net.core.somaxconn="2048"` : 무슨 효과가 있는거지? 엄청 낮게 설정해도 별거 없음
 - 
@@ -168,35 +115,44 @@ establish, closing
 3. 전체 프로세스의 fd리밋 합은 따로 있음
 
 
-#### 포트의 개념
-- 4레이어에만 있는 거고, 논리적인 번호임. 어플리케이션을 구분하기 위한 것
-- <a href="https://memoweb.tistory.com/entry/%ED%8F%AC%ED%8A%B8%EC%9D%98-%EA%B0%9C%EB%85%90%EA%B3%BC-%EB%B3%B8%EC%A7%88-port" target="_blank">참고</a>
-- 커널은 소켓을 (serv ip, serv port, cli ip, cli port)의 키로 구분함
-
-#### TCP backlog
-- `listen`시에 넣어주는 파라미터
-- `SYN`을 받은 서버가 `SYN+ACK`을 보내고 아직 `ACK`를 못받아 established되지 않은 소켓을 몇개까지 유지할거냐 하는 것. 넘 크면 flooding같은걸 당하는듯
-
-#### MISCS
-- clinet 포트번호 지정 - `bind()`로 가능 <a href="https://www.geeksforgeeks.org/explicitly-assigning-port-number-client-socket/" target="_blank">https://www.geeksforgeeks.org/explicitly-assigning-port-number-client-socket/</a>. 평소엔 자동으로 지정되고 있었는듯
-  - 하긴 클라이언트가 포트번호를 지정하면 오히려 범용성이 좀 떨어질듯 <a href="https://m.blog.naver.com/rev7707" target="_blank">https://m.blog.naver.com/rev7707</a> 이블로그 뭔가 나랑 겹치는게 많음
-- `Slow consumer` 이슈 : 로컬 tcp buffer가 꽉 차있지 않아도, 원격 TCP버퍼가 꽉 차 있으면 block이 걸림 (you can think of the remote TCP buffer, the network and the local sending TCP buffer, as one big buffer) <a href="https://stackoverflow.com/questions/11037867/socket-send-call-getting-blocked-for-so-long" target="_blank">https://stackoverflow.com/questions/11037867/socket-send-call-getting-blocked-for-so-long</a>
-
-### thread per socket + blocking 
-- 왜이렇게 느린가? 500도 제대로 처리 못함
-- 프로세스 1000개는 껌으로 만드는데. 500개가 polling하는 시나리오가 문제가 되는 건가?
-
-#### close 처리
-- close처리를 잘 안해줬었음
-- tcpdump -> wireshark에서, cli가 serv에 [FIN, ACK]는 보내는데 이 이후 종료 과정이 진행되지 않는 것을 발견
-- 서버에서 read시 0이나 음수가 리턴될 시 close를 불러 줘야 하는데 이 처리를 안해서, `close_wait소켓이 계속 유지되고 있었음`
-  - 이거 나중에 확인해보자 (netstat -napo로)    
-    <img src="{{ site.url }}/images/coding/tcp/close_wait.jpg" width="350" class="center"/>  
-    서버에서는 read에서 0 return하면 socket close를 해줘야 하는데 이를 처리 안해서 계속 죽은 소켓에서 읽고 있고 (sigpipe 나지 않나?), 클라이언트에선 FIN에 대한 ACK는 받았으나 서버에서 close호출로 보내오는 FIN을 받지 못해 FIN_WAIT2에 걸림 (timeout 후 소켓 없어짐)
-- 이제 TIME_WAIT 대량발생 시험해 볼 수 있을 듯
 
 ### C500K
 - <a href="https://threadbuilder.wordpress.com/2013/06/20/linux-kernel-tuning-for-c500k/" target="_blank">https://threadbuilder.wordpress.com/2013/06/20/linux-kernel-tuning-for-c500k/</a>
 
 ### Kernel compiles
 - 여기에 정리해놓자
+
+
+### select
+
+<a href="http://www.kegel.com/c10k.html" target="_blank">The C10K Problem</a>
+
+(e)poll vs select
+- <a href="https://daniel.haxx.se/docs/poll-vs-select.html" target="_blank">https://daniel.haxx.se/docs/poll-vs-select.html</a>
+    - poll이랑 select는 비슷하고, epoll은 event driven?
+- <a href="https://ozt88.tistory.com/21" target="_blank">https://ozt88.tistory.com/21</a> 
+    > epoll은 select의 단점을 많이 개선한 형태의 통지방식이다. FD_SET을 운영체제가 직접 관리하는 것으로 많은 부분이 개선되었다. 하지만 그 본질적인 동작 구조는 select와 크게 다르지 않다. 프로세스가 커널에게 지속적으로 I/O 상황을 체크하여 동기화 하는 개념은 여전히 유효하다. 따라서 epoll의 통지모델 역시 동기형 통지모델이다.   
+    그리고 timeout개념이 select와 동일한 방식으로 동작하기 때문에 timeout에 들어온 인자가 어떠냐에 따라 blocking이기도 하고 non-blocking이기도 하다. 따라서 epoll의 전체적인 개념모델은 select와 같다고 생각한다.
+- <a href="https://d2.naver.com/helloworld/1469717" target="_blank">네이버 D2 - thread vs epoll</a>
+
+
+
+출처: https://ozt88.tistory.com/21 [공부 모음]
+
+<a href="https://github.com/nailbrainz/c10k_test/blob/master/src/c10k_select.c" target="_blank">c10k select example</a>
+
+### controls
+```cpp
+fd_set readfds;
+FD_ZERO(&readfds);
+FD_SET(0, &readfds);  //readfds의 0번 비트를 1로
+FD_SET(socketfd, &readfds); //readfds의 sockfd번 비트를 1로
+FD_CLR(i, &reads); //readfds의 i 비트를 0으로
+if(FD_ISSET(i, &cpy_reads)); //cpy_reads i 비트가 1인가?
+
+sock_fd = accept(serv_fd, (struct sockaddr *)&client_addr, &add_struct_size);
+FD_SET(sock_fd, &reads); //새로 할당하기
+```
+
+
+### epoll

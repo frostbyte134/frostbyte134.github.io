@@ -156,7 +156,7 @@ TODO
 
 ### 좀비 프로세스
 - <a href="https://iprize.tistory.com/647" target="_blank">https://iprize.tistory.com/647</a>  
-  - > 프로세스가 리눅스에서 종료될 때 그 즉시 메모리에서 제거되지 않는다. Process Descriptor가 메모리에 남는다. (Process Descriptor는 매우 적은양의 메모리만 차지한다) 프로세스 상태는 EXIT_ZOMBIE가 되며 부모 프로세스에게 자식 프로세스가 SIGCHLD 신호로 종료되었음을 알린다. 그러면 부모 프로세스는 자식 프로세스의 종료 상태와 기타 정보를 읽기 위해 wait() 시스템 콜을 실행하여야 한다. 부모 프로세스는 죽은 프로세스로부터 정보를 얻는 것이 허용되어 있다. wait()이 호출된 후 좀비 프로세스는 메모리에서 완전히 제거된다.   
+  - > 프로세스가 리눅스에서 종료될 때 그 즉시 메모리에서 제거되지 않는다. Process Descriptor가 메모리에 남는다. (Process Descriptor는 매우 적은양의 메모리만 차지한다) 프로세스 상태는 EXIT_ZOMBIE가 되며 `(따라서 모든 프로세스는 죽기 전 좀비가 됨)` 부모 프로세스에게 자식 프로세스가 SIGCHLD 신호로 종료되었음을 알린다. 그러면 부모 프로세스는 자식 프로세스의 종료 상태와 기타 정보를 읽기 위해 wait() 시스템 콜을 실행하여야 한다. 부모 프로세스는 죽은 프로세스로부터 정보를 얻는 것이 허용되어 있다. wait()이 호출된 후 좀비 프로세스는 메모리에서 완전히 제거된다.   
   이러한 과정은 매우 빠르게 일어나기 때문에 시스템에 좀비 프로세스에 누적되는 것을 볼 수 없을 것이다. 하지만 부모 프로세스가 제대로 프로그래밍되지 않았다면 wait()을 호출하지 않을 것이며 좀비 프로세스는 메모리에 존재할 것이다. 
   - <a href="http://navigatorkernel.blogspot.com/2017/01/ch02-process-management3-process.html" target="_blank">process descriptor = task_struct</a>
 - <a href="https://bencane.com/2012/07/02/when-zombies-invade-linux-what-are-zombie-processes-and-what-to-do-about-them/" target="_blank">https://bencane.com/2012/07/02/when-zombies-invade-linux-what-are-zombie-processes-and-what-to-do-about-them/</a>

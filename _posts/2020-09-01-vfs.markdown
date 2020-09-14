@@ -33,7 +33,8 @@ why vfs?
 ### proc 파일시스템
 - `cat kmsg` 로 동작가능 (ftrace / strace로 확인가능)
 - 메모리에서 프로세스 모니터링용 파일시스템
-
+- proc파일시스템에서 fd목록 체크 가능 ls -l /proc/6760/fd
+- 
 ### sysfs 파일시스템
 - `cat cpuinfo_cur_freq` 로 호출가능
 - 시스템에 접속된 디바이스 정보를 참조하거나, 설정변경을 위한 파일시스템. /sys에 마운트

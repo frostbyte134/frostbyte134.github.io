@@ -7,8 +7,12 @@ use_math: true
 tags: problem_solving need_review coding
 ---
 
+### CPP
+
 ### Python
 - sort `d = sorted(a, key = lambda x : x[1])`
+- deque `pop, popleft, append, appendleft, rotate`
+
 
 ### KMP
 ```cpp

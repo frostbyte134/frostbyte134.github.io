@@ -31,6 +31,7 @@ tags: coding
   - The number of lanes determines the bandwidth of the MIPI bus
   - The I2C bus is required to configure most of the camera sensors
   - > CSI-2 is a lane-scalable specification. The applications that require more bandwidth than what is provided by one data lane or those trying to avoid high clock rates can expand the data path to two, three, or four lanes and obtain approximately linear increases in the peak bus bandwidth. The data stream is distributed between the lanes. This __figure(4)__ shows an example of a 4-lane transmission
+  - 이문서의 bandwidth 파트도 좋은듯
 
 
 ### virtual channel

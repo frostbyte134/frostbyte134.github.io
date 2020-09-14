@@ -16,6 +16,10 @@ solve the problem while explain it to yourself, and write examples (must!)
 - 웰노운들 적용시켜 보기
 
 
+### Maximum product subarray
+- <a href="https://leetcode.com/problems/maximum-product-subarray/" target="_blank">https://leetcode.com/problems/maximum-product-subarray/</a>
+- 원칙 적용시켜 보기. 내가 이런 생각을 했었다고? ㄷㄷ
+
 ### Bricks Falling When Hit
 <a href="https://leetcode.com/problems/bricks-falling-when-hit/" target="_blank">https://leetcode.com/problems/bricks-falling-when-hit/</a>
 

@@ -182,19 +182,3 @@ SWI_Handler
   - 결국 다 처리하고 난 뒤 `irq_handler` 에서 `handle_arch_irq`로 브랜치함. 여기에 인터럽트를 처리하는 커널 내부 함수가 있는 듯
   - `인터럽트 디스크립터`를 읽어 어떤 인터럽트인지 안 뒤, 핸들러를 호출한다고 함 (`KERNEL/kernel/irq/handle.c - __handle_irq_event_percpu` 부분)
 
-
-
-인터럽트 등록
-- `request_irq`함수 (BBB코드 참조)로 수행 (`KERNEL/include/inlux/interrupt.h`)
-  - request_irq(interrupt 주소, interrupt 발생시 실행할 함수, 옵션1, 소유자 이름, 옵션2)
-- `dump_stack()`을 핸들러에 찍은 결과 (dmesg)  
-  ```  
-  [ 5478.899900] [<c0015191>] (unwind_backtrace) from [<c0011765>] (show_stack+0x11/0x14)
-  [ 5478.899965] [<c0011765>] (show_stack) from [<c06c446f>] (dump_stack+0x63/0x74)
-  [ 5478.900036] [<c06c446f>] (dump_stack) from [<bf92e09b>] (irq_gpio+0x62/0x68 [dwkang_gpio_driver])
-  [ 5478.900128] [<bf92e09b>] (irq_gpio [dwkang_gpio_driver]) from [<c007548d>] (irq_forced_thread_fn+0x19/0x38)
-  [ 5478.900177] [<c007548d>] (irq_forced_thread_fn) from [<c0075691>] (irq_thread+0xd5/0x164)
-  [ 5478.900236] [<c0075691>] (irq_thread) from [<c0047acb>] (kthread+0x93/0xa8)
-  [ 5478.900296] [<c0047acb>] (kthread) from [<c000e9e1>] (ret_from_fork+0x11/0x30)
-  ```
-- `gpio_to_irq(gpio 번호)` : 해당 gpio의 interrupt 번호 반환. 내생각에 SWI인 것 같음 
