@@ -57,6 +57,9 @@ tags: problem_solving need_review
    </details>
    
 
+#### 개구리 공주
+- <a href="https://www.acmicpc.net/problem/2983" target="_blank">https://www.acmicpc.net/problem/2983</a>
+- 이런 문제 보면 맨날 map으로 푸네. 특정 아이템의 다음 값 찾기 : linked array로 풀면 빠름 (삭제도 쉽게 대응가능). 근데사실 map도 logN 곱하는거밖에 차이 안날텐데 50ms vs 700ms가 되어버리네.
 
 ### Need review
 
@@ -82,3 +85,10 @@ tags: problem_solving need_review
 
 
 ### Reviewed
+
+#### 1765 닭싸움 팀 정하기
+- <a href="https://www.acmicpc.net/problem/1765" target="_blank">https://www.acmicpc.net/problem/1765</a>
+- <details>
+   <summary>보기만</summary> 
+   문제를 잘못 이해해서 함 틀림. djset + dfs. transitivity를 djset으로 쉽게 처리해줌 (pairwise하게 체크해야 해서 N^2지만, djset은 노드 하나 잡아놓그 그것과 연산하면 되니 N^2가 필요없음 )
+   </details>
