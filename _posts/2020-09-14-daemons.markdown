@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "shell script"
+title:  "Linux Daemons"
 date:   2020-09-09 09:00:05 +0800
 categories: coding
 use_math: true
@@ -13,3 +13,4 @@ tags: os need_review coding
 
 ### systemD
 - socket activation? : <a href="http://0pointer.de/blog/projects/socket-activation.html" target="_blank">http://0pointer.de/blog/projects/socket-activation.html</a>
+

@@ -1,0 +1,119 @@
+---
+layout: post
+title:  "Docker notes"
+date:   2020-09-15 09:10:05 +0800
+categories: coding
+use_math: true
+tags: coding docker
+---
+
+`reference pages`
+
+  - docker = `docker engine` + `containerd` + `containerd-shim` + `runC` (OCI 구현체?)
+    - `ps aux` : 4개의 도커 프로세스 확인가능
+    - OCI 표준 : <a href="http://www.opennaru.com/kubernetes/open-container-initiative/" target="_blank">http://www.opennaru.com/kubernetes/open-container-initiative/</a> 
+- <a href="http://cloudrain21.com/examination-of-docker-protocol-registry" target="_blank">http://cloudrain21.com/examination-of-docker-process-binary</a> 이 페이지 __엄청__ 좋아보임
+  - docker(client)는 unix domain socket, fd, tcp 방식으로 docker daemon 에 접속하고, docker daemon(server)은 자신이 command 를 수신할 통신 방식을 지정하여 기동해둔다.
+- <a href="https://ziwon.github.io/post/docker-storage-volumes/" target="_blank"> 위 다 보고 보기</a>
+- <a href="https://2infinity.tistory.com/46?category=705880" target="_blank">https://2infinity.tistory.com/46?category=705880</a> 정리 페이지
+- <a href="https://nailbrainz.github.io/coding/2020/09/01/vfs.html" target="_blank">vfs - cgroups</a>
+- <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/resource_management_guide/ch01" target="_blank">레드햇 cgroup 페이지</a>
+- <a href="https://docs.docker.com/machine/overview/#whats-the-difference-between-docker-engine-and-docker-machine" target="_blank">offcial docker doc page</a>
+
+rev history
+1. 2019-07-10 작성
+2. 2020-09-16 cgroups 및 세부사항 (engine, union file system등) 포함
+
+
+### Container? vs가상화
+- <a href="https://tech.ssut.me/what-even-is-a-container/" target="_blank">https://tech.ssut.me/what-even-is-a-container/</a>  
+> Container는 hypervisor와 완전히 다릅니다. 궁극적으로는 hypervisor와 유사한 형태의 "가상화"를 목표로 하고 있지만 hypervisor는 OS 및 커널이 통째로 가상화되는 반면에 container는 간단히 보면 __filesystem의 가상화만을__ 이루고 있습니다. container는 호스트 PC의 커널을 공유하고 따라서 init(1) 등의 프로세스가 떠있을 필요가 없으며, 따라서 가상화 프로그램과는 다르게 적은 메모리 사용량, 적은 overhead를 보입니다.
+
+- 네임스페이스, C그룹(Control Groups), SE리눅스(SELinux) 등이 차례로 개발됐고, 2013년 이들을 모두 통합해 '쓰기 편한 컨테이너' 도커가 등장합니다. 이미 있는 기술을 조합해 '파괴적인 변화'를 만들었다는 점에서 아이폰이 떠오르기도 합니다.
+ 
+
+#### cgroup vs namespace
+<a href="https://stackoverflow.com/questions/34820558/difference-between-cgroups-and-namespaces" target="_blank">cgroup vs namespace</a>
+- `cgroup`: Control Groups provide a mechanism for aggregating/partitioning sets of tasks, and all their future children, into hierarchical groups with specialized behaviour.
+- `namespace`: wraps a global system resource in an abstraction that makes it appear to the processes within the namespace that they have their own isolated instance of the global resource.
+
+
+
+### Architecture
+<img src="{{site.url}}/images/coding/docker.png">  
+(img from <a href="https://www.oreilly.com/learning/what-is-docker-networking" target="_blank">link</a>)
+
+
+<img src="{{site.url}}/images/coding/docker1.png">   
+
+<img src="{{site.url}}/images/coding/docker2.svg">   
+
+
+
+
+
+#### Union File System
+<a href="https://rollout.io/blog/docker-storage-introduction/" target="_blank">https://rollout.io/blog/docker-storage-introduction/</a>
+> The Union File System (UFS) specialises in not storing duplicate data.
+
+- 밑에는 read only layers, 맨 위에 writeable layer (`container layer`) 에 씀
+- 이미지를 만들어야 현 container layer가 writable layer가 됨
+- `Copy On Write` 사용
+- Each layer is a file system, and as the name suggests, they can be layered on top of each other. 
+- The layers that come with an image you pull from the Docker Hub are read-only. But when you run a container, you add a new layer on top of that. And the new layer is writable.
+  - When you write to that layer, the entire stack is searched for the file you are writing to. And if a file is found, it is first copied to the writable layer. The write operation is then performed on that layer, not the underlying layer.
+  - This works because when reading from a UFS volume, a search is done for the file that is being read. The first file that is found, reading from top to bottom, is used. So files on the writeable layer of your container are always used.
+
+
+<a href="http://cloudrain21.com/examination-of-docker-containersize-ufs" target="_blank">http://cloudrain21.com/examination-of-docker-containersize-ufs</a>
+- UFS 는 Docker Storage Driver 에 의해 구현된다. (ex - overlay2)
+- Copy-on-Write 기법을 실현해주는 것도 Storage Driver
+- 결국 Container 상에서 변경되는 사항들은 Storage Driver 의 도움에 의해 Backing filesystem(/var/lib/docker)에 저장되는 것이다. (위에서 언급한 Volume 기능은 이러한 Storage Driver 의 도움없이 직접적으로 Host 의 Filesystem 에 접근하기 때문에 성능 상 잇점이 있다.)
+
+#### Init process of a container
+<a href="https://docs.docker.com/engine/reference/run/#specify-an-init-process" target="_blank">https://docs.docker.com/engine/reference/run/#specify-an-init-process</a>  Specifying an init process ensures the usual responsibilities of an init system, such as reaping zombie processes, are performed inside the created container.
+- init proc의 역할을 하는 프로세스 (zombie해제 등)가 있긴 있는 듯. systemD는 아니겠지?
+
+#### Docker binaries
+`docker cli`
+- `docker images`등의 명령을 수행하면, 우선 CLI가 받음. 내부적으로 unix domain socket 사용 (tcp 사용하게 변경가능 - 외부서 사용가능)
+- REST API로 써서 docker daemon등과 통신
+
+`dockerd` + `containerd` = `docker engine`
+- dockerd : volume, image, networking 관리 뿐 아니라 orchestration 까지 관장하여 처리한다. client 로부터 REST API 형식의 요청을 수신하여 처리한다.
+- containerd : container 의 lifecycle 을 관리한다. client 로부터의 container 관리 관련 요청은 dockerd 를 거쳐 gRPC 통신을 통해 containerd 로 전달된다.
+
+`runC`
+- kernel 의 가상화 기술을 다루기 위한 interface (libcontainer -> runC). OCI표준을 구현
+- <a href="http://cloudrain21.com/examination-of-docker-process-binary" target="_blank">containerd 는 container 의 관리를 위해 runC 를 사용하는데, runC 는 kernel 의 container 관련 기술을 다루기 위해 OCI spec 을 준수하고 있다</a>
+- 
+
+
+### Docker networking
+
+- bridge : <a href="http://ebook.pldworld.com/_eBook/-Telecommunications,Networks-/NETWORK_DOCUMENTs/semina/my/comm06/comm6.htm" target="_blank">level 2 router</a>
+    - 두 세그먼트 사이에서 데이타링크 계층간의 패킷 전송을 담당하는 장치이다. 즉, 2개 이상의 독립된 세그먼트를 결합해서, 결과적으로 하나의 network인 것처럼 보이게 한다
+    - 브리지는 상위 프로토콜에 완전 독립적이다. 따라서 브리지는 자신이 수신하여 내보내는 패킷이 어떤 형태를 갖는지 알지 못한다.
+    - 브리지는 tree 구조와 같은 분기부분에 배치되어, 필요하지 않은 패킷을 버리고 가지만 라우터는 폐(廢)loop를 가지는 것과 같은 network을 구성할 수 있어 필요한 패킷만을 최적의 코스로 선정해서 통과시킨다.
+
+https://www.oreilly.com/learning/what-is-docker-networking
+
+1. sharing data with `VOLUME` fast, week protection (e.g., DOS)
+2. using option (-icc?), or networking
+
+
+### Miscs
+
+1. dockerfile commands - https://towardsdatascience.com/learn-enough-docker-to-be-useful-b0b44222eef5
+   * `FROM` — specifies the base (parent) image.
+   * `LABEL` — provides metadata. Good place to include maintainer info.
+   * `ENV` — sets a persistent environment variable.
+   * `RUN` —runs a command and creates an image layer. Used to install packages into containers.
+   * `COPY` — copies files and directories to the container.
+   * `ADD` — copies files and directories to the container. Can upack local .tar files.
+   * `CMD` — provides a command and arguments for an executing container. Parameters can be overridden. There can be only one CMD.
+   * `WORKDIR` — sets the working directory for the instructions that follow.
+   * `ARG` — defines a variable to pass to Docker at build-time.
+   * `ENTRYPOINT` — provides command and arguments for an executing container. Arguments persist. 
+   * `EXPOSE` — exposes a port.
+   * `VOLUME` — creates a directory mount point to access and store persistent data.
