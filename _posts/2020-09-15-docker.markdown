@@ -86,7 +86,7 @@ rev history
 `runC`
 - kernel 의 가상화 기술을 다루기 위한 interface (libcontainer -> runC). OCI표준을 구현
 - <a href="http://cloudrain21.com/examination-of-docker-process-binary" target="_blank">containerd 는 container 의 관리를 위해 runC 를 사용하는데, runC 는 kernel 의 container 관련 기술을 다루기 위해 OCI spec 을 준수하고 있다</a>
-- 
+- <a href="https://tech.kakao.com/2020/06/29/cgroup-driver/" target="_blank">카카오 블로그 cgroup driver</a> : libcontainer에 cgroupfs 드라이버 / systemd 드라이버 포함 : 이 둘 중 하나로 cgroupfs 제어
 
 
 ### Docker networking

@@ -378,6 +378,7 @@ Permutation의 다음번째는 무엇인가? (lexicographical order)
 <a href="https://leetcode.com/problems/task-scheduler/" target="_blank">https://leetcode.com/problems/task-scheduler/</a>
 
 1. task 갯수가 n+1번째보다 많을 시, 억지로 n+1에 끼워넣기보단 n+1보다 더 벌리는 것이 좋음. 그림을 그러보면 알기 쉬운데, 전자는 net loss가 발생하기 때문
+   1. A가 가장 많이 발생했다고 할 때, A??A??A??A 에서 ??에 나머지를 끼워 넣을 수 있는 경우, 마지막 A가 답. 없는 경우 그만큼 싸이클을 더 늘리면 만사 OK!
 2. 위와 같이 하고, 중복 고려해서 마지막 끝나는 시간을 찾으면 됨
 
 우선순위 큐를 써도, 결국 N+1에 끼워맞추는거보단 N+1보다 더 큰 cycle을 쓰는 것이 좋아서 

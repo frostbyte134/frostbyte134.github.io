@@ -44,15 +44,6 @@ why vfs?
           and exercise controllers on child cgroups. (하이어라키 중간 cgroup 객체(?)들은 프로세스를 가지지 못함)
 - <a href="https://tech.kakao.com/2020/06/29/cgroup-driver/" target="_blank">https://tech.kakao.com/2020/06/29/cgroup-driver/</a>
 - <a href="https://conservative-vector.tistory.com/entry/%EB%A6%AC%EB%88%85%EC%8A%A4%EC%97%90%EC%84%9C-cgroup-%EC%82%AC%EC%9A%A9-%EC%98%88%EC%A0%9C-%EC%88%98%EC%A0%95%EC%A4%91" target="_blank">여기부터 실습 시작해보면 될 듯</a>
-- <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/resource_management_guide/ch01">끝판왕?</a>
-- <a href="https://tech.ssut.me/what-even-is-a-container/" target="_blank">https://tech.ssut.me/what-even-is-a-container/</a>
-  - docker = `docker engine` + `containerd` + `containerd-shim` + `runC` (OCI 구현체?)
-    - `ps aux` : 4개의 도커 프로세스 확인가능
-    - OCI 표준 : <a href="http://www.opennaru.com/kubernetes/open-container-initiative/" target="_blank">http://www.opennaru.com/kubernetes/open-container-initiative/</a> 
-- <a href="http://cloudrain21.com/examination-of-docker-process-binary" target="_blank">http://cloudrain21.com/examination-of-docker-process-binary</a> 이 페이지 __엄청__ 좋아보임
-  - docker(client)는 unix domain socket, fd, tcp 방식으로 docker daemon 에 접속하고, docker daemon(server)은 자신이 command 를 수신할 통신 방식을 지정하여 기동해둔다.
-- <a href="https://ziwon.github.io/post/docker-storage-volumes/" target="_blank"> 위 다 보고 보기</a>
-- <a href="https://2infinity.tistory.com/46?category=705880" target="_blank">https://2infinity.tistory.com/46?category=705880</a> 정리 페이지
 
 
 ### proc 파일시스템
@@ -76,3 +67,5 @@ why vfs?
 
 ### 잠금 파일?
 - 어케 잠금을 관리하지. spinlock이랑 딴 건가
+- <a href="https://man7.org/linux/man-pages/man2/open.2.html" target="_blank">linux man page (open)</a> - O_EXCL | O_CREAT 을 써서 파일을 만드는 것으로 잠금. O_CREAT과 같이 쓰지 않으면 undefined behavior (블록 장치 파일을 지정하면 없어도 된다고 함). NFS에서는 상위 버전부터 됨. symbolic link를 지정하면 fail. 파일이 존재할 시 EEXIST를 리턴하며 fail. 
+- <a href="https://pubs.opengroup.org/onlinepubs/009695399/functions/open.html" target="_blank">https://pubs.opengroup.org/onlinepubs/009695399/functions/open.html</a> : If O_CREAT and O_EXCL are set, open() shall fail if the file exists. The check for the existence of the file and the creation of the file if it does not exist shall be atomic with respect to other threads executing open() naming the same filename in the same directory with O_EXCL and O_CREAT set. If O_EXCL and O_CREAT are set, and path names a symbolic link, open() shall fail and set errno to [EEXIST], regardless of the contents of the symbolic link. If O_EXCL is set and O_CREAT is not set, the result is undefined.
