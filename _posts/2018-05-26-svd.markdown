@@ -62,34 +62,33 @@ so that \\(Av_i\\) is an eigenvector of \\(A^TA\\). For nonzero \\(\sigma_i^2\\)
 Therefore to obtain an length 1 eigenvector of \\(AA^T\\), we divide \\(Av_i\\) by \\(\sigma_i\\).
 \\[u_i:=\frac\{Av_i\}\{\sigma_i\}\quad\rightarrow\quad Av_i=u_i\sigma_i\\]
 \\[\rightarrow AV=U\Sigma\\]
-
 \\[
 \begin\{bmatrix\}\{\}
-& & & \\
-& A & & \\
-& & & \\
-& & & \\
+& & & \\\\
+& A & & \\\\
+& & & \\\\
+& & & \\\\
 & & &
 \end\{bmatrix\}
 \begin\{bmatrix\}\{\}
-| & & & | \\
-v_1 &... &... & v_n \\
-| & & & | \\
+| & & & | \\\
+v_1 &... &... & v_n \\\
+| & & & | \\\
 & & &
 \end\{bmatrix\}
 =
-\begin\{bmatrix\}
- & & & & \\
-| & & & &| \\
+\begin\{bmatrix\}\{\}
+ & & & & \\\
+| & & & &| \\\
 u_1 &... &... & ... & u_m \\\
-| & & & & | \\
+| & & & & | \\\
  & & & & 
 \end\{bmatrix\}
 \begin\{bmatrix\}\{\}
-\sigma_1& & & \\\\
-& \ddots & & \\\\
-& & \sigma_r & \\\\
-& & & 0 \\\\
+\sigma_1& & & \\\
+& \ddots & & \\\
+& & \sigma_r & \\\
+& & & 0 \\\
 & & &
 \end\{bmatrix\}
 \\]
