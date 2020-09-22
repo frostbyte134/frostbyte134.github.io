@@ -78,7 +78,7 @@ v_1 &... &... & v_n \\
 & & &
 \end\{bmatrix\}
 =
-\begin\{bmatrix\}\{\}
+\begin\{bmatrix\}
  & & & & \\
 | & & & &| \\
 u_1 &... &... & ... & u_m \\\
@@ -86,10 +86,10 @@ u_1 &... &... & ... & u_m \\\
  & & & & 
 \end\{bmatrix\}
 \begin\{bmatrix\}\{\}
-\sigma_1& & & \\
-& \ddots & & \\
-& & \sigma_r & \\
-& & & 0 \\
+\sigma_1& & & \\\\
+& \ddots & & \\\\
+& & \sigma_r & \\\\
+& & & 0 \\\\
 & & &
 \end\{bmatrix\}
 \\]
