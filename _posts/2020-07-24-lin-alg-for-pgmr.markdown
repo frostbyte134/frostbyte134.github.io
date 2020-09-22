@@ -131,5 +131,13 @@ x(t) =
 
 ### 번외
 - 타원 - positive definite matrix (\\(x^TAx=1\\) 형태) 가 대응이 되는 이유 : eigenvalue는 각 eigenvector 축방향으로의 신축이며,
-
-
+- symmetric matrix가 positive definite이 되려면, 모든 e-val이 양수여야 함
+  - \\(A^TA\\)꼴의 행렬은 일단 positive semidefinite하며, 보다시피 symmetric함. `노멀` 행렬.
+- SVD : 행렬 A가 정방이 아닐 시
+  - \\(A^TA\\)는 노멀하므로 스펙트럴 분해 적용가능
+  - \\(A\\)는 \\(A^TA\\)와 nullspace를 공유 (역방향 = norm=0인 것으로 증명)
+    - \\(A^TA=U\SigmaU^T\\)
+    - \\(\Sigma\\)의 첫 r번째 값들 - nonzero eigenvector에 대응하는 e-val들
+    - \\(\Sigma\\)의 뒷 n-r 0 eigenvalues에 대응하는 e-vec = A^TA의 커널의 베이시스
+  - nullspace가 같았으므로 뒷 n-r e-vec들은 \\(A\\)의 커널의 베이시스이며, 자연적으로 앞 n-r개는 rowspace의 베이시스
+  - \\(AA^T\\)에 대해 하면, \\(V\\)의 첫 r 벡터들은 columnspace의 basis, 뒷 n-r벡터들은 left nullspace의 베이시스들

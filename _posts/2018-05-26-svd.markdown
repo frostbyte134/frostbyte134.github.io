@@ -41,10 +41,10 @@ Trivially, apply spectral decomposition and then transpose. Or in equation, \\[A
 	1. First equality can be confirmed by performing multiplciation \\(\Sigma \Sigma^T\\) and \\(\Sigma^T \Sigma\\).  
 	2. Let \\(r\\)=\# of nonzero members in \\(\Sigma^T\Sigma \\). Since <a href="{{site.url}}/linear_algebra/2018/05/18/eigenpairs.html" target="_blank">orthonormal eigenvectors corresponding to 0-eigenvalues are an basis of nullspace</a>, last \\(n-r\\) eigenvectors of \\(V\\) are a basis of \\(\textrm\{null\}(A^TA)\\).   
 	3. Since <a href="{{site.url}}/linear_algebra/2018/05/10/cross-prod-mat.html" target="_blank">\\(A^TA\\) and \\(A\\) share nullspace</a>, \\(\textrm\{null\}A\\) has \\(n-r\\) basis and \\(\textrm\{rank(\}A)=r\\).  
-4. In `3`, we see that
+4. In `3`, we see that (where \\(r\\) is the number of nonzero entries in \\(\Sigma^T\Sigma \\) or \\(\Sigma\Sigma^T \\))
 \\[\textrm\{orthogonal complements of last \}n-r \textrm\{ eigenvectors of \}V\\]
-\\[= \textrm\{first \}r \textrm\{ eigenvectors of \}B\\]
-are the basis of the rowspace of \\(A\\). Working with \\(AA^T\\) we obtain opposite result. In summary,  
+\\[= \textrm\{first \}r \textrm\{ eigenvectors of \}V\\]
+are the basis of the rowspace of \\(A\\). Working with \\(AA^T\\) we obtain opposite result (first \\(r\\) eigenvectors). In summary,  
 * First \\(r\\) columns of \\(U\\): basis of columnspace of \\(A\\)  
 * last \\(m-r\\) columns of \\(U\\): basis of left nullspace of \\(A\\)  
 * First \\(r\\) columns of \\(V\\): basis of rowspace of \\(A\\)  
@@ -64,10 +64,10 @@ Therefore to obtain an length 1 eigenvector of \\(AA^T\\), we divide \\(Av_i\\) 
 \\[\rightarrow AV=U\Sigma\\]
 \\[
 \begin\{bmatrix\}\{\}
-& & & \\\\
-& A & & \\\\
-& & & \\\\
-& & & \\\\
+& & & \\\
+& A & & \\\
+& & & \\\
+& & & \\\
 & & &
 \end\{bmatrix\}
 \begin\{bmatrix\}\{\}
