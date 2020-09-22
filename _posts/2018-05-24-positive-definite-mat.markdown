@@ -49,3 +49,9 @@ Since the columns of \\(R\\) are independent, we see that \\(x^TAx>0\\) for nont
 Note that for any \\(Q,\\>(QR)^T (QR)=R^T R=A\\), so the choice above is not unique.  
 The `Choleskey decomposition` is done in similar way, wrt eigenvector basis S. \\[A=SΛS^T=(\sqrt Λ S^T )^T \sqrtΛ S^T.\\]
 For positive __semidefinite__ matrices, we replace \\(>\\) into \\(\geq \\), and independent into dependent.
+
+
+### Positive definiteness and symmetry
+- there can be `non-symmetric and positive-definite` matrices. However their eigenvalues must be positive <a href="http://web.mit.edu/14.102/www/notes/posdef.pdf" target="_blank">http://web.mit.edu/14.102/www/notes/posdef.pdf</a>
+  - however it is not sufficient (positive e-vals does not gurantee positive definiteness of not necessarily symmetric matrix)
+  - > Remember that there exists infinitely many matrices representing a particular quadratic form (that is, such matrices A that \\(Q(x) = x`Ax\\), all with generally different eigenvalues, and exactly one of them is symmetric. What you want to do to establish positive definiteness (or lack thereof) of a quadratic form is to find this symmetric matrix representing it and test whether its eigenvalues are all positive either by finding them all or by applying the principal minor method or otherwise
