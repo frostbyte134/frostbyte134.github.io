@@ -141,3 +141,4 @@ x(t) =
     - \\(\Sigma\\)의 뒷 n-r 0 eigenvalues에 대응하는 e-vec = A^TA의 커널의 베이시스
   - nullspace가 같았으므로 뒷 n-r e-vec들은 \\(A\\)의 커널의 베이시스이며, 자연적으로 앞 n-r개는 rowspace의 베이시스
   - \\(AA^T\\)에 대해 하면, \\(V\\)의 첫 r 벡터들은 columnspace의 basis, 뒷 n-r벡터들은 left nullspace의 베이시스들
+- 의사역행렬 : ker이 논트리비얼할 때 (단사가 아님), inverse mapping은 무엇으로 돌려놔야 할 지 모르게 됨. 이 때 ker컴포넌트를 포함하지 않는 곳으로 돌려줌. SVD로 구함.

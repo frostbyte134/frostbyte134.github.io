@@ -7,6 +7,13 @@ use_math: true
 tags: python coding
 ---
 
+
+`non-native`
+- generator : 결과를 반환하지 않고, iterator를 반환함. iterate될 때 마다 실행됨. (=caller에서 `__next__()`를 호출해 줄 때 마다)
+  - coroutine도 caller가 `send()`를 호출해 줄 때 마다 실행되는데 : A generator is essentially a cut down (asymmetric) coroutine. The difference between a coroutine and generator is that a coroutine can accept arguments after it’s been initially called, whereas a generator can’t. (진입점 차이)
+- `PEP380` generator에서 return 지원 : yield from으로 중간 제너레이터에서 하위 제너레이터 return 값을 받아서 활용하기 위함
+
+
 ### Reference pages
 - <a href="https://blog.humminglab.io/python-coroutine-programming-1/" target="_blank">https://blog.humminglab.io/python-coroutine-programming-1/</a> [1]
 

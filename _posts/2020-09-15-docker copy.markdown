@@ -8,6 +8,7 @@ tags: coding docker
 ---
 
 
+
 > <a href="https://yamalab.tistory.com/67" target="_blank">https://yamalab.tistory.com/67</a> 의 내용을 정리함
 
 `추천 시스템`
@@ -48,4 +49,8 @@ tags: coding docker
           - PCA의 eigen-vec+vals?
           - SVD의 diagonal이 latent vector인듯
           - 이를 Matrix Completion의 관점에서 보면, A 행렬에서 rating이 존재하는 데이터를 이용해 미지의 U, Σ, V를 학습하여 Completed 된 행렬 A`를 만들어내는 것이다. ?
-            - https://yamalab.tistory.com/92?category=747907 gt matrix R어떻게 구해서 실제 문제에 어떻게 적용시킨다는건지 모르겠음
+            - https://yamalab.tistory.com/92?category=747907 gt matrix R을 어떻게 구해서 실제 문제에 어떻게 적용시킨다는건지 모르겠음
+
+
+
+https://ratsgo.github.io/from%20frequency%20to%20semantics/2017/10/06/attention/
