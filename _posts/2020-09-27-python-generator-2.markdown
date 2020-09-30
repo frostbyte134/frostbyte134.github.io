@@ -33,7 +33,7 @@ aio = blocking wait -> event+callback?
 `Threading, via concurrent.futures` vs `Asyncio`
 - 결국 멀티쓰레딩도 io연산을 만나면 uninterruptible sleep에 빠지며 해당 쓰레드는 스케쥴링에서 제외될 것임. 개인적인 생각에는 carefully written multithreading code (or well written green thread libs?)과 async/await의 성능 차이는 크게 없어 보이나, race condition / scheduling에 대한 접근 방식 차이인 듯 (implicit vs explicit + visible)
 - cancellation도 한 몫 하는 듯?...난 아직 별로 필요한 적은 없었지만.
-- 검색하면 바로 나오는 글에는 event loop가 1개 쓰레드로만 동작한다고 하지만, 진짜 그런지는 의심스럽다. 예를 들어 큰 io연산을 만나 yield한 코루틴이 3개 있다고 할 시, 이 io연산들은 각자 다른 쓰레드 위에서 돌고 있을 테니까...?(green thread가 아닌 이상). 결국 위 python core devs들의 말처럼, multithreading의 task_interruptible + tast_uninterruptible 쓰레드 개수를 (much smaller interruptible threads) + task_uninterruptible 로 만들어 주는 듯. cooperative를 통해서 스케쥴링에서 일어나는 경쟁을 줄일 수 있게..그리고 이걸 줄일 수 있도록 잘 짜는 건 개발자 몫이고.
+- 검색하면 바로 나오는 글에는 event loop가 1개 쓰레드로만 동작한다고 하지만, 진짜 그런지는 의심스럽다. 예를 들어 큰 io연산을 만나 yield한 코루틴이 3개 있다고 할 시, 이 io연산들은 각자 다른 uninterruptible 쓰레드 위에서 돌고 있을 테니까 (green thread가 아닌 이상). 안그러면 너무 비효율적이므로...결국 위 python core devs들의 말처럼 (you can reasonably have millions of concurrent tasks, versus maybe a dozen or two threads at best), multithreading의 task_interruptible + tast_uninterruptible 쓰레드 개수를 much smaller interruptible threads + task_uninterruptible 로 만들어 주는 듯. cooperative를 통해서 스케쥴링에서 일어나는 경쟁을 줄일 수 있게..그리고 이걸 줄일 수 있도록 잘 짜는 건 개발자 몫이고. explicit하게 표현되게 해 줬는데 알아서 잘 짜야지...?
 
 ### Reference pages
 - <a href="https://blog.humminglab.io/python-coroutine-programming-2/" target="_blank">https://blog.humminglab.io/python-coroutine-programming-2/</a> [1]
