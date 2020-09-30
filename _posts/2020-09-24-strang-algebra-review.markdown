@@ -80,7 +80,7 @@ The coluns of \\(AB\\) are combinations of the columns of \\(A\\) - the column s
 
 The columns of \\(A\\) are indelendent exactly when \\(N(A)\\) is trivial
 
-`2H` If a vector space \\(V\\) consists of all linear combinations of \\(w\_1,...,w\n\\), then these vectors span the space. Every vector \\(v\in V\\) is some combination of the \\(w\\)'s.
+`2H` If a vector space \\(V\\) consists of all linear combinations of \\(w\_1,...,w\_n\\), then these vectors span the space. Every vector \\(v\in V\\) is some combination of the \\(w\\)'s.
 
 `2I` A basis for a vector space \\(V\\) is a sequence of vectors having two properties at once:
 1. The vectors are linearly independent (not too many vectors)
@@ -111,13 +111,30 @@ For a matrix \\(A\in R^\{m\times n\}\\),
 #### Existence of Inverses
 
 `2Q`
-1. __EXISTENCE__ : Full row rank \\(r=m\\). \\(Ax=b\\) has at least one solution \\(x\\) for every \\(b\\) i.i.f the columns span \\(R^m\\). Then \\(A\\) has a `right-inverse` \\(C\\) s.t. \\(AC=I,\\ \\ C\in R^\{n\times m\\}\\). This is pissible only when \\(m\leq n\\).
+1. __EXISTENCE__ : Full row rank \\(r=m\\). \\(Ax=b\\) has at least one solution \\(x\\) for every \\(b\\) i.i.f the columns span \\(R^m\\). Then \\(A\\) has a `right-inverse` \\(C\\) s.t. \\(AC=I,\\ \\ C\in R^\{n\times m\}\\). This is pissible only when \\(m\leq n\\).
   - 항상 전사인가? yes. column space (\\(R^m\\))가 full rank이므로, 어떤 b든 column들의 선형조합으로 생성 가능
   - 항상 단사인가? no. \\(n-r\neq 0\\)인 경우 nullspace가 nontrivial함.
   - 항상 right-inverse가 있을 것인가? yes. \\(C=A^T(AA^T)^\{-1\}\\)
     - 여러 방법이 있을 텐데...일단 \\(AA^T\\)가 invertible하다는 것만 보여도 될 듯. Chap3에 나온다 하니 밑에서 정리 ㄱㄱ.
-2. __UNIQUENESS__ : Full column rank \\(r=n\\). \\(Ax=b\\) has at most one solution \\(x\\) for every \\(b\\) i.i.f the columns are linealy independent. Then \\(A\\) has an \\(n\times m\\) left-inverse \\(B\\) s.t. \\(BA=, C\in \{n\times m\\}\\). This is possible only if \\(m\geq n\\).
+2. __UNIQUENESS__ : Full column rank \\(r=n\\). \\(Ax=b\\) has at most one solution \\(x\\) for every \\(b\\) i.i.f the columns are linealy independent. Then \\(A\\) has an \\(n\times m\\) left-inverse \\(B\\) s.t. \\(BA=, C\in \{n\times m\}\\). This is possible only if \\(m\geq n\\).
   - 항상 전사인가? no. 이미지의 rank가 모자라므로 항상 전사가 아니라는 것은 자명함
   - 항상 단사인가? yes. nullspace가 trivial하므로
-  - 항상 left-inverse가 있을 것인가? yes. \\(A^TA\\)와 \\(A\\)는 nullspace를 공유하므로 (\\(\leftarrow\\)는 쉽고, \\(\rightarrow\\)는 \\(xA^TAx=\|\|Ax\|\|=0\\)으로), \\(A^TA\\)는 nullspace가 trivial한 정방행렬이 됨. 1번도 이거 + \\(A^T\\)로 증명하면 되지 않나?
+  - 항상 left-inverse가 있을 것인가? yes. \\((A^TA)^TA^T\\). \\(A^TA\\)와 \\(A\\)는 nullspace를 공유하므로 (\\(\leftarrow\\)는 쉽고, \\(\rightarrow\\)는 \\(xA^TAx=\|\|Ax\|\|=0\\)으로), \\(A^TA\\)는 nullspace가 trivial한 정방행렬이 됨. 1번도 이거 + \\(A^T\\)로 증명하면 되지 않나?
 
+For the square matrices, the condition for invertibility is __full rank__ : \\(r=m=n\\). Each of these conditions is a necessary and sufficient test (every cond is equivalent to each other, and ensures that \\(A\\) is invertible):
+1. The columns span \\(R^n\\), so \\(Ax=b\\) has at least one solution for every \\(b\\)
+2. The colums are independent, so \\(Ax=0\\) has only the solution \\(x=0\\).
+3. The rows of \\(A\\) span \\(R^n\\)
+4. The rows are linearly independent
+5. Elimination can be completed : \\(PA=LDU\\)
+6. The determinant of \\(A\\) is not zero
+7. Zero is not an eigenvalue of \\(A\\)
+8. \\(A^TA\\) is positive definite
+
+
+> Rank 1 matrix : Every rank 1 matrix has the simple form \\(A=uv^T\\) = column times row
+
+<img src="{{site.url}}/images/math/linear_alg/strang/chap1/rank1.jpg">  
+
+
+`2V` Supposer \\(A\\) and \\(B\\) are linear transformations from \\(V\\) to \\(W\\) and from \\(U\\) to \\(V\\). Their product \\(AB\\) start with a vector \\(u\in U\\), goes to \\(Bu\\) in \\(V\\), and finishes with \\(ABu\\) in \\(W\\). This `composition` \\(AB\\) is again a linear transformation from \\(U\\) to \\(V\\).

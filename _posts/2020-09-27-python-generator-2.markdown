@@ -35,11 +35,55 @@ aio = blocking wait -> event+callback?
 - cancellation도 한 몫 하는 듯?...난 아직 별로 필요한 적은 없었지만.
 - 검색하면 바로 나오는 글에는 event loop가 1개 쓰레드로만 동작한다고 하지만, 진짜 그런지는 의심스럽다. 예를 들어 큰 io연산을 만나 yield한 코루틴이 3개 있다고 할 시, 이 io연산들은 각자 다른 uninterruptible 쓰레드 위에서 돌고 있을 테니까 (green thread가 아닌 이상). 안그러면 너무 비효율적이므로...결국 위 python core devs들의 말처럼 (you can reasonably have millions of concurrent tasks, versus maybe a dozen or two threads at best), multithreading의 task_interruptible + tast_uninterruptible 쓰레드 개수를 much smaller interruptible threads + task_uninterruptible 로 만들어 주는 듯. cooperative를 통해서 스케쥴링에서 일어나는 경쟁을 줄일 수 있게..그리고 이걸 줄일 수 있도록 잘 짜는 건 개발자 몫이고. explicit하게 표현되게 해 줬는데 알아서 잘 짜야지...?
 
+결국 정리하면,
+- uninterruptible sleep하는 태스크는 multithreading으로, CPU를 점유하는 interruptible tasks들은 cooperative하게 처리하겠다는 의도. 이 과정에서 코드 표현을 좀 explicit하게 해 주고, 사용자에게 더 많은 자유(=책임)을 준다는 것이 취지인 듯
+
+#### 예제 1
+```python
+import asyncio
+import time
+
+async def func(ind):
+    t = time.time()
+    print("func {} called at".format(ind), t)
+    await asyncio.sleep(ind) # simluate I/O operation (from different sources for each function)
+    print("func {} term at".format(ind), time.time())
+
+
+loop = asyncio.get_event_loop()
+cur_t = time.time()
+loop.run_until_complete(
+    asyncio.gather(
+        func(1),
+        func(2),
+        func(3)
+    )
+)
+print("total loop elapsed ", time.time() - cur_t)
+
+loop.close()
+```
+- 다른 source의 IO연산 3개가 있다고 할 시, 기본적인 multithreading은 OS level thread 3개를 동시에 실행시켜야 했고, 연산이 끝난 뒤에 4개가 동시에 priority에 따라 time slice를 가져갔음.  
+- 그러나 asyncIO는 CPU를 점유할 쓰레드 1개 + 각자 IO연산별로 IO연산만 하고 종료하는 1개의 쓰레드 (제약사항이 있는 범용적인 쓰레드가 아니니 좀 더 간단하게 만들 수 있을 듯)가 있어서, 코딩이 간편하고 성능 개선의 여지가 좀 더 있을 듯. await으로 쓰레드 생성 지점이 Explicit하게 표현이 되는 것도 장점인 듯
+  - `await (IO 연산)`이 쓰레드를 새로 만드는 것은 자명함. IO연산은 uninterruptible sleep이니까.
+- await간의 우선 순위 (현재 task에서 await시 loop가 대기중인, await을 호출했다가 처리가 다 끝난 task 중 하나 선택) 가 어떻게 되지?
+- 사용자가 잘못 짜면 (await을 하지 않고 자기 혼자 돌아가는 task 등) 망하는 듯. 쓰레딩은 time slice를 알아서 나눠 줬으나..
+
+#### 예제 2 - producer / consumer
+<a href="https://asyncio.readthedocs.io/en/latest/producer_consumer.html" target="_blank">https://asyncio.readthedocs.io/en/latest/producer_consumer.html</a>
+- 사용되는 `asyncio.Queue`가 thread safe 할 필요 없음 <a href="https://docs.python.org/3/library/asyncio-queue.html" target="_blank">(실제로도 그러함)</a>
+- `queue.put` / `queue.get`이 동시에 실행될 일이 __절대__ 없으므로, thread-safe할 필요가 없음
+
+#### 예제 3 - crawler with asyncio
+- <a href="https://aosabook.org/en/500L/a-web-crawler-with-asyncio-coroutines.html" target="_blank">https://aosabook.org/en/500L/a-web-crawler-with-asyncio-coroutines.html</a>
+- 나중에...보자
+
 ### Reference pages
 - <a href="https://blog.humminglab.io/python-coroutine-programming-2/" target="_blank">https://blog.humminglab.io/python-coroutine-programming-2/</a> [1]
+- <a href="https://docs.python.org/3/library/asyncio-dev.html#asyncio-multithreading" target="_blank">https://docs.python.org/3/library/asyncio-dev.html#asyncio-multithreading</a>
 - <a href="https://asyncio.readthedocs.io/en/latest/" target="_blank">https://asyncio.readthedocs.io/en/latest/</a> 
     > In short, asyncio adopted a radically different solution for race conditions.
-  - 자신의 실행권한을 yield하는 것이 race condition에 대한 새로운 해결책이 된다는 거? 아직은 잘 모르겠네. 그냥 uninterruptible sleep거는거랑 같지 않나
+  - 자신의 실행권한을 yield하는 것이 race condition에 대한 새로운 해결책이 되는 이유 = cpu1개를 time slice해서 나눠가져서, 실행 중 제어권이 의도하지 않게 넘어가는 상황을 원천적으로 막기 때문. 개발자가 critical section을 다 처리하고 yield를 하면, 해당 section은 cpu 연산에서는 보호받게 됨.
 - <a href="https://docs.python.org/dev/library/asyncio.html" target="_blank">https://docs.python.org/dev/library/asyncio.html</a>
   - <a href="https://docs.python.org/dev/library/asyncio-dev.html#concurrency-and-multithreading" target="_blank">concurrency and multithreading</a>
 
