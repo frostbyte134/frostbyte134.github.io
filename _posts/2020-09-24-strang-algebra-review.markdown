@@ -134,7 +134,55 @@ For the square matrices, the condition for invertibility is __full rank__ : \\(r
 
 > Rank 1 matrix : Every rank 1 matrix has the simple form \\(A=uv^T\\) = column times row
 
-<img src="{{site.url}}/images/math/linear_alg/strang/chap1/rank1.jpg">  
+<img src="{{site.url}}/images/math/linear_alg/strang/chap1/rank1.jpg" width="800">  
 
 
 `2V` Supposer \\(A\\) and \\(B\\) are linear transformations from \\(V\\) to \\(W\\) and from \\(U\\) to \\(V\\). Their product \\(AB\\) start with a vector \\(u\in U\\), goes to \\(Bu\\) in \\(V\\), and finishes with \\(ABu\\) in \\(W\\). This `composition` \\(AB\\) is again a linear transformation from \\(U\\) to \\(V\\).
+
+(<a href="https://nailbrainz.github.io/analysis/2018/04/02/vector-projection.html" target="_blank">remember</a> that, \\(\text\{cos\}\theta = \|a^Tb\|/(\|a\|\|b\|)\\))
+
+### Chap 3 Orthogonality
+> A basis is a set of independent vectors that span a space. Geometrically, it is a set of coordinate axes.
+
+- The fundamental subspaces meet at right angles : those four subspaces are perpendicular in pairs, two in \\(R^m\\) and two in \\(R^n\\).
+
+`3A` The inner prod \\(x^Ty\\) is zero iif \\(x\\) and \\(y\\) are orthogonal vectors. If \\(x^Ty>0\\), their angle is less than 90 deg. If \\(x^Ty<0\\), their angle is greater than 90 deg
+
+`Useful fact`: If nonzero vectors are mutually orthogonal, then those vectors are linealy independent
+
+`3B` Two subspaces \\(V\\) and \\(W\\) of the same space \\(R^n\\) are _orthogonal_ if every \\(v\in V\\) is orthogonal to every \\(w\in W\\)
+
+
+> __Definition.__ Given a subspace \\(V\subseteq R^n\\), the space of all vectors orthogonal to \\(V\\) is called the __orthogonal complement__ of \\(V\\). It is denoted by \\(V^\{\perp\}\\) = V perp.
+
+If \\(W=V^\{\perp\}\\) then \\(V=W^\{\perp\}\\), and \\(\text\{dim\}V + \text\{dim\}W = n\\). In other words, \\(V^\{\perp\perp\}=V\\).
+
+__Dimension formula__ dim(row space) + dim(nullspace) = number of columns, \\(n\\).
+
+`3D`, __Fundamental theorem of Linear Algebra__ The rowspace is orthogonal complement to the nullspace (in \\(R^n\\)). The column space is orthogonal complement to the left nullspace
+
+<img src="{{site.url}}/images/math/linear_alg/strang/chap1/mapping.jpg">  
+
+`3F` From the row space to the column space, \\(A\\) is actually invertible. Every vector \\(b\\) in the column space comes from exactly one vector \\(x\_r\\) in the row space.
+
+> Every matrix transforms its row space onto its column space.
+
+\\(A^T\\) goes in the opposite direction, from \\(R^m\\) to \\(R^m\\) and from \\(C(A)\\) to \\(C(A^T)\\). Of course the transpose is not inverse.
+
+When \\(A^\{-1\}\\) fails to exist, the best substitute is the <a href="https://nailbrainz.github.io/linear_algebra/2018/11/06/pseudoinverse.html" target="_blank">`pseudoinverse`</a> \\(A^+\\). This inverts \\(A\\) where that is possible: \\(A^+Ax=x\\) for \\(x\\) in the row space. On the left nullspace, nothing can be done. \\(A^+y=0\\). Thus \\(A^+\\) inverts \\(A\\) where it is invertible, and has the same rank \\(r\\). One formula for \\(A^+\\) depends on the <a href="https://nailbrainz.github.io/linear_algebra/2018/05/26/svd.html" target="_blank">singula value decomposition.</a>
+
+
+#### 3.2 Cosines and Projections onto lines
+> We want to connect inner products to angles, and also to transposes.
+
+<a href="https://nailbrainz.github.io/linear_algebra/2018/05/16/projection.html" target="_blank">Projection onto a line - least-squares solution to an overdetermined system</a>
+
+projection onto a line and Schwartz inequality (The most important inequality in mathematics!)  
+<img src="{{site.url}}/images/math/linear_alg/strang/chap1/schwartz.jpg" width="900">  
+
+#### Transpose from Inner products
+Up to now, \\(A^T\\) is simply the reflection of \\(A\\) across its main diagonal;  the rows of \\(A\\) become the columns of \\(A^T\\).  
+Its close connection to inner products gives a new and much more _abstract_ definition of the transpose:
+
+- __def__ : 선형사상 A와 내적 \\(\cdot\\)에 대해, \\[\overrightarrow\{x\}\cdot A(\overrightarrow\{y\}) = A^\{+\}(\overrightarrow\{x\})\cdot \overrightarrow\{y\}\\] 가 성립하는 사상 \\(A^+\\). 
+- 정규직교기저로 \\(A\\)를 표현하면, \\(A^+=A^T\\)가 됨.

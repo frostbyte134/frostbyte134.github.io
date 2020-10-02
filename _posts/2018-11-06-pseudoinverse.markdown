@@ -9,6 +9,10 @@ tags: linear_algebra need_revise
 <img src="{{ site.url }}/images/math/linear_alg/pseudoinverse.png" class="center" style="width:800px"/>  
 
 
+When \\(A^\{-1\}\\) fails to exist, the best substitute is the `pseudoinverse` \\(A^+\\). This inverts \\(A\\) where that is possible: \\(A^+Ax=x\\) for \\(x\\) in the row space. On the left nullspace, nothing can be done. \\(A^+y=0\\). Thus \\(A^+\\) inverts \\(A\\) where it is invertible, and has the same rank \\(r\\). One formula for \\(A^+\\) depends on the singula value decomposition.
+
+
+
 A \\(m\times n\\) matrix \\(A\\) maps a nonzero vector in its rowspace into a nonzero vector in its columnspace.  
 Inverse, \\(A^\{-1\}\\) (if exists) maps a nonzero vector in \\(A\\)'s columnspace to a nonzero vector in \\(A\\)'s rowspace.  
 

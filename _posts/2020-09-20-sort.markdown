@@ -1,0 +1,82 @@
+---
+layout: post
+title:  "Sort"
+date:   2020-09-20 09:10:05 +0800
+categories: coding
+use_math: true
+tags: coding algorithm
+---
+
+- <a href="http://www.secmem.org/blog/2019/04/10/special-sorts/" target="_blank">삼성 소멤 정렬. 글 잘쓰네</a>
+
+
+### Stable sort
+1. (binary) `insertion sort` - stable (자명함)
+2. `quick sort` - unstable
+  - 구현에 따라 방법은 달라지겠지만, textbook 구현을 따른다고 할 시
+      1. 맨 뒤 아이템이 피봇, small = start - 1
+      2. pivot보다 작은 것 찾을 시 마다
+      3. smind++, swap(ary[cur], ary[smind]))) 
+3. `merge sort` - stable. 병합과정에서 아이템이 움직일 일이 없다
+4. `heap sort` - unstable
+  - 얼핏 생각하면, 정렬된 array는 min heap이므로 괜찮을 것 같지만..
+  - 첫번째 아이템을 pop하고 다시 reheap하는 과정에서 변화가 일어남.
+5. `tim sort` - binary insertion sort나 merge sort를 사용하므로, stable
+6. `intra sort` - 퀵소트/힙소트를 주로 쓰니 unstable?
+
+
+### Quicksort worst case
+- 정렬/역순/전부 동일한 경우 + pivot이 maximum 이면, 각 partition O(N)이 N번 일어남
+- swap 기준을 leq로 하든 <로 하든 동일하게 partition이 O(N)임
+
+### Intro sort
+- STL
+- 이론적인 worst case에 대응
+- <a href="https://www.geeksforgeeks.org/know-your-sorting-algorithm-set-2-introsort-cs-sorting-weapon/" target="_blank">https://www.geeksforgeeks.org/know-your-sorting-algorithm-set-2-introsort-cs-sorting-weapon/</a>
+
+Wikipedia pseudocode
+```python
+procedure sort(A : array):
+    let maxdepth = ⌊log(length(A))⌋ × 2
+    introsort(A, maxdepth)
+
+procedure introsort(A, maxdepth):
+    n ← length(A)
+    if n ≤ 1:
+        return  // base case
+    else if maxdepth = 0:
+        heapsort(A)
+    else:
+        p ← partition(A)  // assume this function does pivot selection, p is the final position of the pivot
+        introsort(A[0:p-1], maxdepth - 1)
+        introsort(A[p+1:n], maxdepth - 1)
+```
+- recursion depth가 특정 threshold (ex - lgN * 2)를 넘어가면, 더이상 partition을 나누지 않고 heapsort로 변함
+- STL은 n=32이하일 시 binary insertion sort로 변한다는 듯
+
+### Tim sort
+- 자바, 파이썬 (list)
+References
+- <a href="https://d2.naver.com/helloworld/0315536" target="_blank">네이버 블로그 포스트</a>
+- <a href="https://en.wikipedia.org/wiki/Timsort" target="_blank">위키</a>
+- <a href="https://orchistro.tistory.com/175" target="_blank">https://orchistro.tistory.com/175</a>
+- 다양한 케이스들에 대해 최적화가 됨
+- 
+
+휴리스틱 최적화
+1. run 구성 : 랜덤한 값들은 32~64 정도 크기로, 정렬된 값들은 계속 붙여서 run을 구성
+2. 각 run들에 `binary insertion sort` 적용
+3. 중간중간에 stack을 이용한 merge 시행
+   1. 스택이 <a href="https://d2.naver.com/helloworld/0315536" target="_blank">increasing 하게</a>, 서로간의 차이가 너무 크지 않게
+      1. [A, B, C]라고 하면  
+          1. |C| > |A| + |B| (증조부는 자식들을 합한 것 보다 일정 정도 커야 함 - 스택 크기를 너무 크지 않게 해 줌)  
+          2. |A| < |B| 
+      2. 만일 너무 큰 run A가 들어 오면, 뒤의 B/C를 병합함.
+      3. 1번째 조건 덕분에, 피보나치 수와 유사함 (a[i+2] ~= a[i] + a[i+1]). n=1억에 대해 40정도 크기로 유지가능
+4. merge시 O(n/2)메모리 사용 (2개의 run중 작은 것 메모리 복사)
+  - run 순서가 A, B이고 increaasing 정렬이면
+    - A가 작을 시 A복사, 앞에서(작은것)부터 merge
+    - B가 작을 시 B복사, 뒤에서(큰것)부터 merge
+
+
+### (Parallel) (Multiway) merge sort

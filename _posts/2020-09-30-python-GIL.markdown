@@ -1,21 +1,38 @@
 ---
 layout: post
 title:  "Python - GIL"
-date:   2020-04-10 05:04:00 +0900
+date:   2020-09-30 05:04:00 +0900
 categories: coding
 use_math: true
 tags: coding python
 ---
 
-시작 전
+### 정리 (2020.10.01)
+* `GIL` : Global interpreter lock. parallel환경에서 인터프리터가 python byte code를 동시에 실행하는 것을 막음. 
+* why GIL? : python은 garbage collection에서, reference count (인터프리터 내부 변수)를 이용하기 때문. 인터프리터에 락이 걸리기 때문에 내부 변수도 thread-safe해짐
+* why GIL is a problem?
+  1. mulththreading이 의미가 별로 없음
+  2. python은 따로 쓰레드 스케쥴링이 없음 - 특정 쓰레드가 GIL을 잡아야 할 시 (ex - main thread만이 signal handling 가능) 이를 보장해 줄 방법이 없음
+  3. GIL에 의한 context switch는 signaling을 수반 - context switch가 자주 되는 상황에서는 performance bottleneck이 됨
+* why thread safe, with the presence of GIL?
+  * 대부분의 파이썬 함수들은 thread safe하지 않음
+  * ex) list - `append()`는 thread safe하고, `+=`은 thread safe하지 않음
+  * `+=`는 read && write를 함. 각 연산은 atomic하지만 &&이 문제 (중간에 `tick`을 세는 듯. 이 때 GIL relase가 가능)
+* how to solve(avoid) GIL problem?
+  - `asyncio`, partially
+  - `multiprocessing` is another way
+
+
+### Preliminaries, Glossary
 - <a href="https://jins-dev.tistory.com/entry/Compiler-%EC%99%80-Interpreter-%EC%9D%98-%EA%B0%9C%EB%85%90%EA%B3%BC-%EC%B0%A8%EC%9D%B4%EC%A0%90" target="_blank">인터프리터 vs 컴파일러</a>
+  - <a href="https://stackoverflow.com/questions/39313677/how-does-python-interpreter-run-the-code-line-by-line-in-the-following-code" target="_blank">링크</a>파이썬 컴파일러는 1줄씩 주면 1줄씩 해석, 전체 코드를 주면 한번에 바이트코드로 바꾼다 함
 
 <a href="https://wiki.python.org/moin/GlobalInterpreterLock" target="_blank">https://wiki.python.org/moin/GlobalInterpreterLock</a>
-* In CPython, the global interpreter lock, or GIL, is a mutex that protects access to Python objects, preventing multiple threads from executing Python bytecodes at once. This lock is necessary mainly because CPython's memory management is not thread-safe. (However, since the GIL exists, other features have grown to depend on the guarantees that it enforces.)
+* In CPython, the global interpreter lock, or `GIL`, is a __mutex__ that protects access to Python objects, __preventing multiple threads from executing Python bytecodes at once.__ This lock is necessary mainly because CPython's memory management is not thread-safe. (However, since the GIL exists, other features have grown to depend on the guarantees that it enforces.)  
+  > Only one Python thread can execute in the interpreter at once
 * CPython extensions must be GIL-aware in order to avoid defeating threads. For an explanation, see <a href="https://docs.python.org/3/c-api/init.html#thread-state-and-the-global-interpreter-lock" target="_blank">Global interpreter lock.</a>
-* GC를 ref count 방식으로 함 - 각 객체의 ref count가 critical section이 됨. 각자에 mutex변수를 두는 것 보단 interpreter를 잠그는 것을 선택 <a href="https://dgkim5360.tistory.com/entry/understanding-the-global-interpreter-lock-of-cpython" target="_blank">https://dgkim5360.tistory.com/entry/understanding-the-global-interpreter-lock-of-cpython</a>
-* <a href="https://stackoverflow.com/questions/6319207/are-lists-thread-safe" target="_blank">그렇다면, 왜 list중 thread-safe한 연산이 따로 있는 것인가? (append() is thread safe, while += is not)</a> : 연산 도중에 GIL을 놓을 수 있기 때문. 
-> All Python objects have the same kind of thread-safeness -- they themselves don't go corrupt, but their data may. 
+* GC를 ref count 방식으로 함 - 각 객체의 ref count가 critical section이 됨. 각자에 mutex변수를 두는 것 보단 interpreter를 잠그는 것을 선택. 인터프리터가 잠기므로, 인터프리터 내부 변수 (reference count) 도 잠기는 효과가 있음. <a href="https://dgkim5360.tistory.com/entry/understanding-the-global-interpreter-lock-of-cpython" target="_blank">https://dgkim5360.tistory.com/entry/understanding-the-global-interpreter-lock-of-cpython</a>
+* <a href="https://stackoverflow.com/questions/6319207/are-lists-thread-safe" target="_blank">그렇다면, 왜 list중 thread-safe한 연산이 따로 있는 것인가? (append() is thread safe, while += is not)</a> : append는 write(atomic)만 함. +=는 read(atomic) && write(atomic) 연산 도중(&&)에 GIL을 놓을 수 있기 때문. 
 * Non-CPython implementations
   * Jython and IronPython have no GIL and can fully exploit multiprocessor systems
   * PyPy currently has a GIL like CPython
@@ -23,6 +40,44 @@ tags: coding python
 
 
 <a href="http://www.dabeaz.com/python/GIL.pdf" target="_blank">http://www.dabeaz.com/python/GIL.pdf</a>
+* during each tick (periodic check)
+  * GIL release/acquire may happen
+  * __handle signal (main thread)__
+  * 이 tick을 기반으로 cpu-bound operation의 time slice가 이루어짐
+  * tick loosely mapped to an interpreter instruction
+    * long instruction can block everything
+    * ticks are uninterruptible!
+  * main thread만 signal을 처리할 수 있지만, python은 따로 쓰레드 스케쥴러가 없음 - main thread가 걸리리라는 희망을 갖고, 매 tick마다 GIL을 잠시 놓음
+  * main thread가 block되었을 시 - ctrl+c 안먹힘
+* All interpreter locking is based on signaling
+  * To acquire the GIL, check if it's free. If not, go to sleep and wait for a signal
+  * To release the GIL, free it and signal
+  * 모든 GIL 관련 연산이 signaling을 포함하기 때문에, `tick이 자주 계산되는 특정 CPU 연산을 많이 할 경우` GIL 관련 부가 연산이 많아지면서, 멀티쓰레딩, 멀티프로세싱이 오히려 느려질 수 있음
+    * 이 걸 해결하고자 `asyncio`를 그렇게 밀어 주는 건가...  
+    ```python
+    import time
+    import threading
+
+    def count(n):
+        while n > 0:
+            n -= 1
+
+    trial = 100000000
+    t = time.time()
+    count(trial)
+    count(trial)
+    print("serial, elapsed = ", time.time() - t) # serial, elapsed =  8.761561632156372
+
+    t1 = threading.Thread(target=count,args=(trial,))
+    t2 = threading.Thread(target=count,args=(trial,))
+
+    t = time.time()
+    t1.start()
+    t2.start()
+    t1.join(); t2.join()
+    print("two thread, elapsed = ", time.time() - t) # two thread, elapsed =  8.967807292938232
+    ```
+
 * <a href="https://web.stanford.edu/~ouster/cgi-bin/cs140-winter13/lecture.php?topic=scheduling" target="_blank">IO bound jobs have higher priority, CPU bound jobs has lower priority - to keep IO busy</a>
 * priority inversion in multicore - CPU-bound가 잡고 있을 때, release & signal을 하면 다른 코어에 있는 IO-bound가 시그날을 받고 GIL을 체크하지만, 이미 CPU-bound thread가 GIL을 얻은 상황.
 

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "RefineNet: Multi-Path Refinement Networks for High-Resolution Semantic Segmentation"
-date:   2018-11-9 09:00:05 +0800
+date:   2018-11-09 09:00:05 +0800
 categories: deep_learning
 use_math: true
 tags: deep_learning segmentation multipath residual

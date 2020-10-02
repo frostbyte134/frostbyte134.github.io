@@ -25,6 +25,7 @@ tags: linear_algebra math need_review dimensionality_theorem
     - 잘 알다시피 `회전행렬`은 전치가 역행렬이 됨
       - 위의 전치의 정의로 생각해봐도 x를 아래로 30도 내리고 내적하나, y를 위로 30도 올리고 내적하나 각도는 같을 것
       - 회전행렬을 보면 skew-symmetric하고, nondiagonal entry는 sin뿐임. -각도를 넣으면 반대 부호가 나옴. -> 반대각으로의 회전 = transpose
+      - 회전행렬의 각 column들은 orthonomal basis들임
     - 대각행렬의 det는 대각의 곱인 것도 부피로 그려보면 쉽게 이해가 감
       - 1st column = 1번째 좌표축 성분만 있음
       - 2nd column = a_12는 1번째 좌표축 성분이고, 무시해도 됨. 2번째 좌표축 성분만 넓이에 기여
