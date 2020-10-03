@@ -75,10 +75,10 @@ A subspace is a subset that is __closed__ under addition and scalar multiplicati
 
 The coluns of \\(AB\\) are combinations of the columns of \\(A\\) - the column space of \\(AB\\) is contained in (possibly equivalent) the column space of \\(A\\). Zero row will make a difference.
 
-`2C` If \\(Ax=0\\) has more unknowns than equations \\(\left(n>m\right)\\), then it has at least one special solution: There are more solutions thatn the trivial \\(x=0\\).
+`2C` If \\(Ax=0\\) has more unknowns than equations \\(\left(n>m\right)\\), then it has at least one special solution: There are more solutions than the trivial \\(x=0\\).
 - = Its nullspace cannot be trivial
-
-The columns of \\(A\\) are indelendent exactly when \\(N(A)\\) is trivial
+  - 왜나하면, column들이 dependent하기 떄문에 (column들의 linear combination에서 dependent한 칼럼이 있다 - 특정 special solution을 dep한 칼럼들을 이용해 무한하게 만들 수 있으므로, nullspace가 nontrivial함)
+  - The columns of \\(A\\) are independent exactly when \\(N(A)\\) is trivial
 
 `2H` If a vector space \\(V\\) consists of all linear combinations of \\(w\_1,...,w\_n\\), then these vectors span the space. Every vector \\(v\in V\\) is some combination of the \\(w\\)'s.
 
@@ -92,12 +92,20 @@ The columns of \\(A\\) are indelendent exactly when \\(N(A)\\) is trivial
 
 > When the rank is as large as possible, \\(r=n\\) or \\(r=m\\) or \\(r=m=n\\), then the matrix has a left-inverse \\(B\\) or a right-inverse \\(C\\) or a two-sided \\(A^\{-1\}\\).
 
+- \\(r=n\\)인 경우 (column들이 independent), \\(A^TA\\)와 \\(A\\)는 둘다 trivial한 nullspace를 가지고 있음.
+- \\(N(A) = N(A^TA)\\).
+  - \\(\rightarrow\\) : trivial
+  - \\(\leftarrow\\) : \\(AT^Ax=0 \quad\rightarrow\quad x^TA^TAx=0 \quad\rightarrow\quad \|\|Ax\|\|=0 \quad\rightarrow\quad Ax=0\\)
+- \\(A^TA\\)는 \\(n\times n\\) 행렬에 N(A)가 trivial하므로 non-singular함
+- 결국 A는, \\((A^TA)^\{-1\}A\\)의 left-inverse를 가짐!
+- \\(r=m\\)인 경우 - transpose해서 보이면 됨
+
 For a matrix \\(A\in R^\{m\times n\}\\), 
 - subspaces of \\(R^n\\)
   - \\(N(A)\\) : nullspace of \\(A\\). Its dimension is the rank \\(r\\).
   - \\(C(A)\\) : column space of \\(A\\). Its dimension is \\(n-r\\).
 - subspaces of \\(R^m\\)
-  - the __row space__ of \\(A\\) is the column space of \\(A^T\\). It is \\(C(A^T)\\) and it is spanned by the rows of \\(A\\). Its dimension is also \(r\\).
+  - the __row space__ of \\(A\\) is the column space of \\(A^T\\). It is \\(C(A^T)\\) and it is spanned by the rows of \\(A\\). Its dimension is also \\(r\\).
   - The left nullspace of \\(A\\) is the nullspace of \\(A^T\\) - \\(N(A^T)\\). Its dimension is \\(m-r\\).
 
 `2M, 2N` : The (row / null) space of \\(A\\) has the same dimension \\(r\\) as the (row / null) space of \\(U\\) and they have same basis, because the row spaces of \\(A\\) and \\(U\\) are the same.
@@ -114,12 +122,11 @@ For a matrix \\(A\in R^\{m\times n\}\\),
 1. __EXISTENCE__ : Full row rank \\(r=m\\). \\(Ax=b\\) has at least one solution \\(x\\) for every \\(b\\) i.i.f the columns span \\(R^m\\). Then \\(A\\) has a `right-inverse` \\(C\\) s.t. \\(AC=I,\\ \\ C\in R^\{n\times m\}\\). This is pissible only when \\(m\leq n\\).
   - 항상 전사인가? yes. column space (\\(R^m\\))가 full rank이므로, 어떤 b든 column들의 선형조합으로 생성 가능
   - 항상 단사인가? no. \\(n-r\neq 0\\)인 경우 nullspace가 nontrivial함.
-  - 항상 right-inverse가 있을 것인가? yes. \\(C=A^T(AA^T)^\{-1\}\\)
-    - 여러 방법이 있을 텐데...일단 \\(AA^T\\)가 invertible하다는 것만 보여도 될 듯. Chap3에 나온다 하니 밑에서 정리 ㄱㄱ.
+  - 항상 right-inverse가 있을 것인가? yes. \\(C=A^T(AA^T)^\{-1\}\\). 증명 - `The Four Fundamental Subspaces` 부분 한글
 2. __UNIQUENESS__ : Full column rank \\(r=n\\). \\(Ax=b\\) has at most one solution \\(x\\) for every \\(b\\) i.i.f the columns are linealy independent. Then \\(A\\) has an \\(n\times m\\) left-inverse \\(B\\) s.t. \\(BA=, C\in \{n\times m\}\\). This is possible only if \\(m\geq n\\).
   - 항상 전사인가? no. 이미지의 rank가 모자라므로 항상 전사가 아니라는 것은 자명함
   - 항상 단사인가? yes. nullspace가 trivial하므로
-  - 항상 left-inverse가 있을 것인가? yes. \\((A^TA)^TA^T\\). \\(A^TA\\)와 \\(A\\)는 nullspace를 공유하므로 (\\(\leftarrow\\)는 쉽고, \\(\rightarrow\\)는 \\(xA^TAx=\|\|Ax\|\|=0\\)으로), \\(A^TA\\)는 nullspace가 trivial한 정방행렬이 됨. 1번도 이거 + \\(A^T\\)로 증명하면 되지 않나?
+  - 항상 left-inverse가 있을 것인가? yes. 증명 - `The Four Fundamental Subspaces` 부분 한글
 
 For the square matrices, the condition for invertibility is __full rank__ : \\(r=m=n\\). Each of these conditions is a necessary and sufficient test (every cond is equivalent to each other, and ensures that \\(A\\) is invertible):
 1. The columns span \\(R^n\\), so \\(Ax=b\\) has at least one solution for every \\(b\\)
@@ -146,7 +153,7 @@ For the square matrices, the condition for invertibility is __full rank__ : \\(r
 
 - The fundamental subspaces meet at right angles : those four subspaces are perpendicular in pairs, two in \\(R^m\\) and two in \\(R^n\\).
 
-`3A` The inner prod \\(x^Ty\\) is zero iif \\(x\\) and \\(y\\) are orthogonal vectors. If \\(x^Ty>0\\), their angle is less than 90 deg. If \\(x^Ty<0\\), their angle is greater than 90 deg
+`3A` The inner prod \\(x^Ty\\) is zero iif \\(x\\) and \\(y\\) are orthogonal vectors. If \\(x^Ty>0\\), their angle is less than 90 deg. If \\(x^Ty<0\\), their angle is greater than 90 deg (코사인 그래프)
 
 `Useful fact`: If nonzero vectors are mutually orthogonal, then those vectors are linealy independent
 

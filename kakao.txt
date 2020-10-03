@@ -3,7 +3,9 @@
 2. B만 고정되지 않았을 경우
  - A역행렬이 있을 시 우변으로 넘김
  - 의사역행렬만 있을 시 - 안됨. 의사역행렬은 x->y->x'이 되기 때문
-3. 일반적인 경우
+3. 모두 정방행렬, 같은 크기
+ - N이 작을 시 랜덤 백터를 붙여서 정방행렬의 matrix로 만든 뒤, strassen alg등 돌림 - N이 작으면 어차피 무쓸모잖아 ㅎㅎ
+4. 일반적인 경우
  - sparsity가 있을 경우 이를 활용 (각 행마다 {col ind, val} 만 저장. 이후 이분탐색으로 mat-vec 계산 수행)
  - gpu활용
 
@@ -14,3 +16,19 @@
  O(N^{2.807})이라 함.
 
   
+
+for(int i = 0; i<M; i++)
+    for(int j = 0; j<N; j++)
+        int r = A[i][j];
+        for(int k = 0; k<K; k++)
+            C[i][k] += r * B[j][k];
+
+와 같이 하면, locality가 좋아짐
+
+
+
+
+for(int k = 0; k<K; k++)
+    for(int i = 0; i<M; i++)
+        for(int j = 0; j<N; j++)
+            C[i][k] += A[i][j] * B[j][k];

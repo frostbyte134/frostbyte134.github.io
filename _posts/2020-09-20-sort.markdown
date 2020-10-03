@@ -12,17 +12,19 @@ tags: coding algorithm
 
 ### Stable sort
 1. (binary) `insertion sort` - stable (자명함)
-2. `quick sort` - unstable
+2. `quick sort` - unstable / <a href="https://www.geeksforgeeks.org/stable-quicksort/" target="_blank">stable</a>
   - 구현에 따라 방법은 달라지겠지만, textbook 구현을 따른다고 할 시
       1. 맨 뒤 아이템이 피봇, small = start - 1
       2. pivot보다 작은 것 찾을 시 마다
       3. smind++, swap(ary[cur], ary[smind]))) 
+  - 이 경우, pivot으로 택한 아이템이 자기와 같은 값을 갖는 아이템들의 맨 앞에 오던지 맨 뒤에 오던지 함
+  - 위 geeks 링크 - 배열2개를 만들고, 값이 같을 시 밑에 넣을 지 위에 넣을 지 index로 판단 - 위 구현에도 적용할 수 있는데 정렬돼있을 때 (보통 이럴 때가 많으니) `O(N^2)!`
 3. `merge sort` - stable. 병합과정에서 아이템이 움직일 일이 없다
 4. `heap sort` - unstable
   - 얼핏 생각하면, 정렬된 array는 min heap이므로 괜찮을 것 같지만..
   - 첫번째 아이템을 pop하고 다시 reheap하는 과정에서 변화가 일어남.
 5. `tim sort` - binary insertion sort나 merge sort를 사용하므로, stable
-6. `intra sort` - 퀵소트/힙소트를 주로 쓰니 unstable?
+6. `intro sort` - 퀵소트/힙소트를 주로 쓰니 unstable?
 
 
 ### Quicksort worst case
@@ -77,6 +79,16 @@ References
   - run 순서가 A, B이고 increaasing 정렬이면
     - A가 작을 시 A복사, 앞에서(작은것)부터 merge
     - B가 작을 시 B복사, 뒤에서(큰것)부터 merge
+5. galloping - sorted된 배열 머지시 좋음
+  - binary merge시, 특정 run만 계속 선택 (ex - 3번 연속)된다면, 2의 배수만큼 인덱스를 건너뛰어 보기
+
+### Externel sort
+1. 메모리에 들어오는 양 만큼의 run들을 만듬
+2. 각 run을 K-way merge (heap or tournament. tournament가 간편한듯)로 합침. 
+
+### Parallel sort
+- merge sort가 쓰이는 듯
+- NlogN/p + dag길이가 upper bound겠지?
+- dag길이 - tournament method일시 lgn
 
 
-### (Parallel) (Multiway) merge sort
