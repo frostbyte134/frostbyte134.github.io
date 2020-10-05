@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "BOJ"
+title:  "(BOJ) Baekjun Online Judge"
 date:   2020-07-01 09:00:05 +0800
 categories: problem_solving
 use_math: true
@@ -71,6 +71,19 @@ tags: problem_solving need_review
 
 ### Need review
 
+#### 1485 정사각형
+- <a target="_blank" href="https://www.acmicpc.net/problem/{{page.problem}}">https://www.acmicpc.net/problem/{{page.problem}}</a><br/>
+- 대전리저널 본선문제. 본선땐 많이 풀었다던데 데이터가 좀 약했다고 함.
+- 많이 보던 dp문제긴 한데, 교통카드를 겹쳐서 쓸 수 있는 점이 특이함.
+- 기차만 되는 교통카드가 없으므로, 버스만 되는 교통카드를 쓸 땐 기차를 어떻게 최소한의 비용으로 커버할지 알아야 함. 이 부분을 나이브하게 접근했다가 많이 틀렸다. 이것도 결국 dp로 계산.
+
+#### 2515 전시장
+- <a href="https://www.acmicpc.net/problem/2515" target="_blank">https://www.acmicpc.net/problem/2515</a>
+<details>
+   <summary>한번 다시 풀어 보기. 어차피 할 것도 없자나?</summary> 
+   dp 
+   </details>
+
 
 #### 15352 욱제와 그의 팬들
 - <a href="https://www.acmicpc.net/problem/15352" target="_blank">https://www.acmicpc.net/problem/15352</a>
@@ -91,8 +104,39 @@ tags: problem_solving need_review
    약간 머리를 써야 되는 그리디
    </details>
 
+#### 2162 선분 그룹
+
+1. <a target="_blank" href="https://www.acmicpc.net/problem/{{page.problem}}">https://www.acmicpc.net/problem/{{page.problem}}</a><br/>
+1. 선분이 l>r일시 스왑해주기.
+2. ccw(cross prod)를 이용한 교차여부 판별. cprod(r2-r1,l1-r1)\*cprod(r2-r1,l2-r1)과 cprod(l1-l2,r1-l2)\*cprod(l1-l2,r2-l2)의 부호가 다르면 교차함
+3. 둘 다 0일시는 일직선에 놓인 경우. 이 떈 교차하지 않는 경우의 역이 더 찾기 명확함.
+4. disjoint set
+
+#### 1486 정사각형
+- <a target="_blank" href="https://www.acmicpc.net/problem/1485">https://www.acmicpc.net/problem/1485</a><br/> 
+1. 정렬하면 문제가 깔끔해짐
+2. 첨엔 단순 좌표비교만 했었음. 결국 각도와 길이를 비교해야 함.
+3. sin(cross product)는 60도일때와 120도일때가 같으므로, 이 각으로 이루어진 마름모를 구분해야 함. dot product로 구분함. 그냥 첨부터 cos로 했으면 다 일직선인 경우 (0 vs 2pi)를 구분해야했겠지만 두 점이 겹치는일이 없다고 했으니 길이에서 구분이 됬을듯.
+4. 아니근데 결국 정사각형인 케이스 / 마름모인 케이스만 보면 되는 거 아닌가?
+
+#### 원형 네트워크
+<a target="_blank" href="https://www.acmicpc.net/problem/2215">https://www.acmicpc.net/problem/2215</a><br/>
+
+- 그리디문제라길래 계속 봤는데 그리디적인 속성은 별로 없었다. 부분문제 구조도 없는 것 같고..아무리 봐도 다 해야하는 것 같았는데 2^1000은 안될 거 같았음..
+- 답은 이전에도 풀어 본 적 있는 패턴 (링크 못찾음). 선형 구간을 탐색할때의 마킹을 해줘야 함. 현재에서는 +1하고 연결된 곳에서는 -2를 해주는 테크닉도 깔끔한듯 (연결된 곳에서도 +1을 할 것이고, 연결된 곳의 연결된 곳인 현재에는 다시 방문하지 않을 것이므로 괜찮음).
 
 ### Reviewed
+
+#### 1202 보석 도둑
+- <a target="_blank" href="https://www.acmicpc.net/problem/1202">https://www.acmicpc.net/problem/1202</a><br/>
+- Multiset을 써야 편하게 풀리는 문제. 이번 기회에 외워두자.
+- 구간트리
+
+
+#### 1107 리모컨
+- <a href="https://www.acmicpc.net/problem/1107" target="_blank">https://www.acmicpc.net/problem/1107</a>
+- 뭔가 예외케이스를 처리 못했다고 함. 생각했던 대로 완탐이었음
+
 
 #### 1765 닭싸움 팀 정하기
 - <a href="https://www.acmicpc.net/problem/1765" target="_blank">https://www.acmicpc.net/problem/1765</a>
@@ -100,3 +144,11 @@ tags: problem_solving need_review
    <summary>보기만</summary> 
    문제를 잘못 이해해서 함 틀림. djset + dfs. transitivity를 djset으로 쉽게 처리해줌 (pairwise하게 체크해야 해서 N^2지만, djset은 노드 하나 잡아놓그 그것과 연산하면 되니 N^2가 필요없음 )
    </details>
+
+#### 정사각형
+
+- <a target="_blank" href="https://www.acmicpc.net/problem/1485">https://www.acmicpc.net/problem/1485</a><br/>
+- `geometry`
+1. 정렬하면 문제가 깔끔해짐
+2. 첨엔 단순 좌표비교만 했었음. 결국 각도와 길이를 비교해야 함.
+3. sin(cross product)는 60도일때와 120도일때가 같으므로, 이 각으로 이루어진 마름모를 구분해야 함. dot product로 구분함. 그냥 첨부터 cos로 했으면 다 일직선인 경우 (0 vs 2pi)를 구분해야했겠지만 두 점이 겹치는일이 없다고 했으니 길이에서 구분이 됬을듯.

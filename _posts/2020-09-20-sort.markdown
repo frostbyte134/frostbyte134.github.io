@@ -1,13 +1,13 @@
 ---
 layout: post
-title:  "Sort"
+title:  "Sorting"
 date:   2020-09-20 09:10:05 +0800
 categories: coding
 use_math: true
 tags: coding algorithm
 ---
 
-- <a href="http://www.secmem.org/blog/2019/04/10/special-sorts/" target="_blank">삼성 소멤 정렬. 글 잘쓰네</a>
+- <a href="http://www.secmem.org/blog/2019/04/10/special-sorts/" target="_blank">삼성 소멤 정렬</a>
 
 
 ### Stable sort
@@ -30,6 +30,34 @@ tags: coding algorithm
 ### Quicksort worst case
 - 정렬/역순/전부 동일한 경우 + pivot이 maximum 이면, 각 partition O(N)이 N번 일어남
 - swap 기준을 leq로 하든 <로 하든 동일하게 partition이 O(N)임
+
+### (randomized) Quicksort Avg case
+- 일단, constant split (ex -  1 : 9)로만 나뉘어도
+  - O(N) (각 recursion tree의 레벨에선 at most N의 비교가 일어나며, 1인 쪽은 금방 없어짐)
+  - \\(\times O(\log\_\{0.9\}N\\) (recursion tree의 최대 길이)
+  - 로 nlgn이 됨. 
+- nlgn 증명
+  1. partition은 O(N)임. 한번 실행할 때 마다 아이템 하나를 선택함. 따라서 문제는 partition내부의 비교 횟수 (\\(O(X)\\))임
+  2. assume distinct items, and let
+      - \\(A:=\\{a\_1,...,a\_n\\}\\) : 정렬할 배열
+      - \\(Z:=\\{z\_1,...,z\_n\\}\\) : 정렬된 배열
+      - \\(x\_i = I\\{z\_i \text\{ is compared to \} z\_j\\}\\)
+  3. then, \\(E[X]=\sum\_\{i=1\}^\{n-1\} \sum\_\{j=i+1\}^\{n\} P[z\_i \text\{ is compared to \} z\_j]\\).  
+      we now have to find \\(P[z\_i \text\{ is compared to \} z\_j]\\).
+  4. each item \\(x\_i, x\_j\\) is compared at most once (one is selected as a pivot, and the other is in the partition param list), therefore let  
+     \\(X:=\sum\_\{i=1\}^\{n-1\} \sum\_\{j=i+1\}^\{n\} x\_\{ij\}\\) 
+  5. for each \\(z\_\{ij\} := \\{z\_i,...,z\_j\\}\\), 
+     1. \\(z\_i \text\{ or \} z\_j\\) is chosen as a pivot - \\(x\_\{ij\}=1\\)
+     2.  \\(z\_i \text\{ or \} z\_j\\) is not chosen as a pivot - \\(x\_\{ij\}=0\\)
+     3.  we assumed independent and uniform pivor draw, so \\(P[z\_i \text\{ is compared to \} z\_j] = \frac\{2\}\{j-i+1\}\\)
+  6. \\[E[X] = \sum\_\{i=1\}^\{n-1\} \sum\_\{j=i+1\}^\{n\} \frac\{2\}\{j-i+1\}\\]
+     \\[= \sum\_\{i=1\}^\{n-1\} \sum\_\{k=1\}^\{n-i\} \frac\{2\}\{k+1\}\\]
+     \\[<> \sum\_\{i=1\}^\{n-1\} \sum\_\{k=1\}^\{n-i\} \frac\{2\}\{k\}\\]
+     \\[= \sum\_\{i=1\}^\{n-1\} O(lgn)\quad\quad ... \quad\quad \text\{upper bound for harmonic series. (think bout the integral of 1/n)\}\\]
+     \\[O(nlgn)\\]
+ 
+  
+   
 
 ### Intro sort
 - STL
@@ -71,8 +99,8 @@ References
 3. 중간중간에 stack을 이용한 merge 시행
    1. 스택이 <a href="https://d2.naver.com/helloworld/0315536" target="_blank">increasing 하게</a>, 서로간의 차이가 너무 크지 않게
       1. [A, B, C]라고 하면  
-          1. |C| > |A| + |B| (증조부는 자식들을 합한 것 보다 일정 정도 커야 함 - 스택 크기를 너무 크지 않게 해 줌)  
-          2. |A| < |B| 
+          1. \|C\| > \|A\| + \|B\| (증조부는 자식들을 합한 것 보다 일정 정도 커야 함 - 스택 크기를 너무 크지 않게 해 줌)  
+          2. \|A\| < \|B\| 
       2. 만일 너무 큰 run A가 들어 오면, 뒤의 B/C를 병합함.
       3. 1번째 조건 덕분에, 피보나치 수와 유사함 (a[i+2] ~= a[i] + a[i+1]). n=1억에 대해 40정도 크기로 유지가능
 4. merge시 O(n/2)메모리 사용 (2개의 run중 작은 것 메모리 복사)

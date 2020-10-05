@@ -13,11 +13,11 @@ tags: coding python
 * why GIL is a problem?
   1. mulththreading이 parallel하지 못함
   2. python은 따로 쓰레드 스케쥴링이 없음 - 특정 쓰레드가 GIL을 잡아야 할 시 (ex - main thread만이 signal handling 가능) 이를 보장해 줄 방법이 없음
-  3. GIL에 의한 context switch는 여러 thread(process)들이 sleep에서 께어나서 스케쥴링에 참여하도록 함 - context switch가 자주 되는 상황에서는 performance bottleneck이 됨
+  3. GIL에 의한 context switch는 여러 thread(process)들이 sleep에서 께어나서 스케쥴링에 참여하도록 함 - gil lock&relase가 자주 되는 CPU-heavy 상황에서는 performance bottleneck이 됨
 * why thread safe, with the presence of GIL?
   * 대부분의 파이썬 함수들은 thread safe하지 않음
   * ex) list - `append()`는 thread safe하고, `+=`은 thread safe하지 않음
-  * `+=`는 read && write를 함. 각 연산은 atomic하지만 &&이 문제 (중간에 `tick`을 세는 듯. 이 때 GIL relase가 가능)
+  * `+=`는 read && write를 함. 각 연산은 atomic하지만 &&이 문제 (중간에 `tick`을 세는 듯. 이 때 GIL release가 가능)
 * how to solve(avoid) GIL problem?
   - `asyncio`, partially
   - `multiprocessing` is another way

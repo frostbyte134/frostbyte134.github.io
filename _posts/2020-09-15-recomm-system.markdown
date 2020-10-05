@@ -32,14 +32,14 @@ Recommender systems are based on one of two stragegies
 
 ### Problem formulation
 1. \\(f\\) : # of latent factors
-2. for each item \\(i in I\\), \\(q\_i \in \Re^\{f\}\\) : 아이템 i가 각 factor를 얼마나 보유하였는지
+2. for each item \\(i \in I\\), \\(q\_i \in \Re^\{f\}\\) : 아이템 i가 각 factor를 얼마나 보유하였는지
 3. for each user \\(u\in U\\), \\(p\_u\in \Re^\{f\}\\) refers to the user's preference to each factor
-4. rating \\(r\_\{ui\}\\) is caclculated as a dot product \\(p\_u^Tq\_i\\), and a `rating matrix` (`utility matrix`?) is  
+4. rating \\(r\_\{ui\}\\) is caclculated as a __dot product__ \\(p\_u^Tq\_i\\), and a `rating matrix` (`utility matrix`?) is  
    <img src="{{site.url}}/images/math/linear_alg/strang/chap1/rating_mat.jpg" width="800">  
 
 ### SVD
 * <a href="https://nailbrainz.github.io/linear_algebra/2018/05/26/svd.html" target="_blank">SVD</a> decomposes rating matrix \\(R\in \|U\|\times \|I\|\\) into \\(U\in \|U\|\times \|U\|, \Sigma \in \|U\|\times \|I\|, V^T \in \|I\| \times \|I\|\\) 
-* excluding rows/cols with 0 (or very small) singular values (\\(\Sigma in f\times f\\)), we obtain \\(\text\{rank\} f\\) approximation!
+* excluding rows/cols with 0 (or very small) singular values (\\(\Sigma \in f\times f\\)), we obtain \\(\text\{rank\} f\\) approximation!
 * <a href="https://stats.stackexchange.com/questions/211686/why-does-the-reconstruction-error-of-truncated-svd-equal-the-sum-of-squared-sing" target="_blank">SVD로 구한 factorization이 rank k constraint하에서, 원래 행렬과의 MSE (Frobenious norm)가 가장 작은 행렬</a>이며, error는 singular value들의 제곱의 합 (frob norm은 sqrt를 안하니..)  
   <img src="{{site.url}}/images/math/linear_alg/strang/chap1/frob.jpg" width="700">  
   증명은 윗 페이지에. 어렵지 않음
@@ -49,9 +49,8 @@ Recommender systems are based on one of two stragegies
 ### Non-convex optimization
 - given rating matrix \\(R\\), want to find user latent vector \\(q\_u\\) and item vectors \\(p\_i\\), using optimization
 - SGD / alternating least square
-- problem formulation
-\\[ min\_\{q^*, p^*\} \Sigma\_\{(u,i)\in K\} \left(r\_\{ui\}-q\_i^Tp\_u\right)^2 + \lambda (\|\|q\_i\|\|^2 + \|\|p\_u\|\|^2)\\]
-- is a nonconvex function (\\((q\_i^Tp\_u)^2\\) term이 nonconvex함. hessian이 positive definite해질 수 없는 form)
+- problem formulation \\[ \text\{min\}\_\{q^\*,p^\*\} \Sigma\_\{(u,i)\in K\} \left(r\_\{ui\}-q\_i^Tp\_u\right)^2 + \lambda (\|\|q\_i\|\|^2 + \|\|p\_u\|\|^2) \\]
+__is a nonconvex function__ (\\((q\_i^Tp\_u)^2\\) term이 nonconvex함. hessian이 positive definite해질 수 없는 form)
 ### 부록
 
 > <a href="https://yamalab.tistory.com/67" target="_blank">https://yamalab.tistory.com/67</a> 의 내용을 정리함
