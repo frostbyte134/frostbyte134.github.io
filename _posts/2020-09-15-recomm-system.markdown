@@ -42,15 +42,58 @@ Recommender systems are based on one of two stragegies
 * excluding rows/cols with 0 (or very small) singular values (\\(\Sigma \in f\times f\\)), we obtain \\(\text\{rank\} f\\) approximation!
 * <a href="https://stats.stackexchange.com/questions/211686/why-does-the-reconstruction-error-of-truncated-svd-equal-the-sum-of-squared-sing" target="_blank">SVD로 구한 factorization이 rank k constraint하에서, 원래 행렬과의 MSE (Frobenious norm)가 가장 작은 행렬</a>이며, error는 singular value들의 제곱의 합 (frob norm은 sqrt를 안하니..)  
   <img src="{{site.url}}/images/math/linear_alg/strang/chap1/frob.jpg" width="700">  
-  증명은 윗 페이지에. 어렵지 않음
-* high portion of data가 missing시 좋지 않다고 함. `imputation`으로 해결하려 했다는데 뭔지 모르겠음. 결측값을 뭔가로 대체했다는 거 같은데...?
+  증명은 윗 페이지에. 어렵지 않음 (remember that, "Frobenius norm obviously is invariant under left- and right-multiplication by orthogonal matrices")
+* 그러나 결국 SVD를 쓰려면, rating matrix가 완전해야 함. 결측값이 있을 때 좋지 않음 (일부만 사용 - overfitting의 우려, 잘못 사용)
 
 
-### Non-convex optimization
-- given rating matrix \\(R\\), want to find user latent vector \\(q\_u\\) and item vectors \\(p\_i\\), using optimization
+
+### (Non-convex) optimization
+
+- rating matrix가 완전하지 않아도 적용 가능 (+regularization)
 - SGD / alternating least square
-- problem formulation \\[ \text\{min\}\_\{q^\*,p^\*\} \Sigma\_\{(u,i)\in K\} \left(r\_\{ui\}-q\_i^Tp\_u\right)^2 + \lambda (\|\|q\_i\|\|^2 + \|\|p\_u\|\|^2) \\]
+- problem formulation \\[ \text\{min\}\_\{q^\*,p^\*\} \frac\{1\}\{2\} \left[ \Sigma\_\{(u,i)\in K\} \left(r\_\{ui\}-q\_i^Tp\_u\right)^2 + \lambda (\|\|q\_i\|\|^2 + \|\|p\_u\|\|^2) \right] \\]
 __is a nonconvex function__ (\\((q\_i^Tp\_u)^2\\) term이 nonconvex함. hessian이 positive definite해질 수 없는 form)
+
+
+#### SGD
+- 각 data point \\(r\_\{ui\}\\) 에 대해 에러 \\(e\_\{ui\} := r\_\{ui\} - q\_i^Tp\_u\\) 를 정의하면, 
+  - \\(p\_u\\) 에 대한 target function의 derivative = \\(-e\_\{ui\}q\_i + \lambda p\_u\\)
+  - \\(q\_i\\) 에 대한 targ func의 deriv = \\(-e\_\{ui\}p\_u + \lambda q\_i\\)
+- 각각 negative gradient 방향으로 최적화 가능
+
+#### Alternating Least Squares
+- term 1개를 고정시키면 least square problem (quadratic programming)
+- \\(p\_u, q\_i\\) 에 대해 각각 병렬화 가능
+- 데이터가 많을 때 이를 효과적으로 handling할 수 있다고 함 (?) - Collaborative Filtering for Implicit Feedback Datasets
+
+### Adding bias
+- 사람마다, 아이템마다 bias가 있음 - 이를 반영
+- \\(\hat\{r\}\_\{ui\} := \mu + b\_i + b\_u + q\_i^Tp\_u\\)
+  - mu = 전체 평균
+  - \\(b\_i\\) : 아이템의 평균, \\(b\_u\\) : 유저의 평균
+- Now the problem becomes
+\\[ \text\{min\}\_\{q^\*,p^\*\} \frac\{1\}\{2\} \left[ \Sigma\_\{(u,i)\in K\} \left(r\_\{ui\}-\mu -b\_u-b\_i-q\_i^Tp\_u\right)^2 + \lambda (\|\|q\_i\|\|^2 + \|\|p\_u\|\|^2 + b\_u^2+b\_i^2) \right] \\]
+- notice that, we do not want basis to make rating deviate too far from \\(\mu\\)
+
+### Cold start problem
+use implicit feedbacks    
+1. \\(N(u)\\) : a set of items for which user \\(u\\) expressed implicit preference  
+  - new set of item factor \\(x\_i\in R^f\\)를 정의
+  - 각 사용자 \\(u\\)마다, \\(\|N(u)\|^\{-0.5\}\sum\_\{i\in N(u)\}x\_i\\) 를 추가로 고려 (normalize해주는 것이 보통 좋다고 함. 크기가 다 다르니)
+2. \\(\sum\_\{a\in A(u)\}y\_a\\) : user attribute도 추가로 고려 (이 경우, user attribute종류가 같다면 normalize필요는 없을 듯)
+
+now the rating score becomes
+\\(\hat\{r\}\_\{ui\} := \mu + b\_i + b\_u + q\_i^T\left[p\_u + \|N(u)\|^\{-0.5\}\sum\_\{i\in N(u)\}x\_i + \sum\_\{a\in A(u)\}y\_a \right]\\)
+
+### Temporal dynamics
+> Decomposing ratings into distinct terms allows the system to treat different temporal aspects seperately
+
+- item biases \\(b\_i(t)\\) : item's (average) popularity may change over time
+- user biases \\(b\_u(t)\\) : user change their baseline
+- user preferences \\(p\_u(t)\\) : user's preferences, thinking, perception change over time
+
+miscs : different confidence level \\(c\_\{ui\}\\) for each rating \\(r\_\{ui\}\\).
+
 ### 부록
 
 > <a href="https://yamalab.tistory.com/67" target="_blank">https://yamalab.tistory.com/67</a> 의 내용을 정리함

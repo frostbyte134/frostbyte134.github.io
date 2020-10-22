@@ -17,12 +17,12 @@ tags: problem_solving need_review coding
 ### KMP
 ```cpp
 for (int i = 1, j = 0; i < N; i++) {
-		while (j > 0 && P[i] != P[j])j = fail[j - 1];
-		if(P[i] == P[j])fail[i] = ++j;
-	}
+    while (j > 0 && P[i] != P[j])j = fail[j - 1];
+    if(P[i] == P[j])fail[i] = ++j;
+}
 int ans = 0;
 for (int i = 0, j = 0; i < K; i++) {
-    if (j > 0 && W[i] != P[j])j = fail[j - 1];
+    while (j > 0 && W[i] != P[j])j = fail[j - 1];
     if (W[i] == P[j]) {
         j++;
         if (j == N ) {
@@ -34,19 +34,19 @@ for (int i = 0, j = 0; i < K; i++) {
 ```
 
 - `fail[i]` : i번째 index까지 substr에서, 접미사=접두사 인 길이
-- "길이" 이므로, `j = fail[j-1]` 로 설정 시, fail[j-1]=2였다면 3번째 문자열과 현재 i를 비교하게 됨 
+- "길이" 이므로, `j = fail[j-1]` 로 설정 시, fail[j-1]=2 (길이가 2)였다면 3번째 다음 문자열과 현재 i를 비교하게 됨 
 
 ### bipartite matching
 ```cpp
-bool vis[max_N];
-int colMatched[max_N]; //matched row number of column
+bool vis[max_row];
+int colMatched[max_col]; //matched row number of column
 
-bool dfs(int nd) {
-	if (vis[nd]) return false;
-	vis[nd] = true;
-	for (const auto& nxt : adjRow[nd]) {
-		if (colMatched[nxt] == -1 || dfs(colMatched[nxt])) {
-			colMatched[nxt] = nd;
+bool dfs(int cur_row) {
+	if (vis[cur_row]) return false;
+	vis[cur_row] = true;
+	for (const auto& nxt_col : adjRow[nd]) {
+		if (colMatched[nxt_col] == -1 || dfs(colMatched[nxt_col])) {
+			colMatched[nxt_col] = cur_row;
 			return true;
 		}
 	}

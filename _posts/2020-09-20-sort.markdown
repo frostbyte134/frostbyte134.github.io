@@ -11,18 +11,18 @@ tags: coding algorithm
 
 
 ### Stable sort
-1. (binary) `insertion sort` - stable (자명함)
+1. (binary) `insertion sort` - stable. (..., V_1, V_2, ...) 순일 시, V_1 먼저 삽입 후 V_2를 삽입할 때 V_1앞에 놓을 이유가 전혀 없음 (추가코스트를 들이지 않고 자연스럽게 stable sort가 가능)
 2. `quick sort` - unstable / <a href="https://www.geeksforgeeks.org/stable-quicksort/" target="_blank">stable</a>
   - 구현에 따라 방법은 달라지겠지만, textbook 구현을 따른다고 할 시
       1. 맨 뒤 아이템이 피봇, small = start - 1
       2. pivot보다 작은 것 찾을 시 마다
       3. smind++, swap(ary[cur], ary[smind]))) 
-  - 이 경우, pivot으로 택한 아이템이 자기와 같은 값을 갖는 아이템들의 맨 앞에 오던지 맨 뒤에 오던지 함
-  - 위 geeks 링크 - 배열2개를 만들고, 값이 같을 시 밑에 넣을 지 위에 넣을 지 index로 판단 - 위 구현에도 적용할 수 있는데 정렬돼있을 때 (보통 이럴 때가 많으니) `O(N^2)!`
-3. `merge sort` - stable. 병합과정에서 아이템이 움직일 일이 없다
+  - 이 경우, pivot으로 택한 아이템이 자기와 같은 값을 갖는 아이템들의 맨 앞에 / 맨 뒤에 위치하게 되고, 자연스럽게 stability가 깨짐
+  - 위 geeks 링크 - 배열2개를 만들고, 값이 같을 시 밑에 넣을 지 위에 넣을 지 __index로 판단__ . stability를 위해 추가 코스트가 들어감
+3. `merge sort` - stable. 병합 시 같으면 왼쪽 먼저 - 자연스럽게 stable
 4. `heap sort` - unstable
   - 얼핏 생각하면, 정렬된 array는 min heap이므로 괜찮을 것 같지만..
-  - 첫번째 아이템을 pop하고 다시 reheap하는 과정에서 변화가 일어남.
+  - 첫번째 아이템을 pop하고 다시 reheap하는 과정에서 key값 비교할 때 index를 추가로 고려해야 stable sort가 됨
 5. `tim sort` - binary insertion sort나 merge sort를 사용하므로, stable
 6. `intro sort` - 퀵소트/힙소트를 주로 쓰니 unstable?
 

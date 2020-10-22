@@ -56,7 +56,9 @@ malloc 모듈은 내부적으로 메모리을 chunk 자료구조로 관리하는
 ### Demand paging
 >  A crucial part of the process is that the instruction must be restarted from scratch once the desired page has been made available in memory
 
+
 - `=lazy swap-in`. demang paging에도 `page fault`발생. 예를 들면 새 프로그램을 적재할 시, 필요한 메모리 구역과 그 locality만 실제 메모리에 올리고, 나머진 memory commit으로 처리 (fault = software interrupt발생시켜 diskio를 일으켜 처리)
+- __목적 = 메모리 할당을 가능한 늦게 하기 위해서__
 
 ### Memory Commit
 `VIRT`: 사용을 예약받은 메모리 (리눅스 기준). malloc()으로 큰 메모리를 잡을 시 생김. 해당 영역에 실제로 access시 `page fault`발생, 인터럽트 - 실제 메모리 할당.  
