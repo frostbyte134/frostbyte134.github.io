@@ -87,7 +87,13 @@ rev history
 - kernel 의 가상화 기술을 다루기 위한 interface (libcontainer -> runC). OCI표준을 구현
 - <a href="http://cloudrain21.com/examination-of-docker-process-binary" target="_blank">containerd 는 container 의 관리를 위해 runC 를 사용하는데, runC 는 kernel 의 container 관련 기술을 다루기 위해 OCI spec 을 준수하고 있다</a>
 - <a href="https://tech.kakao.com/2020/06/29/cgroup-driver/" target="_blank">카카오 블로그 cgroup driver</a> : libcontainer에 cgroupfs 드라이버 / systemd 드라이버 포함 : 이 둘 중 하나로 cgroupfs 제어
-
+  - Cgroup 정보는 Linux Kernel 내부에 관리하고 있으며 (task_struct 구조체에 필드가 따로 있음), Linux Kernel은 Cgroup 제어를 위해서 별도의 System Call 제공하는 방식이 아닌 cgroupfs을 제공
+  - systemd는 cgroupfs을 /sys/fs/cgroup 하위 경로에 Mount합니다. 따라서 systemd를 사용하는 Linux 환경에서는 User가 별도로 cgroupfs을 Mount하지 않았어도 /sys/fs/cgroup 하위 경로에 cgroupfs들이 Mount되어 있습니다 - 컨테이너의 1번프로세스는 systemD가 아닐 듯
+  - 따라서 cgroupfs은 하나만 Mount 되어 있지 않고 Resource Type 별로 별도로 Mount 되어 있습니다.
+    - 1 mount = 1 resource type
+  - cgroupfs을 통해서 Cgroup을 생성하는 방법은 cgroupfs에 Directory를 생성하면 됩니다
+    - Memory를 담당하는 cgroupfs으로 이동하여 mkdir로 명령어를 통해서 group_a라는 Memory Cgroup을 생성
+  - systemd의 API는 systemd에서 제공하는 IPC 기법인 D-Bus를 통해서 다른 Process들에게 노출됩니다. 따라서 systemd Driver는 D-Bus를 통해서 systemd와 통신합니다. systemd는 D-Bus를 통해서 전달된 systemd Driver의 요청에 따라서 Cgroup을 제어합니다. systemd가 Cgroup을 제어할때는 cgroupfs Driver와 동일하게 cgroupfs을 사용합니다.
 
 ### Docker networking
 

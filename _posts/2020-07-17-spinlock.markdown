@@ -12,6 +12,18 @@ tags: coding C
 - 아토믹 어셈블리 연산 - <a href="http://jake.dothome.co.kr/atomic/" target="_blank">http://jake.dothome.co.kr/atomic/</a>
 
 
+### 요약
+- 초기값 = next=0, owner=0
+- 티겟 얻기 (lock)
+    1. global next, owner 로딩해서 로컬에 저장. 
+    2. 로컬에 저장된 next에서 +1해서 global에 저장
+    3. 1:2가 atomic해야 함. 아니면 다시 시도. 결국 ticket을 로컬에 저장하고, 저장했다는 것을 등록하는 과정임
+    4. global owner를 로딩해서, local ticket과 같으면 pass.
+- unlock
+    - 이미 critical section 안이므로 별다른 것 없이, global owner를 증가시켜 줌
+- next == owner : lock is free
+- next > owner : lock is owned by some other process
+
 ### 사용법
 ```c
 static DEFINE_SPINLOCK(static_spinlock);

@@ -1,15 +1,13 @@
 ---
 layout: post
 title:  "Linear Algebra, Gilbert Strang, 4th"
-date:   2020-09-24 09:00:05 +0800
+date:   2020-11-04 09:00:05 +0800
 categories: linear_algebra
 use_math: true
 tags: linear_algebra math need_review
 ---
 
-우째 볼때마다 새롭냐...앞챕터는 빨리 넘기고 뒤를 좀 다시 봅시다
-
-왜 행렬이 github만 올리면 깨지는지 모르겠다. 레이텍 ㅡㅡ
+복습할 시간 내기 쉽지 않네...
 
 <img src="{{site.url}}/images/math/linear_alg/strang/chap1/mapping.jpg">  
 
@@ -17,8 +15,8 @@ tags: linear_algebra math need_review
 ### Chap 1
 - Any equality in \\(R^3\\) represents a plane (\\(3x+2y+5z=2, y=3, ...\\))
   - intersection of 2 planes = a line
-  - intersection of 1 planes = a point
-- different pictures of a matrix
+  - intersection of 3 planes = a point
+- different pictures of \\(Ax=b\\)
   - `Row picture` : Intersection of planes
   - `Column picture` : combination of columns
   - If the \\(n\\) planes have no point in common, or infinitely many points (parallel planes - implies linear dependency), then the \\(n\\) columns lie in the same plane
@@ -34,7 +32,7 @@ tags: linear_algebra math need_review
 #### Gaussian Elimination
 \\[PA=LU\\]
 - \\(P\\) = permutation matrix (non-singular)
-- \\(L\\) = lower triangle matrix (row operations) \\( L=L\_1^\{-1\}L\_2^\{-1\}L\_3^\{-1\}...\\)
+- \\(L\\) = lower triangle matrix (row operations) \\( L=L\_1L\_2L\_3...\\)
 - \\(U\\) = resulting upper triangle mat
 
 
@@ -44,9 +42,9 @@ With the rows reordered in advance, \\(PA\\) can be factored into \\(LU\\).
 - In the singular case, no \\(P\\) can produce full set of pivots : elimination fails
 
 학교에서 배운 Gaussin elimination
-\\[L=L\_1^\{-1\}L\_2^\{-1\}L\_3^\{-1\}PA=U\\]
+\\[L=L\_1L\_2L\_3\quad\quad, LPA=U\\]
 1. row permutation을 먼저 하든 나중에 하든 노상관이므로, 먼저 해버리기
-2. 항상 낮은 row에 높은 row를 더하거나 빼기 때문에, low triangle mat만 생김
+2. 항상 낮은 row에 높은 row를 더하거나 빼기 때문에, low triangle mat만 생김 (\\(L\_iA\\)의 곱 형태에서, \\(j\\) 번째 결과 row에 A의 row \\(k)에 )
 3. low triangle mat끼리 곱하면 low triangle mat이 나옴 (대각 위쪽 엔트리에 아이템이 생길 수가 없음. dot prod 하나만 해봐도 보임)
 4. row operation을 나타내는 low triangle mat의 역행렬은, 연산하는 (위쪽) row에 곱하는 숫자에 negate 해 준 low triangle matrix (더했던 걸 돌리려면 빼면 되니까)
 5. \\(O(N^3)\\). tight하게 하려면 1/3정도 곱해도 된다고 함
@@ -77,7 +75,9 @@ The coluns of \\(AB\\) are combinations of the columns of \\(A\\) - the column s
 
 `2C` If \\(Ax=0\\) has more unknowns than equations \\(\left(n>m\right)\\), then it has at least one special solution: There are more solutions than the trivial \\(x=0\\).
 - = Its nullspace cannot be trivial
-  - 왜나하면, column들이 dependent하기 떄문에 (column들의 linear combination에서 dependent한 칼럼이 있다 - 특정 special solution을 dep한 칼럼들을 이용해 무한하게 만들 수 있으므로, nullspace가 nontrivial함)
+  - 왜나하면, column들이 dependent하기 떄문에 (column들의 linear combination에서 dependent한 칼럼이 있다 - 특정 special solution을 dependent한 칼럼들을 이용해 무한하게 만들 수 있으므로, nullspace가 nontrivial함)
+    - 예를 들어 \\([a, b, c] \in N(A)\\)이고, \\(A\\)의 2, 3번째 column 이 dependent하다면, \\([a, b+c, b-c] \in N(A)\\)이고 둘은 row입장에서는 linearly dependent하지 않으므로..
+    - 위의 소리는, dependent한 column이 있을 시 __단사가 될 수 없다는__ 것과 동일  
   - The columns of \\(A\\) are independent exactly when \\(N(A)\\) is trivial
 
 `2H` If a vector space \\(V\\) consists of all linear combinations of \\(w\_1,...,w\_n\\), then these vectors span the space. Every vector \\(v\in V\\) is some combination of the \\(w\\)'s.
@@ -86,7 +86,7 @@ The coluns of \\(AB\\) are combinations of the columns of \\(A\\) - the column s
 1. The vectors are linearly independent (not too many vectors)
 2. They span the space \\(V\\) (not too few vectors)
 
-`2J` Any two bases for a vector space \\(V\\) contain the same # of vectors. This number, which is shared by all bases and expresses the number of __degrees of freedom__ of the space, is the `dimension of \\(V\\)`
+`2J` Any two bases for a vector space \\(V\\) contain the same # of vectors. This number, which is shared by all bases and expresses the number of __degrees of freedom__ of the space, is the `dimension of `\\(V\\)
 
 #### The Four Fundamental Subspaces
 
@@ -102,8 +102,8 @@ The coluns of \\(AB\\) are combinations of the columns of \\(A\\) - the column s
 
 For a matrix \\(A\in R^\{m\times n\}\\), 
 - subspaces of \\(R^n\\)
-  - \\(N(A)\\) : nullspace of \\(A\\). Its dimension is the rank \\(r\\).
-  - \\(C(A)\\) : column space of \\(A\\). Its dimension is \\(n-r\\).
+  - \\(N(A)\\) : nullspace of \\(A\\). Its dimension is the \\(n-r\\).
+  - \\(C(A)\\) : column space of \\(A\\). Its dimension is rank \\(r\\).
 - subspaces of \\(R^m\\)
   - the __row space__ of \\(A\\) is the column space of \\(A^T\\). It is \\(C(A^T)\\) and it is spanned by the rows of \\(A\\). Its dimension is also \\(r\\).
   - The left nullspace of \\(A\\) is the nullspace of \\(A^T\\) - \\(N(A^T)\\). Its dimension is \\(m-r\\).
@@ -120,8 +120,8 @@ For a matrix \\(A\in R^\{m\times n\}\\),
 
 `2Q`
 1. __EXISTENCE__ : Full row rank \\(r=m\\). \\(Ax=b\\) has at least one solution \\(x\\) for every \\(b\\) i.i.f the columns span \\(R^m\\). Then \\(A\\) has a `right-inverse` \\(C\\) s.t. \\(AC=I,\\ \\ C\in R^\{n\times m\}\\). This is pissible only when \\(m\leq n\\).
-  - 항상 전사인가? yes. column space (\\(R^m\\))가 full rank이므로, 어떤 b든 column들의 선형조합으로 생성 가능
-  - 항상 단사인가? no. \\(n-r\neq 0\\)인 경우 nullspace가 nontrivial함.
+  - 항상 전사인가? yes. column space (\\(R^m\\))가 full rank이므로, 어떤 b든 column들의 선형조합으로 생성 가능. 차원정리로도 보일 수 있음.
+  - 항상 단사인가? no. \\(n-r\neq 0\\)인 경우 nullspace가 nontrivial함. 오히려 항상 단사가 아님.
   - 항상 right-inverse가 있을 것인가? yes. \\(C=A^T(AA^T)^\{-1\}\\). 증명 - `The Four Fundamental Subspaces` 부분 한글
 2. __UNIQUENESS__ : Full column rank \\(r=n\\). \\(Ax=b\\) has at most one solution \\(x\\) for every \\(b\\) i.i.f the columns are linealy independent. Then \\(A\\) has an \\(n\times m\\) left-inverse \\(B\\) s.t. \\(BA=, C\in \{n\times m\}\\). This is possible only if \\(m\geq n\\).
   - 항상 전사인가? no. 이미지의 rank가 모자라므로 항상 전사가 아니라는 것은 자명함
@@ -193,3 +193,32 @@ Its close connection to inner products gives a new and much more _abstract_ defi
 
 - __def__ : 선형사상 A와 내적 \\(\cdot\\)에 대해, \\[\overrightarrow\{x\}\cdot A(\overrightarrow\{y\}) = A^\{+\}(\overrightarrow\{x\})\cdot \overrightarrow\{y\}\\] 가 성립하는 사상 \\(A^+\\). 
 - 정규직교기저로 \\(A\\)를 표현하면, \\(A^+=A^T\\)가 됨.
+
+
+#### Least square
+- <a href="https://nailbrainz.github.io/linear_algebra/2018/05/16/projection.html" target="_blank">LINK</a> 으로 대체
+- Weighted least squares system \\(WAx=b\\) where \\(W\\) is a diagonal matrix with weights.
+  - EX) 각 row (a data point)는 신뢰성, 표본 크기 등의 credibility degree를 가질 수 있음
+- __The least square solution__ to above system is \\(\hat\{x\}_W\\), which can be found in 
+  - `weighted normal equation` \\((A^TW^TWA)\hat\{x\}\_W=A^TW^TWb\\)
+
+
+#### Gram-Schmidt and QR factorization
+- every \\(m\times n\\) matrix with independent columns can be factorized to \\(QR\\), where \\(Q\\) is the orthonormal matrix and \\(R\\) is the upper triangle matrix (which is clear given the Gram-Schmidt process)
+
+#### Function Spaces and Fourier Series
+- 엄청 중요하니까 한번 읽어 보기
+- `Hilbert space` : norm이 유한한 무한차원 벡터들로 이루어진 vector sapce
+
+
+
+### Chap 5 Eigenvalues and Eigenvectors
+
+- eigenvalues - solution of characterstic equation \\((A-\lambda I)x=0\\)
+- eigenvectors - nontrivial nullspace component of the characteristic equation
+
+__5C__ : The eigenvectors diagonalize a matrix:
+- Suppose the \\(n\times n\\) matrix \\(A\\) has \\(n\\) linearly indpendent eigenvectors. If these eigenvectors are the columns of a matrix \\(S\\), then \\(S^\{-1\}AS\\) is a diagonal matrix \\(\Lambda\\). The eigenvalues of \\(A\\) are on the diagonal of \\(\Lambda\\).
+- \\(S^\{-1\}AS=\Lambda\\)
+- can be shown by \\(As=S\Lambda\\)
+- Normal matrices have linearly independent e-vecs, hence diagonalizable
