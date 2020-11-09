@@ -1,0 +1,58 @@
+---
+layout: post
+title:  "Conjugate Gradient"
+date:   2020-11-09 09:00:05 +0800
+categories: linear_algebra
+use_math: true
+tags: linear_algebra math need_review
+---
+
+웜머...
+
+<a href="https://www.cs.cmu.edu/~quake-papers/painless-conjugate-gradient.pdf" target="_blank">https://www.cs.cmu.edu/~quake-papers/painless-conjugate-gradient.pdf</a>
+
+### Intro, Notation
+
+
+- CG is effective for the systems of the form \\(Ax-b\\), where \\(A\\) is symmetric and positive definite
+- for a quadratic system with such \\(A\\), let
+  -  \\(f(x):= x^TAx-x^b+c\\)
+  -  \\(f'(x)=Ax-b\\)
+  - then it's hessian \\(A\\) is positive-definite
+    - Then \\(f\\) is convex, and we can find \\(x^*\\) which minimizes \\(f\\) by solving \\(Ax-b=0\\)
+- If \\(A\\) does not have such properties, CG (and steepest descent) will likely fail (by finding saddle point)
+- The value of \\(b\\) and \\(c\\) determine where the minimum point of the paraboloid (=level set of quadratic func) lies, but do not affect the paraboloid's shape
+
+### Steepest Descent
+Let us define
+* `error` \\(e\_i := x\_i - x^* \\), where \\(x^*\\) is a solution.
+* `residual` \\(r\_i=b-Ax\_i\\)
+  * It is easy to see that \\(r\_i=-Ae\_i\\), since \\(Ax^*=b\\) holds.
+    * you should think of the residual as being the error transformed by \\(A\\) into the same space as \\(b\\)
+    * at the same time, it is the gradient direction at \\(x\_i\\) (namely, \\(-f'(x\_i)\\))
+* in general form, the next step will be \\[x\_\{i+1\}=x\_i+\alpha d\_i\\] In the case of steepest descent, with the `search direction` \\(d\_i\\).
+* we will go down to the negative gradient direction (\\(f\\) is continuous function)
+\\[d\_i=r\_i\\]
+so that
+\\[x\_\{i+1\} = x\_i+\alpha r\_i\\]
+
+#### Line search
+
+- Generally it is not easy to determine the stepsize, but with the condition above the optimal stepsize \\(\alpha\\) in Steepdest descent can be found by solving closed form problem
+- Since \\(f\\) were convex, the composition function \\(f(x\_i+\alpha r\_i)\\) is also a convex function (convex function on a convex domain (line)). We set derivative to 0 so that
+- \\(\frac\{\partial\}\{\partial \alpha\}f(x\_i+\alpha r\_i) = \frac\{\partial\}\{\partial \alpha\}f'(x\_i+\alpha r\_i)^Tr\_i=0\\)
+- we see that, the search direction is orthogonal to the gradient (of the next point \\(x\_\{i+1\}\\))
+- To determine \\(\alpha\\), note that \\(f'(x\_\{i+1\}) = r\_\{i+1\}\\), and we have
+- <img src="{{site.url}}/images/math/steepest_descent_alp.jpg" width="600">  
+- \\(\alpha = \frac\{r^T\_ir\_i\}\{r^T\_iAr_i\}\\)
+- The update will be  
+ <img src="{{site.url}}/images/math/steepest_descent.jpg" width="1000">
+- The equation (10) in the link is the steepest descent steps. We see that matrix-vector form is used, so it can easily utilize the sparsity
+
+
+#### Convergence (good case)
+1. Let's first consider where \\(e\_i = x\_i-x^*\\) is an eivengector of \\(A\\). The the residual \\(r\_i=-Ae\_i = \lambda\_ie\_i\\) is __also an eigenvector.__
+Then equ12 gives \\(e\_\{i+1\}=0\\) immediately (by many cancelations!)
+2. If not, we can express \\(e\_i\\) as a linear combination of the orthonormal eigenvectors of \\(A\\). Equ 19-23 in the link gives
+\\[e\_\{i+1\}=e\_i+\frac\{ \Sigma\_j \xi\_j^2\lambda\_j^2 \}\{ \Sigma\_j\xi\_j^2\lambda\_j^3 \}r\_i\\] where \\(\xi\_i\\) are weight of the linear combination. If all eigenvalues are same (circular level set!), then \\(e\_\{i+1\}=0\\) again by many cancelations!
+3. Later, in CG, we are going to perform bijection from the original space, to the space where the level set of \\(A\\) is circular.
