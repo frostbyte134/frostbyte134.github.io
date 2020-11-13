@@ -21,7 +21,9 @@ tags: coding python
 * how to solve(avoid) GIL problem?
   - `asyncio`, partially
   - `multiprocessing` is another way
-* GIL이 느려지는건 <a href="http://www.science.unitn.it/~fiorella/guidelinux/tlk/node122.html" target="_blank">wait_queue</a> 때문이 아니라 뮤텍스 (언락되면 대기하던 모든 process가 스케쥴링에 참여) 떄문인듯
+  - `Jython` / `Cython` (with nogil:)
+  - openCV / numpy 는 나름의 매크로를 정의해놨다고 함
+* GIL때문에 느려지는건 signaling 때문인듯. 다른 코어에 있는 쓰레드까지 스케쥴링에 참여시켜야 하고, gil이 풀리면 동시에 스케쥴링 경쟁이 일어나기 때문인 듯
 
 
 ### Preliminaries, Glossary
