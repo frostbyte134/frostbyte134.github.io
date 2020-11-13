@@ -93,6 +93,7 @@ MISCS
 #### Kernel Space vs User Space
 - _A module runs in kernel space, whereas applications run in user space._
   - 사용자에게 consistent한 hw view를 제공하기 위해서
+
 Unix transfers execution from user space to kernel space whenever an application issues a system call or is suspended by a hardware interrupt. 
   - Kernel code executing a system call is working in the context of a process — it operates on behalf of the calling process and is able to access data in the process’s address space. 
   - Code that handles interrupts, on the other hand, is asynchronous with respect to processes and is not related to any particular process.

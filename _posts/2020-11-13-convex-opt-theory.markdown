@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Convex Optimization Theory"
-date:   2020-11-13 10:00:05 +0800
+date:   2020-11-01 10:00:05 +0800
 categories: math
 use_math: true
 tags: math need_review
