@@ -12,7 +12,7 @@ tags: coding python
 
 
 ### 개인화 "콘텐츠 푸시" 고도화 후기 (2020)
-- <ㅁ ㅗㄱㄷㄹ=>
+- <a href="https://if.kakao.com/session/93" target="_blank">https://if.kakao.com/session/93</a>
 - 콘텐츠 선정 / 발송량 선정 / 선호도 예측 / 자동화
 
 
