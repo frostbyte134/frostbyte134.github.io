@@ -16,7 +16,7 @@ tags: linear_algebra math need_review
 
 - CG is effective for the systems of the form \\(Ax-b\\), where \\(A\\) is symmetric and positive definite
 - for a quadratic system with such \\(A\\), let
-  -  \\(f(x):= x^TAx-x^b+c\\)
+  -  \\(f(x):= x^TAx-x^Tb+c\\)
   -  \\(f'(x)=Ax-b\\)
   - then it's hessian \\(A\\) is positive-definite
     - Then \\(f\\) is convex, and we can find \\(x^*\\) which minimizes \\(f\\) by solving \\(Ax-b=0\\)
@@ -32,8 +32,8 @@ Let us define
     * at the same time, it is the negative gradient direction at \\(x\_i\\) (namely, \\(-f'(x\_i)\\))
 * in general form, the next step will be \\[x\_\{i+1\}=x\_i+\alpha d\_i\\] In the case of steepest descent, with the `search direction` \\(d\_i\\).
   * with the next search direction \\(d\_i\\),
-    * `next error` \\(e\_\{i+1\}=e\_i+\alpha d\_i\quad\quad\\), since \\(e\_\{i+1\} = x\_\{i+1\}-x^* = x\_i+\alpha d\_i - x^* = e\_i+\alpha d\_i\\)
-    * `next residual` \\(r\_\{i+1\} = r\_i-\alpha d\_i\quad\quad\\), since \\(-Ae\_\{i+1\} = -A(e\_i+\alpha d\_i) = r\_i-\alpha d\_i\\)
+    * `next error` \\(e\_\{i+1\}=e\_i+\alpha d\_i,\quad\quad\\) since \\(e\_\{i+1\} = x\_\{i+1\}-x^* = x\_i+\alpha d\_i - x^* = e\_i+\alpha d\_i\\)
+    * `next residual` \\(r\_\{i+1\} = r\_i-\alpha d\_i,\quad\quad\\) since \\(-Ae\_\{i+1\} = -A(e\_i+\alpha d\_i) = r\_i-\alpha d\_i\\)
 * In the _steepest descent,_ we will go down to the negative gradient direction (\\(f\\) is continuous function)
 \\[d\_i=r\_i\\]
 so that
