@@ -18,12 +18,14 @@ tags: coding python
 
 #### 문제정의, 설계
 - `컨텐츠 푸시`의 이유 : 유저 활성화
-  1. 활성화 1 : 비활성 유저 활성화 __(발표 주제)__
+  1. 활성화 유형 1 : 비활성 유저 활성화 __(발표 주제)__
     - 유저에 대한 접근체널이 거의 푸시밖에 없다고 함
-  2. 활성화 2 : 기존 유저 활성화
+  2. 활성화 유형 2 : 기존 유저 활성화
     - 푸시 이외에 다른 체널이 있다고 함
-- 활성화 상태 : 주1회 이상 접속
+- 활성화 상태의 정의 := 주1회 이상 접속
 - `WAU` : weekly active user, 주간활성유저
+
+***********************
 
 비활성 유저
 - 푸시 클릭율이 떨어짐
@@ -58,7 +60,7 @@ __자동화 푸시 시스템__ : 컨텐츠 선정 \\(\rightarrow\\) 개인화 �
   -  content based (word embedding)
   -  `CTR` (click through rate) prediction
      -  과거 클릭 모델링. collab filtering 인듯
-  - looklike
+  - lookalike
     - '해당 컨텐츠에 대한 선호가 확실하게 판단되는 유저군과 유사한 유저군을 찾는 방식'
     - 유저 기반 nearest neighbor?
 3. 컨텐츠의 발송량 설정 (__재발송이 성능 향상에 기여가 컸다고 함__)
@@ -73,28 +75,106 @@ __자동화 푸시 시스템__ : 컨텐츠 선정 \\(\rightarrow\\) 개인화 �
 
 
 ### Buffalo (2019)
-- `matrix factorization`
+- `추천 시스템 : 사용자에게 콘텐츠 혹은 정보를 소비하는 경험을 제공하는 기술`
+- matrix factorization
+- 비교분석 : `Apache Spark` (Scala), `Quora QMF` (C++), `Implicit` (C++/Python) 등과의 비교
+  - CPU, GPU모드에서 수 배 이상 빠르다고 함
+  - `KakaoReco730M` : 10기가단위의 대량 데이터, batch based learning (Implicit이외에 지원 X)을 해야 한다고 함
+    - 메모리 크기를 너무 늘리면 I/O 오버헤드 때문에 오히려 느려진다고 함
 - priority: scalability가 최우선 (만족X시 적용자체가 불가능), 성능이 그 다음이었다고 함
+  - __원하는 크기__ 의 데이터를 __적절한 시간__ 에 __효과적인 자원__ 으로 분석할 수 있는 프로젝트가 없어서 개발했다고 함
+- 유사 콘텐츠 추천 / 개인화 추천에 대한 병렬 처리 기능 제공
+  - 멜론 사용자 수천만명에게 10개만 추천하려고 해도 너무 오래 걸림 : inference service를 위한 병렬처리 제공
+    - Approximate-KNN? 
 - __최적화된 Python/C++ 코드베이스와 병렬처리를 효과적으로 구현__
-  - python/c++ : gil처리는 Cython의 nogil context로만?
+  - python/c++ : gil처리는 Cython의 nogil context로?
   - openMP의 dynamic scheduling이외에 개선점?
+- 청크 구조의 데이터 배치 스트림을 통한 메모리 관리 (h5py의 청크?)
 - 기본적으로 sparse matrix대응이 되어있다고 함. sparse mat 행렬곱을 못 본거 같은데..못찾았거나 라이브러리에서 해 주는 건가?
-
+- `matrix market` : sparse mat 표현인 듯
+- validation시 temporal dynamic을 고려하는 것이 중요하다고 함
 
 
 ### 둥꿍둥꿍 느낌 아는 음악 바텐더 (2019)
-- VGG-like feature extractor (음악을 퓨리에변환한 것을 자른 `mel-spectrogram` (?) - 감성tag predict)는 크게 좋지는 않았다고 함
-- matrix factorization
-- 선택한 곡 목록 (playlist?) 기반 autoencoder - feature vector추출
-  - `denosing` autoencoder
-  - + tag output header
-- cosine 유사도까지 봄
+- collab filtering > content based (보통)
+  - 이지만 content based도 사용되는 부분이 있음
+
+`content based + end to end`
+  - VGG-like feature extractor (conv2d + max pool)
+    - 음악을  자른 것을 퓨리에변환 (+로그 스케일링)한 `mel-spectrogram` \\(\rightarrow\\) high_lvl features(감성tag) predict / fc전 임베딩이 비슷한 곡 추천 
+    - 크게 좋지는 않았다고 함
+    - 음악을 구분하는 데는 효과적인 embedding들이 좋은 음악을 추천하는 데는 크게 유용하지 않았다고 함 (?)
+      - 음식(커피?) 재료와 결과물이 정비례하지 않는 것 처럼..
+
+`collaborative filtering`
+- 일반적이고, 유저 + 아이템이 필요한 matrix factorization 대신 autoencoder 사용 (복원에 유용한 feature를 사용)
+- (list of songs + list of words(=tags)) \\(\rightarrow\\) (list of songs + list of words(=tags)) (주어진 곡가 비슷한 느낌의 playlist 생성?)
+  - 선택한 곡 목록 (playlist?) 기반 autoencoder - feature vector추출
+    - `denosing` autoencoder (`denosing task`: 일부를 가리고 (dropout), 복원하는 task)
+    - + tag (multitask learning)
+      - 태그를 입력에 넣을 수도 있고, 아닐 수도 있음
+      - 태그는 DJ playlist로부터 
+  - 인코더 가운데에서 임베딩을 추출한 듯
+  - playlist의 음악이 많을 시, word2vec의 negative sampling으로 근사적인 loss를 구할 수도 있으나, Euc norm의 W^TW를 precompute해서 효율화했다고 함?
+- 인코더의 임베딩 - cosine 유사도로 곡간 유사도, 태그 간 유사도, 곡-태그(?), 태그+태그(?) 등을 활용?
 
 
 ### 추천 시스템 맥락과 취향 사이 (2020)
+- `픽코마` : 일본 웹툰
+  - `팝업 추천`
+- 팝업 노출 시점 : 열람을 멈추고 나가려고 할 때
+  - 새로운 작품 발견에 열려있는 상태?
+- 아직 잘 열리지지 않은 작품을 의도적으로 노출하기도 했다고 함
+- 빈익빈 부익부 현상
+  - 인기 많음 - 많은 로그/데이터 - 추천이 더 많이 됨
+- 추천의 자동화
+  - 기존 : 수동으로 팝업 추천 (스케일 아웃이 어려움)
+  - 통계적 유저선호를 반영하기 어려움
+
+******************
+추천방법
+- 개인화 추천
+  - 유저마다 취향 반영
+- 연관 추천 : 현재 아이템과 연관성이 높은 아이템 추천
+- 개발할수록 개인화 추천 \\(\rightarrow\\) 연관 추천으로 방향이 바뀜 (로맨스를 보는데 호러 추천은 어색함)
+- `팝업이 노출되는 타이밍엔 취향/맥락 중 무엇이 중요할까?`
+  - 둘 다 A/B 테스트로 비교를 해 봄
+  - 최종적으로 Matrix factorization 활용
+    - __유저와 아이템을 동일한 latent space에 매핑하는 것__ \\(\rightarrw\\) cos similarity 등을 이용한  
+    - 1개의 모델을 가지고 개인화 / 연관 추천을 모두 구현할 수 있음
+      - 개인화 추천 : 개인의 latent vector와 similarity가 높은 아이템 추천
+      - 연관 추천 : 유저벡터는 안쓰고 아이템벡터로 추천
+
+******************
+취향 vs 맥락
+1. 평가지표
+  - 노출 (Impression) : 팝업 추천에 유저가 노출
+  - 전환 (Conversion ): 노출된 추천을 클릭
+  - 전환율 (CVR) : 전환수/노출수
+2. 비교결과 : 개인화가 CVR+18
+  - matric fac으로 도출된 유사도 (cos 유사도) 가 CVR에 어떻게 영향을 미쳤나
+  1. x축 : 열람(중?) 작품의 latent vector와 유저의 latent vector간의 cos sim, y축은 각 추천에 따른 전환율
+   - 연관 추천 : x, y축간에 강한 양의 상관관계
+   - 개인화 추천 : 오히려 약한 음의 상관관계 (__직전 작품__ 에 크게 영향을 받지 않음)
+  2. 팝업 작품과 열람 작품의 유사도 (x축 : 열람작품 - 팝업작품 간의 유사도, y축 : 각 추천에 따른 전환율)
+   - 연관 추천 : 양의 상관관계는 있으나 높지 않음 (보던 작품이 마음에 들지 않으면, 개인화를 고려하지 않고 유사한 작품만 추천해도 전환율이 높지 않음?)
+   - 개인화 추천 : 양의 상관관계도 있고, bias자체가 높음
+  3. 요약 : 맥락은 전환율에 영향을 미치지만, 보던 작품이 마음에 들어야 잘 동작. 개인화는 골고루 잘 동작 `(취향 > 맥락)`
+3. but 뷰어 엔드 추천에 개인화 추천 적용 \\(\rightarrow\\) 전환율 감소
+  - 뷰어 엔드의 경우 작품을 끝까지 읽어야 추천에 노출 - 작품이 나름 마음에 들어야 끝까지 앍음 (연관추천이 좀 더 효올적)
+4. 인사이트
+  - 연관 추천을 20%이상 열람했을 시 추천함. but
+  - 시간대에 따라 사용자 패턴이 달라지고, 효율적인 추천 또한 달라짐
+    - 차후 열람 : `missing pop` (노출됐을 때는 안봤지만 나중에는 봄) - 추천 시간대 (컨텍스트?) 가 좋지 않은 것을 추천
+    - 7시 (컨택스트가 좋지 않은 시간대) 에 팝업을 막아 다른 시간대에 추천 - 유의미한 CVR증가를 보임
+5. 팝업 추천의 성과/가치
+  1. 자동화
+  2. 성능상승 (노출 -21.3퍼지만 전환율은 2배이상 상승)
+  3. 스케일 업 후 112%의 전환 증가
+  4. 홈추천 / 유사추천 등에 비해 높은 정량적 수치
 
 
-### python application server for recommender system
+### Python Application Server for Recommender System
 - <a href="https://www.youtube.com/watch?v=6oOQJtLa14U" target="_blank">https://www.youtube.com/watch?v=6oOQJtLa14U</a>
 - <a href="https://www2.slideshare.net/kimkwangseop/pycon-korea-2018-python-application-server-for-recommender-system" target="_blank">https://www2.slideshare.net/kimkwangseop/pycon-korea-2018-python-application-server-for-recommender-system</a>
 
