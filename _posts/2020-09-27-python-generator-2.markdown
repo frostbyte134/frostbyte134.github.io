@@ -65,7 +65,7 @@ loop.close()
 ```
 - 다른 source의 IO연산 3개가 있다고 할 시, 기본적인 multithreading은 OS level thread 3개를 동시에 실행시켜야 했고, 연산이 끝난 뒤에 4개가 동시에 priority에 따라 time slice를 가져갔음.  
 - 그러나 asyncIO는 CPU를 점유할 쓰레드 1개 + 각자 IO연산별로 IO연산만 하고 종료하는 1개의 쓰레드 (제약사항이 있는 범용적인 쓰레드가 아니니 좀 더 간단하게 만들 수 있을 듯)가 있어서, 코딩이 간편하고 성능 개선의 여지가 좀 더 있을 듯. await으로 쓰레드 생성 지점이 Explicit하게 표현이 되는 것도 장점인 듯
-  - `await (IO 연산)`이 쓰레드를 새로 만드는 것은 자명함. IO연산은 uninterruptible sleep이니까.
+  - `await (IO 연산)`이 쓰레드를 새로 만드는지는 (이벤트 루프에서?) 찾아보진 않았는데 맞을 듯. IO연산은 uninterruptible sleep이니까.
 - await간의 우선 순위 (현재 task에서 await시 loop가 대기중인, await을 호출했다가 처리가 다 끝난 task 중 하나 선택) 가 어떻게 되지?
 - 사용자가 잘못 짜면 (await을 하지 않고 자기 혼자 돌아가는 task 등) 망하는 듯. 쓰레딩은 time slice를 알아서 나눠 줬으나..
 
