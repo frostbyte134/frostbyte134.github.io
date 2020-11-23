@@ -13,35 +13,37 @@ tags: coding python
 ### Chap 1
 
 - Device drivers = `black boxes` that make a particular piece of hardware respond to a well-defined internal programming interface;
-  - they hide details of how the device works. __User activities are performed by means of a set of standardized calls__ that are independent of the specific driver;
-  - mapping those calls to device-specific operations that act on real hardware is then the role of the device driver.
+  - details of driver implementation is hidden
+  - __User activities are performed by means of a set of standardized calls__ that are independent of the specific driver;
 - Most programming problems can indeed be split into two parts:
-  - what capabilities are to be provided” (the `mechanism`) and 
+  - what capabilities are to be provided (the `mechanism`) and 
   - how those capabilities can be used (the `policy`)
-- If the two issues are addressed by different parts of the program, or even by different programs altogether, the software package is much easier to develop and to adapt to particular needs.
-- write kernel code to access the hardware, but don’t force particular policies on the user, since different users have different needs. The driver should deal with making the hardware available, leaving all the issues about how to use the hardware to the applications.
+- two issues are handled independently \\(\rightarrow\\) the software package is much easier to develop and to adapt to particular needs.
+- __write kernel code to access the hardware, but don’t force particular policies on the user__
+  - since different users have different needs
+  - The driver should deal with making the hardware available, leaving all the issues about how to use the hardware to the applications.
 - Each piece of code that can be added to the kernel at runtime is called a `module`
   - Each module is made up of `object code` (not linked into a complete executable) that can be dynamically linked to the running kernel by the `insmod` program and can be unlinked by the `rmmod` program.
 
 
 #### class of devices
-> This division of modules is not a rigid one; Good programmers, nonetheless, usually create a different module for each new functionality they implement, because decomposition is a key element of scalability and extendability.
+__This division of modules is not a rigid one;__ Good programmers, nonetheless, usually create a different module for each new functionality they implement, because decomposition is a key element of scalability and extendability.
 
-__char devices__  
+`char devices`  
   - stream of bytes (like a file)
   - usually implements at least the `open`, `close`, `read`, and `write` system calls.
   - Char devices are accessed by means of filesystem nodes, such as /dev/tty1 and /dev/lp0.
     - difference between a char device / a regular file : you can always move back and forth in the regular file, whereas most char devices are just data channels, which you can only access sequentially.
     - There exist, nonetheless, char devices that look like data areas, and you can move back and forth in them; for instance, this usually applies to `frame grabbers` (!!), where the applications can access the whole acquired image using mmap or lseek.  
 
-__block devices__  
+`block devices`  
   - Like char devices, block devices are accessed by filesystem nodes in the /dev directory. A block device is a device (e.g., a disk) that can host a filesystem.
   - In most Unix systems, a block device can only handle I/O operations that transfer one or more whole blocks, which are usually 512 bytes (or a larger power of two) bytes in length.
   - Linux, instead, allows the application to read and write a block device like a char device — it permits the transfer of any number of bytes at a time. As a result, block and char devices differ only in the way data is managed internally by the kernel, and thus in the kernel/driver software interface.
     - Block drivers have a completely different interface to the kernel than char drivers.  
 
-__network interfaces__
-  - Usually, an interface is a hardware device, but it might also be a pure software device, like the loopback interface.
+`network interfaces`
+  - Usually, an interface is a hardware device, but it might also be a pure software device, like the loopback(lo) interface.
   - A network driver knows nothing about individual connections; it only handles packets.
   - Not being a stream-oriented device, a network interface isn’t easily mapped to a node in the filesystem, as /dev/tty1 is. 
   - The Unix way to provide access to interfaces is still by assigning a unique name to them (such as `eth0`), but that name doesn’t have a corresponding entry in the filesystem. Communication between the kernel and a network device driver is completely different from that used with char and block drivers. Instead of read and write, the kernel calls functions related to packet transmission (vfs의 read, write란 이름은 공유하나 드라이버 레벨에선 완전히 다른 것을 말하는 듯)
@@ -96,7 +98,7 @@ __MISCS__
 
 #### Kernel Space vs User Space
 - _A module runs in kernel space, whereas applications run in user space._
-  - 사용자에게 consistent한 hw view를 제공하기 위한 hierarchical 구조 (restricting)
+  - 왜 space를 구분했나? : 사용자에게 consistent한 hw view를 제공하기 위한 hierarchical 구조 (restricting)
 
 Unix transfers execution from user space to kernel space whenever an application issues a system call or is suspended by a hardware interrupt. 
   - Kernel code executing a system call is working in the context of a process — it operates on behalf of the calling process and is able to access data in the process’s address space. 
@@ -114,11 +116,13 @@ Few sources of concurrency
 - preemptible
 
 As a result, Linux kernel code, including driver code, must be `reentrant` — it must be capable of running in more than one context at the same time.
+- <a href="https://blog.naver.com/PostView.nhn?blogId=complusblog&logNo=220985740336" target="_blank">reentrant</a> 하다는 게 생각보다 많은 의미가 있었네...
 - Data structures must be carefully designed to keep multiple threads of execution separate, 
 - and the code must take care to access shared data in ways that prevent corruption of the data. 
 - Writing code that handles concurrency and avoids race conditions (situations in which an unfortunate order of execution causes undesirable behavior) requires thought and can be tricky.
 - Chap 5 is dedicated for it
 - In 2.6, kernel code can (almost) never assume that it can hold the processor over a given stretch of code.
+
 
 #### Current process
 - global item `current`, defined in `asm/current.h` : yields a pointer to struct `task_struct` (defined in `linux/sched.h`)

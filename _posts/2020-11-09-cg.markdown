@@ -7,7 +7,7 @@ use_math: true
 tags: linear_algebra math need_review
 ---
 
-웜머...
+* revision in 20.11.23
 
 <a href="https://www.cs.cmu.edu/~quake-papers/painless-conjugate-gradient.pdf" target="_blank">https://www.cs.cmu.edu/~quake-papers/painless-conjugate-gradient.pdf</a>
 
@@ -33,7 +33,8 @@ Let us define
 * in general form, the next step will be \\[x\_\{i+1\}=x\_i+\alpha d\_i\\] In the case of steepest descent, with the `search direction` \\(d\_i\\).
   * with the next search direction \\(d\_i\\),
     * `next error` \\(e\_\{i+1\}=e\_i+\alpha d\_i,\quad\quad\\) since \\(e\_\{i+1\} = x\_\{i+1\}-x^* = x\_i+\alpha d\_i - x^* = e\_i+\alpha d\_i\\)
-    * `next residual` \\(r\_\{i+1\} = r\_i-\alpha d\_i,\quad\quad\\) since \\(-Ae\_\{i+1\} = -A(e\_i+\alpha d\_i) = r\_i-\alpha d\_i\\)
+    * `next residual` \\(r\_\{i+1\} = r\_i-\alpha Ad\_i,\quad\quad\\) since \\(-Ae\_\{i+1\} = -A(e\_i+\alpha d\_i) = r\_i-\alpha Ad\_i\\)
+* __Note that,__ \\(-r\_i = f'(x\_i)\\) in our problem setting
 * In the _steepest descent,_ we will go down to the negative gradient direction (\\(f\\) is continuous function)
 \\[d\_i=r\_i\\]
 so that
@@ -44,7 +45,7 @@ so that
 
 - Generally it is not easy to determine the stepsize, but with the condition above the optimal stepsize \\(\alpha\\) in Steepdest descent can be found by solving closed form problem
 - Since \\(f\\) were convex, the composition function \\(f(x\_i+\alpha r\_i)\\) is also a convex function (convex function on a convex domain (line)). We set derivative to 0 so that
-- \\(\frac\{\partial\}\{\partial \alpha\}f(x\_i+\alpha r\_i) = \frac\{\partial\}\{\partial \alpha\}f'(x\_i+\alpha r\_i)^Tr\_i=0\\)
+- \\(\frac\{\partial\}\{\partial \alpha\}f(x\_i+\alpha r\_i) = f'(x\_i+\alpha r\_i)^Tr\_i = f'(x\_\{i+1\})^Tr\_i = 0 \\)
 - we see that, the search direction is orthogonal to the gradient (of the next point \\(x\_\{i+1\}\\))
 - <img src="{{site.url}}/images/math/steepest_descent_alp.jpg" width="600">  
 - \\(\alpha = \frac\{r^T\_ir\_i\}\{r^T\_iAr_i\}\\)
@@ -53,22 +54,40 @@ so that
 - The equation (10) in the link is the steepest descent steps. We see that matrix-vector form is used, so it can easily utilize the sparsity
 
 
-#### Convergence (good case)
+#### Convergence of Steepest Descent
 1. Let's first consider where \\(e\_i = x\_i-x^*\\) is an eivengector of \\(A\\). The the residual \\(r\_i=-Ae\_i = \lambda\_ie\_i\\) is __also an eigenvector.__
-Then equ12 gives \\(e\_\{i+1\}=0\\) immediately (by many cancelations!)
-2. If not, we can express \\(e\_i\\) as a linear combination of the orthonormal eigenvectors of \\(A\\). Equ 19-23 in the link gives
-\\[e\_\{i+1\}=e\_i+\frac\{ \Sigma\_j \xi\_j^2\lambda\_j^2 \}\{ \Sigma\_j\xi\_j^2\lambda\_j^3 \}r\_i\\] where \\(\xi\_i\\) are weight of the linear combination. If all eigenvalues are same (circular level set!), then \\(e\_\{i+1\}=0\\) again by many cancelations!
-3. Later, in CG, we are going to perform bijection from the original space, to the space where the level set of \\(A\\) is circular.
+Then equ12(whole update equation) gives \\(e\_\{i+1\}=0\\) by
+\\[e\_\{i+1\} = e\_i+ \frac\{r^T\_ir\_i\}\{r^T\_iAr_i\}r\_i\\]
+\\[ = e\_i+ \frac\{r^T\_ir\_i\}\{Ar^T\_ir\_i\}(-\lambda\_ee\_i)\\]
+\\[ = e\_i - e\_i = 0\\]
+1. If not, we can express \\(e\_i\\) as a linear combination of the __orthonormal eigenvectors__ of \\(A\\). (refer to the Equ 19-23).   
+briefly, \\(e\_i=\sum\_\{j=1\}^n\xi\_jv\_j\\) where \\(v\_j\\)'s are orthogonal and let \\(\lambda\_j\\) be the corresponding eigenvalues. Then 
+\\[r\_i = -Ae\_i = \sum\_\{j=1\}^n\xi\_j\lambda\_jv\_j\\]
+\\[ r\_i^Tr\_i =  (\sum\_\{j=1\}^n\xi\_j\lambda\_jv\_j)(\sum\_\{j=1\}^n\xi\_j\lambda\_jv\_j) = \sum\_\{j=1\}^n\xi\_j^2\lambda\_j^2\\]
+\\[r\_i^TAr\_i =  \sum\_\{j=1\}^n\xi\_j^2\lambda\_j^3\\]
+so that
+\\[e\_\{i+1\} = e\_i+ \frac\{r^T\_ir\_i\}\{r^T\_iAr_i\}r\_i\tag\{equ12\}\\]
+\\[e\_\{i+1\}=e\_i+\frac\{ \Sigma\_j \xi\_j^2\lambda\_j^2 \}\{ \Sigma\_j\xi\_j^2\lambda\_j^3 \}r\_i\\] where \\(\xi\_i\\) are weight of the linear combination.  
+> If all eigenvalues are same __(circular level set!),__ then \\(e\_\{i+1\}=0\\) !!
+1. __Later, in CG, we are going to minimize a distance which measures the level set of__ \\(A\\) __as circular.__
+2. 일반적인 케이스는 18p A-energy norm으로 분석가능 (condition number \\(k\\) 와 초기위치에 의해 결정되는 \\(\mu\\)에 의해 결정됨 (아래 식의 \\(\omega\\)는 \\(k, \mu\\)의 함수). \\(k\\)가 크거나, \\(k=\pm\mu\\)일시 수렴이 느림)
+\\[\|\|e\_\{i+1\}\|\|^2_A = \|\|e\_i\|\|^2_A\omega^2\\]
+6. upper bound 는 \\(k^2=\omega^2\\) (위의 조건)일 시,
+\\[\omega \leq \frac\{k-1\}\{k+1\}\\]
+... (refer to the paper)
 
 
-### Conjugacy
+### Conjugacy 
 
 - `Idea` : pick a set of `orthongonal search direction` \\(\\{d\_0,...,d\_\{n-1\}\\}\\), and take exactly one good step to each directions (to gaurantee \\(n\\) step convergence)
   - and we pick `A-orthogonal` \\(d\_i\\)s, i.e. \\(d\_i^TAd\_j=0\\).
+  - With such choice, \\(e\_\{i+1\}\\) __is A-orthogonal to__ \\(d\_i\\) (next error is A-orthogonal to the current search direction), since 
+  \\[ \frac\{\partial\}\{\partial \alpha\}f(x\_i+\alpha d\_i) = f'(x\_\{i+1\})^Td\_i = r\_\{i+1\}^Td\_i = (Ae\_i)^Td\_i = 0\\]
 - we __do not__ set \\(d\_i=r\_i\\) this time, so we have to find \\(\alpha\\) in the line search as  
   <img src="{{site.url}}/images/math/steepest_descent1.jpg" width="300"> 
 - following the derivation of equ30, \\[\alpha\_i = -\frac\{ d\_i^TAe\_i \}\{ d\_i^TAd\_i  \} = \frac\{ d\_i^Tr\_i \}\{ d\_i^TAd\_i  \} \tag\{31\}\\] which are the values we can calculate.
-
+- __Note that, if the search direction__ \\(d\_i\\) __were residuals, then the above is equivalent to performing steepest descent__
+ 
 #### N step convergence
 - express the error term \\(e\_0\\) as the linear combination of search direction \\(d\_i\\)s. \\[e\_0 = \sum\_\{j=0\}^\{n-1\} \delta\_jd\_j\\] Then by multiplying \\(d_k^TA\\) on both sides, we can calculate the weight (of the linear combination) \\(d\_k\\) by  
   <img src="{{site.url}}/images/math/steepest_descent2.jpg" width="1200">   
@@ -77,16 +96,16 @@ Then equ12 gives \\(e\_\{i+1\}=0\\) immediately (by many cancelations!)
   - For each step, we cut down the error term component by component
     \\[e\_i = e\_0 + \sum\_\{j=0\}^\{i-1\}\alpha\_jd\_j\\]
     \\[= \sum\_\{j=0\}^\{n-1\}\delta\_jd\_j - \sum\_\{j=0\}^\{i-1\}\delta\_jd\_j\quad\quad \text\{stepsize \}\alpha\_j=-\delta\_j\\]
-    \\[e\_i=\sum\_\{j=i\}^\{n-1\}\delta\_jd\_j\tag\{35\}\\]
+    \\[e\_i=\sum\_\{j=i\}^\{n-1\}\delta\_jd\_j\tag\{35\}\\] (epu29 refers to the update equation \\(x\_i+1=x\_i+\alphad\_i\\))
   - after \\(n\\) iteration, every component is cut away, and \\(e\_n=0\\); the proof is complete
-
 
 #### Gram-Schmidt Conjugation
 - like we did in <a href="{{site.url}}/linear_algebra/2018/05/15/orthonormal-basis.html" target="_blank">Gram-Schmidt</a>, to construct \\(d\_i\\) (to be A-orthogonal), take \\(u\_i\\) and subtrack any components that are not A-orthogonal to the previous \\(d\\) vectors. i.e. \\[d\_i=u\_i + \sum\_\{k=0\}^\{i-1\}\beta\_\{ik\}d\_k\\] where \\(\beta\_\{ik\}\\) is defined for \\(k < i \\) (thus, N^2 for finding each \\(d\_i\\), which gives \\(O(n^3)\\)). 
 - To calculate their values, use the same trick used to find \\(\delta\_j\\) (multiplying \\(d\_j^TA\\) to \\(d\_i\\) to find \\(\beta\_\{ij\}\\))  
   <img src="{{site.url}}/images/math/steepest_descent3.jpg" width="1200">   
-- when we use \\(d\_i\\) as the standard unit basis, the process of Gram-Schmidt conjugation is equivalent to performing Gaussian elimination.
+- when we use \\(d\_i\\) as the standard unit basis, the process of Gram-Schmidt conjugation is equivalent to performing Gaussian elimination. 
 
+> Remember that when one is performing the method of Conjugate Directions (including CG), one is simultaneously performing the method of Orthogonal Directions in a stretched (scaled) space
 
 #### Optimality of the Error Term
 Conjugate directions has an interesting property : Let \\(D\_i\\) be the i-dimensional subspace \\(\text\{span}\\{d\_0,...,d\_\{i-1\}\\}\\). The value \\(e\_i\\) is __chosen__ (by calculating \\(\alpha\_i\\), all the \\(\beta\_\{ik\}\\), and \\(d\_i\\)) from \\(e\_0+D\_i\\) in a manner which `minimizes the A-energy norm` \\(\|\|e\_i\|\|\_A\\). 
