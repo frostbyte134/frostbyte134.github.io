@@ -79,13 +79,21 @@ so that
 
 ### Conjugacy 
 
+- preliminary : 우리의 convex quadratic 문제에서는 \\(e\_\{i+1\}^Td\_i=0\\)이 항상 성립해야 함
+  - 
 - `Idea` : pick a set of `orthongonal search direction` \\(\\{d\_0,...,d\_\{n-1\}\\}\\), and take exactly one good step to each directions (to gaurantee \\(n\\) step convergence)
-  - and we pick `A-orthogonal` \\(d\_i\\)s, i.e. \\(d\_i^TAd\_j=0\\).
-  - With such choice, \\(e\_\{i+1\}\\) __is A-orthogonal to__ \\(d\_i\\) (next error is A-orthogonal to the current search direction), since 
-  \\[ \frac\{\partial\}\{\partial \alpha\}f(x\_i+\alpha d\_i) = f'(x\_\{i+1\})^Td\_i = r\_\{i+1\}^Td\_i = (Ae\_i)^Td\_i = 0\\]
-- we __do not__ set \\(d\_i=r\_i\\) this time, so we have to find \\(\alpha\\) in the line search as  
-  <img src="{{site.url}}/images/math/steepest_descent1.jpg" width="300"> 
-- following the derivation of equ30, \\[\alpha\_i = -\frac\{ d\_i^TAe\_i \}\{ d\_i^TAd\_i  \} = \frac\{ d\_i^Tr\_i \}\{ d\_i^TAd\_i  \} \tag\{31\}\\] which are the values we can calculate.
+  - 그렇게 골랐을 시, \\(e\_\{i\}\\)에서 \\(d\_i\\)에 orthogonal한 모든 성분을 뺀 것이 \\(e\_\{i+1\}\\)이기 때문에 (그람-슈미트), \\(e\_\{i+1\}^Td\_i\\)가 성립함
+  - 그러나 이 경우, stepsize alpha를 계산할 수 없음 (epu30 참고)
+- __instead__,  pick a set of `A-orthongonal search direction` \\(\\{d\_0,...,d\_\{n-1\}\\}\\), and take exactly one good step to each directions  
+  - \\(e\_\{i\}\\) \\(d\_i\\) 에 A-orthogonal한 모든 성분을 뺸 것이  \\(e\_\{i+1\}\\)이기 때문에 (A-그람 슈미트), \\(e\_\{i+1\}^TAd\_i=0\\)이 성립
+  - 이 equality는 `우연찮게도` 비교적 쉬운 convex 문제였던 line search를 arbitrary \\(d\_i\\)에 대해 풀었을 때의 optimality condition과 동일함. 
+  - 이 경우 stepsize alpha가 계산가능해 짐. optimality condition부터 시작하면,    
+    \\[-\frac\{\partial\}\{\partial \alpha\} f(x\_\{i+1\}) = 0\\]
+    \\[f'(x\_\{i+1\})^Td\_i = 0\\]
+    \\[-r\_\{i+t\}^Td\_i = 0\\]
+    \\[d\_i^TA\_e\{i+1\} = 0\\] 이 되어, line search optimality condition \\(\rightarrow\\) A-orthogonality가 되고 
+    \\[d\_i^TA(e\_i+\alpha\_id\_i)\\]
+    \\[\alpha\_i = -\frac\{ d\_i^TAe\_i \}\{ d\_i^TAd\_i  \} = \frac\{ d\_i^Tr\_i \}\{ d\_i^TAd\_i  \} \tag\{31\}\\] 가 되므로 stepsize \\(\alpha\\)를 계산할 수 있음
 - __Note that, if the search direction__ \\(d\_i\\) __were residuals, then the above is equivalent to performing steepest descent__
  
 #### N step convergence
@@ -96,11 +104,11 @@ so that
   - For each step, we cut down the error term component by component
     \\[e\_i = e\_0 + \sum\_\{j=0\}^\{i-1\}\alpha\_jd\_j\\]
     \\[= \sum\_\{j=0\}^\{n-1\}\delta\_jd\_j - \sum\_\{j=0\}^\{i-1\}\delta\_jd\_j\quad\quad \text\{stepsize \}\alpha\_j=-\delta\_j\\]
-    \\[e\_i=\sum\_\{j=i\}^\{n-1\}\delta\_jd\_j\tag\{35\}\\] (epu29 refers to the update equation \\(x\_i+1=x\_i+\alphad\_i\\))
+    \\[e\_i=\sum\_\{j=i\}^\{n-1\}\delta\_jd\_j\tag\{35\}\\] (epu29 refers to the update equation \\(x\_i+1=x\_i+\alpha d\_i\\))
   - after \\(n\\) iteration, every component is cut away, and \\(e\_n=0\\); the proof is complete
 
 #### Gram-Schmidt Conjugation
-- like we did in <a href="{{site.url}}/linear_algebra/2018/05/15/orthonormal-basis.html" target="_blank">Gram-Schmidt</a>, to construct \\(d\_i\\) (to be A-orthogonal), take \\(u\_i\\) and subtrack any components that are not A-orthogonal to the previous \\(d\\) vectors. i.e. \\[d\_i=u\_i + \sum\_\{k=0\}^\{i-1\}\beta\_\{ik\}d\_k\\] where \\(\beta\_\{ik\}\\) is defined for \\(k < i \\) (thus, N^2 for finding each \\(d\_i\\), which gives \\(O(n^3)\\)). 
+- like we did in <a href="{{site.url}}/linear_algebra/2018/05/15/orthonormal-basis.html" target="_blank">Gram-Schmidt</a>, to construct A-orthogonal \\(d\_i\\) from arbitrary basis \\(u\_i\\)s, take \\(u\_i\\) and subtrack any components that are not A-orthogonal to the previous \\(d\\) vectors. i.e. \\[d\_i=u\_i + \sum\_\{k=0\}^\{i-1\}\beta\_\{ik\}d\_k\\] where \\(\beta\_\{ik\}\\) is defined for \\(k < i \\) (thus, N^2 for finding each \\(d\_i\\), which gives \\(O(n^3)\\)). 
 - To calculate their values, use the same trick used to find \\(\delta\_j\\) (multiplying \\(d\_j^TA\\) to \\(d\_i\\) to find \\(\beta\_\{ij\}\\))  
   <img src="{{site.url}}/images/math/steepest_descent3.jpg" width="1200">   
 - when we use \\(d\_i\\) as the standard unit basis, the process of Gram-Schmidt conjugation is equivalent to performing Gaussian elimination. 
@@ -112,8 +120,12 @@ Conjugate directions has an interesting property : Let \\(D\_i\\) be the i-dimen
 
 TO prove, using equ35,  
 <img src="{{site.url}}/images/math/steepest_descent4.jpg" width="700">   
-we see that, the summation only has not yet traversed search direction \\(d\_j, j>i\\). Any other \\(e\in e\_0+D\_i\\) must have traversed \\(d\_j, j < i \\), so \\(e\_i\\) must have the minimum energy norm.
-
+we see that, the summation only has not yet traversed search direction \\(d\_j, j>i\\). Any other \\(e\in e\_0+D\_i\\) must include previously traversed directions \\(d\_j, j < i \\) in its linear combination, so \\(e\_i\\) must have the minimum energy norm.
+- 어떻게 매 단계 \\(i\\) 마다, 에러 벡터 \\(e\_i\\) 에서 A-orthogonal한 \\(d\_i\\) 컴포넌트를 지울 수 있는가? - 원래 문제가 컨벡스 문제이고, line search (convex function on convex doamin)도 컨벡스 문제이기 때문
+  - 그렇다면 왜 steepest descent에서는 이런 좋은 현상이 나지 못했나?
+    - search direction끼리 orthogonal하지 않았기 때문에? (현재 포인트 \\(x\_0\\)에 의해 좌우되는 \\(f'(x\_0)\\)) 
+    - 왜 A-orthogonal한 search direction이어야 했나? - 
+  
 - We are minimizing A-energy norm - which is equivalent to changing the basis to the space where the level set of \\(A\\) is circular (not ellipsoidal) (to check this, do spectral decomposition \\(x^TQAQ^Tx\\) and put any orthonormal eigenvector \\(q\_i\\) to \\(x\\))= stretching the space!
 
 
