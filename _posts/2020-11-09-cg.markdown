@@ -78,33 +78,31 @@ so that
 
 
 ### Conjugacy 
-
-- preliminary : 우리의 convex quadratic 문제에서는 \\(e\_\{i+1\}^Td\_i=0\\)이 항상 성립해야 함
-  - 
-- `Idea` : pick a set of `orthongonal search direction` \\(\\{d\_0,...,d\_\{n-1\}\\}\\), and take exactly one good step to each directions (to gaurantee \\(n\\) step convergence)
-  - 그렇게 골랐을 시, \\(e\_\{i\}\\)에서 \\(d\_i\\)에 orthogonal한 모든 성분을 뺀 것이 \\(e\_\{i+1\}\\)이기 때문에 (그람-슈미트), \\(e\_\{i+1\}^Td\_i\\)가 성립함
-  - 그러나 이 경우, stepsize alpha를 계산할 수 없음 (epu30 참고)
-- __instead__,  pick a set of `A-orthongonal search direction` \\(\\{d\_0,...,d\_\{n-1\}\\}\\), and take exactly one good step to each directions  
-  - \\(e\_\{i\}\\) \\(d\_i\\) 에 A-orthogonal한 모든 성분을 뺸 것이  \\(e\_\{i+1\}\\)이기 때문에 (A-그람 슈미트), \\(e\_\{i+1\}^TAd\_i=0\\)이 성립
-  - 이 equality는 `우연찮게도` 비교적 쉬운 convex 문제였던 line search를 arbitrary \\(d\_i\\)에 대해 풀었을 때의 optimality condition과 동일함. 
-  - 이 경우 stepsize alpha가 계산가능해 짐. optimality condition부터 시작하면,    
+- `idea` : pick a set of `orthongonal search direction` \\(\\{d\_0,...,d\_\{n-1\}\\}\\), and take exactly one good step to each directions  
+  - \\(e\_\{i\}\\)에서 \\(d\_i\\) 에 orthogonal한 모든 성분을 뺸 것이  \\(e\_\{i+1\}\\)이기 때문에, \\(e\_\{i+1\}^Td\_i=0\\)이 성립\
+  - 왜 이 접근이 좋지 않은지 보강이 좀 필요
+- __instead__, pick a set of `A-orthongonal search direction` \\(\\{d\_0,...,d\_\{n-1\}\\}\\), and take exactly one good step to each directions  
+  - \\(e\_\{i\}\\)에서 \\(d\_i\\) 에 A-orthogonal한 모든 성분을 뺸 것이  \\(e\_\{i+1\}\\)이기 때문에, \\(e\_\{i+1\}^TAd\_i=0\\)이 성립
+  - 이 equality는 비교적 쉬운 convex 문제였던 line search를 arbitrary \\(d\_i\\)에 대해 풀었을 때의 optimality condition과 동일함. (오히려, 여기서 시작해서 A-orthogonality of \\(d\_i\\) vectors로 갔다고 보는 게 맞을 듯)
+  - proof : optimality condition부터 시작하면,    
     \\[-\frac\{\partial\}\{\partial \alpha\} f(x\_\{i+1\}) = 0\\]
     \\[f'(x\_\{i+1\})^Td\_i = 0\\]
-    \\[-r\_\{i+t\}^Td\_i = 0\\]
-    \\[d\_i^TA\_e\{i+1\} = 0\\] 이 되어, line search optimality condition \\(\rightarrow\\) A-orthogonality가 되고 
+    \\[-r\_\{i+1\}^Td\_i = 0\\]
+    \\[d\_i^TAe\_\{i+1\} = 0\\] 이 되어, line search optimality condition \\(\rightarrow\\) A-orthogonality (between next error and current search direction) 가 되고 
     \\[d\_i^TA(e\_i+\alpha\_id\_i)\\]
-    \\[\alpha\_i = -\frac\{ d\_i^TAe\_i \}\{ d\_i^TAd\_i  \} = \frac\{ d\_i^Tr\_i \}\{ d\_i^TAd\_i  \} \tag\{31\}\\] 가 되므로 stepsize \\(\alpha\\)를 계산할 수 있음
+    \\[\alpha\_i = -\frac\{ d\_i^TAe\_i \}\{ d\_i^TAd\_i  \} = \frac\{ d\_i^Tr\_i \}\{ d\_i^TAd\_i  \} \tag\{31\}\\] 가 됨. 
 - __Note that, if the search direction__ \\(d\_i\\) __were residuals, then the above is equivalent to performing steepest descent__
  
 #### N step convergence
 - express the error term \\(e\_0\\) as the linear combination of search direction \\(d\_i\\)s. \\[e\_0 = \sum\_\{j=0\}^\{n-1\} \delta\_jd\_j\\] Then by multiplying \\(d_k^TA\\) on both sides, we can calculate the weight (of the linear combination) \\(d\_k\\) by  
   <img src="{{site.url}}/images/math/steepest_descent2.jpg" width="1200">   
+  (epu29 refers to the update equation \\(x\_\{i+1\}=x\_i+\alpha d\_i\\))
 - in 4th line, we use __the assumption__ \\(d\_k^TAd\_j = 0 \text\{ for \} k\neq j\\)
 - __notice that__, by combining equ31 and equ34, we find that \\(\alpha\_i=\delta\_i\\). This fact gives us a new way to look at \\(e\_i\\).
   - For each step, we cut down the error term component by component
     \\[e\_i = e\_0 + \sum\_\{j=0\}^\{i-1\}\alpha\_jd\_j\\]
     \\[= \sum\_\{j=0\}^\{n-1\}\delta\_jd\_j - \sum\_\{j=0\}^\{i-1\}\delta\_jd\_j\quad\quad \text\{stepsize \}\alpha\_j=-\delta\_j\\]
-    \\[e\_i=\sum\_\{j=i\}^\{n-1\}\delta\_jd\_j\tag\{35\}\\] (epu29 refers to the update equation \\(x\_i+1=x\_i+\alpha d\_i\\))
+    \\[e\_i=\sum\_\{j=i\}^\{n-1\}\delta\_jd\_j\tag\{35\}\\] 
   - after \\(n\\) iteration, every component is cut away, and \\(e\_n=0\\); the proof is complete
 
 #### Gram-Schmidt Conjugation
