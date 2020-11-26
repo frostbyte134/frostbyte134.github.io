@@ -16,10 +16,10 @@ tags: linear_algebra math need_review
 3. 우선 negative gradient direction \\(r\_i\\) 이 현재 \\(x\_i\\)에서 함수값이 가장 감소하는 방향이니까, \\(d\_i=r\_i\\)로 진행  
    \\(\rightarrow\\) `steepest descent`
    *  convex quadratic 함수의 level set 이 찌그러진 타원 모양일 때 = eigenvalue들이 잘 클러스터링 돼있지 않을 시 수렴이 느림
-5. A-orthonormal한 \\(d\_i\\)를 사용하고, 이 \\(d\_i\\)는 residual \\(r\_i\\)로부터 Conjugate Gram-Schimidt를 수행해 찾음  
+5. A-orthonormal한 \\(d\_i\\)를 사용하고, 이 \\(d\_i\\)는 residual \\(r\_i\\)로부터 Conjugate <a href="{{site.url}}/linear_algebra/2018/05/15/orthonormal-basis.html" target="_blank">Gram-Schmidt</a>를 수행해 찾음  
    \\(\rightarrow\\) `conjugate gradient`
-   *  A-energy norm을 최소화하는 것이므로, "찌그러진 타원이 펴지는" 거리(norm)를 사용해 측정한 에러 \\(e\_i=x\_i- x^* \\)를 최소화하는 것 - 타원을 핀 공간에서 알고리즘을 진행하려는 것과 비슷 (이 비슷 부분을 명확하게 정리해야 할 듯)
-   *  Conjugate Gram-Schmidt과정은 원래 N^3이나, 여러 nice property로 인해 이전 \\(r\_i\\)들을 저장할 필요가 없게 됨 - N이 하나 줄거나 O(M) (M=nonzery entries of A)이 됨
+   * A-energy norm을 최소화하는 것이므로, "<a href="{{site.url}}/linear_algebra/2018/05/24/ellipsoids-and-pst-mat.html">찌그러진 타원</a>이 펴지는" 거리(norm)를 사용해 측정한 에러 \\(e\_i=x\_i- x^* \\)를 최소화하는 것 - 타원을 핀 공간에서 알고리즘을 진행하려는 것과 비슷 (이 비슷 부분을 명확하게 정리해야 할 듯)
+   * Conjugate Gram-Schmidt과정은 원래 N^3이나, 여러 nice property로 인해 이전 \\(r\_i\\)들을 저장할 필요가 없게 됨 - N이 하나 줄거나 O(M) (M=nonzery entries of A)이 됨
 
 ### Intro, Notation
 
@@ -148,13 +148,41 @@ TO prove, using equ35,
 - An important property is that, \\(r\_j\\) is orthogonal to \\(\mathcal\{D\}\_i,\\ \\ j>i\\). To show this, multiply \\(-d\_i^TA\\) to equ35
 \\[-d\_i^TAe\_j = - \sum\_\{j=1\}^\{n-1\}\delta\_jd\_i^TAd\_j\tag\{38\}\\]
 \\[-d\_i^Tr\_j=0 \quad j>i\quad\text\{by A-orthogonality of d-vectors\}\tag\{39\}\\]  
-  - remember that \\(r\_i=-Ae\_i\\) by out problem definiton (only applicable on good quadratic funcs!)
-- because \\(d\_i\\)s are constructed from \\(u\\) vectors, \\(D\_i\\) also can be spanned by \\(\\{u\_0,...,u\_\{i-1\}\\}\\)
+- because \\(d\_i\\)s are constructed from the \\(u\\) vectors, \\(D\_i\\) also can be spanned by \\(\\{u\_0,...,u\_\{i-1\}\\}\\)
+ the search direction.
+- by equ39, we see that residual \\(r\_i\\) is orthogonal the previous search directions \\(d\_j, j < i \\).
+  \\[d\_i^Tr\_j=u\_i^Tr\_j + \sum\_\{k=0\}^\{i-1\}\beta\_\{ik\}d\_k^Tr\_j\\]
+  (remember that \\(d\_i\\) was generated from \\(u\_i\\) by conjugacy)  
+  \\[0 = u\_i^Tr\_j\quad\quad \text\{(by 39)\}\tag\{41\}\\]  
+  which gives us
+  \\[d\_i^Tr\_i = u\_i^Tr\_i\tag\{40\}\\]
+- now let us set \\(u\_i=r\_i\\). we see that equ41 becomes \\(r\_i^Tr\_j=0\\), so residual is orthogonal to the previous residuals - which implies independence
+\\[r\_i^Tr\_j=0,\quad\quad i\neq j\tag\{44\}\\]
 
-- in CG, the search directions are constructed by the conjugation of the residuals \\(u\_i=r\_i\\). We use residuals to construct the search direction.
-- by equ39, we see that residual \\(r\_i\\) is orthogonal the previous search directions \\(d\_j, j<i\\).
-- now equ41 becomes \\(r\_i^Tr\_j=0\\), so residual is orthogonal to the previous residuals - which implies independence
+Recall from equ37 that the A-Gram Schmidt constant \\(\beta\_\{ij\}\\) were
+\\[\beta\_\{ij\}= -\frac\{u\_i^TAd\_j\}\{d\_j^TAd\_j\} = -\frac\{r\_i^TAd\_j\}\{d\_j^TAd\_j\}\quad\quad i>j\\]
+Taking the inner product \\(r\_i^Tr\_j\quad\forall i,j \\) and using Equ43 (next residual)
+\\[r\_i^Tr\_\{j+1\} = r\_i^Tr\_j - \alpha\_jr\_i^TAd\_j \\]
+\\[ \alpha\_jr\_i^TAd\_j = r\_i^Tr\_j - r\_i^Tr\_\{j+1\} \\]
+\\[ r\_i^TAd\_j = 
+\begin\{cases\}
+\frac\{1\}\{\alpha\_i\}r\_i^Tr\_j, & i = j \cr
+-\frac\{1\}\{\alpha\_\{i-1\}\}r\_i^Tr\_j, & i = j+1 & \text\{by (44)\} \cr
+0, & o.w 
+\end\{cases\}
+\\]
+so that, equ37 (\\(\beta\_\{ij\}\\)) is reduced to
+\\[ \beta\_\{ij\} = 
+\begin\{cases\}
+\frac\{1\}\{\alpha\_\{i-1\}\}\frac\{r\_i^Tr\_j\}\{d\_\{i-1\}^TAd\_\{i-1\}\}, & i = j+1 & \text\{by (37)\} \\\
+0, & i>j+1
+\end\{cases\}
+\\]
+- Per iteration time complexity reduced from N^2 to N or M, where M is the nonzero entries of \\(A\\).
+- there is no dependencies to \\(j\\), so we can abbreviate \\(\beta\_\{ij\}\\) as \\(\beta\_i\\)  
 
+
+ <img src="{{site.url}}/images/math/cg.jpg" width="1000">
 
 #### Krylov subspace
 in `next residual` term \\[r\_\{i+1\}=r\_i-\alpha\_iAd\_i\\], we see that each new residual \\(r\_\{i+1\}\\) is a linear combination of previous residual \\(r\_i\\) and A\\(d\_i\\). 
