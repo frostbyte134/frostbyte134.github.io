@@ -19,7 +19,7 @@ tags: linear_algebra math need_review
 5. A-orthonormal한 \\(d\_i\\)를 사용하고, 이 \\(d\_i\\)는 residual \\(r\_i\\)로부터 Conjugate <a href="{{site.url}}/linear_algebra/2018/05/15/orthonormal-basis.html" target="_blank">Gram-Schmidt</a>를 수행해 찾음  
    \\(\rightarrow\\) `conjugate gradient`
    * A-energy norm을 최소화하는 것이므로, "<a href="{{site.url}}/linear_algebra/2018/05/24/ellipsoids-and-pst-mat.html">찌그러진 타원</a>이 펴지는" 거리(norm)를 사용해 측정한 에러 \\(e\_i=x\_i- x^* \\)를 최소화하는 것 - 타원을 핀 공간에서 알고리즘을 진행하려는 것과 비슷 (이 비슷 부분을 명확하게 정리해야 할 듯)
-   * Conjugate Gram-Schmidt과정은 원래 N^3이나, 여러 nice property로 인해 이전 \\(r\_i\\)들을 저장할 필요가 없게 됨 - N이 하나 줄거나 O(M) (M=nonzery entries of A)이 됨
+   * Conjugate Gram-Schmidt과정은 원래 N^2이나, 여러 nice property로 인해 이전 \\(r\_i\\)들을 저장할 필요가 없게 됨 - N이 하나 줄거나 O(M) (M=nonzery entries of A)이 됨
 
 ### Intro, Notation
 
