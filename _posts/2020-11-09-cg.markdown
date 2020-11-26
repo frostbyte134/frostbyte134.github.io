@@ -7,7 +7,15 @@ use_math: true
 tags: linear_algebra math need_review
 ---
 
-* revision in 20.11.23
+
+정리 (revision in 20.11.26)
+1. 기본적으로 알고리즘 진행 시 line search의 optimality condition : \\(e\_\{i+1\}^TAd\_i=0\\)을 만족해야 함
+2. 여기서 우리에겐 search direction \\(d\_i\\)를 선택할 수 있는 자유가 있음
+3. 기본적으로 negative gradient direction \\(r\_i\\) 이 현재 \\(x\_i\\)에서 함수값이 가장 감소하는 방향이니까, \\(d\_i=r\_i\\)로 한다 = steepest descent
+   1. convex quadratic 함수의 level set 이 찌그러진 타원 모양일 때 = eigenvalue들이 잘 클러스터링 돼있지 않을 시 수렴이 느림
+4. A-orthonormal한 \\(d\_i\\)를 사용하고, 이 \\(d\_i\\)는 residual \\(r\_i\\)로부터 Conjugate Gram-Schimidt를 수행해 찾음
+   1. A-energy norm을 최소화하는 것이므로, "찌그러진 타원이 펴지는" 방향으로 측정한 에러 \\(e\_i=x\_i- x^* \\)를 최소화하는 것 - 타원을 핀 공간에서 알고리즘을 진행하려는 것과 비슷 (이 비슷 부분을 명확하게 정리해야 할 듯)
+   2. Conjugate Gram-Schmidt과정은 원래 N^3이나, 여러 nice property로 인해 이전 벡터를 저장할 필요가 없게 됨 - N이 하나 줄거나 O(M) (M=nonzery entries of A)이 됨
 
 <a href="https://www.cs.cmu.edu/~quake-papers/painless-conjugate-gradient.pdf" target="_blank">https://www.cs.cmu.edu/~quake-papers/painless-conjugate-gradient.pdf</a>
 
@@ -43,7 +51,7 @@ so that
 
 #### Line search
 
-- Generally it is not easy to determine the stepsize, but with the condition above the optimal stepsize \\(\alpha\\) in Steepdest descent can be found by solving closed form problem
+- Generally it is not easy to determine the stepsize, but with the condition above the optimal \\(\alpha\_i\\) in Steepdest descent can be found by solving closed form problem
 - Since \\(f\\) were convex, the composition function \\(f(x\_i+\alpha r\_i)\\) is also a convex function (convex function on a convex domain (line)). We set derivative to 0 so that
 - \\(\frac\{\partial\}\{\partial \alpha\}f(x\_i+\alpha r\_i) = f'(x\_i+\alpha r\_i)^Tr\_i = f'(x\_\{i+1\})^Tr\_i = 0 \\)
 - we see that, the search direction is orthogonal to the gradient (of the next point \\(x\_\{i+1\}\\))
@@ -78,6 +86,20 @@ so that
 
 
 ### Conjugacy 
+
+1. starting point : optimality condition of the line search
+  \\[\frac\{\partial\}\{\partial \alpha\} f(x\_\{i+1\}) = 0\\]
+  \\[f'(x\_\{i+1\})^Td\_i = 0\\]
+  \\[-r\_\{i+1\}^Td\_i = 0\\]
+  \\[d\_i^TAe\_\{i+1\} = 0\\] 
+  which suggests that, during the course of our algorithm, we must have \\(d\_i^TAe\_\{i+1\} = 0\\).
+2. Given that \\(e\_\{i+1\} = x\_\{i+1\} - x^* = x\_0 + \sum\_\{i=0\}^\{n-1\} \alpha\_i d\_i - x^* \\), above equation implies that we need `A-orthogonality` between search direction vectors \\(d\_i\\)
+  \\[d_i^TA(x\_0 + \sum\_\{i=0\}^\{n\}\alpha\_id\_i - x^* )=0\\]
+  \\[d_i^TA(x\_0-x^* ) + d_i^TA(\sum\_\{i=0\}^\{n\}\alpha\_id\_i)=0\\]
+  if we indeed introduce `A-orthogonality` between search direction vectors \\(d\_i\\), then
+  \\[d_i^TA(x\_0-x^* ) + \alpha\_id_i^TAd\_i=0\\]
+  \\[\alpha\_i = \frac\{d_i^TAr\_i\}\{d_i^TAd\_i\} \\]
+
 - `idea` : pick a set of `orthongonal search direction` \\(\\{d\_0,...,d\_\{n-1\}\\}\\), and take exactly one good step to each directions  
   - \\(e\_\{i\}\\)에서 \\(d\_i\\) 에 orthogonal한 모든 성분을 뺸 것이  \\(e\_\{i+1\}\\)이기 때문에, \\(e\_\{i+1\}^Td\_i=0\\)이 성립\
   - 왜 이 접근이 좋지 않은지 보강이 좀 필요
@@ -85,7 +107,7 @@ so that
   - \\(e\_\{i\}\\)에서 \\(d\_i\\) 에 A-orthogonal한 모든 성분을 뺸 것이  \\(e\_\{i+1\}\\)이기 때문에, \\(e\_\{i+1\}^TAd\_i=0\\)이 성립
   - 이 equality는 비교적 쉬운 convex 문제였던 line search를 arbitrary \\(d\_i\\)에 대해 풀었을 때의 optimality condition과 동일함. (오히려, 여기서 시작해서 A-orthogonality of \\(d\_i\\) vectors로 갔다고 보는 게 맞을 듯)
   - proof : optimality condition부터 시작하면,    
-    \\[-\frac\{\partial\}\{\partial \alpha\} f(x\_\{i+1\}) = 0\\]
+    \\[\frac\{\partial\}\{\partial \alpha\} f(x\_\{i+1\}) = 0\\]
     \\[f'(x\_\{i+1\})^Td\_i = 0\\]
     \\[-r\_\{i+1\}^Td\_i = 0\\]
     \\[d\_i^TAe\_\{i+1\} = 0\\] 이 되어, line search optimality condition \\(\rightarrow\\) A-orthogonality (between next error and current search direction) 가 되고 
