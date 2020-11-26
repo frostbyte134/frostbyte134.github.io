@@ -1,23 +1,25 @@
 ---
 layout: post
 title:  "Conjugate Gradient"
-date:   2020-11-09 09:00:05 +0800
+date:   2020-11-26 09:00:05 +0800
 categories: linear_algebra
 use_math: true
 tags: linear_algebra math need_review
 ---
 
+> <a href="https://www.cs.cmu.edu/~quake-papers/painless-conjugate-gradient.pdf" target="_blank">https://www.cs.cmu.edu/~quake-papers/painless-conjugate-gradient.pdf</a>
+
 
 정리 (revision in 20.11.26)
-1. 기본적으로 알고리즘 진행 시 line search의 optimality condition : \\(e\_\{i+1\}^TAd\_i=0\\)을 만족해야 함
+1. 전제조건 = 알고리즘 진행 시 line search의 optimality condition : \\(e\_\{i+1\}^TAd\_i=0\\)을 만족해야 함
 2. 여기서 우리에겐 search direction \\(d\_i\\)를 선택할 수 있는 자유가 있음
-3. 기본적으로 negative gradient direction \\(r\_i\\) 이 현재 \\(x\_i\\)에서 함수값이 가장 감소하는 방향이니까, \\(d\_i=r\_i\\)로 한다 = steepest descent
-   1. convex quadratic 함수의 level set 이 찌그러진 타원 모양일 때 = eigenvalue들이 잘 클러스터링 돼있지 않을 시 수렴이 느림
-4. A-orthonormal한 \\(d\_i\\)를 사용하고, 이 \\(d\_i\\)는 residual \\(r\_i\\)로부터 Conjugate Gram-Schimidt를 수행해 찾음
-   1. A-energy norm을 최소화하는 것이므로, "찌그러진 타원이 펴지는" 방향으로 측정한 에러 \\(e\_i=x\_i- x^* \\)를 최소화하는 것 - 타원을 핀 공간에서 알고리즘을 진행하려는 것과 비슷 (이 비슷 부분을 명확하게 정리해야 할 듯)
-   2. Conjugate Gram-Schmidt과정은 원래 N^3이나, 여러 nice property로 인해 이전 벡터를 저장할 필요가 없게 됨 - N이 하나 줄거나 O(M) (M=nonzery entries of A)이 됨
-
-<a href="https://www.cs.cmu.edu/~quake-papers/painless-conjugate-gradient.pdf" target="_blank">https://www.cs.cmu.edu/~quake-papers/painless-conjugate-gradient.pdf</a>
+3. 우선 negative gradient direction \\(r\_i\\) 이 현재 \\(x\_i\\)에서 함수값이 가장 감소하는 방향이니까, \\(d\_i=r\_i\\)로 진행  
+   \\(\rightarrow\\) `steepest descent`
+   *  convex quadratic 함수의 level set 이 찌그러진 타원 모양일 때 = eigenvalue들이 잘 클러스터링 돼있지 않을 시 수렴이 느림
+5. A-orthonormal한 \\(d\_i\\)를 사용하고, 이 \\(d\_i\\)는 residual \\(r\_i\\)로부터 Conjugate Gram-Schimidt를 수행해 찾음  
+   \\(\rightarrow\\) `conjugate gradient`
+   *  A-energy norm을 최소화하는 것이므로, "찌그러진 타원이 펴지는" 거리(norm)를 사용해 측정한 에러 \\(e\_i=x\_i- x^* \\)를 최소화하는 것 - 타원을 핀 공간에서 알고리즘을 진행하려는 것과 비슷 (이 비슷 부분을 명확하게 정리해야 할 듯)
+   *  Conjugate Gram-Schmidt과정은 원래 N^3이나, 여러 nice property로 인해 이전 \\(r\_i\\)들을 저장할 필요가 없게 됨 - N이 하나 줄거나 O(M) (M=nonzery entries of A)이 됨
 
 ### Intro, Notation
 
@@ -31,7 +33,7 @@ tags: linear_algebra math need_review
 - If \\(A\\) does not have such properties, CG (and steepest descent) will likely fail (by finding saddle point)
 - The value of \\(b\\) and \\(c\\) determine where the minimum point of the paraboloid (=level set of quadratic func) lies, but do not affect the paraboloid's shape
 
-### Steepest Descent
+#### Problem setting
 Let us define
 * `error` \\(e\_i := x\_i - x^* \\), where \\(x^*\\) is a solution.
 * `residual` \\(r\_i=b-Ax\_i\\)
@@ -42,18 +44,29 @@ Let us define
   * with the next search direction \\(d\_i\\),
     * `next error` \\(e\_\{i+1\}=e\_i+\alpha d\_i,\quad\quad\\) since \\(e\_\{i+1\} = x\_\{i+1\}-x^* = x\_i+\alpha d\_i - x^* = e\_i+\alpha d\_i\\)
     * `next residual` \\(r\_\{i+1\} = r\_i-\alpha Ad\_i,\quad\quad\\) since \\(-Ae\_\{i+1\} = -A(e\_i+\alpha d\_i) = r\_i-\alpha Ad\_i\\)
-* __Note that,__ \\(-r\_i = f'(x\_i)\\) in our problem setting
-* In the _steepest descent,_ we will go down to the negative gradient direction (\\(f\\) is continuous function)
-\\[d\_i=r\_i\\]
-so that
-\\[x\_\{i+1\} = x\_i+\alpha r\_i\\]
-
+* __Note that,__ 
+  * \\(-r\_i = f'(x\_i)\\) in our problem setting
+  * we cannot calculate \\(e\_i\\), but by mapping them with \\(A\\) we can calculate \\(r\_i\\)
 
 #### Line search
 
-- Generally it is not easy to determine the stepsize, but with the condition above the optimal \\(\alpha\_i\\) in Steepdest descent can be found by solving closed form problem
+- Generally it is not an trivial thing to determine the stepsize \\(\alpha\_i\\)
+- but under the above (good) problem we can found it in a closed form
 - Since \\(f\\) were convex, the composition function \\(f(x\_i+\alpha r\_i)\\) is also a convex function (convex function on a convex domain (line)). We set derivative to 0 so that
-- \\(\frac\{\partial\}\{\partial \alpha\}f(x\_i+\alpha r\_i) = f'(x\_i+\alpha r\_i)^Tr\_i = f'(x\_\{i+1\})^Tr\_i = 0 \\)
+\\[\frac\{\partial\}\{\partial \alpha\}f(x\_i+\alpha r\_i) = f'(x\_i+\alpha r\_i)^Tr\_i = f'(x\_\{i+1\})^Td\_i = -r\_\{i+1\}^Td\_i = 0 \\]
+\\[ r\_\{i+1\}^Td\_i = e\_\{i+1\}^TAd\_i = 0 \\]
+  is the optimality condition in each step of the algorithms this page will cover.
+
+
+### Steepest Descent
+In the _steepest descent,_ we will go down to the negative gradient direction (\\(f\\) is continuous function)
+\\[d\_i=r\_i\\]
+so that the algorithm proceeds as
+\\[x\_\{i+1\} = x\_i+\alpha r\_i\\]
+
+
+#### Line search in Steepest descent
+- letting \\(d\_i=r\_i\\), we see that \\[\frac\{\partial\}\{\partial \alpha\}f(x\_i+\alpha d\_i) = f'(x\_i+\alpha d\_i)^Td\_i = f'(x\_\{i+1\})^Td\_i = 0 \\]
 - we see that, the search direction is orthogonal to the gradient (of the next point \\(x\_\{i+1\}\\))
 - <img src="{{site.url}}/images/math/steepest_descent_alp.jpg" width="600">  
 - \\(\alpha = \frac\{r^T\_ir\_i\}\{r^T\_iAr_i\}\\)
@@ -85,47 +98,32 @@ so that
 ... (refer to the paper)
 
 
-### Conjugacy 
+### Conjugate Gradient
 
-1. starting point : optimality condition of the line search
-  \\[\frac\{\partial\}\{\partial \alpha\} f(x\_\{i+1\}) = 0\\]
-  \\[f'(x\_\{i+1\})^Td\_i = 0\\]
-  \\[-r\_\{i+1\}^Td\_i = 0\\]
-  \\[d\_i^TAe\_\{i+1\} = 0\\] 
-  which suggests that, during the course of our algorithm, we must have \\(d\_i^TAe\_\{i+1\} = 0\\).
-2. Given that \\(e\_\{i+1\} = x\_\{i+1\} - x^* = x\_0 + \sum\_\{i=0\}^\{n-1\} \alpha\_i d\_i - x^* \\), above equation implies that we need `A-orthogonality` between search direction vectors \\(d\_i\\)
-  \\[d_i^TA(x\_0 + \sum\_\{i=0\}^\{n\}\alpha\_id\_i - x^* )=0\\]
-  \\[d_i^TA(x\_0-x^* ) + d_i^TA(\sum\_\{i=0\}^\{n\}\alpha\_id\_i)=0\\]
-  if we indeed introduce `A-orthogonality` between search direction vectors \\(d\_i\\), then
-  \\[d_i^TA(x\_0-x^* ) + \alpha\_id_i^TAd\_i=0\\]
-  \\[\alpha\_i = \frac\{d_i^TAr\_i\}\{d_i^TAd\_i\} \\]
+>  Here’s an idea: let’s pick a set of A-orthogonal search directions \\(\\{d\_0,...,d\_\{n-1\}\\}\\). In each search direction, we’ll take exactly one step, and that step will be just the right length to line up evenly with \\(x\\). After \\(n\\) steps, we’ll be done. <a href="https://www.cs.cmu.edu/~quake-papers/painless-conjugate-gradient.pdf" target="_blank">(page 21)</a>
 
-- `idea` : pick a set of `orthongonal search direction` \\(\\{d\_0,...,d\_\{n-1\}\\}\\), and take exactly one good step to each directions  
-  - \\(e\_\{i\}\\)에서 \\(d\_i\\) 에 orthogonal한 모든 성분을 뺸 것이  \\(e\_\{i+1\}\\)이기 때문에, \\(e\_\{i+1\}^Td\_i=0\\)이 성립\
-  - 왜 이 접근이 좋지 않은지 보강이 좀 필요
-- __instead__, pick a set of `A-orthongonal search direction` \\(\\{d\_0,...,d\_\{n-1\}\\}\\), and take exactly one good step to each directions  
-  - \\(e\_\{i\}\\)에서 \\(d\_i\\) 에 A-orthogonal한 모든 성분을 뺸 것이  \\(e\_\{i+1\}\\)이기 때문에, \\(e\_\{i+1\}^TAd\_i=0\\)이 성립
-  - 이 equality는 비교적 쉬운 convex 문제였던 line search를 arbitrary \\(d\_i\\)에 대해 풀었을 때의 optimality condition과 동일함. (오히려, 여기서 시작해서 A-orthogonality of \\(d\_i\\) vectors로 갔다고 보는 게 맞을 듯)
-  - proof : optimality condition부터 시작하면,    
-    \\[\frac\{\partial\}\{\partial \alpha\} f(x\_\{i+1\}) = 0\\]
-    \\[f'(x\_\{i+1\})^Td\_i = 0\\]
-    \\[-r\_\{i+1\}^Td\_i = 0\\]
-    \\[d\_i^TAe\_\{i+1\} = 0\\] 이 되어, line search optimality condition \\(\rightarrow\\) A-orthogonality (between next error and current search direction) 가 되고 
-    \\[d\_i^TA(e\_i+\alpha\_id\_i)\\]
-    \\[\alpha\_i = -\frac\{ d\_i^TAe\_i \}\{ d\_i^TAd\_i  \} = \frac\{ d\_i^Tr\_i \}\{ d\_i^TAd\_i  \} \tag\{31\}\\] 가 됨. 
-- __Note that, if the search direction__ \\(d\_i\\) __were residuals, then the above is equivalent to performing steepest descent__
- 
+
+Starting from the optimality condition \\(d\_i^TAe\_\{i+1\} = 0\\), let us select \\(d\_0,...,d\_\{n-1\}\\) as the A-orthogonal (i.e. \\(d\_i^TAd\_j = 0\\)) vectors.  
+The optimality condition becomes
+\\[d\_i^TA(e\_i + \alpha\_id\_i) = 0\\]
+\\[d_i^TAe\_i + \alpha\_id_i^TAd\_i=0\\]
+\\[\alpha\_i = -\frac\{d_i^TAr\_i\}\{d_i^TAd\_i\} \\]
+
+Such algorithm has several nice property, which makes it as a practical algorithm (often applicable to large problem which cannot be fit into the memory using Jacobi method)
+
+
 #### N step convergence
 - express the error term \\(e\_0\\) as the linear combination of search direction \\(d\_i\\)s. \\[e\_0 = \sum\_\{j=0\}^\{n-1\} \delta\_jd\_j\\] Then by multiplying \\(d_k^TA\\) on both sides, we can calculate the weight (of the linear combination) \\(d\_k\\) by  
   <img src="{{site.url}}/images/math/steepest_descent2.jpg" width="1200">   
   (epu29 refers to the update equation \\(x\_\{i+1\}=x\_i+\alpha d\_i\\))
 - in 4th line, we use __the assumption__ \\(d\_k^TAd\_j = 0 \text\{ for \} k\neq j\\)
-- __notice that__, by combining equ31 and equ34, we find that \\(\alpha\_i=\delta\_i\\). This fact gives us a new way to look at \\(e\_i\\).
-  - For each step, we cut down the error term component by component
+- __notice that__, by combining equ31 and equ34, we find that \\(\alpha\_i=-\delta\_i\\). This fact gives us a new way to look at \\(e\_i\\).
+  - __For each step, we cut down the error term component by component__
     \\[e\_i = e\_0 + \sum\_\{j=0\}^\{i-1\}\alpha\_jd\_j\\]
     \\[= \sum\_\{j=0\}^\{n-1\}\delta\_jd\_j - \sum\_\{j=0\}^\{i-1\}\delta\_jd\_j\quad\quad \text\{stepsize \}\alpha\_j=-\delta\_j\\]
     \\[e\_i=\sum\_\{j=i\}^\{n-1\}\delta\_jd\_j\tag\{35\}\\] 
   - after \\(n\\) iteration, every component is cut away, and \\(e\_n=0\\); the proof is complete
+
 
 #### Gram-Schmidt Conjugation
 - like we did in <a href="{{site.url}}/linear_algebra/2018/05/15/orthonormal-basis.html" target="_blank">Gram-Schmidt</a>, to construct A-orthogonal \\(d\_i\\) from arbitrary basis \\(u\_i\\)s, take \\(u\_i\\) and subtrack any components that are not A-orthogonal to the previous \\(d\\) vectors. i.e. \\[d\_i=u\_i + \sum\_\{k=0\}^\{i-1\}\beta\_\{ik\}d\_k\\] where \\(\beta\_\{ik\}\\) is defined for \\(k < i \\) (thus, N^2 for finding each \\(d\_i\\), which gives \\(O(n^3)\\)). 
@@ -136,27 +134,23 @@ so that
 > Remember that when one is performing the method of Conjugate Directions (including CG), one is simultaneously performing the method of Orthogonal Directions in a stretched (scaled) space
 
 #### Optimality of the Error Term
-Conjugate directions has an interesting property : Let \\(D\_i\\) be the i-dimensional subspace \\(\text\{span}\\{d\_0,...,d\_\{i-1\}\\}\\). The value \\(e\_i\\) is __chosen__ (by calculating \\(\alpha\_i\\), all the \\(\beta\_\{ik\}\\), and \\(d\_i\\)) from \\(e\_0+D\_i\\) in a manner which `minimizes the A-energy norm` \\(\|\|e\_i\|\|\_A\\). 
+Conjugate directions has an interesting property
+- Let \\(\mathcal\{D\}\_i\\) be the i-dimensional subspace \\(\text\{span}\\{d\_0,...,d\_\{i-1\}\\}\\). The value \\(e\_i\\) is __chosen__ (by calculating \\(\alpha\_i\\), all the \\(\beta\_\{ik\}\\), and \\(d\_i\\)) from \\(e\_0+D\_i\\) in a manner which `minimizes the A-energy norm` \\(\|\|e\_i\|\|\_A\\). 
 
 TO prove, using equ35,  
 <img src="{{site.url}}/images/math/steepest_descent4.jpg" width="700">   
-we see that, the summation only has not yet traversed search direction \\(d\_j, j>i\\). Any other \\(e\in e\_0+D\_i\\) must include previously traversed directions \\(d\_j, j < i \\) in its linear combination, so \\(e\_i\\) must have the minimum energy norm.
-- 어떻게 매 단계 \\(i\\) 마다, 에러 벡터 \\(e\_i\\) 에서 A-orthogonal한 \\(d\_i\\) 컴포넌트를 지울 수 있는가? - 원래 문제가 컨벡스 문제이고, line search (convex function on convex doamin)도 컨벡스 문제이기 때문
-  - 그렇다면 왜 steepest descent에서는 이런 좋은 현상이 나지 못했나?
-    - search direction끼리 orthogonal하지 않았기 때문에? (현재 포인트 \\(x\_0\\)에 의해 좌우되는 \\(f'(x\_0)\\)) 
-    - 왜 A-orthogonal한 search direction이어야 했나? - 
-  
-- We are minimizing A-energy norm - which is equivalent to changing the basis to the space where the level set of \\(A\\) is circular (not ellipsoidal) (to check this, do spectral decomposition \\(x^TQAQ^Tx\\) and put any orthonormal eigenvector \\(q\_i\\) to \\(x\\))= stretching the space!
+- we see that, the summation only has not yet traversed search direction \\(d\_j, j>i\\). Any other \\(e\in e\_0+\mathcal\{D\}\_i\\) must include previously traversed directions \\(d\_j, j < i \\) in its linear combination, so \\(e\_i\\) must have the minimum energy norm.
+- A-energy norm is equivalent to measuing distance with new basis, where the level set of \\(A\\) is circular (to check this, do spectral decomposition \\(x^TQAQ^Tx\\) and put any orthonormal eigenvector \\(q\_i\\) to \\(x\\))= stretching the space! (for each eigenvector direction, ellipsoid has length \\(\frac\{1\}\{\lambda\_i\}\\) <a href="{{site.url}}/linear_algebra/2018/05/24/ellipsoids-and-pst-mat.html">(link)</a>
 
 
-- Another important property is that, \\(r\_i\\) is orthogonal to \\(D\_i\\). To show this, multiply \\(-d\_i^TA\\) to equ35
+### The method of Conjugate Gradient (finally!)
+
+- An important property is that, \\(r\_j\\) is orthogonal to \\(\mathcal\{D\}\_i,\\ \\ j>i\\). To show this, multiply \\(-d\_i^TA\\) to equ35
 \\[-d\_i^TAe\_j = - \sum\_\{j=1\}^\{n-1\}\delta\_jd\_i^TAd\_j\tag\{38\}\\]
-\\[-d\_i^Tr\_j=0 \quad j>i\quad\text\{by A-orthogonality of d-vectors\}\tag\{39\}\\]
+\\[-d\_i^Tr\_j=0 \quad j>i\quad\text\{by A-orthogonality of d-vectors\}\tag\{39\}\\]  
   - remember that \\(r\_i=-Ae\_i\\) by out problem definiton (only applicable on good quadratic funcs!)
 - because \\(d\_i\\)s are constructed from \\(u\\) vectors, \\(D\_i\\) also can be spanned by \\(\\{u\_0,...,u\_\{i-1\}\\}\\)
 
-
-### Conjugate Gradient (finally!)
 - in CG, the search directions are constructed by the conjugation of the residuals \\(u\_i=r\_i\\). We use residuals to construct the search direction.
 - by equ39, we see that residual \\(r\_i\\) is orthogonal the previous search directions \\(d\_j, j<i\\).
 - now equ41 becomes \\(r\_i^Tr\_j=0\\), so residual is orthogonal to the previous residuals - which implies independence
