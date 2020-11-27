@@ -294,3 +294,10 @@ But the user-space approach to device driving has a number of drawbacks. The mos
 - Worse yet, if the driver has been swapped to disk, response time is unacceptably long. 
 - Using the mlock system call might help, but usually you’ll need to lock many memory pages, because a user-space program depends on a lot of library code. mlock, too, is limited to privileged users. 
 - The most important devices can’t be handled in user space, including, but not limited to, network interfaces and block devices.
+
+
+### Chap 3. Char drivers
+- suitable for simple hardwares
+- `SCULL` : simple character utility for loading localities
+  - is a char driver that acts on a memory area as though it were a device (no physical hw)
+  - in such situation, `device` often could mean _the memory area used by scull_

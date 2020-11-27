@@ -266,3 +266,41 @@ CPU연산
 `failover` (?) 첨들어봄
 - DB의 failover는 몽고디비의 failover를 따라감
 - Instance 내의 failover / nginx
+
+
+### 추천시스템이 word2vec을 만났을 떄
+- NNLM (Neural Net Language Model) : 2003, Bengio
+  - __단어의 순서가 근접해 자주 같이 출현할 수록 두 단어의 vector값이 유사하도록 학습__
+  - `embedding` : 한정된 공간 (\\(R^N\\)?)에 벡터값을 맵핑하는 것
+- word2vec : 2013, google
+  - Skip-gram, Continuous Bag of words, Hierachical Softmax, Negative sampling, subsampling for freq words
+  - pros : 심플. 레이블링 되지 않은 데이터로 supervised? 결국 unsupervised인거 아닌가 . 편리함 대비 높은 정확도
+  - cons : 의미 해석 힘듬. 의도적인 성능 향상을 위해서는 많은 삽질이 필요
+
+추천시스템
+- (user based) collab filtering
+  - user/movie가 증가할 수록, sparsity 속성이 두드러진다
+    - sparsity를 줄이기 위해, PCA / SVD / dict타입 collection (sparse rep.)
+    - 유사도 측정
+    - 최근접 이웃 찾기
+      - scability : K-means, hierachical
+  - pros : 쉬움. 다양한 상황에서 적절한 정확도
+  - cons : 데이터를 모을수록 exponential하게 증가하는 sparsity, scability
+  - `memory based CF`
+  - `model based CF`
+    - probability/clustering model, ...
+
+추천시스템 + word2vec
+- model based(확률모델) + colab.filtering
+- `movie2vec`
+  1. 영화를 embedding - clustering 
+  2. movie2vec 학습과정 (word2vec과의 비교)
+    - 단어 : 영화 ID (영화 id의 embedding)
+    - 문장 (set of 단어) : 유저가 시청한 영화 이력을 말하는 듯. 같은 문장에 가까이 위치하면 높은 점수 = 동일 유저가 최근에 시청한 영화끼리 높은 점수?
+    - 문서 (set of 문장) : 유저 시청 이력의 집합. 트레이닝 데이터
+  
+
+### 추천시스템, 이제는 돈이 되어야 한다
+- <a href="https://www.youtube.com/watch?v=RK3-aNWveMs&t=18s" target="_blank">https://www.youtube.com/watch?v=RK3-aNWveMs&t=18s</a> 소리가 안들림...
+- <a href="https://www.slideshare.net/ssuser2fe594/ss-164511610" target="_blank">https://www.slideshare.net/ssuser2fe594/ss-164511610</a>
+- 일단 NNLM, word2vec부터 봐야 뭔가 될 듯
