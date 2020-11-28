@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Conjugate Gradient"
-date:   2020-11-26 11:00:05 +0800
+date:   2020-11-26 09:00:05 +0800
 categories: linear_algebra
 use_math: true
 tags: linear_algebra math need_review
@@ -9,6 +9,8 @@ tags: linear_algebra math need_review
 
 > <a href="https://www.cs.cmu.edu/~quake-papers/painless-conjugate-gradient.pdf" target="_blank">https://www.cs.cmu.edu/~quake-papers/painless-conjugate-gradient.pdf</a>
 
+TODO
+- Precondition
 
 정리 (revision in 20.11.26)
 1. 전제조건 = 알고리즘 진행 시 line search의 optimality condition : \\(e\_\{i+1\}^TAd\_i=0\\)을 만족해야 함
