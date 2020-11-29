@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Independence"
-date:   2020-11-28 09:00:05 +0800
+date:   2020-11-25 09:00:05 +0800
 categories: probability
 use_math: true
 tags: math probability 
@@ -61,3 +61,9 @@ The definition above and the multiplication rule yield
 canceling \\(P(B\|C)\\) from both sides (assumed nonzero) yields
 \\[P(A\|B\cap C) = P(A\|C) \\]
 In words, if \\(A\\) and \\(B\\) are conditionally independent, than if \\(C\\) is known to have occured, the additional knowledge that \\(B\\) also occured does not change the probability of \\(A\\)
+
+
+
+### Independence and Conditional independence
+
+Independence of \\(A, B\\) and the conditional independence of \\(A,B\\) given an arbitrary event \\(C\\) does not imply each other

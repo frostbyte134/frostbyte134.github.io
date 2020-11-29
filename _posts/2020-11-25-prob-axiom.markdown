@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Probability models and axioms"
-date:   2020-11-28 08:00:05 +0800
+date:   2020-11-25 08:00:05 +0800
 categories: probability
 use_math: true
 tags: math probability 
@@ -12,7 +12,6 @@ tags: math probability
 - <a href="https://ocw.mit.edu/resources/res-6-012-introduction-to-probability-spring-2018/part-i-the-fundamentals/MITRES_6_012S18_L01.pdf" target="blank">https://ocw.mit.edu/resources/res-6-012-introduction-to-probability-spring-2018/part-i-the-fundamentals/MITRES_6_012S18_L01.pdf</a>
 - <a href="https://vfu.bg/en/e-Learning/Math--Bertsekas_Tsitsiklis_Introduction_to_probability.pdf" target="_blank">https://vfu.bg/en/e-Learning/Math--Bertsekas_Tsitsiklis_Introduction_to_probability.pdf</a>
 
-TODO: 책 읽고 내용 추가
 
 
 ### Probability models

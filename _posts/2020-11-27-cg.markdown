@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Conjugate Gradient"
-date:   2020-11-26 09:00:05 +0800
+date:   2020-11-27 09:00:05 +0800
 categories: linear_algebra
 use_math: true
 tags: linear_algebra math need_review
