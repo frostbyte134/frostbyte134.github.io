@@ -24,15 +24,15 @@ tags: math probability
 
 <img src="{{site.url}}/images/math/prob/prob_ind.jpg" width="300">  
 - \\(P(A\cap B) = 0, P(A)>0, P(B)>0\\) : not independent!
-- 아마...\\(P(B) : P(\Omega)\\)와 \\(P(A\cap B) : P(A)\\)의 비율이 우연히 같게 되면 되는 듯?
+- 아마...\\(P(B) : P(\Omega)\\)와 \\(P(A\cap B) : P(A)\\)의 비율이 어쩌다 같게 되면 되는 듯?
 
 ### Independence and complement
 \\(A\\) and \\(B\\) are independent \\(\quad\rightarrow\quad\\) \\(A\\) and \\(B^c\\) are independent
 
 __Proof__:  
 \\[P(A) = P\left((A\cap B)\cup (A\cap B^c)\right)\\]
-\\[ = P(A\cap B) + P(A\cap B^c) - P(A\cap B cap B^C)\\]
-\\[ = P(A)P(B) + P(A\cap B^c)\\]
+\\[P(A) = P(A\cap B) + P(A\cap B^c) - P(A\cap B \cap B^C)\\]
+\\[P(A) = P(A)P(B) + P(A\cap B^c)\\]
 \\[P(A)(1-P(B)) = P(A\cap B^c)\\]
 \\[P(A)P(B^c) = P(A\cap B^c)\\]
 
@@ -40,7 +40,7 @@ __Proof__:
 ### Independence and Pairwise independence
 1. Intuitive definition :
   - occurance of some events provides no info about the occurance of other events
-2. Formal definition - Events \\(A\_1,...,A\_n\\) are `independent` if : \\[P(A\_1\cap A\_2) = P(A)\cdot P(B)\\]
+2. Formal definition - Events \\(A\_1,...,A\_n\\) are `independent` if : \\[P(A\_1\cap A\_2) = P(A\_1)\cdot P(A\_2)\\]
    - symmetry holds
    - implies intuitive definition
    - applies even if \\(P(A)=0\\)

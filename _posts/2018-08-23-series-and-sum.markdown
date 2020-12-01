@@ -28,7 +28,7 @@ so that,
 if the 1st relation holds for all \\(n\\), then it also holds for \\(n\rightarrow\\infty\\)
 \\[\lim\_\{n\rightarrow\infty\}f(a_1)+...+f(a_n)\leq \lim\_\{k\rightarrow\infty\}f(b_1)+...+f(b_k)\\]
 Now, for reversing the roles of ordering, for any \\(m\geq 1\\) there exists \\(n\geq1\\) such that
-\\[\\{a_1,...,a_n\\}\subset\\{b_1,...,b_m\\}\\]
+\\[\\{b_1,...,b_m\\}\subset\\{a_1,...,a_n\\}\\]
 and the proof is complete, by following the same line.
 
 However, without such strong assumption we cannot use above proof, so we introduce new notation.  
@@ -45,11 +45,11 @@ and
 \\[\sum\_\{a\in A\}f^-(a):=\lim\_\{n\rightarrow\infty\}f^-(a_1)+...+f^-(a_n)\\]
 by the above proof.  
 
-__Defined / Undefined series__
+#### Defined / Undefined series
 1. We define (1) for a countably infinite set \\(A\\) by
 \\[\sum\_\{a\in A\}f(a):=\sum\_\{a\in A\}f^+(a)-\sum\_\{a\in A\}f^-(a)\\]
 __unless__(!!) both sums on the RHS equals to \\(\infty\\), in which case we say that (1) is `undefined`.
-2. Whenever (1) is defined (whether finite, or \\(\pm\infty)), we can use the fact that _the limit of a difference equals the difference of the limits_ to obtain
+2. Whenever (1) is defined (whether finite, or \\(\pm\infty)\\), we can use the fact that _the limit of a difference equals the difference of the limits_ to obtain
 \\[\sum\_\{a\in A\}f(a)=\lim\_\{n\rightarrow\infty\}[f^+(a_1)+...+f^+(a_n)]-\lim\_\{n\rightarrow\infty\}[f^-(a_1)+...+f^-(a_n)]\\]
 \\[=\lim\_\{n\rightarrow\infty\}[(f^+(a_1)-f^-(a_1))+...+(f^+(a_n)-f^-(a_n))]\\]
 \\[=\lim\_\{n\rightarrow\infty\}[f(a_1)+...+f(a_n)]\\]
@@ -60,7 +60,7 @@ Some cases we are interested are,
 Notive that \\(\sum\_\{a\in A\}\|f(a)\|\\) is always defined. In case
 \\[\sum\_\{a\in A\}f^+(a)+\sum\_\{a\in A\}f^-(a)=\sum\_\{a\in A\}\|f(a)\|<\infty\\]
 we say that the series (1) __converges absolutely__, and in this case we easily see that the terms
-\\[\sum\_\{a\in A\}\|f(a)\|,\sum\_\{a\in A\}f^+(a),\sum\_\{a\in A\}f^-(a)\\]
+\\[\sum\_\{a\in A\}\|f(a)\|, \quad \sum\_\{a\in A\}f^+(a), \quad \sum\_\{a\in A\}f^-(a)\\]
 are all finite. We are mainly interested in absolutely convergent series. From the above discussion, we see that __(1) is defined as a finite number i.i.f it is absolutely convergent__ (Link in the analysis someday??). Absolutely convergent series, even when they are infinite, __have many properties of finite series__, such as
 \\[\sum\_\{a\in A\}kf(a)=k\sum\_\{a\in A\}f(a),\quad \sum\_\{a\in A\}(f(a)+g(a))=\sum\_\{a\in A\}f(a)+\sum\_\{a\in A\}g(a)\\]
 2. Divergent series  

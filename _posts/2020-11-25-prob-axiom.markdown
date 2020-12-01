@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Probability models and axioms"
+title:  "Probability models and axioms, Bayes rule"
 date:   2020-11-25 08:00:05 +0800
 categories: probability
 use_math: true
@@ -31,3 +31,12 @@ tags: math probability
   - `Normalization` \\(P(\Omega) = 1\\) 
   - `Countable additivity` : If \\(A\_1,A\_2,...\\) is an infinite sequence of disjoint events, \\[P(A\_1 \cup A\_2 \cup ... ) = P(A\_1) + P(A\_2) + ...\\]
     - additivity holds on countable sets. we cannot assign probability to some strange "area"s (the probability of area/length is defined as a integral, for "nice" sets)
+
+
+### Bayes Rule
+
+Let \\(A\_1,A\_2,...,A\_n\\) be disjoint events that form a partition of the sample space, and assume that \\(P(A\_i)>0 \forall i\\). Then for any event \\(B\\) s.t. \\(P(B)>0\\), we have
+\\[P(A\_i \| B) = \frac\{P(A\_i)P(B \| A\_i)\}\{P(B)\}\\]
+\\[=\frac\{P(A\_i)P(B\| A\_i)\}\{P(A\_1)P(B\| A\_1) + ... + P(A\_n)P(B\| A\_n)\}\\]
+
+we have obervation \\(B\\), and we want to figure out the probability of each cause \\(A\_1,..,\\) from the observation = `inference`

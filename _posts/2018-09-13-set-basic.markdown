@@ -19,7 +19,7 @@ A `index family` is a set family where its elements can be referred with indices
 In such case, we call \\(i\\) an index, and \\(I\\) as an index set.
 
 
-For a family of sets \\(F:=\\{A\_i \| i\in I\\}\\) (note that the definition is also valid for \\(I\\) with infinite cardinality, even uncountable), we define
+For a family of sets \\(F:=\\{A\_i \| i\in I\\}\\) (note that unless the index is defined, left definition is also valid for \\(I\\) with uncountable cardinality), we define
 * `Intersection`: \\(\bigcup F:=\mathop\{\bigcup\}\_\{S\in F\}S := \mathop\{\bigcup\}\_\{i\in I\}A\_i := \\{x \| \exists i\in I : x\in A_i\\} \\) 
 * `Union`: \\(\bigcap F:=\mathop\{\bigcap\}\_\{S\in F\}S := \mathop\{\bigcap\}\_\{i\in I\}A\_i := \\{x \| \forall i\in I : x\in A_i\\} \\) 
 
