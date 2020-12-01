@@ -22,32 +22,32 @@ tags: math probability
 - `Random variable` : A function from sample space to real line
   - A function of RVs is also a RV \\(Z = X + Y\\)
 - Notation : random variable \\(X\\), numerical value \\(x\\)
-  - \\(X=x\\) : an event
+  - \\([X=x]\\) : an event
 
 
 ### Discrete RVs
 - `Discrete` : countable
 - `PMF` : probability mass function \\[p\_X(x) = P(X=x) = P(\\{ \omega \in \Omega \| X(\omega)=x  \\})\\]
-- `Expectation` (over countable) \\(E[X] = \sum\_x xp\_X(x)\\)
-  - we easily see that (in <a href="https://nailbrainz.github.io/deep_learning/2018/08/23/series-and-sum.html" target="_blank">absolutely convergent series</a>) the `linearity` holds
+- `Expectation` (over countable) \\[E[X] := \sum\_x xp\_X(x)\\]
+  - __CAUTION__ \\(\quad \\) infinite sum <a href="https://nailbrainz.github.io/deep_learning/2018/08/23/series-and-sum.html" target="_blank"> needs to be well-defined</a>
+    - we assume \\(\sum\_x\|x\|p\_X(x) < \infty \\) (absolute convergent series)
+    - we easily see that (in <a href="https://nailbrainz.github.io/deep_learning/2018/08/23/series-and-sum.html" target="_blank">absolutely convergent series</a>) the `linearity` holds
 
 #### Bernoulli
 \\[
 X = 
 \begin\{cases\}
 1,\quad & \\text\{ with probability \} p \\\
-1,\quad & \\text\{ with probability \} 1-p \\\
+0,\quad & \\text\{ with probability \} 1-p
 \end\{cases\}
 \\]
 - often an `indicator` random variable of an event \\(A\\) : \\(I\_A\\) is Bernoulli variable
 - `Expectation` \\(E[x] = p\\)
 
 #### Discrete Uniform
-- given integer params \\(a,b; \quad a<b \\), discrete uniform rv \\(U\\) has following pmf
-\\[P(U=u) = 1/(b-a)\\]
+- given integer params \\(a,b \\) s.t. \\( a<b \\), discrete uniform rv \\(U\\) has following pmf
+\\[P(U=u) = frac\{1\}\{(b-a)\}\\]
 - \\(b-a+1\\) possible (meaningful) values
-- __CAUTION__ if we have an infinite sum, <a href="https://nailbrainz.github.io/deep_learning/2018/08/23/series-and-sum.html" target="_blank">it needs to be well-defined</a>
-  - we assume \\(\sum\_x\|x\|p\_X(x) < \infty \\)
 - `Expectation` \\(E[x] = p\\)
 
 #### Binomial

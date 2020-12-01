@@ -28,7 +28,7 @@ TODO:
   - \\(A^\infty\\) is define in the same way (tuple of infinite length)
 - \\(2^A = \mathcal\{A\}\\) : set of all subsets of \\(A\\)
 - There is an 1-1 correspondence between \\[\\{0,1\\}^\infty,\quad \\{0,1\\}^\mathbb{N},\quad 2^\mathbb{N}\\] 이거 증명 어디 있었는데..다 까먹었네
-  - such correspondence can be used in whoing that \\[\text\{If \} A \text\{ is infinite, then \} 2^A \text\{ is uncountable\}\\]
+  - such correspondence can be used in shoing that \\[\text\{If \} A \text\{ is infinite, then \} 2^A \text\{ is uncountable\}\\]
   - __proof__ : \\(\|2^\mathbb{N}\| \leq \|2^A\|\\) and  \\(\|2^\mathbb{N}\| \\) is uncoutable, which is a result with 1-1 correspondance with \\(\\{0,1\\}^\infty\\)
 
 ### Limit of sets
