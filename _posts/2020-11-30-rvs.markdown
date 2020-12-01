@@ -32,23 +32,30 @@ tags: math probability
   - __CAUTION__ \\(\quad \\) infinite sum <a href="https://nailbrainz.github.io/deep_learning/2018/08/23/series-and-sum.html" target="_blank"> needs to be well-defined</a>
     - we assume \\(\sum\_x\|x\|p\_X(x) < \infty \\) (absolute convergent series)
     - we easily see that (in <a href="https://nailbrainz.github.io/deep_learning/2018/08/23/series-and-sum.html" target="_blank">absolutely convergent series</a>) the `linearity` holds
+  - \\(E[X+Y+Z] = E[X] + E[Y] + E[Z]\\), using linearity
+  - \\(E[XY] = E[X]E[Y]\\), if \\(X\\) and \\(Y\\) are independent - using linearity and seperating joint pmf
+- `Variance`  \\[V[X] = E[(X-E[X])^2]\\] \\[ = \sum\_x(x-E[x])^2p\_X(x)\\]
+  - using the linearity of expectation, \\[V[X] = E[X^2] - (E[X])^2\\] \\[V[ax+b] = a^2V[X]\\]
+  
 
 #### Bernoulli
 \\[
 X = 
 \begin\{cases\}
-1,\quad & \\text\{ with probability \} p \\\
-0,\quad & \\text\{ with probability \} 1-p
+1,\quad & \text\{ with probability \} p \\\
+0,\quad & \text\{ with probability \} 1-p
 \end\{cases\}
 \\]
 - often an `indicator` random variable of an event \\(A\\) : \\(I\_A\\) is Bernoulli variable
-- `Expectation` \\(E[x] = p\\)
+- `Expectation` \\(E[X] = p\\)
+- `Variance` \\(V[X] = p(1-p)\\)
 
 #### Discrete Uniform
 - given integer params \\(a,b \\) s.t. \\( a<b \\), discrete uniform rv \\(U\\) has following pmf
-\\[P(U=u) = frac\{1\}\{(b-a)\}\\]
+\\[P(U=u) = \frac\{1\}\{(b-a)\}\\]
 - \\(b-a+1\\) possible (meaningful) values
 - `Expectation` \\(E[x] = p\\)
+- `Variance` : using the summation equation, \\[V[X] = \frac\{1\}\{12\}(b-a)(b-a+2)\\]
 
 #### Binomial
 - Experiment : \\(n\\) independent tosses of a coin with \\(P(\text\{Heads\})=p\\)
@@ -59,11 +66,54 @@ X =
 where
 \\[\binom{n}{k} = \frac{n!}{k!(n-k)!}\\]
 
+- `expectation` : using the independence and linearity of expectation, \\[E[X] = np\\]
+- `variance` : using the independence and linearity of expectation, \\[V[X] = np(1-p)\\]
+
 #### Geometric
 - Experiment : _Infinitely_ many independent tosses of a coin with \\(P(\text\{Heads\})=p\\)
 - Sample space : \\(\\{H, T\\}^\infty\\)
-- Random Variable \\(X\\) : # of toss until the first head
+- Random Variable \\(X\\) : # of toss until the first head  
 - model of : __waiting times, # of success till a success__
 
-
 \\[p_X(k) = (1-p)^\{k-1\}p\\]
+
+- `memoryless` property : Given \\(X>n\\), \\(X-n\\) is geometric with parameter \\(p\\)
+  - ex) \\(p\_\{X-y \| X>y\}(k) = p\_X(k)\\)
+    - holds since all coin tosses at time \\(t\_i\\) are independent
+
+- `expectation` : can be easily shown given the memoryless property (o.w, we need some works)
+\\[E[X] = 1 + E[X-1]\\]
+\\[ = 1 + p\cdot E[X-1 \| X=1] + (1-p)E[X-1 \| X>1]\\]
+\\[ = 1 + 0 + (1-p)E[X]\\]
+\\[E[X] = \frac\{1\}\{p\}\\]
+
+
+
+#### The hat problem
+- \\(n\\) people throw hats in a bot, and pick one by one at random
+  - all permutation equally likely \\(1/m!\\), and we see that \\[X\_i := i\text{th people pick one's hat },\quad E[X\_i] = 1/n\\] (in all permutations, there will be \\(n!/n\\) cases which \\(i\\)th people select own hat)
+  - Note that, \\(X\_i\\) and \\(X\_j\\) __are not independent__ for all \\(x,j\\).
+- let \\(X\\) : number of people who get their own hat
+  - \\(E[X]\\) : calculating \\(p\_X(x)\\) directly is not an easy task  
+    Instead, use \\(E[X] = E[X\_1+...+X\_n] = E[X\_1]+...E[X\_n] = 1\\).
+  - \\(V[X]\\) : \\(E[X^2]+E[X]^2 = E[X^2]\\)
+    - \\(E[X^2] = \sum\_iE[X\_i^2] + \sum\_\{i\neq j\}E[X\_iX\_j]\\)
+    - \\(E[X\_i^2] = 1\\)
+    - \\(E[X\_iX\_j], i\neq j\\) : \\[E[X\_iX\_j] = P(X\_i=1, X\_j = 1) = P(X\_i=1)P(X\_j=1 \| X\_i=1) = \frac\{1\}\{n(n-1)\}\\]
+    - therefore, \\(V[X] = n\cdot \frac\{1\}\{n\} + n(n-1)\frac\{1\}\{n(n-1)\} = 2\\)
+
+
+### Continuous random variable
+- assuming absolutely convergent series, linearty of expectation (Lebeaugue integral) again holds
+- pmf \\(\rightarrow\\) pdf
+- CDF : culminative
+
+
+#### Normal (Gaussian) disrribution
+- \\(N(\mu, \sigma^2)\\) : \\[f\_X(x)=\frac\{1\}\{\sigma\sqrt\{2\pi\} e^\{-(x-\mu)^2/2\sigma^2\} \}]
+- \\(E[X]=\mu, V[X]=\sigma^2\\)
+- __no closed form available for CDF__
+- Let \\(Y=aX+B,\quad X\tilde N(\mu, \sigma^2)\\)  
+  then, \\(Y\tilde N(a\mu + b,a^2\sigma^2)\\) __(TODO: add proof link)__
+  - using this property and CDF, we can easily calculate PMF of arbitrary normal
+- special case. \\(a=0\rightarrow N(b,0)\\) is a delta distribution
