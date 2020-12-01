@@ -12,9 +12,7 @@ tags: math probability
 - <a href="https://vfu.bg/en/e-Learning/Math--Bertsekas_Tsitsiklis_Introduction_to_probability.pdf" target="_blank">https://vfu.bg/en/e-Learning/Math--Bertsekas_Tsitsiklis_Introduction_to_probability.pdf</a>
 
 
-### The PMF/PDF of X+Y (independent)
-
-#### Discrete case : X + Y (independent)
+### Discrete case : X + Y (independent)
 - \\(Z=X+Y\\), \\(X,Y\\) are independent, discrete with known PDFs
 - calculation of PDF reduced to `discrete convolution`
 - \\(p\_Z(z) = \sum\_xP(X=x,Y=z-x) = \sum\_xP(X=x)P(Y=z-x) = \sum\_xp\_X(x)p\_Y(z-x)\\)
@@ -30,7 +28,7 @@ tags: math probability
 - continuous case : same mechanics (flip, shift, etc). summation changed to integral
 
 
-#### The Sum of Independent Normals
+### The Sum of Independent Normals
 - \\(X\tilde N(\mu\_x,\sigma\_x^2), \\ Y\tilde N(\mu\_y,\sigma\_y^2)\\), independent
 - let \\(Z=X+Y\\). Using continuous convolution,
   \\[f\_Z(z) = \int\_\{-\infty\}^\{\infty\}f\_X(x)f\_Y(z-x)dx\\]
@@ -70,4 +68,98 @@ Covariance properties
 - if \\(\|\rho\|=1\\), then \\(X=Y\\) or \\(X=-Y\\).
 
 
-TODO: read chap13
+### Conditional Expectation as a Random Variable
+define \\(g(y) = E[X\|Y=y] = \sum\_xxP[X=x \| Y=y] \\) (integral in continuous case)
+- then \\(g(Y)\\) is the RV that yields the value \\(E[X\|Y=y]\\), if \\(Y\\) happens to take the value \\(y\\).
+
+> Definition \\(E[X\|Y] := g(Y)\\)
+
+__Remarks__
+- It is a function of \\(Y\\)
+- It is a randm variable
+  - __Thus it has a distribution, mean, var, etc.__
+
+#### The mean of E[X|Y] : Law of iterated expectations
+\\[E[E[X\|Y]] = E[X]\\]
+
+__proof__ : 
+\\[E[E[X\|Y]] = E[g(Y)] = \sum\_yE[X\|Y=y]P[Y=y]\\]
+\\[ = \sum\_y(\sum\_xxP[X=x\|Y=y])P[Y=y]\\]
+\\[ = \sum\_y(\sum\_xxP[X=x\|Y=y]P[Y=y])\\]
+\\[ = \sum\_xx(\sum\_yxP[X=x,Y=y])\\]
+\\[ = \sum\_xxP[X=x]\\]
+
+
+stick-breaking example
+- \\(E[Y] = \int\_0^\infty yP[Y=y] = \int\_0^l y\frac\{1\}\{l\} = \frac\{1\}\{l\}[\frac\{1\}\{2\}y^2]\_0^l = l/2\\)
+
+### Conditional Variance as a Random Variable
+- \\(V[X] = E[(X-E[X])^2]\\)
+- \\(V[X\|Y=y] = E[(X-E[X\|Y=y])^2 \| Y=y]\\)
+  - \\(V[X\|Y]\\) is the random variable that yields the value \\(V[X\|Y=y]\\), when \\(Y=y\\)
+
+ex) \\(X\\) uniform on \\([0, Y]\\)
+- \\(E[X\|Y=y] = \int\_0^yx\cdot\frac\{1\}\{y\}dx = y/2\\)
+- \\(V[X\|Y=y] = E[X^2\|Y=y] - (E[X\|Y=y])^2\\)
+  - \\(E[X^2\|Y=y] = \int\_0^yx^2\cdot\frac\{1\}\{y\} = \frac\{1\}\{y\}[\frac\{x^3\}\{3\}]\_0^y = y^2/3\\)
+  - thus, \\(V[X\|Y=y] = y^2/3-y^2/4 = y^2/12\\)
+  - which gives, \\(V[X\|Y] = Y^2/12\\)
+
+> Law of total variance \\(V[X] = E[V[X \| Y]] + V[E[X \| Y]]\\)
+
+__proof__ : 
+- \\(V[X\|Y=y] = E[X^2\|Y=y] - (E[X\|Y=y])^2\\)
+- \\(V[X\|Y] = E[X^2\|Y] - (E[X\|Y])^2\\)
+  - \\(E[V[X\|Y]] = E[X^2] - E[(E[X\|Y])^2]\\)
+  - \\(V[E[X \| Y]] = E[(E[X\|Y])^2] - (E[(E[ X \|Y ] ])^2 = E[(E[X\|Y])^2] - (E[X])^2 \\)
+  - adding above two terms gives us the desired equality
+
+
+example  
+
+<img src="{{site.url}}/images/math/prob/simple.jpg" width="400">
+- assume \\(P[Y=1] = P[Y=2] = 1/2\\)
+- \\(E[X] = \frac\{1\}\{2\}[x^2/2]\_0^1 + \frac\{1\}\{4\}[x^2/2]_1^3 = 5/4 \\)
+- \\(E[E[X \| Y]] = p\_Y(1)E[X\|Y=1] + p\_Y(2)E[X\|Y=2]\\)
+  - \\( E[X\|Y=1] \\) : \\(X\\) given \\(Y=1\\) has probability at \\([0, 1]\\), thus \\(\int\_0^1 1\cdot \frac\{x^2\}\{2\}dx = 1/2\\)
+  - \\( E[X\|Y=2] \\) : \\(X\\) given \\(Y=2\\) has probability at \\([2, 3]\\), thus \\(\int\_2^3 1\cdot \frac\{1\}\{2\}\frac\{x^2\}\{2\}dx = 2\\)
+  - \\(E[E[X \| Y]] = \frac\{1\}\{2\}E[X\|Y=1] + \frac{1}{2}E[X\|Y=2] = 5/4 = E[X]\\) !
+
+- \\(E[V[X \| Y]] = p\_Y(1)V[X\|Y=1] + p\_Y(2)V[X\|Y=2]\\)
+  - \\( E[X^2\|Y=1] \\) : \\(X\\) given \\(Y=1\\) has probability at \\([0, 1]\\), thus \\(\int\_0^1 1\cdot x^2dx = 1/3\\)
+    - \\(V[X\|Y=1] = 1/3-(1/2)^2 = 1/12\\)
+  - \\( E[X^2\|Y=2] \\) : \\(X\\) given \\(Y=2\\) has probability at \\([2, 3]\\), thus \\(\int\_2^3 1\cdot \frac\{1\}\{2\}x^2dx = 13/3\\)
+    - \\(V[X\|Y=2] = 13/3-2^2 = 1/3\\)
+  - \\(E[V[X \| Y]] = 1/2 * 1/12 + 1/2 * 1/3 = 5/24\\)
+- \\(V[E[X\|Y]]\\) : we can calculate the expectation of \\((E[X\|Y] - E[E[X\|Y]])^2\\) for each \\(y\in \\{1,2\\}\\)
+  1. \\(Y=1\\) : \\((E[X\|Y] - E[E[X\|Y]])^2 = (1/2 - 5/4)^2\\)
+  2. \\(Y=2\\) : \\((E[X\|Y] - E[E[X\|Y]])^2 = (2 - 5/4)^2\\)
+  3. calculating expectation \\(p\_Y(1)(E[X\|Y=1] - E[E[X\|Y=1]])^2 + p\_Y(2)(E[X\|Y=2] - E[E[X\|Y=2]])^2 = 9/16\\) !
+- now we have, \\(V[X] = E[V[X\|Y]] + V[E[X\|Y]] = 37/48\\)
+  - \\(E[V[X\|Y]]\\) : __average variability within sections__, and sections refers each \\(y \in \\{1,2\\}\\)
+  - \\(V[E[X\|Y]]\\) : __variability between sections__ \\(y \in \\{1,2\\}\\)
+
+
+### Sum of a Random Number of Independent RVs
+
+Let
+- \\(N\\) : number of stores visited (Non-negative integer R.V)
+- \\(X\_i\\) : money spent in store \\(i\\)
+  - \\(X\_i\\)s are independent, identically distributed (i.i.d)
+  - independent of \\(N\\)
+let \\(Y=X\_1+...+X\_N\\)
+
+
+1. calculating \\(E[Y]\\)
+  - \\(E[Y\|N=n] = E[X\_1+...+X\_n \| N=n] = E[X\_1+...+X\_n] = nE[X]\\)
+  - thus, \\(E[Y\|N] = NE[X]\\)
+  - Now we can calculate \\(E[Y]\\) in two ways,
+    - total expectation theorem : \\(E[Y] = \sum\_np\_N(n)E[Y\|N=n] = \sum\_np\_N(n)nE[X] = E[X]\sum\_np\_N(n)n = E[X]E[N]\\)
+    - Law of iterated expectation : \\(E[Y] = E[E[Y\|N]] = E[N]E[X]\\)
+2. calculating \\(V[Y] = E[V[Y\|N]] + V[E[Y\|N]]\\)
+  - \\(E[V[Y\|N]]\\)
+    - \\(V[Y\|N=n] = V[X\_1+...+X\_N\|N=n] = V[X_1+...+X\_n] = nV[X]\\)
+    - thus, \\(V[Y\|N] = NV[X]\\)
+  - \\(V[E[Y\|N]]\\)
+    - \\( = V[NE[X]] = E[X]^2V[N]\\)
+   - now we have, \\(V[Y] = NV[X] + E[X]^2V[N] \\)
