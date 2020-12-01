@@ -24,7 +24,7 @@ tags: math probability
 
 <img src="{{site.url}}/images/math/prob/prob_ind.jpg" width="300">  
 - \\(P(A\cap B) = 0, P(A)>0, P(B)>0\\) : not independent!
-- 아마...\\(P(B) : P(\Omega)\\)와 \\(P(A\cap B) : P(A)\\)의 비율이 어쩌다 같게 되면 되는 듯?
+- 아마...\\(P(B) : P(\Omega)\\)와 \\(P(A\cap B) : P(A)\\)의 비율이 어쩌다 같게 되면 (역방향도) 되는 듯?
 
 ### Independence and complement
 \\(A\\) and \\(B\\) are independent \\(\quad\rightarrow\quad\\) \\(A\\) and \\(B^c\\) are independent
