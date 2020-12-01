@@ -40,7 +40,7 @@ __Proof__:
 ### Independence and Pairwise independence
 1. Intuitive definition :
   - occurance of some events provides no info about the occurance of other events
-2. Formal definition - Events \\(A\_1,...,A\_n\\) are `independent` if : \\[P(A\_1\cap A\_2) = P(A\_1)\cdot P(A\_2)\\]
+2. Formal definition - Events \\(A\_1,...,A\_n\\) are `independent` if : \\[P(A\_1\cap ... \cap A\_n) = P(A\_1)\cdot ... \cdot P(A\_n)\\]
    - symmetry holds
    - implies intuitive definition
    - applies even if \\(P(A)=0\\)
