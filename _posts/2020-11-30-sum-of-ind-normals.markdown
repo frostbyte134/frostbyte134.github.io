@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Sums of Independent Random Variables"
+title:  "Conditioning + Sums of Independent Random Variables"
 date:   2020-11-30 08:00:05 +0800
 categories: probability
 use_math: true
@@ -11,6 +11,10 @@ tags: math probability
 - <a href="https://ocw.mit.edu/resources/res-6-012-introduction-to-probability-spring-2018/part-i-the-fundamentals/MITRES_6_012S18_L13AS.pdf" target="_blank">lecture 13 Conditional expectation and variance revisited; Application: Sum of a random number of independent r.v.'s</a>
 - <a href="https://vfu.bg/en/e-Learning/Math--Bertsekas_Tsitsiklis_Introduction_to_probability.pdf" target="_blank">https://vfu.bg/en/e-Learning/Math--Bertsekas_Tsitsiklis_Introduction_to_probability.pdf</a>
 
+
+Conditioning  
+<img src="{{site.url}}/images/math/prob/cond.jpg" width="700">  
+- condition is similar to the process of re-normalizing. We collect all samplespace components which is relevant with \\(A\\), add them up and renormalize to construct the conditional pdf/pmf.
 
 ### Discrete case : X + Y (independent)
 - \\(Z=X+Y\\), \\(X,Y\\) are independent, discrete with known PDFs
@@ -29,12 +33,12 @@ tags: math probability
 
 
 ### The Sum of Independent Normals
-- \\(X\tilde N(\mu\_x,\sigma\_x^2), \\ Y\tilde N(\mu\_y,\sigma\_y^2)\\), independent
+- \\(X\sim N(\mu\_x,\sigma\_x^2), \\ Y\sim N(\mu\_y,\sigma\_y^2)\\), independent
 - let \\(Z=X+Y\\). Using continuous convolution,
   \\[f\_Z(z) = \int\_\{-\infty\}^\{\infty\}f\_X(x)f\_Y(z-x)dx\\]
   \\[= \frac\{1\}\{ \sigma\_x\sqrt\{2\pi\}\} \exp\left( \frac\{-(x-\mu\_x)^2\}\{2\sigma\_x^2\} \right) \frac\{1\}\{\sigma\_y\sqrt\{2\pi\}\} \exp\left( \frac\{-(z-x-\mu\_y)^2\}\{2\sigma\_y^2\} \right)\\]
   \\[\text\{(algebra...)\} = \frac\{1\}\{ (\sigma\_x+\sigma\_y)\sqrt\{2\pi\}\} exp\left( \frac\{-(z-\mu\_y^2-\mu\_x)^2\}\{2(\sigma\_x^2+\sigma\_y^2)\} \right)\\]
-  \\[\tilde N(\mu\_x+\mu\_y,\sigma\_x^2+\sigma\_y^2\\]
+  \\[\sim N(\mu\_x+\mu\_y,\sigma\_x^2+\sigma\_y^2\\]
 - which implies that, `the sum of finitely many independent normals is normal`
 - TODO: fix (algebra..) part
 
@@ -48,9 +52,8 @@ Covariance properties
 - \\(\text\{cov\}(X, X) = V[X]\\)
 - \\(\text\{cov\}(X, Y) = E[XY] - E[X]E[Y]\\)
   - \\(\text\{cov\}(X, Y) = E[(X-\mu\_X)(Y-\mu\_Y)] = E[XY] - 2E[X]E[Y] +E[X][Y] = E[XY]-E[X]E[Y]\\)
-- assuming zero means,
-  - \\(\text\{cov\}(aX+b, Y) = E[aXY] - E[aX][Y] = aE[XY] = a\cdot \text\{cov\}(X, Y)\\)
-  - \\(\text\{cov\}(X, Y+Z) = E[X(Y+Z)] = E[XY]+E[YZ] = \text\{cov\}(X, Y) + \text\{cov\}(Y, Z)\\)
+- \\(\text\{cov\}(aX+b, Y) = a\cdot \text\{cov\}(X, Y)\\)
+- \\(\text\{cov\}(X, Y+Z) = \text\{cov\}(X, Y) + \text\{cov\}(X, Z)\\)
 
 #### The variance of a sum of random variables
 1. two RVs case
@@ -75,19 +78,23 @@ define \\(g(y) = E[X\|Y=y] = \sum\_xxP[X=x \| Y=y] \\) (integral in continuous c
 > Definition \\(E[X\|Y] := g(Y)\\)
 
 __Remarks__
-- It is a function of \\(Y\\)
-- It is a randm variable
+- It is a function of \\(Y\\) (composition) (\\(Y\\) is also a function, from the sample space to real line)
+- It is a random variable
   - __Thus it has a distribution, mean, var, etc.__
 
 #### The mean of E[X|Y] : Law of iterated expectations
 \\[E[E[X\|Y]] = E[X]\\]
 
 __proof__ : 
-\\[E[E[X\|Y]] = E[g(Y)] = \sum\_yE[X\|Y=y]P[Y=y]\\]
-\\[ = \sum\_y(\sum\_xxP[X=x\|Y=y])P[Y=y]\\]
-\\[ = \sum\_y(\sum\_xxP[X=x\|Y=y]P[Y=y])\\]
-\\[ = \sum\_xx(\sum\_yxP[X=x,Y=y])\\]
-\\[ = \sum\_xxP[X=x]\\]
+\\[
+\begin\{align\*\}  
+E[E[X\|Y]] = E[g(Y)] &= \sum\_yE[X\|Y=y]P[Y=y] \\\
+                     &= \sum\_y(\sum\_xxP[X=x\|Y=y])P[Y=y] \\\
+                     &= \sum\_y(\sum\_xxP[X=x\|Y=y]P[Y=y]) \\\
+                     &= \sum\_xx(\sum\_yxP[X=x,Y=y]) \\\
+                     &= \sum\_xxP[X=x]
+\end\{align\*\}                       
+\\]
 
 
 stick-breaking example

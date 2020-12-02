@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Set and Probability"
-date:   2020-11-30 08:00:05 +0800
+date:   2020-12-01 08:00:05 +0800
 categories: probability
 use_math: true
 tags: math probability 
@@ -32,9 +32,9 @@ TODO:
   - __proof__ : \\(\|2^\mathbb{N}\| \leq \|2^A\|\\) and  \\(\|2^\mathbb{N}\| \\) is uncoutable, which is a result with 1-1 correspondance with \\(\\{0,1\\}^\infty\\)
 
 ### Limit of sets
-1. `Limit supremum` \\[\limsup\_\{n\rightarrow \infty \} = \mathop\{\bigcap\}\_\{k=1\}^\infty \left( \mathop\{\bigcup\}\_\{n=k\}^\infty \right) A\_n\\]
+1. `Limit supremum` \\[\limsup\_\{n\rightarrow \infty \} A\_n = \mathop\{\bigcap\}\_\{k=1\}^\infty \left( \mathop\{\bigcup\}\_\{n=k\}^\infty \right) A\_n\\]
     for \\(w\in \limsup\_\{n\rightarrow \infty\}A_n\\) to be hold, \\(w\\) must be in \\(A\_n\\) infinitely many times, not necessarily successive.
-2. `Limit infimum` \\[\liminf\_\{n\rightarrow \infty \} = \mathop\{\bigcup\}\_\{k=1\}^\infty \left( \mathop\{\bigcap\}\_\{n=k\}^\infty \right) A\_n\\]
+2. `Limit infimum` \\[\liminf\_\{n\rightarrow \infty \} A\_n = \mathop\{\bigcup\}\_\{k=1\}^\infty \left( \mathop\{\bigcap\}\_\{n=k\}^\infty \right) A\_n\\]
     for \\(w\in \liminf\_\{n\rightarrow \infty\}A_n\\) to be hold, \\(w\\) must be in \\(A\_n\\) infinitely and successively, for some \\(n\geq N\\).
 
 
