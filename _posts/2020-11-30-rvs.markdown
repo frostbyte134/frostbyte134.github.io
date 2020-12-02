@@ -42,7 +42,7 @@ tags: math probability
 #### Bernoulli
 \\[ X = 
 \begin\{cases\}
-1, & \text\{ with probability \} p \\\
+1, & \text\{ with probability \} p \\\\
 0, & \text\{ with probability \} 1-p
 \end\{cases\}
 \\]
@@ -142,7 +142,8 @@ consider two problems
 \\[f\_X(x) = 
 \begin\{cases\}  
 \lambda e^\{-\lambda x\} \quad\quad x \geq 0 \\\
-0 \quad\quad\quad \text\{o.w\} 
+0 \quad\quad\quad \text\{o.w\} \\\
+
 \end\{cases\}    
 \\] where \\(\lambda>0\\) is a parameter. 
 
