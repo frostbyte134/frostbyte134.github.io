@@ -176,7 +176,7 @@ Taking the inner product \\(r\_i^Tr\_j\quad\forall i,j \\) and using Equ43 (next
 so that, equ37 (\\(\beta\_\{ij\}\\)) is reduced to
 \\[ \beta\_\{ij\} = 
 \begin\{cases\}
-\frac\{1\}\{\alpha\_\{i-1\}\}\frac\{r\_i^Tr\_j\}\{d\_\{i-1\}^TAd\_\{i-1\}\}, & i = j+1 & \text\{by (37)\} \\\
+\frac\{1\}\{\alpha\_\{i-1\}\}\frac\{r\_i^Tr\_j\}\{d\_\{i-1\}^TAd\_\{i-1\}\}, & i = j+1 & \text\{by (37)\} \cr
 0, & i>j+1
 \end\{cases\}
 \\]

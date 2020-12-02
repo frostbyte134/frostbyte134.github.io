@@ -42,9 +42,8 @@ tags: math probability
 #### Bernoulli
 \\[ X = 
 \begin\{cases\}
-1, & \text\{ with probability \} p \\\
-0, & \text\{ with probability \} 1-p \\\
-dummy & 
+1, & \text\{ with probability \} p \cr
+0, & \text\{ with probability \} 1-p 
 \end\{cases\}
 \\]
 - often an `indicator` random variable of an event \\(A\\) : \\(I\_A\\) is Bernoulli variable
@@ -142,8 +141,8 @@ consider two problems
 
 \\[f\_X(x) = 
 \begin\{cases\}  
-\lambda e^\{-\lambda x\} \quad\quad x \geq 0 \\\
-0 \quad\quad\quad \text\{o.w\} \\\
+\lambda e^\{-\lambda x\} \quad\quad x \geq 0 \cr
+0 \quad\quad\quad \text\{o.w\} 
 \end\{cases\}    
 \\] where \\(\lambda>0\\) is a parameter. 
 
