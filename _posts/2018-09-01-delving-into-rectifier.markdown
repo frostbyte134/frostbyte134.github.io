@@ -35,8 +35,8 @@ wasn't able to find PReLU in more recent papers. However calculating its deriv i
 Formally, we consider an activation function defined as:
 \\[
 f(y\_i)=\begin\{cases\}
-y_i,\quad\text\{if \}y\_i>0 \\\
-a\_iy\_i,\quad\text\{if \}y\_i\leq 0 \\\
+y_i,\quad\text\{if \}y\_i>0 \cr
+a\_iy\_i,\quad\text\{if \}y\_i\leq 0 \cr
 \end\{cases\}
 \\]
 where

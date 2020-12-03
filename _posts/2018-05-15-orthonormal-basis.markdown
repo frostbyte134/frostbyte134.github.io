@@ -9,7 +9,7 @@ tags: linear_algebra
 A set of vectors \\(\{q_1,...,q_n\}\\) are orthonormal if
 \\[q_i^Tq_j=
 \begin{cases}
-    0 & \text\{if \} i \neq j \\\
+    0 & \text\{if \} i \neq j \cr
     1 & \text\{if \} i = j
 \end{cases}
 \\]
@@ -44,7 +44,7 @@ and we have,
 If we have insufficient orthogonal vectors \\(\{q_1,...,q_r\},\\>r<n\\) then \\[Qx=b\\] mignt nit have an answer, and the problem indeed becomes projection.
 \\[Q^TQ\hat\{x\}=Q^Tb\quad\rightarrow\quad \hat\{x\}=Q^Tb=
 \begin\{bmatrix\}\{\}
-q_1^Tb \\\ \vdots \\\ q_r^Tb
+q_1^Tb \cr \vdots \cr q_r^Tb
 \end\{bmatrix\}
 \\]
 (Columns are independent, since they are orthonormal)  
@@ -75,18 +75,18 @@ Finding the coefficients is simple, as <a href="#ortho_basis">described above</a
 And vice versa for \\(c\\) (wrt \\(q_1,q_2,q_3\\)). Now We can repharse the Gram-Schmidt process with matrix multiplication.
 \\[
 \begin\{bmatrix\}\{\}
-| & | & | \\\
-a & b & c \\\
+| & | & | \cr
+a & b & c \cr
 | & | & |
 \end\{bmatrix\}=
 \begin\{bmatrix\}\{\}
-| & | & | \\\
-q_1 & q_2 & q_3 \\\
+| & | & | \cr
+q_1 & q_2 & q_3 \cr
 | & | & |
 \end\{bmatrix\}
 \begin\{bmatrix\}\{\}
-q_1^Ta & q_1^Tb & q_1^Tc \\\
- & q_2^Tb & q_2^Tc \\\
+q_1^Ta & q_1^Tb & q_1^Tc \cr
+ & q_2^Tb & q_2^Tc \cr
  &  & q_3^Tc
 \end\{bmatrix\}
 \\]

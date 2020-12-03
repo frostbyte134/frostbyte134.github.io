@@ -23,18 +23,18 @@ To apply the spectral decomposition using the Schur's theorem, its triangular fo
 2. A triangular \\(T\\) which is normal, must be diagonal.
 Proof by induction.    
 
-__Base case__: Let \\(n=2\\). WLOG let \\[T=\begin\{bmatrix\} a && 0 \\\ b && c \end\{bmatrix\}.\\] Then \\(\\>T^HT-TT^H=0\\) gives 
+__Base case__: Let \\(n=2\\). WLOG let \\[T=\begin\{bmatrix\} a && 0 \cr b && c \end\{bmatrix\}.\\] Then \\(\\>T^HT-TT^H=0\\) gives 
 \\[T=
 \begin\{bmatrix\}
-|b|^2 && \bar\{b\}c-a\bar\{b\} \\\ 
+|b|^2 && \bar\{b\}c-a\bar\{b\} \cr 
 \bar\{c\}b-b\bar\{a\} && -|b|^2 
 \end\{bmatrix\}=0
 \\] so \\(b=0\\) and \\(T\in \mathbb\{R\}^\{2\times 2\}\\) must be diagonal.
 
-__Inductive step__: For \\(n\leq 2\\), suppose that the theorem holds for \\(n\\). Let \\[T_\{n+1\}=\begin\{bmatrix\} T && 0 \\\ v && a \end\{bmatrix\}.\\] be an arbitrary triangular matrix in \\(\mathbb\{C\}^\{(n+1)\times(n+1)\}\\), where \\(T\\) is an (normal, by assumption) triangular matrix in \\(\mathbb\{C\}^\{n\times n\},\\>v\in \mathbb\{C\}^\{1\times n\},\\>a\in\mathbb\{C\}.\\) Then \\(T_\{n+1\}^HT_\{n+1\}-T_\{n+1\}T_\{n+1\}^H=0\\) gives
+__Inductive step__: For \\(n\leq 2\\), suppose that the theorem holds for \\(n\\). Let \\[T_\{n+1\}=\begin\{bmatrix\} T && 0 \cr v && a \end\{bmatrix\}.\\] be an arbitrary triangular matrix in \\(\mathbb\{C\}^\{(n+1)\times(n+1)\}\\), where \\(T\\) is an (normal, by assumption) triangular matrix in \\(\mathbb\{C\}^\{n\times n\},\\>v\in \mathbb\{C\}^\{1\times n\},\\>a\in\mathbb\{C\}.\\) Then \\(T_\{n+1\}^HT_\{n+1\}-T_\{n+1\}T_\{n+1\}^H=0\\) gives
 \\[
-\begin\{bmatrix\} T^HT-TT^* + v^Hv && v^Ha-Tv^H \\\ \bar\{a\}v-vT^H && -|v|^2 \end\{bmatrix\}
-=\begin\{bmatrix\} 0 + \\|v\\|^2 && v^Ha-Tv^H \\\ \bar\{a\}v-vT^H && -\\|v\\|^2 \end\{bmatrix\}
+\begin\{bmatrix\} T^HT-TT^* + v^Hv && v^Ha-Tv^H \cr \bar\{a\}v-vT^H && -|v|^2 \end\{bmatrix\}
+=\begin\{bmatrix\} 0 + \\|v\\|^2 && v^Ha-Tv^H \cr \bar\{a\}v-vT^H && -\\|v\\|^2 \end\{bmatrix\}
 =0
 \\]
 Hence \\(v=0\\) and since \\(T\\) is diagonal, \\(T_\{n+1\}\\) is also diagonal.

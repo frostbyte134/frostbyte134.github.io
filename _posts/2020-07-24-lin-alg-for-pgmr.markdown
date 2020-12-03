@@ -78,9 +78,9 @@ Let \\(x\in R^n, y\in R^m, A\in R^\{n\times m\}\\)
 \\[
 x(t) = 
 \begin{bmatrix}{}
-	-0.5 & -0.34 & 0.08 \\\
-	1 & 0 & 0 \\\
-	0 & 1 & 0 \\\
+	-0.5 & -0.34 & 0.08 \cr
+	1 & 0 & 0 \cr
+	0 & 1 & 0 \cr
 \end{bmatrix} x(t-1)
 \\]
 
@@ -88,9 +88,9 @@ x(t) =
 \\[
 \xi (t) = 
 \begin{bmatrix}{}
-	A_1 & A_2 & A_3 \\\
-	I & 0 & 0 \\\
-	0 & () & 0 \\\
+	A_1 & A_2 & A_3 \cr
+	I & 0 & 0 \cr
+	0 & () & 0 \cr
 \end{bmatrix} \xi (t-1)
 \\]
 

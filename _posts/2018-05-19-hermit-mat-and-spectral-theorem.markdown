@@ -32,16 +32,16 @@ We say that \\(A\in\mathbb\{C\}^\{n\times n\}\\) is Hermitian if
 	\\[A=UTU^*=UTU^\{-1\}\\]
 	
 	`proof`: Let \\(q_1\\) be an eigenvector of \\(A\\), which is guaranteed to be exists by `(1)`. By the <a href="{{site.url}}/linear_algebra/2018/05/15/orthonormal-basis.html#gram_schmidt"  target="_blank">Gram-Schmidt process</a> we may choose any \\(q'_i\\) such that \\(\\{q_1,q'_2...,q'_n\\}\\) is an orthonormal basis.  
-	Let \\(Q_0:=[q_1,q'_2..,q'_n]\in\mathbb\{C\}^\{n\times n\}\\). Then \\(Q_0\\) is unitary, and \\[\{Q\_0\}^\* A Q\_0=\begin\{bmatrix\}\{\} \lambda_1 && * \\\ 0 && A\_1 \end\{bmatrix\}\\] for some \\((n-1)\times(n-1)\\) matrix \\(A_1\\).  
-	Likewise \\(A_1\\) has at least 1 eigenvalue and we may find a unitary \\((n-1)\times(n-1)\\) matrix \\(Q'_1\\) so that \\[Q_1^\{'*\}A_1Q'_1=\begin\{bmatrix\}\{\} \lambda_2 && * \\\ 0 && A_2 \end\{bmatrix\}\\] for \\((n-2)\times (n-2)\\) matrix \\(A_2\\). We let \\[Q_1:=\\left[
+	Let \\(Q_0:=[q_1,q'_2..,q'_n]\in\mathbb\{C\}^\{n\times n\}\\). Then \\(Q_0\\) is unitary, and \\[\{Q\_0\}^\* A Q\_0=\begin\{bmatrix\}\{\} \lambda_1 && * \cr 0 && A\_1 \end\{bmatrix\}\\] for some \\((n-1)\times(n-1)\\) matrix \\(A_1\\).  
+	Likewise \\(A_1\\) has at least 1 eigenvalue and we may find a unitary \\((n-1)\times(n-1)\\) matrix \\(Q'_1\\) so that \\[Q_1^\{'*\}A_1Q'_1=\begin\{bmatrix\}\{\} \lambda_2 && * \cr 0 && A_2 \end\{bmatrix\}\\] for \\((n-2)\times (n-2)\\) matrix \\(A_2\\). We let \\[Q_1:=\\left[
 	\begin{array}{c|ccc}
-	1 & & 0 &  \\\
+	1 & & 0 &  \cr
 	\hline
-	 & & & \\\
-	0 & & Q'_1\in R^\{(n-1)\times(n-1)\} & \\\
+	 & & & \cr
+	0 & & Q'_1\in R^\{(n-1)\times(n-1)\} & \cr
 	 & & &
 	\end{array}
-	\right\]\\]and see that \\[Q_0^\*AQ_0=\begin\{bmatrix\}\{\} \lambda_1 && * \\\ 0 && A_2 \end\{bmatrix\}\\] \\[Q_1^\*Q_0^\*AQ_0Q_1=\begin\{bmatrix\}\{\} \lambda_1 && * && * \\\ 0 && \lambda_2 && * \\\ 0 && 0 && A_3 \end\{bmatrix\}\\] holds. The process continues till \\[(Q_n^\*\cdots Q_0^\*) A (Q_0 \cdots Q_n)=T\\] where \\(T\\) is \\(n\times n\\) upper triangular matrix and \\(U:=Q_n\cdots Q_0\\) is unitary thanks to `(3)`. Finally we see that \\[A=UTU^\*\\] holds.
+	\right\]\\]and see that \\[Q_0^\*AQ_0=\begin\{bmatrix\}\{\} \lambda_1 && * \cr 0 && A_2 \end\{bmatrix\}\\] \\[Q_1^\*Q_0^\*AQ_0Q_1=\begin\{bmatrix\}\{\} \lambda_1 && * && * \cr 0 && \lambda_2 && * \cr 0 && 0 && A_3 \end\{bmatrix\}\\] holds. The process continues till \\[(Q_n^\*\cdots Q_0^\*) A (Q_0 \cdots Q_n)=T\\] where \\(T\\) is \\(n\times n\\) upper triangular matrix and \\(U:=Q_n\cdots Q_0\\) is unitary thanks to `(3)`. Finally we see that \\[A=UTU^\*\\] holds.
 {:.deccounter}
 
 

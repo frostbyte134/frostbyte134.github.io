@@ -22,9 +22,9 @@ Let \\(\textrm\{dim\}(\textrm\{Im\}A)=r\\). Then \\(\textrm\{Im\}A\\) has a basi
 Now we can represent \\(A\\) as \\[A=[a_1\\>...\\>a_n]=[b_1\\>...\\>b_r]
 \left[
 	\begin{array}{}
-	C_{11} & & C_{n1}  \\\
-	\vdots & \ddots & \vdots  \\\
-	C_{1r} & & C_{nr}  \\\
+	C_{11} & & C_{n1}  \cr
+	\vdots & \ddots & \vdots  \cr
+	C_{1r} & & C_{nr}  \cr
 	\end{array}
 \right]
 \\]

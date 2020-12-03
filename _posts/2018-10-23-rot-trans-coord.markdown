@@ -13,30 +13,30 @@ tags: geometry rotatation
 Suppose that we want to perform \\(\text\{ccw\}(\theta)\\): counter-clock direction rotation, in the amount of theta.
 \\[
 \begin{bmatrix}\{\}
-1 \\\
-0 \\\
+1 \cr
+0 \cr
 \end\{bmatrix\}
 \quad\rightarrow\quad
 \begin{bmatrix}\{\}
-\cos\theta \\\
-\sin\theta \\\
+\cos\theta \cr
+\sin\theta \cr
 \end\{bmatrix\}
 \\]
 \\[
 \begin{bmatrix}\{\}
-0 \\\
-1 \\\
+0 \cr
+1 \cr
 \end\{bmatrix\}
 \quad\rightarrow\quad
 \begin{bmatrix}\{\}
--\sin\theta \\\
-\cos\theta \\\
+-\sin\theta \cr
+\cos\theta \cr
 \end\{bmatrix\}
 \\]
 \\[\rightarrow
 \begin{bmatrix}\{\}
-\cos\theta && -\sin\theta \\\
-\sin\theta && \cos\theta \\\
+\cos\theta && -\sin\theta \cr
+\sin\theta && \cos\theta \cr
 \end\{bmatrix\}
 \\]
 
@@ -46,9 +46,9 @@ A __rotation of 3D body from (certain) standard__ can be described as a series (
 \\(\rightarrow\\) rotation in \\(x, y\\) plane, ignoring \\(z\\) coordinate.  
 The matrix representing such rotation is, \\[R_x:=
 \begin{bmatrix}\{\}
-\cos\theta && -\sin\theta && 0\\\
-\sin\theta && \cos\theta && 0\\\
-0 && 0 && 1 \\\
+\cos\theta && -\sin\theta && 0\cr
+\sin\theta && \cos\theta && 0\cr
+0 && 0 && 1 \cr
 \end\{bmatrix\}
 \\]
 (See how the transformation affects points)

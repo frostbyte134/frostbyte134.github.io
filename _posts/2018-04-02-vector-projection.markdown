@@ -32,24 +32,24 @@ Projection \\(p\\) of \\(b\\) onto \\(a\\) can be simplified as \\[ p=({a'}^Tb)a
 Remember that the _outer product is defined in 3-Dimension_. Let \\(u=\left<u_1,u_2,u_3\right>,\\>v=\left<v_1,v_2,v_3\right>\\), and \\(\theta\\) be the angle between the two vectors. The __cross product__ of \\(u,v\\) is defined by
 \\[u\times v:=
 \begin\{vmatrix\}\{\}
-	i && j && k \\\
-	u_1 && u_2 && u_3 \\\
-	v_1 && v_2 && v_3 \\\
+	i && j && k \cr
+	u_1 && u_2 && u_3 \cr
+	v_1 && v_2 && v_3 \cr
 \end\{vmatrix\}
 =
 \begin\{vmatrix\}\{\}
-	u_2 && u_3 \\\
-	v_2 && v_3 \\\
+	u_2 && u_3 \cr
+	v_2 && v_3 \cr
 \end\{vmatrix\}i
 -
 \begin\{vmatrix\}\{\}
-	u_1 && u_3 \\\
-	v_1 && v_3 \\\
+	u_1 && u_3 \cr
+	v_1 && v_3 \cr
 \end\{vmatrix\}j
 +
 \begin\{vmatrix\}\{\}
-	u_1 && u_2 \\\
-	v_1 && v_2 \\\
+	u_1 && u_2 \cr
+	v_1 && v_2 \cr
 \end\{vmatrix\}k
 \\]
 \\[\left<u_2v_3-u_3v_2,u_3v_1-u_1v_3,u_1v_2-u_2v_1\right>.\\]

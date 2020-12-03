@@ -25,11 +25,11 @@ So called `least square` problem in \\(Ax=b,\\>A\in R^\{n\times n\}\\) is, findi
 1. 1-dimensional case (Too many equations, too few variable)  
 \\[ax=b\quad\rightarrow\quad
 \begin\{bmatrix\}\{\}
-2 \\\ 3 \\\ 4
+2 \cr 3 \cr 4
 \end\{bmatrix\}
 [x\]=
 \begin\{bmatrix\}\{\}
-b_1 \\\ b_2 \\\ b_3
+b_1 \cr b_2 \cr b_3
 \end\{bmatrix\}\quad\rightarrow\quad
 \textrm\{Too many equations, too few variables\}
 \\]
@@ -46,7 +46,7 @@ Finding \\(\hat\{x\}\\) which minimizes \\(\frac\{1\}\{2\}\\|Ax-b\\|^2\\) is, eq
 <img src="{{ site.url }}/images/math/linear_alg/general_proj.jpg" width="1000" class="center"/>  
 In linear algebra case, using orthogonality
 \\[\begin\{matrix\}\{\}
-a_1^T(b-A\hat\{x\})=0 \\\ \vdots \\\ a_n^T(b-A\hat\{x\})=0 
+a_1^T(b-A\hat\{x\})=0 \cr \vdots \cr a_n^T(b-A\hat\{x\})=0 
 \end\{matrix\}
 \quad\rightarrow\quad A^T(b-A\hat\{x\})=0\quad\rightarrow\quad A^TA\hat\{x\}=A^Tb.
 \\] \\(A^TA\hat\{x\}=A^Tb\\) is known as the `normal equation`, and \\(A^TA\\) is the `normal matrix` (__link???__)  

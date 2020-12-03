@@ -14,51 +14,51 @@ Suppose that,
 
 Then, every `linear transformation` \\(A\in L(R^n,R^m)\\) induces a set of \\(m\times n\\) numbers \\(a_{ij}\\) which compose a `matrix` \\([A]\in R^{m\times n}\\) by  
 \\[A\left( \begin{bmatrix}
-x_{1}  &   \ldots   &  x_{n} \\\
+x_{1}  &   \ldots   &  x_{n} \cr
 \end{bmatrix}
  \right) = [ \begin{matrix}
-y_{1}  &   \ldots   &  y_{m} \\\
+y_{1}  &   \ldots   &  y_{m} \cr
 \end{matrix}
  ] [ A ].\\]
 By applying linear transformation \\(A\\) to \\(x\_j\\) we see that in columnwise,  
 \\[ A(x\_{j})= \sum\_{i=1}^{m}a\_{ij}y\_{i}
 = \begin{bmatrix}
-\sum\_{i=1}^{m}a\_{ij}(y\_{i})\_1 + ... + \sum\_{i=1}^{m}a\_{ij}(y\_{i})\_1 \\\
-\cdots \\\
+\sum\_{i=1}^{m}a\_{ij}(y\_{i})\_1 + ... + \sum\_{i=1}^{m}a\_{ij}(y\_{i})\_1 \cr
+\cdots \cr
 \sum\_{i=1}^{m}a\_{ij}(y\_{i})\_n + ... + \sum\_{i=1}^{m}a\_{ij}(y\_{i})\_n
 \end{bmatrix}
 \\]
 We see that \\([A]\_{pq}=\sum\_{i=1}^{m}a\_{iq}(y\_{i})\_p + ... + \sum\_{i=1}^{m}a_{iq}(y_{i})\_p \\).
 
-It is trivial (in theory) to determine \\(a\_{ij}\\), by \\[ A(x\_j)=Y \begin{bmatrix} a\_{1j} \\\ \vdots \\\ a\_{mj} \end{bmatrix} \rightarrow Y^{-1}A(x\_j)= \begin{bmatrix} a\_{1j} \\\ \vdots \\\ a\_{mj} \end{bmatrix}\\] ( \\(Y\\) is a non-singular matrix, by its construction) so that, `consequently`,
+It is trivial (in theory) to determine \\(a\_{ij}\\), by \\[ A(x\_j)=Y \begin{bmatrix} a\_{1j} \cr \vdots \cr a\_{mj} \end{bmatrix} \rightarrow Y^{-1}A(x\_j)= \begin{bmatrix} a\_{1j} \cr \vdots \cr a\_{mj} \end{bmatrix}\\] ( \\(Y\\) is a non-singular matrix, by its construction) so that, `consequently`,
 \\[ [A]=Y^{-1}[A(x\_1),...,A(x\_n)]\\]
   
   
 For arbitrary  \\( \vec\{x\} \in R^{n} \\) ,  \\( \textbf{x}= \sum\_{j=1}^{m}c\_{j}x\_{j} \\) and (not particularly unique)  \\( \vec\{y\}=A\textbf{x} \\),
 
  \\[ A\textbf{x}= [ A ]  \begin{bmatrix}
-x\_{1}  &   \ldots   &  x\_{n} \\\
+x\_{1}  &   \ldots   &  x\_{n} \cr
 \end{bmatrix}
   \begin{bmatrix}
-c\_{1} \\\
- \ldots \\\
-c\_{n} \\\
+c\_{1} \cr
+ \ldots \cr
+c\_{n} \cr
 \end{bmatrix}
   = [ \begin{matrix}
-y\_{1}  &   \ldots   &  y\_{m} \\\
+y\_{1}  &   \ldots   &  y\_{m} \cr
 \end{matrix}
  ]  [ A ]  \begin{bmatrix}
-c\_{1} \\\
- \ldots \\\
-c\_{n} \\\
+c\_{1} \cr
+ \ldots \cr
+c\_{n} \cr
 \end{bmatrix}
  = [ \begin{matrix}
-y\_{1}  &   \ldots   &  y\_{m} \\\
+y\_{1}  &   \ldots   &  y\_{m} \cr
 \end{matrix}
  ]   \begin{bmatrix}
- \sum\_{j=1}^{n}a\_{1j}c\_{j}\\\
- \ldots \\\
- \sum\_{j=1}^{n}a\_{mj}c\_{j}\\\
+ \sum\_{j=1}^{n}a\_{1j}c\_{j}\cr
+ \ldots \cr
+ \sum\_{j=1}^{n}a\_{mj}c\_{j}\cr
 \end{bmatrix}
    \\]  \\[ = \sum\_{i=1}^{m} \(  \sum\_{j=1}^{n}a\_{ij}c\_{j} \) y\_{i} \\] 
 The coordinate (remember that  \\( y\_{i} \\) s are bases) of  \\( Ax \\)  in terms of  \\( y\_{i} \\)  is  \\(  \sum\_{j=1}^{n}a\_{ij}c\_{j} \\).

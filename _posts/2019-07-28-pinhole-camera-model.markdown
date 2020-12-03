@@ -39,13 +39,13 @@ unit = pixel
 ### Camera projection 
 \\[ z_c 
 \begin{bmatrix}
-u\\\ v \\\ 1 
+u\cr v \cr 1 
 \end{bmatrix} 
 = K 
 \begin{bmatrix} R & T 
 \end{bmatrix} 
 \begin{bmatrix} 
-x_w \\\ y_w \\\ z_w \\\ 1 
+x_w \cr y_w \cr z_w \cr 1 
 \end{bmatrix} \\]
 ![1]({{ site.url }}/images/math/geometry/vline.png){: .center-image }  
 ![2]({{ site.url }}/images/math/geometry/calibration_cameramodel_coords.png){: .center-image } 
@@ -53,7 +53,7 @@ x_w \\\ y_w \\\ z_w \\\ 1
 ### 1. World coordinate to camera coordinate
 - using `extrinsic matrix` \\( \begin{bmatrix} R & T \end{bmatrix} \\) (Rotation and Translation)
 
-\\[ \begin{bmatrix}   &   &  &  \\\ & R \in {\Re}^{3 \times 3} & & T \in {\Re}^{3 \times 1} \\\   & & & \\\ 0 & 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} x_w \\\ y_w \\\ z_w \\\ 1 \end{bmatrix} = \begin{bmatrix} x_c \\\ y_c \\\ z_c \\\ 1 \end{bmatrix} \\]
+\\[ \begin{bmatrix}   &   &  &  \cr & R \in {\Re}^{3 \times 3} & & T \in {\Re}^{3 \times 1} \cr   & & & \cr 0 & 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} x_w \cr y_w \cr z_w \cr 1 \end{bmatrix} = \begin{bmatrix} x_c \cr y_c \cr z_c \cr 1 \end{bmatrix} \\]
 
 * Firstly we rotate \\( x_w, y_w, z_w \\) with \\( R \\), 
 * then translate the whole plane with \\(T\\). __We cannot translate the points directly before we align the coordinates__.
@@ -68,17 +68,17 @@ If order to represent (x, y) with the camera plane, we need to add T (vector add
 ### 2. camera coordinate to normalized img plane
 - perspective transform (projection)
 
-\\[\begin{bmatrix} x_c \\\ y_c \\\ z_c \end{bmatrix}\quad\rightarrow\quad z_c\begin{bmatrix} x_c/z_c \\\ y_c/z_c \\\ 1 \end{bmatrix} \\]
+\\[\begin{bmatrix} x_c \cr y_c \cr z_c \end{bmatrix}\quad\rightarrow\quad z_c\begin{bmatrix} x_c/z_c \cr y_c/z_c \cr 1 \end{bmatrix} \\]
 
 The coefficient \\(z_c\\) in the RHS of the main equation came from here
 
 ### 3. normalized img plane to img plane
 - using `intrinsic matrix` 
-  \\[K = \begin{bmatrix}   f\_x &  skew_cf\_x & c\_x \\\  & f\_y  & c\_y \\\   & & 1 \\\ \end{bmatrix},\\] \\[ z_c 
+  \\[K = \begin{bmatrix}   f\_x &  skew_cf\_x & c\_x \cr  & f\_y  & c\_y \cr   & & 1 \cr \end{bmatrix},\\] \\[ z_c 
 \begin{bmatrix}
-u\\\ v \\\ 1 
+u\cr v \cr 1 
 \end{bmatrix} 
-= \begin{bmatrix}   f\_x &  skew_cf\_x & c\_x \\\  & f\_y  & c\_y \\\   & & 1 \\\ \end{bmatrix} \begin{bmatrix} x_c/z_c \\\ y_c/z_c \\\ 1 \end{bmatrix}
+= \begin{bmatrix}   f\_x &  skew_cf\_x & c\_x \cr  & f\_y  & c\_y \cr   & & 1 \cr \end{bmatrix} \begin{bmatrix} x_c/z_c \cr y_c/z_c \cr 1 \end{bmatrix}
 \\]
 
 `Intrinsic parameters`

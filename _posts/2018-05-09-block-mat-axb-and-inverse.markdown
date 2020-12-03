@@ -10,28 +10,28 @@ In solving \\(Ax=b\\) with elimination, what we perform is converting
 \\[Ax-b=0\quad\equiv\quad
 \left[
 	\begin{array}{c|c}
-	A & y \\\	
+	A & y \cr	
 	\end{array}
 \right]
 \left[
 	\begin{array}{}
-	x \\\
+	x \cr
 	\hline
-	-1 \\\
+	-1 \cr
 	\end{array}
 \right]
 =0\\] into
 \\[
 \left[
 	\begin{array}{c|c}
-	I & s \\\	
+	I & s \cr	
 	\end{array}
 \right]
 \left[
 	\begin{array}{}
-	x \\\
+	x \cr
 	\hline
-	-1 \\\
+	-1 \cr
 	\end{array}
 \right]
 =0\\]

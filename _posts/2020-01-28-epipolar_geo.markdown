@@ -52,9 +52,9 @@ Let
 4. From the linear algebra, we can represen cross prod between two vector as matrix-vector multiplication
 \\[a\times b=
 \begin\{bmatrix\}\{\}
-0 & -a\_x & a\_y\\\
-a\_z& 0 & -a\_x\\\
--a\_y& a\_x & 0\\\
+0 & -a\_x & a\_y\cr
+a\_z& 0 & -a\_x\cr
+-a\_y& a\_x & 0\cr
 \end\{bmatrix\}
 =[a\_x]b\\]
 5. Using this notation, and the fact that (2) is the unit vector of epipolar plane, we obtain linear equality (remember that \\(p_1\\) lies in the epipolar plane)

@@ -19,18 +19,18 @@ Determinant provides
 3. The determinant depends linearly on the 1st row (indeed, a volume with rows)
 \\[
 \begin{vmatrix}{}
-	t(a+a' ) && t(b+b' ) \\\
-	c && d \\\
+	t(a+a' ) && t(b+b' ) \cr
+	c && d \cr
 \end{vmatrix}
 =t
 \begin{vmatrix}{}
-	a && b \\\
-	c && d \\\
+	a && b \cr
+	c && d \cr
 \end{vmatrix}
 =t
 \begin{vmatrix}{}
-	a' && b' \\\
-	c && d \\\
+	a' && b' \cr
+	c && d \cr
 \end{vmatrix}
 \\]
 ### Additional properties
@@ -40,23 +40,23 @@ Determinant provides
 5. Subtracting (adding) multiples of one row from the other row leaves the same determinant
 \\[
 \begin{vmatrix}{}
-	a-tc && b-td \\\
-	c && d \\\
+	a-tc && b-td \cr
+	c && d \cr
 \end{vmatrix}
 =
 \begin{vmatrix}{}
-	a && b \\\
-	c && d \\\
+	a && b \cr
+	c && d \cr
 \end{vmatrix}
 -t
 \begin{vmatrix}{}
-	c && d \\\
-	c && d \\\
+	c && d \cr
+	c && d \cr
 \end{vmatrix}
 =
 \begin{vmatrix}{}
-	a && b \\\
-	c && d \\\
+	a && b \cr
+	c && d \cr
 \end{vmatrix}
 \\]
 (By applying rule `(b)` and `(c)`)
@@ -65,23 +65,23 @@ Determinant provides
 7. If A is triangular, then det⁡A is the product of diagonal entries
 \\[
 \begin{vmatrix}{}
-	a && 0 \\\
-	c && d \\\
+	a && 0 \cr
+	c && d \cr
 \end{vmatrix}
 =a
 \begin{vmatrix}{}
-	1 && 0 \\\
-	c && d \\\
+	1 && 0 \cr
+	c && d \cr
 \end{vmatrix}
 =ad
 \begin{vmatrix}{}
-	1 && 0 \\\
-	c && 1 \\\
+	1 && 0 \cr
+	c && 1 \cr
 \end{vmatrix}
 =ad
 \begin{vmatrix}{}
-	1 && 0 \\\
-	0 && 1 \\\
+	1 && 0 \cr
+	0 && 1 \cr
 \end{vmatrix}
 \\]
 (Applying `(b)`, `(e)`, and `(a)`) <br/>

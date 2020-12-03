@@ -64,31 +64,31 @@ Therefore to obtain an length 1 eigenvector of \\(AA^T\\), we divide \\(Av_i\\) 
 \\[\rightarrow AV=U\Sigma\\]
 \\[
 \begin\{bmatrix\}\{\}
-& & & \\\
-& A & & \\\
-& & & \\\
-& & & \\\
+& & & \cr
+& A & & \cr
+& & & \cr
+& & & \cr
 & & &
 \end\{bmatrix\}
 \begin\{bmatrix\}\{\}
-| & & & | \\\
-v_1 &... &... & v_n \\\
-| & & & | \\\
+| & & & | \cr
+v_1 &... &... & v_n \cr
+| & & & | \cr
 & & &
 \end\{bmatrix\}
 =
 \begin\{bmatrix\}\{\}
- & & & & \\\
-| & & & &| \\\
-u_1 &... &... & ... & u_m \\\
-| & & & & | \\\
+ & & & & \cr
+| & & & &| \cr
+u_1 &... &... & ... & u_m \cr
+| & & & & | \cr
  & & & & 
 \end\{bmatrix\}
 \begin\{bmatrix\}\{\}
-\sigma_1& & & \\\
-& \ddots & & \\\
-& & \sigma_r & \\\
-& & & 0 \\\
+\sigma_1& & & \cr
+& \ddots & & \cr
+& & \sigma_r & \cr
+& & & 0 \cr
 & & &
 \end\{bmatrix\}
 \\]

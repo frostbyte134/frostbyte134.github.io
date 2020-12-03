@@ -25,7 +25,7 @@ For \\(E(p)\\), the derivative at a point \\(p\\) is defined as a linear mapping
 \\[
 \frac\{\partial E(p) \}\{ \partial p \}\in \Re^\{n\} = 
 \begin{bmatrix}
-\frac\{\partial E(p) \}\{ \partial p\_1 \}  &   \ldots   &  \frac\{\partial E(p) \}\{ \partial p\_n \} \\\
+\frac\{\partial E(p) \}\{ \partial p\_1 \}  &   \ldots   &  \frac\{\partial E(p) \}\{ \partial p\_n \} \cr
 \end{bmatrix}^T
 \\]
 We see that \\(\frac\{\partial E(p) \}\{ \partial p\_1 \} = \frac\{\partial r(p)^Tr(p) \}\{ \partial p\_1 \} \\) is actually an inner product (sum over \\(m\\) given data), and considering its __quadratic form__, 
@@ -40,25 +40,25 @@ We see that \\(\frac\{\partial E(p) \}\{ \partial p\_1 \} = \frac\{\partial r(p)
 \\]
 \\[
 = 2 \begin{bmatrix}
-\frac\{\partial r\_1(p) \}\{ \partial p\_1 \}  &   \ldots   &  \frac\{\partial r\_m(p) \}\{ \partial p\_1 \} \\\
+\frac\{\partial r\_1(p) \}\{ \partial p\_1 \}  &   \ldots   &  \frac\{\partial r\_m(p) \}\{ \partial p\_1 \} \cr
 \end{bmatrix}
 \begin{bmatrix}
-r\_1(p)   \\\
-\ldots  \\\
-r\_m(p)  \\\
+r\_1(p)   \cr
+\ldots  \cr
+r\_m(p)  \cr
 \end{bmatrix}
 \\]
 
 so that \\(\frac\{\partial E(p) \}\{ \partial p \}\\) can be __decomposed__ as
 \\[ 2\begin{bmatrix}
-\frac\{\partial r\_1(p) \}\{ \partial p\_1 \}  &   \ldots   &  \frac\{\partial r\_m(p) \}\{ \partial p\_1 \} \\\
-\vdots  &   \ldots   &  \vdots \\\
-\frac\{\partial r\_1(p) \}\{ \partial p\_n \}  &   \ldots   &  \frac\{\partial r\_m(p) \}\{ \partial p\_n \} \\\
+\frac\{\partial r\_1(p) \}\{ \partial p\_1 \}  &   \ldots   &  \frac\{\partial r\_m(p) \}\{ \partial p\_1 \} \cr
+\vdots  &   \ldots   &  \vdots \cr
+\frac\{\partial r\_1(p) \}\{ \partial p\_n \}  &   \ldots   &  \frac\{\partial r\_m(p) \}\{ \partial p\_n \} \cr
 \end{bmatrix}
 \begin{bmatrix}
-r\_1(p)   \\\
-\ldots  \\\
-r\_m(p)  \\\
+r\_1(p)   \cr
+\ldots  \cr
+r\_m(p)  \cr
 \end{bmatrix}
 = 2A^Tr(p)
 \\] 
@@ -67,7 +67,7 @@ r\_m(p)  \\\
 
 ### Gradient descent
 For a continuous function, the opposite direction of the gradient is the steepest descent direction (add link), which gives following iterative process
-\\[p^\{k+1\}=p^\{k\} - \alpha \frac\{\partial E(p) \}\{ \partial p \}\\\]
+\\[p^\{k+1\}=p^\{k\} - \alpha \frac\{\partial E(p) \}\{ \partial p \}\cr]
 \\[\rightarrow p^\{k+1\}=p^\{k\} - 2\alpha A^Tr(p) \\]
 
 

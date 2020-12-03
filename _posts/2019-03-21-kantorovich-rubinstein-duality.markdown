@@ -35,18 +35,18 @@ where
 \\[c:=\text\{vec\}(\|\| x\_i - x\_j \|\|)\in \Re^\{K\times K\} \\]
 \\[A:=
 \begin{bmatrix}{}
-	1 & 1 & 1 & ... & 0 & 0 & 0 & ...\\\
-	0 & 0 & 0 & ... & 1 & 1 & 1 & ...\\\
-	\vdots \\\
-    1 & 0 & 0 & ... & 1 & 0 & 0 & ... \\\
-    0 & 1 & 0 & ... & 0 & 1 & 0 & ... \\\
-    \vdots \\\
+	1 & 1 & 1 & ... & 0 & 0 & 0 & ...\cr
+	0 & 0 & 0 & ... & 1 & 1 & 1 & ...\cr
+	\vdots \cr
+    1 & 0 & 0 & ... & 1 & 0 & 0 & ... \cr
+    0 & 1 & 0 & ... & 0 & 1 & 0 & ... \cr
+    \vdots \cr
 \end{bmatrix} \in R^\{2\times K\}
 \\]
 \\[b:=
 \begin{bmatrix}{}
-	p\_r \\\
-	p\_\theta \\\
+	p\_r \cr
+	p\_\theta \cr
 \end{bmatrix} \in R^\{2\times K\}
 \\]
 
@@ -55,8 +55,8 @@ The Lagrangian becomes
 \\[ = \inf\_\{x\} \left\\{ x^T(c - A^T\lambda - \nu) + b^T\lambda \right\\} \\]
 \\[ = 
 \begin{cases}
-b^T\lambda \quad \text\{if\}\quad c - A^T\lambda - \nu = 0 \\\
--\infty \quad \text\{o.w\} \\\
+b^T\lambda \quad \text\{if\}\quad c - A^T\lambda - \nu = 0 \cr
+-\infty \quad \text\{o.w\} \cr
 \end{cases}
 \\]
 
@@ -76,12 +76,12 @@ Now, knowing that the strong duality holds (TODO: add link!), we can solve this 
 Given the related variables, consider the dual variable \\(\lambda\\) as the realization of two discrete functions \\(f, g\\) over the states \\(\\{x\_1,...,x\_K\\}\\)
 \\[
 \begin{bmatrix}{}
-	f(x\_1) \\\
-	\vdots \\\
-    f(x\_K) \\\
-    g(x\_1) \\\
-    \vdots \\\
-    g(x\_K) \\\
+	f(x\_1) \cr
+	\vdots \cr
+    f(x\_K) \cr
+    g(x\_1) \cr
+    \vdots \cr
+    g(x\_K) \cr
 \end{bmatrix} \in R^\{2\times K\}
 \\]
 

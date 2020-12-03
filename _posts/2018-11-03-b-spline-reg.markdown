@@ -26,8 +26,8 @@ For each augmented knots, define a set of real-valued `basis function` \\[B\_\{i
 by
 \\[
 B\_\{i,0\}(x)=\begin\{cases\}
-1 \quad\text\{if \} t\_i\leq x < t\_\{i+1\} \\\
-0 \quad\text\{otherwise \} \\\
+1 \quad\text\{if \} t\_i\leq x < t\_\{i+1\} \cr
+0 \quad\text\{otherwise \} \cr
 \end\{cases\}
 \\]
 
@@ -35,8 +35,8 @@ B\_\{i,0\}(x)=\begin\{cases\}
 where
 \\[
 \alpha\_\{i,j\}(x)=\begin\{cases\}
-\frac\{x-t\_i\}\{t\_\{i+j\}-t\_i\} \quad\text\{if \} t\_\{i\+j}\neq t\_\{i\} \\\
-0 \quad\text\{otherwise \} \\\
+\frac\{x-t\_i\}\{t\_\{i+j\}-t\_i\} \quad\text\{if \} t\_\{i\+j}\neq t\_\{i\} \cr
+0 \quad\text\{otherwise \} \cr
 \end\{cases\}
 \\]
 
@@ -58,20 +58,20 @@ Taking inner product of \\(a\\) with control points \\(\beta\\), \\[\beta = [\be
 Given \\(t\\) points, by elaborating 1 we obtain matrix-vector multiplication (and linear regression, or projection)
 \\[
 \begin\{bmatrix\}
-\\ \-\\ a\_\{0\}^T \\ \-\\ \\\
-\vdots \\\
-\\ \-\\ a\_\{N+n\}^T \\ \- \\\
+\\ \-\\ a\_\{0\}^T \\ \-\\ \cr
+\vdots \cr
+\\ \-\\ a\_\{N+n\}^T \\ \- \cr
 \end\{bmatrix\}
 \begin\{bmatrix\}
-\beta\_\{0\} \\\
-\vdots \\\
-\beta\_\{N+n\} \\\
+\beta\_\{0\} \cr
+\vdots \cr
+\beta\_\{N+n\} \cr
 \end\{bmatrix\}
 \approx
 \begin\{bmatrix\}
-f(x\_0\) \\\
-\vdots \\\
-f(x\_\{N+n\}\) \\\
+f(x\_0\) \cr
+\vdots \cr
+f(x\_\{N+n\}\) \cr
 \end\{bmatrix\}
 \\] 
 \\[A\beta=x\\]

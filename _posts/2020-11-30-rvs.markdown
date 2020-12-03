@@ -101,10 +101,10 @@ where \\(\lambda>0\\) is a given parameter.  It is a legitimate PMF b/c
 - `expectation`
 \\[
 \begin\{align\*\}
-E[X] &= \sum\_\{k=0\}^\infty k e^\{-\lambda\}\frac\{\lambda^k\}\{k!\} \\\
-     &= \sum\_\{k=1\}^\infty k e^\{-\lambda\}\frac\{\lambda^k\}\{k!\} \quad...\quad k=0 \text\{ term is zero\} \\\
-     &= \lambda\sum\_\{k=1\}^\infty e^\{-\lambda\}\frac\{\lambda^\{k-1\}\}\{(k-1)!\} \\\
-     &= \lambda\sum\_\{m=0\}^\infty e^\{-\lambda\}\frac\{\lambda^\{m\}\}\{(m)!\} \quad...\quad m=k-1 \\\
+E[X] &= \sum\_\{k=0\}^\infty k e^\{-\lambda\}\frac\{\lambda^k\}\{k!\} \cr
+     &= \sum\_\{k=1\}^\infty k e^\{-\lambda\}\frac\{\lambda^k\}\{k!\} \quad...\quad k=0 \text\{ term is zero\} \cr
+     &= \lambda\sum\_\{k=1\}^\infty e^\{-\lambda\}\frac\{\lambda^\{k-1\}\}\{(k-1)!\} \cr
+     &= \lambda\sum\_\{m=0\}^\infty e^\{-\lambda\}\frac\{\lambda^\{m\}\}\{(m)!\} \quad...\quad m=k-1 \cr
      &= \lambda \quad...\quad \text\{refer to the normalization of Poisson above\} 
 \end\{align\*\}
 \\]

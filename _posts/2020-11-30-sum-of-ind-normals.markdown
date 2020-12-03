@@ -17,8 +17,8 @@ Conditioning
 - condition is similar to the process of re-normalizing. We collect all samplespace components which is relevant with \\(A\\), add them up and renormalize to construct the conditional pdf/pmf.
 
 ### Discrete case : X + Y (independent)
-- \\(Z=X+Y\\), \\(X,Y\\) are independent, discrete with known PDFs
-- calculation of PDF reduced to `discrete convolution`
+- Let \\(Z:=X+Y\\), where \\(X,Y\\) are independent, discrete RVs with known PDFs
+- __calculation of PDF reduced to__ `discrete convolution`
 - \\(p\_Z(z) = \sum\_xP(X=x,Y=z-x) = \sum\_xP(X=x)P(Y=z-x) = \sum\_xp\_X(x)p\_Y(z-x)\\)
 - To calculate \\(p\_Z(3)\\),
   1. filp \\(p\_Y\\)
@@ -38,9 +38,10 @@ Conditioning
   \\[f\_Z(z) = \int\_\{-\infty\}^\{\infty\}f\_X(x)f\_Y(z-x)dx\\]
   \\[= \frac\{1\}\{ \sigma\_x\sqrt\{2\pi\}\} \exp\left( \frac\{-(x-\mu\_x)^2\}\{2\sigma\_x^2\} \right) \frac\{1\}\{\sigma\_y\sqrt\{2\pi\}\} \exp\left( \frac\{-(z-x-\mu\_y)^2\}\{2\sigma\_y^2\} \right)\\]
   \\[\text\{(algebra...)\} = \frac\{1\}\{ (\sigma\_x+\sigma\_y)\sqrt\{2\pi\}\} exp\left( \frac\{-(z-\mu\_y^2-\mu\_x)^2\}\{2(\sigma\_x^2+\sigma\_y^2)\} \right)\\]
-  \\[\sim N(\mu\_x+\mu\_y,\sigma\_x^2+\sigma\_y^2\\]
+  \\[\sim N(\mu\_x+\mu\_y,\sigma\_x^2+\sigma\_y^2)\\]
 - which implies that, `the sum of finitely many independent normals is normal`
 - TODO: fix (algebra..) part
+  - maybe with MGF? we dont need to waste time
 
 ### Covariance
 \\[\text\{cov\}(X, Y) := E\left[ (X-E[X])(Y-E[Y]) \right]\\]
@@ -88,10 +89,10 @@ __Remarks__
 __proof__ : 
 \\[
 \begin\{align\*\}  
-E[E[X\|Y]] = E[g(Y)] &= \sum\_yE[X\|Y=y]P[Y=y] \\\
-                     &= \sum\_y(\sum\_xxP[X=x\|Y=y])P[Y=y] \\\
-                     &= \sum\_y(\sum\_xxP[X=x\|Y=y]P[Y=y]) \\\
-                     &= \sum\_xx(\sum\_yxP[X=x,Y=y]) \\\
+E[E[X\|Y]] = E[g(Y)] &= \sum\_yE[X\|Y=y]P[Y=y] \cr
+                     &= \sum\_y(\sum\_xxP[X=x\|Y=y])P[Y=y] \cr
+                     &= \sum\_y(\sum\_xxP[X=x\|Y=y]P[Y=y]) \cr
+                     &= \sum\_xx(\sum\_yxP[X=x,Y=y]) \cr
                      &= \sum\_xxP[X=x]
 \end\{align\*\}                       
 \\]
@@ -170,3 +171,6 @@ let \\(Y=X\_1+...+X\_N\\)
   - \\(V[E[Y\|N]]\\)
     - \\( = V[NE[X]] = E[X]^2V[N]\\)
    - now we have, \\(V[Y] = NV[X] + E[X]^2V[N] \\)
+
+
+Random sum of geometric number of geometric/exponential is geometric/exponential - refer to the MGF page

@@ -15,25 +15,25 @@ links, convexity
 Using \\(J\\), we can calculate how \\(u=f(x)\in R^m\\) changes with respect to unit change in \\(x\in R^n\\).
 \\[
 \begin{bmatrix}\{\}
-\frac\{\partial f(x)\_1\}\{\partial dx_1\} && ... && \frac\{\partial f(x)\_1\}\{\partial dx_n\} \\\
-\vdots && \vdots && \vdots \\\
-\frac\{\partial f(x)\_m\}\{\partial du_1\} && ... && \frac\{\partial f(x)\_m\}\{\partial dx_n\} \\\
+\frac\{\partial f(x)\_1\}\{\partial dx_1\} && ... && \frac\{\partial f(x)\_1\}\{\partial dx_n\} \cr
+\vdots && \vdots && \vdots \cr
+\frac\{\partial f(x)\_m\}\{\partial du_1\} && ... && \frac\{\partial f(x)\_m\}\{\partial dx_n\} \cr
 \end\{bmatrix\}
 \begin{bmatrix}\{\}
-dx_1 \\\
-\vdots  \\\
-dx_n \\\
-\end\{bmatrix\}
-=
-\begin{bmatrix}\{\}
-\sum_\{i=1\}^n \frac\{\partial f(x)\_1\}\{\partial x_i\}dx_i \\\
-\vdots  \\\
-\sum_\{i=1\}^n \frac\{\partial f(x)\_m\}\{\partial x_i\}dx_i \\\
+dx_1 \cr
+\vdots  \cr
+dx_n \cr
 \end\{bmatrix\}
 =
 \begin{bmatrix}\{\}
-\frac\{\partial f(x)\_1\}\{\partial x\} \\\
-\vdots  \\\
+\sum_\{i=1\}^n \frac\{\partial f(x)\_1\}\{\partial x_i\}dx_i \cr
+\vdots  \cr
+\sum_\{i=1\}^n \frac\{\partial f(x)\_m\}\{\partial x_i\}dx_i \cr
+\end\{bmatrix\}
+=
+\begin{bmatrix}\{\}
+\frac\{\partial f(x)\_1\}\{\partial x\} \cr
+\vdots  \cr
 \frac\{\partial f(x)\_1\}\{\partial x\}
 \end\{bmatrix\}
 \\]
@@ -43,12 +43,12 @@ dx_n \\\
 Let \\(x=g(\textbf\{u\})\\) for \\(g:R^n\mapsto R^n\\). We want to change coordinates from \\(\textbf\{x\}\\) to \\(\textbf\{u\}\\) (note the order). Famous example in \\(n=2\\) is a change to polar coordinate.
 \\[
 \begin{bmatrix}\{\}
-x \\\
+x \cr
 y 
 \end\{bmatrix\}
 =
 \begin{bmatrix}\{\}
-r\cos\theta \\\
+r\cos\theta \cr
 r\sin\theta 
 \end\{bmatrix\}
 \\]
@@ -57,12 +57,12 @@ In above example, suppose we want to perform integral over some region \\(R\\). 
 \\[\int\int_R g(\textbf\{x\})d\textbf\{x\} = \int\int_S f(g(\textbf\{u\}))\|J\|d\textbf\{u\}\\]
 where \\(J=
 \begin{bmatrix}\{\}
-\frac\{\partial x\}\{\partial r\} && \frac\{\partial x\}\{\partial \theta\} \\\
+\frac\{\partial x\}\{\partial r\} && \frac\{\partial x\}\{\partial \theta\} \cr
 \frac\{\partial y\}\{\partial r\} && \frac\{\partial y\}\{\partial \theta\}
 \end\{bmatrix\}
 =
 \begin{bmatrix}\{\}
-\cos\theta && -r\sin\theta \\\
+\cos\theta && -r\sin\theta \cr
 \sin\theta && r\cos\theta
 \end\{bmatrix\}
 \\)
@@ -81,12 +81,12 @@ __Hessian__ \\(H\\) of a function \\(f: R^n \mapsto R \\) fits into a __square m
 \end{bmatrix}
 =
 \begin{bmatrix}{}
-	\frac\{df\}\{dx\_1 dx\_1\} && \frac\{df\}\{dx\_1 dx\_2\} && ... \\\
-	\frac\{df\}\{dx\_2 dx\_1\} && ... && ... \\\
-	... && ... && ... \\\
+	\frac\{df\}\{dx\_1 dx\_1\} && \frac\{df\}\{dx\_1 dx\_2\} && ... \cr
+	\frac\{df\}\{dx\_2 dx\_1\} && ... && ... \cr
+	... && ... && ... \cr
 \end{bmatrix}
 \begin{bmatrix}{}
-	dx\_1 \\\ \vdots \\\ dx\_n
+	dx\_1 \cr \vdots \cr dx\_n
 \end{bmatrix}
 = \sum\_\{i=1\}^\{n\}\sum\_\{j=1\}^\{n\}dx\_i\frac\{df\}\{dx\_idx\_j\}dx\_j
 \\]

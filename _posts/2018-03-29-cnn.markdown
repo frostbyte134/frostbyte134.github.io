@@ -32,7 +32,7 @@ Convolution is `commutative`, so that
 
 
 `Cross-correlation function`: no kernel flipping in convolution. Many ML libraries implement cross-correlation but call it convolution.  
-Since Discrete convolution is a linear opeariton, there there exists <a href="{{site.url}}/linear_algebra/2018/04/21/mat-and-linear-transform.html" target="_blank">1-1 correspondence</a> to Toeplitz matrix. \\[(x\*w)(t)=\sum\_{a=-\infty}^{\infty}x(a)w(t-a) \\] \\[(x\*w)(t) = \cdots + x(-1)w(t+1) + x(0)w(t) + x(1)w(t-1) + \cdots  \\] \\[(x\*w)(t+1) = \cdots + x(-1)w(t) + x(0)w(t+1) + x(1)w(t) + \cdots \\] \\[ \Longrightarrow \begin{bmatrix}   \vdots  \\\ (x\*w)(t) \\\   (x\*w)(t+1) \\\ \vdots \end{bmatrix} = \begin{bmatrix}   \\\ \cdots & w(t+1) & w(t) & w(t-1) & \cdots \\\  \cdots & w(t+2) & w(t+1) & w(t) & \cdots  \\\ & \end{bmatrix} \begin{bmatrix}   \vdots  \\\ x(-1) \\\   x(0) \\\ x(1) \\\ \vdots \end{bmatrix}\\]
+Since Discrete convolution is a linear opeariton, there there exists <a href="{{site.url}}/linear_algebra/2018/04/21/mat-and-linear-transform.html" target="_blank">1-1 correspondence</a> to Toeplitz matrix. \\[(x\*w)(t)=\sum\_{a=-\infty}^{\infty}x(a)w(t-a) \\] \\[(x\*w)(t) = \cdots + x(-1)w(t+1) + x(0)w(t) + x(1)w(t-1) + \cdots  \\] \\[(x\*w)(t+1) = \cdots + x(-1)w(t) + x(0)w(t+1) + x(1)w(t) + \cdots \\] \\[ \Longrightarrow \begin{bmatrix}   \vdots  \cr (x\*w)(t) \cr   (x\*w)(t+1) \cr \vdots \end{bmatrix} = \begin{bmatrix}   \cr \cdots & w(t+1) & w(t) & w(t-1) & \cdots \cr  \cdots & w(t+2) & w(t+1) & w(t) & \cdots  \cr & \end{bmatrix} \begin{bmatrix}   \vdots  \cr x(-1) \cr   x(0) \cr x(1) \cr \vdots \end{bmatrix}\\]
 
 
 <h3 id="equivariance">Convolution is equivariance to translation</h3>
