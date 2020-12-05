@@ -74,10 +74,9 @@ We are interested in finding \\(a,b\\) that minimizes the mean squared estimatio
 3. Now the problem is reduced to \\[\min\_aE[(X-aY-E[X]+aE[Y])^2]\\]
    which is
    \\[
-    E[\left( (X-E[X]) -a(Y-E[Y]) \right)^2] 
     \begin\{align\*\}  
-        &= E[(X-E[X])^2]+a^2E[(Y-E[Y])^2]-2aE[(X-E[X])(Y-E[Y])] \cr
-        &= \sigma\_X^2 + a^2\sigma\_Y^2 -22a\cdot \text{cov}(X, Y) \cr
+    E[\left( (X-E[X]) -a(Y-E[Y]) \right)^2] &= E[(X-E[X])^2]+a^2E[(Y-E[Y])^2]-2aE[(X-E[X])(Y-E[Y])] \cr
+                                            &= \sigma\_X^2 + a^2\sigma\_Y^2 -22a\cdot \text{cov}(X, Y) \cr
     \end\{align\*\}  
     \\]
     This is quadratic (thus convex) function. Optimality condition gives

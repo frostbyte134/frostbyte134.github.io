@@ -92,7 +92,9 @@ example)
 
 <img src="{{site.url}}/images/math/prob/joint_mgf.jpg" width="800">  
 
-왜 이렇지?
+왜 이렇지? 라플라스 변환이랑 무슨 관계가 있나..
+
+The `inversion property` again holds in multivariate case.
 
 ### Random Sum of Independent Number of RVs
 Let \\(Y=X\_1+...+X\_N\\), where \\(N, X\_i\\)s are independent, and \\(X\_i\\)s are identically distributed.  
