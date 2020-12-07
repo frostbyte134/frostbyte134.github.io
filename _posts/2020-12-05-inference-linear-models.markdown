@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Inferences in Continuous Linear Models"
+title:  "Least Mean Square Estimation"
 date:   2020-12-05 08:00:05 +0800
 categories: probability
 use_math: true
@@ -14,7 +14,7 @@ tags: math probability bayesian
 
 \\[f\_X(x) = \frac{1}{\sigma\sqrt{2\pi}}\exp\left\\{ -\frac{(x-\mu)^2}{2\sigma^2} \right\\}\\]
 
-\\[c\cdot\exp\left[\alpha x^2+\beta x + \gamma \right] = c\cdot\exp\left[\alpha((x+\frac{\beta}{2\alpha})^2 - \frac{\beta^2}{4\alpha^2}+\frac{\gamma}{\alpha})\right]\\]
+\\[c\cdot\exp\left\\{\alpha x^2+\beta x + \gamma \right\\} = c\cdot\exp\left\\{\alpha((x+\frac{\beta}{2\alpha})^2 - \frac{\beta^2}{4\alpha^2}+\frac{\gamma}{\alpha})\right\\}\\]
 
 - `negative exponential of a quadratic function is always a normal`
 - Note that normal PDF has its peak at `mean`. Thus by using the optimality condition (of a convex quadratic function), we easily see that
@@ -25,7 +25,7 @@ tags: math probability bayesian
 let
 \\[X=\Theta + W,\quad\quad\quad \Theta,W \sim N(0, 1) \text{ are independent }\\]
 
-1. we see that \\(f\_{X\|\Theta}(x\|\theta) = X + \theta + W \sim (\theta, 1)\\) (note that capital theta stands for the realized scalar value)
+1. we see that \\(f\_{X\|\Theta}(x\|\theta) = \theta + W \sim (\theta, 1)\\) (note that capital theta stands for the Random Variable)
 2. Then, using the bayse rule, 
    \\[
    \begin\{align\*\}  
@@ -65,7 +65,7 @@ Note that the \\(X\\) here is a __random vector.__
    We want to calculate \\(f\_{X\_1,...,X\_n\|\Theta}\\), but note that since \\(\Theta\\) and \\(X\_1,...,X\_n\\) are independent (each \\(X\_i\\)s are linear (additive) relation with \\(W\_i\\)),   
    \\(f\_{X\_1,...,X\_n\|\Theta} = f\_{X\_1,...,X\_n}\\) and it factors into the __product__ of \\(n\\) normal.
    \\[ f\_{X\_1,...,X\_n\|\Theta}(x\_1,...,x\_n\|\theta) = \prod\_{i=1}^nf\_{x\_i\|\Theta}(x\_i\|\theta)\\]
-3. Now using the bayese rule, 
+3. Now using the Bayes rule, 
    \\[f\_{\Theta\|X}(\theta\|x)=\frac{1}{f\_X(x)}\cdot c\_0 \exp\left\\{ -(\theta-x\_0)^2/2\sigma\_0^2 \right\\} 
    \prod\_{i=1}^nc\_i\exp\left[ -(\theta-x\_0)^2/2\sigma\_0^2 \right] 
    \\]
@@ -76,10 +76,10 @@ Note that the \\(X\\) here is a __random vector.__
    \\[\sum\_{i=0}^n \frac{(\theta\-x\_i)}{\sigma\_{i}^2}=0\\]
    so we conclude,
    \\[\hat{\theta}\_{MAP} = \hat{\theta}\_{LMS} = \frac{\sum\_{i=0}^n\frac{x\_i}{\sigma\_i^2}}{\sum\_{i=0}^n\frac{1}{\sigma\_i^2}}\\]
-5. interpretation
-    -1. posterior is normal, estimates are linear of the form \\(\hat{\theta} = a\_0+a\_1x\_1+...+a\_nx\_n\\)
-    -2. estimate \\(\hat{\theta)}\\) : weighted average (inverted variance) (`convex combination`) of \\(x\_0\\) (`prior mean`) and \\(x\_i\\) (`observations`)
-    -3. \\(\sigma\_i^2\\) large - \\(X\_i\\) is very noise - gets small weights
+5. interpretation  
+    -1. posterior is normal, estimates are linear of the form \\(\hat{\theta} = a\_0+a\_1x\_1+...+a\_nx\_n\\)  
+    -2. estimate \\(\hat{\theta)}\\) : weighted average (inverted variance) (`convex combination`) of \\(x\_0\\) (`prior mean`) and \\(x\_i\\) (`observations`)  
+    -3. \\(\sigma\_i^2\\) large - \\(X\_i\\) is very noise - gets small weights  
 {:.acounter}
 
 
@@ -93,13 +93,13 @@ Note that the \\(X\\) here is a __random vector.__
    \\[E[(\Theta-\hat{\Theta})^2 \| X=x] = \text{var}(\Theta\|X=x)\\]
 2. In "Recognizing Normal PDF" part, we had simple way to calculate the variance of a normal
    1. \\(\alpha = \sum\_{i=0}^n\frac{1}{2\sigma\_i^2}\\)
-   2. multipling 2 and inverting gives \\(1/(\sum\_i=0^n\frac{1}{\sigma\_i^2})\\)
-3. Now we have \\(E[(\Theta-\hat{\Theta})^2 \| X=x] = 1/(\sum\_i=0^n\frac{1}{\sigma\_i^2})\\). What about \\(E[(\Theta-\hat{\Theta})^2]\\) ?
-4. using total expectation theorem, we again see that \\(E[(\Theta-\hat{\Theta})^2] = 1/(\sum\_i=0^n\frac{1}{\sigma\_i^2})\\)
+   2. multipling 2 and inverting gives \\(1/(\sum\_{i=0}^n\frac{1}{\sigma\_i^2})\\)
+3. Now we have \\(E[(\Theta-\hat{\Theta})^2 \| X=x] = 1/(\sum\_{i=0}^n\frac{1}{\sigma\_i^2})\\). What about \\(E[(\Theta-\hat{\Theta})^2]\\) ?
+4. using total expectation theorem, we again see that \\(E[(\Theta-\hat{\Theta})^2] = 1/(\sum\_{i=0}^n\frac{1}{\sigma\_i^2})\\)
    - This makes sense, since Given \\(X=x\\), the mean squared value was not a function of \\(x\\)
 5. interpretation
-   - some \\(\sigma\_i^2\\) small \\(\quad\rightarrow\quad\\) MSE small. Our uncertainty is small
-   - Many \\(\sigma\_i^2\\) small \\(\quad\rightarrow\quad\\) MSE small. Our uncertainty is large
+   - many \\(\sigma\_i^2\\) small \\(\quad\rightarrow\quad\\) MSE small. Our uncertainty is small
+   - any \\(\sigma\_i^2\\) large \\(\quad\rightarrow\quad\\) MSE large. Our uncertainty is large
    - If \\(\sigma\_0=\sigma\_1=...\\), then the variance becomes \\(\sigma^2/(n+1)\\). __More observation -> more certain!__ (estimated variance goes down)
    - Conditional MSE was not a function of \\(X=x\\), all same! = no specific \\(X=x\\) is more desirable
 
@@ -113,3 +113,36 @@ For simple model \\(X, W\sim N(0, 1), X,W\\) are independent,
 3. green line : posterior \\(f\_{\Theta\|}(\theta)\\) basesd on observation \\(x, \hat{\theta}=x/2\\)
 
 Note that the variance is fixed regardless of the observation, as we've seen above.
+
+
+### Trajectory Estimation
+<img src="{{site.url}}/images/math/prob/traj.jpg" width="1000">  
+
+Assume
+\\[X\_i=\Theta\_0+\Theta\_0t\_i+\Theta\_2+t\_i^2+W\_i\quad\quad i=1,...,n\\]
+* also assume \\(\Theta\_j\sim N(0, \sigma\_j^2\),\quad W\_i\sim N(0, \sigma^2)\\) are independent
+* Now we see that  \\(\Theta : \Omega \mapsto R^3\\)
+* __Given__ \\(\Theta=\theta=(\theta\_0, \theta\_1, \theta\_2)\\), \\(X\_i\\) is \\(N(\theta\_0+\theta\_1t\_i+\theta\_2t\_i^2, \sigma^2)\\)
+  * where \\(f\_{X\_i \| \Theta}(x\_i \| \theta) = c\cdot \ext\left\\{  -(x\_i-\theta\_0-\theta\_1t\_i+\theta\_2t\_i^2)^2 / 2\sigma^2 \right\\}\\)
+* \\(f\_\Theta\\) is normal, as we assumed
+
+Given all above, we can calculate the posterior
+\\[f\_{\Theta \| X\_i}(\theta\|x) = c(x)\ext\left\\{ -\frac{1}{2}(\frac{\theta\_0^2}{\sigma\_0^2} + \frac{\theta\_1^2}{\sigma\_1^2} + \frac{\theta\_2^2}{\sigma\_2^2}) - \frac{1}{2\sigma^2}\sum\_{i=1}^n(x\_i-\theta\_0-\theta\_1t\_i+\theta\-2t\_i^2)^2 \right\\}\\]
+- `MAP estimate` : using optimality condition, 
+
+
+
+### Limear Normal models
+- \\(\Theta\_j\\) and \\(X\_i\\) are linear functions of independent Normal RVs
+- \\(f\_{\Theta \| X}(\theta \| x) = c(x)\exp\left\\{ -\text{quadratic}(\theta\_1,...,\theta\_m) \right\\}\\)
+- MAP estimate = maximizing over convex quadratic = linear (by optimality condition)
+- inference becomes linear regression
+- Facts:
+  - \\(\hat{\Theta}\_{MAP, j} = E[\Theta\_j \| X]\\)
+  - marginal posterior PDF of \\(\Theta\_j \\) is normal = __Marginal inference is also linear__
+  - \\(E[(\hat{\Theta}\_{i, MAP} - \Theta\_i)^2 \| X=x]\\) : same for all \\(x\\)
+
+
+### Bayesian Confidence Intervals
+
+<img src="{{site.url}}/images/math/prob/bci.jpg" width="1000">  

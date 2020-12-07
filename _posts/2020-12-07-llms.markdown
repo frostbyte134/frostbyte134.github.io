@@ -1,0 +1,69 @@
+---
+layout: post
+title:  "Linear Least Mean Square Estimation"
+date:   2020-12-07 08:00:05 +0800
+categories: probability
+use_math: true
+tags: math probability bayesian
+---
+
+
+> <a href="https://ocw.mit.edu/resources/res-6-012-introduction-to-probability-spring-2018/part-ii-inference-limit-theorems/" target="_blank">part-ii-inference-limit-theorems</a>
+
+### Formulation
+- `unknown` \\(\Theta\\)
+- `observation` \\(X\\)
+- `estimator` \\(\hat{\Theta}=g(X) \quad\rightarrow\quad \hat{\Theta}\_{LMS}=E[\Theta \| X]\\)
+  - minimize wrt __an arbitrary function__ \\(g\\)
+
+However, we are dealing with __linear__ estimators only
+- \\(\hat{\Theta}=ax=b\\) form
+- minimize \\(E[(\Theta - aX - b)^2]\\)
+  - minimize wrt \\(a, b\\)
+- If \\(E[\Theta \| X]\\) is linear in \\(X\\), then \\(\hat{\Theta}\_{LMS}=\hat{\Theta}\_{LLMS}\\)
+
+
+### Solving LLMS
+
+\\[\text{Minimize } E[(\Theta-aX-b)^2]\\] 
+w.r.t
+\\[a,b\\]
+
+
+`2-stage approach` - suppose \\(a\\) has already found: then we have \\(b=E[\Theta]-aE[X]\\).   
+Then now, 
+\\[
+\begin\{align\*\}  
+\min E[(\Theta-aX-E[\Theta-aX])^2] &= \text{var}(\Theta-aX) \cr
+                                    &= \text{var}(\Theta) + a^2\text{var}(X) - 2a\text{cov}(\Theta, X)  \cr
+\end\{align\*\}  
+\\]
+using the optimality condition (convex quadratic wrt \\(a\\)), taking derivative wrt \\(a\\) gives
+\\[
+2a\text{var}(X)-2\text{cov}(\Theta,X)=0
+a=\frac{\text{cov}(\Theta,X)}{\text{var}(X)}  
+\\]
+Now the solution has form
+\\[\hat{\Theta}\_L=E[\Theta]+\frac{\text{cov}(\Theta,X)}{\text{var}(X)(X-E[X])\\]
+
+
+
+__Side note__: remember that the `correlation coefficient` between \\(\Theta, X\\) is
+\\[\rho = \frac{\text{cov}}(\Theta, X)\\]
+so that \\(a\\) can be repharsed as
+\\[a=\frac{\rho \sigma\_\Theta\sigma\_X}{\sigma\_X^2}\\]
+
+
+In summary,
+\\[\hat{\Theta}\_L = E[\Theta] + \frac{\text{cov}(\Theta,X)}{\text{var}(X)(X-E[X]) = E[\Theta] + \rho\frac{\sigma\_\Theta}{\sigma\_X}(X-E[X])\\]
+
+__Remarks__
+1. To implement \\(\hat{\Theta}\_L\\), we only need means, vars, covars
+2. As the correlation coefs suggest linear relation,  
+   * \\(\rho>0\\) : then, large \\(X\\) imples large estimated \\(\Theta\\)
+   * \\(\rho = 0\\) : \\(\hat{\Theta}\_L = E[\hat{\Theta}]\\)
+3. Assume \\(E[\Theta] = E[X] = 0\\)
+   Then, \\(\hat{\Theta}\_L =  \rho\frac{\sigma\_\Theta}{\sigma\_X}X\\) and 
+   \\[
+   E[(\Theta - \hat{\Theta}\_L)^2] = \sigma\_0^2 - \rho\frac{\sigma\_\Theta}{\sigma\_X}\rho\sigma\_\Theta\sigma\_X+(\rho\frac{\sigma\_\Theta}{\sigma\_X}\sigma\_X)^2
+   \\]

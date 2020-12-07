@@ -42,7 +42,7 @@ hypo testing vs estimation
 - __prior__ \\(f\_\Theta\\) __+ model of the observation__ \\(p\_{X\|\Theta}\\) __-----Bayes rule-----> posterior__ \\(p\_{\Theta\|X}\\)
    - `point estimation` : provide single value \\(\theta\\) which best explains the posterior
      - `MAP` : maximum a posteriori
-        - provides __smallest probability error__ \\(P[\hat{\theta}=\Theta\|X=x]\\) for each observation \\(x\\)
+        - provides __smallest probability error__ \\(P[\hat{\theta}\neq\Theta\|X=x]\\) for each observation \\(x\\)
         - which leads to the smallest `overall probability of error` \\[\sum P[\hat{\Theta}\neq\Theta\|X=x)p_X(x) = \sum P[\hat{\Theta}\neq\Theta\|\Theta=\theta)p\_\Theta(\theta)]\\] (it can be calculated in two ways) 
      - `Least Mean Squares` = provides smallest mean squared error \\(E[X\|\theta] = \mathop{argmin}\_\{c\}E[(X-c)^2]\\)
 - `estimate` \\(\hat{\theta}=g(x)\\): scalar 
