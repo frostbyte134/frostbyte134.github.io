@@ -89,7 +89,7 @@ Therefore, by modifying the equation,
 (Above taylor approximation = `Laplace's approximation`.)
 
 The <a href="{{site.url}}/linear_algebra/2018/05/09/characteristic-equ.html#apps" target="blank">determinant is the product of eigenvalues</a>, and thus
-\\[P(y\|x;M)\approx\ext\left{-\left(C(w_0)+\frac\{1\}\{2\}\sum\_\{i=1\}^\{p\}\ln(\lambda_i/\lambda)\right)\right}\\]
+\\[P(y\|x;M)\approx\exp\left{-\left(C(w_0)+\frac\{1\}\{2\}\sum\_\{i=1\}^\{p\}\ln(\lambda_i/\lambda)\right)\right}\\]
 * The contribution \\(\sum\_\{i=1\}^\{p\}\ln(\lambda_i/\lambda)\\) is often called the `Occam factor`, since it enforces Ocam's razor; when two models describe the data equally well, the simpler model is usually better. 
 * __Minima with low curvature are simple__, because the parameters do not have to be fine-tuned to fit the data.
 \\[\text\{low curvature = low value of \sum\_\{i=1\}^\{p\}\ln(\lambda_i/\lambda)\}\\]

@@ -38,6 +38,7 @@ hypo testing vs estimation
 ### Bayesian Inference framework
 - \\(\theta\\) : unknown RV
   - often constant in other frameworks
+  - often a parameter of an exponentia family
 - \\(f\_\theta\\) = `prior` (our belief before seeing data)
 - __prior__ \\(f\_\Theta\\) __+ model of the observation__ \\(p\_{X\|\Theta}\\) __-----Bayes rule-----> posterior__ \\(p\_{\Theta\|X}\\)
    - `point estimation` : provide single value \\(\theta\\) which best explains the posterior
@@ -49,7 +50,7 @@ hypo testing vs estimation
 - `estimator` \\(\hat{\Theta}=g(X)\\): a RV. A rule we use to process the data
 
 
-### Unknown Bias of n Coins toss and Beta distribution
+### Unknown Bias of n Coins Toss and Beta distribution
 
 Let there be 
 * a __randomly biased__ coin, where the head probability is a RV \\(\Theta \in [0, 1]\\)

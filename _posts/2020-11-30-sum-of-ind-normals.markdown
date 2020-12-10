@@ -129,14 +129,14 @@ example
 - assume \\(P[Y=1] = P[Y=2] = 1/2\\)
 - \\(E[X] = \frac\{1\}\{2\}[x^2/2]\_0^1 + \frac\{1\}\{4\}[x^2/2]_1^3 = 5/4 \\)
 - \\(E[E[X \| Y]] = p\_Y(1)E[X\|Y=1] + p\_Y(2)E[X\|Y=2]\\)
-  - \\( E[X\|Y=1] \\) : \\(X\\) given \\(Y=1\\) has probability at \\([0, 1]\\), thus \\(\int\_0^1 1\cdot \frac\{x^2\}\{2\}dx = 1/2\\)
-  - \\( E[X\|Y=2] \\) : \\(X\\) given \\(Y=2\\) has probability at \\([2, 3]\\), thus \\(\int\_2^3 1\cdot \frac\{1\}\{2\}\frac\{x^2\}\{2\}dx = 2\\)
+  - \\( E[X\|Y=1] \\) : \\(X\\) given \\(Y=1\\) has meaningful (uniform) pdf at \\([0, 1]\\), thus \\(\int\_0^1 x dx = 1/2\\)
+  - \\( E[X\|Y=2] \\) : \\(X\\) given \\(Y=2\\) has meaningful (uniform) pdf \\([1, 3]\\), thus \\(\int\_2^3 x \cdot \frac\{1\}\{2\dx = 2\\)
   - \\(E[E[X \| Y]] = \frac\{1\}\{2\}E[X\|Y=1] + \frac{1}{2}E[X\|Y=2] = 5/4 = E[X]\\) !
 
 - \\(E[V[X \| Y]] = p\_Y(1)V[X\|Y=1] + p\_Y(2)V[X\|Y=2]\\)
   - \\( E[X^2\|Y=1] \\) : \\(X\\) given \\(Y=1\\) has probability at \\([0, 1]\\), thus \\(\int\_0^1 1\cdot x^2dx = 1/3\\)
     - \\(V[X\|Y=1] = 1/3-(1/2)^2 = 1/12\\)
-  - \\( E[X^2\|Y=2] \\) : \\(X\\) given \\(Y=2\\) has probability at \\([2, 3]\\), thus \\(\int\_2^3 1\cdot \frac\{1\}\{2\}x^2dx = 13/3\\)
+  - \\( E[X^2\|Y=2] \\) : \\(X\\) given \\(Y=2\\) has probability at \\([1, 3]\\), thus \\(\int\_2^3 1\cdot \frac\{1\}\{2\}x^2dx = 13/3\\)
     - \\(V[X\|Y=2] = 13/3-2^2 = 1/3\\)
   - \\(E[V[X \| Y]] = 1/2 * 1/12 + 1/2 * 1/3 = 5/24\\)
 - \\(V[E[X\|Y]]\\) : we can calculate the expectation of \\((E[X\|Y] - E[E[X\|Y]])^2\\) for each \\(y\in \\{1,2\\}\\)

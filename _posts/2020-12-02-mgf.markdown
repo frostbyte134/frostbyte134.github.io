@@ -12,7 +12,7 @@ tags: math probability
   - MGF provides an alternative representation of its probability law (PMF or PDF)
     - often convenient for certain types of math manipulations
 
-`moment generating function` of a random variable \\(X\\) is d a function \\(M\_X(s)\\) of a free parameter \\(s\\), defined by
+`moment generating function` of a random variable \\(X\\) is a function \\(M\_X(s)\\) of a free parameter \\(s\\), defined by
 \\[M_X(s) = E[e^{sX}]\\]
 
 when \\(X\\) is __discrete__
@@ -43,7 +43,7 @@ Let \\(Y=aX+b\\), where \\(X\\) is a RV. Then
 ex) If \\(X\\) is exponential with \\(\lambda=1\\), and if \\(Y=2X+3\\), then \\(M\_Y(s)=e^{3s}\frac{1}{1-2s}\\) 
 
 Application
-- MGF of standard normal \\(Y\sim N(0, 1), f\_Y(y) = \frac{1}{\sqrt{2\pi}}e^{-y^2/2}\\) : \\(e^{s^2/2}\\) (proof : link pdf, example 4.5)
+- MGF of standard normal \\(Y\sim N(0, 1), f\_Y(y) = \frac{1}{\sqrt{2\pi}}e^{-y^2/2}\\) is \\(e^{s^2/2}\\) (proof : link pdf, example 4.5)
   - then any normal with \\(X\sim N(\mu, \sigma^2)\\) is \\[M\_X(s) = e^{s\mu}M\_Y(s\sigma) = e^{\frac{\sigma^2s^2}{s}+\mu s}\\]
 
 ### Generating Moments from MGF
@@ -68,9 +68,9 @@ example) A bank has three tellers, two fast, one slow.
   \begin\{align\*\}  
     M(s) &= \int\_0^\inf e^{sx}(\frac{2}{3}6e^{-6x}+\frac{1}{3}4e^{-4x})dx \cr
          &= \frac{2}{3}\int\_0^\infty e^{sx}6e^{-6x}dx + \frac{1}{3}\_0^\infty e^{sx}4e^{-4x}dx \cr
-         &= frac{2}{3}f\_{X\_1}(s) + frac{1}{3}M\_{X\_2}(s)
+         &= \frac{2}{3}f\_{X\_1}(s) + \frac{1}{3}M\_{X\_2}(s)
   \end\{align\*\}    
-  \\] where \\(X_1\sim exp(6), X\_2\sim exp(4)\\).
+  \\] where \\(X_1\sim \exp(6), X\_2\sim \exp(4)\\).
 
 Therefore we see that, the pdf of a mixture of distribution 
 \\[f\_Y(y) = p\_1f\_{X\_1}(y)+...+p\_nf\_{X\_n}(y)\\]
@@ -92,7 +92,7 @@ example)
 
 <img src="{{site.url}}/images/math/prob/joint_mgf.jpg" width="800">  
 
-왜 이렇지? 라플라스 변환이랑 무슨 관계가 있나..
+왜 이렇지? 라플라스 변환이랑 무슨 관계가 있나?..
 
 The `inversion property` again holds in multivariate case.
 
@@ -115,11 +115,12 @@ Examples
      1. she finds the book with probability \\(p\\)
      2. or she cannot find the book, and stays there with exponentially distributed time \\(\lambda\\)
      4. Let \\(X\_i\sim \exp(\lambda)\\) be the waiting time on each bookstores, and are indenpent on other RVs
-     5. Let \\(N~\text{geo}(p)\\) be the number of bookstores she visited
+     5. Let \\(N \sim \text{geo}(p)\\) be the number of bookstores she visited
      3. let \\(Y:=X\_1+...X+\_N\\) be the total time she spent in bookstore. Then it is the __Sum of a Geometric Number of Independent Exponential__
      6. We see that, \\[M\_X(s)=\frac{\lambda}{\lambda-s},\quad\quad M\_N(s)=\frac{pe^s}{1-(1-p)e^s}\\]
      7. using above rule, we exchange every \\(e^s\\) on \\(M\_N\\) by \\(M\_X\\) and see that 
-        \\[M\_Y(s) = \frac{pM\_X(s)}{ 1-(1-p)M\_X(s) } = \frac{p\lambda}{p\lambda-s}\\]
+        \\[M\_Y(s) = \frac{pM\_X(s)}{ 1-(1-p)M\_X(s) } = \frac{p\lambda}{p\lambda-s}\\]  
+        which is a MGF of \\(\exp (p\lambda)\\)
      8. Note that the fixed sum of i.i.d exponential is not an exponential
 2. `Sum of a geometric number of i.i.d geometric is geometric`
     - can be proven in same way.
