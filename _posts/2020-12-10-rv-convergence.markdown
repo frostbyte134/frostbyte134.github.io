@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Convergence and the Weak Law of Large Numbers"
-date:   2020-12-07 08:00:05 +0800
+date:   2020-12-10 08:00:05 +0800
 categories: probability
 use_math: true
 tags: math probability bayesian
@@ -9,7 +9,7 @@ tags: math probability bayesian
 
 > <a href="https://ocw.mit.edu/resources/res-6-012-introduction-to-probability-spring-2018/part-ii-inference-limit-theorems/" target="_blank">part-ii-inference-limit-theorems</a>
 
-- <a href="{{site.url}}/probability/2019/02/19/estimating-rv-with-expectations.html" target="_blank">Preliminary - Markov inequality, Chevyshev inequality</a>
+- <a href="https://ocw.mit.edu/resources/res-6-012-introduction-to-probability-spring-2018/part-i-the-fundamentals/MITRES_6_012S18_Textbook.pdf" target="_blank">PDF</a>
 
 ### Markov Inequality
 use a bit of information about a distribution to learn something about probabilities of "extreme events" (tail probability)
@@ -17,16 +17,16 @@ use a bit of information about a distribution to learn something about probabili
 `Markov Inequality` : If \\(X\geq 0\\) and \\(a>0\\), then \\[P(X\geq a) \leq \frac{E[X]}{a}\\]
 
 
-1. Example: \\(X\sim \exp(1)\\) : \\(P[X\geq a] \leq 1/a\\).
+1. Example: \\(X\sim \exp(1)\\) : \\(P[X\geq a] \leq 1/a\\).  
    \\(P[X\geq a]=e^{-a}\\), so it is not a good bound (Chevyshev is better)
 
 
 ### Chevyshev Inequality
 RV \\(X\\), with finite \\(\mu\\) and variance \\(\sigma^2\\)
 - IF the variance is small, then \\(X\\) is unlikely to be too far from the mean
-\\[P( \|X-\mu\|\geq c )\leq \frac{sigma^2}{c^2}\\]
+\\[P( \|X-\mu\|\geq c )\leq \frac{\sigma^2}{c^2}\\]
 
-1. Replace \\(c\\) with \\(\sigma^2k^2\\). Then \\[P(\|X-\mu\|\geq k\sigma)\leq \frac{1}{k^2}\\]
+1. Replace \\(c\\) with \\(\sigma k\\). Then \\[P(\|X-\mu\|\geq k\sigma)\leq \frac{1}{k^2}\\]
    __Probability that__ \\(X\\) __goes__ \\(k\\) __times standard deviation from the mean is bounded by__ \\(1/k^2\\).  
 2. Example: \\(X\sim \exp(1)\\).  
    To compare with Markov inequality, we will calculate \\(P[X\geq a] \\) using CHevyshev inequality
@@ -79,8 +79,8 @@ Interpretation
   \\]
 - No way to exactly calculate \\(p\\)
   - Then, \\(M\_n = (X\_1+...+X\_n)/n\\) is the fraction of yes in our sample.
-  - prefer small error, e.g. \\(\|M\_n-p\| < 0.001\\) - no way
-  - But can gurantee the probability \\[P[\|M\_{10,000}-p] \leq \frac{signa^2}{n\epsilon^2} = \frac{p(1-p)}{10^4 10^{-4}} \leq \frac{1}{4}\\]  
+  - prefer small error, e.g. \\(\|M\_n-p\| < 0.001\\) - no way to estimate
+  - Instead, can gurantee the probability \\[P[\|M\_{10,000}-p \| \geq \epsilon] \leq \frac{\sigma^2}{n\epsilon^2} = \frac{p(1-p)}{10^4 10^{-4}} \leq \frac{1}{4}\\]  
     (last inequality comes from the fact that \\(p(1-p)\\) is concave, maximum at \\(p=1/2\\))  
     "probability that the difference of estimation is larget than 0.01 is less than 25%"  
   - if we want 5% of such number, solve \\[\frac{1/4}{n10^{-4}}\leq \frac{5}{100} \quad\rightarrow\quad n>> \frac{10^6}{20} = 50,000\\]
@@ -88,14 +88,14 @@ Interpretation
       1. `accuracy` 1%
       2. `confidence` 5%
   - accuracy of 0.01 is somewhat high. Many polls assumes 3%~5% accuracy
-  - more better inequality (Cramer-rao?) gives much smaller \\(n\\) (rather than 50,000)
+  - more better inequality (Chernoff?) gives much smaller \\(n\\) (rather than 50,000)
 
 
 ### Convergence in Probability
 example : `WLLN`
 
 > __Definition:__ A sequence \\(Y\_n\\) converges in probability to a number \\(a\\) if : 
-  \\[\text{ for any } \epsilon > 0 , \lim\_{n\rightarrow\infty}P[\|Y\_n-a\| \geq \epsilon ]=0\\] 
+  \\[\text{ for any } \epsilon > 0 ,\quad\lim\_{n\rightarrow\infty}P[\|Y\_n-a\| \geq \epsilon ]=0\\] 
 
 - The distribution of \\(Y\_n\\) is concentrated near \\(a\\), for some \\(n\geq n\_0\\) and \\(\epsilon\\)
 - no independence assumption
@@ -132,12 +132,12 @@ Properties
 
 
 We will show that, \\(Y\_n\rightarrow 0\\) in probability
-1. Fistly, since \\(Y\_n>0 \forall n\\), \\(P[\|Y\_n-0\|\geq \epsilon] = P[Y\_n \geq \epsilon]\\) 
+1. Fistly, since \\(Y\_n>0\\ \forall n\\), \\(\\ P[\|Y\_n-0\|\geq \epsilon] = P[Y\_n \geq \epsilon]\\) 
 2. We see that, 
    \\[ 
    \begin\{align\*\}  
-    P[Y\_N\geq \epsilon] &= P[X\_1\geq \epsilon \& ... \& X\_n \geq \epsilon] \cr
-                         &= P[X\_1\geq \epsilon]\times \vdots \times P[X\_n \geq \epsilon] \cr
+    P[Y\_N\geq \epsilon] &= P[X\_1\geq \epsilon \text{ and } ... \text{ and } X\_n \geq \epsilon] \cr
+                         &= P[X\_1\geq \epsilon]\cdot ... \cdot P[X\_n \geq \epsilon] \cr
                          &= (1-\epsilon)^n
     \end\{align\*\}    
    \\]
@@ -146,22 +146,22 @@ We will show that, \\(Y\_n\rightarrow 0\\) in probability
 __Related topics__
 1. Better bounds/approximations on tail probabilities
    - Markov/Chevyshev
-   - Chernoff bound \\(P[\|M\_n-\mu\| \geq a] \leq \exp(-nh(a))\\). Much stronger than Chevyshev, but need more assumptions
-   - __Central limit theorem__ : \\(M\_n\\) behaves like a normal RV
+   - `Chernoff bound` \\(P[\|M\_n-\mu\| \geq a] \leq \exp(-nh(a))\\). Much stronger than Chevyshev, but need more assumptions
+   - `Central limit theorem` : \\(M\_n\\) behaves like a normal RV
 2. Different types of convergence
    - convergence in probability
    - convergence with probability 1
-     - in a single experiment, consider seq of RVs \\(Y\_n\\) and a RV \\(Y\_n\\).
+     - in a single experiment, consider seq of RVs \\(Y\_n\\) and a RV \\(Y\\).
      - for an trial \\(\omega\\), \\(P[\\{\omega : Y\_n(\omega) \rightarrow\_{n\rightarrow\infty} Y(\omega)\\}]=1\\)
      - stronger than "in probability"
-     - __Strong law of large numbers:__  sample mean converges to true mean in probability 1
+     - `Strong law of large numbers`:  sample mean converges to true mean in probability 1
    - convergence of a sequence of distributions __(CDF!)__ to a limiting CDF
      - used in CLT (CLT talks about distribution)
 
 
 
 ### Convergence in Probability of the Sum of Two Random Variables
-\\[\text{If }X\_n\rightarrow a \text{ and }Y\_n\rightarrow b\text{, then} X\_n+Y\_n\rightarrow a+b \text{ (in probability)}\\]
+\\[\text{If }X\_n\rightarrow a \text{   and   }Y\_n\rightarrow b\text{,   then   } X\_n+Y\_n\rightarrow a+b \text{ (in probability)}\\]
 - Convergence in probability is quite similar to the convergence of sequences
 
 Preliminary : prove above in sequences (use \\(\epsilon / 2\\) for each convergence)
@@ -169,7 +169,7 @@ Preliminary : prove above in sequences (use \\(\epsilon / 2\\) for each converge
 1. For an arbitrary \\(\epsilon > 0\\), we want to show that \\[P[\|X\_n+Y\_n-a-b\| \geq \epsilon ] \rightarrow 0\\]
 2. We see that \\[\\{\| (X_n - a) + (Y\_n - b) \| \geq \epsilon \\}\subset \\{\|X\_n-a\|\geq \epsilon/2 \text{ or } \| Y\_n-a \| \geq \epsilon/2\\}\\]  
    which implies \\[P[ \| (X_n - a) + (Y\_n - b) \| \geq \epsilon] \leq P[ \| X\_n-a \| \geq \epsilon/2 \text{ or } \| Y\_n-a \| \geq \epsilon/2] \leq P[ \| X\_n-a \| \geq \epsilon/2] + P[ \| Y\_n-a \| \geq \epsilon/2]\\]
-3. Thanks to the assumption each \\(P[ \| X\_n-a \| \geq \epsilon/2]\\) converges to 0. This is the convergence of sequence, so we can apply the preliminary, so their sum converges to 0. 
+3. Thanks to the assumption each \\(P[ \| X\_n-a \| \geq \epsilon/2]\\) converges to 0. This is a convergence of sequence. We can apply the preliminary, and their sum converges to 0. 
 
 
 ### Jensen's Inequality
@@ -179,7 +179,7 @@ for a convex \\(g\\),
 
 
 ### Hoeffding's Inequality
-\\[P(X\_1+...+X\_n\geq na) \leq \exp\\{-na^2/2\\}\quad\quad\quad X\_i : i.i.d\\]
+\\[P(X\_1+...+X\_n\geq na) \leq e^{-na^2/2}\quad\quad\quad X\_i : i.i.d\\]
  
 and
 \\[
