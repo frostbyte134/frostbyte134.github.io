@@ -1,11 +1,14 @@
 ---
 layout: post
 title:  "Open / Closed Sets in Metric Spaces"
-date:   2018-10-04 5:00:05 +0800
+date:   2020-12-16 08:00:05 +0800
 categories: analysis
 use_math: true
 tags: analysis metric_space open_set closed_set limit_point neightborhood interior cell closure
 ---
+
+* Written in 2018-10-04
+* Revision in 2020-12-16
 
 Note that, subset (not subseteq) is used in the def. of interior.
 
@@ -31,15 +34,20 @@ is denoted as a `open circle` in Euclidean space.
 
 ### Examples
 Let us consider the following subsets or \\(\mathbb\{R^2\}=\mathbb\{C\}\\).
+* \\(\\{x\\},\\ x\in \Re\\) : closed
+* \\(\emptyset\\) : open and closed, with empty interior/exterior
+* 
 * \\(\\{z\in\mathbb\{C\}\quad\|\quad \|z\|<1\\}\\)  
 \\(\rightarrow\\) not closed, open, not perfect, bounded
 * \\(\\{z\in\mathbb\{C\}\quad\|\quad \|z\|\leq 1\\}\\)  
 \\(\rightarrow\\) closed, not open, perfect, bounded
 * A nonempty finite set  
 \\(\rightarrow\\) closed (vacuously), not open, not perfect, bounded
-* The set of all integers  
+* The set of all integers \\(\mathbb{Z}\\)  
 \\(\rightarrow\\) closed(complement is open, or vacuously), not open, not perfect (\\(\mathbb\{Z\}\\) cannot have a limit point, so is not closed in \\(\mathbb\{R\}\\), bounded
-* \\(\mathbb\{R^2\}=\mathbb\{C\}\\)  
+* The set of all rational numbers \\(\mathbb{Q}\\)  
+  \\(\rightarrow\\) Not open, nor closed.
+* \\(\mathbb\{R\} \text{  and  }\mathbb\{R^2\}=\mathbb\{C\}\\)  
 \\(\rightarrow\\) closed, open, perfect, not bounded
 * The segment \\((a,b),\\ a,b\in\mathbb\{R\}\\)  
 \\(\rightarrow\\) not closed, open (relatvie to \\(\mathbb\{R\}\\)) or not open (in \\(\mathbb\{C\}\\)), not perfect, bounded
@@ -84,6 +92,10 @@ Using De Morgan's Law on (a) gives (b).
 __proof__: In (a), taking minimum of radii \\(\epsilon\\) (which makes \\(N_\epsilon(x)\in G\_\alpha\\), gives a neighborhood of \\(x\\) in all of the finite sets, thus the intersection. (Note that when such sets are infinite, the infimum \\(\epsilon\\) could converge to 0).
 
 
+__Side note:__ For an open set \\(G\\) and closed set \\(F\\),  
+- \\(G\F = G\bigcap F^C \\) : open
+- \\(F\G\\) : closed, vice versa.
+
 ### Supremum is in the closer of a set
 
 __Definition__: `closure` of \\(E,\\)\\[\bar\{E\}:=E\bigcup \\{\text\{all limit points of \}E\\}\\] 
@@ -117,3 +129,38 @@ let \\(G\\) is open in \\(X\\) and let \\(E=G\bigcap Y\\). Then every \\(p\in E\
 \\[N\_\{\epsilon_p\}(p)\cap Y \subset G\cap Y = E\\] so that \\(E\\) is open relative to \\(Y\\).
 
 
+
+
+
+### Open / Closet Set in R
+
+Definition: Inner point, open set  
+
+Let \\(G\subseteq \mathbb\{R\}\\) and \\(x\in G\\). If \\(\exists\\) open interval \\((a, b)\\) such that \\(x\in(a,b)\subseteq G\\),  
+then we call \\(x\\) as the `inner point` of \\(G\\). Set of all inner point of \\(G\\) is an `interior` of \\(G\\).
+  
+When every element of \\(G\\) is an inner point, then we call \\(G\\) is an `open set`.
+
+`Closed set`: a set is closed, if its complement is an open set.
+
+### Boundary point, exterior
+
+Define \\(B_r(x):=\\{y\in \mathbb\{R\} \\ \| \\ \|x-y\|<r\\}\\),  
+\\(\quad\bar\{B\}_r(x):=\\{y\in \mathbb\{R\} \\ \| \\ \|x-y\|\leq r\\}\\).
+
+Let \\(E\subseteq \mathbb\{R\},\\ x\in \mathbb\{R\}\\).
+1. If \\(\forall \epsilon>0, B_\epsilon(x)\bigcap E\neq \emptyset \land B_\epsilon(x)\bigcap E^C\neq \emptyset\\),  
+then we call \\(x\\) as a `boundary point` of \\(E\\). Set of all boundary points of \\(E\\) is called a `boundary`.
+2. If \\(x\\) is neither an inner point nor a boundary point, we call \\(x\\) a `exterior` point.
+
+Few notable things about the open/closed set in \\(\mathbb\{R\}\\) are
+* for \\(x\in\mathbb\{R\},\\ \\{x\\}\\) is a closed set, with boundary \\(\\{x\\}\\) and interior \\(\emptyset\\).
+* \\(\emptyset\\) is either closed or open, with empty boundary and interior.
+* \\(\mathbb\{R\}\\) is either open or closed (take complement of \\(\emptyset\\)?). The interior of \\(\mathbb\{R\}\\) is itself, with empty boundary.
+* \\((0,1]\\) is neither open nor closed, with interior \\((0,1)\\) and boundary \\(\\{0,1\\}\\).
+* In \\(mathbb\{R\}\\), \\(\mathbb\{Z\}\\) is closed. \\(\mathbb\{Q\}\\) is neither close nor open.
+
+### Relatively open set
+
+The concept of openness/closedness changes wrt the universe.
+(After the rudin)

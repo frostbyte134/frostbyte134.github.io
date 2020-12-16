@@ -17,17 +17,22 @@ TODO: add formal proof, after reviewing analysis
 
 Let \\(X\_1,...,X\_n\\) be i.i.d RVs, with finite \\(\mu, \sigma^2\\)
 
+Fistly consider the summation of \\(X\_i\\)s
 \\[S\_n := X\_1+...+X\_n\\]
-- var = \\(n\sigma^2\\) is a function of \\(n\\), so diverges as \\(n\rightarrow\infty\\)
+variance \\(n\sigma^2\\) is a function of \\(n\\), so diverges as \\(n\rightarrow\infty\\).  
+
+Now consider the `sample mean`
 \\[M\_n = S\_n/n\\]
-- var = \\(\sigma^2/n\\). converges to 0 as \\(n\rightarrow\infty\\). Not so informative
-\\[\frac{S\_n}{\sqrt{n}}\\]
-- var = \\(\frac{n\sigma^2}{n} = \sigma^2\\). Not a function of \\(n\\)
-- distribution may change, but the variance stays constant as \\(n\rightarrow\infty\\). Will there be any limiting distribution?
-- __BUT__
+variance is \\(\sigma^2/n\\), which converges to 0 as \\(n\rightarrow\infty\\). Not so informative
+\\[\frac{S\_n}{\sqrt{n}}\\]  
+
+- variance is \\(\frac{n\sigma^2}{n} = \sigma^2\\), which is not a function of \\(n\\).   
+- distribution may change, but the variance stays constant as \\(n\rightarrow\infty\\)
+
+__BUT__
   1. we can divide by \\(\sigma\\) to make variance as 1
-  2. If \\(E[X]\neq 0\\), then \\(E[\frac{S\_n}{\sqrt{n}}]\\) is a function of \\(n\\) which changes as \\(n\rightarrow\infty\\)
-\\[Z\_n := \frac{S\_n-n\mu}{\sqrt{n}\sigma}\\)]
+  2. If \\(E[X]\neq 0\\), then \\(E[\frac{S\_n}{\sqrt{n}}]\\) is a function of \\(n\\) which changes as \\(n\rightarrow\infty\\)  
+    \\[Z\_n := \frac{S\_n-n\mu}{\sqrt{n}\sigma}\\]
   - Now we have \\(E[Z\_n] = 0, V[Z\_n] = 1 (n\sigma^2/n\sigma^2)\\) 
 
 

@@ -214,7 +214,7 @@ Fistly
 \\[\left( \frac{\frac{1}{2}(e^s+e^{-s})}{e^{sa}} \right)^n \leq e^{-na^2/2}\\]
 relies on the specific form of the distribuion of \\(X\\), but `Chernoff's bound` generalizes it (__TODO__: add link!)
 
-__proof__ : remember the Taylor series \\(e^s=1+s+s^2/2! + s^3/3! = \sum\_{i=0}^\infty \frac{s^i}{i!}\\)  
+__proof__ : remember the Taylor series \\(e^s=1+s+s^2/2! + s^3/3! + ... = \sum\_{i=0}^\infty \frac{s^i}{i!}\\)  
 so that
 \\[\frac{1}{2}(e^s+e^{-s}) = \sum\_{i=0}^{\infty}\frac{s^{2i}}{(2i)!}\\]
 Note that
