@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "REST API"
-date:   2020-11-26 07:00:05 +0800
+date:   2020-12-17 07:00:05 +0800
 categories: coding
 use_math: true
 tags: coding python
@@ -23,6 +23,8 @@ tags: coding python
 
 *************************************************
 
+<a href="https://spoqa.github.io/2012/02/27/rest-introduction.html" target="_blank">https://spoqa.github.io/2012/02/27/rest-introduction.html</a>
+
 <img src="{{site.url}}/images/coding/rest/coll_ele.jpg" width="800">  
 
 - 이 외에도 PATCH 라는 HTTP Method에도 주목하시기 바랍니다. PUT이 해당 자원의 전체를 교체하는 의미를 지니는 대신, PATCH는 일부를 변경한다는 의미를 지니기 때문에 최근 update 이벤트에서 PUT보다 더 의미적으로 적합하다고 평가받고 있습니다. Rails도 4.0부터 PATCH가 update 이벤트의 기본 Method로 사용될 것이라 예고하고 있습니다.
@@ -40,5 +42,13 @@ tags: coding python
 *************************************************
 
 
-- <a href="https://en.wikipedia.org/wiki/Representational_state_transfer" target="_blank">https://en.wikipedia.org/wiki/Representational_state_transfer</a>
+<a href="https://en.wikipedia.org/wiki/Representational_state_transfer" target="_blank">https://en.wikipedia.org/wiki/Representational_state_transfer</a>
+
+> Representational state transfer (REST) is a __software architectural style that defines a set of constraints__ to be used for creating Web services.
+
+- RESTful Web services allow the requesting systems to access and manipulate textual representations of Web resources by using a uniform and predefined set of stateless operations.
+- The GET (read), PUT (create and update), and DELETE (delete) methods are CRUD operations as they have storage management semantics, meaning that they let user agents directly manipulate the states of target resources. The POST method is not a CRUD operation but a process operation that has target-resource-specific semantics excluding storage management semantics, so it does not let user agents directly manipulate the states of target resources
+- Unlike SOAP-based web services, there is no "official" standard for RESTful web APIs. This is because REST is an architectural style, while SOAP is a protocol. REST is not a standard in itself, but RESTful implementations make use of standards, such as HTTP, URI, JSON, and XML. Many developers also describe their APIs as being RESTful, even though these APIs actually don't fulfil all of the architectural constraints described above (especially the uniform interface constraint
+
+********************
 - <a href="https://gmlwjd9405.github.io/2018/09/21/rest-and-restful.html" target="_blank">https://gmlwjd9405.github.io/2018/09/21/rest-and-restful.html</a>

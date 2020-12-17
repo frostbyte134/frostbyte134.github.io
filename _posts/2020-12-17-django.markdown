@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Django"
-date:   2020-11-26 08:00:05 +0800
+date:   2020-12-17 08:00:05 +0800
 categories: coding
 use_math: true
 tags: coding python
