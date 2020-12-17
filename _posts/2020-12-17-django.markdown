@@ -1,0 +1,58 @@
+---
+layout: post
+title:  "Django"
+date:   2020-11-26 08:00:05 +0800
+categories: coding
+use_math: true
+tags: coding python
+---
+
+
+- <a href="https://www.django-rest-framework.org/tutorial/1-serialization/" target="_blank">official tutorial</a>
+- <a href="https://dveamer.github.io/backend/PythonWAS.html" target="_blank">WAS까지 (wsgi, nginx, gunicon)</a>
+- <a href="https://www.programmersought.com/article/802620791/" target="_blank">공식 튜토 본 다음?</a>
+
+`ubuntu:18.04` 이미지 사용
+```bash
+apt-get update && apt-get upgrade
+apt-get install wget tree sqlite openssl
+apt-get install python3.7
+apt install python3-pip
+python3.7 -m pip install virtualenv
+python3.7 -m virtualenv djangoenv --python=python3.7
+pip3 install django
+python3 -m django --version
+pip3 install django djangorestframework serial
+```
+
+### Tutorial 1: Serialization
+- `model` : 이 형태 그대로 db에 저장되는 듯...?
+  - `models.model`을 상속받아 만든 모델에 `serializers.ModelSerializer`를 상속받아 만든 serializer를 붙이면, 필드를 serializer에서 지정 안해도 됨
+- `serialization` : Python object와 json byte string (`'b`?) 간의 변환
+- DB는 파일 어딘가에 있는듯. python shell에서 `[model instance].save()`를 하니 서버가 돌아가지 않아도 db에 저장됨
+- `@csrf_exempt` : cross-site request forgery용 토큰 면제? 
+  - `CSRF`
+    - <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank">영문 위키</a>
+    - <a href="https://namu.wiki/w/CSRF">나무위키</a>
+- `view`란? 튜토리얼 뒤에 나오는 듯 함
+  - wiring the view up = `urls.py` 만들기?  
+  ```
+  urlpatterns = [
+    path('snippets/', views.snippet_list),
+    path('snippets/<int:pk>/', views.snippet_detail),
+  ]
+  ```
+  - snippet_list, snippet_detail : 각각 request, requrest+pk를 상속받음.
+  
+
+
+- we've got a `serialization API` that feels pretty similar to `Django's Forms API`, and some regular Django views.
+- Our API views don't do anything particularly special at the moment, beyond serving json responses, and there are some error handling edge cases we'd still like to clean up, but it's a functioning Web API.
+- We'll see how we can start to improve things in part 2 of the tutorial.
+
+
+### Tutorial 2 : Requests and Responses
+* REST framework introduces a Request object that extends the regular HttpRequest, and provides more flexible request parsing.  
+* REST framework also introduces a Response object, which is a type of TemplateResponse that takes unrendered content and uses content negotiation to determine the correct content type to return to the client.
+* REST framework provides more __explicit identifiers for each status code,__ such as `HTTP_400_BAD_REQUEST` in the status
+
