@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "REST API"
+title:  "Representational state transfer"
 date:   2020-12-17 07:00:05 +0800
 categories: coding
 use_math: true
