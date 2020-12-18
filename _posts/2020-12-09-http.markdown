@@ -1,0 +1,81 @@
+---
+layout: post
+title:  "HTTP, DNS"
+date:   2020-12-09 07:00:05 +0800
+categories: coding
+use_math: true
+tags: coding 
+---
+
+
+### 생활코딩 HTTP
+
+- <a href="https://opentutorials.org/course/3385/21673" target="_blank">생활코딩 HTTP</a>
+
+#### HTTP 소개
+- HTTP = 크게 Request/Response로 나뉨
+- 크롬의 우클릭-검사 (inspect) - Network탭 : 크롬의 네트워크 모니터링 툴
+  - `<img src="asd.jpg" ... >` 를 브라우저가 읽을 시, `asd.jpg`를 요청하기 위한 HTTP통신이 이루어짐
+  - 각 HTTP 통신 (request-response pair, network탭의 1줄) 에 대해 header를 읽을 수 있음
+
+#### HTTP Request Message
+- <a href="https://gmlwjd9405.github.io/2019/01/28/http-header-types.html" target="_blank">참고 1?</a>
+- <a href="https://goddaehee.tistory.com/169" target="_blank">참고 2?</a>
+- `GET /1.html HTTMP/1.1`
+  - http header : `GET /1.html HTTP/1.1`
+  - Request Headers
+    - `Host: ip:port`
+    - `user agent` : web browser의 다른 표현?
+    - `Accept-Encoding` : 압축형식
+    - `If-Modified-Since` : 내가 받을 /1.html의 변경시기?
+
+
+```
+Request header
+<br/>
+content
+```
+형식
+
+
+#### HTTP Response Message
+<img src="https://lh3.googleusercontent.com/proxy/bJVf127r5VMl6ukcIhLB7BeFsyQhArW4w-B23kfBj0zJ7AkFi9O0TlvtN8Y-vxN66IOIn3CvsLNMVjR3v93O7zZNbkz0pTPsWScgOqEZCGI">
+
+- `Content-Type: text/html` 
+- `Content-Encoding` : 압축 
+- `Content-length` : 컨텐츠의 바이트 길이
+
+
+```
+Request header
+<br/>
+html codes
+```
+포멧이고, 웹브라우저는 위를 참고하여 화면을 뿌려줌
+
+
+
+### 기타
+- HTTPS = SSL
+- `cache-control`, `pragma`, `application-cache`?
+- `cookie`
+- `proxy`
+  - 중계 서버
+  - 보안, 로드밸런싱
+
+
+### 쿠키
+
+- 쿠키값을 웹 브라우저에 설정 - 특정 사이트에 접속시마다 쿠기값을 보내 `상태`를 유지
+- `web storage` : 쿠키보다 좋음?
+
+
+링크 참고. 다들 워낙 잘 쓰셨네..
+- <a href="https://jeong-pro.tistory.com/80" target="_blank">https://jeong-pro.tistory.com/80</a>
+- 
+
+### 생활코딩 DNS
+- <a href="https://opentutorials.org/course/3276" target="_blank">https://opentutorials.org/course/3276</a>
+
+
+### HTML Form?

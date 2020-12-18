@@ -8,6 +8,7 @@ tags: coding python
 ---
 
 
+
 - <a href="https://www.django-rest-framework.org/tutorial/1-serialization/" target="_blank">official tutorial</a>
 - <a href="https://dveamer.github.io/backend/PythonWAS.html" target="_blank">WAS까지 (wsgi, nginx, gunicon)</a>
 - <a href="https://www.programmersought.com/article/802620791/" target="_blank">공식 튜토 본 다음?</a>
@@ -52,7 +53,45 @@ pip3 install django djangorestframework serial
 
 
 ### Tutorial 2 : Requests and Responses
+
+
 * REST framework introduces a Request object that extends the regular HttpRequest, and provides more flexible request parsing.  
 * REST framework also introduces a Response object, which is a type of TemplateResponse that takes unrendered content and uses content negotiation to determine the correct content type to return to the client.
 * REST framework provides more __explicit identifiers for each status code,__ such as `HTTP_400_BAD_REQUEST` in the status
 
+#### Request objects
+
+core functionality of Request object : `request.data`
+- Handles arbitrary data.  Works for 'POST', 'PUT' and 'PATCH' methods
+- `request.POST` only handles form data and works for POST method
+
+```python
+#data = JSONParser().parse(request)
+#serializer = SnippetSerializer(data=data)
+
+serializer = SnippetSerializer(data=request.data)
+```
+- `request.data` can handle incoming json requests, but it can also handle other formats. 
+
+#### Response object
+- `return JsonResponse(serializer.data)` \\(\quad\rightarrow\quad\\) `return Response(serializer.data)`
+- `return HttpResponse(status=404)` \\(\quad\rightarrow\quad\\) `return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)`
+- __takes unrendered content and uses content negotiation to determine the correct content type to return to the client.__
+- Similarly we're returning response objects with data, but allowing REST framework to render the response into the correct content type for us.
+
+
+TODO:
+- content negotiation?
+- `content` in HTML? (content type of respose / request?)
+- FORM in HTML?
+- `serializer.data` 에는 뭐가 있지
+- `Forms API` ?
+- `browable api`?
+
+#### adding optional format suffixes to URLs
+add `format=None` params in the view function signature
+- our API will be able to handle URLs such as `http://example.com/api/items/4.json.`
+
+
+### Browable API?
+- https://www.django-rest-framework.org/topics/browsable-api/
