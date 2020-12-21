@@ -16,7 +16,7 @@ tags: math need_review deep_learning recomm
 ### Abstract
 - __curse of dimensionality__ : a word sequence on which the model will be tested is likely to be different from all the word seqs seen during training
   - traditionally : `n-gram` obtain generalization by concatenating very short overlapping seqs seen in the training set
-  - we propose __learning a distributed repr for words__ (=embedding!)
+  - we propose __learning a distributed repr for words__ (=`embedding`!)
 - the model learns embedding + model( prob func for word sequences) simultaneously
 
 > Generalization is obtained b/c a seq of words that has never been seen before gets high prob if it is made of words that are similar to words forming an already seen sentence
@@ -31,13 +31,13 @@ ex) Let a seq "a cat eats feed" be in a training set. If we have (good) embeddin
 ### Intro
 
 100,000 words, model with 10 conseq words  
-\\(\rightarrow 100000^{10}=10^{50}\\) free params
+\\(\rightarrow 100000^{10}=10^{50}-1\\) free params
 
 We attempt generalization by
 - continuous model : smooth assumption
 - discrete : __not so obvious__ (number repr = hamming distance gives unintentional results)
 
-In `non-parametric (kernel) density estimation` <a href="https://darkpgmr.tistory.com/147" target="_blank">(link)</a>
+In <a href="https://darkpgmr.tistory.com/147" target="_blank">non-parametric density estimation</a>
 - in high dimension, it is crucial to distribute prob mass __where it matters,__ rather than uniformly in all directions around each training point
 
 A `statistical model of language`
@@ -73,11 +73,11 @@ We decompose the function \\(f(w\_t,...,w\_{t-n+1})=\hat{P}(w\_t\|w\_1^{t-1})\\)
 <img src="{{site.url}}/images/deeplearning/nlp/bengio/model.jpg" width="900">  
 
 The final output probability is calculated using softmax of the unnormalized log probs \\(y\\)
-\\[\hat{P}(w\_t\|w\_{t-1},...,w\_{t-n+1}) = \frac{e^{y\_{w\_t}}}{\sum\_i y\_{w\_i}}\\]
+\\[\hat{P}(w\_t\|w\_{t-1},...,w\_{t-n+1}) = \frac{e^{y\_{w\_t}}}{\sum\_i e^{y\_{w\_i}}}\\]
 where \\(y\\) is defined as
 \\[y = b + Wx + u\text{tanh}(d+Hx)\\]
 here
-- \\(W\\) is optimally zero
+- \\(W\\) is optionally zero
 - \\(x\\) is the word embedding, which is the concat of the input word features from embedding \\(C\\)
 \\[x := (C(w\_{t-1}),C(w\_{t-2}),...,C(w\_{t-n+1}))\\]
 
