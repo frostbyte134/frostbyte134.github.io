@@ -8,8 +8,8 @@ tags: math probability bayesian
 ---
 
 `classical` = not Bayesian
-- in `Bayesian`, unknown params were Random, that is having certain prior
-- where in `classic`, it is non-random that just happens to be unknown
+- `Bayesian` : unknown params were __random__ with certain prior
+- `classic` : __non-random__ that just happens to be unknown
 
 estimating without prior
 - sample mean gives point estimate
@@ -28,7 +28,7 @@ Bayesian
 - Inference using Bayes rule (unknow \\(\Theta\\) and observation \\(X\\) are both RVs)
 
 classical
-- \\(\theta\\) is non-random, certain fixed parameter of \\(P\_X(x;\theta)\\).
+- \\(\theta\\) is non-random, certain __fixed parameter__ of \\(P\_X(x;\theta)\\).
 - We estimate \\(\theta\\) using the random observation \\(X\\), using `estimator` \\(\hat{\Theta}=g(X)\\)
   - often, both \\(g\\) and \\(\hat{\Theta}\\) are called `estimator`
   - \\(\hat{\Theta}\\) is a RV
@@ -87,12 +87,13 @@ OTOH, if the estimator is constant 0, \\(\hat{\Theta}\_n=0\\).
 
 ### Confidence Intervals
 - the value of an estimator \\(\hat{\Theta}\\) may not be informative enough, does not tell everything
-- An \\(1-\alpha) `confidence interval` is an interval \\([\hat{\Theta}^-,\hat{\Theta}^+]\\) (we have randomness in it) s.t. \\[P(\hat{\Theta}^- \leq \theta \leq \hat{\Theta}^+) \geq 1-\alpha\quad\quad \forall\\ \theta\\]
+- An \\(1-\alpha\\) `confidence interval` is an interval \\([\hat{\Theta}^-,\hat{\Theta}^+]\\) (we have randomness in it) s.t. \\[P(\hat{\Theta}^- \leq \theta \leq \hat{\Theta}^+) \geq 1-\alpha\quad\quad \forall\\ \theta\\]
 - often \\(\alpha=0.05, 0.025, 0.01\\)
 - interpretation is subtle
   - __NOT__ a statement about the actual numbers that are reported. It is about the experiment.
   - having a 95% confidence interval = 95% of the estimation carried out will capture the true parameter
-
+  - 특정 실험을 carry out해서 estimation이 \\(C\\)가 나왔다 \\(\quad\rightarrow\quad\\) \\([C-\alpha, C+\alpha]\\) 안에 true parameter가 있을 확률 95%, 90%,...
+    - 다른 실험에 \\(C\_1\\)이 나왔다 치면, 그 실험도 동일
 
 #### CI for the estimation of mean
 
@@ -104,8 +105,8 @@ Then what is 95% confidence interval?
   <img src="{{site.url}}/images/math/prob/normal_table1.jpg" width="500">  
   (blue one = 90% confidence interval)    
   \\[P\left( \frac{\|\hat{\Theta}\_n-\theta\|}{\sigma\sqrt{n}} \leq 1.96 \right) \approx 0.95 (CLT)\\]
-  \\[=P\left( \hat{\Theta}\_n - \frac{1.96\sigma}{sqrt{n}} \leq \theta \leq \hat{\Theta}\_n + \frac{1.96\sigma}{sqrt{n}} \right) \approx 0.95\\]
-- For each estimation (with fixed \\(n\\)) from the estimator, 95% that the true mean \\(\\theta\\) falls into the interval \\((\hat{\Theta}\_n - \frac{1.96\sigma}{sqrt{n}}, \hat{\Theta}\_n + \frac{1.96\sigma}{sqrt{n}})\\)
+  \\[=P\left( \hat{\Theta}\_n - \frac{1.96\sigma}{\sqrt{n}} \leq \theta \leq \hat{\Theta}\_n + \frac{1.96\sigma}{\sqrt{n}} \right) \approx 0.95\\]
+- For each estimation (with fixed \\(n\\)) from the estimator, 95% that the true mean \\(\\theta\\) falls into the interval \\((\hat{\Theta}\_n - \frac{1.96\sigma}{\sqrt{n}}, \hat{\Theta}\_n + \frac{1.96\sigma}{\sqrt{n}})\\)
 - this is "approximated" (by CLT) confidence interval
 
 #### CI for the mean when sigma is unknown
@@ -141,10 +142,10 @@ Examples
 ### MLE
 
 If an parameter is calculated by expectation \\(\theta=E[g(X)]\\), then the natural way of estimating it is taking average 
-\\[\hat{\Theta = \frac{1}{n}\sum\_{i=1}^ng(X\_i)]\\]
+\\[\hat{\Theta} = \frac{1}{n}\sum\_{i=1}^ng(X\_i)]\\]
 In other cases (\\(\theta\\) is not an expectation of something), we will pick \\(\theta\\) tkat __makes data most likely__
-\\[\hat{\theta}\_{ML} = \mathop{argmax}\_\theta p\_X(x;\theta)\\]
-In Bayesian (MAP), we wanted to find the peak of \\(p\_{\Theta\|X}(\theta\|x) = p\_{X\|\Theta}p\_{\Theta}(x\|\theta)(\theta))
+\\[\hat{\theta}\_{ML} = \mathop{\text{argmax}}\_\theta p\_X(x;\theta)\\]
+In Bayesian (MAP), we wanted to find the peak of \\(p\_{\Theta\|X}(\theta\|x) = p\_{X\|\Theta}p\_{\Theta}(x\|\theta)(\theta)\\)
 - technically, if we set the prior to uniform(constant), we are performing MLE
 - but philosophically they are different
   - Bayesian : what is the most likely value of \\(\theta\\)
@@ -155,7 +156,7 @@ Comments on MLE
   - closed form solution exists, but mostly done numerically
 - sound theoritical facts
   - If have \\(n\\) iid data from model \\(p\_X(x;\theta)\\); then under mild assumptions `MLE estimator` is
-    - consistent : \\(\hat{\Theta)\_n\rigtarrow \theta\\)
+    - consistent : \\(\hat{\Theta}\_n\rightarrow \theta\\)
     - asymptotically normal \\(\frac{\hat{\Theta}\_n}{\sigma(\hat{\Theta}\_n)}\rightarrow N(0, 1)\\) (CDF convergence) 
 
 

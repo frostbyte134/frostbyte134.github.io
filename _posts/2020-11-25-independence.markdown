@@ -52,10 +52,10 @@ __Proof__:
 
 ### Conditional independence
 
-Given an event \\(C\\), the events \\(A\\) and \\(B\\) are called __conditionally independent__ if \\[P(A\cap B) = P(A\|C)P(B\|C)\\]
+Given an event \\(C\\), the events \\(A\\) and \\(B\\) are called __conditionally independent__ if \\[P(A\cap B \| C) = P(A\|C)P(B\|C)\\]
 
 The definition above and the multiplication rule yield
-\\[P(A\cap B \| C) = \frac\{P(A\cap B\cap C\}\{C\}\\]
+\\[P(A\cap B \| C) = \frac\{P(A\cap B\cap C)\}\{P(C)\}\\]
 \\[ = \frac\{P(C)P(B\|C)P(A\|B\cap C)\}\{P(C)\}\\]
 \\[ = P(B\|C)P(A\|B\cap C)\\]
 canceling \\(P(B\|C)\\) from both sides (assumed nonzero) yields

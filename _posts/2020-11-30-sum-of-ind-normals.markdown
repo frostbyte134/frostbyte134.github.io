@@ -14,7 +14,7 @@ tags: math probability
 
 Conditioning  
 <img src="{{site.url}}/images/math/prob/cond.jpg" width="700">  
-- condition is similar to the process of re-normalizing. We collect all samplespace components which is relevant with \\(A\\), add them up and renormalize to construct the conditional pdf/pmf.
+- __condition is similar to the process of re-normalizing.__ We collect all samplespace components which is relevant with \\(A\\), add them up and renormalize to construct the conditional pdf/pmf.
 
 ### Discrete case : X + Y (independent)
 - Let \\(Z:=X+Y\\), where \\(X,Y\\) are independent, discrete RVs with known PDFs
@@ -130,7 +130,7 @@ example
 - \\(E[X] = \frac\{1\}\{2\}[x^2/2]\_0^1 + \frac\{1\}\{4\}[x^2/2]_1^3 = 5/4 \\)
 - \\(E[E[X \| Y]] = p\_Y(1)E[X\|Y=1] + p\_Y(2)E[X\|Y=2]\\)
   - \\( E[X\|Y=1] \\) : \\(X\\) given \\(Y=1\\) has meaningful (uniform) pdf at \\([0, 1]\\), thus \\(\int\_0^1 x dx = 1/2\\)
-  - \\( E[X\|Y=2] \\) : \\(X\\) given \\(Y=2\\) has meaningful (uniform) pdf \\([1, 3]\\), thus \\(\int\_2^3 x \cdot \frac\{1\}\{2\dx = 2\\)
+  - \\( E[X\|Y=2] \\) : \\(X\\) given \\(Y=2\\) has meaningful (uniform) pdf \\([1, 3]\\), thus \\(\int\_2^3 x \cdot \frac\{1\}\{2}dx = 2\\)
   - \\(E[E[X \| Y]] = \frac\{1\}\{2\}E[X\|Y=1] + \frac{1}{2}E[X\|Y=2] = 5/4 = E[X]\\) !
 
 - \\(E[V[X \| Y]] = p\_Y(1)V[X\|Y=1] + p\_Y(2)V[X\|Y=2]\\)
@@ -155,9 +155,9 @@ Let
 - \\(X\_i\\) : money spent in store \\(i\\)
   - \\(X\_i\\)s are independent, identically distributed (i.i.d)
   - independent of \\(N\\)
-let \\(Y=X\_1+...+X\_N\\)
 
 
+Now let \\(Y=X\_1+...+X\_N\\)
 1. calculating \\(E[Y]\\)
   - \\(E[Y\|N=n] = E[X\_1+...+X\_n \| N=n] = E[X\_1+...+X\_n] = nE[X]\\)
   - thus, \\(E[Y\|N] = NE[X]\\)

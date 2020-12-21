@@ -119,17 +119,17 @@ consider two problems
   - \\(E[X\|\text\{solve p2 first\}] = 0.5 * 0 + 0.5 * (200 + 0.8 * 100 + 0.2 * 0) = 140\\)
 
 #### The hat problem
-- \\(n\\) people throw hats in a bot, and pick one by one at random
-  - all permutation equally likely \\(1/m!\\), and we see that \\[X\_i := i\text{th people pick one's hat },\quad E[X\_i] = 1/n\\] (in all permutations, there will be \\(n!/n\\) cases which \\(i\\)th people select own hat)
+- \\(n\\) people throw hats in a box, and pick one by one at random
+  - all permutation are equally likely - \\(1/m!\\), and we see that \\[X\_i := i\text{th people pick one's hat },\quad E[X\_i] = 1/n\\] 
   - Note that, \\(X\_i\\) and \\(X\_j\\) __are not independent__ for all \\(x,j\\).
 - let \\(X\\) : number of people who get their own hat
   - \\(E[X]\\) : calculating \\(p\_X(x)\\) directly is not an easy task  
     Instead, use \\(E[X] = E[X\_1+...+X\_n] = E[X\_1]+...E[X\_n] = 1\\).
-  - \\(V[X]\\) : \\(E[X^2]+E[X]^2 = E[X^2]\\)
+  - \\(V[X]\\) : \\(E[X^2]-E[X]^2 = E[X^2]-1\\)
     - \\(E[X^2] = \sum\_iE[X\_i^2] + \sum\_\{i\neq j\}E[X\_iX\_j]\\)
     - \\(E[X\_i^2] = 1\\)
     - \\(E[X\_iX\_j], i\neq j\\) : \\[E[X\_iX\_j] = P(X\_i=1, X\_j = 1) = P(X\_i=1)P(X\_j=1 \| X\_i=1) = \frac\{1\}\{n(n-1)\}\\]
-    - therefore, \\(V[X] = n\cdot \frac\{1\}\{n\} + n(n-1)\frac\{1\}\{n(n-1)\} = 2\\)
+    - therefore, \\(V[X] = n\cdot \frac\{1\}\{n\} + n(n-1)\frac\{1\}\{n(n-1)\} - 1 = 1\\)
 
 
 ### Continuous random variable
@@ -158,10 +158,9 @@ consider two problems
   \\[F^\{geo\}(n) = \sum\_\{k=1\}^np(1-p)^\{k-1\} = p\frac\{1-(1-p)\}\{1-(1-p)^n\}=1-(1-p)^n,\quad \text\{for \}n=1,2,...\\]
   (등비수열의 합공식)
 2. CDF of \\(\text\{exponential\}(\lambda)\\)
-  \\[F^\{exp\}(x) = P(X\leq x) = 0\quad\quad for x \leq 0\\]
-  \\[F^\{exp\}(x) = \int\_0^x \lambda e^\{-\lambda t\}dt = -e^\{-\lambda t\}\|\_0^x = 1-e^\{-\lambda x\} \quad\quad for x > 0\\]
+  \\[F^\{exp\}(x) = \int\_0^x \lambda e^\{-\lambda t\}dt = -e^\{-\lambda t\}\|\_0^x = 1-e^\{-\lambda x\}, \quad\quad\\ x > 0\\]
 
-Now let \\(\delta = -\ln(1-p)/\lambda\\). We see that
+Now let \\(\delta = -\ln(1-p)/\lambda\\), and consider it as a certain type of __period__. We see that
 \\[e^\{-\lambda\delta\} = 1-p\\]
 Then the two CDFs are equal for all __points__ where \\(x=n\delta,\quad n=1,2,...,\\)
 \\[F^\{geo\}(n)=F^\{exp\}(n\delta)\\]

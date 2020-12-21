@@ -96,7 +96,7 @@ example)
 
 The `inversion property` again holds in multivariate case.
 
-### Random Sum of Independent Number of RVs
+### Sum of Random Number of Independent RVs
 Let \\(Y=X\_1+...+X\_N\\), where \\(N, X\_i\\)s are independent, and \\(X\_i\\)s are identically distributed.  
 We want to calculate \\(M\_Y(s) = E[e^{sY}]\\) in terms of the MGFs of \\(X\_i, N\\).  
 Our strategy would be \\[E[e^{sY}] = E[E[e^{sY}\|N]]\\]
