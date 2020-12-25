@@ -1,0 +1,107 @@
+---
+layout: post
+title:  "Attention is All You Nead"
+date:   2020-12-25 08:00:05 +0800
+categories: deep_learning
+use_math: true
+tags: math need_review deep_learning recomm nlp
+---
+
+내일 전부 정리 ㄱㄱ..생각보다 많네 ㅡㅡ BERT도 정리해야 하는데...
+
+- <a href="https://arxiv.org/pdf/1706.03762.pdf" target="_blank">https://arxiv.org/pdf/1706.03762.pdf</a>
+- <a href="https://ai.googleblog.com/2017/08/transformer-novel-neural-network.html" target="_blank">https://ai.googleblog.com/2017/08/transformer-novel-neural-network.html</a>
+- <a href="http://mlexplained.com/2017/12/29/attention-is-all-you-need-explained/" target="_blank">http://mlexplained.com/2017/12/29/attention-is-all-you-need-explained/</a> best explanation ever seen
+  - `RNN` : all the semantics of the source sentence, including the words cats, docs, and like, must all be included in that single vector.
+  - `Attention` gives the decoder access to all the encoder's hidden states. The decoder still needs to make a single prediction for the next word though, so we can't just pass it a whole sequence: we need to pass it some kind of summary vector. So what attention does is it asks the decoder to choose which hidden states to use and which to ignore by weighting the hidden states. The decoder is then passed a weighted sum of hidden states to use to predict the next word.
+    - Attention basically gives the decoder access to all of the original information instead of just a summary and allows the decoder to pick and choose what information to use.
+    - Well, theoretically, `LSTM`s (and RNNs in general) can have long-term memory. But remembering things for long periods is still a challenge, and RNNs can still have short-term memory problems
+  - In essence, there are three kinds of dependencies in neural machine translations: dependencies between
+    1. the input and output tokens
+    2. the input tokens themselves
+    3. the output tokens themselves.
+  - The traditional attention mechanism largely solved the first dependency by giving the decoder access to the entire input sequence. The novel idea of the Transformer is to extend this mechanism to the processing input and output sentences as well. Instead of going from left to right using RNNs, why don't we just allow the encoder and decoder to see the entire input sequence all at once, directly modeling these dependencies using attention?
+  - When we think of attention this way, we can see that the keys, values, and queries could be anything. They could even be the same! For instance, both values and queries could be input embeddings. Though I'll discuss the details later, the encoder uses source sentence's embeddings for its keys, values, and queries, whereas the decoder uses the encoder's outputs for its keys and values and the target sentence's embeddings for its queries (technically this is slightly inaccurate, but again, I'll get to this later).
+
+
+```python
+class MultiHeadAttention(nn.Module):
+    """The full multihead attention block"""
+    def __init__(self, d_model, d_feature, n_heads, dropout=0.1):
+        super().__init__()
+        self.d_model = d_model
+        self.d_feature = d_feature
+        self.n_heads = n_heads
+        # in practice, d_model == d_feature * n_heads
+        assert d_model == d_feature * n_heads
+ 
+        # Note that this is very inefficient:
+        # I am merely implementing the heads separately because it is 
+        # easier to understand this way
+        self.attn_heads = nn.ModuleList([
+            AttentionHead(d_model, d_feature, dropout) for _ in range(n_heads)
+        ])
+        self.projection = nn.Linear(d_feature * n_heads, d_model) 
+     
+    def forward(self, queries, keys, values, mask=None):
+        log_size(queries, "Input queries")
+        x = [attn(queries, keys, values, mask=mask) # (Batch, Seq, Feature)
+             for i, attn in enumerate(self.attn_heads)]
+         
+        # reconcatenate
+        x = torch.cat(x, dim=Dim.feature) # (Batch, Seq, D_Feature * n_heads)
+        log_size(x, "concatenated output")
+        x = self.projection(x) # (Batch, Seq, D_Model)
+        return x
+```
+
+```python
+from enum import IntEnum
+class Dim(IntEnum):
+    batch = 0
+    seq = 1
+    feature = 2
+ 
+class ScaledDotProductAttention(nn.Module):
+    def __init__(self, dropout=0.1):
+        super().__init__()
+        self.dropout = nn.Dropout(dropout)
+ 
+    def forward(self, q, k, v, mask=None):
+        d_k = k.size(-1) # get the size of the key
+        assert q.size(-1) == d_k
+ 
+        # compute the dot product between queries and keys for each batch and position in the sequence
+        attn = torch.bmm(q, k.transpose(Dim.seq, Dim.feature)) # (Batch, Seq, Seq)
+        # we get an attention score between each position in the sequence for each batch
+ 
+        # scale the dot products by the dimensionality (see the paper for why we do this!)
+        attn = attn / math.sqrt(d_k)
+        # normalize the weights across the sequence dimension  (Note that since we transposed, the sequence and feature dimensions are switched)
+        attn = torch.exp(attn)
+        # fill attention weights with 0s where padded
+        if mask is not None: attn = attn.masked_fill(mask, 0)
+        attn = attn / attn.sum(-1, keepdim=True)
+        attn = self.dropout(attn)
+        output = torch.bmm(attn, v) # (Batch, Seq, Feature)
+        return output
+```
+
+
+```python
+class PositionalEmbedding(nn.Module):
+    def __init__(self, d_model, max_len=512):
+        super().__init__()        
+        # Compute the positional encodings once in log space.
+        pe = torch.zeros(max_len, d_model)
+        position = torch.arange(0, max_len).unsqueeze(1).float()
+        div_term = torch.exp(torch.arange(0, d_model, 2).float() *
+                             -(math.log(10000.0) / d_model))
+        pe[:, 0::2] = torch.sin(position * div_term)
+        pe[:, 1::2] = torch.cos(position * div_term)
+        pe = pe.unsqueeze(0)
+        self.weight = nn.Parameter(pe, requires_grad=False)
+         
+    def forward(self, x):
+        return self.weight[:, :x.size(1), :] # (1, Seq, Feature)
+```
