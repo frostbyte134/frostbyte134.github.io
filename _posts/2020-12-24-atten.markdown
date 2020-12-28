@@ -12,12 +12,11 @@ References
 - <a href="https://arxiv.org/pdf/1706.03762.pdf" target="_blank">https://arxiv.org/pdf/1706.03762.pdf</a>
 - <a href="https://ai.googleblog.com/2017/08/transformer-novel-neural-network.html" target="_blank">https://ai.googleblog.com/2017/08/transformer-novel-neural-network.html</a>
 - <a href="http://mlexplained.com/2017/12/29/attention-is-all-you-need-explained/" target="_blank">http://mlexplained.com/2017/12/29/attention-is-all-you-need-explained/</a> 
+- <a href="https://kazemnejad.com/blog/transformer_architecture_positional_encoding/" target="_blank">https://kazemnejad.com/blog/transformer_architecture_positional_encoding/</a> 
 
-
-
-positional embedding
-- <a href="https://pozalabs.github.io/transformer/" target="_blank">https://pozalabs.github.io/transformer/</a>
-- <a href="https://omicro03.medium.com/attention-is-all-you-need-transformer-paper-%EC%A0%95%EB%A6%AC-83066192d9ab" target="_blank">https://omicro03.medium.com/attention-is-all-you-need-transformer-paper-%EC%A0%95%EB%A6%AC-83066192d9ab</a>
+TODO
+- 원본 tensorflow코드에 뭐가 key,value,query 인지 보기
+- 예전 GAN에서의 attention복습
 
 ***************************
 
@@ -39,7 +38,7 @@ layer</a>
   - __prevents parallelization, heavy memory usage__
   - `factorization trick` [21], `conditional computation` [32] alleivates it, but still remains
 - `Attention Mechanisms` .. allowing modeling of dependencies without regard to their distance in the input or output sequences
-- We propose the `Transformer`, based solely on attention mechanism, dispensing with recurrence and convolutions entirely (fc는 있지만 conv는 없다...?)
+- We propose the `Transformer`, based solely on attention mechanism, dispensing with recurrence and convolutions entirely (fc는 있으나..)
   - allows for significantly more parallelization
 - the # of operations required to relate signals from two arbitrary input / output positions grows
   - linearly for `ConvS2S`
@@ -74,12 +73,15 @@ layer</a>
   - output embeddings are offset by one position (why shift right?)
 
 #### attention function
-- process of __mapping__ (a query \\(Q\\) and a set of \\(K, V\\) pair) to an output
-  - \\(Q, K, V\\) are all vectors
+- the encoder uses source sentence's embeddings for its keys, values, and queries, whereas the decoder uses the encoder's outputs for its keys and values and the target sentence's embeddings for its queries <a href="http://mlexplained.com/2017/12/29/attention-is-all-you-need-explained/" target="_blank">link</a> (slightly inaccurate)
+- process of __mapping__ (a set of queries \\(Q\\) and a set of \\(K, V\\) pair) to an output
+  - \\(Q, K, V\\) are all matrices. For example each \\(q\_i\in Q\\) is a vector of \\(\mathbb{R}^{d\_k}\\), and we have \\(h\\) such queries.
   - output = weighted sum of \\(V\\), where coefs are computed by a `compatibility function` \\(\text{compat}(Q, K)\\)
 - `scaled dot-prod attention`
-  - \\(Q, K \in \Re^{d\_k},\\ V \in \Re^{d\_v}\\)
-    - computed the dot prod of the query with all key, divide each by \\(\sqrt{d\_k}\\), apply a softmax to obtain the weights.
+  - \\(Q, K \in \mathbb{R}^{h \times d\_k},\\ V \in \mathbb{R}^{h \times d\_v}\\)
+    - computed the __dot prod of a query__ \\(q\_i\\) __with all keys,__ divide each by \\(\sqrt{d\_k}\\), apply a softmax to obtain the weights.
+      - a single query, with all key
+      - in practice, we compute the attention function parallel over all query \\(Q\\)
     \\[\text{Attention}(Q, K, V) = \text{softmax}\left( \frac{QK^T}{\sqrt{d\_k}} \right)V \tag{1}\\]
   - equivalent to `dot-prod attention`, except for dividing (normalizing) with \\(\sqrt{d\_k}\\) part
     - for larger values of \\(d\_k\\), it is suspected that "the dot prod grows large in magnitude, pushing the softmax func into regions where it has extremely small gradients" [3]
@@ -119,22 +121,60 @@ where the projections are parameter matrices
 #### Positional Encoding
 - <a href="https://pozalabs.github.io/transformer/" target="_blank">https://pozalabs.github.io/transformer/</a>
 - <a href="https://omicro03.medium.com/attention-is-all-you-need-transformer-paper-%EC%A0%95%EB%A6%AC-83066192d9ab" target="_blank">https://omicro03.medium.com/attention-is-all-you-need-transformer-paper-%EC%A0%95%EB%A6%AC-83066192d9ab</a>
-- <a href="https://kazemnejad.com/blog/transformer_architecture_positional_encoding/" target="_blank">https://kazemnejad.com/blog/transformer_architecture_positional_encoding/</a> 이거 읽어보고 수정하자
 
 - the model structure itself contains to recurrence, no convolution
     - must inject some info about the relative / absolute __position__ of the token in sequence
-    - position : in word sequence + in embedding dimension
+    
 - the `positional encodings`
   - has same dimension \\(d\_{model}\\) as the embeddings, so that __two can be summed__
   - learned vs fixed
     - learned = feedforward conv
 
 __fixed positional encoding__
-\\[PE\_{(pos, 2i)} = \sin(pos / 10000^{2i/d\_{model}})\\]
-  - frequency \(10000^{ \frac{2i}{d\_{model}} }\\)
-  - The wavelengths form a geometric progression from \\(2\pi\\) to \\(10000\cdot 2\pi\\)
+- let \\(t\\) be a time step indices, __position__ in the inout.
+\\[PE\_{(t, 2i)} = \sin(\frac{t}{10000^{2i/d\_{model}}} )\\]
+\\[PE\_{(t, 2i+1)} = \cos(\frac{t}{10000^{2i/d\_{model}}} )\\]
+  - pos : position of the word in an input word sequence
+  - \\(i\\) : refers to the index in the dimension \\(d\_{model}\\)
+  - frequency \\(10000^{ \frac{2i}{d\_{model}} }\\) __decreases along the vector dimension__, forming a geometric progression from \\(2\pi\\) to \\(10000\cdot 2\pi\\)
+  - <img src="https://d33wubrfki0l68.cloudfront.net/ef81ee3018af6ab6f23769031f8961afcdd67c68/3358f/img/transformer_architecture_positional_encoding/positional_encoding.png" width="700">
+  - image from <a href="https://kazemnejad.com/blog/transformer_architecture_positional_encoding/" target="_blank">https://kazemnejad.com/blog/transformer_architecture_positional_encoding/</a>
+  - why geometric progression over the dimension?
+    - lower indices of \\(d\_{model}\\) have more variations, compared to higher indices
 
-> We hypothesized it would allow the model to easily learn to attend by relative position, since for any fixed offset \\(k, P\\), \\(PE\_{pos+k}\\) can be represented as a linear function of \\(PE\_{pos}\\)
+\\[
+= \begin{bmatrix}
+\sin(\frac{t}{ 10000^{0/d\_{model}} }) \cr
+\cos(\frac{t}{ 10000^{0/d\_{model}} }) \cr
+\sin(\frac{t}{ 10000^{1/d\_{model}} }) \cr
+\cos(\frac{t}{ 10000^{1/d\_{model}} }) \cr
+...  \cr
+\sin(\frac{t}{10000^2}) \cr
+\sin(\frac{t}{10000^2})  
+\end{bmatrix}
+\\]
+
+> We hypothesized it would allow the model to easily learn to attend by relative position, since for any fixed offset \\(\phi\\), the positional encodings \\(PE\\ , PE\_{pos+\phi}\\) can be represented as a linear function of \\(PE\_{pos}\\)
+
+\\[
+\begin{bmatrix}
+\cos(\frac{\phi}{10000^{2k/d}}) && \sin( \frac{\phi}{10000^{2k/d}} ) \cr
+-\sin(\frac{\phi}{10000^{2k/d}}) && \cos( \frac{\phi}{10000^{2k/d}} ) \cr
+\end{bmatrix}
+\begin{bmatrix}
+\sin(\frac{t}{10000^{2k/d}})  \cr
+-\sin(\frac{t}{10000^{2k/d}}) \cr
+\end{bmatrix}
+= 
+\begin{bmatrix}
+\sin(\frac{t+\phi}{10000^{2k/d}})  \cr
+-\sin(\frac{t+\phi}{10000^{2k/d}}) \cr
+\end{bmatrix}
+\\]
+
+<a href="https://kazemnejad.com/blog/transformer_architecture_positional_encoding/" target="_blank">proof from here</a>
+- 해당 링크에 있는 다른 내용 : positionwise dot product를 했을 시, 결과가 symmetric하게 잘 나옴 (동일 포지션끼리 = 최대, 먼 포지션끼리 = 최소)
+- notice that it is a some sort of rotation matrix (length-preserving transformation)
 
 TODO: 링크 읽고 내용 추가
 
@@ -152,6 +192,7 @@ TODO: 링크 읽고 내용 추가
 
 ### Training
 - Adam, warmup LR, residual dropout, label smoothing
+- 여기 내 블로그의 링크 추가
 
 ### Conclusion
 > In this work, we presented the Transformer, the first sequence transduction model based entirely on attention, replacing the recurrent layers most commonly used in encoder-decoder architectures with multi-headed self-attention.
