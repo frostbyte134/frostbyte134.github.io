@@ -301,3 +301,11 @@ But the user-space approach to device driving has a number of drawbacks. The mos
 - `SCULL` : simple character utility for loading localities
   - is a char driver that acts on a memory area as though it were a device (no physical hw)
   - in such situation, `device` often could mean _the memory area used by scull_
+
+SCULL devices
+1. _scull0 to scull3_
+   - each consisting of a memory area that is both golbal and persistent
+   - `global` : if the device is opened by many processes, the data contained within the device is shared by all the file descriptors that opened it
+   - `persistent` : when closed and reopened, data remains same.
+   - can be access/tested using _cp, cat_, and shell IO redirection
+2. 

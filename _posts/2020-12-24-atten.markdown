@@ -76,6 +76,8 @@ layer</a>
 - the encoder uses source sentence's embeddings for its keys, values, and queries, whereas the decoder uses the encoder's outputs for its keys and values and the target sentence's embeddings for its queries <a href="http://mlexplained.com/2017/12/29/attention-is-all-you-need-explained/" target="_blank">link</a> (slightly inaccurate)
 - process of __mapping__ (a set of queries \\(Q\\) and a set of \\(K, V\\) pair) to an output
   - \\(Q, K, V\\) are all matrices. For example each \\(q\_i\in Q\\) is a vector of \\(\mathbb{R}^{d\_k}\\), and we have \\(h\\) such queries.
+    - \\(Q\\) and \\(K\\) must perform dot prod, so they __must have same depth__
+    - \\(K, V\\) __should be from same input sequence/data.__ They can have different depth though (by linear projection, etc)  
   - output = weighted sum of \\(V\\), where coefs are computed by a `compatibility function` \\(\text{compat}(Q, K)\\)
 - `scaled dot-prod attention`
   - \\(Q, K \in \mathbb{R}^{h \times d\_k},\\ V \in \mathbb{R}^{h \times d\_v}\\)
@@ -88,19 +90,61 @@ layer</a>
     - 값이 클 때 softmax가 saturate하던 것 같은데...그거 말하는 건가?
   - `additive attention` computes the __compatibility function__ by a feedforward network with single layer (complex)
 
+#### dot-prod attention function code analysis
+<a href="https://github.com/tensorflow/tensor2tensor/blob/master/tensor2tensor/layers/common_attention.py#L1602" target="_blank">author tensorflow code</a>  
+
+1. note tht `layers/commmon_attention.py/multihead_attention` uses `dot_product_attention`  
+2. \\(Q\\) : Tensor with shape [..., length_q, depth_k].
+3. \\(K\\) : Tensor with shape [..., length_kv, depth_k]. Leading dimensions must match with q
+4. \\(V\\) : Tensor with shape [..., length_kv, depth_v] Leading dimensions must
+      match with q
+5. we have bias of query. where is it from?
+
+```python
+logits = tf.matmul(q, k, transpose_b=True)  # [..., length_q, length_kv]
+# logits\_{ij} = dot prod of embeddings between word i and word j
+...
+weights = tf.nn.softmax(logits, name="attention_weights") #softmax over last dim
+...
+return tf.matmul(weights, v)
+```
+
+************************
+resulting matrix have [length_q, depth_v] 
+- result[i, j] (ith word, jth channel value)
+  - \\(= \sum\_{k=1}^{\text{length_kv}} \text{dot_prod}(i, k) * \text{word_embed}\_k[j] \\)
+  - word sequence \\(Q\\), \\((K=V)\\)가 있다고 가정 (각자의 embed_dim은 달라도 됨)
+  - \\(Q\\)의 index를 i라고 하면, attention 결과의 word i의 j번째 채널 값은,
+    - \\((K=V)\\)를 순회하며,  
+      첫 번째 \\((K=V)\\)의 단어 임베딩과 단어 임베딩 i간의 dot prod * 첫 번째 단어 임베딩의 j채널 값 +  
+      두 번째 \\((K=V)\\)의 단어 임베딩과 단어 임베딩 i간의 dot prod * 두 번째 단어 임베딩의 j채널 값 + ... 
+      \\((K=V)\\)의 마지막 단어까지 다 더함
+    - dot prod는, 각 i에 대해 softmax로 normalize되어 있음
+    - 네트워크는 입력 인배딩을 중간에서 마음대로 바꾸므로, 관련 있는 임베딩이 알아서 커질 듯 (=having attention)
+
+
 #### Multi-head attention
 - instead of performing a single attention func with \\(d\_{model}\\)-dimensional \\(K, V, Q\\),  
   __linealy projected (mat mult)__ \\(Q, K, V\\) to \\(d\_k,d\_v\\), \\(h\\) times
   - each linear projections are different and learned
-  - perform the attention function in parallel (over \\(h\\)), concat \\(d\_v\times h\\) values, which are __again projected (matmul)__ to \\(d\_model\\)
+  - perform the attention function in parallel (over \\(h\\)), concat \\(d\_v\times h\\) values, which are __again projected (matmul)__ to \\(d\_{model}\\)
 
 \\[\text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}\_1,...,\text{head}\_h)W^O\\]
 \\[\text{ where head}\_i = \text{Attention}(QW\_i^Q,KW\_i^K, VW\_i^V) \\]
 where the projections are parameter matrices
-- \\(W\_i^Q, W\_i^K \in  \Re^{d\_{model} \times d\_k}\\)
-- \\(W\_i^V \in  \Re^{d\_{model} \times d\_v}\\) 
-- \\(W^O \in \Re^{hd\_v\times d\_model}\\)
+- \\(W\_i^Q, W\_i^K \in  \mathbb{R}^{d\_{model} \times d\_k}\\)
+- \\(W\_i^V \in  \mathbb{R}^{d\_{model} \times d\_v}\\) 
+- \\(W^O \in \mathbb{R}^{hd\_v\times d\_model}\\)
 
+- 코드 상에서는 <a href="https://github.com/tensorflow/tensor2tensor/blob/21dba2c1bdcc7ab582a2bfd8c0885c217963bb4f/tensor2tensor/layers/common_attention.py#L1327" target="_blank">여기</a>를 봐야 하는 듯. \\(h\\) 를 배치에 넣어서 병렬화를 노린 듯 함
+  1. `compute_qkv` : Q(query_antecedent, [batch, length_q, channels]) / KV(memory_antecedent, [batch, length_m, channels])
+     - to q, k, v : [batch, length, depth] tensors
+  1. split K, Q, V :  `[batch, length, channels]` into `[batch, num_heads, length, channels / num_heads]`
+  2. `dispatched` = linearly_projected? \\(h\\)개로 나뉜?
+  3. `q *= depth_qk**-0.5`, which says that depth_qk = linearly projected channel
+
+
+<a href="https://github.com/tensorflow/tensor2tensor/blob/5f9dd2db6d7797162e53adf152310ed13e9fc711/tensor2tensor/models/transformer.py#L185" target="_blank">transformer model code</a>
 
 #### Position-wise Feed-Forward Networks
 \\[\text{FFN}(x) = \max(0, wW\_1+b\_1)W\_2+b\_2\\]
