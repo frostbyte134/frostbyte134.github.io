@@ -47,7 +47,7 @@ Application
   - then any normal with \\(X\sim N(\mu, \sigma^2)\\) is \\[M\_X(s) = e^{s\mu}M\_Y(s\sigma) = e^{\frac{\sigma^2s^2}{s}+\mu s}\\]
 
 ### Generating Moments from MGF
-\\[\frac{d^n}{ds^n}M(s)\|\_{s=0}  = \int\_{-\infty}^{\infty}xf\_X(x)dx = E[X^n]\\]
+\\[\frac{d^n}{ds^n}M(s)\|\_{s=0}  = \int\_{-\infty}^{\infty}x^nf\_X(x)dx = E[X^n]\\]
 - the derivation (in pdf) involves an `interchange of differentiation and integration` (__TODO__ : make a new post on it!)
 
 

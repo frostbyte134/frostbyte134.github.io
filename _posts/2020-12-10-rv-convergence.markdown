@@ -10,6 +10,8 @@ tags: math probability bayesian
 > <a href="https://ocw.mit.edu/resources/res-6-012-introduction-to-probability-spring-2018/part-ii-inference-limit-theorems/" target="_blank">part-ii-inference-limit-theorems</a>
 
 - <a href="https://ocw.mit.edu/resources/res-6-012-introduction-to-probability-spring-2018/part-i-the-fundamentals/MITRES_6_012S18_Textbook.pdf" target="_blank">PDF</a>
+- <a href="{{site.url}}/probability/2019/02/19/estimating-rv-with-expectations.html" target="_blank">proof of markov, Chevyshev</a>
+
 
 ### Markov Inequality
 use a bit of information about a distribution to learn something about probabilities of "extreme events" (tail probability)
@@ -21,7 +23,7 @@ use a bit of information about a distribution to learn something about probabili
    \\(P[X\geq a]=e^{-a}\\), so it is not a good bound (Chevyshev is better)
 
 
-### Chevyshev Inequality
+<h3 id="chevyshev">Chevyshev Inequality</h3>  
 RV \\(X\\), with finite \\(\mu\\) and variance \\(\sigma^2\\)
 - IF the variance is small, then \\(X\\) is unlikely to be too far from the mean
 \\[P( \|X-\mu\|\geq c )\leq \frac{\sigma^2}{c^2}\\]
@@ -33,7 +35,7 @@ RV \\(X\\), with finite \\(\mu\\) and variance \\(\sigma^2\\)
    \\[P[X\geq a] = P[X-a\geq a-1] \leq P[\|X-1\|\geq a-1] \leq \frac{1}{(a-1)^2}\\]
    is bit stronger than the Markov inequality, since it __uses additional information (variance)__
 
-### Weak Law of Large Numbers (WLLN)
+<h3 id="sample_mean">Weak Law of Large Numbers (WLLN)</h3>
 
 
 Let \\(X\_1,X\_2,...\\) : i.i.d with finite mean \\(\mu\\) and variance \\(\sigma^2\\).

@@ -7,7 +7,8 @@ use_math: true
 tags: math probability bandit basic_regret_decomposition_identity
 ---
 
-> <a href="https://banditalgs.com/2016/09/04/stochastic-bandits-warm-up/" target="_blank">https://banditalgs.com/2016/09/04/stochastic-bandits-warm-up/</a>
+> <a href="https://banditalgs.com/2016/09/04/stochastic-bandits-warm-up/" target="_blank">https://banditalgs.com/2016/09/04/stochastic-bandits-warm-up/</a>  
+  <a href="https://banditalgs.com/2016/09/14/first-steps-explore-then-commit/#thm_subgaussian" target="_blank">https://banditalgs.com/2016/09/14/first-steps-explore-then-commit</a>
 
 
 TODO
@@ -56,7 +57,7 @@ which gives
 \\[ R\_n=n\mu^*  - E[S\_n] = \sum\_{k=1}^K\sum\_{t=1}^n E[(\mu^* -X\_t) 1\\{ A\_t=k \\} ] \tag{1}\\]
 Now consider the inner term
 \\[E[(\mu^* -X\_t) 1\\{ A\_t=k \\} ]\\]
-now using <a href="{{site.url}}/probability/2020/11/30/sum-of-ind-normals.html" target="_blank">iterated expectation,</a>
+now using <a href="{{site.url}}/probability/2020/11/30/sum-of-ind-normals.html" target="_blank">iterated expectation,</a> (actually \\(A\_t\\) is __not random__ here, so the below proof can be shorten significantly, but anyway for more generality)
 \\[E[(\mu^* -X\_t) 1\\{ A\_t=k \\} ] = E\left[E[(\mu^* -X\_t) 1\\{ A\_t=k \\} \|A\_t]\right]\\]
 since it holds that
 \\[E[(\mu^* -X\_t) 1\\{ A\_t=k \\} \| A\_t=j] =  1\\{ A\_t=k \\}E[(\mu^* -X\_t) \| A\_t=j]\\]
@@ -78,5 +79,35 @@ the equation (1) becomes, using the linearity of expectation
 \\[= \sum\_{k=1}^K E[T\_k(n)] (\mu^{\*} -\mu\_k)\\]
 QED
 - instead of using iterated expectation, we can factor the joint pdf of random variables \\(X\_t\\) and \\(A\_t\\) into \\(P(X\_t\|A\_t)P(A\_t)\\) (algebraic)
+
+
+### concentration of measure and Concentration Inequality
+<a href="https://banditalgs.com/2016/09/14/first-steps-explore-then-commit/#thm_subgaussian" target="_blank">https://banditalgs.com/2016/09/14/first-steps-explore-then-commit</a>
+
+Let \\(X\_i\\) be a iid RV with mean \\(\mu\\) and var \\(\sigma^2\\).
+The <a href="{{site.url}}/probability/2020/12/10/rv-convergence.html#sample_mean" target="_blank">Sample mean</a>
+\\[\text{Sample mean  } M\_n:=\frac{X\_1+...+X\_n}{n}\\]
+has __mean__ \\(\mu\\), __variance__ \\(\sigma^2/n\\).
+
+and using the <a href="{{site.url}}/probability/2020/12/10/rv-convergence.html#chevyshev" target="_blank">Chevyshev inequality,</a> 
+\\[P[ \|M\_n-\mu\|\geq \epsilon ] \leq \frac{\text{var}}{\epsilon^2} = \frac{\sigma^2}{n\epsilon^2}\\]
+converges to 0 in probability as \\(n\rightarrow \infty\\)
+
+However, what can we say about the `tail probability`? (=distribution of the error)
+\\[P(\|M\_n - \mu \| \geq \epsilon)\\]
+
+
+#### Why we need subguassianity and concentration inequality?
+1. using the <a href="{{site.url}}/probability/2020/12/10/rv-convergence.html#chevyshev" target="_blank">Chevyshev inequality</a>  directly gives \\[P(\|M\_n-\mu\| \geq \epsilon) \leq \frac{\sigma^2}{n\epsilon^2}\\]  
+   This is easily drawn, but since we only used the mean and var as the input information, it is often too loose.
+2. using the <a href="{{site.url}}/probability/2020/12/11/clt.html#clt" target="_blank">central limit theorem</a> says that \\(M\_n/\sqrt{n\} \sim N(0, \sigma)\\). This would suggest (as in the <a href="https://banditalgs.com/2016/09/14/first-steps-explore-then-commit/#thm_subgaussian" target="_blank">link</a>)
+   \\[P(\mu\_n \geq \mu + \epsilon) = P(\frac{S\_n}{\sqrt{n}} \geq \epsilon\sqrt{n})\\]
+   \\[\approx \int^\infty_{\epsilon \sqrt{n}} \frac{1}{\sqrt{2\pi \sigma^2}} \exp\left(-\frac{x^2}{2\sigma^2}\right) dx\\]
+   which can be easily bound by using
+   \\[\int^\infty_{\epsilon \sqrt{n}} \frac{1}{\sqrt{2\pi \sigma^2}} \exp\left(-\frac{x^2}{2\sigma^2}\right) dx\\]
+   \\[\leq \frac{1}{\epsilon \sqrt{2n\pi \sigma^2}} \int^\infty_{\epsilon \sqrt{n}} x \exp\left(-\frac{x^2}{2\sigma^2}\right) dx \\] 
+   \\[\sqrt{\frac{\sigma^2}{2\pi n \epsilon^2}} \exp\left(-\frac{n\epsilon^2}{2\sigma^2}\right)\\]
+   most of time this bound is stronger than 1, but this is __asymtotic__ : not easy to apply when \\(n\\) is fixed
+   - "hence it is vital to take a closer look at measure concentration and prove a “version” of the CLT that is true even for small values of \\(n\\)"
 
 

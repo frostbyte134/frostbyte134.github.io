@@ -20,9 +20,4 @@ contact: nailbrainz at gmail dot com
 [boj-nailbrainz]: https://www.acmicpc.net/user/nailbrainz
 
 
-  
-<iframe width="560" height="315" src="https://www.youtube.com/embed/IKaMejA5J34" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/lzkKzZmRZk8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/iFK3BTHRG_M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLTzDBFRC3ljDpzfUrWBHtaGM_3FtgLdbp" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

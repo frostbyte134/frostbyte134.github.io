@@ -36,7 +36,7 @@ __BUT__
   - Now we have \\(E[Z\_n] = 0, V[Z\_n] = 1 (n\sigma^2/n\sigma^2)\\) 
 
 
-### Central Limit Theorem
+<h3 id="clt"> Central Limit Theorem</h3>
 
 Let \\(Z\sim N(0, 1)\\)
 
@@ -44,6 +44,7 @@ Let \\(Z\sim N(0, 1)\\)
 
 "Absolutely remarkable, highly nontrivial, and non-intuitive"
 
+- in other words, if we define \\(\hat{S}_n := \sum(X\_i-\mu)\\), then \\(\hat{S}\_n/\sqrt{n}\\) approximately distributed as a Gaussian with zero mean and variance \\(\sigma^2\\)
 - universal, with respect to the distribution of \\(X\_i\\)
 - only mean, variance matter
 - There exists a _computational shortcut_ = N `colvolutions` (tedius)
