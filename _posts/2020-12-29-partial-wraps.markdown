@@ -61,6 +61,7 @@ help(hello)
 - <a href="https://www.geeksforgeeks.org/python-functools-wraps-function/" target="_blank">https://www.geeksforgeeks.org/python-functools-wraps-function/</a>
 - we could use functools.wraps() as decorator __to wrapper function__.
 - it is the nested decorator
+- __returns partial function object of update_wrapper__
 
 ```python
 def a_decorator(func): 
