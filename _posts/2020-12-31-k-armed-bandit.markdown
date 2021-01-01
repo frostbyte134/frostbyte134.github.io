@@ -33,7 +33,7 @@ TODO
    - expected amount of lost value when choosing action \\(k\\)
    - referred as `action gap`, `sub-optimality gap` at action \\(k\\)
 6. Now we can define the `total regret` as
-   \\[R\_n=n\mu^* -E[\sum\_{t=1}^NX\_t]\\]
+   \\[R\_n=n\mu^* -E[{\textstyle\sum}\_{t=1}^NX\_t]\\]
   - "the difference between the rewards you would expect to obtain if you choose the optimal action in every round, and the rewards you actually expect to see by using your policy"
 
 ### Basic Regret Decomposition Identity Lemma
@@ -47,7 +47,7 @@ Define
 \\[R\_n = \sum\_{k=1}^K\vec{\Delta}\_kE[T\_k(n)]\\]
 \\[ = \sum\_{k=1}^K\left((\mu^* -\mu\_k)\mathbb{E}\left[\sum\_{t=1}^n 1\\{A\_t=k\\}\right] \right)\\]
 
-- regret = loop for all distribution \\(k\\), calculate the expected number of event that the event \\(k\\) is selected for the time-duration \\(n\\), multiply them with \\(\mu^* - \mu\_k\\) and sum them all up.
+- regret in time duration \\(n\\) = loop for all distribution \\(k\\), calculate the expected number of event that the event \\(k\\) is selected for the time-duration \\(n\\), multiply them with \\(\mu^* - \mu\_k\\) and sum them all up.
 
 __Proof__  
 For any fixed \\(t\\), we have \\[\sum\_{k=1}^{K} 1\\{A\_t=k\\} = 1\\]
