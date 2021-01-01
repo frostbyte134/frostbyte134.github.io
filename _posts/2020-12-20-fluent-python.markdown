@@ -89,9 +89,9 @@ def __repr__( self):
   - It supports equality via an __eq__() method. If a == b is True then hash(a) == hash(b) must also be True.
   - If a == b is True then hash(a) == hash(b) must also be True. (important!)
 5. results
-  - bucket array requires __sparsity__ : has (significant) memory ove
+  - bucket array requires __sparsity__ : has (significant) memory overload
   - key search is fast
-  - key ordering (low order = low collision) depends on the insertion order
+  - key ordering (low order = less collision) depends on the insertion order
   - adding item might occur reordering (copying to new, large bucket array for sparsity)
  
 

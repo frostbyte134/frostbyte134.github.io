@@ -10,7 +10,7 @@ tags: math probability bayesian
 > <a href="https://ocw.mit.edu/resources/res-6-012-introduction-to-probability-spring-2018/part-ii-inference-limit-theorems/" target="_blank">part-ii-inference-limit-theorems</a>
 
 - <a href="https://ocw.mit.edu/resources/res-6-012-introduction-to-probability-spring-2018/part-i-the-fundamentals/MITRES_6_012S18_Textbook.pdf" target="_blank">PDF</a>
-- <a href="{{site.url}}/probability/2019/02/19/estimating-rv-with-expectations.html" target="_blank">proof of markov, Chevyshev</a>
+- <a href="{{site.url}}/probability/2019/02/18/estimating-rv-with-expectations.html" target="_blank">proof of markov, Chevyshev</a>
 
 
 ### Markov Inequality
