@@ -205,10 +205,10 @@ recall the basic regret decomposition lemma,
 \\[R\_n = \sum\_{t=1}^K\vec{\Delta}\_{A\_t}E[T\_k(n)]\\]
 However, we can calculate it with repsect to \\(n\\) rounds
 1. For the first \\(mK\\) rounds, we will exploit \\(K\\) arms deterministically. No randomness here, and \\(E[T\_k(n)]=m\\)
-   \\[R\_{mK}=\sum\_{r=1}^{m}\sum\_{i=1}^{K}\vec{\Delta}\_i\\]
+   \\[R\_{mK}=m\sum\_{i=1}^{K}\vec{\Delta}\_i\\]
 2. and then for the remaining \\(n-mK\\) times, \\(E[T\_k(n)]\\) = (probability that arm \\(k\\) is selected) * (# of times the arm will be used if selected, \\(n-mk\\)).
    \\[R\_{n-mK} = (n-mK)\sum\_{i=1}^{K}\vec{\Delta}\_iP(i=\mathop{\text{argmax}}\_j\hat{\mu}\_j(mK))\\]
 3. Finally,
-\\[R\_n = R\_{mK} + R\_{n-mK} = \sum\_{r=1}^{m}\sum\_{i=1}^{K}\vec{\Delta}\_i + (n-mK)\sum\_{i=1}^{K}\vec{\Delta}\_iP(i=\mathop{\text{argmax}}\_j\hat{\mu}\_j(mK))\\]
+\\[R\_n = R\_{mK} + R\_{n-mK} = m\sum\_{i=1}^{K}\vec{\Delta}\_i + (n-mK)\sum\_{i=1}^{K}\vec{\Delta}\_iP(i=\mathop{\text{argmax}}\_j\hat{\mu}\_j(mK))\\]
 
 와따...해골복잡하게 사는구만 ㅡ,.ㅡ
