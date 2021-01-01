@@ -202,11 +202,11 @@ where
 <a href="http://www.ds3-datascience-polytechnique.fr/wp-content/uploads/2017/08/2017_08_31-09_01_Csaba_Szepesvari_Bandits_part1.pdf" target="_blank">http://www.ds3-datascience-polytechnique.fr/wp-content/uploads/2017/08/2017_08_31-09_01_Csaba_Szepesvari_Bandits_part1.pdf</a>
 
 recall the basic regret decomposition lemma,
-\\[R\_n = \sum\_{t=1}^K\vec{\Delta}\_{A\_t}E[T\_k(n)]\\]
+\\[R\_n = \sum\_{i=1}^K\vec{\Delta}\_{A\_t}E[T\_i(n)]\\]
 However, we can calculate it with repsect to \\(n\\) rounds
-1. For the first \\(mK\\) rounds, we will exploit \\(K\\) arms deterministically. No randomness here, and \\(E[T\_k(n)]=m\\)
+1. For the first \\(mK\\) rounds, we will exploit \\(K\\) arms deterministically. No randomness here, and \\(E[T\_i(n)]=m\\)
    \\[R\_{mK}=m\sum\_{i=1}^{K}\vec{\Delta}\_i\\]
-2. and then for the remaining \\(n-mK\\) times, \\(E[T\_k(n)]\\) = (probability that arm \\(k\\) is selected) * (# of times the arm will be used if selected, \\(n-mk\\)).
+2. and then for the remaining \\(n-mK\\) times, \\(E[T\_i(n)]\\) = (probability that arm \\(i\\) is selected) * (# of times the arm will be used if selected, \\(n-mk\\)).
    \\[R\_{n-mK} = (n-mK)\sum\_{i=1}^{K}\vec{\Delta}\_iP(i=\mathop{\text{argmax}}\_j\hat{\mu}\_j(mK))\\]
 3. Finally,
 \\[R\_n = R\_{mK} + R\_{n-mK} = m\sum\_{i=1}^{K}\vec{\Delta}\_i + (n-mK)\sum\_{i=1}^{K}\vec{\Delta}\_iP(i=\mathop{\text{argmax}}\_j\hat{\mu}\_j(mK))\\]
