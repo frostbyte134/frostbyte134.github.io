@@ -227,7 +227,8 @@ Now we have to bound the probability \\(P(i=\mathop{\text{argmax}}\_j\hat{\mu}\_
 P(i=\mathop{\text{argmax}}\_j\hat{\mu}\_j(mK)) &= P(\hat{\mu}\_i(mK) - \hat{\mu}\_1(mK) \geq 0) \cr
                                                &= P(\hat{\mu}\_i(mK) - \mu\_i - \hat{\mu}\_1(mK) + \mu\_1\geq 0)  
 \end\{align\*\}\\]
-Note that in 
+
+Note that 
 1. in (3), we were able to simplify \\(\hat{\mu}\_i(mK)=\frac{1}{m}\sum\_{s=1}^tX\_s\\) in ETC, so that
    \\[\hat{\mu}\_i(mK) - \mu\_i = \frac{1}{m}\sum\_{s=1}^t(X\_s - E[X\_s])\\]
 2. in (2), we had 1-subgaussian assumption for the noise term, and based on the lemma in the <a href="#Subgaussianity">Subgaussianity</a> page,  
@@ -238,7 +239,7 @@ Note that in
    \\[R\_n \leq R\_{mK} + R\_{n-mK} = m\sum\_{i=1}^{K}\vec{\Delta}\_i + (n-mK)\sum\_{i=1}^{K}\vec{\Delta}\_i\exp\left( -\frac{m\vec{\Delta}\_i^2}{4} \right)\\]
 
 #### Regret Analysis of ETC
-1. if \\(m\\) is small, then the error probability will likely to grow
+1. if \\(m\\) is small, then the error probability \\(\exp\left( -\frac{m\vec{\Delta}\_i^2}{4} \right)\\)will likely to grow
 2. if \\(m\\) is too large, exploration is excessive and the first term will grow
 3. When \\(K=2\\), assuming that \\(n\\) is sufficiently large (so that \\((n-2m\approx n),\\ \vec{\Delta}\_1=0, \vec{\Delta}\_2=\vec{\Delta}\\) so we have
    \\[R_n \leq m \Delta + (n – 2m) \Delta \exp\left(-\frac{m\Delta^2}{4}\right) \leq m\Delta + n \Delta \exp\left(-\frac{m\Delta^2}{4}\right)\\]
