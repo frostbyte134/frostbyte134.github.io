@@ -154,7 +154,7 @@ We can choose \\(\lambda\\) to minimize \\(\frac{\lambda^2 \sigma^2}{2} – \lam
 
 Using this inequality, we can bound the tail (error) probability
 
-#### Hoeffding's bound
+<h4 id="hoefding"> Hoeffding's bound</h4>
 
 Let
 1. \\(X\_i-\mu\\) are \\(\sigma^2-\\)gaussian, and \\(X\_i\\)s are independent
@@ -197,7 +197,7 @@ The `ETC` algorithm
 where
 1. ties (even) in the argmax handled in a fixed arbitrary way
 2. \\(\hat{\mu}\_i(mK)\\) is the empirical mean of the reward of arm \\(i\\) up to round \\(t\\):
-   \\[\hat{\mu}\_i(mK):= \frac{1}{T\_i(t)}\sum\_{s=1}^t1\\{A\_s=i\\} X\_s\\]
+   \\[\hat{\mu}\_i(t):= \frac{1}{T\_i(t)}\sum\_{s=1}^t1\\{A\_s=i\\} X\_s\\]
    (remember that \\(T\_i(t)\\) is the # of times arm \\(i\\) was chosen till time \\(t\\))
 3. in `ETC`, \\(T\_i(t)\\) is deterministic for \\(t\leq mK\\), and \\(\hat{\mu}\_i(mK)\\) is never used in \\(t>mK\\) (at \\(t=mK\\), our action is fixed)
    - Thus, easy to analysize the bound of \\(\hat{\mu}\_i(mK)\\) using the inequalities shown above. In equation,
