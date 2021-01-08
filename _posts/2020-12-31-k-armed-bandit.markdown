@@ -252,7 +252,7 @@ Note that
    3. __However__, one can choose \\(m\\) that only depends on \\(n\\), which satisfies \\(R\_n=O(n^{2/3})\\).
       1. any details? proofs?
    4. There are __other algs__ which do not even need \\(n\\) but have much better rate \\(R\_n=O(n^{1/2})\\)
-      - n에 대해 몰라도 되면 n에 대해 의존적이지 않아도 되는 거 아닌가?
+      - <a href="{{site.url}}/probability/2021/01/07/k-armed-bandit-ucb.html" target="_blank">UCB</a> 
 4. When \\(K=2\\), we have another bound. Using the fact that \\(E[T\_i(n)]>0\\) and \\(\sum\_{i=1}^{K}E[T\_i(n)]=n\\) (use iterated expectation to see this holds) gives
    \\[R\_n=\sum\_{i=1}^2 \vec{\Delta}\_iE[T\_i(n)] = 0 * E[T\_1(n)] + \vec{\Delta}E[T\_2(n)] \leq n\vec{\Delta}\\]
    When \\(\vec{\Delta}\\) is extremely small, our intuition is that the regret must be small, since the wrong choice does not make too much difference.  
