@@ -17,7 +17,9 @@ tags: math probability bandit basic_regret_decomposition_identity
 
 ### Upper Confidence Bound
 
-Recall that if \\(X\_1,...,X\_n\\) are independent, and 1-subgaussian and \\(\hat{\mu}=\sum\_{t=1}^n X\_t/n\\). Then with the <a href="{{site.url}}/probability/2020/12/31/k-armed-bandit.html#hoefding" target="_blank">Hoeffding's bound</a>, 
+Recall that
+1. if \\(X\_1,...,X\_n\\) are independent, and 1-subgaussian and
+2. let \\(\hat{\mu}=\sum\_{t=1}^n X\_t/n\\). Then with the <a href="{{site.url}}/probability/2020/12/31/k-armed-bandit.html#hoefding" target="_blank">Hoeffding's bound</a>, 
 \\[P(\hat{\mu} \geq \epsilon) \leq \exp\left( -\frac{n\epsilon^2}{2} \right)\\]
 Equating the rhs with \\(\delta\\) and solve for \\(\epsilon\\) leads to
 \\[\delta = \exp\left( -\frac{n\epsilon^2}{2} \right)\\]
@@ -25,18 +27,18 @@ Equating the rhs with \\(\delta\\) and solve for \\(\epsilon\\) leads to
 so that
 \\[P\left(\hat{\mu} \geq \sqrt{ \frac{2}{n}\ln  \left(\frac{1}{\delta}\right) } \right) \leq \delta\\]
 
-__as large as plausibly possible__
-- The learner decides the \\(A\_t\\) by looking at \\(T\_i(t-1)\\) samples from each arm \\(i\\), and the `empirical mean of rewards` 
-  \\[\hat{\mu}\_i(t-1)  := \frac{1}{T\_i(t-1)}\sum\_{s=1}^t1\\{A\_s=i\\} X\_s\\]
+#### "As large as plausibly possible"
+- The learner decides the \\(A\_t\\) by looking at \\(T\_i(t-1)\\) samples from each arm \\(i\\), so that the `empirical mean of rewards` \\(\hat{\mu}_i(t-1)\\) at \\(t-1\\) is defined as (which is the unbiased(possibly) estimation of the true mean \\(\mu\_i\\))
+  \\[\hat{\mu}\_i(t-1)  := \frac{1}{T\_i(t-1)}\sum\_{s=1}^{t-1}1\\{A\_s=i\\} X\_s\\]
 - Then a good candidate for the __largest plausible estimate of the mean for arm__ \\(i\\) is
   \\[\hat{\mu}\_i(t-1) + \sqrt{ \frac{2}{n}\ln  \left(\frac{1}{\delta}\right) }\\]
   the algorithm chooses the action \\(i\\) which maximizes the above quantity
 - small \\(\delta\\) : optimistic algorithm  
   large \\(\delta\\) : the optimism is less certain
-- \\(1-\delta\\) := `confidence level`. different choices -> different algs with different analysis
+- \\(1-\delta\\) := `confidence level`. different choices \\(\rightarrow\\) different algs with different analysis
 - For now, we choose \\[\frac{1}{\delta} = f(t) := 1+t\log^2(t),\\ \\ t=1,2,...\\]  
   - \\(1/\delta\\) is time dependent, decreases faster than \\(1/t\\).
-  - __if__ \\(\delta\\) __is time dependent, then so as the__ \\(\epsilon\\)
+  - __Note__ that we used \\(\epsilon\\) to derive the \\(\delta\\), but in the course of algorithm they have no dependencies (\\(\epsilon\\) remain constaint, \\(\delta\\) is time-dependent)
 
 In summary, with \\(\delta\\) and the `index` (=\\( \sqrt{ \frac{2}{n}\ln  \left(\frac{1}{\delta}\right) } \\)) defined above,
 \\[A\_t=
@@ -57,13 +59,17 @@ Then we have \\(\hat{\mu}\_1(t-1)\rightarrow \mu\_1, \text{ and } \frac{2}{n}\ri
 In this case, the algorithm better be confident that the other arms are indeed worse.
   - This naturally leads to the confidence interval
     \\[\hat \mu_i(t-1) + \sqrt{\frac{2}{T_i(t-1)} \log\left(\frac{1}{\delta}\right)} \leq \mu_1\\]   
-  - it will only happen when and \\(\hat \mu_i(t-1) \ll \mu\_i\\) and \\(0 \ll T\_i(t-1)\\) 
+  - it will only happen when \\(\hat \mu_i(t-1) \ll \mu\_i\\) and \\(0 \ll T\_i(t-1)\\) 
 
 If (sadly) the arm \\(1\\) was not an optimal arm, i.e. \\(1 \neq \mathop{\text{argmax}}\mu\_i\\), and wlog let arm \\(i\\) was optimal.  
-Then the algorithm was wrong, then for the arm \\(i\\) we have
-\\[\hat \mu_i(t-1) + \sqrt{\frac{2}{T_i(t-1)} \log\left(\frac{1}{\delta}\right)} \leq \mu_1 \leq \mu\_i \\]
-__For the optimal arm, its upper bound of confidence interval is even lower than its true mean__  
+__Then the algorithm has made a wrong decision,__ and for the (hidden) true arm \\(i\\) we have
+\\[\hat \mu_i(t-1) + \sqrt{\frac{2}{T_i(t-1)} \log\left(\frac{1}{\delta}\right)} \leq \mu_1 < \mu\_i \\]
 
+That is, for the `UCB` to make a wrong decision,    
+  - in the case of optimal arm, its upper bound of confidence interval should be even lower than its true mean
+  - Right above, we pointed out that in order for `UCB` to make a decision, \\[\hat \mu_i(t-1) \ll \mu\_i \quad \text{  and  } \quad 0 \ll T\_i(t-1)\\]
+    must hold. __Note that both conditions are mutually exclusive__,(when \\(n\\) grows so that \\(T\_i(t-1)\\) grows, sample mean converges to true mean)    
+    which makes the prob of `UCB` to make wrong decision very low.
    
 
 ### UCB Regret Bound
@@ -75,15 +81,63 @@ __For the optimal arm, its upper bound of confidence interval is even lower than
 
 
 1. Remember that \\(f(t) = 1+t\log^2(t)\\), so that \\[\log f(n) \approx \log(n) + 2\log\log(n)\\]  
-  - In `ETC`, we obtained \\(\log n\\) bound when we set \\(K=2\\) and __used unreachable knowledge__ of \\(\Delta\_2\\).  
-  - In `UCB`, we dont need such infeasible knowledge
-2. 
-__Proof__
-1. 
-
-By choosing \\(\epsilon=\Delta\_i/2\\), for analysis purpose we see that
-
-> __Corollary (UCB Simplified Regret)__ : The regret of UCB is bounded by (somewhat loosely, since we fixed \\(\epsilon\\))  
-  \\[R_n \leq \sum_{i:\Delta_i > 0} \left(\Delta_i + \frac{1}{\Delta_i}\left(8 \log f(n) + 8\sqrt{\pi \log f(n)} + 28\right)\right)\\]
+  - In `ETC`, we obtained \\(\log n\\) bound when we set \\(K=2\\) and <a href="{{site.url}}/probability/2020/12/31/k-armed-bandit.html#k2" target="_blank">used unreachable knowledge</a> of \\(\Delta\_2\\). we dont need such infeasible knowledge in `UCB`
+2. By choosing \\(\epsilon=\Delta\_i/2\\), for analysis purpose we see that
+  > __Corollary (UCB Simplified Regret)__ : The regret of UCB is bounded by (somewhat loosely, since we fixed \\(\epsilon\\))  
+    \\[R_n \leq \sum_{i:\Delta_i > 0} \left(\Delta_i + \frac{1}{\Delta_i}\left(8 \log f(n) + 8\sqrt{\pi \log f(n)} + 28\right)\right)\\]
+    
   and in particular, there exists \\(C>0\\) s.t. \\(\forall\\ \\ n \geq 2\\),
   \\[R_n \leq \sum_{i:\Delta_i>0} \left(\Delta_i + \frac{C \log n}{\Delta_i}\right)\\]
+
+Now we are going to prove this theorem
+
+#### Useful lemma
+
+Firstly we will show a useful lemma
+
+> __Lemma__ Let \\(X_1,X\_2,...\\) be a seq of independent 1-subgaussian RVs, define \\(\hat{\mu}:=\sum\_{s=1}^t(X\_s-\mu\_s)/t\\), \\(\epsilon>0\\) and
+  \\[\kappa = \sum\_{t=1}^n 1\left\\{ \hat{\mu}\_t + \sqrt{\frac{2a}{t}}\geq \epsilon \right\\}\\]
+  \\[       = \sum\_{t=1}^n 1\left\\{\sum\_{s=1}^t\frac{X\_s-\mu\_s}{t} + \sqrt{\frac{2a}{t}}\geq \epsilon \right\\}\\]
+  Then,
+  \\[E[\kappa] \leq 1 + \frac{2}{\epsilon^2}(a+\sqrt{\pi a} + 1)\\]
+
+1. wrt the linearity of expectation, we firstly consider single \\(t\\)
+   \\[\begin{align\*} 
+   E\left[1\left\\{ \hat{\mu}\_t + \sqrt{\frac{2a}{t}}\geq \epsilon \right\\} \right] 
+   &= P\left( \hat{\mu}\_t + \sqrt{\frac{2a}{t}}\geq \epsilon \right) \cr
+   &\leq \sqrt{\frac{2a}{t}}\epsilon^{-1} = \sqrt{\frac{2a\epsilon^{-2}}{t}} \tag{Markov's inequality} \cr
+   \end{align\*}   
+   \\]
+2. Let \\(u = 2a\epsilon^{-2}\\). For \\(t=1,...,\left\lfloor u \right\rfloor\\), we have immediate inequality
+   \\[\sqrt{\frac{2a\epsilon^{-2}}{t}} \leq 1\\] so that
+   \\[E[\kappa] \leq  u  + \sum\_{t=\left\lceil u \right\rceil}^n P\left( \hat{\mu}\_t + \sqrt{\frac{2a}{t}}\geq \epsilon \right)\\]
+3. Now using the <a href="{{site.url}}/probability/2020/12/31/k-armed-bandit.html#concen" target="_blank">concentration lemma,</a>   
+   \\[\begin{align\*} 
+   E[\kappa] &\leq 1 + u + \int^\infty_u \exp\left(-\frac{t\left(\epsilon – \sqrt{\frac{2a}{t}}\right)^2}{2}\right) dt \cr 
+             &= 1 + \frac{2}{\epsilon^2}(a + \sqrt{\pi a} + 1)
+   \end{align\*}   \\]
+   (for the last inequality, perform the <a href="https://freshrimpsushi.tistory.com/219" target="_blank">Gauss integral</a> from 0)
+
+#### new empirical mean after some observation
+
+Previously we defined
+  - \\(\hat{\mu}_i(t)\\) : empirical mean of the arm \\(i\\), after \\(t\\) round
+
+Now for the analysis of `UCB`, we define
+  - \\(\hat{\mu}_{i,s}\\) : empirical mean of the arm \\(i\\), after \\(s\\) observations (which occur randomly, maybe not at all around some times)
+
+To define \\(\hat{\mu}_{i,s}\\) rigorously, define \\(Z\_{i,s} \sim P\_i\\) as
+\\[X\_t = Z\_{A\_t,T\_{A\_t}(t)}\\]
+That is, \\(X\_t\\) = the reward at time \\(t\\) comes from the sequence \\(Z\_{i,s},\\ s=1,...,n\\). If the arm \\(i\\) is never selected, then it is the sequence of zeros length \\(n\\).
+
+Now we define \\(\hat{\mu}_{i,s}\\) rigorously
+\\[\hat{\mu}\_{i,s} := \frac{1}{s}\sum\_{u=1}^s Z\_{i,u}\\]
+
+#### Main proof of UCB bound
+
+Recall that using the <a href="{{site.url}}/probability/2020/12/31/k-armed-bandit.html#basic_regret_decomp" target="_blank">basic regret decomposition lemma</a>,
+\\[R\_n = \sum\_{k=1}^K\vec{\Delta}\_kE[T\_k(n)] = \sum\_{i : \Delta\_i > 0}\vec{\Delta}\_i E[T\_i(n)]\\]
+Now we are going to bound \\(E[T\_i(n)]\\). 
+1. Let \\(i\\) be some suboptimal arm (\\(\Delta\_i>0\\)). We are going to decompose \\(T\_i(n)\\) into two terms.
+   1. case 1 : index of optimal arm is less than \\(\mu\_1-\epsilon\\)
+   2. case 2 : # of times that \\(A\_t=i\\)

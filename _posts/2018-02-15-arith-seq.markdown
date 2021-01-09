@@ -1,0 +1,32 @@
+---
+layout: post
+title:  "BOJ 1994: 등차수열"
+date:   2018-02-15 09:49:00 +0900
+categories: problem_solving
+use_math: true
+tags: problem_solving searching dnq reference_problem
+problem: 1994
+---
+
+<a target="_blank" href="https://www.acmicpc.net/problem/{{page.problem}}">https://www.acmicpc.net/problem/{{page.problem}}</a><br/><br/>
+  
+2018.02.15 11:03
+
+등차수열을 판별하려면 결국 3개씩 봐야 한다고 생각해서 N^3코드를 제출했는데 TLE.  
+정렬 후 N^3을 N^2logN으로 바꾸어 (이진탐색) 맞긴 맞았는데 느림.  
+복습할때는 잘 푼 사람꺼 코드를 봅시다.
+
+
+(2018.3.18 복습)
+
+결국 등차수열은 2개 항의 관계 (차이)로 생기므로, 2개씩 보고 이전 항과의 관계를 잘 이어 주면 \(O(N^2)\)만에 됨. 정렬이 된다는 것이 중요.
+
+-----i---j---k-----
+
+로, j를 2~N-1까지 돌림. (A[i], A[j])의 관계를 (A[j], A[k])로 확장하는 느낌적인 느낌.
+
+1. (A[i], A[j])가 더 차이가 난다  
+k++
+2. (A[j], A[k])가 더 차이가 난다  
+i--
+3. (중요) 차이가 동일할 시, i--나 k++ 둥 중에 하나만 하면 됨.

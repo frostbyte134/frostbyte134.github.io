@@ -37,7 +37,7 @@ TODO
   - "the difference between the rewards you would expect to obtain if you choose the optimal action in every round, and the rewards you actually expect to see by using your policy"
   - Note here that the subscript \\(t\\) of \\(X\_t\\) is also random. The learner makes choices based on the random previous rewards \\(X\_i, i < t \\) to choose \\(A\_t\\) hidden inside \\(X\_t\\).
 
-### Basic Regret Decomposition Identity Lemma
+<h3 id="basic_regret_decomp">Basic Regret Decomposition Identity Lemma</h3>
 
 Define
 \\[T\_k(n) = \sum\_{t=1}^n 1\\{A\_t=k\\}\\]
@@ -133,9 +133,9 @@ __Lemma__ : If \\(X\\) is \\(\sigma^2-\\)subgaussian, and \\(X\_1,X\_2\\) are in
    - directly use MGF
 3. \\(X\_1+X\_2\\) is \\((\sigma\_1^2+\sigma\_2^2)-\\)subgaussian
    - in independent case, easily proved using \\(E[XY] = E[X]E[Y]\\)
-   - if not independent, \\(X\_1+X\_2\\) is \\((\sigma\_1+\sigma\_2)^2\\). __TODO: add proofs?__
+   - if not independent, \\(X\_1+X\_2\\) is \\((\sigma\_1+\sigma\_2)^**2**\\). __TODO: add proofs?__
 
-#### Concentration inequality
+<h4 id="concen"> Concentration inequality </h4>
 
 > __Theorem__ : If \\(X\\) is \\(\sigma^2-\\)subgaussian, then \\(P(X\geq \epsilon) \leq \exp(-\frac{\epsilon^2}{2\sigma^2})\\)
 
@@ -238,10 +238,10 @@ Note that
 4. and by straightforward substitution we have
    \\[R\_n \leq R\_{mK} + R\_{n-mK} = m\sum\_{i=1}^{K}\vec{\Delta}\_i + (n-mK)\sum\_{i=1}^{K}\vec{\Delta}\_i\exp\left( -\frac{m\vec{\Delta}\_i^2}{4} \right)\\]
 
-#### Regret Analysis of ETC
-1. if \\(m\\) is small, then the error probability \\(\exp\left( -\frac{m\vec{\Delta}\_i^2}{4} \right)\\)will likely to grow
-2. if \\(m\\) is too large, exploration is excessive and the first term will grow
-3. When \\(K=2\\), assuming that \\(n\\) is sufficiently large (so that \\((n-2m\approx n),\\ \vec{\Delta}\_1=0, \vec{\Delta}\_2=\vec{\Delta}\\) so we have
+<h4 id="k2"> Regret Analysis of ETC </h4>
+5. if \\(m\\) is small, then the error probability \\(\exp\left( -\frac{m\vec{\Delta}\_i^2}{4} \right)\\)will likely to grow
+6. if \\(m\\) is too large, exploration is excessive and the first term will grow
+7. When \\(K=2\\), assuming that \\(n\\) is sufficiently large (so that \\((n-2m\approx n),\\ \vec{\Delta}\_1=0, \vec{\Delta}\_2=\vec{\Delta}\\) so we have
    \\[R_n \leq m \Delta + (n – 2m) \Delta \exp\left(-\frac{m\Delta^2}{4}\right) \leq m\Delta + n \Delta \exp\left(-\frac{m\Delta^2}{4}\right)\\]
    it is the sum of two convex function, so by taking derivative (not so hard) we have minimum (up to rounding error) at
    \\[m = \lceil\frac{4}{\Delta^2} \log\left(\frac{n \Delta^2}{4}\right)\rceil\\]
@@ -253,13 +253,13 @@ Note that
       1. any details? proofs?
    4. There are __other algs__ which do not even need \\(n\\) but have much better rate \\(R\_n=O(n^{1/2})\\)
       - <a href="{{site.url}}/probability/2021/01/07/k-armed-bandit-ucb.html" target="_blank">UCB</a> 
-4. When \\(K=2\\), we have another bound. Using the fact that \\(E[T\_i(n)]>0\\) and \\(\sum\_{i=1}^{K}E[T\_i(n)]=n\\) (use iterated expectation to see this holds) gives
+8. When \\(K=2\\), we have another bound. Using the fact that \\(E[T\_i(n)]>0\\) and \\(\sum\_{i=1}^{K}E[T\_i(n)]=n\\) (use iterated expectation to see this holds) gives
    \\[R\_n=\sum\_{i=1}^2 \vec{\Delta}\_iE[T\_i(n)] = 0 * E[T\_1(n)] + \vec{\Delta}E[T\_2(n)] \leq n\vec{\Delta}\\]
    When \\(\vec{\Delta}\\) is extremely small, our intuition is that the regret must be small, since the wrong choice does not make too much difference.  
    However in equ(5) it is not the case - \\(\vec{\Delta}\\) is in the denominator.  
    Above bound prevents such catastrophy to be happen, and practically the bound becomes 
    \\[R_n \leq \min\left\\{ n\Delta,\, \Delta + \frac{4}{\Delta}\left(1 + \log\left(\frac{n\Delta^2}{4}\right)\right) \right\\}\\]
-5. (exercise) assuming that \\(\vec{\Delta} \leq \sqrt{n}\\), 
+9. (exercise) assuming that \\(\vec{\Delta} \leq \sqrt{n}\\), 
    \\[\Delta + \frac{4}{\Delta}\left(1 + \log\left(\frac{n\Delta^2}{4}\right)\right) \leq \sqrt{n} + \frac{4}{\sqrt{n}}\left(1 + \log\left(\frac{n^2}{4}\right)\right)\\]
    We see that, by taking derivative, \\(\sqrt{n}\\) increase more rapidly than \\(\log(n^2)\\), and the latter term has decreasing number \\(4/\sqrt{n}\\) as the coefficient. We see that the convergence is dominated by the term \\(\sqrt{n}\\).  
    In conclusion, if we assume \\(\vec{\Delta} \leq \sqrt{n}\\) then \\(R\_n=O(\sqrt{n})\\)

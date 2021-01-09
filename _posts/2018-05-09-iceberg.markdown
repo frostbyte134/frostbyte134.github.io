@@ -1,0 +1,13 @@
+---
+layout: post
+title:  "BOJ 2573: 빙산"
+date:   2018-05-09 10:29:00 +0900
+categories: problem_solving
+use_math: true
+tags: problem_solving simulation
+problem: 2573
+---
+
+<a target="_blank" href="https://www.acmicpc.net/problem/{{page.problem}}">https://www.acmicpc.net/problem/{{page.problem}}</a><br/><br/>
+  
+그냥..쉬운 bfs문제. 정답률이 낮아서 풀어봤는데 시도한 사람 수가 많아서 그런거였음
