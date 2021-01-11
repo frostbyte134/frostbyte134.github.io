@@ -15,6 +15,8 @@ tags: math probability bandit basic_regret_decomposition_identity
 > <a href="https://banditalgs.com/2016/09/18/the-upper-confidence-bound-algorithm/" target="_blank">"The algorithm is based on the principle of optimism in the face of uncertainty"</a>  
 
 
+- <a href="https://web.stanford.edu/class/stats311/Lectures/lec-14.pdf" target="_blank">https://web.stanford.edu/class/stats311/Lectures/lec-14.pdf</a>
+
 ### Upper Confidence Bound
 
 Recall that
@@ -91,7 +93,7 @@ That is, for the `UCB` to make a wrong decision,
 
 Now we are going to prove this theorem
 
-#### Useful lemma
+<h4 id=lemma> Useful lemma</h4>
 
 Firstly we will show a useful lemma
 
@@ -138,6 +140,50 @@ Now we define \\(\hat{\mu}_{i,s}\\) rigorously
 Recall that using the <a href="{{site.url}}/probability/2020/12/31/k-armed-bandit.html#basic_regret_decomp" target="_blank">basic regret decomposition lemma</a>,
 \\[R\_n = \sum\_{k=1}^K\vec{\Delta}\_kE[T\_k(n)] = \sum\_{i : \Delta\_i > 0}\vec{\Delta}\_i E[T\_i(n)]\\]
 Now we are going to bound \\(E[T\_i(n)]\\). 
-1. Let \\(i\\) be some suboptimal arm (\\(\Delta\_i>0\\)). We are going to decompose \\(T\_i(n)\\) into two terms.
-   1. case 1 : index of optimal arm is less than \\(\mu\_1-\epsilon\\)
-   2. case 2 : # of times that \\(A\_t=i\\)
+
+Let \\(i\\) be some suboptimal arm (\\(\Delta\_i>0\\)). We are going to decompose \\(T\_i(n)\\) into two terms.
+
+Note that, we can decompose \\(1\\{A_t = i\\}\\) into two terms
+\\[
+\begin{align} 
+1\\{A_t = i\\} &= 1\left\\{ \hat \mu_i(t-1) + \sqrt{\frac{2 \log f(t)}{T_i(t-1)}} \geq \mu_1 - \epsilon  \text{ and }   A_t = i \right\\} \nonumber \cr
+               &\\ + 1\left\\{\hat \mu_i(t-1) + \sqrt{\frac{2 \log f(t)}{T_i(t-1)}} < \mu_1 - \epsilon  \text{ and }  A_t = i  \right\\}  \nonumber \cr
+\end{align}  
+\\]
+and if \\(A_t = i\\) then \\(\hat \mu_1(t-1) + \sqrt{\frac{2 \log f(t)}{T_1(t-1)}} < \hat \mu_i(t-1) + \sqrt{\frac{2 \log f(t)}{T_i(t-1)}} \tag{1}\\)
+
+so that (we indeed see that the inequality \\(\leq\\) holds in (1)), since there are cases where (1) holds but \\(A_t \neq i\\)
+\\[
+\begin{align} 
+T_i(n) 
+&= \sum_{t=1}^n 1\\{A_t = i\\} \nonumber \cr  
+&\leq \sum_{t=1}^n 1\left\\{\hat \mu_1(t-1) + \sqrt{\frac{2\log f(t)}{T_1(t-1)}} \leq \mu_1 – \epsilon\right\\}  \nonumber \cr  
+&\qquad \sum_{t=1}^n 1\left\\{\hat \mu_i(t-1) + \sqrt{\frac{2 \log f(t)}{T_i(t-1)}} \geq \mu_1 – \epsilon \text{ and } A_t = i\right\\}\,. \label{eq:ucb1} \tag{7} \cr  
+\end{align}  
+\\]
+
+We now bount the two terms in (7)
+
+1. Starting with the first, we again use the <a href="{{site.url}}/probability/2020/12/31/k-armed-bandit.html#concen" target="_blank">concentration lemma,</a>
+   \\[\begin{align\*} 
+     E\left[\sum_{t=1}^n 1\left\\{\hat \mu_1(t-1) + \sqrt{\frac{2 \log f(t)}{T_1(t-1)}} \leq \mu_1 – \epsilon\right\\}\right] 
+     &= \sum_{t=1}^n P\left(\hat \mu_1(t-1) + \sqrt{\frac{2 \log f(t)}{T_1(t-1)}} \leq \mu_1 – \epsilon\right) \cr  
+     &\leq \sum_{t=1}^n \sum_{s=1}^n P\left(\hat \mu_{1,s} + \sqrt{\frac{2 \log f(t)}{s}} \leq \mu_1 – \epsilon\right) \cr   
+     &\leq \sum_{t=1}^n \sum_{s=1}^n \exp\left(-\frac{s\left(\sqrt{\frac{2 \log f(t)}{s}} + \epsilon\right)^2}{2}\right) \cr   
+     &\leq \sum_{t=1}^n \frac{1}{f(t)} \sum_{s=1}^n \exp\left(-\frac{s\epsilon^2}{2}\right) \cr   
+     &\leq \frac{5}{\epsilon^2}\,. 
+   \end{align\*}\\]
+  1. The 1st inequality follows from the union bound. Since \\(T\_1(t-1)\\) is random, we cannot apply the concentration lemma, so we replaced it with fixed scalars (of all cases)
+  2. the 2nd ienequality is the concentration lemma (make mean zero)
+  3. for the 3rd, \\(s\left(\sqrt{\frac{2 \log f(t)}{s}} + \epsilon\right)^2 \geq \sqrt{\frac{2 \log f(t)}{s}}^2\\) (and \\(\epsilon^{-x})\\) is decreasing)
+2. For the second term, we can use the above <a href="#lemma">lemma</h4>
+   \\[\begin{align\*} 
+    &\EE{\sum_{t=1}^n 1\\{\hat \mu_i(t-1) + \sqrt{\frac{2 \log f(t)}{T_i(t-1)}} \geq \mu_1 – \epsilon \text{ and } A_t = i\\}} \\ 
+    &\qquad\leq \EE{\sum_{t=1}^n 1\\{\hat \mu_i(t-1) + \sqrt{\frac{2 \log f(n)}{T_i(t-1)}} \geq \mu_1 – \epsilon \text{ and } A_t = i\\}} \\ 
+    &\qquad\leq \EE{\sum_{s=1}^n 1\\{\hat \mu_{i,s} + \sqrt{\frac{2 \log f(n)}{s}} \geq \mu_1 – \epsilon\\}} \\ 
+    &\qquad= \EE{\sum_{s=1}^n 1\\{\hat \mu_{i,s} – \mu_i + \sqrt{\frac{2 \log f(n)}{s}} \geq \Delta_i – \epsilon\\}} \\ 
+    &\qquad\leq 1 + \frac{2}{(\Delta_i – \epsilon)^2} \left(\log f(n) + \sqrt{\pi \log f(n)} + 1\right)\,. 
+   \end{align*}\\]
+
+3. The first part of the theorem follows by substituting the results of the previous two displays into   
+   The second part follows by choosing \\(\epsilon = \log^{-1/4}(n)\\) (wtf) and letting \\(n\rightarrow \infty\\)

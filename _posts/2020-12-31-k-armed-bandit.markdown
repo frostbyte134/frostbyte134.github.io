@@ -13,7 +13,7 @@ tags: math probability bandit basic_regret_decomposition_identity
 
 TODO
 - review measure theory part of <a href="https://banditalgs.com/2016/09/04/stochastic-bandits-warm-up/" target="_blank">this page</a> after the RUDIN review
-
+- TODO : add mean zero to the def of subgaussian  <a href="https://web.stanford.edu/class/stats311/Lectures/lec-14.pdf" target="_blank">https://web.stanford.edu/class/stats311/Lectures/lec-14.pdf</a>
 
 ### (somewhat informal?) Problem Formulation
 1. `Environment` = \\(K\\) distribution over the reals \\[P\_1,...,P\_K\\]  
