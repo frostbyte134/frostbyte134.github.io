@@ -176,12 +176,12 @@ We now bount the two terms in (7)
   1. The 1st inequality follows from the union bound. Since \\(T\_1(t-1)\\) is random, we cannot apply the concentration lemma, so we replaced it with fixed scalars (of all cases)
   2. the 2nd ienequality is the concentration lemma (make mean zero)
   3. for the 3rd, \\(s\left(\sqrt{\frac{2 \log f(t)}{s}} + \epsilon\right)^2 \geq \sqrt{\frac{2 \log f(t)}{s}}^2\\) (and \\(\epsilon^{-x})\\) is decreasing)
-2. For the second term, we can use the above <a href="#lemma">lemma</h4>
+2. For the second term, we can use the above <a href="#lemma">lemma</a>
    \\[\begin{align\*} 
-    &\EE{\sum_{t=1}^n 1\\{\hat \mu_i(t-1) + \sqrt{\frac{2 \log f(t)}{T_i(t-1)}} \geq \mu_1 – \epsilon \text{ and } A_t = i\\}} \\ 
-    &\qquad\leq \EE{\sum_{t=1}^n 1\\{\hat \mu_i(t-1) + \sqrt{\frac{2 \log f(n)}{T_i(t-1)}} \geq \mu_1 – \epsilon \text{ and } A_t = i\\}} \\ 
-    &\qquad\leq \EE{\sum_{s=1}^n 1\\{\hat \mu_{i,s} + \sqrt{\frac{2 \log f(n)}{s}} \geq \mu_1 – \epsilon\\}} \\ 
-    &\qquad= \EE{\sum_{s=1}^n 1\\{\hat \mu_{i,s} – \mu_i + \sqrt{\frac{2 \log f(n)}{s}} \geq \Delta_i – \epsilon\\}} \\ 
+    &E\left[\sum_{t=1}^n 1\\{\hat \mu_i(t-1) + \sqrt{\frac{2 \log f(t)}{T_i(t-1)}} \geq \mu_1 – \epsilon \text{ and } A_t = i\\}\right] \cr   
+    &\qquad\leq E\left[\sum_{t=1}^n 1\\{\hat \mu_i(t-1) + \sqrt{\frac{2 \log f(n)}{T_i(t-1)}} \geq \mu_1 – \epsilon \text{ and } A_t = i\\}\right] \cr   
+    &\qquad\leq E\left[\sum_{s=1}^n 1\\{\hat \mu_{i,s} + \sqrt{\frac{2 \log f(n)}{s}} \geq \mu_1 – \epsilon\\}\right] \cr   
+    &\qquad= E\left[\sum_{s=1}^n 1\\{\hat \mu_{i,s} – \mu_i + \sqrt{\frac{2 \log f(n)}{s}} \geq \Delta_i – \epsilon\\}\right] \cr 
     &\qquad\leq 1 + \frac{2}{(\Delta_i – \epsilon)^2} \left(\log f(n) + \sqrt{\pi \log f(n)} + 1\right)\,. 
    \end{align*}\\]
 
