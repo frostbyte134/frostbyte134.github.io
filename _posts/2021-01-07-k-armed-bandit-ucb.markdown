@@ -164,7 +164,7 @@ T_i(n)
 
 We now bount the two terms in (7)
 
-1. Starting with the first, we again use the <a href="{{site.url}}/probability/2020/12/31/k-armed-bandit.html#concen" target="_blank">concentration lemma,</a>
+Starting with the first, we again use the <a href="{{site.url}}/probability/2020/12/31/k-armed-bandit.html#concen" target="_blank">concentration lemma,</a>
    \\[\begin{align\*} 
      E\left[\sum_{t=1}^n 1\left\\{\hat \mu_1(t-1) + \sqrt{\frac{2 \log f(t)}{T_1(t-1)}} \leq \mu_1 – \epsilon\right\\}\right] 
      &= \sum_{t=1}^n P\left(\hat \mu_1(t-1) + \sqrt{\frac{2 \log f(t)}{T_1(t-1)}} \leq \mu_1 – \epsilon\right) \cr  
@@ -173,10 +173,10 @@ We now bount the two terms in (7)
      &\leq \sum_{t=1}^n \frac{1}{f(t)} \sum_{s=1}^n \exp\left(-\frac{s\epsilon^2}{2}\right) \cr   
      &\leq \frac{5}{\epsilon^2}\,. 
    \end{align\*}\\]
-  1. The 1st inequality follows from the union bound. Since \\(T\_1(t-1)\\) is random, we cannot apply the concentration lemma, so we replaced it with fixed scalars (of all cases)
-  2. the 2nd ienequality is the concentration lemma (make mean zero)
-  3. for the 3rd, \\(s\left(\sqrt{\frac{2 \log f(t)}{s}} + \epsilon\right)^2 \geq s\left(\sqrt{\frac{2 \log f(t)}{s}}^2+\epsilon^2\right)\\) (and \\(\epsilon^{-x})\\) is decreasing)
-2. For the second term, we can use the above <a href="#lemma">lemma</a>
+  1. The 1st inequality follows from the union bound. Since \\(T\_1(t-1)\\) is random, we cannot apply the concentration lemma, so we replaced it with fixed scalars (of all cases)  
+  2. the 2nd ienequality is the concentration lemma (make mean zero)  
+  3. for the 3rd, \\(s\left(\sqrt{\frac{2 \log f(t)}{s}} + \epsilon\right)^2 \geq s\left(\sqrt{\frac{2 \log f(t)}{s}}^2+\epsilon^2\right)\\) (and \\(\epsilon^{-x}\\) is decreasing)  
+For the second term, we can use the above <a href="#lemma">lemma</a>
    \\[\begin{align\*} 
     &E\left[\sum_{t=1}^n 1\\{\hat \mu_i(t-1) + \sqrt{\frac{2 \log f(t)}{T_i(t-1)}} \geq \mu_1 – \epsilon \text{ and } A_t = i\\}\right] \cr   
     &\qquad\leq E\left[\sum_{t=1}^n 1\\{\hat \mu_i(t-1) + \sqrt{\frac{2 \log f(n)}{T_i(t-1)}} \geq \mu_1 – \epsilon \text{ and } A_t = i\\}\right] \cr   
@@ -185,5 +185,5 @@ We now bount the two terms in (7)
     &\qquad\leq 1 + \frac{2}{(\Delta_i – \epsilon)^2} \left(\log f(n) + \sqrt{\pi \log f(n)} + 1\right)\,. 
    \end{align*}\\]
 
-3. The first part of the theorem follows by substituting the results of the previous two displays into   
-   The second part follows by choosing \\(\epsilon = \log^{-1/4}(n)\\) (wtf) and letting \\(n\rightarrow \infty\\)
+The first part of the theorem follows by substituting the results of the previous two displays into   
+The second part follows by choosing \\(\epsilon = \log^{-1/4}(n)\\) (wtf) and letting \\(n\rightarrow \infty\\)
