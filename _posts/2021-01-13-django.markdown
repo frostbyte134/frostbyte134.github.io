@@ -29,7 +29,6 @@ pip3 install django djangorestframework serial
 ```
 
 
-
 # django_tutorial
 code of https://www.django-rest-framework.org/tutorial
 
@@ -54,6 +53,15 @@ python manage.py runserver
 
 github code
 - <a href="https://github.com/nailbrainz/django_tutorial/commit/c61471e0101b5a4e42680af30c7365c528e44415" target="_blank">change log - Serialization</a>
+
+
+더 자세한 내용의 api-guide : <a href="https://www.django-rest-framework.org/api-guide/serializers/" target="_blank">https://www.django-rest-framework.org/api-guide/serializers/</a>
+- 여기도 좋은듯 <a href="https://docs.djangoproject.com/en/3.1/topics/serialization/" target="_blank">https://docs.djangoproject.com/en/3.1/topics/serialization/</a>
+    - Django’s serialization framework provides a mechanism for “translating” Django models into other formats. Usually these other formats will be text-based and used for sending Django data over a wire, but it’s possible for a serializer to handle any format (text-based or not).
+
+- `Serializers` allow complex data such as `querysets` and `model instances` (in db?) to be converted to native Python datatypes that can then be easily rendered into JSON, XML or other content types. 
+- Serializers also provide `deserialization`, allowing parsed data to be converted back into complex types, after first validating the incoming data.
+
 
 - what happens when i type `python manage.py migrate`?
 - made a model
@@ -86,7 +94,6 @@ model과 serializer가 같은 필드에 대해 비슷한 선언 작업을 중복
 - 생성한 view는 snippet model을 여러 방식 (listing, read details) 으로 접근가능함
     - endpoint는 `snippets/urls.py`, `tutorial/urls.py`를 직접 만들어 내용을 채워넣어야 했음
 
-************************************
 
 ### VScode + container 포트 고갈 이슈
 - 컨테이너를 VSCode의 터미널로 사용중인데, `python manage.py runserver`로 장고를 실행하면 자기가 알아서 컨테이너의 포트 - 밖 운영체제의 포트로 매핑을 해 줌.
@@ -140,6 +147,9 @@ http http://127.0.0.1:8000/snippets/ Accept:application/json  # Request JSON
 http http://127.0.0.1:8000/snippets/ Accept:text/html         # Request HTML
 ```
 
+************************************
+
+
 ### 3 - Class based Views
 
 - <a href="https://github.com/nailbrainz/django_tutorial/commit/b9604025f8103c95fd95e3ea8cb85e6557021574" target="_blank">change log 1 - mixins</a>
@@ -182,7 +192,7 @@ urlpatterns = [
 
 
 #### mixins
-view들의 get, post 등은 보통 하는 일이 엄청나게 다양하지는 않음 (ex - get은 보통 아이템 하나를 가져오거나 listing하는 경우가 많음).  
+view들의 get, post 등은 보통 하는 일이 엄청나게 특이하지는 않음 (ex - get은 보통 아이템 하나를 가져오거나 listing하는 경우가 많음).  
 이를 일일이 구현할 필요 없이 (MVC 구조여서 가능) 공통연산을 미리 mixins으로 구현해서 이를 다중상속받아 쓰면 편함
 
 ```
@@ -214,6 +224,7 @@ class SnippetList(generics.ListCreateAPIView):
     serializer_class = SnippetSerializer
 ```
 
+************************************
 
 ### Tutorial 4: Authentication & Permissions
 
@@ -225,7 +236,8 @@ class SnippetList(generics.ListCreateAPIView):
 
 `snippets` is a `reverse relationship` on the User model?
 
-`TODO:` add commit compare (with previous commit) link
+<a href="https://github.com/nailbrainz/django_tutorial/commit/b7da81eb4b87e2b9ab2cb5b0f6317d676d363af6" target="_blank">github commit change log</a>
+
 1. `Snippet` 모델에 owner, highlited 필드 추가
     - `owner`필드는 `models.ForeignKey('auth.User', related_name='snippets', on_delete=models.CASCADE)` 로 추가됨. `auth.User`는 뭐지?
 2. 다시 이 `Snippets` 모델에 `.save()` 함수 추가 : 저장할 때 highlight 해주는 역할 (pygment라이브러리 사용)
@@ -244,7 +256,7 @@ class SnippetList(generics.ListCreateAPIView):
     - 아래와 같은 함수를 `SnippetList` view에 추가해, create수행 중 자동으로 실행되게  
       ```
       def perform_create(self, serializer):
-      serializer.save(owner=self.request.user)
+        serializer.save(owner=self.request.user)
       ```
 2. snippet serialization시 read only속성을 보유하기 위해 `owner = serializers.ReadOnlyField(source='owner.username')` 부분을 snippet serializer에 추가 (db에 속성으로 추가되는 듯?)
 3. 권한 추가
@@ -254,3 +266,87 @@ class SnippetList(generics.ListCreateAPIView):
                       IsOwnerOrReadOnly]
       ```
       같은 필드를 추가하면 유저에 따라 권한 관리를 해 줌. Permission은 custom implementation 가능 (snippers/permissions.py 참고)
+
+
+***********************************
+
+### Tutorial 5: Relationships & Hyperlinked APIs
+
+<a href="https://github.com/nailbrainz/django_tutorial/commit/c93482c8e1c209c002cf038a5da75afac60c232d" target="_blank">commit change log</a>
+
+> At the moment relationships within our API are represented by using primary keys. In this part of the tutorial we'll improve the cohesion and discoverability of our API, by instead using hyperlinking for relationships.
+
+
+Hyperlinking API
+
+> Dealing with relationships between entities is one of the more challenging aspects of Web API design. There are a number of different ways that we might choose to represent a relationship:
+
+- Using primary keys.
+- Using hyperlinking between entities.
+- Using a unique identifying slug field on the related entity.
+- Using the default string representation of the related entity.
+- Nesting the related entity inside the parent representation.
+- Some other custom representation.
+
+REST framework supports all of these styles, and can apply them across forward or reverse relationships, or apply them across custom managers such as generic foreign keys.
+
+root view를 더함. reverse 함수를 써서, 밑에 url.py에 지정한 `url-list`, `snippet-list` 의 reverse를 넣은 response를 돌려줌. 
+    - 이것들은 url이므로, reverse는 hypelink인 건가? 어쨋든 root view에 브라우저로 가보면 각각 `/users/`, `/snippets/`로 갈 수 있는 하이퍼링크가 나옴
+
+user model가 상속받는 serializer를 modelserializer에서 hyperLinkedModelSerializer로 바꿈
+- 'url'필드를 추가해 줌 (원본 클래스에 있는 필드인 듯)
+
+snippet model의 serializer도 동일 시리얼라이저를 상속받음
+- `highlight`필드를 추가 : url필드와 같은 `highlight = serializers.HyperlinkedIdentityField(view_name='snippet-highlight', format='html')` 타입이라고 함
+- 여기의 `view_name=snippet-highlight`은 나중에 url.py에 추가할 것임
+- 브라우저로 열어 보니까, json value 문자열이 하이퍼링크가 됨. 신기하긴 한데 쓸 일이 많나?
+
+`snippetHighlight`란 뷰를 더하고, 렌더러를 staticHTMLRenderer로 만듬
+- `http://127.0.0.1:8000/snippets/1/highlight/`로 가보니 진짜 하이라이트 되네 ㄷㄷ;
+- ```
+  @action(detail=True, renderer_classes=[renderers.StaticHTMLRenderer])
+    def highlight(self, request, *args, **kwargs):
+        snippet = self.get_object()
+    return Response(snippet.highlighted)
+  ```
+  이걸로 하이라이트 한듯. HTML/CSS가 반환되나?
+
+예전에 있던 url.py의 url들에게 name을 붙임
+- hyperLinkedSerialzer등에서 이름으로 각 필드에서 특정 endpoint (url) 로 링크를 걸 수 있는 듯
+
+
+pagenation을 더함
+
+### Chap 6. viewset
+
+<a href="https://github.com/nailbrainz/django_tutorial/commit/32f658ad8b436d4491658a7c5c0381dcc5389411" target="_blank">commit change log</a>
+
+- view-url간의 매칭을 convention에 의거해 자동적으로 해 준다고 함. 미리 정의된 뷰셋도 많은 듯
+- 이전에 만들었던 `UserList` + `UserDetail`뷰를 합쳐 `UserViewSet(viewsets.ReadOnlyModelViewSet)`로 만듬
+    - 둘 다 
+      ```
+      queryset = User.objects.all()
+      serializer_class = UserSerializer
+      ```
+      필드를 공유하고 있었음. 그러고보면 `queryset`은 db로부터 언제 값을 불러오지?
+- `SnippetList`, `SnippetDetail` and `SnippetHighlight` -> `SnippetViewSet(viewsets.ModelViewSet)`
+    - CRUD 이외의 연산을 추가하기 위해 `@action` 데코레이터를 사용
+      ```
+      @action(detail=True, renderer_classes=[renderers.StaticHTMLRenderer])
+      def highlight(self, request, *args, **kwargs):
+        snippet = self.get_object()
+        return Response(snippet.highlighted)
+      ```
+    - `@action`데코레이터로 추가된 액션은 보통 `GET`리퀘스트에 반응한다고 함. `POST`에 반응하게도 할 수 있는 듯
+
+
+이 후, 각 viewset으로부터 자동적으로 set of views를 만들고, url을 각자 연결해 줌
+- `router`를 사용하면 이 과정을 자동화할 수 있다고 함
+- `snippet_highlight` 용 endpoint는 어떻게 자동으로 만드는 거지???
+
+
+Trade-offs between views vs viewsets
+
+Using viewsets can be a really useful abstraction. It helps ensure that URL conventions will be consistent across your API, minimizes the amount of code you need to write, and allows you to concentrate on the interactions and representations your API provides rather than the specifics of the URL conf.
+
+That doesn't mean it's always the right approach to take. There's a similar set of trade-offs to consider as when using class-based views instead of function based views. Using viewsets is less explicit than building your views individually.
