@@ -1,0 +1,83 @@
+---
+layout: post
+title:  "vimtutor Summary"
+date:   2021-01-23 08:00:05 +0800
+categories: coding
+use_math: true
+tags: coding python
+---
+
+<a href="http://www2.geog.ucl.ac.uk/~plewis/teaching/unix/vimtutor" target="_blank">vimtutor en</a>
+
+#### LESSON 1 SUMMARY
+1. The cursor is moved using either the arrow keys or the hjkl keys.
+   `h` (left)	`j` (down)       `k` (up)	    `l` (right)
+2. To enter Vim (from the % prompt) type:  `vim FILENAME <ENTER>`
+3. To exit Vim, type:	   `<ESC> :q! <ENTER>`  to trash all changes.
+   OR type:	   `<ESC> :wq <ENTER>`  to save the changes.
+4. To delete a character under the cursor in Normal mode type:  `x`
+5. To insert text at the cursor while in Normal mode type: `i`
+
+NOTE: Pressing `<ESC>` will place you in Normal mode or will cancel
+      an unwanted and partially completed command.
+
+
+#### LESSON 2 SUMMARY
+
+
+1. To delete from the cursor to the end of a word type:    `dw`
+2. To delete from the cursor to the end of a line type:    `d$`
+3. To delete a whole line type:    `dd`
+4. The format for a command in Normal mode is:
+    - `[number]   command   object`    or     `command	[number]   object`, where:
+        - _number_ - is how many times to repeat the command
+        - _command_ - is what to do, such as  d  for delete
+        - _object_ - is what the command should act upon, such as  `w` (word), `$` (to the end of line), etc.
+5. To undo previous actions, type:	     `u`	 (lowercase u)
+    - To undo all the changes on a line type: `U`	 (capital U)
+    - To undo the undo's type:		     `CTRL-R`
+
+#### LESSON 3 SUMMARY
+1. To replace text that has already been deleted, type   `p`.	  
+   This Puts the deleted text AFTER the cursor (if a line was deleted it will go on the line below the cursor).
+2. To replace the character under the cursor, type   `r`   and then the character which will replace the original.
+3. The change command allows you to change the specified object from the cursor to the end of the object.  
+   - Type  `cw`  to change from the cursor to the end of the word,  
+   - `c$` to change to the end of a line.
+4. The format for change is  
+	`[number]   c	object`	      OR	`c   [number]   object`
+
+
+#### LESSON 4 SUMMARY
+1. `Ctrl-g`  displays your location in the file and the file status.  
+   `Shift-G`  moves to the end of the file.  A line number followed by  `Shift-G`  moves to that line number.
+2. Typing  `/`	followed by a phrase searches FORWARD for the phrase.  
+   Typing  `?`	followed by a phrase searches BACKWARD for the phrase.
+   After a search type  `n`  to find the next occurrence in the same direction or  `Shift-N`  to search in the opposite direction.
+3. Typing  `%`	while the cursor is on a  `(,),[,],{, or }`  locates its matching pair.
+4. To substitute new for the first old on a line type    `:s/old/new`  
+   To substitute new for all 'old's on a line type	   `:s/old/new/g`  
+   To substitute phrases between two line #'s type	   `:#,#s/old/new/g`  
+   To substitute all occurrences in the file type	   `:%s/old/new/g`  
+   To ask for confirmation each time add 'c'		   `:%s/old/new/gc`  
+
+
+#### LESSON 5 SUMMARY
+
+1.  `:!` command  executes an external command. Some useful examples are (MS-DOS):
+	- `:!dir`			-  shows a directory listing.
+	- `:!del FILENAME`	-  removes file FILENAME.
+2.  `:w FILENAME` writes the current Vim file to disk with name FILENAME.
+3.  `:#,#w FILENAME` saves the lines # through # in file FILENAME.
+4.  `:r FILENAME`  retrieves disk file FILENAME and inserts it into the current file following the cursor position.
+
+
+#### LESSON 6 SUMMARY
+1. Typing  `o`	opens a line BELOW the cursor and places the cursor on the open line in Insert mode.  
+   Typing a capital  `O`  opens the line ABOVE the line the cursor is on.
+2. Type an  `a`  to insert text AFTER the character the cursor is on.  
+   Typing a capital  `A`  automatically appends text to the end of the line.
+3. Typing a capital  `R`  enters Replace mode until  `<ESC>`  is pressed to exit.
+   Typing `:set xxx` sets the option `xxx`
+
+

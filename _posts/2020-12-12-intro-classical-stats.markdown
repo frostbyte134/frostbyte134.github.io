@@ -81,7 +81,7 @@ OTOH, if the estimator is constant 0, \\(\hat{\Theta}\_n=0\\).
   - In Bayesian setting we fix prior to encode such belief/info, but in classical setting we cannot.
 - we define \\(\sqrt{\text{var}\hat{\Theta}}\\), stddev of the estimator, as the `standard error`
   - high standard error = our problem/data has high randomness, and our estimate varies a lot (may not be so accurate)
-  - small standard erorr = our estimates are concentrated
+  - small standard error = our estimates are concentrated
   - it is highly dependent on problem setting, models, ...
 
 
@@ -92,8 +92,11 @@ OTOH, if the estimator is constant 0, \\(\hat{\Theta}\_n=0\\).
 - interpretation is subtle
   - __NOT__ a statement about the actual numbers that are reported. It is about the experiment.
   - having a 95% confidence interval = 95% of the estimation carried out will capture the true parameter
-  - 특정 실험을 carry out해서 estimation이 \\(C\\)가 나왔다 \\(\quad\rightarrow\quad\\) \\([C-\alpha, C+\alpha]\\) 안에 true parameter가 있을 확률 95%, 90%,...
-    - 다른 실험에 \\(C\_1\\)이 나왔다 치면, 그 실험도 동일
+  - ex) 95% confidence interval
+    1. 실험 1을 carry out해서 ci가 \\(\\{C\_{11}, C\_{12}\\}\\}\\)가 나왔다 \\(\quad\rightarrow\quad\\) \\([C\_{11}, C\_{12}]\\) 안에 true parameter가 있을 확률 95%
+    2. 동일한 상황에서 실험2를 carry out해서 ci가 \\(\\{C\_{21}, C\_{22}\\}\\}\\)가 나왔다 \\(\quad\rightarrow\quad\\) \\([C\_{21}, C\_{22}]\\) 안에 true parameter가 있을 확률 95% (이 값들이 틀렸을수도 있음)
+    3. true parameter가 fixed = frequentist (classical) idea!
+        > <a href="https://towardsdatascience.com/understanding-confidence-interval-d7b5aa68e3b" target="_blank">(link)</a> Given any one of the confidence intervals, we cannot make any statement about the population mean itself. We don’t know if it belongs to 95% of the intervals that contain the population mean, or the remaining 5% that don’t. We cannot even infer about the distribution of data within a confidence interval. The confidence interval could enclose a fraction of the thin tail, or be centered exactly at the population mean. A confidence interval could cover any part of the distribution In summary, we know nothing about how data are distributed within a confidence interval, let alone whether it contains the population mean. The statement we can make is about the boundaries of confidence interval, not the location of population means.
 
 #### CI for the estimation of mean
 

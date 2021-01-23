@@ -1,14 +1,14 @@
 ---
 layout: post
 title:  "Open / Closed Sets in Metric Spaces"
-date:   2020-12-16 08:00:05 +0800
+date:   2021-01-23 08:00:05 +0800
 categories: analysis
 use_math: true
 tags: analysis metric_space open_set closed_set limit_point neightborhood interior cell closure
 ---
 
 * Written in 2018-10-04
-* Revision in 2020-12-16
+* Revision in 2020-01-23. 해석학 복습 고고. 이번에는 역함수 정리 꼭 가자
 
 Note that, subset (not subseteq) is used in the def. of interior.
 
@@ -21,22 +21,24 @@ With the concept of `distance` defined in a <a href="{{site.url}}/analysis/2018/
 * `k-cell` : segments in \\(\mathbb\{R\}^k\\)
 
 Let \\(X\\) be a metric space. All points and set mentioned below are understood to be the elements / subsets of \\(X\\)
-* `neightborhood` of \\(p\\) with radius \\(r:= N\_r(p)\\) is a set \\(\\{x\in X \\ \| \\ \|x-p\|<r\\}\\)  
-is denoted as a `open circle` in Euclidean space.
-* `limit point` \\(p\\) of a set \\(E\\): Every neightborhood of \\(p\\) constains a point \\(q\neq p\\) such that \\(q\in E\\)
+* `neightborhood` of \\(p\\) with radius \\(r:= N\_r(p)\\)  
+   is a set \\(\\{x\in X \\ \| \\ d(x, p) < r\\}\\), and is denoted as a `open circle` in Euclidean space.
+* `limit point` \\(p\\) of a set \\(E\\):  
+  - Every neightborhood of \\(p\\) constains a point \\(q\neq p\\) such that \\(q\in E\\)  
+  - __negation__ \\(\rightarrow \exists\\) a neighborhood \\(N\\) of \\(p\\) such that \\(N \bigcap E = \emptyset\\)  
 * `isolated point` \\(p\\) of a set \\(E\\): \\(p\in E\\) but \\(p\\) is not an limit point
 * \\(E\\) is `closed` if every limit point of \\(E\\) is a point of \\(E\\)
-* \\(p\in E\\) is an `interior point` if \\(\exists\\ N\_r(p) \subseteq E \text\{ for some \} \\ r>0\\)
+* \\(p\in E\\) is an `interior point` if \\(\exists\\ N\_r(p) \subset E \text\{ for some \} \\ r>0\\)
 * \\(E\\) is `open` if every point of \\(E\\) is an interior point
 * \\(E\\) is perfect, if \\(E\\) is closed and if every point of \\(E\\) is a limit point of \\(E\\) (no isolated points)
+  * compare this def with the def of closed sets
 * \\(E\\) is bounded if \\(\exists\\ q\in X,\\ M\in\mathbb\{R\} \\ : \\ d(p,q)<M,\quad \forall \\ p\in E\\) 
-* \\(E\\) is dense if every point of \\(X\\) is a limit point of \\(E\\), or a point of \\(E\\)\\[\mathbb\{Q\} \text\{ is dense in \}\mathbb\{R\}\\]
+* \\(E\\) is dense in \\(E\\) if every point of \\(X\\) is a limit point of \\(E\\), or a point of \\(E\\)\\[\mathbb\{Q\} \text\{ is dense in \}\mathbb\{R\}\\]
 
 ### Examples
 Let us consider the following subsets or \\(\mathbb\{R^2\}=\mathbb\{C\}\\).
-* \\(\\{x\\},\\ x\in \Re\\) : closed
+* \\(\\{x\\},\\ x\in \Re\\) : closed (vacuously, or consider complement)
 * \\(\emptyset\\) : open and closed, with empty interior/exterior
-* 
 * \\(\\{z\in\mathbb\{C\}\quad\|\quad \|z\|<1\\}\\)  
 \\(\rightarrow\\) not closed, open, not perfect, bounded
 * \\(\\{z\in\mathbb\{C\}\quad\|\quad \|z\|\leq 1\\}\\)  
@@ -66,7 +68,7 @@ __proof__: Consider a neightborhood \\(N\_r(p)\\) of \\(p\in\mathbb\{R\}\\), and
 __proof__: Suppose there exists \\(r>0\\) such that makes \\(N\_r(p)\bigcap E=\\{q_1,...,q_n,p\\}\\). Define \\[r'=\min\_i d(p,q_i).\\]The minimum of finite positive numbers are positive, so that \\(r'>0\\). The neightborhood \\(N\_\{r'\}(p)\\) contains no points of \\(E\\) except for \\(p\\), namely \\(N\_\{r'\}(p)\bigcap E=\\{p\\}\\), so that \\(p\\) is not a limit point of \\(E\\) and contradiction rises.  
 __Corollary__: A finite point set has no limit points (and is closed vacuously).
 
-Theorems about the De Morgan's for arbitrary (including uncountable) index set is skipped (link - refer to the post about set)
+__Theorem 2.22__ is about the De Morgan's for arbitrary (including uncountable) index set
 
 > __Theorem__(Rudin 2.23): A set \\(E\\) is open iif its complement \\(E^C\\) is closed.
 
@@ -122,9 +124,9 @@ Following theorem show that there is certain relation between these concepts.
 > __Theorem__(Rudin 2.30): Suppose \\(Y\subset X\\), and \\(Y, X\\) are metric spaces.  
 A subset \\(E\\) of \\(Y\\) is open relative to \\(Y\\) iif \\(E=Y\bigcap G\\) for some open subset \\(G\\) of \\(X\\).
 
-1. \\(\leftarrow\\):  
-Since \\(E\\) is open relative to \\(Y\\), for each point \\(p\in E\subset Y\\) there must be \\(\epsilon\_p\\) such that \\(d(p,q\)<\epsilon\_p \quad\rightarrow\quad q\in E\\). Now consider \\(X\\) as an universe, and define \\(G:=\bigcup\_\{p\}N\_\{\epsilon_p\}(p)\\) where the neighbors are defined in \\(X\\). Then \\(G\\) is open by Theorem 2.19 and 2.24, and we have \\(E\subset G\cap Y\\). Conversely, if \\(p\in G\\) and \\(p\in Y \\), then \\(d(p,q\)<\epsilon\_p, p\in Y) holds so that \\(p\in E\\). Thus we have \\(E=G\cap Y\\).  
-2. \\(\rightarrow\\):  
+1. \\(\rightarrow\\):  
+Since \\(E\\) is open relative to \\(Y\\), for each point \\(p\in E\subset Y\\) there must be \\(\epsilon\_p\\) such that \\(d(p,q\)<\epsilon\_p \quad\rightarrow\quad q\in E\\). Now consider \\(X\\) as an universe, and define \\(G:=\bigcup\_\{p\}N\_\{\epsilon_p\}(p)\\) where the neighbors are defined in \\(X\\). Then \\(G\\) is open by Theorem 2.19 and 2.24, and we have \\(E\subset G\cap Y\\). Conversely, if \\(p\in G\\) and \\(p\in Y \\), then \\(d(p,q\)<\epsilon\_p, p\in Y\\) holds so that \\(p\in E\\). Thus we have \\(E=G\cap Y\\).  
+2. \\(\leftarrow\\):  
 let \\(G\\) is open in \\(X\\) and let \\(E=G\bigcap Y\\). Then every \\(p\in E\\) has a neighbor (in \\(X\\)) \\(N\_\epsilon(p)\subset G\\). Now it holds that
 \\[N\_\{\epsilon_p\}(p)\cap Y \subset G\cap Y = E\\] so that \\(E\\) is open relative to \\(Y\\).
 
