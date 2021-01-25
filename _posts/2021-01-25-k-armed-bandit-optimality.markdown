@@ -75,8 +75,7 @@ The idea is that \\(\log\left( R\_n^* (\mathcal{E}) \right)\\) is much smaller t
 We now state the conclusion as the theorem
 
 > __Theorem (Worst case regret lower)__ For any \\(K\geq 2,\\ n\geq 2\\), :  
-\\(\forall\\ K>0\\), \\(E\in \mathcal{E}\_K, n>1\\),
-\\[R_n^*(\mathcal{E}_K) \geq c\sqrt{Kn}\\]  
+\\[R_n^*(\mathcal{E}_K) \geq c\sqrt{Kn}\\]
 for some universal constant \\(c>0\\).
 
 > <a href="https://banditalgs.com/2016/09/22/optimality-concepts-and-information-theory/" target="_blank">In particular, we see that UCB is near-minimax optimal. But how to prove that the above result? The intuition is relatively simple and can be understood by just studying Gaussian tails.</a>
