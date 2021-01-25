@@ -76,7 +76,7 @@ Choose \\(n\_1\\) so that \\(p\_{n\_1}\neq q\\).
 2. If not, put \\(\delta=d(q, p\_{n\_1})\\). Suppose \\(n\_1,...,n\_{i-1}\\) is chosen.   
    Since \\(q\\) is a limit point of \\(E^* \\), \\(\exists\\ x\in E^* \\) with \\(d(x,q)<2^{-i}\delta\\).  
    Since \\(x\in E^*\\) (\\(x\\) is a limit point of \\(\\{p\_n\\}\\)), \\(\exists\\ p\_{n\_i}\in \\{p\\} \\) with \\(d(x,p\_{n\_i})<2^{-i}\delta\\).  
-   combining two inequalities, we conclude that \\(\\{p\_{n\_i}\\}\\) converges to \\(q\\). QED.
+   combining two inequalities, we conclude that \\(\\{p\_{n\_i}\\}\\) converges to \\(q\\), which implies that \\(q\in E^* \\). QED.
 
 
 
