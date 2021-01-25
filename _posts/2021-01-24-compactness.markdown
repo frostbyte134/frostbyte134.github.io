@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Compact Sets"
-date:   2018-12-22 08:00:05 +0800
+date:   2021-01-24 08:00:05 +0800
 categories: analysis
 use_math: true
 tags: analysis compact open_cover
@@ -24,7 +24,7 @@ Suppose \\(K\subset Y\subset X\\). Then \\(K\\) is compact wrt \\(X\\) i.i.f \\(
 
 `proof:`
 \\(\rightarrow\\): Consider an open cover of \\(K\\) in \\(Y\\), \\(\bigcup\_\{\alpha\}G\_\{\alpha\}\\). We have show that this open cover has a finite subcover, using the compactness of \\(K\\) in \\(X\\).  
-Since \\(G\_\{\alpha\}\\) is open in \\(Y\subset X\\), \\(\exists\\) a set \\(F\_\{\alpha\}\\) open in \\(X\\), such that \\(G\_\alpha=Y\bigcap K\_\alpha\\).  
+Since \\(G\_\{\alpha\}\\) is open in \\(Y\subset X\\), \\(\exists\\) a set \\(F\_\{\alpha\}\\) open in \\(X\\), such that \\(G\_\alpha=Y\bigcap F\_\alpha\\).  
 Since
 \\[K\subset Y \quad\land\quad K\subset \bigcup\_\{\alpha\}G\_\{\alpha\},\\]
 \\(\bigcup\_\{\alpha\}F\_\{\alpha\}\\) is an open cover of \\(K\\), and since \\(K\\) is compact in \\(X\\) it contains a finite subcover, denoted by the subindex \\(\alpha\_k\\).  
@@ -71,6 +71,10 @@ Suppose \\(F\subset K\subset X\\), \\(F\\) is closed, and \\(K\\) is compact. Le
 3. By 2.35, the intersection is also compact.
 
 
+> __Theorem__ 2.35 (PMA) : Closed subsets of compact sets are compact.
+
+-  Let \\(F\subset K \subset X\\), \\(F\\) is closed (relative to \\(X\\)), and \\(X\\) is compact. We can show the compactness of \\(F\\) using the compactness of \\(K\\). closedness of \\(F\\) is used, in the sense that \\(F^C\\) is open in \\(X\\), so that we can comstruct an open cover of \\(K\\) by adjoining  \\(F^C\\) and any open cover \\(\\{V\_\alpha\\}\\)
+
 ### Heine-Borel Theorem
 
 > __Theorem__ 2.36 (PMA) :  
@@ -85,6 +89,7 @@ Then \\(\bigcup\_\{\alpha\}K\_\{\alpha\}^C\\) is an open cover of \\(K\_\{\alpha
 > __Corollary__: If \\(\\{K\_n\\}\\) is a sequence of nonempty compact sets such that \\(K\_n\supset K\_\{n+1\}\\), then \\[\mathop\{\bigcap\}\_\alpha K\_\alpha\neq\emptyset\\]
 
 \\(\\ \\)
+
 
 > __Theorem__ 2.37 (PMA) :  
 If \\(E\\) is an subset (with infinite cardinality) of a compact set \\(K\\), then \\(E\\) has a limit point on \\(K\\).
@@ -156,6 +161,22 @@ Every bounded infinite subset of \\(R^k\\) has a limit point in \\(R^k\\).
 `proof`:  
 Being bounded, the set \\(E\\) is a subset of some \\(k\\)-cell \\(\in R^k\\). By `Theorem 2.40`, the cell is compact, so \\(E\\) has a limit point in the cell, by `Theoren 2.37`.
 
+
+### Perfect sets
+
+> __Theorem__ 2.43 (PMA) :  
+Let \\(P\\) be a nonempty perfect set in \\(R^K\\). Then \\(P\\) is uncountable.
+
+__Corollary__ Every interval \\([a, b],\\ (a < b) \\)  is uncountable. In particular, __the set of all real numbers is uncountable__
+
+### The Cantor set
+- perfect set (uncountable) in \\(R^1\\) which contain no segment (measure zero)
+
+### Connected sets
+
+> __Definition__ 2.45 (PMA) : Two subsets \\(A\\) and \\(B\\) of a metric space \\(X\\) is said to be `separated` if both \\(A\bigcap \bar B\\) and \\(\bar A \bigcap B\\) are nonempty.  
+A set \\(E\subset X\\) is said to be `connected` if \\(E\\) is __not__ a union of two nonempty separated sets.
+ 
 
 References
 * (DA): 맛있는 해석학 4판, 김백진
