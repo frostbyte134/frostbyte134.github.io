@@ -7,6 +7,7 @@ use_math: true
 tags: analysis metric_space open_set closed_set limit_point neightborhood interior cell closure
 ---
 
+<a href="https://drive.google.com/file/d/1Q7JKEznfmwm4u5qhdsKeFFgtb-ymAxXK/view?usp=sharing" target="_blank">Rudin Chap 2</a>
 * Written in 2018-10-04
 * Revision in 2020-01-23. 해석학 복습 고고. 이번에는 역함수 정리 꼭 가자
 
@@ -54,7 +55,7 @@ Let us consider the following subsets or \\(\mathbb\{R^2\}=\mathbb\{C\}\\).
 * The segment \\((a,b),\\ a,b\in\mathbb\{R\}\\)  
 \\(\rightarrow\\) not closed, open (relatvie to \\(\mathbb\{R\}\\)) or not open (in \\(\mathbb\{C\}\\)), not perfect, bounded
 
-### Theorems
+<h3 id="theorems">Theorems</h3>
 
 Note that many of the theorems does not assume the Euclidean space, but works in general metric space with distance \\(d\\).
 

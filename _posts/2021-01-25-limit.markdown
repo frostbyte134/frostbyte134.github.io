@@ -1,12 +1,17 @@
 ---
 layout: post
 title:  "Sequences and limits"
-date:   2018-12-19 08:00:05 +0800
+date:   2021-01-25 08:00:05 +0800
 categories: analysis
 use_math: true
 tags: analysis limit sequence bounded subsequence
 ---
 
+- written in 2018.12.19
+- revision in 2021.01.25
+
+
+"all but finitely many" : there exists a finite exception
 
 ### Limit
 > We say that a sequence \\(\\{a\_n\\}\\) converges to a `limit` \\(L\in\Re\\) when
@@ -47,6 +52,33 @@ If a sequence \\(\\{a\_n\\}\\) converges to \\(L\\), then its every subsequence 
 __proof__: \\(\lim\_\{n\rightarrow\infty\}a\_n\\)  
 \\(\rightarrow\\) \\(\\forall \epsilon > 0,\\ \exists n\in \mathbb\{N\},\\ \forall n\\ : \\ n > N\quad\rightarrow\quad \| a\_n - L \| < \epsilon \\)  
 For an arbitrary subsequence \\(\\{a\_\{n\_k\}\\}\\), in \\(n\_k \geq N\\) same holds true.
+
+> __Theorem__ 3.6 (PMA):  
+1. If \\(\\{p\_n\\}\\) is a sequence in a compact metric space \\(X\\), then some subsequence of \\(\\{p\_n\\}\\) converges to a point of \\(X\\)
+2. Every bounded sequence in \\(R^k\\) contains a convergent subsequence
+
+__proof__: for (a), Let \\(E\\) be the range of \\(\\{p\_n\\}\\).
+1. Finite \\(E\\) : trivial (constant sequence)
+2. Firstly, <a href="{{site.url}}/analysis/2021/01/24/compactness.html#heine" target="_blank">Theorem 2.37 (PMA)</a> shows that \\(E\\) has a limit point \\(p\in X\\)  
+   Using the <a href="{{site.url}}/analysis/2021/01/23/open-closed-sets.html#theorems" target="_blank">Theorem 2.20 (PMA)</a>, we can choose \\(n\_1,...,n\_i....\\) such that \\(d(p, p\_{n\_i}) < 1/i\\)
+
+we can prove (b), using (a), since every bounded seq in \\(R^k\\) is contained in some cell (which is compact) 
+
+> __Theorem__ 3.7 (PMA):  
+The subsequential limits of a sequence \\(\\{p\_n\\}\\)  in a metric space \\(X\\) form a closed subset of \\(X\\).
+
+The theorem says that, if we construct a set of (all the limit points of \\(\\{p\_n\\}\\)), it is a closed set.
+
+__proof__
+Let \\(E^* \\) be the set of all subsequential limits of \\(\\{p\_n\\}\\) and let \\(q\\) be a limit point of \\(E^* \\). We have to show that \\(q\in E^* \\).  
+Choose \\(n\_1\\) so that \\(p\_{n\_1}\neq q\\). 
+1. If no such \\(n\_1\\) exists, then \\(E^* \\) has only one element \\(q\\), so that the theorem holds vacuously
+2. If not, put \\(\delta=d(q, p\_{n\_1})\\). Suppose \\(n\_1,...,n\_{i-1}\\) is chosen.   
+   Since \\(q\\) is a limit point of \\(E^* \\), \\(\exists\\ x\in E^* \\) with \\(d(x,q)<2^{-i}\delta\\).  
+   Since \\(x\in E^*\\) (\\(x\\) is a limit point of \\(\\{p\_n\\}\\)), \\(\exists\\ p\_{n\_i}\in \\{p\\} \\) with \\(d(x,p\_{n\_i})<2^{-i}\delta\\).  
+   combining two inequalities, we conclude that \\(\\{p\_{n\_i}\\}\\) converges to \\(q\\). QED.
+
+
 
 ### Limit is a linear mapping
 

@@ -7,6 +7,7 @@ use_math: true
 tags: analysis compact open_cover
 ---
 
+<a href="https://drive.google.com/file/d/1Q7JKEznfmwm4u5qhdsKeFFgtb-ymAxXK/view?usp=sharing" target="_blank">Rudin Chap 2</a>
 
 ### Open conver of a set
 By an `open cover` of a set \\(E\\) in a metric space \\(X\\), we mean a collection \\(\\{G\_\{\alpha\}\\}\\) of subsets of \\(X\\) such that
@@ -75,7 +76,7 @@ Suppose \\(F\subset K\subset X\\), \\(F\\) is closed, and \\(K\\) is compact. Le
 
 -  Let \\(F\subset K \subset X\\), \\(F\\) is closed (relative to \\(X\\)), and \\(X\\) is compact. We can show the compactness of \\(F\\) using the compactness of \\(K\\). closedness of \\(F\\) is used, in the sense that \\(F^C\\) is open in \\(X\\), so that we can comstruct an open cover of \\(K\\) by adjoining  \\(F^C\\) and any open cover \\(\\{V\_\alpha\\}\\)
 
-### Heine-Borel Theorem
+<h3 id="heine"> Heine-Borel Theorem</h3>
 
 > __Theorem__ 2.36 (PMA) :  
 If \\(\\{K\_\{\alpha\}\\}\\) is a collection of compact subsets of a metrix space \\(X\\) such that the intersection of every finite subcollection of \\(\\{K\_\{\alpha\}\\}\\) is nonempty, then \\(\mathop\{\bigcap\}\_\{\alpha\}K\_\alpha\\) is nonempty.
