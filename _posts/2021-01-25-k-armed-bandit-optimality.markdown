@@ -62,14 +62,14 @@ R_n^\* (\mathcal{E})  = \inf_{A \in \mathcal{A}\_{n,k}} \sup_{E\in \mathcal{E}} 
 A `minimax optimal policy` is a policy \\(A\\) which achieves
 \\[R_n^* (A,\mathcal{E}) = R_n^* (\mathcal{E})\\]
 Finding such policy is exponentially hard, so we want to find the `near-minimax policy`, which can be stated as
-\\[R\_n^* (A, \mathcal{E}) \leq R\_n^* (\mathcal{E})\\]
+\\[R\_n^* (A, \mathcal{E}) \leq CR\_n^* (\mathcal{E})\\]
 or more `relaxed version`
 \\[\frac{R\_n^* (A, \mathcal{E})}{R\_n^* (\mathcal{E})} \leq \log\left( \max(1, R\_n^* (\mathcal{E})) \right)\\]
-The idea is that \\(\log\left( R\_n^* (\mathcal{E}) \right)\\) is much smaller than \\(R\_n^* (\mathcal{E})\\), and we do not want our near-maximal policy \\(A\\) to produce regret wrt such value (proportional)
+- The idea is that \\(\log\left( R\_n^* (\mathcal{E}) \right)\\) is much smaller than \\(R\_n^* (\mathcal{E})\\), and we do not want our near-maximal policy \\(A\\) to produce regret wrt such value (proportional)
 
-- The value itself of \\(R\_n^* (\mathcal{E})\\) is of interest on its own
+The value itself of \\(R\_n^* (\mathcal{E})\\) is of interest on its own
   - small \\(R\_n^* (\mathcal{E})\\) indicates that the problem is less-challenging in the worst-case sense
-- one of core researches of bandit (or learning) theory : to understand what makes \\(R\_n^* (\mathcal{E}))\\) large or small, often as a func of \\(n, K\\)
+  - one of core researches of bandit (or learning) theory : to understand what makes \\(R\_n^* (\mathcal{E}))\\) large or small, often as a func of \\(n, K\\)
 
 
 We now state the conclusion as the theorem
@@ -79,3 +79,75 @@ We now state the conclusion as the theorem
 for some universal constant \\(c>0\\).
 
 > <a href="https://banditalgs.com/2016/09/22/optimality-concepts-and-information-theory/" target="_blank">In particular, we see that UCB is near-minimax optimal. But how to prove that the above result? The intuition is relatively simple and can be understood by just studying Gaussian tails.</a>
+
+
+### Lower bounding ideas
+
+Problem setting
+1. Given \\(n\\) iid observation from normals with a __known variance__ of say 1 and __unknown mean__ \\(\mu\\), 
+2. the `sample mean` of the observation is the `sufficient statistic` for the true mean \\(\mu\\)
+   1. any observation can be replaced by the sample mean, without losing information
+3. the distribution of sample mean also follows a gaussian, with mean (unknown) \\(\mu\\) and variance \\(1/n\\).
+   
+Now assume that \\(\mu\\) can take only two values, \\(\\{0, \Delta\\}\\)
+- We assume wlog that \\(\Delta > 0\\). 
+- as said, we can make decision solely based on the sample mean \\(\hat \mu\\), which is a sufficient statistic 
+- If \\(n \gg \Delta \\), we (intuitively) seel that the decision is easy
+  - If \\(\hat \mu\\) is closer to zero than to \\(\Delta\\), choose 0
+
+__No matter then whether__ \\(\mu\\) __was indeed 0 or__ \\(\Delta\\), <a href="{{site.url}}/probability/2020/12/31/k-armed-bandit.html#gauss_bound" target="_blank">we can bound the error probability value itself </a>.
+\\[
+\begin{align\*} 
+P\left( \hat \mu\_n \geq \mu + (\Delta /2) \right) \leq \frac{1}{\sqrt{2\pi n(\frac{\Delta}{2})^2}} \exp(-n (\Delta/2)^2/2) \le \exp(-\frac{n(\Delta/2)^2}{2})\,, 
+\end{align\*}  
+\\]  
+- The only case we fail is when the deviation of sample mean exceeds \\(\delta/2\\)
+- where the inequality in the middle assumed that \\(2\pi n (\Delta/2)^2\ge 1\\)
+- we see that the error probability value decays exponentially with \\(n\\)
+- if \\(\Delta\\) is too small compared to \\(n\\), the bound is useless (nearly 1)
+
+However, above bound for the Gaussian tail is somewiat loose. With more <a href="https://mikespivey.wordpress.com/2011/10/21/normaltails/" target="_blank">calculation (using integral by parts)</a>, if \\(X\\) is normal,
+\\[
+\begin{align\*} 
+P\left(X>\epsilon\right) \ge \left(\frac{1}{\epsilon}-\frac{1}{\epsilon^3}\right)\, \frac{\exp( – \frac{\epsilon^2}{2} )}{\sqrt{2\pi}} 
+\end{align\*}  
+\\]
+
+and in our case \\(\epsilon = (\Delta /2)\\), if we let
+\\[n(\Delta/2)^2/2 \leq c \quad\quad \left(  \Delta \le \sqrt{8c/n},\quad \text{ or equivalently }\quad n\le 8c/\Delta^2 \right)\\]
+then the error low bound becomes
+\\[C (\frac{1}{\sqrt{c}}-\frac{1}{c\sqrt{c}})\exp(-c)>0\\]
+
+- The take home message is that if \\(n\\) is small compared to the differences in the means \\(\Delta\\) that we need to test, then we are facing an impossible mission (error prob will be close to 1)
+- The ideas underlying this argument are core to any arguments that show an `impossibility` result in a statistical problem. 
+
+__The next task is to reduce our bandit problem to a hypo testing problem as described above__
+
+#### 'impossibility' bandits
+
+Problem formulation
+1. Two bandits instances \\(E, E'\\) where the `reward` distribution are Normal with \\(\sigma^2=1\\).
+2. The vector of means are in \\([0,1]^K\\), thus the instances are in \\(\mathcal{E}\_K\\)
+   - we assumes two different envs, with \\(K\\) arms
+3. Let the mean vectors of two instances be \\(\mu, \mu'\\)
+4. Our goal is tochoose \\(E,E'\\) (or equivalently, \\(\mu,\mu'\\)) in a way that
+   1. `Competition`: Algorithms doing well on one instance, cannot do well on the other instance.
+   2. `Similarity`: The instances are __close__ so that no matter what policy interacts with them, given the observations, the two instances are indistinguishable as in the hypo testing example above (error prob low bound is close to 1)
+
+Our strategy is that
+1. Choose \\(\mu\\) that one arm has a slightly higher mean (by a constant \\(\Delta\\)) than all the other arms, call this index \\(i_E\\).
+2. Then we find the least favored arm in expectation \\(i\_{E'}\\) by the algorithm \\(A\\), which must not be \\(i\_E\\) in high prob
+3. and to build \\(E'\\) we increase the mean of this arm by \\(2\Delta\\)
+4. In particular, all the arms of \\(E\\) and \\(E'\\) has the same \\(\mu\\), except for  
+   \\(i\_{E'}\\) which is optimal in \\(E'\\) (\\(E'\\) also has \\(i\_{E}\\), which is less optimal) and  
+   \\(I\_E\\) which is optimal in \\(E\\) (\\(E\\) does not have \\(i\_{E'}\\))
+
+Note that,
+1. intuitively when the \\(A\\) run on \\(E'\\), it won't choose \\(i\_{E'}\\) more than \\(n/K\\) times (we have optimal arm \\(i\_E\\))
+2. The two envs differ only in terms of the mean of \\(i\_{E'}\\)
+3. To make two envs indifferentiable, set \\(\Delta=1/\sqrt{n/K}\\).
+   - when \\(i\_{E'}\\) is chosn \\(n/K\\) times, the sample mean of this arm will have stddev \\(1/\sqrt{n/K}\\).
+   - When the true mean is closer than the stddev, then they are indistinguisable (error probability will be high, as above!)
+
+ㅡ,.ㅡ
+

@@ -105,7 +105,7 @@ However, what can we say about the `tail probability`? (=distribution of the err
 \\[P(\|M\_n - \mu \| \geq \epsilon)\\]
 
 
-#### Why we need subguassianity and concentration inequality?
+<h4 id="gauss_bound"> Why we need subguassianity and concentration inequality?</h4>
 1. using the <a href="{{site.url}}/probability/2020/12/10/rv-convergence.html#chevyshev" target="_blank">Chevyshev inequality</a>  directly gives \\[P(\|M\_n-\mu\| \geq \epsilon) \leq \frac{\sigma^2}{n\epsilon^2}\\]  
    This is easily drawn, but since we only used the mean and var as the input information, it is often too loose.
 2. using the <a href="{{site.url}}/probability/2020/12/11/clt.html#clt" target="_blank">central limit theorem</a> says that \\(M\_n/\sqrt{n\} \sim N(0, \sigma)\\). This would suggest (as in the <a href="https://banditalgs.com/2016/09/14/first-steps-explore-then-commit/#thm_subgaussian" target="_blank">link</a>)
