@@ -7,6 +7,9 @@ use_math: true
 tags: analysis sum series root_test ratio_test cauchy absolute_convergence
 ---
 
+- <a href="https://drive.google.com/file/d/1j76UouKwCaY0OdWEkEYRIQrwFe9KXlRJ/view?usp=sharing" target="_blank">rudin Chap3 Numerical Sequences and Series</a>
+
+
 Related:
 1. <a href="{{site.url}}/deep_learning/2018/08/23/series-and-sum.html" target="_blank">Sums and Series</a>
 

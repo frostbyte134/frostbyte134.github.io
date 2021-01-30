@@ -75,7 +75,7 @@ __Theorem 2.22__ is about the De Morgan's for arbitrary (including uncountable) 
 
 __proof__:  
 1. \\(\rightarrow\\)  
-Let \\(x\\) be a limit point of \\(E^C\\). Then every neighborhood of \\(x\\) has intersection with \\(E^C\\), so that by the definition of open set \\(x\notin E\\), then \\(x\in E\\). \\(E\\) is closed.
+Let \\(x\\) be a limit point of \\(E^C\\). Then every neighborhood of \\(x\\) has intersection with \\(E^C\\), so that by the definition of open set \\(x\notin E\\), then \\(x\in E^C\\). \\(E^C\\) is closed.
 2. \\(\leftarrow\\)  
 Let \\(x\notin E^C\\), so that \\(x\in E\\) by the def. of complement. Then since \\(E^C\\) is closed, \\(x\\) is not an limit point of \\(E^C\\), so some neighborhood of \\(x,\\ N_\epsilon(x)\\) has no intersection with \\(E^C\\), which implies that \\(N_\epsilon(x)\subset\\), and sicne this holds for arbitrary point of \\(E\\), \\(E\\) is open.
 
@@ -103,7 +103,7 @@ __Side note:__ For an open set \\(G\\) and closed set \\(F\\),
 
 __Definition__: `closure` of \\(E,\\)\\[\bar\{E\}:=E\bigcup \\{\text\{all limit points of \}E\\}\\] 
 
-> __Theorem__(Rudin 2.28): Supremum is in the closer of the set. (__Supremum is a limit point, if it is not in the set__)  
+> __Theorem__(Rudin 2.28): Supremum is in the closer of the set. (__Supremum is a limit point, by the def__)  
 Let \\(E\\) be a nonempty set of __real numbers__ which is bounded above. Let \\(y=\sup E\\). Then \\(y\in\bar\{E\}\\). Hence \\(y\in E\\) is \\(E\\) is closed.
 
 __proof__:  

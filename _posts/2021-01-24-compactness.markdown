@@ -81,7 +81,7 @@ Suppose \\(F\subset K\subset X\\), \\(F\\) is closed, and \\(K\\) is compact. Le
 > __Theorem__ 2.36 (PMA) :  
 If \\(\\{K\_\{\alpha\}\\}\\) is a collection of compact subsets of a metrix space \\(X\\) such that the intersection of every finite subcollection of \\(\\{K\_\{\alpha\}\\}\\) is nonempty, then \\(\mathop\{\bigcap\}\_\{\alpha\}K\_\alpha\\) is nonempty.
 
-`proof`: Suppose that \\(\mathop\{\bigcap\}\_\{\alpha\}K\_\alpha\\) is empty. Fix a \\(\alpha'\\) and assume \\(\nexists\\ p\in K\_\{\alpha'\} \\ : \\ p\in K\_\alpha\\ \forall\\ \alpha \neq \alpha'\\) (assumption says the intersection is nonempty only for finite collections).  
+`proof`: Suppose that \\(\mathop\{\bigcap\}\_\{\alpha\}K\_\alpha\\) is empty. Fix a \\(\alpha'\\) and assume that  \\(\forall\\ p\in K\_{\alpha'}\\), it holds that  \\(p\notin K\_\alpha\\ \forall\\ \alpha \neq \alpha'\\) (assumption says the intersection is nonempty only for finite collections).  
 Then \\(\bigcup\_\{\alpha\}K\_\{\alpha\}^C\\) is an open cover of \\(K\_\{\alpha'\}\\), and there exists a finite collections \\(K\_\{\alpha\_1\}^C,...,K\_\{\alpha\_n\}^C\\) that their union covers \\(K\_\{\alpha'\}\\). Now we have a contradiction, since by the statement so far,
 \\[K\_\{\alpha'\}\cap\left( K\_\{\alpha\_1\}^C\cup \cdots \cup K\_\{\alpha\_n\}^C \right)^C=\emptyset\\]
 \\[\rightarrow K\_\{\alpha'\}\cap\left( K\_\{\alpha\_1\}\cap \cdots \cap K\_\{\alpha\_n\} \right)=\emptyset\\]QED.

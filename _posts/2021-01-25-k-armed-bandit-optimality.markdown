@@ -142,12 +142,18 @@ Our strategy is that
    \\(i\_{E'}\\) which is optimal in \\(E'\\) (\\(E'\\) also has \\(i\_{E}\\), which is less optimal) and  
    \\(I\_E\\) which is optimal in \\(E\\) (\\(E\\) does not have \\(i\_{E'}\\))
 
+여기서 하고 싶은 것은, "어떤 알고리즘이 아무리 노력해도" \\(c\sqrt{Kn}\\) regret bound 이하를 달성할 수 없는 환경이 있다는 것임
+- 그 환경이 유일할 필요는 없음. 어떤 alg한테는 \\(E\\)가, 다른 alg한테는 \\(E'\\)이 저 바운드 이상만 되면 됨
+
 Note that,
-1. intuitively when the \\(A\\) run on \\(E'\\), it won't choose \\(i\_{E'}\\) more than \\(n/K\\) times (we have optimal arm \\(i\_E\\))
+1. intuitively when the \\(A\\) run on \\(E'\\), it won't choose \\(i\_{E'}\\) more than \\(n/K\\) times (we have optimal arm \\(i\_E\\)) "in expectation"
+   - 어떤 알고리즘이 최대한의 결과를 내려면, optimal하지 않은 arm \\((i\_{E'}\\)을 "평균적으로" \\(n/K\\) 이상 쓰지 않으리라고 기대됨
 2. The two envs differ only in terms of the mean of \\(i\_{E'}\\)
 3. To make two envs indifferentiable, set \\(\Delta=1/\sqrt{n/K}\\).
    - when \\(i\_{E'}\\) is chosn \\(n/K\\) times, the sample mean of this arm will have stddev \\(1/\sqrt{n/K}\\).
    - When the true mean is closer than the stddev, then they are indistinguisable (error probability will be high, as above!)
-
-ㅡ,.ㅡ
-
+   - now when \\(A\\) is run on \\(E'\\), the interaction of \\(A-E'\\) will produce a near-identically distributed sequence of action-choices than the distribution when \\(A\\) was used on \\(E\\)
+4. When \\(A\\) is run on \\(E\\) and \\(i\_E\\) is chosen fewer than \\(n(1-1/K)\\) times on expectation (다른 arm들을 시도라도 해 봐야 하니까), then it will have more than \\(\Delta(n- n(1-1/K)) \approx c\sqrt{Kn}\\) regret
+   - here, \\(c\\) is a `universal constant` whose value can change line-by-line (by \\(n\\)>)
+5. for the algorithm which choose \\(i\_E\\) more than \\(n(1-1/K)\\) times when interacting with \\(E\\)
+   - by the indistinguisability between \\(E, E'\\), it will also choose \\(i\_E\\) same times on \\(E'\\), and it will have a regret (at least) greater than \\(c\sqrt{Kn}\\).

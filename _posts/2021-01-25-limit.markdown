@@ -1,11 +1,14 @@
 ---
 layout: post
-title:  "Sequences and limits"
+title:  "Sequences and limits, Series"
 date:   2021-01-25 08:00:05 +0800
 categories: analysis
 use_math: true
 tags: analysis limit sequence bounded subsequence
 ---
+
+다 타이핑할 시간도 없고 의미도 크게 없는 듯...책 pdf위주로 복습하고 해깔리는 것만 따로 적어놓아야 할 듯
+- rudin Chap3 Numerical Sequences and Series
 
 - written in 2018.12.19
 - revision in 2021.01.25
@@ -44,7 +47,7 @@ Fix \\(\epsilon>0\\). Then for the corresponding \\(N\\),
 \\[\rightarrow \| a\_n\| \leq L + \epsilon\\]
 Then \\(\\{a\_n\\}\\) is bounded by \\(\max\\{L + \epsilon, \|a\_1\|,...,\|a\_\{n-1\}\|\\}\\)
 
-### Subsequence
+<h3 id="subseq"> Subsequence</h3>
 
 > __Theorem 3.1.16 (DA)__  
 If a sequence \\(\\{a\_n\\}\\) converges to \\(L\\), then its every subsequence does as well.
@@ -59,7 +62,7 @@ For an arbitrary subsequence \\(\\{a\_\{n\_k\}\\}\\), in \\(n\_k \geq N\\) same 
 
 __proof__: for (a), Let \\(E\\) be the range of \\(\\{p\_n\\}\\).
 1. Finite \\(E\\) : trivial (constant sequence)
-2. Firstly, <a href="{{site.url}}/analysis/2021/01/24/compactness.html#heine" target="_blank">Theorem 2.37 (PMA)</a> shows that \\(E\\) has a limit point \\(p\in X\\)  
+2. If not, then firstly <a href="{{site.url}}/analysis/2021/01/24/compactness.html#heine" target="_blank">Theorem 2.37 (PMA)</a> shows that \\(E\\) has a limit point \\(p\in X\\)  
    Using the <a href="{{site.url}}/analysis/2021/01/23/open-closed-sets.html#theorems" target="_blank">Theorem 2.20 (PMA)</a>, we can choose \\(n\_1,...,n\_i....\\) such that \\(d(p, p\_{n\_i}) < 1/i\\)
 
 we can prove (b), using (a), since every bounded seq in \\(R^k\\) is contained in some cell (which is compact) 
@@ -75,7 +78,7 @@ Choose \\(n\_1\\) so that \\(p\_{n\_1}\neq q\\).
 1. If no such \\(n\_1\\) exists, then \\(E^* \\) has only one element \\(q\\), so that the theorem holds vacuously
 2. If not, put \\(\delta=d(q, p\_{n\_1})\\). Suppose \\(n\_1,...,n\_{i-1}\\) is chosen.   
    Since \\(q\\) is a limit point of \\(E^* \\), \\(\exists\\ x\in E^* \\) with \\(d(x,q)<2^{-i}\delta\\).  
-   Since \\(x\in E^*\\) (\\(x\\) is a limit point of \\(\\{p\_n\\}\\)), \\(\exists\\ p\_{n\_i}\in \\{p\\} \\) with \\(d(x,p\_{n\_i})<2^{-i}\delta\\).  
+   Since \\(x\in E^* \\) (\\(x\\) is a limit point of \\(\\{p\_n\\}\\)), \\(\exists\\ p\_{n\_i}\in \\{p\\} \\) with \\(d(x,p\_{n\_i})<2^{-i}\delta\\).  
    combining two inequalities, we conclude that \\(\\{p\_{n\_i}\\}\\) converges to \\(q\\), which implies that \\(q\in E^* \\). QED.
 
 
