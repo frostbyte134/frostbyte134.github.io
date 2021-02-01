@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Continuity"
-date:   2019-3-30 08:00:05 +0800
+date:   2021-02-01 08:00:05 +0800
 categories: analysis
 use_math: true
 tags: analysis continuity limit function compact
