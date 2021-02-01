@@ -9,6 +9,7 @@ tags: math probability bandit information_theory
 
 
 - <a href="https://banditalgs.com/2016/09/22/optimality-concepts-and-information-theory/" target="_blank">https://banditalgs.com/2016/09/22/optimality-concepts-and-information-theory/</a>  
+- <a href="https://www.stat.berkeley.edu/~bartlett/courses/2014fall-cs294stat260/lectures/bandit-lower-bound-notes.pdf" target="_blank">https://www.stat.berkeley.edu/~bartlett/courses/2014fall-cs294stat260/lectures/bandit-lower-bound-notes.pdf</a>
 
 ### Restatement of UCB Upper bound
 

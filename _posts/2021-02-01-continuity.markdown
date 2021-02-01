@@ -7,6 +7,12 @@ use_math: true
 tags: analysis continuity limit function compact
 ---
 
+- <a href="https://drive.google.com/file/d/1j76UouKwCaY0OdWEkEYRIQrwFe9KXlRJ/view?usp=sharing" target="_blank">rudin Chap4 Contiunity</a>
+- 일부 굵기가 왜이러지..자동저장하면 저렇게 되나?
+
+- Written in 201.3.30
+- revision (added Rudin page link) in 2021.02.01
+
 
 
 ### Limit of Functions
