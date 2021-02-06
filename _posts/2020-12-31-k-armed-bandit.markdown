@@ -15,7 +15,7 @@ TODO
 - review measure theory part of <a href="https://banditalgs.com/2016/09/04/stochastic-bandits-warm-up/" target="_blank">this page</a> after the RUDIN review
 - TODO : add mean zero to the def of subgaussian  <a href="https://web.stanford.edu/class/stats311/Lectures/lec-14.pdf" target="_blank">https://web.stanford.edu/class/stats311/Lectures/lec-14.pdf</a>
 
-### (somewhat informal?) Problem Formulation
+<h3 id="def"> (somewhat informal?) Problem Formulation</h3>
 1. `Environment` = \\(K\\) distribution over the reals \\[P\_1,...,P\_K\\]  
    Note that __these distributions are stationary,__ fixed over all the time steps
 2. For each rounds \\(t = 1, 2, ...\\)
@@ -32,7 +32,7 @@ TODO
    \\[\vec{\Delta}\_k= \mu^* -\mu\_k\\]
    - expected amount of lost value when choosing action \\(k\\)
    - referred as `immediate regret`, `action gap`, `suboptimality gap` of action \\(k\\)
-6. Now we can define the `total regret` as
+5. Now we can define the `total regret` as
    \\[R\_n=n\mu^* -E[{\textstyle\sum}\_{t=1}^NX\_t]\\]
   - "the difference between the rewards you would expect to obtain if you choose the optimal action in every round, and the rewards you actually expect to see by using your policy"
   - Note here that the subscript \\(t\\) of \\(X\_t\\) is also random. The learner makes choices based on the random previous rewards \\(X\_i, i < t \\) to choose \\(A\_t\\) hidden inside \\(X\_t\\).

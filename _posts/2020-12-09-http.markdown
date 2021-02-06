@@ -79,3 +79,8 @@ html codes
 
 
 ### HTML Form?
+
+
+### DNS
+
+https://opentutorials.org/course/3276/20303 이거부터 ㄱㄱ
