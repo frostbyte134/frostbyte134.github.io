@@ -1,0 +1,167 @@
+---
+layout: post
+title:  "Probabilistic Latent Semantic Analysis and EM"
+date:   2021-02-11 08:00:05 +0800
+categories: analysis
+use_math: true
+tags: probability
+---
+
+we want to model some "topics" of a document
+
+- <a href="https://www.researchgate.net/publication/233923091_A_Tutorial_on_Probabilistic_Latent_Semantic_Analysis" target="_blank">https://www.researchgate.net/publication/233923091_A_Tutorial_on_Probabilistic_Latent_Semantic_Analysis</a>
+- <a href="https://ratsgo.github.io/from%20frequency%20to%20semantics/2017/05/25/plsa/" target="_blank">https://ratsgo.github.io/from%20frequency%20to%20semantics/2017/05/25/plsa/</a>
+- <a href="https://see.stanford.edu/materials/aimlcs229/cs229-notes8.pdf" target="_blank">EM</a>
+
+### Problem Definition
+
+1. We are given a set of `documents` \\(D\\)
+   - Each document \\(d\in D\\) has \\(N\_d\\) `words` \\(v \in V\\) in it, where \\(V\\) is the `word dictionary` 
+2. Each document \\(d\in D\\) has __multiple__ `topics` \\(k\in K\\) in it, where \\(K\\) is the `topic dictionary`
+   - Each topic has has its own `word distribution` (which we assume multinomial) \\(\\ \phi\_k\\) where
+   \\[\| \phi\_k\| = \|V\|,\\ \sum\_{v\in V} \phi\_k(v) = 1\\]
+   \\[\phi\_k(v) = P\left( V=v \| K=k \right),  \text{  prob that word v is chosen by the topic k}\\]
+3. Since we assumed muptiple topics for each document, there is a `topic distribution` \\(\phi\_d\\) for each document \\(d\\),
+   \\[\| \theta\_d\| = \|K\|,\\ \sum\_{k\in K} \theta\_d(k) = 1\\]
+   \\[\theta\_d(k) = P\left( K=k \| D=d \right), \text{  prob that topic k is chosen by the document d}\\]
+   where we again assumed multinomial 
+4. `Independency` assumption : given the topic \\(K=k\\), \\(V=v\\) and \\(D=d\\) are independent.  
+   __Given the topic (which is a latent variable),__   
+   - information that we are on a ith position of a document, does not affect the word distribution \\(V\\)
+   - from the information that we have word \\(v\\), we cannot infer any useful information of the document \\(d\\) 
+   - In equations, \\[P\left( V=v,\\ D=d \| K=k \right) = P\left( V=v \| K=k \right) P\left( D=d \| K=k \right)\\]
+     \\[P\left( V=v \| K=k , D=d \right) = P\left( V=v \| K=k \right) \tag{1} \\]
+5. __generative process__ : For each \\(d\_i\\) (word position \\(i\\) in a document \\(d\\))  
+   1. we sample topic \\(k \sim \theta\_d(k)\\), and 
+   2. sample a word \\(w \sim  \phi\_k\\), so that   
+   
+   we have word \\(v\\) at position \\(i\\) of the document \\(d\\). In short, \\(d\_i=v\\)  
+6. For notational convenience, we define two \\(\mathbb{R}\\) matrices
+   \\[\Phi = \left[ \phi\_1,\cdots,\phi\_K \right]^T, \quad \|K\| \times \|V\| \\]
+   \\[\Theta = \left[ \theta\_1,\cdots,\phi\_D \right]^T, \quad \|D\| \times \|V\| \\]
+7. In the above generative process, the probability of a event \\(P\left( V=v \| D=d \right)\\) is,
+   \\[\begin{align\*} 
+       P\left( V=v \| D=d ;\Phi,\Theta \right) = \sum\_k P\left( V=v, K=k \| D=d \right) &= \sum\_k P\left( V=v \| K=k, D=d \right) P\left( K=k \| D=d \right) \cr
+                                                                            &= \sum\_k P\left( V=v \| K=k \right) P\left( K=k \| D=d \right) \tag{using (1)}  
+     \end{align\*} \\]  
+8. __What we want as a likelihood__ is \\(P\left( V=v, D=d \right)\\), therefore the likelihood is
+   \\[P\left(D=d\right) P\left( V=v \| D=d \right) \\]
+   In our notations, \\[P(D=d)P\left(d\_i=w;\Phi,\Theta \right) = P(D=d)\sum\_{k\in K}  \phi\_k(v) \theta\_d(k)  = \sum\_{k\in K}  P(D=d)\phi\_k(v) \theta\_d(k)\\]
+   __Note that__ (this will be used in Jensen's inequality in EM), the term inside the sum is
+   \\[P(D=d)\sum\_k P(V=v,K=k \|D=d)) = \sum\_k P(D=d, V=v, K=v) \tag{2}\\]
+9.  Now the joint likelihood becomes
+   \\[\begin{align\*}
+   p\left(\mathbb{W};\Phi,\Theta \right) &= \prod\_{d\in D}\prod\_{i=1}^{N\_d} \left( \sum\_{k\in K} P(D=d) \phi\_k(v) \theta\_d(k) \right) \cr
+                                         &= \prod\_{d\in D}\prod\_{v\in V}\left( \sum\_{k\in K} P(D=d) \phi\_k(v) \theta\_d(k) \right)^{n(d, v)}
+   \end{align\*} \\] 
+   where \\(n(d,v)\\) refers to the # of times word \\(v\\) appear in document \\(d\\)  
+   In log likelihood,
+   \\[\ell(\Phi, \Theta) := \sum\_{d\in D}\sum\_{v\in V} n(d, v) \log \left( \sum\_{k\in K} P(D=d) \phi\_k(v) \theta\_d(k) \right)  \\]  
+   which is, in semantics, wrt (2), 
+   \\[ \sum\_{d\in D}\sum\_{v\in V} n(d, v) \log  \sum\_{k\in K} P\left(D=d, V=v, K=k\right)  \tag{3}\\]  
+   We now want to maximize the above likelihood wrt \\(\Phi, \Theta\\)
+
+
+
+### EM applied on PLSA
+
+Introduce supplementary distribution \\(Q\_{d,v}(k)\\) over the topics.
+
+The log term in equation (3) becomes
+\\[ \log  \sum\_{k\in K} Q_{d,v}(k) \frac{P\left(D=d, V=v, K=k\right)}{Q_{d,v}(k)} \\]  
+\\[  = \log  E\left[ \frac{P\left(D=d, V=v, K=k\right)}{Q_{d,v}(k)}  \right] \\]  
+__where the expectation is taken wrt__ \\(Q_{d, v}(k)\\). 
+
+Using Jensen's inequality,
+\\[ \geq E\left[ \log   \frac{P\left(D=d, V=v, K=k\right)}{Q\_{d, v}(k)}  \right]\\]
+
+
+In summary,
+\\[ \log E\left[ \frac{P\left(D=d, V=v, K=k\right)}{Q_{d, v}(k)} \right] \geq E\left[ \log   \frac{P\left(D=d, V=v, K=k\right)}{Q\_{d, v}(k)}  \right]\\]
+
+1. In `E step`, we maximize RHS (make inequality to equality)
+2. In `M step`, we optimize LHS (given some intermediate results from E step)
+
+#### E step
+
+We have freedom to choose \\(Q_{d, v}(k)\\) now, and we want to maximize firstly \\[ E\left[ \log   \frac{P\left(D=d, V=v, K=k\right)}{Q\_{d, v}(k)}  \right] \\]  Few algebraic works and then
+
+\\[\begin{align\*}
+E\left[ \log   \frac{P\left(D=d, V=v, K=k\right)}{Q\_{d, v}(k)}  \right] &= \sum\_k Q\_{d, v}(k) \log   \frac{P\left(D=d, V=v, K=k\right)}{Q\_{d, v}(k)} \cr
+                                                                 &= \sum\_k Q\_{d, v}(k) \log   \frac{P\left(K=k \| D=d, V=v \right) P\left(D=d, V=v\right)}{Q\_{d, v}(k)}  \cr
+                                                                 &= \sum\_k Q\_{d, v}(k) \log P \left(D=d, V=v\right) + \sum\_k Q\_{d, v}(k) \log   \frac{P\left(K=k \| D=d, V=v \right)}{Q\_{d, v}(k)}  \cr
+                                                                 &= \log P \left(D=d, V=v\right) - \sum\_k Q\_{d, v}(k) \log   \frac{Q\_{d, v}(k)}{P\left(K=k \| D=d, V=v \right)}  \cr
+                                                                 &= \log P \left(D=d, V=v\right) - \text{KL}\left(Q\_{d, v}(k) \|P\left(K=k \| D=d, V=v \right) \right)
+\end{align\*}\\]
+
+
+Therefore we set \\(Q\_{d, v}(k) = P\left(K=k \| D=d, V=v \right)\\) in the E step.
+
+It can be calculated as,
+
+\\[\begin{align\*}
+P\left(K=k \| V=v, D=d\right) &= \frac{P\left(K=k, V=v, D=d\right)}{P\left( V=v, D=d\right)} \cr 
+                              &= \frac{P(D=d) \phi\_k(v) \theta\_d(k)}{\sum\_k P(D=d) \phi\_k(v) \theta\_d(k)} \tag{as in (2) or (3)}\cr
+                              &= \frac{ \phi\_k(v) \theta\_d(k)}{\sum\_k  \phi\_k(v) \theta\_d(k)} \cr 
+\end{align\*}\\]
+
+Now we replace calculated \\(Q\_{d, v}(k)\\) from the objective function to \\(P\left(K=k \| V=v, D=d\right)\\), so that we maximize
+
+\\[ \sum\_{d\in D}\sum\_{v\in V} n(d, v) \log \sum\_{k\in K}  P\left(K=k \| V=v, D=d\right) \frac{P\left(D=d, V=v, K=k\right)}{Q_{d,v}(k)} \\]  
+in the \\(M\\) step.
+
+
+#### M step
+__Note__ that, 
+\\[ P\left(D=d, V=v, K=k\right) =  P(D=d) \phi\_k(v) \theta\_d(k)  = P(D=d) P(V=v \| K=k) P(K=k \| D = d) \\]  
+
+In M-step, we attach Lagrangian to enforce the constraints that
+\\[\sum\_d P(d) = \sum\_{v} P(V=v\|K=k) = \sum\_{k} P(K=k\|D=d) = 1\\]
+
+so that the objective function becomes
+
+\\[\begin{align\*} L &= \sum\_{d\in D}\sum\_{v\in V} n(d, v) \log \sum\_{k\in K}  P\left(K=k \| V=v, D=d\right) \frac{ P(D=d) P(V=v \| K=k) P(K=k \| D = d) }{Q_{d,v}(k)} \cr
+                     &+ \alpha(1-\sum\_d P(d)) + \beta(1-\sum\_{v} P(V=v\|K=k)) + \gamma(1-\sum\_{k} P(K=k\|D=d)) \end{align\*}\\]  
+
+taking derivative gives, 
+
+***************************************
+
+wrt \\(P(d)\\)
+
+\\[\begin{align\*}
+\frac{\partial L}{\partial P(d)} &= \sum\_{v}\sum\_k n(d, v) \frac{P(k \| v, d)}{P(d)} - \alpha=0 \cr
+                                 &= \sum\_{v}\sum\_k n(d, v) P(k \| v, d) - P(d)\alpha=0
+\end{align\*}\\]
+
+Using the constraint that \\(\sum\_d P(d) = 1\\), we can get \\(\alpha = \sum\_d\sum\_v\sum\_k n(d,v)P(k\|v,d)\\), so that
+\\[\begin{align\*}P(d) &= \frac{\sum\_v\sum\_k n(d,v)P(k\|v,d)}{\sum\_d\sum\_v\sum\_k n(d,v)P(k\|v,d)} \cr
+                       &= \frac{n(d)}{\sum\_d n(d)}
+\end{align\*}\\]
+
+which is a fixed value through the training.
+
+***************************************
+wrt \\(P(v\|k) = \phi_k(v)\\)
+
+\\[\begin{align\*}
+\frac{\partial L}{\partial P(v\|k)} &= \sum\_{d} n(d, v) \frac{P( k \| v, d)}{P(v \| k)} - \beta=0 \cr
+                                    &= \sum\_{d} n(d, v) P( k \| v, d) - P(v \| k)\beta=0
+\end{align\*}\\]
+
+Using the constraint that \\(\sum\_k P( v \| k) = 1\\), we similarly get 
+\\[P(V=v\|K=k) =  \frac{\sum\_{d} n(d, v) P( k \| v, d)}{\sum\_v \sum\_{d} n(d, v) P( k \| v, d)} \\]
+
+***************************************
+wrt \\(P(k\|d) = \theta\_d(k)\\)
+
+\\[\begin{align\*}
+\frac{\partial L}{\partial P(k\|d)} &= \sum\_{v} n(d, v) \frac{P( k \| v, d)}{P(k \| d)} - \gamma = 0 \cr
+                                    &= \sum\_{v} n(d, v) P( k \| v, d) - P(k \| d)\gamma = 0
+\end{align\*}\\]
+
+Using the constraint that \\(\sum\_k P( k \| d) = 1\\), we similarly get 
+\\[\begin{align\*}
+P(k\|d) &= \frac{\sum\_{v} n(d, v) P( k \| v, d)}{\sum\_k \sum\_{v} n(d, v) P( k \| v, d)} \cr
+        &= \frac{ \sum\_{v} n(d, v) P( k \| v, d)}{n(d)}
+\end{align\*}\\]
