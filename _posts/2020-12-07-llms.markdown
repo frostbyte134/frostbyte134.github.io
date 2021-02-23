@@ -1,0 +1,140 @@
+---
+layout: post
+title:  "Linear Least Mean Square Estimation"
+date:   2020-12-07 08:00:05 +0800
+categories: probability
+use_math: true
+tags: math probability bayesian
+---
+
+TODO
+- bivariate normal 나중에 많이 쓰이면 정리해 놓기
+
+> <a href="https://ocw.mit.edu/resources/res-6-012-introduction-to-probability-spring-2018/part-ii-inference-limit-theorems/" target="_blank">part-ii-inference-limit-theorems</a>
+
+### Formulation
+- `unknown` \\(\Theta\\)
+- `observation` \\(X\\)
+- `estimator` \\(\hat{\Theta}=g(X) \quad\rightarrow\quad \hat{\Theta}\_{LMS}=E[\Theta \| X]\\)
+  - minimize wrt __an arbitrary function__ \\(g\\)
+
+However, here we restrict our attentions only to the __linear__ estimators only
+- \\(\hat{\Theta}:= ax+b\\) form
+- minimize \\(E[(\Theta - aX - b)^2]\\) wrt \\(a, b\\)
+- If \\(E[\Theta \| X]\\) is linear in \\(X\\), then \\(\hat{\Theta}\_{LMS}=\hat{\Theta}\_{LLMS}\\)
+
+
+### Solving LLMS
+
+\\[\text{Minimize } E[(\Theta-aX-b)^2]\\] 
+w.r.t
+\\[a,b\\]
+
+
+`2-stage approach` - suppose \\(a\\) has already found. Then we have \\(b=E[\Theta]-aE[X]\\).   
+Now, 
+\\[
+\begin\{align\*\}  
+E[(\Theta-aX-E[\Theta-aX])^2] &= \text{var}(\Theta-aX) \cr
+                                    &= \text{var}(\Theta) + a^2\text{var}(X) - 2a\text{cov}(\Theta, X)  \cr
+\end\{align\*\}  
+\\]
+using the optimality condition (convex quadratic wrt \\(a\\)), taking derivative wrt \\(a\\) gives
+\\[
+2a\text{var}(X)-2\text{cov}(\Theta,X)=0\\]
+\\[
+a=\frac{\text{cov}(\Theta,X)}{\text{var}(X)}  
+\\]
+Now the solution has form
+\\[\hat{\Theta}\_L = ax+b = \frac{\text{cov}(\Theta,X)}{\text{var}(X)}X+(E[\Theta]-aE[X]) = E[\Theta] + \frac{\text{cov}(\Theta,X)}{\text{var}(X)}(X-E[X]) \\]
+
+
+
+__Side note__: remember that the `correlation coefficient` between \\(\Theta, X\\) is
+\\[\rho = \frac{\text{cov}(\Theta, X)}{\sigma\_\Theta\sigma\_X} \\]
+so that \\(a\\) can be repharsed as
+\\[a=\rho\frac{ \sigma\_\Theta\sigma\_X}{\sigma\_X^2}\\]
+
+
+In summary,
+\\[\hat{\Theta}\_L = E[\Theta] + \frac{\text{cov}(\Theta,X)}{\text{var}(X)(X-E[X])} = E[\Theta] + \rho\frac{\sigma\_\Theta}{\sigma\_X}(X-E[X])\\]
+
+__Remarks__
+1. To implement \\(\hat{\Theta}\_L\\), we only need means, vars, covars
+2. As the correlation coefs suggest the degree of linear relation,  
+   * \\(\rho>0\\) : then, large \\(X\\) imples large estimated \\(\Theta\\)
+   * \\(\rho = 0\\) : \\(\hat{\Theta}\_L = E[\hat{\Theta}]\\)
+3. Assume \\(E[\Theta] = E[X] = 0\\)
+   Then, \\(\hat{\Theta}\_L =  \rho\frac{\sigma\_\Theta}{\sigma\_X}X\\) and 
+   \\[
+   E[(\Theta - \hat{\Theta}\_L)^2] = \sigma\_\Theta^2 - 2\rho\frac{\sigma\_\Theta}{\sigma\_X}\rho\sigma\_\Theta\sigma\_X+(\rho\frac{\sigma\_\Theta}{\sigma\_X}\sigma\_X)^2
+   = (1-\rho^2)\text{var}(\Theta)
+   \\]
+   Note that this holds even without zero mean asusmption.
+   * interpretation of \\((1-\rho^2)\text{var}(\Theta)\\)
+   * \\(\text{var}(\Theta)\\) : initial uncertainty
+   * uncertanty reduced by \\((1-\rho^2)\\) (degree of linearity)
+     * If \\( \| \rho \| = 1\\) (perfectly correlated), \\(\hat{\Theta}\_L=\Theta\\). Linear estimation can perfectly estimate \\(\Theta\\)
+
+
+
+### LLMS for Inferring the Parameter of a Coin
+- coin with bias \\(\Theta\\)
+- prior \\(f\_\Theta(\cdot)\\) is uniform in \\([0, 1]\\)
+- fix \\(n\\), number of coin tosses
+- let \\(X\\) be number of heads
+- answer \\[\hat{\Theta}\_{LMS} = \hat{\Theta}\_{LLMS} = frac{X+1}{n+2}\\]
+
+1. \\(\Theta\\) : \\(E[\Theta] = 1/2,\quad \text{var}\Theta=1/12\\)
+   addittionally, \\(E[\Theta^2] = \text{var}\Theta + E[\Theta]^2 = 1/3\\)
+2. Given \\(\Theta, p\_{X \| \Theta} \\) is a \\(\text{bino}(n, \Theta)\\)
+   - \\(E[X \| \Theta] = n\Theta,\quad \text{var}(X \| \Theta)=n\Theta(1-\Theta)\\) (all these are RVs)
+
+Now,
+1. \\(E[X]\\) : \\(E[E[X \| \Theta]] = nE[\Theta] = n/2\\)
+2. \\(E[X^2] = E[E[X^2\|\Theta]]\\), and  
+   \\(E[X^2\|\Theta]= \text{var}(X \| \Theta) +  E[X \|\Theta]^2 , \quad\quad E[X^2\|\Theta]=n\Theta+(n^2-n)\Theta^2=\frac{n}{2}\\)  
+   \\(E[X^2] = E[n\Theta+(n^2-n)\Theta^2]=\frac{n}{2}+\frac{(n^2-n)}{3} = \frac{n}{6}+\frac{n^2}{3}\\)
+3. \\(\text{var} = E[X^2]-(E[X])^2 = \frac{n}{6} + \frac{n^2}{3}-\frac{n^2}{4} = \frac{n}{6} + \frac{n^2}{12} = \frac{n(n+2)}{12}\\). 
+4. \\(E[\Theta X] = E[E[\Theta X\|\Theta]] = E[n\Theta^2] = n/3\\)
+5. \\(\text{cov} = E[\Theta X] - E[\Theta]E[X] = n/3-n/4 = n/12\\)
+
+Finally
+* \\(\hat{\Theta}\_{LLMS} = \frac{X+1}{n+2}\\)
+* \\(\hat{\Theta}\_{LMS}\\) - was found in <a href="{{site.url}}/probability/2020/12/04/bayesian.html" target="_blank">link</a>
+
+
+
+### The bivariate normal
+
+체력이 후달리네..워낙 내용이 좋아서 쭉 읽으면 되긴 함 (pdf)
+
+
+### Multiple observation
+- unknown \\(\Theta\\)
+- Observations \\(X=(X\_1,...,X_n\\))
+- estimators has the form \\[\hat{\Theta}=a\_1X\_1+...+a\_nX\_n+b\\]
+- minimize \\(E[(a\_1X\_1+...+a\_nX\_n+b - \Theta)]\\) wrt \\(a\_i\\)s
+  - The expression will be in the form \\(a\_1^2E[X\_1^2]+2a\_1a\_2E[X\_1X\_2]+...+a\_1E[X\_1\Theta]\\)
+    - take derivs wrt \\(a\_i\\)s, and we have __linear optimality conditions__
+    - __again, only means / vars, covars matter__
+- __If__ \\(E[\Theta \| X]\\) __is linear in__ \\(X\\), __then__ \\(\hat{\Theta}\_{LMS} = \hat{\Theta}\_{LLMS}\\)
+  - some normal systems!
+- If multiple \\(\Theta\_j)s are unknown, apply each seperately
+
+
+### The Representation of Data Matters in LLMS
+Consider estimation based on \\(X\\) vs \\(X^3\\)
+- `LMS` : posterior \\(p\_{\Theta\|X}\\) is equivalent to \\(p\_{\Theta\|X^3}\\), thus their conditional expectations are same also
+- `LLMS` : estimators are difficult \\(aX+b \neq aX^3+b\\)
+  - if \\(\Theta\\) and \\(X\\) have some cubic relation in nature, \\(X^3\\) would be better
+
+__On the other hand,__
+\\[\hat{\Theta} = a\_1X + a\_2X^2 + a\_3X^3 + b\\]
+is also an linear estimator, and
+\\[\hat{\Theta} = a\_1X + a\_2e^X + a\_3\log X + b\\]
+is also an linear estimator.
+
+\\[\text{In linear estimation, we have choices. "Linear in what?"}\\]
+
+

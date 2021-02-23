@@ -1,0 +1,24 @@
+---
+layout: post
+title:  "ARM으로 배우는 임베디드 리눅스 시스템"
+date:   2020-03-10 09:00:05 +0800
+categories: coding
+use_math: true
+tags: coding C
+---
+
+
+
+#### Restrict pointer (obj file dump)
+- https://dojang.io/mod/page/view.php?id=760
+
+- 특히 메모리 맴으로 제어되는 입출력 장치는 반드시 volatile 형식지지자를 사용해야 한다
+
+
+#### Stack
+- ARM에서 스택은 다음과 같은 경우에 사용된다
+    - 함수실행전 함수에서 사용된 범용 레지스터 및 링크 레지스터 저장
+    - 함수의 인수개수가 4개이상일시
+    - 함수 내 지역 변수의 사용이 많아질 시 (? - 배열이 아니면 보통 레지스터에 저장하나? for문만 봐도 아닌 거 같은데..)
+    - 함수 내에서 배열이나 구조체가 사용될 시
+    - 예외 처리에 앞서 레지스터 저장

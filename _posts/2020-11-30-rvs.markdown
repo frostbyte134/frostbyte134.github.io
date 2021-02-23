@@ -1,0 +1,183 @@
+---
+layout: post
+title:  "Random Variables (Discrete, Continuous)"
+date:   2020-11-30 08:00:05 +0800
+categories: probability
+use_math: true
+tags: math probability 
+---
+
+- <a href="https://ocw.mit.edu/resources/res-6-012-introduction-to-probability-spring-2018/part-i-the-fundamentals/MITRES_6_012S18_L05AS.pdf" target="_blank">discrete 1</a>
+- <a href="https://ocw.mit.edu/resources/res-6-012-introduction-to-probability-spring-2018/part-i-the-fundamentals/MITRES_6_012S18_L06AS.pdf" target="_blank">discrete 2</a>
+- <a href="https://ocw.mit.edu/resources/res-6-012-introduction-to-probability-spring-2018/part-i-the-fundamentals/MITRES_6_012S18_L07AS.pdf" target="_blank">discrete 3</a>
+- <a href="https://ocw.mit.edu/resources/res-6-012-introduction-to-probability-spring-2018/part-i-the-fundamentals/MITRES_6_012S18_L08AS.pdf" target="_blank">continuous 1</a>
+- <a href="https://ocw.mit.edu/resources/res-6-012-introduction-to-probability-spring-2018/part-i-the-fundamentals/MITRES_6_012S18_L09AS.pdf" target="_blank">continuous 2</a>
+- <a href="https://ocw.mit.edu/resources/res-6-012-introduction-to-probability-spring-2018/part-i-the-fundamentals/MITRES_6_012S18_L10AS.pdf" target="_blank">continuous 3</a>
+- <a href="https://ocw.mit.edu/resources/res-6-012-introduction-to-probability-spring-2018/part-i-the-fundamentals/MITRES_6_012S18_L11AS.pdf" target="_blank">derived</a>
+- <a href="https://vfu.bg/en/e-Learning/Math--Bertsekas_Tsitsiklis_Introduction_to_probability.pdf" target="_blank">https://vfu.bg/en/e-Learning/Math--Bertsekas_Tsitsiklis_Introduction_to_probability.pdf</a>
+
+
+<img src="{{site.url}}/images/math/prob/rv.jpg" width="700">
+
+- `Random variable` : A function from sample space to real line
+  - A function of RVs is also a RV \\(Z = X + Y\\)
+- Notation : random variable \\(X\\), numerical value \\(x\\)
+  - \\([X=x]\\) : an event
+
+
+### Discrete RVs
+- `Discrete` : countable
+- `PMF` : probability mass function \\[p\_X(x) = P(X=x) = P(\\{ \omega \in \Omega \| X(\omega)=x  \\})\\]
+- `Expectation` (over countable) \\[E[X] := \sum\_x xp\_X(x)\\]
+  - __CAUTION__ \\(\quad \\) infinite sum <a href="https://nailbrainz.github.io/deep_learning/2018/08/23/series-and-sum.html" target="_blank"> needs to be well-defined</a>
+    - we assume \\(\sum\_x\|x\|p\_X(x) < \infty \\) (absolute convergent series)
+    - we easily see that (in <a href="https://nailbrainz.github.io/deep_learning/2018/08/23/series-and-sum.html" target="_blank">absolutely convergent series</a>) the `linearity` holds
+  - \\(E[X+Y+Z] = E[X] + E[Y] + E[Z]\\), using linearity
+  - \\(E[XY] = E[X]E[Y]\\), if \\(X\\) and \\(Y\\) are independent - using linearity and seperating joint pmf
+  - unless \\(g\\) is an linear function, it is not generally true that \\(E[g(X)] = g(E[X])\\)
+- `Variance`  \\[V[X] = E[(X-E[X])^2]\\] \\[ = \sum\_x(x-E[x])^2p\_X(x)\\]
+  - using the linearity of expectation, \\[V[X] = E[X^2] - (E[X])^2\\] \\[V[ax+b] = a^2V[X]\\]
+  
+
+#### Bernoulli
+\\[ X = 
+\begin\{cases\}
+1, & \text\{ with probability \} p \cr
+0, & \text\{ with probability \} 1-p 
+\end\{cases\}
+\\]
+- often an `indicator` random variable of an event \\(A\\) : \\(I\_A\\) is Bernoulli variable
+- `Expectation` \\(E[X] = p\\)
+- `Variance` \\(V[X] = p(1-p)\\)
+
+#### Discrete Uniform
+- given integer params \\(a,b \\) s.t. \\( a<b \\), discrete uniform rv \\(U\\) has following pmf
+\\[P(U=u) = \frac\{1\}\{(b-a)\}\\]
+- \\(b-a+1\\) possible (meaningful) values
+- `Expectation` \\(E[x] = p\\)
+- `Variance` : using the summation equation, \\[V[X] = \frac\{1\}\{12\}(b-a)(b-a+2)\\]
+
+#### Binomial
+- Experiment : \\(n\\) independent tosses of a coin with \\(P(\text\{Heads\})=p\\)
+- Sample space : \\(\\{H, T\\}^n\\)
+- Random Variable \\(X\\) : # of heads observed
+
+\\[p_X(k;n) = \binom{n}{k}p^k(1-p)^\{n-k\}\\]
+where
+\\[\binom{n}{k} = \frac{n!}{k!(n-k)!}\\]
+
+- `expectation` : using the independence and linearity of expectation, \\[E[X] = np\\]
+- `variance` : using the independence and linearity of expectation, \\[V[X] = np(1-p)\\]
+
+#### Geometric
+- Experiment : _Infinitely_ many independent tosses of a coin with \\(P(\text\{Heads\})=p\\)
+- Sample space : \\(\\{H, T\\}^\infty\\)
+- Random Variable \\(X\\) : # of toss until the first head  
+- model of : __waiting times, # of success till a success__
+
+\\[p_X(k) = (1-p)^\{k-1\}p\\]
+
+- `memoryless` property : Given \\(X>n\\), \\(X-n\\) is geometric with parameter \\(p\\)
+  - ex) \\(p\_\{X-y \| X>y\}(k) = p\_X(k)\\)
+    - holds since all coin tosses at time \\(t\_i\\) are independent
+
+- `expectation` : can be easily shown given the memoryless property (o.w, we need some works)
+\\[E[X] = 1 + E[X-1]\\]
+\\[ = 1 + p\cdot E[X-1 \| X=1] + (1-p)E[X-1 \| X>1]\\]
+\\[ = 1 + 0 + (1-p)E[X]\\]
+\\[E[X] = \frac\{1\}\{p\}\\]
+
+#### Poisson
+\\[p\_X(k) = e^\{-\lambda\}\frac\{\lambda^k\}\{k!\},\quad k=0,1,2,...\\]
+where \\(\lambda>0\\) is a given parameter.  It is a legitimate PMF b/c
+\\[\sum\_\{k=0\}^\infty e^\{-\lambda\}\frac\{\lambda^k\}\{k!\} = e^\{-\lambda\}\left( 1+\lambda+\frac\{\lambda^2\}\{2!\}+\frac\{\lambda^3\}\{3!\}+... \right) = e^\{-\lambda\}e^\lambda = 1\\]
+
+- very close to the _binomial_ with vero small \\(p\\) and very large \\(n\\).
+- ex) # of typos in a book, with \\(n\\) words, probability \\(p\\) that any one word has a typo
+  - In such cases, it is much efficient to calculate Poisson with \\(\lambda=np\\)
+
+`TODO`: add formal justification for the approximation
+
+- `expectation`
+\\[
+\begin\{align\*\}
+E[X] &= \sum\_\{k=0\}^\infty k e^\{-\lambda\}\frac\{\lambda^k\}\{k!\} \cr
+     &= \sum\_\{k=1\}^\infty k e^\{-\lambda\}\frac\{\lambda^k\}\{k!\} \quad...\quad k=0 \text\{ term is zero\} \cr
+     &= \lambda\sum\_\{k=1\}^\infty e^\{-\lambda\}\frac\{\lambda^\{k-1\}\}\{(k-1)!\} \cr
+     &= \lambda\sum\_\{m=0\}^\infty e^\{-\lambda\}\frac\{\lambda^\{m\}\}\{(m)!\} \quad...\quad m=k-1 \cr
+     &= \lambda \quad...\quad \text\{refer to the normalization of Poisson above\} 
+\end\{align\*\}
+\\]
+
+#### The Quiz problem
+consider two problems
+- we can solve \\(p\_1\\) with probability 0.8, and the reward is 100
+- we can solve \\(p\_2\\) with probability 0.5, and the reward is 200
+- if we cannot solve the first problem we choose, we cannot try another. Which we should start?
+- let \\(X\\) be the total reward
+  - \\(E[X\|\text\{solve p1 first\}] = 0.2 * 0 + 0.8 * (100 + 0.5 * 200 + 0.5 * 0) = 160\\)
+  - \\(E[X\|\text\{solve p2 first\}] = 0.5 * 0 + 0.5 * (200 + 0.8 * 100 + 0.2 * 0) = 140\\)
+
+#### The hat problem
+- \\(n\\) people throw hats in a box, and pick one by one at random
+  - all permutation are equally likely - \\(1/m!\\), and we see that \\[X\_i := i\text{th people pick one's hat },\quad E[X\_i] = 1/n\\] 
+  - Note that, \\(X\_i\\) and \\(X\_j\\) __are not independent__ for all \\(x,j\\).
+- let \\(X\\) : number of people who get their own hat
+  - \\(E[X]\\) : calculating \\(p\_X(x)\\) directly is not an easy task  
+    Instead, use \\(E[X] = E[X\_1+...+X\_n] = E[X\_1]+...E[X\_n] = 1\\).
+  - \\(V[X]\\) : \\(E[X^2]-E[X]^2 = E[X^2]-1\\)
+    - \\(E[X^2] = \sum\_iE[X\_i^2] + \sum\_\{i\neq j\}E[X\_iX\_j]\\)
+    - \\(E[X\_i^2] = 1\\)
+    - \\(E[X\_iX\_j], i\neq j\\) : \\[E[X\_iX\_j] = P(X\_i=1, X\_j = 1) = P(X\_i=1)P(X\_j=1 \| X\_i=1) = \frac\{1\}\{n(n-1)\}\\]
+    - therefore, \\(V[X] = n\cdot \frac\{1\}\{n\} + n(n-1)\frac\{1\}\{n(n-1)\} - 1 = 1\\)
+
+
+### Continuous random variable
+- assuming absolutely convergent series, linearty of expectation (Lebeaugue integral) again holds
+- pmf \\(\rightarrow\\) pdf
+- CDF : culminative
+
+#### Exponential
+
+\\[f\_X(x) = 
+\begin\{cases\}  
+\lambda e^\{-\lambda x\} \quad\quad x \geq 0 \cr
+0 \quad\quad\quad \text\{o.w\} 
+\end\{cases\}    
+\\] where \\(\lambda>0\\) is a parameter. 
+
+- This is a legitimate PDF b/c
+\\[ \int\_\{-\infty\}^\{\infty\} f\_X(x)dx = \int\_0^\{\infty\} \lambda e^\{-\lambda x\}dx = -e^\{-\lambda x\}\|_0^\infty = 1\\]
+- the probability that \\(X\\) exceeds a certain value falls exponentially \\[P[X\geq a] = \int\_a^\infty \lambda e^\{-\lambda x\}dx = -e^\{-\lambda x\}\|_a^\infty = e^\{-\lambda a\}\\]
+  - large \\(\lambda\\) falls more quickly
+- An exponential random variable can be a very good model for the amount of time until a piece of equipment breaks down, until a light bulb burns out, or until an accident occurs.
+- \\(E[X] = 1/\lambda,\quad V[X] = 1/(\lambda^2)\\) (straight calculation with the integration by part)
+
+#### The geometric and exponential CDFs
+1. CDF of \\(\text\{geo\}(p)\\)
+  \\[F^\{geo\}(n) = \sum\_\{k=1\}^np(1-p)^\{k-1\} = p\frac\{1-(1-p)\}\{1-(1-p)^n\}=1-(1-p)^n,\quad \text\{for \}n=1,2,...\\]
+  (등비수열의 합공식)
+2. CDF of \\(\text\{exponential\}(\lambda)\\)
+  \\[F^\{exp\}(x) = \int\_0^x \lambda e^\{-\lambda t\}dt = -e^\{-\lambda t\}\|\_0^x = 1-e^\{-\lambda x\}, \quad\quad\\ x > 0\\]
+
+Now let \\(\delta = -\ln(1-p)/\lambda\\), and consider it as a certain type of __period__. We see that
+\\[e^\{-\lambda\delta\} = 1-p\\]
+Then the two CDFs are equal for all __points__ where \\(x=n\delta,\quad n=1,2,...,\\)
+\\[F^\{geo\}(n)=F^\{exp\}(n\delta)\\]
+
+<img src="{{site.url}}/images/math/prob/geo-exp.jpg" width="700">
+
+> As \\(\delta\\) approaches 0, the eponential RV can be interpreted as the `limit` of the geometric
+
+- If δ is very small, there is close proximity of the exponential and the geometric CDFs, provided that we scale the values taken by the geometric random variable by δ. This relation is best interpreted by viewing X as time, either continuous, in the case of the exponential, or δ-discretized, in the case of the geometric. In particular, suppose that δ is a small number, and that every δ seconds, we flip a coin with the probability of heads being a small number p. Then, the time of the first occurrence of heads is well approximated by an exponential random variable.
+
+
+#### Normal (Gaussian) disrribution
+- \\(N(\mu, \sigma^2)\\) : \\[f\_X(x)=\frac\{1\}\{\sigma\sqrt\{2\pi\}\} e^\{-(x-\mu)^2/2\sigma^2\} \\]
+- \\(E[X]=\mu, V[X]=\sigma^2\\)
+- __no closed form available for CDF__
+- Let \\(Y=aX+B,\quad X\sim N(\mu, \sigma^2)\\)  
+  then, \\(Y\sim N(a\mu + b,a^2\sigma^2)\\) __(TODO: add proof link)__
+  - using this property and CDF, we can easily calculate PMF of arbitrary normal
+- special case. \\(a=0\rightarrow N(b,0)\\) is a delta distribution
+

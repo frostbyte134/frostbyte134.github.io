@@ -1,0 +1,248 @@
+---
+layout: post
+title:  "Series"
+date:   2019-4-28 08:00:05 +0800
+categories: analysis
+use_math: true
+tags: analysis sum series root_test ratio_test cauchy absolute_convergence
+---
+
+- <a href="https://drive.google.com/file/d/1j76UouKwCaY0OdWEkEYRIQrwFe9KXlRJ/view?usp=sharing" target="_blank">rudin Chap3 Numerical Sequences and Series</a>
+
+
+Related:
+1. <a href="{{site.url}}/deep_learning/2018/08/23/series-and-sum.html" target="_blank">Sums and Series</a>
+
+
+
+### Definition
+> __Definition__ 3.21 (PMA):  
+Given a sequence \\(\\{a\_n\\}\\), we associate __a seequence__ \\(\\{s\_n\\}\\) (=`partial sum`), where
+\\[s\_n=\sum\_\{k=1\}^na\_k.\\]
+
+For \\(\\{s\_n\\}\\), we use the symbolic expression
+\\[a\_1+a\_2+...\\] 
+or, more __consicesly__
+\\[\sum\_\{k=1\}^\infty a\_n.\tag\{4\}\\]
+The symbol (4) we call an `infinite series`, or just a `series`. If \\(\\{s\_n\\}\\) converges to \\(s\\), then we say that the __series converges__, and write
+\\[\sum\_\{k=1\}^\infty a\_n = s\\]
+The number \\(s\\) is called the sum of the series; but it should be clearly understood that \\(s\\) __is the limit of a sequence__ of sums, and __is not obtained simply by addition__. If \\(\\{s\_n\\}\\) diverges, the series is said to be diverge.
+
+The term (4) is sometimes abbreviated as \\(\sum a\_n\\), including the case where \\(n\\) starts with 0.
+
+### Series and Cauchy sequence
+It is clear that every theorem about sequences can be stated in terms of series, as the following thereom and vice versa.
+
+The <a href="{{site.url}}/analysis/2018/12/29/cauchy-seq.html" target="_blank">Cauchy criterion (PMA Thm 3.11)</a> can be restated as follows.
+
+> __Theorem__ 3.22 (PMA) \\(\sum a\_n\\) converges i.i.f for every \\(\epsilon\\), there is an integer \\(N\\) such that
+\\[\| \sum\_\{k=n\}^m a\_k \| < \epsilon\tag\{6\}\\]
+\\(\forall\\ m\geq n \geq N\\)
+
+__proof__: remember that the partial sum \\(\\{s\_n\\}\\)s are sequence
+
+In particular, by taking \\(m=n\\), we see that (6) becomes
+\\[\|a\_n\| < \epsilon\\]
+Which can be stated as below
+
+> __Theorem__ 3.23 (PMA) If \\(\sum a\_n\\) converges, then 
+\\[\lim\_\{n\rightarrow\infty\}\|a\_n\| = 0\\]
+
+The __converse is not true__ for some cases (ex - \\(\sum 1/n\\). For the proof we refer to `Thm 3.28`).
+
+> __Theorem__ 3.24 (PMA) A series of nonnegative terms converges i.i.f its partial sum form a bounded sequence.
+
+__proof__: `Thm 3.14`, concerning monotonic sequences, also has in immediate counterpart for series non-negative (or positive) series, since their partial sums are monotonic.
+
+### Comparison Test
+> __Theorem__ 3.25  __Comparison test__  
+(a) If \\(\|a\_n\| \leq c\_n\\) for \\(n\geq N\_0\\), where \\(N\_0\\) is some fixed integer, and if \\(\sum c\_n\\) converges, than \\(\sum a\_n\\) converges.  
+
+\\(\sum c\_n\\) converges - partial sums of \\(c\_n\\) converges - using triangle inequality, partial sums of \\(a\_n\\) converges.  
+
+> (b) If \\(a\_n\geq d\_n\geq 0\\) for \\(n\geq N\_0\\), and if \\(\sum d\_n\\)  diverges, then \\(\sum a\_n\\)  diverges
+
+Can be proved in many ways, (ex - `Thm 3.24`) considering the partial sums
+
+
+### Series of Nonnegative Terms
+Here only the theorems are listed. For the exact proof, refer to the book.
+
+> __Theorem__ 3.26  __Geometric Series__   
+If \\(0\leq x\leq 1\\), then
+\\[\sum\_\{n=1\}^\infty x^n=\frac\{1\}\{1-x\}\\]
+If \\(x\leq 1\\), the series diverges
+
+__proof__: If \\(x\neq 1\\),
+\\[s\_n=\sum\_\{k=1\}^n x^k=\frac\{1-x^\{n+1\}\}\{1-x\}\\]
+The result follows if we let \\(n\rightarrow\infty\\). For \\(x=1\\), the series obviously diverges.
+
+The following theorem of Cauchy is therefore of particular interest. The striking feature of the theorem is that a rather `thin subsequence` of \\(a\_n\\) determines the convergence or divergence of \\(\sum a\_n\\).
+
+> __Theorem__ 3.27   
+Suppose \\(a\_1\geq a\_2 \geq \cdots \geq 0\\). Then the series \\(sum\_\{n=1\}^\infty a\_n\\)  converges i.i.f the series
+\\[\sum\_\{k=0\}^\infty 2^ka\_\{2^k\}\\]
+converges
+
+__proof__: we can bound each other's partial sums, using the finite sum of geometric sequences.
+
+> __Theorem__ 3.28 	
+\\(\sum \frac\{1\}\{n^p\}\\) converges if \\(p>1\\) and diverges if \\(p≤1\\)
+
+1. If \\(p\leq 0\\), theorem 3.23 is applicable.
+2. If \\(p>1\\), Theorem 3.27 is applicable, which gives the series
+\\[\sum\_\{k=0\}^\infty 2^k \frac\{1\}\{2^\{kp\}\}=\sum\_\{k=0\}^\infty 2^\{(1-p)k\}\\]
+Now, \\(2^\{1-p\}<1 \\) i.i.f \\(1-p<0\\), and the result follows from the comparison test with geometric seq.
+
+> __Theorem__ 3.29 	
+\\(\sum \frac\{1\}\{n(\log n)^p\}\\) converges if \\(p>1\\) and diverges if \\(p≤1\\).
+
+References
+* (DA): 맛있는 해석학 4판, 김백진
+* (PMA): Walter Rudin, Principle of Mathmatical Analysis
+
+
+### The number _e_
+\\[e:=\sum\_\{n=0\}^\infty \frac\{1\}\{n!\}=\lim\_\{n\rightarrow \infty\}(1+\frac\{1\}\{n\})^n.\\]
+Skipped. The proof uses binomial theorem and few thorems about subsequential limits. (Theorem 3.19, Rudin)
+
+### The root and Ratio Tests
+> __Theorem__ 3.33  __Root test__  
+Given \\(\sum a\_n\\), put \\[\alpha=\mathop\{\text\{limsup\}\}\_\{n\rightarrow\infty\} \|a\_n\|^\{\frac\{1\}\{n\}\}\\] Then,  
+(a) If \\(\alpha < 1\\), \\(\sum a\_n\\) converges  
+(b) If \\(\alpha > 1\\), \\(\sum a\_n\\) diverges  
+(c) If \\(\alpha = 1\\), The test gives no information.
+
+__proof__:  
+(a): If \\(\alpha<1\\), then there exists \\(\beta\\) such that \\(\alpha<\beta<1\\), and by the `Thm 3.17 (b)`, we have
+\\[\exists N\in\mathbb\{N\},\\ \forall n : n>N\quad\rightarrow\quad \|a\_n\|^\{\frac\{1\}\{n\}\} < \beta\\]
+\\[\|a\_n\| < \beta^n\\]
+1. Since \\(0<\beta<1,\\ \sum \beta^n\\) converges (geometric series)
+2. By the comparison test (partial sum + triangle inequality), \\(\sum a\_n\\) also converges.
+
+(b) If  \\(\alpha>1\\), then again by the `Thm 3.17 (b)`, we have a subsequence \\(n\_k\\) such that \\(\|a\_\{n\_k\}\|^\{\frac\{1\}\{n\_k\}\}\\) converges to \\(\alpha\\). Since \\(\alpha>1\\), for some \\(N\in\mathbb\{N\}\\), the term gets bigger than 1, so that the condition \\(a\_n\rightarrow 0\\) for convergent series does not hold (`Thm 3.23`).
+
+(c) We consider the series
+\\[\sum\frac\{1\}\{n\},\quad \sum\frac\{1\}\{n^2\}\\]
+For each of these series \\(\alpha=1\\), but the first diverges, and the second converges.
+
+> __Theorem__ 3.34  __Ratio test__  
+The series \\(\sum a\_n\\) 
+1. converges when \\[\mathop\{\text\{limsup\}\}\_\{n\rightarrow\infty\} \left\|\frac\{a\_\{n+1\}\}\{a\_n\}\right\|<1\\]  
+2. diverges if \\[\exists N\in\mathbb\{N\},\\ \forall n\\ : \\ n>N\quad\rightarrow\quad \left\|\frac\{a\_\{n+1\}\}\{a\_n\}\right\|\geq 1\\]
+
+__proof__: Like `Thm 3.33`, \\(\exists \beta < 1\\) and an integer \\(N\\) such that
+\\[\left\|\frac\{a\_\{n+1\}\}\{a\_n\}\right\| < \beta\\]
+for \\(n\geq N\\). In particular, 
+\\[\|a\_\{N+1\}\| < \beta \|a\_\{N\}\|\\]
+\\[\|a\_\{N+2\}\| < \beta \|a\_\{N+1\}\| < \beta^2 \|a\_\{N+1\}\| ... \\]
+\\[\|a\_\{N+p\}\| < \beta^p \|a\_\{N\}\|\\]
+Now letting \\(N+p=n\quad\rightarrow\quad n=N-p\\) gives
+\\[\|a\_n\| < \|a\_N\|\beta^\{-N\}\cdot\beta^\{n\}\\]
+for \\(n\geq N\\), and (a) follows from the compartion test as \\(\sum\beta^n\\) converges.
+
+If \\(\|a\_\{n+1\}\geq \|a\_n\|\\) for \\(n\geq n\_0\\), then the condition \\(a\_n\rightarrow 0\\) does not hold, and (b) follows.
+
+Note: exactly like (c) of Thm 3.33, =1 gives no information (with same proof)
+
+* Ratio test is easier to apply, but the root test is more powerful.
+
+> __Theorem__ 3.37    
+For any positive sequence \\(\\{c\_n\\}\\),
+\\[\mathop\{\text\{liminf\}\}\_\{n\rightarrow\infty\} \left\|\frac\{c\_\{n+1\}\}\{c\_n\}\right\| < 
+\mathop\{\text\{liminf\}\}\_\{n\rightarrow\infty\} \left\|c\_n\right\|^\{\frac\{1\}\{n\}\}\\]
+\\[\mathop\{\text\{limsup\}\}\_\{n\rightarrow\infty\} \left\|c\_n\right\|^\{\frac\{1\}\{n\}\} < 
+\mathop\{\text\{limsup\}\}\_\{n\rightarrow\infty\} \left\|\frac\{c\_\{n+1\}\}\{c\_n\}\right\|\\]
+
+__proof__ we shall prove the 2nd inequality. Put
+\\[\alpha=\mathop\{\text\{limsup\}\}\_\{n\rightarrow\infty\} \left\|\frac\{c\_\{n+1\}\}\{c\_n\}\right\|\\]
+If \\(\alpha=\infty\\), then there is nothing to prove. If it is finite, choose \\(\beta > \alpha\\). There is an integer \\(N\\) such that
+\\[\frac\{c\_\{n+1\}\}\{c\_n\}\leq \beta\\]
+for \\(n>N\\). In particular, for any \\(p>0\\), 
+\\[c\_\{N+k+1\}\\leq c\_\{N+k\} \beta,\quad k=0,1,...,p-1\\]
+Multiplying these inequalities, we obtain
+\\[c\_\{N+P\}\leq \beta^p c\_N\\]
+or (by substitution)
+\\[c\_n \leq c\_N\beta^{-N\}\cdot \beta^n\quad(n\geq N)\\]
+Hence
+\\[c\_n^\{\frac\{1\}\{n\}\}\leq \{c\_N\beta^\{-N\}\}^\{\frac\{1\}\{n\}\}\beta\\]
+so that (Notice that \\(c\_N\beta^\{-N\}\\) is a constant)
+\\[\mathop\{\text\{limsup\}\}\_\{n\rightarrow\infty\} \leq \beta\tag\{18\}\\]
+by Theorem 3.20 (b). Since (18) is true for every \\(\beta>\alpha\\), we have (can be proved by reduction)
+\\[\mathop\{\text\{limsup\}\}\_\{n\rightarrow\infty\} \left\|c\_n\right\|^\{\frac\{1\}\{n\}\} \leq \alpha\\]
+
+### Absolute Convergence
+
+A series \\(\sum a\_n\\) is said to `converges absolutely` if the series \\(\sum \|a\_n\|\\) converges.
+
+> __Theorem__ 3.28  
+If \\(\sum a\_n\\) converges absolutely, then \\(\sum a\_n\\) converges
+
+__proof__: follows from the inequality of partial sums
+\\[\|\sum\_\{k=n\}^m a\_k\| \leq \sum\_\{k=n\}^m \|a\_k\|\\]
+plus the Cauchy criterion
+
+* For series of positive terms, absolute convergence is same as the convergence
+* If a series converges, but does not converges absolutely, we say that it `converges non-absolutely`. 
+* For such series, the result of summation changes depending the order of the addition, which leads to the post here. (<a href="{{site.url}}/deep_learning/2018/08/23/series-and-sum.html" target="_blank">Sums and Series</a>)
+
+### Power series
+
+> __Definition__ 3.38  
+Given a sequence \\(\\{c\_n\\}\\) of complex numbers, the series
+\\[\sum\_\{n=0\}^\infty c\_nz^n\tag\{19\}\\]
+is called a `power series`.
+
+* \\(c\_n\\): a complex number, called the __coefficients__ of the series
+* \\(z\\): a complex number, multiplied many times
+
+> __Theorem__ 3.39  
+Given the power series \\(\sum c\_nz^n\\), put
+\\[\alpha = \mathop\{\text\{limsup\}\}\_\{n\rightarrow\infty\} \|c\_n\|^\{\frac\{1\}\{n\}\},\quad R=\frac\{1\}\{\alpha\}\\]
+(If \\(\alpha=0,\\ \text\{R\}=+\infty,\\ \alpha=+\infty,\\ \text\{R\}=0\\). Then \\(\sum c\_nz^n\\) conveges if \\(\|z\|<R\\), and diverges if \\(\|z\|>R\\).
+
+__proof__: Put \\(a\_n=c\_nz^n\\), and apply the root test:
+\\[\mathop\{\text\{limsup\}\}\_\{n\rightarrow\infty\}\|a\_n\|^\{\frac\{1\}\{n\}\}=\|z\| \mathop\{\text\{limsup\}\}\_\{n\rightarrow\infty\} \|c\_n\|^\{\frac\{1\}\{n\}\} = frac\{\|z\|\}\{R\}\\]
+
+`Note`: \\(R\\) is called the radius of convergence of \\(\sum c\_nz^n\\).
+
+### Summation by parts
+skipped
+
+### Addition and Multiplication of Series
+> __Theorem__ 3.47  
+If \\(\sum a\_n=A\\), and \\(\sum b\_n=B\\), then \\(\sum(a\_n+b\_n)=A+B\\), and \\(\sum ca\_n=cA\\), for any fixed \\(c\\).
+
+__proof__ can be proved using the property of limits (of partial sums), or Cauchy criterion + triangle inequality
+
+> __Definition__ 3.48  
+Given \\(\sum a\_n\\) and \\(\sum b\_n\\), we put
+\\[c\_n=\sum\_\{k=0\}^n a_kb\_\{n-k\}\quad(n=0,1,2,...)\\]
+
+This definition is motivated as follows. If we consider two power series
+\\[\sum a\_nz^n,\quad\sum b\_n z^n\\]
+multiply them term by term, and __collect therms containing the same power of \\(z\\)__, then we get
+\\[\sum\_\{n=0\}^\infty a\_nz^n\cdot \sum\_\{n=0\}^\infty b\_nz^n=(a\_0+a\_1z+a\_2z^2+...)(b\_0+b\_1z+b\_2z^2+...)\\]
+\\[=a\_0b\_0+(a\_0b\_1+a\_1b\_0)z+(a\_0b\_2+a\_1b\_1+a\_2b\_0)z^2+...\\]
+\\[=c_0+c\_1z+c\_2z^2+...\\]
+Setting \\(z=1\\), we arrive at the above definition.
+
+> __Theorem__ 3.50  
+Suppose
+(a) \\(\sum\_\{n=0\}^\infty a\_n\\) converges absolutely  
+(b) \\(\sum\_\{n=0\}^\infty a\_n=A\\)  
+(c) \\(\sum\_\{n=0\}^\infty b\_n=B\\)  
+(d) \\(c\_n=\sum\_\{k=0\}^n a\_kb\_\{n-k\}\quad (n=0,1,2,...)\\)  
+Then
+\\[\sum\_\{n=0\}^\infty c\_n=AB\\]
+That is, the product of two convergent series converges, and to the right value, if at least one of the two series converges absolutely.
+
+__proof__ put
+\\[A\_n = \sum\_\{k=0\}^n a\_k,\quad B\_n=\sum\_\{k=0\}^n b\_k,\quad C\_n=\sum\_\{k=0\}^n c\_k,\quad \beta\_n=B\_n-B\\]
+...The proof is somewhat algebraic.
+
+\\[\text\{Absolutely convergent series \}\quad\rightarrow\quad \text\{Rearrangement has no difference!\}\\]
+proof - skipped. Think I'll never need them for my life
+
+Next:  
+

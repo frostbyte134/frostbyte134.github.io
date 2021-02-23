@@ -1,0 +1,198 @@
+---
+layout: post
+title:  "프로를 위한 리눅스 시스템 구축과 운용의 기술 복습노트"
+date:   2019-07-05 09:10:05 +0800
+categories: linux
+use_math: true
+tags: linux os
+---
+
+* OS : Abstraction
+* 일반적으로 IO데이터는 디바이스 - 디바이스 버스 - CPU - 메모리 버스 - 메모리 로 이동하나, DMA도 있음
+
+
+### Proc, OS
+
+
+### Linux Booting
+1. System BIOS (Firmware)
+   1. Device driver를 이용하지 않고도 일부 HW 사용 가능. BIOS / Grub이 해당 기능 사용
+   2. POST (Power-On Self Test, 디바이스들 상태, etc..)
+   3. 기동 디바이스 선두의 `MBR` (Master Boot Record, Ubuntu = Grub) 메모리에 읽음 
+2. CPU
+   1. BIOS가 읽은 Grub 가동
+3. Grub
+   1. 커널 + initrd (initial ram disk) 메모리에 읽어, 커널 기동
+   2. init process start (id=0)
+
+
+#### Signals
+* `ctrl+c`: SIGINT (2)
+* `ctrl+z`: SIGSTOP (17)
+* `fg` / `bg` command : SIGCONT (19)
+* SIGKILL (9) / SIGSTOP (17) : no handler available
+* SIGTERM (15) : handler available, but terminates anyway
+* Note that `D` status (IO bottlenecked) cannot be interrupted by any signal
+* SIGQUIT (3) : SIGTERM + core dump?
+
+#### 프로세스 상태변화
+1. `D`: IO waiting. 인터럽트 대기 불가
+2. `Z`: 종료할 때 부모 프로세스의 안부를 체크하고 종료하나 부모가 먼저 종료해 있어서 멈춘 상태. \<defunct\>
+3. `S`: Sleep.  인터럽트 가능
+4. `T`: Stop. SIGCONT 수신시 일어남
+5. `R`: Running. 가동중
+
+* init: pid=0. 가장 먼저 가동. /sbin/init을 읽어 시작하고 /etc/inittab의 process들을 실행
+
+#### Kernal panic
+* `panic()` 실행, 서버 물리 메모리의 내용을 `Kernel dump`에 기록 (ssh로 외부에도 기록 가능)
+
+### Disk, Memory
+
+#### 메모리 관리
+* x86 (32bit) : 4gb가 한계. 커널코드를 3~4GB 구간 에 올려놓고, 앞 부분은 process codes
+* context switch 시, (레지스터에 있는) 페이지 테이블만 (논리메모리 - 물리메모리) 교체 
+  * 커널 코드는 물리 메모리의 1MB~895MB에 올라가 있으므로, user가 사용는 부분 (앞 3GB for 32bit)의 페이지 테이블만 교체하면 됨
+
+#### 메모리 오버 커밋
+* malloc등은, 일단 할당한 척 하고 필요할때 실시간으로 물리메모리를 할당함 (`Demand paging`)
+* 따라서 실제 메모리보다 malloc이 잡은 메모리가 많을 수 있음.
+* `out of memory`시,
+    1. process가 잠시 멈출 수 있다면 멈추고, __다음 3가지 중 1개를 선택__
+       * `OOM Killer`를 동작시킴.  다른 죽일 수 있는 프로세스가 있으면 죽이고 메모리 확보
+       * `Disk cache` 삭제
+       * `Swap out` 실행
+    2. 모두 불가능하다면 종료 후 `out of memory` 에러 발생
+
+#### Disk cache
+* `tmpfs`: df커맨드 목록에 나옴. RAM을 디스크처럼 사용가능. 
+* interprocess-communication에서도 사용 (POSIX 공유 메모리가 /dev/shm에 명시적으로 mount된 tmpfs 이용)
+* `swap area`: 메모리가 부족할 시, 메모리 내용물을 저장할 hdd의 영역
+
+#### 파일시스템 관리
+`ext3`을 표준으로 사용
+* 데이터 블록 / 메타데이터 (아이노드, 슈퍼블록(파일시스템 전체))
+* `ext2` + journaling)
+* 최대 2TB 파일크기
+
+특수 파일시스템 종류
+* `procfs`: 커널 및 커널 모듈(디바이스 드라이버) 정보참조,변경. /proc에 마운트
+* `sysfs`: 시스템의 접속디바이스 확인 / 설정변경. /sys
+* `devfs`: 디바이스 __access__를 위한 파일시스템. /dev에 마운트
+
+`fsck`: 메타데이터의 정합성 체크
+
+#### 파일시스템 저널링
+> 파일시스템에서의 파일 쓰기는 리눅스 디스크 캐시를 경유하여 처리됩니다
+
+파일 갱신시, 내용이 처음에는 `메모리의 디스크 캐쉬`에 쓰여지고, 정기적으로 디스크 캐시의 내용이 물리 디스크에 쓰여짐
+
+ex) 메타데이터를 디스크에 쓰다가 강제종료된 경우, fsck는 디스크 캐쉬를 이용하여 복원함
+
+저널링 모드
+* `ordered`, `writeback`: 메타데이터에만 저널링을 수행. 순서가 좀다름
+* `journal`: 실제 데이터에 대해서도 저널링 수행
+
+__NFS의 저널링__  
+sender disk -> sender disk cache -(1)-> recv disk cache -> recv disk 
+1. `sync`모드: (1)을 동기화함
+2. `async`모드: (1)을 동기화하지 않음
+
+
+
+### Networks
+
+
+#### IP 네트워크 기초
+- 넷접속: ip주소 + 서브넷마스크, 디폴트 게이트웨이 주소 필요
+- L2 (브릿지), L3(라우터 기능 포함)
+- `subnet`: 라우터를 통하지 않고 연결되어 있는 네트워크 구성
+  - 1개의 `router` : 복수의 `subnet`
+  - 1개의 `subnet` : 복수의 `bridge` (L2 switch)
+  - 서브넷의 0번 주소 : 서브넷의 주소, 255번 - broadcasting용
+- `VLAN`: 스위치 (L3) 내부에서 논리적으로 네트워크를 분할 (ex - 1개 subnet \\(\rightarrow\\) 2개의 subnet)
+
+
+#### 서브넷 내부 통신
+- L2스위치는 IP(L3) 부분 패킷을 보지 않음
+- L2스위치는, 수신 측 MAC주소를 보고 패킷을 전송할 `물리 포트`를 결정
+  - `ARP table` 참조. 없을 시 broadcast 전송 (ARP요구 패킷)
+  - `ARP요구 패킷` : 동일 서브넷 내에 전부 전송(broadcasting). MAC주소를 모르므로, IP를 key로 쿼리 날림 (ip주소에 해당하는 MAC주소를 알려달라)
+  - `MAC table` : L2스위치가 보유. 스위치가 서브넷 내의 통신을 중계하기 위한 Table.
+
+
+#### 서브넷 간 통신
+- 각 단말기는 `routing table`필요
+  - 테이블을 참조하여 해당 packet을 연결되 있는 subnet 내에 (l2스위치로) 전송할 것인지, 타 라우터(게이트웨이)로 보낼 것인지 결정
+
+`router`
+- 패킷 수신시, MAC파기
+- `router`또한 routing table 보유. 마찬가지로 2가지 경우의 수
+    1. 연결되있는 subnet (l2 switch)으로 전송 가능: 해당 스위치로 전송
+    2. ip를 참조하여, 패킷을 보내야 할 게이트웨이 (타 router)를 찾음 (`routing!`)
+
+- 1개의 서버가 복수의 network에 접속 가능 - `default gateway`로 다른 네트워크로 가는 패킷을 보냄
+
+#### 스위치 이중화
+- for fault tolerant system
+- 서로 bridge로 연결된 subnet이, L3 스위치에 다른 포트로 연결 - 네트워크가 그래프로 됨 - spanning tree 구성 필요
+
+#### VLAN
+- 1 VLAN = 1 Subnet
+- 1개의 VLAN이 복수개의 L3스위치 포트에 연결가능 
+- 복수개의 VLAN이 1개의 포트에 연결가능 (`Trunk port`)
+- 포트에 1개 VLAN밖에 없을 시 - (`Access port`)
+
+#### ethX
+- (물리) NIC (Network Interface Card)에 할당되는 device name
+- MAC주소를 기본적으로 지니고, 네트워크 접속시 IP주소를 할당받음
+
+
+#### 소켓
+- 1개 port에서 복수의 TCP세션 구성가능 (file descriptor 갯수 제한으로 제약가능)
+- TCP의 `RTO`: retransmission timeout. ACK패킷이 수신되지 않을 시의 재전송 시간
+  - 기본: 3초, 5회, 각 trial마다 2배 증가 (총 189초)
+
+### Storage
+
+#### SAN  
+> Storage Area Network은 서버와 스토리지 간에, 물리적  접속과는 독립된 논리적 접속을 실현하는 기술
+
+- SAN switch 필요
+- Falut tolerant를 위해, 1개의 스토리지가 복수의 SAN switch를 통해 서버에 제공될 수 있음 (`multi path`)
+
+#### RAID
+- Redundant Array of Independent Disks
+- `stripe`: RAID 어레이의 read/write 단위. 여러 물리 storage에 걸쳐 있음
+- `block`: 1 stripe당 각 물리 storage의 블록 크기. 
+- `parity`: 정합성 체크. 1 stripe당 RAID5는 1개, RAID6은 2개의 블록에 parity를 기록
+  
+#### LUN
+- Logical Unit Number
+- 1 `LUN` = /dev/sdx
+- 1 개의 RAID array (복수의 물리 storage로 구성된)를 여려개의 LUN으로 분할 가능
+- 리눅스 표준인 ext3은 여러 서버에서 동시에 마운트되는 것을 전제로 설계되어 있지 않음
+- LUN의 __물리 복사__ : 실제 복사
+- LUN의 __논리 복사__ : 변경된 diff 부분만 보유
+
+#### LVM
+- 복수의 LUN (/dev/sdx = `물리 볼륨`)을 묶어 논리 볼륨 (LVM) 을 구성
+- 대용량 파일시스템 작성 / 파일시스템 크기를 운용 중에 확장 가능
+
+
+#### iSCSI
+- FC 케이블 (SAN, 2GB/sec?) 등 대신, IP네트워크를 이용하여 SAN 구축
+- 그럼 NAS와의 차이점이 뭐지?
+- SAN은 서버와 스토리지 사이의 채널 접속에 파이버 채널 스위치를 넣어 네트웍의 개념을 도입한 것이다. 
+    - 그렇다면 왜 SCSI Switch가 아닌 파이버채널 스위치인가?
+    - SCSI의 경우 Open System의 채널 인터페이스이긴 하지만 접속 거리가 최대 25m로 네트웍으로 구성하기에는 거리제약이 있으며 스위칭을 위한 고려가 전혀 되어있지 않는 인터페이스란 점 때문에 파이버 채널을 SAN의 표준으로 정하게 되었다.
+    - 파이버 채널 스위치를 중간에 넣음으로서 서버의 접속 포트 하나에서 여러대의 스토리지를 접속할 수 있고 또한 스토리지의 접속 포트 하나에 여러 서버가 접속할 수 있는 유연성이 생기게 된다. 
+    - 그러나 여러 서버에서 파일 공유를 하려는 측면에서 생각해 보면 동일 파일 시스템에 대한 관리를 각각의 서버에서 해야 하기 때문에 Locking 문제와 Consistency 문제가 생기게 되고 그런 이유로 파일공유가 되지 않는다. 
+    - 그렇다면 SAN에서 말하는 공유는 무엇일까? 그것은 지금현재로는 서버측면에서의 스토리지 공유 또는 스토리지 측면에서의 서버 공유를 의미할 뿐이다. 물론 SAN에서 궁극적으로 추구하는 목표에는 파일시스템의 공유가 포함되어 있으며 그러한 노력이 현재 진행되는 있는 것은 사실이지만 파일시스템의 공유라는 목표를 달성하기에는 아직도 많은 시간이 필요하리라고 생각된다.
+    - [출처] SAN / NAS / DAS의 개념비교|작성자 순팔이
+
+
+### Performance Monitering
+* CPU: `mpstat`, `vmstat` (평균치). 사용율, IO 인터럽트 시간/횟수 (`/cat /proc/interrupts`)
+* memory: `vmstat`, swap
+* 디스크: `vmstat`, IO 대기시간 (wa)

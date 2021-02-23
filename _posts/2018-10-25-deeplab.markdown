@@ -1,0 +1,143 @@
+---
+layout: post
+title:  "Deeplab V2"
+date:   2018-10-25 09:00:05 +0800
+categories: deep_learning
+use_math: true
+tags: deep_learning segmentation aspp CRF
+---
+
+PASCAL VOC 2012 test mIOU 79.7
+
+Cityspace test 70.4
+
+<a href="https://arxiv.org/abs/1606.00915" target="_blank">https://arxiv.org/abs/1606.00915</a>
+
+
+
+### Terminology
+* `Feature resolution` or `dense feature map`: size (\\(W\times H\times C\\)) of the feature map.
+* `denser feature extraction`: `resolution enhancement`. Filter size gets bigger, so there are many overlapping on feature extraction stage.
+* `output stride`: Input image size / output feature map size (resolution)
+
+### Abstract
+3 contributions
+1. highlight conv with upsampled filters (`atrous` conv), as a __powerful tool in dense prediction tasks__
+2. ASPP: robust segmentation of objs in multiple scale.
+3. __Improve the localization__ with CRF on top of DCNN.
+
+### Introduction
+> Essential to the success of DCNN is the __built-in invariance of DCNNs to the local image transformation__, which allows them to learn increasingly abstract data representations.
+
+__This invariance is not desirable for the segmentation__, where we have to solve localization problem.
+
+
+3 challenges in the application of DCNN to segmentation
+{:.deccounter}
+1. reduced feature resolution
+2. existence of objs at multiple scales  
+	Present rescaled image to the DCNN, then aggregate on the fet map = effective but costly
+	\\(\rightarrow\\)(A)SPP
+3. reduced localization accuracy due to DCNN invariance.  
+	using skip connections, concat b4 the final seg result can solve this.  
+	\\(\rightarrow\\) `Deeplabv2` used `fully-connected pairwise CRF`[22] with mean field inference. V3 uses better CRF.
+{:.deccounter}
+
+
+### (1) Reduced feature resolution - Atrous Convolution
+is caused by the striding(`downsampling`) of convs and poolings  
+the spartial resolution of the resulting feature maps is reduced, typically by a factor of 32
+	
+__partial remedy = use `deconvolutional` layers,__ which however requires additional memory and time.
+
+> We advocate instead the use of atrous convolution
+	
+
+`Deeplab V2` removed the downsampling, and instead upsample the filters. But Replacing all stride to atrous conv is too costly.
+> adopted a hybrid approach that strikes a good efficiency/accuracy trade-off, using atrous conv to incrase by a factor of 4 the density of computed feature maps, followed by fast bilinear interpolation by an additional factor of 8 to recover fet maps at the original image resolution.  
+
+By doing this, __FOV of the filter can be maintained (approx.ly) while enlarging the feature resolution.__
+
+> Bilinear interpolation is sufficient in this setting bc/ the class score maps (corrsponding to log-probs) are quite smooth, as illustrated in Fig. 5. Unlike the deconv approach by [14], the proposed approach converts image classification net to dense fet extraction net without not too many additional params.
+
+
+	
+`Atrous conv`  
+* many used atrous conv for __denser feature extraction.__
+* Beyond mere __resolution enahncement__, atrous conv allows us to __enlarge the FOV of filters to incorporate larger context__, which we have shown in [38] (deeplab v2?) to be beneficial.   
+	> This approach has been pursued further by [76] (MULTI-SCALE CONTEXT AGGREGATION BY DILATED CONVOLUTIONS, next paper to read. link plz), who employ a __series of atours conv layers with increasing rates__ to aggregate multiscale context.  
+	The `ASPP`  proposed here to capture multiscale objects and context also employs multiple atrous conv layers with different smapling rates, which we however __lay out in parallel__ instead of in serial.
+* It allows us to easily and explicitly control the spatial resolution of neural network fet responses (while maintaining the FOV).
+In other words, atrous conv
+1. explicitly control the resolution at which feature responses are computed within DCNN (computes feature maps more densely).  
+2. effectively enlarge the FOV of filters to incorporate larger context without increasing the # of params or the amount of computation. (isnt it same as 1?)
+
+### (2) Existence of objs at multiple scales - ASPP
+Conventional approaches to tackle this was
+* dataset with multiple obj sizes
+* multiscale processing - feed images with multiple sizes
+
+Deeplab used 2nd one as a baseline, and substituted it with `ASPP`
+1. extract DCNN score maps from multiple (3 in their experiments) rescaled versions of the orig image using paralalle DCNN branches that share the same params.
+2. To produce the final result, they bilinearly interpolate the feature maps from the parallel DCNN branches to the orignal image resolutoion and fuse the, by taking at each position the maximum response accross the different scales. (Think this not that much structured. What about adding them and train as a whole, end to end?)
+
+
+`ASPP`
+* Deeplab inspired to use ASPP from the detection paper of Kaiming He [20], which showed that regions of an arbitrary scale can be accurately and efficiently classified by resampling convolutional features extracted at a __single scale.__
+* `Deeplab V2` implemented variant, useing atrous conv at multiple rates in parallel.
+
+### (3) Reduced Localization Accuracy due to DCNN Invariance - CRF
+> Tradeoff between localization accuracy and classification performance seems to be inherent in DCNNs
+
+Deeper models with multiple max-poolings and strided convs have
+* increased invariance and the large receptive fields make them prevalent in classification
+* but (thanks to above) they can only yield __smooth response__ (segmentation must yield distinct, non-continuous predictions near the object boundaries)
+
+Prev works has pursued two directions to address this localization challenge.
+1. harness info from multiple layers in the convnet, to better estimate the obj boundaries [14] [21] [52]
+2. employ a superpixel representation, essentially delegating the locailzation task to a lower lvl segmentation methods [50]
+
+`Deeplab v2` pursue an alternative, based on coupling the recognition capacity of DCNNs and the fine-grained localization accruacy of fully connected CRFs  
+\\(\rightarrow\\) successful in addressing localization (obj boundaries)
+
+* `short-range CRFs` (Conventional one)  
+> Qualitatively, the primary function of these `short-range CRF`s (which used in other papers) is to clean up the spurious predicitons of week classificatiers built on top of local-hand-enginered features (by favoring same-label sassigmnents to spatially proximal pixels) 
+
+Modern DCNNs produces a scoremap which is (comparably) accurate and already smooth. In this regime, using short-range CRFs can be detrimental, as our gola should be to recover detailed local structutre rather than further smooth it.
+
+* `fully-connected CRF` of `Deeplab V2`  
+	To overcome these limitation, `Deeplab v2` used the `fully connected CRF` (all possible pairwise edges exist) of [22], with the energy function \\[E(x)=\sigma\_\{i\}\theta\_i(x\_i)+\sigma\_\{ij\}\theta\_\{ij\}(x\_\{i\},x\_j)\\] where \\(x\_i\\) is a label assigmnent for pixels (on a single image)
+	1. Unary potential
+	\\[\theta\_i(x\_i)=-\log P(x\_i)\\]
+	where \\(P(x_i)\\) is the label assignment prob at pixel \\(i\\) as computed by a DCNN.
+	2. Pairwise potential
+	\\[\theta\_\{ij\}(x\_\{i\},x\_j)=\mu(x\_i,x\_j)\left[w_1\exp\left( -\frac\{\|| p\_i-p\_j\||^2\}\{2\sigma\_\{\alpha\}^2\} -\frac\{\|| I\_i-I\_j\||^2\}\{2\sigma\_\{\beta\}^2\} \right) + w_w\exp\left( -\frac\{\|| I\_i-I\_j\||^2\}\{2\sigma\_\{\gamma\}^2\} \right)\right]\\]
+	where
+	* \\(p\_i\\): spatial location of pixel \\(i\\)
+	* \\(I\_i\\): RGB value of pixel \\(i\\)
+	Thus the 1st term forces pixels with sim,ilar color and position to have similar labels, while the 2nd kernel only considers spatial proximity when enforcing smoothness.  
+	
+	efficient inference - the msg passing updates under a fully decomposable mean field approx can be expressed as Gaussian convs in bilateral space.
+
+
+### Experiments
+DCNN (`Resnet`-101) is re-purposed to the task of semantic seg by
+1. transform all fc layers to conv layers
+2. increase fet resolution through atrous conv layers, allowing to compute fet response every 8 pixels, instead of every 32 pixels in orig network
+3. employed bilinear upsampling (by a factor of 8)  
+=recover the score map to reach the orig image resolution
+4. `CRF`
+
+Refer to the paper
+
+Useful advancement was
+1. `VGG` to `Resnet-101`: large gain
+2. mulltiscale fusio: 2.55
+3. pretraining on COCO: 2.01
+4. 0.8: ASPP
+5. ASPP: large FOV (large rate, r = 6, 12, 18, 24) was effective
+
+
+
+[22]
+Next:  

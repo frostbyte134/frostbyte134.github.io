@@ -1,0 +1,15 @@
+---
+layout: post
+title:  "BOJ 2830: 행성 X3"
+date:   2018-05-25 09:49:00 +0900
+categories: problem_solving
+use_math: true
+tags: problem_solving
+problem: 2830
+---
+
+<a target="_blank" href="https://www.acmicpc.net/problem/{{page.problem}}">https://www.acmicpc.net/problem/{{page.problem}}</a><br/><br/>
+
+XOR한 것 끼리의 합이므로, (모든 데이터의 i번째 비트가 1인 갯수) * (모든 데이터의 i번째 비트가 0인 갯수) * 2^i를 다 합하면 됨.
+
+복습은 필요 없을듯

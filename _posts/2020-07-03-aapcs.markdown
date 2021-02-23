@@ -1,0 +1,12 @@
+---
+layout: post
+title:  "Procedure Call Standard for the Arm Architecture"
+date:   2020-07-03 09:00:05 +0800
+categories: coding
+use_math: true
+tags: coding C
+---
+
+<a href="https://static.docs.arm.com/ihi0042/g/aapcs32.pdf" target="_blank">https://static.docs.arm.com/ihi0042/g/aapcs32.pdf</a>
+
+Arm developer guide 끝나고 바로 ㄱㄱ

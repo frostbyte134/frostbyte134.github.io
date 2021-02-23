@@ -1,0 +1,204 @@
+---
+layout: post
+title:  "Least Mean Square Estimation"
+date:   2020-12-05 08:00:05 +0800
+categories: probability
+use_math: true
+tags: math probability bayesian
+---
+
+> <a href="https://vfu.bg/en/e-Learning/Math--Bertsekas_Tsitsiklis_Introduction_to_probability.pdf" target="_blank">chap 4</a>
+
+> <a href="https://ocw.mit.edu/resources/res-6-012-introduction-to-probability-spring-2018/part-ii-inference-limit-theorems/" target="_blank">part-ii-inference-limit-theorems</a>
+
+let \\(X\\) be a random variable we want to estimate.
+
+### Visible X case
+
+For any estimate \\(c\\), let \\(E[X] = m\\). then
+\\[
+\begin\{align\*\}  
+E[(X-c)^2] &= E[(X-m+m-c)^2] \cr
+           &= E[(X-m)^2] + 2E[(X-m)(m-c)] + E[(m-c)^2]  \cr
+           &= E[(X-m)^2] + 2(E[X]-m)(m-c)] + (m-c)^2  \cr
+           &= E[(X-m)^2] + (m-c)^2
+\end\{align\*\}    
+\\]
+\\[E[(X-m)^2\leq E[(X-c)^2]]\\]
+
+We see that \\(E[(X-c)^2]\\) is a __quadratic function__, which is minimized with the value \\(E[(X-m)^2]=V[X]\\).
+
+
+<img src="{{site.url}}/images/math/prob/ls1.jpg" width="300">
+
+> Best least square estimate of \\(X\\) is \\(E[X]\\)
+
+read example 4.27 in the link pdf
+
+### latent, hidden X case
+
+Now suppose that we cannot observe \\(X\\) directly, but instead we have observable \\(Y\\) (=`measurement`)
+
+Given the observation \\(Y=y\\), what is the best estimate?
+   1. Once we told that \\(Y\\) takes the value \\(y\\), the situation is identical to above, except that we are now in a __NEW UNIVERSE__ that everything is conditioned on \\(Y=y\\))
+   2. Using same steps (now the variable \\(c\\) is \\(g(y)\\), any estimator using \\(y\\)), we see that \\[E[(X-E[X\|Y=y])^2 \| Y=y] \leq E[(X-g(y))^2\|Y=y]\\]
+   3. This inequality is indeed true for every possible (meaningful) value of \\(Y\\), thus  \\[E[(X-E[X\|Y])^2 \| Y] \leq E[(X-g(Y))^2\|Y]\\]
+   4. Above is an inequality between random variables (functions of \\(Y\\)!). Using iterated expectation,  
+      \\[E[E[(X-E[X\|Y])^2 \| Y]] \leq E[E[(X-g(Y))^2\|Y]]\\]
+      \\[E[(X-E[X\|Y])^2]  \leq E[(X-g(Y))^2\]\\]  
+      for all functions \\(g(Y)\\).
+
+
+
+> Best least square estimate of \\(X\\) given(using) \\(Y\\) is \\(E[X\|Y]\\)
+
+read "some property of the estimation error" part in the link PDF
+
+
+### Linear Least Square Estimation
+
+
+Now suppose that we have many measurements \\(Y\_1,...,Y\_n\\).
+- Using the same argument, we easily see that \\[E[(X-E[X\|Y\_1,...,Y\_n])^2]  \leq E[(X-g(Y\_1,...,Y\_n))^2\]\\]  
+- __However__, the to calculate above we need joint PDF/PMF over \\(P(X, Y\_1,...,Y\_n)\\), which is often untractable.
+- The most common approach involves <a href="{{site.url}}/probability/2020/12/07/llms.html" target="_blank">linear estimator</a>s, \\[a\_1Y\_1+,...+a\_nY\_n+b\\], which gives following mean squared error \\[(X-a\_1Y\_1-...-a\_nY\_n-b)^2\\]
+  - __this problem only requires the mean, var, covar of the RVs__
+
+
+
+### Recognizing Normal PDF
+
+\\[f\_X(x) = \frac{1}{\sigma\sqrt{2\pi}}\exp\left\\{ -\frac{(x-\mu)^2}{2\sigma^2} \right\\}\\]
+
+\\[c\cdot\exp\left\\{\alpha x^2+\beta x + \gamma \right\\} = c\cdot\exp\left\\{\alpha((x+\frac{\beta}{2\alpha})^2 - \frac{\beta^2}{4\alpha^2}+\frac{\gamma}{\alpha})\right\\}\\]
+
+- `negative exponential of a quadratic function is always a normal`
+- Note that normal PDF has its peak at `mean`. Thus by using the optimality condition (of a convex quadratic function), we easily see that
+  \\[2\alpha x+\beta = 0 \quad\rightarrow\quad \mu = -\frac{\beta}{2\alpha}\\]
+- Similarly, `variance` can be calculated by collecting all scalar coefs of the quadratic, summarize them, multiply by 2, and invert it
+
+### Estimating Normal with Additive Normal Noise
+let
+\\[X=\Theta + W,\quad\quad\quad \Theta,W \sim N(0, 1) \text{ are independent }\\]
+
+1. we see that \\(f\_{X\|\Theta}(x\|\theta) = \theta + W \sim (\theta, 1)\\) (note that capital theta stands for the Random Variable)
+2. Then, using the bayse rule, 
+   \\[
+   \begin\{align\*\}  
+   f\_{\Theta\|X}(\theta\|x) &= \frac{ f\_\Theta(\theta)f\_{X\|\Theta}(x\|\theta) }{ f\_X(x) } \cr
+                             &= \frac{1}{f\_X(x)}c\exp\left\\{ -\frac{1}{2}\theta^2 \right\\} c\exp\left\\{ -\frac{1}{2}(x-\theta)^2 \right\\}
+                             &= c(x)\exp\\{\text{quadratic}(\theta)\\}
+   \end\{align\*\}
+   \\]
+   __we see that the posterior is also an Normal__   
+3. Note that, the pdf of normal has its peak in its mean, which makes \\(\hat{\theta}\_{MAP} = \hat{\theta}\_{LMS}\\).  
+   And we can easily get the mean, as stated above by differentiation 
+   \\[\frac{\partial}{\partial \theta}\left[ \frac{1}{2}\theta^2 + \frac{1}{2}(x-\theta)^2 \right] \quad\rightarrow\quad \theta=x/2\\]
+4. Thus we conclude,  
+   1. optimal estimation \\(\hat{\theta}\_{MAP} = \hat{\theta}\_{LMS} = x/2\\)  
+   2. optimal estimator \\(\hat{\Theta}\_{MAP} = \hat{\Theta}\_{LMS} = X/2\\)
+5. even with general Normal RVs, above holds (with slightly different scalars)
+
+
+### The Case of Multiple Observation
+Now we have __multiple observations__, and we want to combine them for better inference
+\\[X\_1=\Theta+W\_1\\]
+\\[\cdots\\]
+\\[X\_n=\Theta+W\_n\\]
+
+Let
+\\[\Theta\sim N(x\_0,\sigma\_0^2),\quad\quad W\_i\sim N(0, \sigma\_i^2)\\]
+\\[\Theta,W\_1,...,W\_n \text{ are independent }\\]
+
+We again want to calculate the posterior using Bayes rule
+\\[f\_{\Theta\|X}(\theta\|x) = \frac{ f\_\Theta(\theta)f\_{X\|\Theta}(x\|\theta) }{ f\_X(x) }\\]
+Note that the \\(X\\) here is a __random vector.__
+
+
+{:.acounter}
+1. For each measurement \\(i\\), given \\(\Theta = \theta, \\ X\_i=\theta+W\_i, \\ X\sim N(\theta,\sigma\_i^2)\\)
+2. Now consider the random vector \\(X\\).  
+   We want to calculate \\(f\_{X\_1,...,X\_n\|\Theta}\\), but note that since \\(\Theta\\) and \\(X\_1,...,X\_n\\) are independent (each \\(X\_i\\)s are linear (additive) relation with \\(W\_i\\)),   
+   \\(f\_{X\_1,...,X\_n\|\Theta} = f\_{X\_1,...,X\_n}\\) and it factors into the __product__ of \\(n\\) normal.
+   \\[ f\_{X\_1,...,X\_n\|\Theta}(x\_1,...,x\_n\|\theta) = \prod\_{i=1}^nf\_{x\_i\|\Theta}(x\_i\|\theta)\\]
+3. Now using the Bayes rule, 
+   \\[f\_{\Theta\|X}(\theta\|x)=\frac{1}{f\_X(x)}\cdot c\_0 \exp\left\\{ -(\theta-x\_0)^2/2\sigma\_0^2 \right\\} 
+   \prod\_{i=1}^nc\_i\exp\left[ -(\theta-x\_0)^2/2\sigma\_0^2 \right] 
+   \\]
+   we again see that the posterior is normal (it is quadratic!)
+4. In summary,
+   \\[f\_{\Theta\|X}(\theta\|x)= = c\cdot \exp\left\\{ \sum\_{i=0}^n \frac{(\theta-x\_i)^2}{2\sigma\_i^2} \right\\}\\]
+   To perform MAP/LMS, we find the peak of the distribution (=mean), wich is
+   \\[\sum\_{i=0}^n \frac{(\theta\-x\_i)}{\sigma\_{i}^2}=0\\]
+   so we conclude,
+   \\[\hat{\theta}\_{MAP} = \hat{\theta}\_{LMS} = \frac{\sum\_{i=0}^n\frac{x\_i}{\sigma\_i^2}}{\sum\_{i=0}^n\frac{1}{\sigma\_i^2}}\\]
+5. interpretation  
+    -1. posterior is normal, estimates are linear of the form \\(\hat{\theta} = a\_0+a\_1x\_1+...+a\_nx\_n\\)  
+    -2. estimate \\(\hat{\theta)}\\) : weighted average (inverted variance) (`convex combination`) of \\(x\_0\\) (`prior mean`) and \\(x\_i\\) (`observations`)  
+    -3. \\(\sigma\_i^2\\) large - \\(X\_i\\) is very noise - gets small weights  
+{:.acounter}
+
+
+#### The Mean Squared Error
+1. reasonable performance measure = \\(E[(\Theta-\hat{\Theta})^2 | X=x]\\)
+  - But given \\(X=x\\), \\(\hat{\Theta}\\) is determined
+   \\[E[(\Theta-\hat{\Theta})^2 | X=x] = E[(\Theta-\hat{\theta})^2 | X=x]\\]
+  - and we calculated \\(\hat{\theta}\\) just above, as \\(\frac{\sum\_{i=0}^n\frac{x\_i}{\sigma\_i^2}}{\sum\_{i=0}^n\frac{1}{\sigma\_i^2}}\\)
+  - And note that \\(\hat{\theta}\\) is the mean of the posterior, so that \\(\hat{\theta}=E[\Theta\|X=x]\\)
+  - now the performance measure becomes \\(E[(\Theta -  E[\Theta\|X=x] )^2 || X=x]\\), which is the variance of \\(\Theta\\) in the \\(X=x\\) conditioned universe
+   \\[E[(\Theta-\hat{\Theta})^2 \| X=x] = \text{var}(\Theta\|X=x)\\]
+2. In "Recognizing Normal PDF" part, we had simple way to calculate the variance of a normal
+   1. \\(\alpha = \sum\_{i=0}^n\frac{1}{2\sigma\_i^2}\\)
+   2. multipling 2 and inverting gives \\(1/(\sum\_{i=0}^n\frac{1}{\sigma\_i^2})\\)
+3. Now we have \\(E[(\Theta-\hat{\Theta})^2 \| X=x] = 1/(\sum\_{i=0}^n\frac{1}{\sigma\_i^2})\\). What about \\(E[(\Theta-\hat{\Theta})^2]\\) ?
+4. using total expectation theorem, we again see that \\(E[(\Theta-\hat{\Theta})^2] = 1/(\sum\_{i=0}^n\frac{1}{\sigma\_i^2})\\)
+   - This makes sense, since Given \\(X=x\\), the mean squared value was not a function of \\(x\\)
+5. interpretation
+   - many \\(\sigma\_i^2\\) small \\(\quad\rightarrow\quad\\) MSE small. Our uncertainty is small
+   - any \\(\sigma\_i^2\\) large \\(\quad\rightarrow\quad\\) MSE large. Our uncertainty is large
+   - If \\(\sigma\_0=\sigma\_1=...\\), then the variance becomes \\(\sigma^2/(n+1)\\). __More observation -> more certain!__ (estimated variance goes down)
+   - Conditional MSE was not a function of \\(X=x\\), all same! = no specific \\(X=x\\) is more desirable
+
+
+
+For simple model \\(X, W\sim N(0, 1), X,W\\) are independent,  
+<img src="{{site.url}}/images/math/prob/normal_1.jpg" width="700">  
+
+1. red line : prior \\(f\_\Theta(\theta)\\)
+2. blue line : posterior \\(f\_{\Theta\|}(\theta)\\) basesd on observation \\(x=0, \hat{\theta}=0/2\\)
+3. green line : posterior \\(f\_{\Theta\|}(\theta)\\) basesd on observation \\(x, \hat{\theta}=x/2\\)
+
+Note that the variance is fixed regardless of the observation, as we've seen above.
+
+
+### Trajectory Estimation
+<img src="{{site.url}}/images/math/prob/traj.jpg" width="1000">  
+
+Assume
+\\[X\_i=\Theta\_0+\Theta\_0t\_i+\Theta\_2+t\_i^2+W\_i\quad\quad i=1,...,n\\]
+* also assume \\(\Theta\_j\sim N(0, \sigma\_j^2\),\quad W\_i\sim N(0, \sigma^2)\\) are independent
+* Now we see that  \\(\Theta : \Omega \mapsto R^3\\)
+* __Given__ \\(\Theta=\theta=(\theta\_0, \theta\_1, \theta\_2)\\), \\(X\_i\\) is \\(N(\theta\_0+\theta\_1t\_i+\theta\_2t\_i^2, \sigma^2)\\)
+  * where \\(f\_{X\_i \| \Theta}(x\_i \| \theta) = c\cdot \exp\left\\{  -(x\_i-\theta\_0-\theta\_1t\_i+\theta\_2t\_i^2)^2 / 2\sigma^2 \right\\}\\)
+* \\(f\_\Theta\\) is normal, as we assumed
+
+Given all above, we can calculate the posterior
+\\[f\_{\Theta \| X\_i}(\theta\|x) = c(x)\exp\left\\{ -\frac{1}{2}(\frac{\theta\_0^2}{\sigma\_0^2} + \frac{\theta\_1^2}{\sigma\_1^2} + \frac{\theta\_2^2}{\sigma\_2^2}) - \frac{1}{2\sigma^2}\sum\_{i=1}^n(x\_i-\theta\_0-\theta\_1t\_i+\theta\-2t\_i^2)^2 \right\\}\\]
+- `MAP estimate` : using optimality condition, 
+
+
+
+### Limear Normal models
+- \\(\Theta\_j\\) and \\(X\_i\\) are linear functions of independent Normal RVs
+- \\(f\_{\Theta \| X}(\theta \| x) = c(x)\exp\left\\{ -\text{quadratic}(\theta\_1,...,\theta\_m) \right\\}\\)
+- MAP estimate = maximizing over convex quadratic = linear (by optimality condition)
+- inference becomes linear regression
+- Facts:
+  - \\(\hat{\Theta}\_{MAP, j} = E[\Theta\_j \| X]\\)
+  - marginal posterior PDF of \\(\Theta\_j \\) is normal = __Marginal inference is also linear__
+  - \\(E[(\hat{\Theta}\_{i, MAP} - \Theta\_i)^2 \| X=x]\\) : same for all \\(x\\)
+
+
+### Bayesian Confidence Intervals
+
+<img src="{{site.url}}/images/math/prob/bci.jpg" width="1000">  

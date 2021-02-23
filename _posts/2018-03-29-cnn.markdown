@@ -1,0 +1,52 @@
+---
+layout: post
+title:  "Convolution in deep learning (def, properties)"
+date:   2018-03-29 11:19:00
+categories: deep_learning
+use_math: true
+tags: deep_learning deep_learning(bengio) translation_invariance
+---
+Convolutional Neural Networks (LeCun, 1989, `CNN`) are neural nets for processing of grid-like topology.
+
+__Convolution is a linear operation.__ So it can be described in terms of linear layer as \\[  \phi((x\*f) + b)\equiv\phi(W^Tx+b)\\]
+
+where \\(f\\) is some filter.
+
+Usually, the colvolution in deep learning does not correspond precisely to the definition of convolution in other fields.
+
+
+<h3 id="conv_op">(1) The convolution operation</h3>  
+is defined as,  
+\\[S(t)=\int x(a)w(t-a)da = \sum_{a=-\infty}^{\infty}x(a)w(t-a)\\] where \\(x(a)\\) is referred as `input`, \\(w(t-a)\\) as the `kernel`, and the output is sometimes referred as the `feature map`.
+
+In ML application, \\(x(a)\\) and \\(w(t-a)\\) are usually tensors.
+
+
+
+We often use convolution over more than one axis a time. Ex) \\[ S(i,j) = (I\*K)(i,j)=\sum_m{\sum_n{I(m,n)K(i-m,j-n)}}\\]
+
+Convolution is `commutative`, so that
+
+\\[(I\*K)(i, j) = (K\*I)(i,j)\\] The only reason we flip the kernel is to make it commutative. (Original and its flip are symmetric at \\(t/2\\))
+
+
+
+`Cross-correlation function`: no kernel flipping in convolution. Many ML libraries implement cross-correlation but call it convolution.  
+Since Discrete convolution is a linear opeariton, there there exists <a href="{{site.url}}/linear_algebra/2018/04/21/mat-and-linear-transform.html" target="_blank">1-1 correspondence</a> to Toeplitz matrix. \\[(x\*w)(t)=\sum\_{a=-\infty}^{\infty}x(a)w(t-a) \\] \\[(x\*w)(t) = \cdots + x(-1)w(t+1) + x(0)w(t) + x(1)w(t-1) + \cdots  \\] \\[(x\*w)(t+1) = \cdots + x(-1)w(t) + x(0)w(t+1) + x(1)w(t) + \cdots \\] \\[ \Longrightarrow \begin{bmatrix}   \vdots  \cr (x\*w)(t) \cr   (x\*w)(t+1) \cr \vdots \end{bmatrix} = \begin{bmatrix}   \cr \cdots & w(t+1) & w(t) & w(t-1) & \cdots \cr  \cdots & w(t+2) & w(t+1) & w(t) & \cdots  \cr & \end{bmatrix} \begin{bmatrix}   \vdots  \cr x(-1) \cr   x(0) \cr x(1) \cr \vdots \end{bmatrix}\\]
+
+
+<h3 id="equivariance">Convolution is equivariance to translation</h3>
+>A function \\(f\\) is `equivariance` to an another function \\(g\\) if \\(f(g(x))=g(f(x))\\) holds.
+
+In the case of convolution, particular form of parameter sharing causes the layers to have equivariance to translation.
+
+When processing time-series data, or images in 2-dimensional, equivariance to translation means __convolution produces a sort of__ `timeline` (or a `feature map`, indeed) that shows when different features appears in the input.
+
+Convolution is not naturally invariant to other transformation, such as changing in the scale or rotation. Other mechanisms are needed to handed such transformation.
+
+
+<br/><br/>
+Next:
+<br/><br/>
+References:  
+<a href = "http://www.deeplearningbook.org/" target="_blank">http://www.deeplearningbook.org/</a>

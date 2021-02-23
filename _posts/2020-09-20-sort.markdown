@@ -1,0 +1,122 @@
+---
+layout: post
+title:  "Sorting"
+date:   2020-09-20 09:10:05 +0800
+categories: coding
+use_math: true
+tags: coding algorithm
+---
+
+- <a href="http://www.secmem.org/blog/2019/04/10/special-sorts/" target="_blank">삼성 소멤 정렬</a>
+
+
+### Stable sort
+1. (binary) `insertion sort` - stable. (..., V_1, V_2, ...) 순일 시, V_1 먼저 삽입 후 V_2를 삽입할 때 V_1앞에 놓을 이유가 전혀 없음 (추가코스트를 들이지 않고 자연스럽게 stable sort가 가능)
+2. `quick sort` - unstable / <a href="https://www.geeksforgeeks.org/stable-quicksort/" target="_blank">stable</a>
+  - 구현에 따라 방법은 달라지겠지만, textbook 구현을 따른다고 할 시
+      1. 맨 뒤 아이템이 피봇, small = start - 1
+      2. pivot보다 작은 것 찾을 시 마다
+      3. smind++, swap(ary[cur], ary[smind]))) 
+  - 이 경우, pivot으로 택한 아이템이 자기와 같은 값을 갖는 아이템들의 맨 앞에 / 맨 뒤에 위치하게 되고, 자연스럽게 stability가 깨짐
+  - 위 geeks 링크 - 배열2개를 만들고, 값이 같을 시 밑에 넣을 지 위에 넣을 지 __index로 판단__ . stability를 위해 추가 코스트가 들어감
+3. `merge sort` - stable. 병합 시 같으면 왼쪽 먼저 - 자연스럽게 stable
+4. `heap sort` - unstable
+  - 얼핏 생각하면, 정렬된 array는 min heap이므로 괜찮을 것 같지만..
+  - 첫번째 아이템을 pop하고 다시 reheap하는 과정에서 key값 비교할 때 index를 추가로 고려해야 stable sort가 됨
+5. `tim sort` - binary insertion sort나 merge sort를 사용하므로, stable
+6. `intro sort` - 퀵소트/힙소트를 주로 쓰니 unstable?
+
+
+### Quicksort worst case
+- 정렬/역순/전부 동일한 경우 + pivot이 maximum 이면, 각 partition O(N)이 N번 일어남
+- swap 기준을 leq로 하든 <로 하든 동일하게 partition이 O(N)임
+
+### (randomized) Quicksort Avg case
+- 일단, constant split (ex -  1 : 9)로만 나뉘어도
+  - O(N) (각 recursion tree의 레벨에선 at most N의 비교가 일어나며, 1인 쪽은 금방 없어짐)
+  - \\(\times O(\log\_\{0.9\}N\\) (recursion tree의 최대 길이)
+  - 로 nlgn이 됨. 
+- nlgn 증명
+  1. partition은 O(N)임. 한번 실행할 때 마다 아이템 하나를 선택함. 따라서 문제는 partition내부의 비교 횟수 (\\(O(X)\\))임
+  2. assume distinct items, and let
+      - \\(A:=\\{a\_1,...,a\_n\\}\\) : 정렬할 배열
+      - \\(Z:=\\{z\_1,...,z\_n\\}\\) : 정렬된 배열
+      - \\(x\_i = I\\{z\_i \text\{ is compared to \} z\_j\\}\\)
+  3. then, \\(E[X]=\sum\_\{i=1\}^\{n-1\} \sum\_\{j=i+1\}^\{n\} P[z\_i \text\{ is compared to \} z\_j]\\).  
+      we now have to find \\(P[z\_i \text\{ is compared to \} z\_j]\\).
+  4. each item \\(x\_i, x\_j\\) is compared at most once (one is selected as a pivot, and the other is in the partition param list), therefore let  
+     \\(X:=\sum\_\{i=1\}^\{n-1\} \sum\_\{j=i+1\}^\{n\} x\_\{ij\}\\) 
+  5. for each \\(z\_\{ij\} := \\{z\_i,...,z\_j\\}\\), 
+     1. \\(z\_i \text\{ or \} z\_j\\) is chosen as a pivot - \\(x\_\{ij\}=1\\)
+     2.  \\(z\_i \text\{ or \} z\_j\\) is not chosen as a pivot - \\(x\_\{ij\}=0\\)
+     3.  we assumed independent and uniform pivor draw, so \\(P[z\_i \text\{ is compared to \} z\_j] = \frac\{2\}\{j-i+1\}\\)
+  6. \\[E[X] = \sum\_\{i=1\}^\{n-1\} \sum\_\{j=i+1\}^\{n\} \frac\{2\}\{j-i+1\}\\]
+     \\[= \sum\_\{i=1\}^\{n-1\} \sum\_\{k=1\}^\{n-i\} \frac\{2\}\{k+1\}\\]
+     \\[<> \sum\_\{i=1\}^\{n-1\} \sum\_\{k=1\}^\{n-i\} \frac\{2\}\{k\}\\]
+     \\[= \sum\_\{i=1\}^\{n-1\} O(lgn)\quad\quad ... \quad\quad \text\{upper bound for harmonic series. (think bout the integral of 1/n)\}\\]
+     \\[O(nlgn)\\]
+ 
+  
+   
+
+### Intro sort
+- STL
+- 이론적인 worst case에 대응
+- <a href="https://www.geeksforgeeks.org/know-your-sorting-algorithm-set-2-introsort-cs-sorting-weapon/" target="_blank">https://www.geeksforgeeks.org/know-your-sorting-algorithm-set-2-introsort-cs-sorting-weapon/</a>
+
+Wikipedia pseudocode
+```python
+procedure sort(A : array):
+    let maxdepth = ⌊log(length(A))⌋ × 2
+    introsort(A, maxdepth)
+
+procedure introsort(A, maxdepth):
+    n ← length(A)
+    if n ≤ 1:
+        return  // base case
+    else if maxdepth = 0:
+        heapsort(A)
+    else:
+        p ← partition(A)  // assume this function does pivot selection, p is the final position of the pivot
+        introsort(A[0:p-1], maxdepth - 1)
+        introsort(A[p+1:n], maxdepth - 1)
+```
+- recursion depth가 특정 threshold (ex - lgN * 2)를 넘어가면, 더이상 partition을 나누지 않고 heapsort로 변함
+- STL은 n=32이하일 시 binary insertion sort로 변한다는 듯
+
+### Tim sort
+- 자바, 파이썬 (list)
+References
+- <a href="https://d2.naver.com/helloworld/0315536" target="_blank">네이버 블로그 포스트</a>
+- <a href="https://en.wikipedia.org/wiki/Timsort" target="_blank">위키</a>
+- <a href="https://orchistro.tistory.com/175" target="_blank">https://orchistro.tistory.com/175</a>
+- 다양한 케이스들에 대해 최적화가 됨
+- 
+
+휴리스틱 최적화
+1. run 구성 : 랜덤한 값들은 32~64 정도 크기로, 정렬된 값들은 계속 붙여서 run을 구성
+2. 각 run들에 `binary insertion sort` 적용
+3. 중간중간에 stack을 이용한 merge 시행
+   1. 스택이 <a href="https://d2.naver.com/helloworld/0315536" target="_blank">increasing 하게</a>, 서로간의 차이가 너무 크지 않게
+      1. [A, B, C]라고 하면  
+          1. \|C\| > \|A\| + \|B\| (증조부는 자식들을 합한 것 보다 일정 정도 커야 함 - 스택 크기를 너무 크지 않게 해 줌)  
+          2. \|A\| < \|B\| 
+      2. 만일 너무 큰 run A가 들어 오면, 뒤의 B/C를 병합함.
+      3. 1번째 조건 덕분에, 피보나치 수와 유사함 (a[i+2] ~= a[i] + a[i+1]). n=1억에 대해 40정도 크기로 유지가능
+4. merge시 O(n/2)메모리 사용 (2개의 run중 작은 것 메모리 복사)
+  - run 순서가 A, B이고 increaasing 정렬이면
+    - A가 작을 시 A복사, 앞에서(작은것)부터 merge
+    - B가 작을 시 B복사, 뒤에서(큰것)부터 merge
+5. galloping - sorted된 배열 머지시 좋음
+  - binary merge시, 특정 run만 계속 선택 (ex - 3번 연속)된다면, 2의 배수만큼 인덱스를 건너뛰어 보기
+
+### Externel sort
+1. 메모리에 들어오는 양 만큼의 run들을 만듬
+2. 각 run을 K-way merge (heap or tournament. tournament가 간편한듯)로 합침. 
+
+### Parallel sort
+- merge sort가 쓰이는 듯
+- NlogN/p + dag길이가 upper bound겠지?
+- dag길이 - tournament method일시 lgn
+
+

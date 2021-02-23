@@ -1,0 +1,196 @@
+---
+layout: post
+title:  "Conjugate Gradient"
+date:   2020-11-27 09:00:05 +0800
+categories: linear_algebra
+use_math: true
+tags: linear_algebra math need_review
+---
+
+> <a href="https://www.cs.cmu.edu/~quake-papers/painless-conjugate-gradient.pdf" target="_blank">https://www.cs.cmu.edu/~quake-papers/painless-conjugate-gradient.pdf</a>
+
+TODO
+- Precondition
+
+정리 (revision in 20.11.26)
+1. 전제조건 = 알고리즘 진행 시 line search의 optimality condition : \\(e\_\{i+1\}^TAd\_i=0\\)을 만족해야 함
+2. 여기서 우리에겐 search direction \\(d\_i\\)를 선택할 수 있는 자유가 있음
+3. 우선 negative gradient direction \\(r\_i\\) 이 현재 \\(x\_i\\)에서 함수값이 가장 감소하는 방향이니까, \\(d\_i=r\_i\\)로 진행  
+   \\(\rightarrow\\) `steepest descent`
+   *  convex quadratic 함수의 level set 이 찌그러진 타원 모양일 때 = eigenvalue들이 잘 클러스터링 돼있지 않을 시 수렴이 느림
+5. A-orthonormal한 \\(d\_i\\)를 사용하고, 이 \\(d\_i\\)는 residual \\(r\_i\\)로부터 Conjugate <a href="{{site.url}}/linear_algebra/2018/05/15/orthonormal-basis.html" target="_blank">Gram-Schmidt</a>를 수행해 찾음  
+   \\(\rightarrow\\) `conjugate gradient`
+   * A-energy norm을 최소화하는 것이므로, "<a href="{{site.url}}/linear_algebra/2018/05/24/ellipsoids-and-pst-mat.html">찌그러진 타원</a>이 펴지는" 거리(norm)를 사용해 측정한 에러 \\(e\_i=x\_i- x^* \\)를 최소화하는 것 - 타원을 핀 공간에서 알고리즘을 진행하려는 것과 비슷 (이 비슷 부분을 명확하게 정리해야 할 듯)
+   * Conjugate Gram-Schmidt과정은 원래 N^2이나, 여러 nice property로 인해 이전 \\(r\_i\\)들을 저장할 필요가 없게 됨 - N이 하나 줄거나 O(M) (M=nonzery entries of A)이 됨
+
+### Intro, Notation
+
+
+- CG is effective for the systems of the form \\(Ax-b\\), where \\(A\\) is symmetric and positive definite
+- for a quadratic system with such \\(A\\), let
+  -  \\(f(x):= x^TAx-x^Tb+c\\)
+  -  \\(f'(x)=Ax-b\\)
+  - then it's hessian \\(A\\) is positive-definite
+    - Then \\(f\\) is convex, and we can find \\(x^*\\) which minimizes \\(f\\) by solving \\(Ax-b=0\\)
+- If \\(A\\) does not have such properties, CG (and steepest descent) will likely fail (by finding saddle point)
+- The value of \\(b\\) and \\(c\\) determine where the minimum point of the paraboloid (=level set of quadratic func) lies, but do not affect the paraboloid's shape
+
+#### Problem setting
+Let us define
+* `error` \\(e\_i := x\_i - x^* \\), where \\(x^*\\) is a solution.
+* `residual` \\(r\_i=b-Ax\_i\\)
+  * It is easy to see that \\(r\_i=-Ae\_i\\), since \\(Ax^*=b\\) holds.
+    * you should think of the residual as being the error transformed by \\(A\\) into the same space as \\(b\\)
+    * at the same time, it is the negative gradient direction at \\(x\_i\\) (namely, \\(-f'(x\_i)\\))
+* in general form, the next step will be \\[x\_\{i+1\}=x\_i+\alpha d\_i\\] In the case of steepest descent, with the `search direction` \\(d\_i\\).
+  * with the next search direction \\(d\_i\\),
+    * `next error` \\(e\_\{i+1\}=e\_i+\alpha d\_i,\quad\quad\\) since \\(e\_\{i+1\} = x\_\{i+1\}-x^* = x\_i+\alpha d\_i - x^* = e\_i+\alpha d\_i\\)
+    * `next residual` \\(r\_\{i+1\} = r\_i-\alpha Ad\_i,\quad\quad\\) since \\(-Ae\_\{i+1\} = -A(e\_i+\alpha d\_i) = r\_i-\alpha Ad\_i\\)
+* __Note that,__ 
+  * \\(-r\_i = f'(x\_i)\\) in our problem setting
+  * we cannot calculate \\(e\_i\\), but by mapping them with \\(A\\) we can calculate \\(r\_i\\)
+
+#### Line search
+
+- Generally it is not an trivial thing to determine the stepsize \\(\alpha\_i\\)
+- but under the above (good) problem we can found it in a closed form
+- Since \\(f\\) were convex, the composition function \\(f(x\_i+\alpha r\_i)\\) is also a convex function (convex function on a convex domain (line)). We set derivative to 0 so that
+\\[\frac\{\partial\}\{\partial \alpha\}f(x\_i+\alpha r\_i) = f'(x\_i+\alpha r\_i)^Tr\_i = f'(x\_\{i+1\})^Td\_i = -r\_\{i+1\}^Td\_i = 0 \\]
+\\[ r\_\{i+1\}^Td\_i = e\_\{i+1\}^TAd\_i = 0 \\]
+  is the optimality condition in each step of the algorithms this page will cover.
+
+
+### Steepest Descent
+In the _steepest descent,_ we will go down to the negative gradient direction (\\(f\\) is continuous function)
+\\[d\_i=r\_i\\]
+so that the algorithm proceeds as
+\\[x\_\{i+1\} = x\_i+\alpha r\_i\\]
+
+
+#### Line search in Steepest descent
+- letting \\(d\_i=r\_i\\), we see that \\[\frac\{\partial\}\{\partial \alpha\}f(x\_i+\alpha d\_i) = f'(x\_i+\alpha d\_i)^Td\_i = f'(x\_\{i+1\})^Td\_i = 0 \\]
+- we see that, the search direction is orthogonal to the gradient (of the next point \\(x\_\{i+1\}\\))
+- <img src="{{site.url}}/images/math/steepest_descent_alp.jpg" width="600">  
+- \\(\alpha = \frac\{r^T\_ir\_i\}\{r^T\_iAr_i\}\\)
+- The update will be  
+ <img src="{{site.url}}/images/math/steepest_descent.jpg" width="1000">
+- The equation (10) in the link is the steepest descent steps. We see that matrix-vector form is used, so it can easily utilize the sparsity
+
+
+#### Convergence of Steepest Descent
+1. Let's first consider where \\(e\_i = x\_i-x^*\\) is an eivengector of \\(A\\). The the residual \\(r\_i=-Ae\_i = \lambda\_ie\_i\\) is __also an eigenvector.__
+Then equ12(whole update equation) gives \\(e\_\{i+1\}=0\\) by
+\\[e\_\{i+1\} = e\_i+ \frac\{r^T\_ir\_i\}\{r^T\_iAr_i\}r\_i\\]
+\\[ = e\_i+ \frac\{r^T\_ir\_i\}\{Ar^T\_ir\_i\}(-\lambda\_ee\_i)\\]
+\\[ = e\_i - e\_i = 0\\]
+1. If not, we can express \\(e\_i\\) as a linear combination of the __orthonormal eigenvectors__ of \\(A\\). (refer to the Equ 19-23).   
+briefly, \\(e\_i=\sum\_\{j=1\}^n\xi\_jv\_j\\) where \\(v\_j\\)'s are orthogonal and let \\(\lambda\_j\\) be the corresponding eigenvalues. Then 
+\\[r\_i = -Ae\_i = \sum\_\{j=1\}^n\xi\_j\lambda\_jv\_j\\]
+\\[ r\_i^Tr\_i =  (\sum\_\{j=1\}^n\xi\_j\lambda\_jv\_j)(\sum\_\{j=1\}^n\xi\_j\lambda\_jv\_j) = \sum\_\{j=1\}^n\xi\_j^2\lambda\_j^2\\]
+\\[r\_i^TAr\_i =  \sum\_\{j=1\}^n\xi\_j^2\lambda\_j^3\\]
+so that
+\\[e\_\{i+1\} = e\_i+ \frac\{r^T\_ir\_i\}\{r^T\_iAr_i\}r\_i\tag\{equ12\}\\]
+\\[e\_\{i+1\}=e\_i+\frac\{ \Sigma\_j \xi\_j^2\lambda\_j^2 \}\{ \Sigma\_j\xi\_j^2\lambda\_j^3 \}r\_i\\] where \\(\xi\_i\\) are weight of the linear combination.  
+> If all eigenvalues are same __(circular level set!),__ then \\(e\_\{i+1\}=0\\) !!
+1. __Later, in CG, we are going to minimize a distance which measures the level set of__ \\(A\\) __as circular.__
+2. 일반적인 케이스는 18p A-energy norm으로 분석가능 (condition number \\(k\\) 와 초기위치에 의해 결정되는 \\(\mu\\)에 의해 결정됨 (아래 식의 \\(\omega\\)는 \\(k, \mu\\)의 함수). \\(k\\)가 크거나, \\(k=\pm\mu\\)일시 수렴이 느림)
+\\[\|\|e\_\{i+1\}\|\|^2_A = \|\|e\_i\|\|^2_A\omega^2\\]
+6. upper bound 는 \\(k^2=\omega^2\\) (위의 조건)일 시,
+\\[\omega \leq \frac\{k-1\}\{k+1\}\\]
+... (refer to the paper)
+
+
+### Conjugate Gradient
+
+>  Here’s an idea: let’s pick a set of A-orthogonal search directions \\(\\{d\_0,...,d\_\{n-1\}\\}\\). In each search direction, we’ll take exactly one step, and that step will be just the right length to line up evenly with \\(x\\). After \\(n\\) steps, we’ll be done. <a href="https://www.cs.cmu.edu/~quake-papers/painless-conjugate-gradient.pdf" target="_blank">(page 21)</a>
+
+
+Starting from the optimality condition \\(d\_i^TAe\_\{i+1\} = 0\\), let us select \\(d\_0,...,d\_\{n-1\}\\) as the A-orthogonal (i.e. \\(d\_i^TAd\_j = 0\\)) vectors.  
+The optimality condition becomes
+\\[d\_i^TA(e\_i + \alpha\_id\_i) = 0\\]
+\\[d_i^TAe\_i + \alpha\_id_i^TAd\_i=0\\]
+\\[\alpha\_i = -\frac\{d_i^TAr\_i\}\{d_i^TAd\_i\} \\]
+
+Such algorithm has several nice property, which makes it as a practical algorithm (often applicable to large problem which cannot be fit into the memory using Jacobi method)
+
+
+#### N step convergence
+- express the error term \\(e\_0\\) as the linear combination of search direction \\(d\_i\\)s. \\[e\_0 = \sum\_\{j=0\}^\{n-1\} \delta\_jd\_j\\] Then by multiplying \\(d_k^TA\\) on both sides, we can calculate the weight (of the linear combination) \\(d\_k\\) by  
+  <img src="{{site.url}}/images/math/steepest_descent2.jpg" width="1200">   
+  (epu29 refers to the update equation \\(x\_\{i+1\}=x\_i+\alpha d\_i\\))
+- in 4th line, we use __the assumption__ \\(d\_k^TAd\_j = 0 \text\{ for \} k\neq j\\)
+- __notice that__, by combining equ31 and equ34, we find that \\(\alpha\_i=-\delta\_i\\). This fact gives us a new way to look at \\(e\_i\\).
+  - __For each step, we cut down the error term component by component__
+    \\[e\_i = e\_0 + \sum\_\{j=0\}^\{i-1\}\alpha\_jd\_j\\]
+    \\[= \sum\_\{j=0\}^\{n-1\}\delta\_jd\_j - \sum\_\{j=0\}^\{i-1\}\delta\_jd\_j\quad\quad \text\{stepsize \}\alpha\_j=-\delta\_j\\]
+    \\[e\_i=\sum\_\{j=i\}^\{n-1\}\delta\_jd\_j\tag\{35\}\\] 
+  - after \\(n\\) iteration, every component is cut away, and \\(e\_n=0\\); the proof is complete
+
+
+#### Gram-Schmidt Conjugation
+- like we did in <a href="{{site.url}}/linear_algebra/2018/05/15/orthonormal-basis.html" target="_blank">Gram-Schmidt</a>, to construct A-orthogonal \\(d\_i\\) from arbitrary basis \\(u\_i\\)s, take \\(u\_i\\) and subtrack any components that are not A-orthogonal to the previous \\(d\\) vectors. i.e. \\[d\_i=u\_i + \sum\_\{k=0\}^\{i-1\}\beta\_\{ik\}d\_k\\] where \\(\beta\_\{ik\}\\) is defined for \\(k < i \\) (thus, N^2 for finding each \\(d\_i\\), which gives \\(O(n^3)\\)). 
+- To calculate their values, use the same trick used to find \\(\delta\_j\\) (multiplying \\(d\_j^TA\\) to \\(d\_i\\) to find \\(\beta\_\{ij\}\\))  
+  <img src="{{site.url}}/images/math/steepest_descent3.jpg" width="1200">   
+- when we use \\(d\_i\\) as the standard unit basis, the process of Gram-Schmidt conjugation is equivalent to performing Gaussian elimination. 
+
+> Remember that when one is performing the method of Conjugate Directions (including CG), one is simultaneously performing the method of Orthogonal Directions in a stretched (scaled) space
+
+#### Optimality of the Error Term
+Conjugate directions has an interesting property
+- Let \\(\mathcal\{D\}\_i\\) be the i-dimensional subspace \\(\text\{span}\\{d\_0,...,d\_\{i-1\}\\}\\). The value \\(e\_i\\) is __chosen__ (by calculating \\(\alpha\_i\\), all the \\(\beta\_\{ik\}\\), and \\(d\_i\\)) from \\(e\_0+D\_i\\) in a manner which `minimizes the A-energy norm` \\(\|\|e\_i\|\|\_A\\). 
+
+TO prove, using equ35,  
+<img src="{{site.url}}/images/math/steepest_descent4.jpg" width="700">   
+- we see that, the summation only has not yet traversed search direction \\(d\_j, j>i\\). Any other \\(e\in e\_0+\mathcal\{D\}\_i\\) must include previously traversed directions \\(d\_j, j < i \\) in its linear combination, so \\(e\_i\\) must have the minimum energy norm.
+- A-energy norm is equivalent to measuing distance with new basis, where the level set of \\(A\\) is circular (to check this, do spectral decomposition \\(x^TQAQ^Tx\\) and put any orthonormal eigenvector \\(q\_i\\) to \\(x\\))= stretching the space! (for each eigenvector direction, ellipsoid has length \\(\frac\{1\}\{\lambda\_i\}\\) <a href="{{site.url}}/linear_algebra/2018/05/24/ellipsoids-and-pst-mat.html">(link)</a>
+
+
+### The method of Conjugate Gradient (finally!)
+
+- An important property is that, \\(r\_j\\) is orthogonal to \\(\mathcal\{D\}\_i,\\ \\ j>i\\). To show this, multiply \\(-d\_i^TA\\) to equ35
+\\[-d\_i^TAe\_j = - \sum\_\{j=1\}^\{n-1\}\delta\_jd\_i^TAd\_j\tag\{38\}\\]
+\\[-d\_i^Tr\_j=0 \quad j>i\quad\text\{by A-orthogonality of d-vectors\}\tag\{39\}\\]  
+- because \\(d\_i\\)s are constructed from the \\(u\\) vectors, \\(D\_i\\) also can be spanned by \\(\\{u\_0,...,u\_\{i-1\}\\}\\)
+ the search direction.
+- by equ39, we see that residual \\(r\_i\\) is orthogonal the previous search directions \\(d\_j, j < i \\).
+  \\[d\_i^Tr\_j=u\_i^Tr\_j + \sum\_\{k=0\}^\{i-1\}\beta\_\{ik\}d\_k^Tr\_j\\]
+  (remember that \\(d\_i\\) was generated from \\(u\_i\\) by conjugacy)  
+  \\[0 = u\_i^Tr\_j\quad\quad \text\{(by 39)\}\tag\{41\}\\]  
+  which gives us
+  \\[d\_i^Tr\_i = u\_i^Tr\_i\tag\{40\}\\]
+- now let us set \\(u\_i=r\_i\\). we see that equ41 becomes \\(r\_i^Tr\_j=0\\), so residual is orthogonal to the previous residuals - which implies independence
+\\[r\_i^Tr\_j=0,\quad\quad i\neq j\tag\{44\}\\]
+
+Recall from equ37 that the A-Gram Schmidt constant \\(\beta\_\{ij\}\\) were
+\\[\beta\_\{ij\}= -\frac\{u\_i^TAd\_j\}\{d\_j^TAd\_j\} = -\frac\{r\_i^TAd\_j\}\{d\_j^TAd\_j\}\quad\quad i>j\\]
+Taking the inner product \\(r\_i^Tr\_j\quad\forall i,j \\) and using Equ43 (next residual)
+\\[r\_i^Tr\_\{j+1\} = r\_i^Tr\_j - \alpha\_jr\_i^TAd\_j \\]
+\\[ \alpha\_jr\_i^TAd\_j = r\_i^Tr\_j - r\_i^Tr\_\{j+1\} \\]
+\\[ r\_i^TAd\_j = 
+\begin\{cases\}
+\frac\{1\}\{\alpha\_i\}r\_i^Tr\_j, & i = j \cr
+-\frac\{1\}\{\alpha\_\{i-1\}\}r\_i^Tr\_j, & i = j+1 & \text\{by (44)\} \cr
+0, & o.w 
+\end\{cases\}
+\\]
+so that, equ37 (\\(\beta\_\{ij\}\\)) is reduced to
+\\[ \beta\_\{ij\} = 
+\begin\{cases\}
+\frac\{1\}\{\alpha\_\{i-1\}\}\frac\{r\_i^Tr\_j\}\{d\_\{i-1\}^TAd\_\{i-1\}\}, & i = j+1 & \text\{by (37)\} \cr
+0, & i>j+1
+\end\{cases\}
+\\]
+- Per iteration time complexity reduced from N^2 to N or M, where M is the nonzero entries of \\(A\\).
+- there is no dependencies to \\(j\\), so we can abbreviate \\(\beta\_\{ij\}\\) as \\(\beta\_i\\)  
+
+
+ <img src="{{site.url}}/images/math/cg.jpg" width="1000">
+
+#### Krylov subspace
+in `next residual` term \\[r\_\{i+1\}=r\_i-\alpha\_iAd\_i\\], we see that each new residual \\(r\_\{i+1\}\\) is a linear combination of previous residual \\(r\_i\\) and A\\(d\_i\\). 
+- recalling that \\(r\_0=d\_0\\), and \\(d\_\{i-1\} \in D\_i\\) is a linear combination of previous residuals \\(r\_k, k<i-1\\), we see that  
+  \\(D\_i\\) is formed from the union (in terms of span) of the previous subspace \\(D\_\{i-1\}\\) and \\(AD\_\{i-1\}\\). Using induction,
+  \\[D\_i=span\\{r\_0,Ar\_0,...,A^\{i-1\}r\_0\\}\\]
+  \\[D\_i=span\\{d\_0,Ad\_0,...,A^\{i-1\}d\_0\\}\\]
+- this subspace is called a `Krylov subspace`
+- convergence analysis 전까지 나머지는 걍 읽으면 됨. 정리할 시간이 없네 ㅡㅡㅋ precondition은 뺄까...

@@ -1,0 +1,339 @@
+---
+layout: post
+title:  "Style transfer, GAN, img2img, Domain Adaptation Papers"
+date:   2019-05-10 09:00:05 +0800
+categories: deep_learning
+use_math: true
+tags: deep_learning generative style_transfer gan domain_adaptation
+---
+
+Papers with good references
+* `BigGAN`: modification of GANs for stability, conditional GANs
+* Learning from Synthetic Data: Addressing Domain Shift for Semantic Segmentation
+
+Latent reconstruction loss (reconstruct style by style-image-style) (ref can be found at Mul)
+
+Origin of `CBN`
+* [18], [20] (confirmed in [46])
+
+### Conditional GANs
+
+
+#### Conditional image synthesis with auxiliary classifier GANs [14]
+* referenced in [13]
+  * class information provided to \\(G\\) by concatenating a 1-hot class vector to the noise vector
+  * objective function is modified to encourage conditional samples to maximize the corresponding cls probability poredicted by an auxiliary classifier
+
+
+#### Self-attention generative adversarial networks [17]
+* referenced in [13]
+  * found that applying Spectral normalization [15] on \\(G\\) improves stability of \\(G\\) - fewer update of \\(D\\) made possible
+
+#### A learned representation for artistic style [18]
+* origin of `CBN` (confirmed in [45])
+* ICLR 2017 (review!)
+* referenced in [13]   
+    * modify the way class conditioning is passed to G by supplying it with class conditional gains and biases in BatchNorm
+* old style transfer literature (separation of `style` and `content` without DNN)
+* > objective (of style transfer) is by nature vaguely defined, b/c __similarity in content and style are themselves vaguely defined__
+* Basic formulation of style transfer, (wrt high/low lvl features extracted from DNN)
+* `style` = `A visual texture`, which is conjectured to be spatially homogenous and consist of repeated structural motifs whose minimal sufficient statistics are captured by lower order statistical measurement (Julesz 1962, Portill & Simoncelli, 1999)
+* mentioned similarity of style & contents, based on perceptual loss (not the 1st to define them)
+* Proposed that affine transformation is enough to designate a style!
+
+#### cGANs with projection discriminator. In ICLR, 2018 [19]
+`CBN`
+* referenced in [13]   
+    *  \\(D\\) is conditioned by using the cosine similarity between its features and a set of learned class embeddings as additional evidence for distinguishing real and generated samples, effectively encouraging generation of samples whose features match a learned class prototype
+* referenced in [26], as a paper using CBN
+* referenced in  [45]
+    * We decompose the \\(D\\) into 
+        * a learned discriminator repr \\(\tilde\{D\}\\), which is fed into a 
+        * linear classifier \\(c\_\{r/f\}\\)
+
+        In the `projection discriminator`, one learns an embedding for each class, of the same dimension as the (feature) representation \\(\tilde\{D\}\\). Then for a given img / label input \\(x, y\\), the decision on _real/fake discrimination_ is based on 
+        1. whether the feature repr \\(\tilde\{D\}(x)\\) is consistent with the real data
+        2. whether the feature repr \\(\tilde\{D\}(x)\\) is consistent with the real data __from class__ \\(y\\)
+        \\[D(x,y)=c\_\{r/f\}(\tilde(D)(x)) + \tilde(D)(x)^TWy\\]
+        where \\(y\\) is the one-hot vector of class, and \\(W\\) is the class embedding matrix.
+
+#### Modulating early visual processing by language
+* origin of `CBN` (confirmed in [45])
+* referenced in [13]
+  * referenced as an example of class-conditional GAN (different affine params for each cls)
+* referenced in [26], as a paper using CBN
+
+#### Learning visual reasoning withou string priors [29]
+`CBN`
+* referenced in [26], as a paper using CBN
+
+#### Semi-parametric image synthesis, CVPR 2018 [30]
+`CBN`
+* referenced in [26], as a paper using CBN
+
+### GAN training
+
+#### ProGAN [21]
+* reference in[13]
+  * `ProGAN` trains high-resolution GANs in the single-class setting by training a single model across a sequence of increasing resolutions.
+
+#### (spectral normalization) Spectral normalization for generative adversarial networks [15]
+`spectral_normalization`, `hinge_loss`
+* referenced in [13]
+  * enforces Lipschitz continuity on \\(D\\) by normalizing its parameters with running estimates of their 1st singular values, inducing backwards dynamics that adaptively regularize the top singular direction.
+* referenced in [26], as a example of paper using hinge-loss
+
+
+#### Is generator conditioning causally related to GAN performance? In ICML, 2018
+* referenced in [13]
+  * analyze the condition number of the Jacobian of \\(G\\) and find that performance is dependent on \\(G\\)'s conditioning
+
+
+#### (BigGAN) Large Scale GAN-Training for High Fidelity Natural Image Synthesis [13]
+* <a href="{{site.url}}/deep_learning/2019/05/18/biggan.html" target="_blank">review</a>
+* truncation trick
+* BigGAN(-deep) architecture
+* instabilities of \\(G\\) and \\(D\\) on large scale
+* shared embedding for the Contitional BN
+
+#### Which training methods for gans do acually converge ICML 2018 [28]
+`CBN`
+* referenced in [26], as a example of paper using CBN
+
+
+#### Geometric GAN (Hinge Loss) [33]
+`hinge-loss`
+* referenced in [26], as a example of paper using hinge-loss
+
+#### Self-attention generative adversarial networks [35]
+`self-attention`, `hinge-loss`
+* referenced in [26], as a example of paper using hinge-loss
+
+
+### Style Transfer
+
+#### Unsupervised Domain Adaptation by Backpropagation [5]
+* optimization based
+* refercenced in [3]
+  * introduce an optimization scheme involving backpropagation for performing content preserving style transfer
+
+#### Photographic Image Synthesis with Cascaded Refinement Networks [9]
+`Pretrained-segnet score`
+* <a href="{{site.url}}/deep_learning/2019/05/08/crn-perceptual.html" target="_blank">review</a>
+* Used perceptual loss [6] only (No GAN)
+* Motivated by __Deep generative image models using a Laplacian pyramid of adversarial networks, NIPS, 2015__ : trained multiple separate GANs, one for each lvl in a Laplacian pyramid. Each model is trained independently to synthesize details at its scale. Assembling separately trained models in this fashion enabled the authors to synthesize imgs up to 96 by 96 
+* As a baseline, used [10]
+
+#### Precomputed real-time texture synthesis with markovian generative adversarial networks
+* referenced in [18]
+  * style transfer with single feedforward net, which is trained to go from content to styleimg in one pass. the style transfer net is tied to a single style
+
+#### Feedforward synthesis of textures and stylized images (2016)
+* referenced in [18]
+  * style transfer with single feedforward net, which is trained to go from content to styleimg in one pass. the style transfer net is tied to a single style
+
+#### (AdaIN) Arbitrary Stye Transfer in Real-time with Adaptive Instance [27] 
+* <a href="{{site.url}}/deep_learning/2019/05/04/adain.html" target="_blank">review</a>
+
+####  Decomposing the latent spaces of generative adversarial networks [43]
+`Disentanglement`
+* referenced in [32], no content
+
+#### Texture and art with deep neural networks. Current Opinion in Neurobiology [45]
+* referenced in [47]
+    * CNNs can still classify texturised images perfectly well, even if the global shape structure is completely destroyed.
+    * Following [45], we define `texture` as an image (region) with spatially stationary statistics. Note that on a very local level, textures (according to this definition) can have non-stationary elements (such as a local shape): e.g. a single bottle clearly has non-stationary statistics, but many bottles next to each other are perceived as a texture: __things become stuff__ 
+
+#### Texture synthesis using convolutional neural networks, NIPS, 2015, Gatys et al [46]
+* referenced in [47]
+    * discovered that a linear classifier on top of a CNN’s texture representation (Gram matrix) achieves hardly any classification performance loss compared to original network performance. 
+
+
+### Perceptual loss related
+
+
+#### Texture synthesis using convolutional neural networks [22]
+* NIPS (review!)
+* referenced in [18]
+  * used `VGG`-19 to extracat features from (a texture img and a synthesized texture). Then 2 set of features are compared and the synthesized texture is modified by grad descent (so called __optimization based__ approach)
+* style-transfer method with optimization based (feature extracted in DNN)
+
+
+#### A neural algorithm of artistic style [23]
+* reference in [18]
+  * extends [22]'s idea to style transfer by adding the constraint that the syntheiszed img also be close to a content img wrt another set of features extracted by the trained `VGG`-19 net (=`perceltual loss`!)
+* style transfer method with optimization based(no single-pass DNN) + perceptual loss
+
+
+#### Perceptual Losses for Real-Time Style Transfer and Super Resolution [6]
+* <a href="{{site.url}}/deep_learning/2019/05/08/perceptual-loss-style-transfer.html" target="_blank">review</a>  
+* perceptual loss + single pass / end-to-end style transfer
+* referenced in [18]
+  * style transfer with single feedforward net, which is trained to go from content to styleimg in one pass. the style transfer net is tied to a single style
+
+#### Generating images with perceptual similarity metrics based on ddep networks [11]
+* Referenced in [3]
+  * introduced a family of composite loss functions for img synthesis, which combine regression over the activations of a fixed "perceiver" network with a GAN loss. Network trained using these composite loss functions were applied to synthesize preimages that include desired excitation patterns in img classification models [11] and imgs that ecites specific elements in such models.
+
+### Domain Adaptation
+
+#### Unsupervised Domain Adaptaion using Backpropagation [1]
+* <a href="{{site.url}}/deep_learning/2019/01/18/gdl.html" target="_blank">review</a>  
+* `Gradient Reversial Layer`
+* Referenced in [3]
+    * ...performs domain adaptation by applying adversarial losses in the feature space
+
+#### FCNs in the wild [2]
+* Reference in [3]
+    * D operates directly on the feature space.
+    * proposes two alignmet strategies
+        1. global alignment which is an extension to the Gradient Reversal Layer [1]
+        2. local alignment which aligns class specific statistics by formulating it as a multiple isntance learning problem.
+
+#### Learning from Synthetic Data: Addressing Domain Shift for Semantic Segmentation [3]
+* <a href="{{site.url}}/deep_learning//2019/05/11/learning-from-synthetic-data.html" target="_blank">review</a>
+* CVPR 2018
+* with GAN + feature representation, __targets segmentation__ + `Unsupervised Domain Adaptation`
+* Proposed `style transfer` \\(\rightarrow\\) `domain adaptation`  
+    > One possible direction to address the domain adaptation problem is to __employ style transfer__ or __dross-domain mapping network__ to stylize the source domain images as target and __train the segmentation models in this stylized space__.
+* Sort of __gradient reversial__ between different domains (set the label to false)
+
+
+#### Curriculum domain adaptation for semantic segmentation of urban scenes [4]
+* Referenced in [3]
+   * curriculum-style learning approach
+     * easy task of estimating blobal label distributions over imgs and local distribution over landmark superpixel is learnt first
+     * the segnet is then trained so that the target label distribution follow these inferred label properties
+
+#### Cross-gradient
+#### Generalizing to Unseen Domains via Adversarial Data Augmentation
+#### No More Discrimination: Cross City Adaptation of Road Scene Segmenters
+
+
+
+### Img2Img (including unsupervised)
+
+#### CycleGAN [7]
+* refercenced in [3]
+    * performs __unpaired__ img2img translation by employing adversarial losses and cycle consistency losses
+* referenced in [32]
+    * img2img - performs `collection based style transfer` well than `example-guided style transfer`
+#### Cycada: Cycle-consistent adversarial domain adaptation [8]
+
+
+
+#### (BicycleGAN) Toward multimodal image to image translation [31]
+`LPIP distance`
+* referenced in [26]
+    * as a ref that supports a statement "RandN input is a simple and natural way for multimodal synthesis"
+    * to improve the diversity of generated imgs, proposed `BycicleGAN`, which tries to model the continuous and multimodal distributions, but requries pair supervision.
+    * `latent reconstruction loss` used
+
+#### (InfoGAN) Interpretable Representation Learning by Information Maximizing Generative Adversarial Nets, NIPS 2016 [42]
+`Content-style separation`
+* __separation of content, style__
+* referenced in [32]
+    * [32] was inspired by this paper
+    * used (latent) style reconstruction loss
+
+#### (UNIT) Unsupervised image-to-image translation networks [38]
+`Content-style separation`
+* referenced in [32]
+  * While UNIT assumes a fully shared latent space, we postulate that only part of the latent space (the content) can be shared across domains whereas the other part (the style) is domain specific, which is a more reasonable assumption when the cross-domain mapping is many-to-many
+  
+#### (MUNIT) Multimodal unsupervised image-to-image translation ECCV 2018, NVIDIA [32]
+`content-style separation`, `AdaIN`[27],  `CBN`, `lsgan`, `perceptual loss`, `LPIP distance between imgs`, `Contitional Inception Score`, `Multiscale-D`
+* <a href="{{site.url}}/deep_learning/2019/05/20/multimodal-unsupervised-img2img-translation.html" target="_blank">review</a>
+* referenced in [26]
+    * as a ref that supports a statement "RandN input is a simple and natural way for multimodal synthesis" / as a example of `CBN` (the paper used `AdaIN` though)
+* used `AdaIN`, but the affine params are learned from the network
+* unsupervised - `style-invariant perceptual loss` with Instance normalizataion!
+* `content-style separation`
+  * `content code`: underlying spatial structure, domain-invariant, encodes the information that should be preserved during tranlation
+  * `style code`: rendering of the structure, captures domain-specific properties, represent remaining variations that are not contained in the input iamge
+  * we futher assume that _the imgs in different domains share a common content space but not the style space_
+
+
+#### (SPADE) Synthetic Image Synthesis with Spatially-Adaptive Normalization, CVPR 2018 [26]
+`Pretrained-segnet score`, 
+* multi-scale D, same loss as the pix2pixHD (replaced lsgan with hinge loss)
+* spatially (for each channel, for each spatial location y, x) different denormalization, which is learned from feeding (interpolated seg map resized to feature map size) to 2-conv layers
+* tested `WGAN`, `cGAN` on \\(D\\) but not that effective, compared to the GPU memory consumption
+* adding SPADE to \\(D\\) was not that effective also
+
+#### (pix2pixHD) High-resolution image synthesis and semantic manipulation with conditional gans [36]
+`Pretrained-segnet score`, 
+* referenced in [26] : [26] mostly used the settings of this paper.
+
+#### Unsupervised cross-domain image generation [37]
+* referenced in [32]
+  * unsupervised img2img is __ill-posed__ problem - some works enforce the translation to preserve certain properties of the source domain data, such as __semantic feature__ [37]
+
+#### Learning from simulated and unsupervised images through adversarial training [40]
+* referenced in [32]
+  * unsupervised img2img is __ill-posed__ problem - some works enforce the translation to preserve certain properties of the source domain data, such as __pixel gradient__ [40]
+
+#### (DistanceGAN) One-sided unsupervised domain mapping [39]
+* referenced in [32]
+  * unsupervised img2img is __ill-posed__ problem - some works enforce the translation to preserve certain properties of the source domain data, such as __pairwise sample distance__ [39]
+
+#### Unsupervised pixel-level domain adaption with generative adversarial networks [41]
+* referenced in [32]
+  * unsupervised img2img is __ill-posed__ problem - some works enforce the translation to preserve certain properties of the source domain data, such as __pixel values, class labels__ [41]
+
+### Misc
+
+#### The unreasonable effectiveness of deep features as a perceptual metric, CVPR, 2018 [44]
+* `LPIP distance`
+* referenced in [32] - `LPIP` correlated well with human perception score.
+<br/>
+<br/>
+References (added order)
+* [1] : (`Gradient reversal layer`) Unsupervised Domain Adaptaion using Backpropagation
+* [2] : FCNs in the wild
+* [3] : Learning from Synthetic Data: Addressing Domain Shift for Semantic Segmentation
+* [4] : Curriculum domain adaptation for semantic segmentation of urban scenes
+* [5] : Unsupervised Domain Adaptation by Backpropagation
+* [6] : Perceptual Losses for Real-Time Style Transfer and Super Resolution
+* [7] : `CycleGAN` (fix this)
+* [8] : `Cycada`: Cycle-consistent adversarial domain adaptation
+* [9] : Photographic Image Synthesis with Cascaded Refinement Networks
+* [10] : Unsupervised representation learning with deep convolutional generative adversarial networks, ICLR 2016
+* [11] : Generating images with perceptual similarity metrics based on ddep networks, NIPS, 2016
+* [12] : Person Transfer GAN to Bridge Domain Gap for Person Re-Identification, CVPR, 2018 
+* [13] : (`BigGAN`) Large Scale GAN-Training for High Fidelity Natural Image Synthesis
+* [14] : Conditional image synthesis with auxiliary classifier GANs, ICML, 2017
+* [15] : Spectral normalization for generative adversarial networks. In ICLR, 2018
+* [16] : Is generator conditioning causally related to GAN performance? In ICML, 2018
+* [17] : Self-attention generative adversarial networks, Zhang et al\
+* [18] : A learned representation for artistic style. In ICLR, 2017, Dumoulin et al
+* [19] : cGANs with projection discriminator. In ICLR, 2018
+* [20] : Modulating early visual processing by language, Harm de Vries, Florian Strub, Jer´ emie Mary, Hugo Larochelle, Olivier Pietquin, and Aaron ´Courville. In NIPS, 2017
+* [21] : Progressive growing of GANs for improved quality, stability, and variation. In ICLR, 2018, Tero Karras, Timo Aila, Samuli Laine, and Jaakko Lehtinen. 
+* [22] : Texture synthesis using convolutional neural networks, NIPS, Leon Gatys, Alexander S Ecker, and Matthias Bethge. 
+* [23] : A neural algorithm of artistic style. Leon A Gatys, Alexander S Ecker, and Matthias Bethge, arXiv, 
+* [24] : Texture networks: Feedforward synthesis of textures and stylized images. Dmitry Ulyanov, Vadim Lebedev, Andrea Vedaldi, and Victor Lempitsky, arXiv
+* [25] : Chuan Li and Michael Wand. Precomputed real-time texture synthesis with markovian generative adversarial networks. ECCV, 2016
+* [26] : Synthetic Image Synthesis with Spatially-Adaptive Normalization, CVPR 2018, `SPADE`
+* [27] : (AdaIN) Arbitrary Stye Transfer in Real-time with Adaptive Instance Normalization
+* [28] : Which training methods for gans do acually converge ICML 2018
+* [29] : Learning visual reasoning withou string priors
+* [30] : Semi-parametric image synthesis, CVPR 2018
+* [31] : Toward multimodal image to image translation, NIPS 2017
+* [32] : Multimodal unsupervised image-to-image translation, ECCV 2018, NVIDIA
+* [33] : `hinge loss` Geometric GAN, arXiv 
+* [34] : `spectral normalization` Spectral normalization for generative adversarial networks , ICLR 2018
+* [35] : `SA-GAN` Self-attention generative adversarial networks 
+* [36] : `pix2pixHD` High-resolution image synthesis and semantic manipulation with conditional gans, CVPR 2018
+* [37] : Unsupervised cross-domain image generation, ICLR, 2017
+* [38] : Unsupervised image-to-image translation networks, NIPS, 2017
+* [39] : One-sided unsupervised domain mapping, NIPS, 2017
+* [40] : Learning from simulated and unsupervised images through adversarial training, 2017
+* [41] : Unsupervised pixel-level domain adaption with generative adversarial networks, CVPR, 2017
+* [42] : `InfoGAN`: Interpretable Representation Learning by Information Maximizing Generative Adversarial Nets, NIPS 2016
+* [43] : Semantically decomposing the latent spaces of generative adversarial networks
+* [44] : The unreasonable effectiveness of deep features as a perceptual metric, CVPR, 2018
+* [45] : Texture and art with deep neural networks. Current Opinion in Neurobiology, Gatys et al 2017
+* [46] : Texture synthesis using convolutional neural networks, NIPS, 2015, Gatys et al
+* [47] : ImageNet-Trained CNNs Are Biased Towards Texture, ICLR 2017, Geirhos et al
+* [48] : High-fidelity Image Generation with Fewer Labels

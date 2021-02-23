@@ -1,0 +1,184 @@
+---
+layout: post
+title:  "Application of determinants"
+date:   2018-05-15 16:05:00 +0900
+categories: linear_algebra
+use_math: true
+tags: linear_algebra need_revise
+---
+
+### Volume of a box with rows(columns)
+asdasd
+
+### Definiton of Cofactor
+We want to express determinant in terms of \\(n^2\\) terms in \\(A\\). Firstly looking at simple 2×2 matrix, we can get some intuition that
+\\[
+\begin{vmatrix}{}
+	a && b \cr
+	c && d \cr
+\end{vmatrix}
+=
+\begin{vmatrix}{}
+	a && 0 \cr
+	c && d \cr
+\end{vmatrix}
++
+\begin{vmatrix}{}
+	0 && b \cr
+	c && d \cr
+\end{vmatrix}
+=\left(
+\begin{vmatrix}{}
+	a && 0 \cr
+	c && 0 \cr
+\end{vmatrix}
++
+\begin{vmatrix}{}
+	a && 0 \cr
+	0 && d \cr
+\end{vmatrix}
+\right)
++
+\left(
+\begin{vmatrix}{}
+	0 && b \cr
+	c && 0 \cr
+\end{vmatrix}
++
+\begin{vmatrix}{}
+	0 && b \cr
+	0 && d \cr
+\end{vmatrix}
+\right)
+\\]
+\\[
+=
+\begin{vmatrix}{}
+	a && 0 \cr
+	0 && d \cr
+\end{vmatrix}
++
+\begin{vmatrix}{}
+	0 && b \cr
+	c && 0 \cr
+\end{vmatrix}
+=
+\begin{vmatrix}{}
+	a && 0 \cr
+	0 && d \cr
+\end{vmatrix}
+-
+\begin{vmatrix}{}
+	b && 0 \cr
+	0 && c \cr
+\end{vmatrix}
+\\]
+→ determinant is the sum of permuted submatrices.  
+We see that, \\(a_ij\\) contributes to the determinant with submatrix excluding \\(i\\)th row and column, and \\(j\\)th column. 
+\\[
+\\]
+We define the determinant of such submatrix as a `cofactor` \\(C_\{i,j\}\\) as\\[
+C_\{i,j\}= (-1)^\{i+j\}
+\begin{vmatrix}\{\}
+	a_\{1,1\} && ...    && 0 			&& ...			&& a_\{1,n\}	\cr
+	\vdots    && \ddots && 0 		 	&& \ddots 		&& \vdots  		\cr
+	0 		  && 0 		&& a_\{i,j\} 	&& 0 			&& 0			\cr
+	\vdots    && \ddots && 0 		 	&& \ddots 		&& 	\vdots 		\cr
+	a_\{n,1\} && ... 	&& 0 		 	&& ...	 		&& a_\{n,n\} 	\cr
+\end{vmatrix}
+\\]
+We have to negate sign of determinant with every row / column exchange, and the sign \\((-1)^\{i+j\}\\) is determined in bubble sort fashion.__Odd__ \\(i+j\\) must be __negated__.  
+\\[\begin{vmatrix}\{\}
+	a_\{1,1\} && ...    && 0 			&& ...			&& a_\{1,n\}	\cr
+	\vdots    && \ddots && 0 		 	&& \ddots 		&& \vdots  		\cr
+	0 		  && 0 		&& a_\{i,j\} 	&& 0 			&& 0			\cr
+	\vdots    && \ddots && 0 		 	&& \ddots 		&& 	\vdots 		\cr
+	a_\{n,1\} && ... 	&& 0 		 	&& ...	 		&& a_\{n,n\} 	\cr
+\end{vmatrix}=-
+\begin{vmatrix}\{\}
+	a_\{i,j\} && 0	    	&& 0 		&& 0 		&& 0			\cr
+	0    	  && a_\{1,1\} 	&& ...  	&&  ...		&&	a_\{1,n\}	\cr
+	0 		  && \vdots 	&& \ddots	&& 			&&	\vdots 		\cr
+	0 		  && \vdots 	&& 			&& \ddots	&&	\vdots 		\cr
+	0		  && a_\{1,2\} 	&& ...	 	&& 	...		&& a_\{n,n\} 	\cr
+\end{vmatrix}\quad\quad \textrm\{for odd (i+j)\}\\]
+Then we see that, 
+\\[\textrm\{det\}A=\sum_\{j=1\}^\{n\}a_\{i,j\}C_\{i,j\}\\]
+for any \\(i\in \{1,...,n\}\\).
+
+
+### Computation of inverse using cofactors
+{:.acounter}
+1. \\(AC^T=\textrm\{diag\}(\textrm\{det\}A)\\).  
+\\[\rightarrow
+\begin\{bmatrix\}\{\}
+a_\{1,1\} && ... && a_\{1,n\} \cr
+\vdots && \ddots && \vdots \cr
+a_\{n,1\} && ... && a_\{n,n\} 
+\end\{bmatrix\}
+\begin\{bmatrix\}\{\}
+C_\{1,1\} && ... && C_\{n,1\} \cr
+\vdots && \ddots && \vdots \cr
+C_\{1,n\} && ... && C_\{n,n\} 
+\end\{bmatrix\}=
+\begin\{bmatrix\}\{\}
+\textrm\{det\}A && 0 && 0 \cr
+0 && \ddots && 0 \cr
+0 && 0 && \textrm\{det\}A 
+\end\{bmatrix\}
+\\]
+To see why the above holds,  
+i. For \\(i\\)th diagonal,  
+\\[\sum_\{j=1\}^\{n\}a_\{i,j\}C_\{i,j\}=\textrm\{det\}A\\]
+ii. For Non-diagonal, for example row 1 X column 2  
+\\[a_\{1, 1\}C_\{2, 1\}+a_\{1, 2\}C_\{2, 2\}+a_\{1, 3\}C_\{2, 3\}+...+a_\{1, n\}C_\{2, n\}\\]
+This is equivalent to calculating a determinant of non-singular matrix
+\\[\begin\{bmatrix\}\{\}
+a_\{1,1\} 	&& a_\{1,2\} && a_\{1,3\} && ... && a_\{1,n\} \cr
+a_\{1,1\} 	&& a_\{1,2\} && a_\{1,3\} && ... && a_\{1,n\} \cr
+a_\{3,1\} 	&& a_\{3,2\} && a_\{3,3\} && ... && a_\{3,n\} \cr
+\vdots 		&& \vdots 	 && \vdots 	  && \ddots && \vdots \cr
+a_\{1,n\} 	&& a_\{n,2\} && a_\{n,3\} && ... && a_\{n,n\}
+\end\{bmatrix\}\\] (\\(a_\{1,i\}\\) are in 1st row, since the cofactors are generated in a row)
+2. \\(A^\{-1\}=\frac\{1\}\{\textrm\{diag\}A\}C^T\\), which directly follows from `(a)`.  
+Now we have,
+\\[x=A^\{-1\}b=\frac\{C^Tb\}\{\textrm\{det\}A\}\\]
+so that, \\(\textrm\{det\}\\) determines the stability of \\(x\\) wrt \\(A\\) in \\(Ax=b\\).
+3. __Cramer's rule__  
+The \\(j\\)th component of \\(x=A^\{-1\}b\\) is the ratio
+\\[x_j=\frac\{\textrm\{det\}B_j\}\{\textrm\{det\}A\}\quad\textrm\{where\}\quad B_j=
+\begin\{bmatrix\}\{\}
+a_\{1,1\} 	&& a_\{1,2\} && a_\{1,3\} && a_\{1,j-1\} && b_1		&& a_\{1,n\} \cr
+\vdots 		&& \vdots 	 && \vdots 	  && \vdots 	 && \vdots  && \vdots \cr
+a_\{n,1\} 	&& a_\{n,2\} && a_\{n,3\} && a_\{n,j-1\} && b_n		&& a_\{n,n\}
+\end\{bmatrix\}
+\textrm\{has \}b\textrm\{ in column \}j.\\]
+{:.acounter}
+
+
+<h3 id="pivots_with_det">Computing pivots with determinant</h3>
+1. Key observation is that in Gaussian elimination,
+> the first \\(k\\) pivots are completely determined by the submatrix \\(A_k\\) in the upper left corner of \\(A\\)
+
+This can be shown in block-matrix representation.
+\\[A=LDU=
+\begin\{bmatrix\}\{\}
+L_k && 0 \cr
+B && C
+\end\{bmatrix\}
+\begin\{bmatrix\}\{\}
+D_k && 0\cr
+0 && E
+\end\{bmatrix\}
+\begin\{bmatrix\}\{\}
+U_k && F \cr
+0 && G
+\end\{bmatrix\}
+=
+\begin\{bmatrix\}\{\}
+L_kD_kU_k && L_kD_kF\cr
+BD_kU_k && BD_kF+CEG
+\end\{bmatrix\}
+\\] You can see that \\(A_k\\) coincides with \\(L_kD_kU_k\\). Then,\\[\textrm\{det\}A_k=\textrm\{det\}L_k\textrm\{det\}D_k\textrm\{det\}U_k=\textrm\{det\}D_k=\prod_\{i=1\}^kd_i\\]
+Therefore, we come to conclusion that
+\\[\frac\{\textrm\{det\}A_k\}\{\textrm\{det\}A_\{k-1\}\}=(d_k\cdots d_1)/(d_\{k-1\}\cdots d_1)=d_k\\]

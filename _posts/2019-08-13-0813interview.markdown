@@ -1,0 +1,8 @@
+---
+layout: post
+title:  "08-13 review"
+date:   2019-08-12 09:04:00 +0900
+categories: coding
+use_math: true
+tags: coding need_revision
+---

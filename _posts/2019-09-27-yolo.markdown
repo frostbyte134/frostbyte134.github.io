@@ -1,0 +1,164 @@
+---
+layout: post
+title:  "YOLO"
+date:   2019-09-27 08:00:05 +0800
+categories: deep_learning
+use_math: true
+tags: deep_learning ssd detection need_revise
+---
+
+### Yolov1
+
+<a href="https://arxiv.org/abs/1506.02640" target="_blank">https://arxiv.org/abs/1506.02640</a>
+
+#### Intro
+* Current detection systems repurpose classifiers to perform detedction
+  * To detect an obj, these systems take a classifier for that object and evaluate it at various locations and scales in a test time
+  * These complex pipelines are slow and hard to optimize b/c each individual component must be trained separately
+* __we frame detection as a regression problem__
+    * `YOLO` sees the entire image during training and test time so it implicitly encodes contextual information about classes as well as their apearance.
+    * `FAST R-CNN`, a top detection method, mistakes background patches in an image for objects b/c it can't see the larger context
+* `YOLO` learns generalizable representations of objs
+  * when trained on natural images and tested on artwork, YOLO outperforms DPM and R-CNN
+
+#### Models
+* Our network __uses features from the entire image__ to predict each bounding box (b4 the final output, fc layer exists)
+* It also predicts all bnding boxes across all cls for an image simultaneously. This means that YOLO reasons globally about the full img and all the objs in the iamge
+
+* Our system divides the input iamge into an \\(S\times S\\) grid. If the center of an object falls into a grid cell, that grid cell is responsible for detecting that object.
+
+Each grid cell __predicts__ \\(B\\) bounding boxes and confidence score for those boxes
+* `confidence`:= \\(Pr(Obj)\times IOU\_\{prec\}^\{truth\}\\)
+  * \\(Pr(OBJ)\\): 1 if the object exists in the box, or 0
+
+Each bnding box consists of 5 predictions
+* \\(x, y\\): center of the box, relative to the bounds of the grid cell
+* \\(w, h\\): width and height, relative to the whole img size \\(\rightarrow\\ w, h\in [0,1]\\)
+* confidence
+
+And class probabilities
+* \\(C\\) conditional class probs, \\(Pr(Cls\_i \| Obj)\\). These probs are conditioned on the grid cell containing an obj.
+
+At test time, we multiply the cond probs and individual box predictions
+\\[Pr(Cls\_i \| Obj) \times Pr(Obj)\times IOU\_\{prec\}^\{truth\}\\]
+\\[=Pr(cls\_i)\times IOU\_\{prec\}^\{truth\}\\]
+
+Therefore, the final predictions are encoded in an
+\\[S\times S\times (B\times 5 + C)\\]
+tensors, and \\(S=7,\\ B=2\\) in YOLOv1 on PascalVOC
+
+
+#### Network Design
+<img src="{{site.url}}/images/deeplearning/detection/yolov1.png" width="1000">
+
+* pretraining: use the first 20 conv layers, ILSVRC top5 88%
+* add 4 conv layers and 2 fc layers with randomly initialized weights
+* Detection requires fine-grained visual info - increase input resolution from \\(224\times 224\\) to \\(448\times 448\\).
+* Leaky ReLU
+
+Used `Sum-Squared Error`
+* b/c it is __easy to optimize__
+* However it does not perfectly aligh with our goal of maximizing avg precision. It __weights localization error equally with classification err__ with may not be ideal
+* Also, in every img many grid cell do not contain any objects. This pushes the `confidence` scores of those scells towards zero, often overpowering the gradient from cells that do contain objs. This can lead to model instability, causing training to diverge early on.
+  * To remedy this, __we increase the loss from bnding box coord predictions__ - for localization > classification
+  * and decrease the loss from confidence predictions for boxes that don't contain objs - for empty grids
+  * \\(\lambda\_\{coord\}=5,\\ \lambda\_\{noobj\}=0.5\\)
+* it also equally weights errors in large boxes and small boxes
+  * Our metric should reflect that small deviations in large boxes matter less than in small boxes.
+  * To partially address this, we predict the sqrt of the bnding box width and height, instead of the width and height directly (decrease the gaps...meh)
+
+YOLO predicts multiple (\\(B=2)\\) bnding boxes per grid cell.
+* at training time, we only want 1 bnding box predictor to be responsible for each obj. 
+* We assign one predictor to be __responsible__ for predicting an obj based on which prediction has the __highest current IOU with the GT box__ (This is just between among \\(B=2\\) boxes!)
+* This leads to specialization between the bnding box predictors.
+* Each predictor gets better at predicting certain sizes / aspect ratios / cls of objs, improving overall recall (any evidence?)
+
+#### Loss function
+\\[\lambda\_\{coord\}\sum\_\{i=0\}^\{S^2\} \sum\_\{j=0\}^\{B\} 1\_\{ij\}^\{obj\} \left(\ (x\_i-\hat\{x\_i\})^2 + (y\_i-\hat\{y\_i\})^2 \right)\\]
+\\[+\lambda\_\{coord\}\sum\_\{i=0\}^\{S^2\} \sum\_\{j=0\}^\{B\} 1\_\{ij\}^\{obj\} \left(\ (\sqrt\{w\_i\}-\sqrt\{\hat\{w\_i\}\})^2 + (\sqrt\{y\_i\}-\sqrt\{\hat\{y\_i\}\})^2 \right)\\]
+
+for all bounding boxes, if \\(j\\)th bnding box in cell \\(i\\) is __responsible__ for that prediction (\\(=1\_\{ij\}^\{obj\}\\)) (\\(B=2\\), so among 2 boxes we have {0, 1}), regress center coordinate, w, h.
+
+\\[\sum\_\{i=0\}^\{S^2\} \sum\_\{j=0\}^\{B\} 1\_\{ij\}^\{obj\} \left(\ C\_i-\hat\{C\_i\} \right)^2\\]
+cls probs (classification, sort of)
+
+\\[\lambda\_\{noobj\}\sum\_\{i=0\}^\{S^2\} \sum\_\{j=0\}^\{B\} 1\_\{ij\}^\{noobj\} \left(\ C_i-\hat\{C\_i\} \right)^2\\]
+
+* noobj - see the above `confidence` part
+* How can we calculate \\(C\_i\\), condidence score for each grid cell? 1 or 0?
+
+\\[\sum\_\{i=0\}^\{S^2\} 1\_\{i\}^\{obj\} \sum\_\{c\in cls\} \left(\ p\_i(c) - \hat\{p\_i\}(c) \right)^2\\]
+classification error
+* \\(1\_\{i\}^\{obj\}\\): if obj appears in cell \\(i\\)
+* Note that the function only penalizes classification error if an obj is presnet in that grid cell (hence the conditional cls prob discussed earlier).
+
+
+#### Training
+* 135 epochs, lr warmup, drop 0.5 after tht 1st fc layers
+* aug: random scaling, translation of up to 20% of the original img size.
+* random adjustment of exposure(?), saturation by up t a factor of 1.5 in the HSV color space (any circular when overflows? (goto 0))
+
+
+#### Inference
+* the grid design enforces __spatial diversity__ in the bnding box predictions.
+
+`NMS`
+* Often it is clear which grid cell an obj falls in to, and the network only predictis one box for each obj
+* But for the large obj or obj near the border of multiple cells, can be well localized by multiple cells.
+* `Non-Maximum Suppression` can be used to remidy these multiple detections. (add 2~3 mAP)
+
+#### Limitation of YOLO
+* imposes strong spatial constraints, since each grid cell predicts 2 boxes and can only have 1 cls.
+  * limit the # of nearby objs that the model predicts
+  * struggles with small objs that appear in groups, such as flocks
+* struggles to generalize to objs in new or unusual aspect ratios / configs 
+* coarse features - week for small objs
+
+
+#### Experiments
+* Based on the different error profiles, we see that YOLO cna be used to rescore Fast R-NN detections and reduce the rrrs from bg false positives
+
+Errors
+* corrects: correct cls and IOU > 0.5
+* localization: correct cls, 0.1 < IOU < 0.5
+* similar: cls is similar, IOU > 0.1
+* other: cls wrong, IOU > 0.1
+* background: IOU < 0.1 for any object
+
+* Our main source of err is incorrect localizations
+> YOLO struggle sto localize objs correctly. Localization errs accounts for more of YOLO's errs than all other sources combined. Fast R-CNN makes much fewer localization errors but far more bg errors. (but its' relative ratios. Maybe the absolute error is different. Need check)
+
+
+
+### YOLO v2 (9000)
+joint training (of classification and detection) allows `YOLO9000` to predict detections for oject classes that don't have labelled detection data - construct `WordTree` for this
+- our method leverages labeled detection imgs to learn to precisely localize objects while it uses classification images to increase its covabulary and robustness
+
+Err ananlysis of `YOLO`
+- Error analysis of `YOLO` compared to `Fast R-CNN` shows that `YOLO` makes a significant number of localization errs.
+- Furthermore, `YOLO` has relatively low recall compared to region proposal based methods.
+
+#### Improvements
+
+__Basics__
+- Instead of scaling up network, we simplify the network then make the representation easier to learn.
+- By adding bn on all conv layers in `YOLO`, we gain 2+ mAP
+- we can remove dropout from the model without overfitting
+- used basenet trained on 224X224 - `YOLOv2` fine tunes it in 448X448 for 10epochs in Imagenet
+
+
+__Boxes__
+- `YOLO` predicts the coordinates of bnding boxes directly using fc on top of the conv feature extractor
+  - Instead of predicting coordinates directly `Faster R-CNN` predicts boun ding boxes using hand-prioirs
+  - __predicting offsets, instead of coords__ simplifies the problem and makes it easier for the network to learn (any evidence?)
+  - we removed the FC layers from `YOLO`, and use anchor boxes to predict bnding boxes.
+  - We also shrinked the network size from 448 to 416, since we want the \\(S\\) to be odd.  
+  > Objs, especially large ones, tend to occupy the center of the image so its good to have a single location right at the center to predict these objs instead of 4 locs that are nearby (any evidence?)  
+  - `Anchor boxes`
+    - we also __decouple the cls prediction mechanism from the spatial location__ and instead predict class and objectness for every anchor box (?)
+      - Following `YOLO`, the objness prediction still predicts the IOU of the GT and the proposed box and the cls predictions predict the conditional probs of that cls given that there is an object.
+      - `YOLO` only predicts 98 boxes per img, but with anchor boxes our model predicts more than a thousand (???!?).
+        - (mAP, recall), (69.5, 81%) to (69.2, 88%). Even though mAP decreases, __increased recall means that there is much room to improve__ (....?)
+
+__Dimension Clusters__
+- k-means clustering on the training set bounding boxes

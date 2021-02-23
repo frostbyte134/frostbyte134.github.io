@@ -1,0 +1,225 @@
+---
+layout: post
+title:  "Git (egoing)"
+date:   2019-05-19 09:00:05 +0800
+categories: coding
+use_math: true
+tags: coding git
+---
+
+
+<a href="https://seomal.org/" target="_blank">https://seomal.org/</a>
+
+### Git Basics
+<img src="{{site.url}}/images/git/git-commit.png" width="600">
+
+* `master` - Commit을 가르킴. 대표 branch.
+* `HEAD` - Commit을 가르킴. working tree를 represents함
+  * master와 같은 commit을 가르키지 않을 시, __detached head__ 상태가 됨
+  * 깃은 브랜치를 통해 커밋들을 관리한다. 그리고 Detached HEAD 커밋은 브랜치에 연결되어 있지 않아 관리가 불가능하다.  
+  ex) 이 상태에서 commit을 할 시 HEAD (working tree) 다음으로 commit이 되지만, branch에 등록이 되어 있지 않아 git에서 관리가 불가능
+  * `working tree` - 현재 작업 공간 (폴더)
+* `commit`
+  * git의 단위 동작.
+  * 각 commit은 부모 커밋만 가르킴
+
+Miscs
+* 버전관리의 목적: 파일의 이름을 더럽히지 않고 관리하기
+* .git 파일: `repository` (version이 만들어지는 곳)
+* `gistory` (python)
+
+
+### stage area = index = cache
+
+git file management
+- `working dir` ->(add)-> `stage` ->(commit)-> `repo`
+* git add로 working tree의 파일을 staging area로 등록
+* commit으로 해당 파일의 '버전'을 생성하게 됨
+
+git add <filename>
+- <file>을 staging 시키겠다
+- index에 파일 등록 (새로 staging 되는 파일은 .git/objects에 저장)
+- add를 하지 않으면, 아직 HEAD (가 가르키는 commit)에 해당 내용이 반영되지 않은 것
+
+### git is immutable
+
+* __git은 아무것도 삭제하지 않음 (접근불가능해지는 경우는 존재)__
+* 파일명이 같아도 git은 내용을 따로 관리 (objects폴더에 본체 존재)
+* 파일명이 달라도 내용이 같으면, 같은 objects를 가르킴 __(content 기반 hash)__
+* git은 모든데이터를 object로 관리.  
+  object 종류
+  * tree: 이름
+  * blob: 파일
+  * commit: 파일에 대한 포인터를 포함하는 commit
+
+git log를 눌렀을 때
+1. git은 .git/HEAD를 참조
+2. HEAD는 보통, ref: refs/heads/master가 적혀 있음. checkout시 refs/heads/master가 해당 checkout한 commit으로 바뀜
+3. 해당 파일을 열어 보면, master가 가르키는 commit이 있음.
+4. 해당 commit은, tree(생성 시 파일의 이름, 데이터(obejcts/**에 대한 reference 형태) 보유) / parent 2개의 포인트를 보유. 
+
+
+git commit
+- working dir -> repo
+- -a 옵션: add생략가능 (unstaged file은 안됨)
+- --amend: 현재 head가 가르키는 commit (파일 내용 / comment ) 을 복사해서 새로운 커밋 만듬 (이전 commit은 지우지 않음) (파일 내용은 add로 stage에 올려놔야 수정됨)
+
+git checkout
+- __head__ 옮기기
+  - git의 head란?
+    working copy의 origin
+- 원래대로 가려면 checkout to master
+- head 와 current branch (보통 master)를 분리할 수도 있음
+
+git reset
+- 삭제 효과가 있지만 실제 삭제는 아님 (reset --hard로 원래 working dir로 복귀가능!) 
+- __branch (보통 master)가 바라보는 commit ID를 바꾸는 것__
+- 딸린 head가 있다면 head도 같이 옮겨감
+- working directory의 unstaged된것들 다 지우기: git reset --hard HEAD (master로 복귀하면 의미가 좀 다름)
+- commitID를 받을수도 있음
+
+
+
+
+git reflog
+- (원인): 결과
+- commit, checkout, reset 결과
+- reset으로 지워버려도 여기서 commitID를 참조해서 복귀가능
+- HEAD@{N}: N번 전에는 해당 상태였다. 이를 이용해 reset도 가능
+  - git reset --hard HEAD@{5} : undo before 5th action (go to corresponding commit id)
+
+git status
+- add 되었는지 확인
+- 현재 dir의 상태를 보여줘 (commit 대기)
+
+git diff
+- (working dir)의 1~2줄정도 주위의 변화도 같이 보여줌
+
+git branch
+* ref/heads에 각 branch가 가르키는 commit 주소가 있음
+* checkout으로 head를 옮겨 다른 branch를 가르킬 수 있음
+* git branch -d \<branch name\> : removing branch
+
+
+### Git merge
+
+`base`: merge 대상이 되는 branch들의 공통의 조상
+
+git merge
+* fast forward / merge commit 2가지 방법이 있음
+1. fast forward: 앞서나간 branch를 따라잡기.  
+뒷 branch로 checkout 후 merge 앞 브랜치와 병합  
+충돌이 절대 일어나지 않음
+2. merge commit: 서로 다르게 뻗어나간 branch들을 commit으로 병합
+  * conflict는 주변 1~2줄도 봄
+
+<img src="https://s3-ap-northeast-2.amazonaws.com/opentutorials-user-file/module/2676/5133.png">  
+<img src="{{site.url}}/images/git/3way.png" width="1000">  
+git 3-way merge
+* 최대한 많이 자동 병합하기 위한 기능
+* base와 대상 branch들을 비교하여, 변하지 않은 부분을 base로 처리함  
+ - merge 대상이 되는 2개의 branch들에 다른 부분이 있더라도, 한쪽이 base와 같으면 conflict를 일으키지 말고 base와 다른 부분을 반영
+
+
+
+
+merge후 복귀하기
+* git은 위험한 작업을 하기 전에 (merge등), ORIG_HEAD로 HEAD를 복사해 놓음. 따라서 git reset --hard ORIG_HEAD를 하면 merge가 취소됨.
+* 아니면 reflog로 commit
+
+`snapshot`: 버전(?)이 만들어진 당시 working dir의 copy
+
+`change`: snapshot끼리의 차이? 베이스와?
+
+git rebase
+* base를 옮길 branch로 checkout 후, git rebase <대상이 될 브랜치>로 해야 함
+
+miscs
+- git add filename : 변경사항 스테이징 에어리어에 등록
+- git commit -m "comments"
+- git checkout (branchname/master) : 워킹트리 변경
+- git tag : 현 워킹트리버전에 태그 붙이기
+
+
+### 1일차 정리
+* 저장소 생성시 init 
+* git add <filename> : track (on stage)
+* git status 
+* git 저장소의 상태 : working directory - stage area (index파일, cache) - commit시 버전이 만들어지면서 repo에 저장됨
+* git commit -a(add all, except untracted) -m <message>   
+* git log --oneline --all -p (각각의 차이점)
+* git reset version [--hard] : 버전 지우기. branch가 가르키는 commitID를 바꾼다
+* git checkout [-b : branch생성] (branch name | commit id): head가 가르키는 commitID를 바꾼다
+* git branch (단순 branch읽기) [-d branch_name: 삭제] 
+* git checkout 병합할 브랜치 && git merge 병합될 branch
+* git mergetool: conflict 해결용 merge tool
+* conflict manual 해결후 git add 
+* git checkout 리베이스를 할 (베이스를 옮길) 브랜치 && git rebase (대상이 될 브랜치)
+  
+### 2일차
+* 각 commit은 자신의 부모로만 갈 수 있음
+* `detached head` - branch와 HEAD가 다른 commit을 가르키고 있음. Head를 옮길 시 현재 Commit으로 갈 수 있는 방법을 잃어버리게 됨
+* git checkout : HEAD가 가르키는 commitID를 바꿈
+* git reser : HEAD가 가르키는 branch 의 commitID를 바꿈
+
+3-way merge
+- 항상 base와 비교
+
+
+#### Cherry pick, rebase
+
+* cherrypick: 특정 커밋의 변경사항을 다른 커밋에 적용하겠다.
+* 여러개의 cherry pick을 자동화시켜 준 것 : rebase
+  * 새로운 commit (merge commit) 이 생기고 분기점이 유지되는 merge commit에 비해, merge commit을 만들지 않고 __history를 sequential하게 유지가능__.
+* <a href="https://marklodato.github.io/visual-git-guide/index-ko.html?no-svg#cherry-pick" target="_blank">https://marklodato.github.io/visual-git-guide/index-ko.html?no-svg#cherry-pick</a>
+
+
+
+<a href="https://dogfeet.github.io/articles/2012/git-merge-rebase.html" target="_blank">rebase vs merge</a>
+
+### Remote
+* 모든 git project는 여러개의 remote copy를 가질 수 있음 - alias를 붙여줘야 함.
+* base alisas: `origin`
+* git remote add <alias> ~~~.git
+  
+새 폴더를 저장소로 등록하기
+* git init && git remote origin master
+* =`git clone .`
+
+원격 저장소에 "가져온 적 없는 commit이 있다": pull 거절됨
+
+origin/master
+
+* = remote tracking branch (가장 최근 동기화한 것)
+* -set--upstream-to : 원격 branch와 내 local branch가 어떤것이 짝인지 지정해주기
+* git push -u origin master
+
+miscs
+* fetch (download) vs pull (fetch + merge)
+* init vs clone (init + remote)
+
+원격 저장소와 conflict 날 시, 단순 merge말고 rebase로 합치기
+* fetch 해 온것은 건드리면 안되고, 로컬에 있는 것의 부모를 fetch 해 온 커밋으로 해야 함
+* 일반적으로, git checkout master && git rebase origin/master && git push origin HEAD:master 로 하면 됨
+* push에서 origin HEAD:master를 붙여야 하는 이유: rebase완료했을 시, head는 최신 commit에 있으나 origin/master는 그 부모 커밋 (fetch 해 온 최신 커밋)에 있기 때문
+
+
+pull request
+* fork후에 하는것도 가능, branch 후에 merge시에 하는것도 가능
+
+cat ~/.gitconfig
+* username, email 등 포함
+* alias 설정 가능 (l = log --all --graph --decorate --oneline)
+* git config user.name egoing - 현재 repo의 설정만 바꿈. --global로 global 변경가능
+
+<img src="{{site.url}}/images/git/revert.png" width="600">  
+git revert
+- 삭제한 효과가 나면서 기능을 유지한다
+- `git revert commitID`: commitID를 취소한 새로운 commit을 생성
+- git revert를 sequential하게 해주면 충돌이 안난다고 함 (뒤로부터?)
+
+### Gerrit
+* gerrit: git repo hosting (github와 비슷)
+* commit msg에 랜덤생성된 change-id가 붙음. 뭐지? change ID는 투표소 ID? change ID를 같게해서 push하면 같은 투표소가 열리게 된다고 함
+* change ID를 유지하는 커밋 방법 : ammend commit을 하기.
+* git push하면 푸쉬가 안됨. 메인 repo에 바로 push 하는것이기 떄문. git push origin HEAD:refs/for/master로 하면, `Pending changes`로 puch하게 되고 이제 권한이 있는 사람들끼리의 투표가 진행됨

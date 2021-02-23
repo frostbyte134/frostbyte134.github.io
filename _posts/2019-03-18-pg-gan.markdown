@@ -1,0 +1,59 @@
+---
+layout: post
+title:  "Progressively Growing of GANs for Improved Quality, Stability, and Variation"
+date:   2019-03-18 09:00:05 +0800
+categories: deep_learning
+use_math: true
+tags: deep_learning gan
+---
+
+<a href="https://arxiv.org/abs/1710.10196" target="_blank">https://arxiv.org/abs/1710.10196</a>
+
+
+
+### Abstract, Intro
+
+#### Abstract
+* key idea: to grow both the G and D progressively \\(\rightarrow\\) speeds up & stabilize training.
+* propose a simple way to increase the variation of G , inception score 8.80 on CIFAR10
+* describe few implementation details that prevents unhealthy competition between G and D
+* suggest a new metric for evaluation GAN results, both in terms of quality and variation
+
+#### Intro
+* `Autoregressive model`s - such as `PixelCNN` - produce sharp images but are slow to eval and do not have a latent repr as they directly model the conditional dist. over pixels. 
+* `VAE`s are easy to train but tend to produce blurry results, due to restrictions in the model (recent improvements - <a href="https://arxiv.org/abs/1606.04934" target="_blank">Kingma et al, 2016</a>)
+* `GAN`s produce sharp images, albeit in small res and limited variation, unstable training.
+
+#### Multiple problems in GAN formulation
+1. grads can point to rand direction when the dist.s (of G and real data) do not have substantial overlap,l i.e., are too easy to tell apart (<a href="https://arxiv.org/pdf/1701.04862.pdf" target="_blank">Arjovsky & Bottou, 2017</a> - NEXT!)  
+\\(\quad\rightarrow\\): JS to MSE, (Improved) Wasserstein loss. The paper's contributions are __orthogonal___ to such improvements
+2. Generation of high-res imgs is difficult since
+	1. not enough memory
+	2. Problem in 1 - Large distance between dist.s of G and real (high res img - easy to tell that its fake)
+	
+	\\(\quad\rightarrow\\): progressively grow the training.
+3. unhealthy competitions, mode collapses - details to solve them.
+
+### Progressive Growing of GANs
+* G and D are mirror images of each other
+* Early on, the G of smaller images is substantially more stable b/c there is less class information and fewer modes (<a href="https://arxiv.org/abs/1610.09585" target="_blank">Odena et al., 2017</a>)
+* Used WGAN-GP (Gulrajani et al., 2017) and LSGAN (Mao et al., 2016b) loss
+
+Several benefits of Growing GANs
+* training with small G is more stable (<a href="https://arxiv.org/abs/1610.09585" target="_blank">Odena et al., 2017</a>)
+* reduced training time
+* based on the idea that,  
+	> the complex mapping from latent to high-resolution images is easier to learn in steps
+
+### Increasing Variation using Minibatch STDEV
+1. Mode collapse (learns only subsuts in the training example) \\(\rightarrow\\) <a href="{{site.url}}//deep_learning/2019/03/18/improved-tech-for-training-gans/" target="_blank">minibatch discrimination (Salimans et al, 2016)</a>  
+	In PG-GAN,
+	1. compute stddev for all feature location over the minibatch
+	2. average them for each location, generate one feature map (with same scalar)
+
+	In parallel work, <a href="https://arxiv.org/abs/1712.04086" target="_blank">Lin et al (2017)</a> provided theoretical insights about the benefits of showing multiple images to the D.
+
+
+### Next
+* <a href="https://arxiv.org/pdf/1701.04862.pdf" target="_blank">Arjovsky & Bottou, 2017</a>: GAN training
+* <a href="https://arxiv.org/abs/1610.09585" target="_blank">Odena et al., 2017</a>: small GAN nets are easy to train

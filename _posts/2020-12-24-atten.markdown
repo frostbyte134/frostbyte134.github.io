@@ -1,0 +1,245 @@
+---
+layout: post
+title:  "Attention is All You Nead"
+date:   2020-12-25 08:00:05 +0800
+categories: deep_learning
+use_math: true
+tags: math need_review deep_learning recomm nlp
+---
+
+
+References
+- <a href="https://arxiv.org/pdf/1706.03762.pdf" target="_blank">https://arxiv.org/pdf/1706.03762.pdf</a>
+- <a href="https://ai.googleblog.com/2017/08/transformer-novel-neural-network.html" target="_blank">https://ai.googleblog.com/2017/08/transformer-novel-neural-network.html</a>
+- <a href="http://mlexplained.com/2017/12/29/attention-is-all-you-need-explained/" target="_blank">http://mlexplained.com/2017/12/29/attention-is-all-you-need-explained/</a> 
+- <a href="https://kazemnejad.com/blog/transformer_architecture_positional_encoding/" target="_blank">https://kazemnejad.com/blog/transformer_architecture_positional_encoding/</a> 
+
+TODO
+- 원본 tensorflow코드에 뭐가 key,value,query 인지 보기
+- 예전 GAN에서의 attention복습
+
+***************************
+
+__TODO__
+- factorization trick [21] <a href="https://arxiv.org/abs/1703.10722" target="_blank">Factorization tricks for LSTM networks</a>
+- `conditional computation` [32] <a href="https://arxiv.org/abs/1701.06538" target="_blank">Outrageously large neural networks: The sparsely-gated mixture-of-experts
+layer</a>
+- why layer norm? (norm over channel, not over H/W/batch)
+  - style transfer에서는 instance norm (over H, W)이 style을 normalization해주는 역할을 했던 거 같은데..비슷하게 뭔가가 있나
+- why shift right output?
+- <a href="https://arxiv.org/abs/1703.03906" target="_blank">Massive exploration of neural machine translation architectures</a> = "the dot prod grows large in magnitude, pushing the softmax func into regions where it has extremely small gradients", `Byte-pair encoding`
+-  <a href="https://arxiv.org/pdf/1608.05859.pdf" target="_blank">Using the output embedding to improve language models [30]</a> = we share the same weight matrix between the two embedding layers and the pre-softmax linear transformation
+
+
+### Abstract, Intro, BG
+- `RNN`'s inherent sequential nature
+  - \\(h\_t\\) is a function of \\(h\_{t-1}\\) and \\(t\\)
+  - especially with `encoder-decoder` structure, all the semantics of the source sentence must all be included in the single vector \\(h\_t\\)
+  - __prevents parallelization, heavy memory usage__
+  - `factorization trick` [21], `conditional computation` [32] alleivates it, but still remains
+- `Attention Mechanisms` .. allowing modeling of dependencies without regard to their distance in the input or output sequences
+- We propose the `Transformer`, based solely on attention mechanism, dispensing with recurrence and convolutions entirely (fc는 있으나..)
+  - allows for significantly more parallelization
+- the # of operations required to relate signals from two arbitrary input / output positions grows
+  - linearly for `ConvS2S`
+  - log.ly, for `ByteNet`
+  - __constant__ in `Transformer`
+    - at the cost of reduced effective resolution, due to averaging attention-weighted position (!!!)
+    - an effect we counteract with `Multi-Head Attention`
+
+### Architecture
+
+<img src="{{site.url}}/images/deeplearning/nlp/attention.jpg" width="900">  
+
+- encoder-decoder structure
+  - the `encoder` maps input seq of symbol repr \\((x\_1,....,x\_n)\\) to a seq of continuous repr \\(z=(z\_1,...,z\_n)\\)
+  - Given \\(z\\), the `decoder` then generates an output seq \\((y\_1,...,y\_m)\\) of symbols, __one element at a time__
+  - at each step \\(t\\), the model is `auto-regressive`, consuming the previously generated symbols \\(y\_1,...,y\_{t-1}\\) as additional input when generating \\(y\_t\\)
+  - all layers in the model, as well as the `embedding layer`s, produce output of dimension \\[d\_{model}=512\\]
+
+#### encoder
+- stack of \\(N=6\\) identitcal layers
+- each layer has 2 sub-layers
+  1. `multi-head attention` 
+  2. `positionwise fc feed-forward network`
+- residual conns (\\(d\_{model}=512\\) all over the layer enables it)
+- <a href="https://nailbrainz.github.io/deep_learning/2018/06/12/batch-normalization.html" target="_blank">layer normalization</a>
+
+
+#### decoder
+- stack of \\(N=6\\) identitcal layers
+- 3 sub-layers, 2 are same with encoder
+  - `self-attention` modified, for future masking
+  - output embeddings are offset by one position (why shift right?)
+
+#### attention function
+- the encoder uses source sentence's embeddings for its keys, values, and queries, whereas the decoder uses the encoder's outputs for its keys and values and the target sentence's embeddings for its queries <a href="http://mlexplained.com/2017/12/29/attention-is-all-you-need-explained/" target="_blank">link</a> (slightly inaccurate)
+- process of __mapping__ (a set of queries \\(Q\\) and a set of \\(K, V\\) pair) to an output
+  - \\(Q, K, V\\) are all matrices. For example each \\(q\_i\in Q\\) is a vector of \\(\mathbb{R}^{d\_k}\\), and we have \\(h\\) such queries.
+    - \\(Q\\) and \\(K\\) must perform dot prod, so they __must have same depth__
+    - \\(K, V\\) __should be from same input sequence/data.__ They can have different depth though (by linear projection, etc)  
+  - output = weighted sum of \\(V\\), where coefs are computed by a `compatibility function` \\(\text{compat}(Q, K)\\)
+- `scaled dot-prod attention`
+  - \\(Q, K \in \mathbb{R}^{h \times d\_k},\\ V \in \mathbb{R}^{h \times d\_v}\\)
+    - computed the __dot prod of a query__ \\(q\_i\\) __with all keys,__ divide each by \\(\sqrt{d\_k}\\), apply a softmax to obtain the weights.
+      - a single query, with all key
+      - in practice, we compute the attention function parallel over all query \\(Q\\)
+    \\[\text{Attention}(Q, K, V) = \text{softmax}\left( \frac{QK^T}{\sqrt{d\_k}} \right)V \tag{1}\\]
+  - equivalent to `dot-prod attention`, except for dividing (normalizing) with \\(\sqrt{d\_k}\\) part
+    - for larger values of \\(d\_k\\), it is suspected that "the dot prod grows large in magnitude, pushing the softmax func into regions where it has extremely small gradients" [3]
+    - 값이 클 때 softmax가 saturate하던 것 같은데...그거 말하는 건가?
+  - `additive attention` computes the __compatibility function__ by a feedforward network with single layer (complex)
+
+#### dot-prod attention function code analysis
+<a href="https://github.com/tensorflow/tensor2tensor/blob/master/tensor2tensor/layers/common_attention.py#L1602" target="_blank">author tensorflow code</a>  
+
+1. note tht `layers/commmon_attention.py/multihead_attention` uses `dot_product_attention`  
+2. \\(Q\\) : Tensor with shape [..., length_q, depth_k].
+3. \\(K\\) : Tensor with shape [..., length_kv, depth_k]. Leading dimensions must match with q
+4. \\(V\\) : Tensor with shape [..., length_kv, depth_v] Leading dimensions must
+      match with q
+5. we have bias of query. where is it from?
+
+```python
+logits = tf.matmul(q, k, transpose_b=True)  # [..., length_q, length_kv]
+# logits\_{ij} = dot prod of embeddings between word i and word j
+...
+weights = tf.nn.softmax(logits, name="attention_weights") #softmax over last dim
+...
+return tf.matmul(weights, v)
+```
+
+************************
+resulting matrix have [length_q, depth_v] 
+- result[i, j] (ith word, jth channel value)
+  - \\(= \sum\_{k=1}^{\text{length_kv}} \text{dot_prod}(i, k) * \text{word_embed}\_k[j] \\)
+  - word sequence \\(Q\\), \\((K=V)\\)가 있다고 가정 (각자의 embed_dim은 달라도 됨)
+  - \\(Q\\)의 index를 i라고 하면, attention 결과의 word i의 j번째 채널 값은,
+    - \\((K=V)\\)를 순회하며,  
+      첫 번째 \\((K=V)\\)의 단어 임베딩과 단어 임베딩 i간의 dot prod * 첫 번째 단어 임베딩의 j채널 값 +  
+      두 번째 \\((K=V)\\)의 단어 임베딩과 단어 임베딩 i간의 dot prod * 두 번째 단어 임베딩의 j채널 값 + ... 
+      \\((K=V)\\)의 마지막 단어까지 다 더함
+    - dot prod는, 각 i에 대해 softmax로 normalize되어 있음
+    - 네트워크는 입력 인배딩을 중간에서 마음대로 바꾸므로, 관련 있는 임베딩이 알아서 커질 듯 (=having attention)
+
+
+#### Multi-head attention
+- instead of performing a single attention func with \\(d\_{model}\\)-dimensional \\(K, V, Q\\),  
+  __linealy projected (mat mult)__ \\(Q, K, V\\) to \\(d\_k,d\_v\\), \\(h\\) times
+  - each linear projections are different and learned
+  - perform the attention function in parallel (over \\(h\\)), concat \\(d\_v\times h\\) values, which are __again projected (matmul)__ to \\(d\_{model}\\)
+
+\\[\text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}\_1,...,\text{head}\_h)W^O\\]
+\\[\text{ where head}\_i = \text{Attention}(QW\_i^Q,KW\_i^K, VW\_i^V) \\]
+where the projections are parameter matrices
+- \\(W\_i^Q, W\_i^K \in  \mathbb{R}^{d\_{model} \times d\_k}\\)
+- \\(W\_i^V \in  \mathbb{R}^{d\_{model} \times d\_v}\\) 
+- \\(W^O \in \mathbb{R}^{hd\_v\times d\_model}\\)
+
+- 코드 상에서는 <a href="https://github.com/tensorflow/tensor2tensor/blob/21dba2c1bdcc7ab582a2bfd8c0885c217963bb4f/tensor2tensor/layers/common_attention.py#L1327" target="_blank">여기</a>를 봐야 하는 듯. \\(h\\) 를 배치에 넣어서 병렬화를 노린 듯 함
+  1. `compute_qkv` : Q(query_antecedent, [batch, length_q, channels]) / KV(memory_antecedent, [batch, length_m, channels])
+     - to q, k, v : [batch, length, depth] tensors
+  1. split K, Q, V :  `[batch, length, channels]` into `[batch, num_heads, length, channels / num_heads]`
+  2. `dispatched` = linearly_projected? \\(h\\)개로 나뉜?
+  3. `q *= depth_qk**-0.5`, which says that depth_qk = linearly projected channel
+
+
+<a href="https://github.com/tensorflow/tensor2tensor/blob/5f9dd2db6d7797162e53adf152310ed13e9fc711/tensor2tensor/models/transformer.py#L185" target="_blank">transformer model code</a>
+
+#### Position-wise Feed-Forward Networks
+\\[\text{FFN}(x) = \max(0, wW\_1+b\_1)W\_2+b\_2\\]
+- applied to each position (of head?) separately and identically
+- two linear transformation with a ReLU in between
+  - since \\(x\\) is a vector, the linear transformation corresponds to a 1x1 conv
+- input-output dimensionality = \\(d\_\{model}=512\\)
+- __inner-layer dimension__ \\(d\_{ff}=2048\\) (!!)
+- why this works? (expanding - extracting channel?)
+
+
+#### Embedding and Softmax
+- use learned embeddings to convert the input tokens and output tokens to vectors of dimension \\(d\_{model}\\)
+- also use the usual learned linear transformation and softmax to convert the decoder output to predicted next-token probs
+- __we share the same weight matrix between the two embedding layers and the pre-softmax linear transformation__, similar to [30]
+- in the embedding layers, we multiply those weights by \\(\sqrt{d\_{model}}\\)
+
+#### Positional Encoding
+- <a href="https://pozalabs.github.io/transformer/" target="_blank">https://pozalabs.github.io/transformer/</a>
+- <a href="https://omicro03.medium.com/attention-is-all-you-need-transformer-paper-%EC%A0%95%EB%A6%AC-83066192d9ab" target="_blank">https://omicro03.medium.com/attention-is-all-you-need-transformer-paper-%EC%A0%95%EB%A6%AC-83066192d9ab</a>
+
+- the model structure itself contains to recurrence, no convolution
+    - must inject some info about the relative / absolute __position__ of the token in sequence
+    
+- the `positional encodings`
+  - has same dimension \\(d\_{model}\\) as the embeddings, so that __two can be summed__
+  - learned vs fixed
+    - learned = feedforward conv
+
+__fixed positional encoding__
+- let \\(t\\) be a time step indices, __position__ in the inout.
+\\[PE\_{(t, 2i)} = \sin(\frac{t}{10000^{2i/d\_{model}}} )\\]
+\\[PE\_{(t, 2i+1)} = \cos(\frac{t}{10000^{2i/d\_{model}}} )\\]
+  - pos : position of the word in an input word sequence
+  - \\(i\\) : refers to the index in the dimension \\(d\_{model}\\)
+  - frequency \\(10000^{ \frac{2i}{d\_{model}} }\\) __decreases along the vector dimension__, forming a geometric progression from \\(2\pi\\) to \\(10000\cdot 2\pi\\)
+  - <img src="https://d33wubrfki0l68.cloudfront.net/ef81ee3018af6ab6f23769031f8961afcdd67c68/3358f/img/transformer_architecture_positional_encoding/positional_encoding.png" width="700">
+  - image from <a href="https://kazemnejad.com/blog/transformer_architecture_positional_encoding/" target="_blank">https://kazemnejad.com/blog/transformer_architecture_positional_encoding/</a>
+  - why geometric progression over the dimension?
+    - lower indices of \\(d\_{model}\\) have more variations, compared to higher indices
+
+\\[
+= \begin{bmatrix}
+\sin(\frac{t}{ 10000^{0/d\_{model}} }) \cr
+\cos(\frac{t}{ 10000^{0/d\_{model}} }) \cr
+\sin(\frac{t}{ 10000^{1/d\_{model}} }) \cr
+\cos(\frac{t}{ 10000^{1/d\_{model}} }) \cr
+...  \cr
+\sin(\frac{t}{10000^2}) \cr
+\sin(\frac{t}{10000^2})  
+\end{bmatrix}
+\\]
+
+> We hypothesized it would allow the model to easily learn to attend by relative position, since for any fixed offset \\(\phi\\), the positional encodings \\(PE\\ , PE\_{pos+\phi}\\) can be represented as a linear function of \\(PE\_{pos}\\)
+
+\\[
+\begin{bmatrix}
+\cos(\frac{\phi}{10000^{2k/d}}) && \sin( \frac{\phi}{10000^{2k/d}} ) \cr
+-\sin(\frac{\phi}{10000^{2k/d}}) && \cos( \frac{\phi}{10000^{2k/d}} ) \cr
+\end{bmatrix}
+\begin{bmatrix}
+\sin(\frac{t}{10000^{2k/d}})  \cr
+-\sin(\frac{t}{10000^{2k/d}}) \cr
+\end{bmatrix}
+= 
+\begin{bmatrix}
+\sin(\frac{t+\phi}{10000^{2k/d}})  \cr
+-\sin(\frac{t+\phi}{10000^{2k/d}}) \cr
+\end{bmatrix}
+\\]
+
+<a href="https://kazemnejad.com/blog/transformer_architecture_positional_encoding/" target="_blank">proof from here</a>
+- 해당 링크에 있는 다른 내용 : positionwise dot product를 했을 시, 결과가 symmetric하게 잘 나옴 (동일 포지션끼리 = 최대, 먼 포지션끼리 = 최소)
+- notice that it is a some sort of rotation matrix (length-preserving transformation)
+
+TODO: 링크 읽고 내용 추가
+
+### Why Self-Attention?
+- one key factor affecting the ability to learn such (long) dependencies is the length of the paths forward and backward signals thave to traverse in network
+  - the shorter these paths between any combination of positions in the input and output sequences, the easier it to learn long-range depenedencies [12]
+- self-attention requires constant, RNN requires O(N) sequential operations
+- self-attention layers are faster (computational complexity is lower) than rnn layers when the sequence length \\(n\\) is smaller than the representation dimensionality \\(d\\)
+- connecting all pairs of input and output positions
+  - conv layer require a stack of \\(O(n/k)\\) conv
+  - dilated conv require \\(O(\log\_k(n)\\)
+  - separable conv \\(O(k\cdot n \cdot d + n \cdot d^2)\\)
+- self-attention yield more interpretable models
+  - attention distributions from the model exhibit behavior related to syntatic, semantic structure of the sequence
+
+### Training
+- Adam, warmup LR, residual dropout, label smoothing
+- 여기 내 블로그의 링크 추가
+
+### Conclusion
+> In this work, we presented the Transformer, the first sequence transduction model based entirely on attention, replacing the recurrent layers most commonly used in encoder-decoder architectures with multi-headed self-attention.
+
+- investigate local, restricted attention mechanisms to efficiently handle large inputs and outputs such as images, audio and video. 
+- Making generation less sequential is another research goals of ours.

@@ -1,0 +1,24 @@
+---
+layout: post
+title:  "Linker and Linker script"
+date:   2020-05-12 09:00:05 +0800
+categories: coding
+use_math: true
+tags: coding C
+---
+
+이것도 맨날 해깔려서..정리 ㄱㄱ
+
+<a href="https://stackoverflow.com/questions/1106149/what-is-a-translation-unit-in-c" target="_blank">https://stackoverflow.com/questions/1106149/what-is-a-translation-unit-in-c</a>
+> According to standard C++ (wayback machine link) : A `translation unit` is the basic unit of compilation in C++. It consists of the contents of a single source file, plus the contents of any header files directly or indirectly included by it, minus those lines that were ignored using conditional preprocessing statements.  
+A single translation unit can be compiled into an object file, library, or executable program.  
+The notion of a translation unit is most often mentioned in the contexts of the One Definition Rule, and templates.
+
+
+* http://www.keil.com/support/man/docs/armclang_ref/armclang_ref_chr1385461015401.htm
+
+
+
+* <a href="https://umbum.dev/112?category=711929" target="_blank">https://umbum.dev/112?category=711929</a> 이거 읽고 정리 ㄱㄱ
+
+
