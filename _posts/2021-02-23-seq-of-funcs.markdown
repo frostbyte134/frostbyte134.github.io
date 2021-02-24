@@ -7,7 +7,7 @@ use_math: true
 tags: analysis differentiation limit derivative
 ---
 
-- <a href="https://drive.google.com/file/d/1J2bh2PE_0Kd_aWN5tqgHdeJzrE6IU_Dg/view?usp=sharing" target="_blank">rudin Chap7 Derivative</a>
+- <a href="https://drive.google.com/file/d/1J2bh2PE_0Kd_aWN5tqgHdeJzrE6IU_Dg/view?usp=sharing" target="_blank">rudin Chap7 Sequences and Series of Functions</a>
 
 ### Interchangiblity (?) of limits
 
