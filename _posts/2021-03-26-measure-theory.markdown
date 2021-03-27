@@ -12,12 +12,8 @@ tags: math analysis probability
 
 > Chap 11, Principles of Mathematical Analysis, by Walter Rudin
 
-
-
-<img src="{{site.url}}/images/math/analysis/measure/measure.jpg" width="800">
-
 - <a href="https://freshrimpsushi.github.io/posts/probability-in-terms-of-measure-theory/" target="_blank">생새우초밥집, 측도론으로 정의한 확률</a>
-  - 리뉴얼하면서 페이지가 많이 사라진듯
+  - 리뉴얼하면서 페이지가 많이 사라진듯. 다시 생기면 링크 ㄱㄱ
 
 *************************
 
@@ -28,13 +24,17 @@ tags: math analysis probability
 
 *************************
 
+
 `Fatou's lemma`
 \\[f(x)=\mathop{\text\{liminf\}}\_{n\rightarrow\infty} f\_n(x) \quad\rightarrow\quad \int\_E{f d\mu} \leq \mathop{\text\{liminf\}}\_{n\rightarrow\infty} f\_n d\mu \\]
 
-
 chap 9, 10도 올려야 하는데..너무 귀찮다. 의욕이 없음. 뭔가 잘못 선택한 느낌
 
+
 *************************
+
+
+<img src="{{site.url}}/images/math/analysis/measure/measure.jpg" width="800">
 
 1. define a `ring` \\(\mathfrak{M} \\) \\[A\bigcup B \in \mathfrak{M} ,\quad\quad A-B \in \mathfrak{M} \\]
    1. a ring \\(\mathfrak{M} \\) is called a \\(\sigma\\)-ring if \\[\mathop{\bigcup}_{n=1}^{\infty}A\_n \in \mathfrak{M} \\]  
