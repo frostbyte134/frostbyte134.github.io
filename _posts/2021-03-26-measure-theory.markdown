@@ -17,18 +17,18 @@ tags: math analysis probability
 
 *************************
 
-사실 르벡 적분의 가장 큰 의의 (일단 나한테. 랜덤변수에 적용해야 하니까)는 __limit operation과 interchangible하다는__ 것에 있음
+(개인적으로?) 르벡 적분의 가장 큰 의의는 __limit operation과 interchangible하다는__ 것에 있음
 - Lebesgue's `Dominatec Convergence Theorem`. "지배"당하고 (\\( f\_n \leq g \\)) \\(f\\)로 수렴하는 함수의 수열 \\(\\{f\_n\\}\\)은,
   - \\(f\_n, f\\) 가 르벡 적분가능하며(!) \\(f\_n\\)의 르벡적분이 \\(f\\)의 르벡적분으로 수렴함. 굉장히 편리함
-- DCT보기전에 liminf의 일반적인 성질을 다시 보고 오면 좋음 <a href="https://nailbrainz.github.io/analysis/2020/12/22/limit-supremum.html" target="_blank">링크</a>
 
 *************************
 
 
 `Fatou's lemma`
 \\[f(x)=\mathop{\text\{liminf\}}\_{n\rightarrow\infty} f\_n(x) \quad\rightarrow\quad \int\_E{f d\mu} \leq \mathop{\text\{liminf\}}\_{n\rightarrow\infty} f\_n d\mu \\]
+- 이거하고 DCT보기전에 liminf의 일반적인 성질을 다시 보고 오면 좋음 <a href="https://nailbrainz.github.io/analysis/2020/12/22/limit-supremum.html" target="_blank">링크</a>
 
-chap 9, 10도 올려야 하는데..너무 귀찮다. 의욕이 없음. 뭔가 잘못 선택한 느낌
+chap 9, 10도 올려야 하는데..너무 귀찮다. 의욕이 없음. 뭔가 잘못 선택한 느낌..
 
 
 *************************
