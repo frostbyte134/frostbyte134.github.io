@@ -29,7 +29,7 @@ tags: math analysis probability
 *************************
 
 `Fatou's lemma`
-\\[f(x)=\mathop{liminf}\_{n\rightarrow\infty} f\_n(x) \quad\rightarrow\quad \int\_E{f d\mu} \leq \mathop{liminf}\_{n\rightarrow\infty} f\_n d\mu \\]
+\\[f(x)=\mathop{\text\{liminf\}}\_{n\rightarrow\infty} f\_n(x) \quad\rightarrow\quad \int\_E{f d\mu} \leq \mathop{\text\{liminf\}}\_{n\rightarrow\infty} f\_n d\mu \\]
 
 
 chap 9, 10도 올려야 하는데..너무 귀찮다. 의욕이 없음. 뭔가 잘못 선택한 느낌
