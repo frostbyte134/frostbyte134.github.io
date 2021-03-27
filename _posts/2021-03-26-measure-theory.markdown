@@ -1,13 +1,13 @@
 ---
 layout: post
-title:  "Measure Theory 1 - Basics"
-date:   2021-01-05 08:00:05 +0800
+title:  "Lebesgue Integral, Convergence"
+date:   2021-03-26 08:00:05 +0800
 categories: math
 use_math: true
 tags: math analysis probability
 ---
 
-<a href="https://drive.google.com/open?id=1f5A7HRC-3hrEAjQ_vP_lJlsi5UhiM8Db" target="_blank"> Rudin Chap 11</a>
+<a href="https://drive.google.com/file/d/1UhtkZybCemTuTKHIJ4TTFPll92DEJ67L/view?usp=sharing" target="_blank"> Rudin Chap 11</a>
 
 
 > Chap 11, Principles of Mathematical Analysis, by Walter Rudin
@@ -16,8 +16,19 @@ tags: math analysis probability
 
 <img src="{{site.url}}/images/math/analysis/measure/measure.jpg" width="800">
 
-- <a href="https://freshrimpsushi.tistory.com/category/%ED%95%B4%EC%84%9D%ED%95%99/%EC%B8%A1%EB%8F%84%EB%A1%A0?page=2" target="_blank">생새우초밥집/해석학/측도론</a>
-- <a href="https://freshrimpsushi.tistory.com/480?category=747528" target="_blank">왜 이런 해골복잡한 거리의 확장이 필요한가?</a>
+- <a href="https://freshrimpsushi.github.io/posts/probability-in-terms-of-measure-theory/" target="_blank">생새우초밥집, 측도론으로 정의한 확률</a>
+  - 리뉴얼하면서 페이지가 많이 사라진듯
+
+사실 르벡 적분의 가장 큰 의의 (일단 나한테. 랜덤변수에 적용해야 하니까)는 __limit operation과 interchangible하다는__ 것에 있음
+- Lebesgue's `Dominatec Convergence Theorem`. "지배"당하고 (\\( f\_n \leq g \\)) \\(f\\)로 수렴하는 함수의 수열은, \\(f\\) 가 르벡 적분가능하며 \\(f\_n\\)의 르벡적분이 \\(f\\)의 르벡적분으로 수렴함
+- DCT보기전에 liminf의 일반적인 성질을 다시 보고 오면 좋음 <a href="https://nailbrainz.github.io/analysis/2020/12/22/limit-supremum.html" target="_blank">링크</a>
+
+
+`Fatou's lemma`
+\\[f(x)=\mathop{liminf}\_{n\rightarrow\infty} f\_n(x) \quad\rightarrow\quad \int\_E{f d\mu} \leq \mathop{liminf}\_{n\rightarrow\infty} f\_n d\mu \\]
+
+
+chap 9, 10도 올려야 하는데..너무 귀찮다. 의욕이 없음. 뭔가 잘못 선택한 느낌
 
 *************************
 
