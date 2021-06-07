@@ -6,6 +6,19 @@ categories: linear_algebra
 use_math: true
 tags: linear_algebra need_revise
 ---
+
+2021.06.08 새벽1시 정리
+
+\\[Ax=b\\]
+1. \\(n \times n\\), rank=n
+   - 경사났네 경사났어
+2. \\(m \times n\\), \\(b\\) is not in the columnspace of \\(A\\)
+   - \\(b\\) contains the `left nullspace` component. we project (remove all left nullspace component) it into the columnspace, by solving normal equation \\(A^TAx=A^Tb\\). This is solvable only when columns of \\(A\\) are indenpendent.
+     - when columns of \\(A\\) is independent but does not have full rank
+3. When columns of \\(A\\) is not independent, \\(A^TA\\) is not invertible and we cannot solve the normal equation.
+   - In equation \\(A^TAx=A^Tb\\), any nullspace component of \\(A^TA\\) (is equivalent of the nullspace of \\(A\\)) can be added to \\(x\\), so we cannot determine which \\(x\\) corresponds to \\(b\\) as a reverse-mapping.
+   - We map shortest (= which does not contain any nullspace component of \\(A^TA\\) (\\(A^TA\\) and \\(A\\) shares nullspace anyway)) \\(x\\) to \\(b\\), by `pseudoinverse`!
+
 <img src="{{ site.url }}/images/math/linear_alg/pseudoinverse.png" class="center" style="width:800px"/>  
 
 

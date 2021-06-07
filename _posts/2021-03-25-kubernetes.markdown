@@ -9,6 +9,38 @@ tags: coding kubernetes docker
 
 > 쿠버네티스 인 액션, 마르코 록샤
 
+### Kubectl
+#### Chap 9
+- `kubectl set selector` 로 서비스의 파드 셀렉터 변경가능 (블루-그린 deployment : 잠시 파드가 2배 됨)
+- `kubectl rolling-update <old_pod_name> <new_pad_name>` : old_pod_name는 이미 노드에서 돌고 있는 pod의 metadata.name이고, new_pod_name은 yaml에 있을 필요 없음 (이럼 로컬 yaml하고 name이 달라지긴 하는 듯)
+- YAML에서는 __대시 3개로__ 여러 object를 구분
+- `--v` __옵션으로 추가 로그 확인가능__
+- `kubectl delect rc -all` : 모든 rc 삭제 (레플리카셋이 더 최신임)
+- `kubectl create -f kubia-deployment-v1.yaml --record` : --record 옵션은 revision history에 명령어를 기록해 나중에 유용하게 쓸 수 있다고 함
+  - `kubectl rollout status deployment <deployment name>` : `kubectl get deployment` / `kubectl describe deployment` 보다 업데이트 상태를 더 잘 볼 수 있다고 함
+- `kubectl patch deployment depname -p '{"spec":{"minReadySeconds":10}}'` : `kubectl patch`로 속성 1개 (롤링 업데이트 속도 늦게)만 조절
+- `kubectl set image deployment depname container=image`로 이미지 교체하여 업데이트 수행
+    - `kubectl set image` : 파드, RC 템플릿, 디플로이먼트, 데몬셋, 잡 또는 레플리카셋에 정의된 컨테이너 이미지 변경
+    - 디플로이먼트에 소속된 "파드 템플릿"을 새로운 이미지를 쓰도록 업데이트 하는 것
+- `kubectl rollout undo deployment depname` : 이전 배포된 버전으로 롤백
+  - `kubectl rollout history objtype objname` : 버전업 히스토리 (--record로 디플로이먼트 만들어야 CHANGE-CAUSE에 세부사항이 나옴)
+- `kubectl rollout pause objtype objname ` : 적당한 타이밍에 멈췄다면, 원본 파드 / 새 파드가 혼재된 상태 (`canary release` : 버킷 테스트 비슷)
+  - 근데 이걸로 버킷테스트 하기는 좀...minReadySeconds를 크게 줘서 
+- `kubectl rollout resume objtype objname ` : 계속 진행
+
+
+#### Chap 11
+- `kubectl get componentstatus` : 스케쥴러, 컨트롤러 매니저, etcd등의 상태 확인
+- `etcdctl ls /registry` : etcd에 저장된 오브젝트들 ls
+  - `etcdctl ls /registry/pods/` : 등록된 파드들의 네임스페이스 (디렉토리) 가 나옴
+  - 계속 찾아가면, pod 관리에 필요한 key-value값들이 나옴
+- `kubectl get pods --watch` : 와치 명령어 비슷
+- `kubectl get events --watch` : 이벤트 (파드에 대한 명세가 컨트록ㄹ 플레인에서 생성, 스케쥴링되어 노드가 할당, 해당 노드의 kubelet에서 감시하다가 이를 발견하고 이미지 다운로드 밑 파드 리소스 생성 등) 감시가능
+
+------------------------------------------
+
+
+
 ### Chap 9 (디플로이먼트, 선언적 앱 업데이트)
 - `kubectl set selector` 로 서비스의 파드 셀렉터 변경가능 (블루-그린 deployment : 잠시 파드가 2배 됨)
 - kubectl에서 `--v` 옵션으로 추가 로그 확인가능
@@ -67,34 +99,6 @@ tags: coding kubernetes docker
 
 이거..뭔가 적기에는 너무 많네
 
-### Kubectl
-#### Chap 9
-- `kubectl set selector` 로 서비스의 파드 셀렉터 변경가능 (블루-그린 deployment : 잠시 파드가 2배 됨)
-- `kubectl rolling-update <old_pod_name> <new_pad_name>` : old_pod_name는 이미 노드에서 돌고 있는 pod의 metadata.name이고, new_pod_name은 yaml에 있을 필요 없음 (이럼 로컬 yaml하고 name이 달라지긴 하는 듯)
-- YAML에서는 __대시 3개로__ 여러 object를 구분
-- `--v` __옵션으로 추가 로그 확인가능__
-- `kubectl delect rc -all` : 모든 rc 삭제 (레플리카셋이 더 최신임)
-- `kubectl create -f kubia-deployment-v1.yaml --record` : --record 옵션은 revision history에 명령어를 기록해 나중에 유용하게 쓸 수 있다고 함
-  - `kubectl rollout status deployment <deployment name>` : `kubectl get deployment` / `kubectl describe deployment` 보다 업데이트 상태를 더 잘 볼 수 있다고 함
-- `kubectl patch deployment depname -p '{"spec":{"minReadySeconds":10}}'` : `kubectl patch`로 속성 1개 (롤링 업데이트 속도 늦게)만 조절
-- `kubectl set image deployment depname container=image`로 이미지 교체하여 업데이트 수행
-    - `kubectl set image` : 파드, RC 템플릿, 디플로이먼트, 데몬셋, 잡 또는 레플리카셋에 정의된 컨테이너 이미지 변경
-    - 디플로이먼트에 소속된 "파드 템플릿"을 새로운 이미지를 쓰도록 업데이트 하는 것
-- `kubectl rollout undo deployment depname` : 이전 배포된 버전으로 롤백
-  - `kubectl rollout history objtype objname` : 버전업 히스토리 (--record로 디플로이먼트 만들어야 CHANGE-CAUSE에 세부사항이 나옴)
-- `kubectl rollout pause objtype objname ` : 적당한 타이밍에 멈췄다면, 원본 파드 / 새 파드가 혼재된 상태 (`canary release` : 버킷 테스트 비슷)
-  - 근데 이걸로 버킷테스트 하기는 좀...minReadySeconds를 크게 줘서 
-- `kubectl rollout resume objtype objname ` : 계속 진행
-
-
-#### Chap 11
-- `kubectl get componentstatus` : 스케쥴러, 컨트롤러 매니저, etcd등의 상태 확인
-- `etcdctl ls /registry` : etcd에 저장된 오브젝트들 ls
-  - `etcdctl ls /registry/pods/` : 등록된 파드들의 네임스페이스 (디렉토리) 가 나옴
-  - 계속 찾아가면, pod 관리에 필요한 key-value값들이 나옴
-- `kubectl get pods --watch` : 와치 명령어 비슷
-- 
-------------------------------------------
 
 2021-02-13 때 작성
 
