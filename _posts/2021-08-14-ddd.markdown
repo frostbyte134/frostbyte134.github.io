@@ -1,0 +1,31 @@
+---
+layout: post
+title:  "Architecture patterns with Python"
+date:   2021-08-14 08:00:05 +0800
+categories: coding
+use_math: true
+tags: coding
+---
+
+### Intro
+
+- `Layered architecture`: Presentation layer (UI) -> Business logic (app) -> Database layer
+- `DIP`: Dependency inversion principle (D in SOLID?)
+
+1. High level modules should not depend on low level modules. Both should depend on abstractions
+2. Abstractions should not depend on details. Instead, details should depend on abstractions.
+
+- `High-level modlues`: functions, classes, packages that deal with our real-world problems
+- `low-level modules`: HTTP, uWSGI, nginx, ... ones that business owners never cares
+- `Depends on`: does not mean specific, technical things (imports, calls). Rather it simply means that one __knwos about or needs__ the other module.
+- `Abstraction`: simplified interfaces that encapsulate behavior
+  - why 1.? -> we want to change them seperately
+
+2 -> chap4
+
+### Chap 1 Domain modeling
+- how we can model business processes with code, in a way thats highly compatibel with TDD
+- __business logic layer = domain model__
+  - `domain`: problem we want to solve
+  - `model`: map of process that captures a useful property
+  - `domain model`: mental map that business owners have of their business
