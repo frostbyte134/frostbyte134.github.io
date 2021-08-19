@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "System Design Interive"
+title:  "System Design Interview"
 date:   2021-08-14 08:00:05 +0800
 categories: coding
 use_math: true
@@ -36,4 +36,63 @@ response header에 `X-Ratelimit-Remaining`, `X-Ratelimit-Limit` 등 넣어 줌. 
   - 나머지 연산자는 서버 추가/삭제 시 모든 키를 재배치해야 함
   - 링 방식으로, 키는 "자기와 제일 가까운 서버"에 저장된다고 할 시 키 개수 / 서버 수 정도만 재배치하면 됨. 굳
 
+
+### Chap 6 A Key-value Store
+
+별 내용 없었음..
+
+#### CAP theorem
+
+<a href="https://stackoverflow.com/questions/12346326/cap-theorem-availability-and-partition-tolerance" target="_blank">참고</a>
+
+<a href="http://eincs.com/2013/07/misleading-and-truth-of-cap-theorem/" target="_blank">좋은 글인듯?</a> 다른글도 좋네
+
+> In a distributed data store, at the time of network partition you have to chose either Consistency or Availability and cannot get both"
+ 
+- Newer NoSQL systems are trying to focus on Availability while traditional ACID databases had a higher focus on Consistency
+- C: Consistency (분산 node간 데이터 일치 여부)
+- A: Availability (일부 노드 다운시에도 잘 동작하는가)
+- P: Partition Tolerance: cluster continues to function even if there is a "partition" (communication break) between two nodes (both nodes are up, but can't communicate).
+  - CA - consistent하고, 노드 한두개 죽어도 / partition 발생해도 응답은 잘 함. 다만 partition발생 시 문제 (어떻게?)
+    - availability가 있으니 응답은 하지만, 파티션 해소 후에도 resync가 잘 안 되는 듯
+  - CP - data is consistent between all nodes, and maintains partition tolerance (preventing data desync) by __becoming unavailable__ when a node goes down.
+    - A가 없으면 그냥 다운시키면 되는 듯 ㅋㅋ
+    - EX - bank systems
+  - AP - nodes remain online even if they can't communicate with each other and will resync data once the partition is resolved, but you aren't guaranteed that all nodes will have the same data (either during or after the partition)
+
+In real world, partitions cannot be avoided (CA never exists)
+
+
+#### Data partitions + replication
+- 서버 하나 말고 여러 노드에 데이터를 나눠서 저장 + 복사
+- `consistent hasing` (+virtual node)
+  - N replication - 서버를 링에서 시계방향으로 가장 가까운 N개 선택
+
+
+#### Consistenty
+- quorum (local / 2, 3, 4)
+- `coordinator`가 프록시 역할을 하면서 통제
+- inconsistency : versioning으로 해결 (vector clocks? 깃처럼 뭐 어떻게 하는 듯)
+
+
+#### Failures
+- `gossip protocol`: 노드 내부를 몇개의 헬스체크 패킷이 돌아다님. 일정시간동안 응답안하면 report (여러 댜른 노드에서 리포트가 들어와야 노드 다운 인정)
+
+#### Merkle tree
+- 리프노드는 데이터들이 해시값
+- 부모는 자기 자손들의 총 해시값
+  - 어느 데이터가 다른지 빠르게 비교가능
+
+write path: commit log - memory cahce - SSTables
+- sstable는 한번 봐야겠다. 맨날 나오네
+read path - cache - bloom filter (데이터가 어느 sstable에 있는지?) - sstables (disk)
+
+
+
+| Goal/problems       | Technique                                       |
+| ------------------- | ----------------------------------------------- |
+| Store big data      | consistent hashing to spread load across severs |
+| HA reads            | data replication / multi-data center            |
+| HA writes           | versioning with vector clocks                   |
+| Dataset replication | consistent hashing                              |
 

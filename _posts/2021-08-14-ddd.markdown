@@ -1,11 +1,15 @@
 ---
 layout: post
-title:  "Architecture patterns with Python"
+title:  "Architecture patterns with Python (+DDD)"
 date:   2021-08-14 08:00:05 +0800
 categories: coding
 use_math: true
 tags: coding
 ---
+
+> Architecture Patterns with Python, Percival, Harry; Gregory, Bob. O'Reilly Media. Kindle Edition. 
+
+[https://github.com/cosmicpython/book](https://github.com/cosmicpython/book)
 
 ### Intro
 
@@ -24,8 +28,65 @@ tags: coding
 2 -> chap4
 
 ### Chap 1 Domain modeling
-- how we can model business processes with code, in a way thats highly compatibel with TDD
+- how we can model business processes with code, in a way thats highly compatible with TDD
 - __business logic layer = domain model__
   - `domain`: problem we want to solve
   - `model`: map of process that captures a useful property
   - `domain model`: mental map that business owners have of their business
+    - 비즈니스 오너들의 멘탈 모델을 그대로 구현하는 것이 좋다고 함 (이미 문제를 잘 표한하고 있는 사람들이므로)
+    - When we hear our business stakeholders use unfamiliar words, or using tems in a specific way, we should listen to understand the deeper meaning and encode their hard-won experience into our service
+- DDD says that the most important thing about software is that it provides a useful model of a problem
+
+
+#### Domain language
+- Product = SKU
+- Customer places orders
+  - Order (pk = order reference)
+    - composed of `order lines` (= a SKU and quantity)
+- batch = 도매상으로의 주문 (pk = batch reference, a SKU, quantity, ETA (도착기간))
+- __we need to allocate order lines to batches__ 
+- `allocation` : concept of linking an OrderLine to a Batch
+  - we store allocation as a collection on our batch object (as as set)
+
+#### 코드
+- Orderline 클래스는 `@dataclass(frozen=True)`로 잠궈놓음
+  - `value object` : definde by its attributes. 보통 임뮤터블하게 해 놓음
+- `entity` : identity를 가지고, 식별되는 것 (with PK)
+  - `__eq__, __hash__` 구현하면 편하나 해시 구현 시 조심해야 함
+- `domain service function`: entity나 value object가 아닌 것 (ex - allication of order line to batch)
+- exceptions can be uised to express domain concepts too
+
+<img src="{{ site.url }}/images/coding/python/../../../../../images/coding/python/ddd_1.gif" class="center" style="width:300px"/>
+- <a href="https://github.com/Dev-Nebe/architecture-patterns-with-python/blob/master/src/allocation/domain/model.py" target="_blank">코드</a>를 보면, `allocate()`는 실제로 batch의 동작에 의존함. order_line도 파라미터로 받긴 하는데 얘한테 의존하는 건 없음 (order_line의 동작이 바껴도 allocate에 영향 X)
+
+
+### Chap 2 Repository pattern
+> ... to use the dependency inversion principle as a way of decoupling our core logic from infrastructural concerns
+
+`Repository pattern`: a simplifying abstraction over data storage, allowing us to decouple our model layer from the data layer.
+
+...
+
+### Chap 3 On copuling and abstractions
+
+> A key theme in this book ... is that we can use simple abstractions to hide messy details.
+
+In a large-scale system, we become constained by the decisions made elsewhere in the system (coupling)
+- __locally__, coupling is a proof that your module is related
+- __globally__, coupling is a nuisance (increase the cost of code change, exponentially)
+   - we can reduce the degree of coupling, by abstracting away the details
+
+#### Abstracting states aids testability
+
+- 폴더 비교 및 sync 기능 구현
+- 그냥 짜면 os.listdir / hashlib (체크) / shutils (복사) 범벅이 됨. 근데 이건 사실 `core functionality`가 아님 (tightly coupled with file I/O)
+  - core는 파일을 비교하고 적절한 연산을 해 주기만 하면 됨. 이 부분을 구현하고, IO관련 부분은 주입하면됨 (Dependency Injection!)
+  - 이 core는 external state에 의존적이면 안됨. 들어온 입력에 대해 항상 일정해야 함.
+  - core = `bueiness logic`
+
+> We're going to seperate `what` we want do to from `how` we do it. 띵언 ㄷㄷ
+
+이러면 테스트 시 DI를 사용해 간편하게 테스트를 만들 수 있음 (aids testability)
+ - `edge to edge testing`
+ - DI는 굳이 ABC로 짤 필요 없음. duck typing에만 의존해도 됨.
+ - file mocking (=patching out dependency) 도 나쁘지 않지만, 결국 이 과정을 통해 stateful한 부분을 core logic과 분리하는 것 자체가 좋음.
