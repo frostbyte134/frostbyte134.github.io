@@ -7,8 +7,9 @@ use_math: true
 tags: analysis limit sequence bounded subsequence
 ---
 
+
 다 타이핑할 시간도 없고 의미도 크게 없는 듯...책 pdf위주로 복습하고 해깔리는 것만 따로 적어놓아야 할 듯
-- rudin Chap3 Numerical Sequences and Series
+- <a href="https://drive.google.com/file/d/1j76UouKwCaY0OdWEkEYRIQrwFe9KXlRJ/view?usp=sharing" target="_blank">rudin Chap3 Numerical Sequences and Series</a>
 
 - written in 2018.12.19
 - revision in 2021.01.25

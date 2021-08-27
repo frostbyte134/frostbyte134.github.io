@@ -64,8 +64,32 @@ tags: coding
 > ... to use the dependency inversion principle as a way of decoupling our core logic from infrastructural concerns
 
 `Repository pattern`: a simplifying abstraction over data storage, allowing us to decouple our model layer from the data layer.
+- we want our domain model to have __no dependency whatsoever__
+  - we'll think of our model as being on the inside, and dependencies flowing inward to it (`onion architecture`)
 
-...
+
+#### ORM
+- normal ORM way : model depend on ORM (model is defined with ORM)
+  - pros of ORM: `persistence ignorance` (do not need to care how the date is stored in persistent manner)
+- __INVERTING THE DEPENDENCY__: ORM depends on Model
+  - define schema explicitly, and to define an explicit mapper for the ORM (`classical mapping` in SQLAlchemy)
+  - the ORM imports (or "depends" or "knows about") the domain model, and not the way around
+
+
+#### The Repository Pattern
+`Dependency Injection` : Create ABCRepository class
+  - can easily introduce new ORM
+  - fake ORM (not the "mock")
+  - no need to use ABC class. duck-typing is often sufficient in real fields (too easy to ignore them)
+
+Trade-off
+- introducing additional layer of abstraction
+  - make easy to make a change (fundamental) to they way we store things
+  - easy to fake unit test
+
+#### Port and Adapters
+- port = interface (abstraction)
+- adapter = implementation (instance) of port
 
 ### Chap 3 On copuling and abstractions
 
@@ -90,3 +114,20 @@ In a large-scale system, we become constained by the decisions made elsewhere in
  - `edge to edge testing`
  - DI는 굳이 ABC로 짤 필요 없음. duck typing에만 의존해도 됨.
  - file mocking (=patching out dependency) 도 나쁘지 않지만, 결국 이 과정을 통해 stateful한 부분을 core logic과 분리하는 것 자체가 좋음.
+
+> We view TDD as a design practice first and a testing practice second (2차 띵언 ㄷㄷ)
+
+ - The tests act as a record of our design choices, and serve to explain the system to us when we return to the code after a long absence
+ - Tests that use too many mocks get overwhelmed with setup code that hides the story we care
+
+In summary
+- We can make our systems easier to test and maintain by simplifying the interface between our business logic and messy I/O. Finding the right abstraction is tricky, but here are a few heuristics and questions to ask yourself.
+  - Can i choose a familiar Phtyhon data structure to represent the state of the messy system and then try to imagine a single function that can return the state?
+  - Where can I draw a line between my systems?
+  - What is a sensible way of dividing things into components with different responsibilities?
+  - What are dependencies, and what is the core business logic?
+
+
+### Chap 4 Service Layer
+
+orchestration (디비에서 값 뺴오고, 입출력 검사하고, 에러 처리하고, 결과 커밋 등)을 api구현에서 분리해서 새 레이어로 (`orchestration layer` = `service layer`)

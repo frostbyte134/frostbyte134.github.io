@@ -96,3 +96,33 @@ read path - cache - bloom filter (데이터가 어느 sstable에 있는지?) - s
 | HA writes           | versioning with vector clocks                   |
 | Dataset replication | consistent hashing                              |
 
+### Chap 7 Unique ID Generator in Distributed System
+
+#### 질문 리스트
+- TPS (시스템의 스케일)
+- 포멧, 길이
+- 1씩 늘어나야 하는가? 시간에 따라 늘어나야 하는가?
+
+#### 1. 디비
+- db의 auto_increment - 분산환경에서 dirty write 고려?
+- 속도가 느릴 듯 (불필요한 기능들 보유, B+트리 or 해싱 등)
+- 여러 디비를 둘 수도 있지만..
+
+#### 2. UUID
+- 콜리전 확률?
+- 128비트 크기 고정임
+- 시간에 따라 늘어나지 않음 / 숫자 값 없음
+
+#### 3. 티켓 서버
+- SPOF
+- 결국 어디엔가는 크리티컬 섹션이 있어야 함
+
+#### 트위터 snowflake
+
+<img src="https://programmer.help/images/blog/1ece2065a34118cda2f22db221294057.jpg" width="800">
+
+- 41bits timestamp - 5bits datacenter id - 5bits machine id - sequence number
+
+
+
+

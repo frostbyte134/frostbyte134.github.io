@@ -1,0 +1,12 @@
+---
+layout: post
+title:  "Dirty RW in DB/RDB"
+date:   2021-08-25 08:00:05 +0800
+categories: coding
+use_math: true
+tags: coding
+---
+
+한번 정리하면 좋을 듯 해서...
+
+
