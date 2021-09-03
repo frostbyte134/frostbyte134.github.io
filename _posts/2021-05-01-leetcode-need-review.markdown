@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Leetcode problems"
-date:   2020-09-01 09:59:00 +0800
+date:   2021-05-01 09:59:00 +0800
 categories: problem_solving
 use_math: true
 tags: problem_solving leetcode need_review
@@ -14,6 +14,10 @@ solve the problem while explain it to yourself, and write examples (must!)
 - 가운데부터
 - 문제 재정의, 다시 읽기
 - 웰노운들 적용시켜 보기
+
+재재복습
+- <a href="https://leetcode.com/problems/insert-delete-getrandom-o1/" target="_blank">380. Insert Delete GetRandom O(1)</a>
+- <a href="https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/" target="_blank">1249. Minimum Remove to Make Valid Parentheses</a> 깔끔한 풀이만
 
 
 ### Maximum product subarray

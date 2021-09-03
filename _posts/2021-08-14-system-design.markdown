@@ -7,6 +7,35 @@ use_math: true
 tags: coding
 ---
 
+### Chap 1 Scale from zero to mils
+sql vs nosql
+- rdb는 join이 큰 특징인 듯 (보통 nosql은 안됨)
+- nosql (=non relational) if
+  - require super low latency, unstructured data (or not relational), store massive amount of data
+
+#### web scale out
+- scale up = vertical
+  - has a hard limit, no failover (SPOF) and redundancy
+- scale-out = horizontal
+  - `stateless` + `decomposition` is key to scale-out
+- LB -> (private ip) -> worker (for better security)
+
+#### db replication
+1. master (rw) - slave (read)
+   - better read performance, HA (new master promotion)
+
+#### msg Q
+- used in decoupling components of systems
+  - serves as a buffer and distribute async requests
+  
+In short
+- Keep web tier stateless
+- build redundancy at every tier
+- cache data as much as you can
+- support multiple data centers
+- Host static assets in CDN
+- scale data tier by sharding (`Hotkey problem` still exists)
+- CI, logging, 
 
 ### Chap 4 Rate Limiter
 - [참고](https://stripe.com/blog/rate-limiters)
@@ -122,6 +151,39 @@ read path - cache - bloom filter (데이터가 어느 sstable에 있는지?) - s
 <img src="https://programmer.help/images/blog/1ece2065a34118cda2f22db221294057.jpg" width="800">
 
 - 41bits timestamp - 5bits datacenter id - 5bits machine id - sequence number
+
+
+
+
+### Chap 11. Design a News Feed System
+- 페북의 뉴스피드 (MM 대시보드!)
+- 모바일 / 웹?
+- 중요한 기능이 무엇인가?
+  - 글을 POST -> 친구의 피드에 뜨는 것이 결국 핵심
+- 트래픽은? 컨텐츠 종류는? (이미지, 동영상 등? CDN?)
+
+#### Feed publishing
+글 올리기 -> 디비에 저장
+ 1. LB->웹서버->디비의 일반적인 구조
+ 2. post cache를 fanout service에서도 공유 (레디스 쓰면 될 듯)
+
+
+#### Fanout service
+친구 피드에 올라올 내용을 언제 만들 것인가?
+1. fanout on write
+   1. 포스트할 때 팬아웃도 미리 생성. 응답속도가 빠른 대신 유명인사꺼는 올리기만 하면 난리날 듯 (`hotkey problem`)
+      1. consistent hashing으로 줄일 수 있다 함
+   2. 로그인을 안하는 친구꺼는 미리 만들어 놓는 게 손해임
+2. fanout on read
+   1. 응답속도가 느리나 효율적. 트위터 등에서 유명인사에는 이 방법을 쓴다고 함
+3. 그래프 디비를 사용하면 친구관계를 효율적으로 저장할 수 있다고 함
+4. 다수의 친구 post를 최신순으로 정렬하기?
+   1. 이거 토너먼트 메쏘드 말고 있나?
+
+#### 기타
+1. 노티: 이건 이전 챕터 꺼 활용하면 될 듯
+
+> Keep web tier stateless
 
 
 
