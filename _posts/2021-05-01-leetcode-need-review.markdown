@@ -20,6 +20,17 @@ solve the problem while explain it to yourself, and write examples (must!)
 - <a href="https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/" target="_blank">1249. Minimum Remove to Make Valid Parentheses</a> 깔끔한 풀이만
 
 
+
+
+### 4sums
+- 기존 확장밖에 없네
+<details>
+   <summary>다시보기</summary> 
+    2sum확장. 중복처리로 1/10 깎고, 가지치기로 1/5도 깎음
+   </details>
+
+
+
 ### Maximum product subarray
 - <a href="https://leetcode.com/problems/maximum-product-subarray/" target="_blank">https://leetcode.com/problems/maximum-product-subarray/</a>
 - 원칙 적용시켜 보기. 내가 이런 생각을 했었다고? ㄷㄷ
@@ -104,7 +115,7 @@ TODO: make a post on
 * <a href="https://leetcode.com/problems/meeting-rooms-ii/" target="_blank">그냥 풀기</a>
 * <details>
    <summary>다시보가</summary> 
-   범위 더하기 되는 구간트리 / 이분탐색으로도 풀어볼 만은 한 듯...?
+   겹치는 구간의 최대갯수 세기 = PQ. 범위 더하기 되는 구간트리 / 이분탐색으로도 풀어볼 만은 한 듯...?
    </details>
 
 ### String Transforms Into Another String (보기만)

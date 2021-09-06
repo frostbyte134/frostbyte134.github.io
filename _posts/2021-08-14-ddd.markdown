@@ -12,37 +12,53 @@ tags: coding
 [https://github.com/cosmicpython/book](https://github.com/cosmicpython/book)
 
 ### Intro
-
+- Encapsulation
+  - simplifying behavior AND hiding data
+  - in DDD, we use former def mainly
+  - __Encapsulating behavior by using abstractions__ is a powerful tool for making code more expressive, more testable, and easier to maintain (by avoiding Big Ball of Yarn)
+  - OOP languages : abstract base class, Python - duck typing is often enough
 - `Layered architecture`: Presentation layer (UI) -> Business logic (app) -> Database layer
+  - common approach to structuring a system that has a UI, some logic, and a db.
 - `DIP`: Dependency inversion principle (D in SOLID?)
-
-1. High level modules should not depend on low level modules. Both should depend on abstractions
-2. Abstractions should not depend on details. Instead, details should depend on abstractions.
+  1. High level modules should not depend on low level modules. Both should depend on abstractions
+  2. Abstractions should not depend on details. Instead, details should depend on abstractions.
 
 - `High-level modlues`: functions, classes, packages that deal with our real-world problems
 - `low-level modules`: HTTP, uWSGI, nginx, ... ones that business owners never cares
 - `Depends on`: does not mean specific, technical things (imports, calls). Rather it simply means that one __knwos about or needs__ the other module.
-- `Abstraction`: simplified interfaces that encapsulate behavior
-  - why 1.? -> we want to change them seperately
 
-2 -> chap4
+> So the first part of DIP says that our business code should not depend on techincal details; instead, both should use abstractions
+
+- `Abstraction`: simplified interfaces that encapsulate behavior
+  - why depend on abstraction? -> we want to change each items seperately
+
+
+3 layered architecture
+- Presentation layer
+- Business logic
+- Database layer
+
 
 ### Chap 1 Domain modeling
 - how we can model business processes with code, in a way thats highly compatible with TDD
+
 - __business logic layer = domain model__
-  - `domain`: problem we want to solve
+  - `domain`: (a fancy way  of saying) the problem we want to solve
   - `model`: map of process that captures a useful property
   - `domain model`: mental map that business owners have of their business
     - 비즈니스 오너들의 멘탈 모델을 그대로 구현하는 것이 좋다고 함 (이미 문제를 잘 표한하고 있는 사람들이므로)
     - When we hear our business stakeholders use unfamiliar words, or using tems in a specific way, we should listen to understand the deeper meaning and encode their hard-won experience into our service
 - DDD says that the most important thing about software is that it provides a useful model of a problem
-
+  - 가장 중요: 딴 것들 (especially tech details)이 도메인 모델에 의존적이여야 함
+- Explore the Domain Language
+  - domain expert들이 사용하는 언어를 도입하는 게 좋음. 이미 문제에 대한 abstraction이 충분이 잘 돼 있음.
 
 #### Domain language
-- Product = SKU
+- Product ID = SKU
 - Customer places orders
   - Order (pk = order reference)
-    - composed of `order lines` (= a SKU and quantity)
+    - can have multiple products (SKUs) 
+    - composed of `order lines` (= an unique SKU and quantity)
 - batch = 도매상으로의 주문 (pk = batch reference, a SKU, quantity, ETA (도착기간))
 - __we need to allocate order lines to batches__ 
 - `allocation` : concept of linking an OrderLine to a Batch
@@ -51,7 +67,9 @@ tags: coding
 #### 코드
 - Orderline 클래스는 `@dataclass(frozen=True)`로 잠궈놓음
   - `value object` : definde by its attributes. 보통 임뮤터블하게 해 놓음
+  - 해쉬 자동으로 생성해 주는 듯
 - `entity` : identity를 가지고, 식별되는 것 (with PK)
+  - "We use the term entity to describe a domain object that has long-lived identity"
   - `__eq__, __hash__` 구현하면 편하나 해시 구현 시 조심해야 함
 - `domain service function`: entity나 value object가 아닌 것 (ex - allication of order line to batch)
 - exceptions can be uised to express domain concepts too
@@ -61,12 +79,15 @@ tags: coding
 
 
 ### Chap 2 Repository pattern
-> ... to use the dependency inversion principle as a way of decoupling our core logic from infrastructural concerns
+- ... to use the dependency inversion principle as a way of decoupling our core logic from infrastructural concerns
+- ... but we want our domain model to have no dependencies whatsoever. We don't want infra concerns bleeding over into our domain model and slowing our unit tests or our ability to make changes.
+  - model inside, dependencies floowing inward to it; `onion architecture`
 
 `Repository pattern`: a simplifying abstraction over data storage, allowing us to decouple our model layer from the data layer.
 - we want our domain model to have __no dependency whatsoever__
   - we'll think of our model as being on the inside, and dependencies flowing inward to it (`onion architecture`)
 
+`@abc.abstractmethod` is one of the only things that makes ABCs actually work in Python
 
 #### ORM
 - normal ORM way : model depend on ORM (model is defined with ORM)
@@ -101,6 +122,7 @@ In a large-scale system, we become constained by the decisions made elsewhere in
    - we can reduce the degree of coupling, by abstracting away the details
 
 #### Abstracting states aids testability
+make stateful component explicit and plug-and-playable
 
 - 폴더 비교 및 sync 기능 구현
 - 그냥 짜면 os.listdir / hashlib (체크) / shutils (복사) 범벅이 됨. 근데 이건 사실 `core functionality`가 아님 (tightly coupled with file I/O)
@@ -130,4 +152,7 @@ In summary
 
 ### Chap 4 Service Layer
 
+> we discuss the difference between orchestration logic, business logic, and interfacing code, and we introduct the `Service Layer` pattern to take care of orchestrating out workflows and defining the use cases of our systems
+
 orchestration (디비에서 값 뺴오고, 입출력 검사하고, 에러 처리하고, 결과 커밋 등)을 api구현에서 분리해서 새 레이어로 (`orchestration layer` = `service layer`)
+

@@ -37,6 +37,28 @@ In short
 - scale data tier by sharding (`Hotkey problem` still exists)
 - CI, logging, 
 
+
+### Chap 3 Framework for System Design Interviews
+- The SDI simulates real-life problem solving where two co-workers collaborate on ambiguous problems
+  - open-ended, no perfec answer
+  - demonstrate design skill, defend your design choices, and respond to feedback in a constructive manner
+- An effective SDI gives strong signal about a person's ability to
+  - collaborate / work under pressure
+  - __ability to ask good questions__ is also an essential skill, and many interviewers specifically look for this skill
+  - making a proper assumptions
+
+Red flags
+- over-engineering / obsession on design purity / ignore tradeoff
+
+> In a SDI, giving out an answer ASAP without thinking gives you no bonus points
+
+Steps
+1. Write down your assumptions on the whiteboard or paper.
+2. propose high-lvl design / calculations
+   1. if possible, go through a few use case
+3. deep-dive (specific)
+
+
 ### Chap 4 Rate Limiter
 - [참고](https://stripe.com/blog/rate-limiters)
 
@@ -153,6 +175,40 @@ read path - cache - bloom filter (데이터가 어느 sstable에 있는지?) - s
 - 41bits timestamp - 5bits datacenter id - 5bits machine id - sequence number
 
 
+### Chap 8 URL Shortener
+- `http://www.systeminterview.com/q=chatsystem&c=loggedin&v=v3&l=long` -> `https://tinyurl.com/y7keocwj`
+
+<details>
+   <summary>질문거리</summary> 
+    TPS, 축소된 url의 포멧/길이, U/D 지원 (C는 당연)
+   </details>
+
+- 3티어의 api endpoint, POST (생성) / GET (리디렉션)
+- 리디렉션 - 301/2 redirect
+- 해시함수는 어떻게 만드나?
+  - long url -> unique id (fixed format) = PK -> short ID 가 일반적인듯
+    - unique id는 위의 분산ID생성기!
+  - 중복검사 - 재생성 시나리오
+  - base64 conversion (대문자26 + 소문자26 + 특문?)
+- 캐싱
+  - `long url: short url` 포멧
+- 분산문제
+- rate limiter, 웹서버 스케일링 (stateless), 디비 스케일링 (어려움), HA
+- 블룸필터
+
+
+### Chap 9 Crawler
+
+- dfs vs bfs: 노드단위로 다 처리하고 버릴 수 있는 BFS가 좋은 듯
+- url 파서: href태그 잘 찾기 (정규식 라이브러리면 되겠지. no need to reindent wheels)
+- politeness: 보너스 포인트 (너무 자주 X, robots.txt 참고)
+- 병렬화 + 재방문 체크: 워커 + 메시지 큐 구조로 해결가능할듯
+- 완전 분산 (지역별로)
+  - 음....뭐든 분산 서버가 있어야겠지?
+- spider trap: 무한루프 ㄷㄷ
+- the key to horizontal scaling is to keep servers stateless 
+
+  
 
 
 ### Chap 11. Design a News Feed System

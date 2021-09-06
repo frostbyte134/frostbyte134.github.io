@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Dirty RW in DB/RDB"
+title:  "RDB vs noSQL"
 date:   2021-08-25 08:00:05 +0800
 categories: coding
 use_math: true
@@ -9,4 +9,9 @@ tags: coding
 
 한번 정리하면 좋을 듯 해서...
 
+# ACID
+- RDB: ACID 지원
+- noSQL: 어떤지?
+- redis: 싱글쓰레드인데 파이프라이닝이 있음
 
+# Dirty RW
