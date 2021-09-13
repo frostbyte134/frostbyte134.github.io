@@ -354,5 +354,3 @@ UoW가 자기한테 등록된 product domain model (which is our entry point)에
 
 > Our onging objective with these architectural patterns is to try to have the complexity of our app grow more slowly than its size. When we go all in on the message bus, as always we pay a price in terms of architectural complexity, but we buy ourselves a pattern that can handle arbitrarily complex reqs with out need any further conceptual / architectural change to the way we do things
 
-
-### Chap 10 Commands and Command Handler
