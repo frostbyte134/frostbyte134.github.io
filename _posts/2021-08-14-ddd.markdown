@@ -12,6 +12,11 @@ tags: coding
 [https://github.com/cosmicpython/book](https://github.com/cosmicpython/book)
 
 
+시스템이 지켜야 하는 규칙/성질(constraints)를 유지하면서 시스템을 개발하려면, 컴포넌트 갯수가 커질수록 제곱으로 어려워질 수 밖에 없음
+- constraints가 필요없으면 엑셀로 짜면 됨
+- constraints를 domain model에 몰아넣고, 각자는 abstraction에 의존적이게 개발 (dependency inversion)
+
+유즈케이스가 도메인 모델의 클래스/함수가 되고, orchestration은 서비스 레이어에서 담당
 
 ### Intro
 - Encapsulation
@@ -354,3 +359,43 @@ UoW가 자기한테 등록된 product domain model (which is our entry point)에
 
 > Our onging objective with these architectural patterns is to try to have the complexity of our app grow more slowly than its size. When we go all in on the message bus, as always we pay a price in terms of architectural complexity, but we buy ourselves a pattern that can handle arbitrarily complex reqs with out need any further conceptual / architectural change to the way we do things
 
+### Chap 10  Commands and Command Handler
+
+in chap9, we make `BatchCreated` before the batch was actually created - we need another concep to cover this
+
+`commands`
+- type of message (ofen a dump datastructure)
+- imperative mood ("allocate stock", "delay shipment")
+- commands capture `intent`. As a result, when they fail the sender needs to receive error information
+
+`events`
+- past tense ("order allocated to stock", "shipment delayed")
+- spread the knowledge about successful commands. No obligation to notify the result
+
+#### handling
+- events cannot interrupt the flow, where commands can (by reraising exception)
+
+what happens when event fails? how can I make system consistent in such cases?
+- 실행이 aggregate단위로 transactional하기 때문에, 실패하면 aggregation전체가 실패할 꺼여서 걱정 없다고 함 (ㄷㄷ..?)
+
+__commands should modify a single aggregate, and either succeed or fail in totality (and in notice)__
+
+`Tenacity` is a python lib that implements common patterns for retrying
+
+We're expressly inviting failure. We know that somethimes things will break,and we're choosing to handle that by making the failures smaller and more isolated. This can make the system harder to reason about, and requires better monitoring.
+
+
+### Chap 11 Event-driven Architecture
+
+... our app will receive events from __external sources__ via an external msg bus (via Redis pub/sub) and publish its outputs in the form of events to Redis pubsub
+
+MSA적용할 때 - noun으로 보통 시스템을 구성
+- 각 noun을 저장할 db / CRUD API를 설계하긴 쉬우나, 상호작용이 많아짐
+  - 'noun A 가 B를 어떻게 한다' 식의 관계가 많아짐
+- 비동기 메시징으로 시스템을 디커플링하면 좀 더 쉬워짐 (MSA)
+
+
+> Things break is a universal law of software engineering.
+
+- 각 microservice는 consistency boundary 가 되어야 함
+- 메시지 브로커 : 레디스 펍섭이 제일 간단한 듯
