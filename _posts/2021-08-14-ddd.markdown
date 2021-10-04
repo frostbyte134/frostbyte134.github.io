@@ -106,9 +106,9 @@ tags: coding
 
 
 #### The Repository Pattern
-`Dependency Injection` : Create ABCRepository class
+Create ABCRepository class
   - can easily introduce new ORM
-  - fake ORM (not the "mock")
+  - fake ORM (not the "mock" - 모킹은 "같은 종류"의 가짜 객체를 제공해 주는 거인듯)
   - no need to use ABC class. duck-typing is often sufficient in real fields (too easy to ignore them)
 
 Trade-off
@@ -134,7 +134,7 @@ make stateful component explicit and plug-and-playable
 
 - 폴더 비교 및 sync 기능 구현
 - 그냥 짜면 os.listdir / hashlib (체크) / shutils (복사) 범벅이 됨. 근데 이건 사실 `core functionality`가 아님 (tightly coupled with file I/O)
-  - core는 파일을 비교하고 적절한 연산을 해 주기만 하면 됨. 이 부분을 구현하고, IO관련 부분은 주입하면됨 (Dependency Injection!)
+  - core는 파일을 비교하고 적절한 연산을 해 주기만 하면 됨. 이 부분을 구현하고, IO관련 부분은 주입하면 됨
   - 이 core는 external state에 의존적이면 안됨. 들어온 입력에 대해 항상 일정해야 함.
   - core = `bueiness logic`
 
@@ -242,6 +242,8 @@ Lastly, we're motivated again by the `dependency inversion principle`: depend on
 
 ### Chap 7 Aggregates and Consistency Boundaries
 
+aggregate는 도메인의 entrypoint이자 병렬처리의 단위이자 consistency boundary 임 (마지막은 UoW도...?)
+ - [여기](https://stackoverflow.com/questions/14696568/avoid-unit-of-work-pattern-in-domain-driven-design) 서 보면, UoW가 aggregate를 묶는 용으로는 유용할 수도 있다고 함. aggregate끼리 묶은 연산도 consistent 하길 바라는 경우가 있을 수 있겠지..?
 
 `CSV over SMTP`
 - low initial complexity
@@ -250,12 +252,17 @@ Lastly, we're motivated again by the `dependency inversion principle`: depend on
 
 #### Aggregate
 
+
+
 - cluster of domain objects (= a domain object) that we treat as a unit for the purpose of data changes (UoW랑 좀 겹치는 듯...)
+  - domain object 1개가 서로 다른 aggregate에 들어갈 수 있나?
+  - 쉽지 않을 듯. 해당 오브젝트를 얻을 수 있는 리소스 레벨에서의 lock 등이 고려되어야 할 듯 (서로 다른 병렬처리 루틴 안에서 호출될 꺼니까...) 
 - 병렬처리의 최소 단위
 - 코드에선 Product란 새 오브젝트를 만듬 (PK = sku)
   - db에 version number 저장 -> load때 버전넘버와 commit 바로전 버전넘버가 1 차이나야 성공, 아님 죽음
   - 디비에 concurrency controll의존
 - Aggregate object 하나 당 디비 1개
+  - domain object 1개가 서로 다른 aggregate에 들어가는 경우는 아무리 생각해 봐도 별로인 듯 
 - entrypoint of the domain midel, in charge of a consistency boundary
 - always need to consider the consistency issues
 
