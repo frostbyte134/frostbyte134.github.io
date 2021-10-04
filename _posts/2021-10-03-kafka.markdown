@@ -8,8 +8,8 @@ tags: coding
 ---
 
 - <a href="https://aiokafka.readthedocs.io/en/stable/consumer.html" target="_blank">aiokafka 문서</a>
-- <a href="https://medium.com/@jaykreps/exactly-once-support-in-apache-kafka-55e1fdd0a35f" target="_blank">exactly once in kafka (멱등성 idempotent)</a>
-
+- <a href="https://medium.com/@jaykreps/exactly-once-support-in-apache-kafka-55e1fdd0a35f" target="_blank">exactly once in kafka (idempotent)</a>
+- <a href="https://kafka.apache.org/documentation/#semantics" target="_blank">kafka semantics</a>
 
 ### Aiokafka
 
@@ -23,5 +23,20 @@ There are actually two notions of position:
 
 > When using manual commit it is recommended to provide a `ConsumerRebalanceListener` which will process pending messages in the batch and commit before allowing rejoin. If your group will rebalance during processing commit will fail with `CommitFailedError`, as partitions may have been processed by other consumer already.`
 
+- ConsumerRebalanceListener에 리밸런스시 flush / offset 저장 내용 구현 ㄱㄱ
+    - 카프카가 group membership을 자동 조정할 때만 발생
+    
 > Note  
 The committed offset should always be the offset of the next message that your application will read. Thus, when calling commit(offsets) you should add one to the offset of the last message processed.
+
+
+#### group
+__each partition is assigned to exactly one consumer in the group.__
+- if there is a topic with four partitions and a consumer group with two processes, each process would consume from two partitions.
+- 각 그룹별로 read offset을 따로 가져감 (highwater offset은 당연히 동일)
+- 컨슈머는 regex로 등으로 현 그룹에서 원하는 토픽만 subscribe가능 / 매뉴얼 assignment가능
+
+
+#### Transaction
+- atomic이 아니고, 다수의 atomic한 연산을 묶어 transactional하게 실행하려고 하는 것
+- producer쪽에서 트랜잭션에 commit id를 설정 - consumer에서 commited message만 읽게 설정

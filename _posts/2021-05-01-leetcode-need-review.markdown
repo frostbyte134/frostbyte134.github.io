@@ -20,8 +20,14 @@ solve the problem while explain it to yourself, and write examples (must!)
 - <a href="https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/" target="_blank">1249. Minimum Remove to Make Valid Parentheses</a> 깔끔한 풀이만
 
 
+### find peak element
+- <a href="https://leetcode.com/problems/find-peak-element/" target="_blank">https://leetcode.com/problems/find-peak-element/</a> 눈으로 보기만
+<details>
+   <summary>다시보기</summary> 
+    재귀식 잘짜보기 (조건 따지기). 올만이네..
+   </details>
 
-### max-area-of-island (복습필수)
+### number-of-matching-subsequences (복습필수)
 - <a href="https://leetcode.com/problems/number-of-matching-subsequences/" target="_blank">https://leetcode.com/problems/number-of-matching-subsequences/</a>
 - 어떤 식으로 순회할 것인가
 <details>
