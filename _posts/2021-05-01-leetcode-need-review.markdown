@@ -21,6 +21,21 @@ solve the problem while explain it to yourself, and write examples (must!)
 
 
 
+### max-area-of-island (복습필수)
+- <a href="https://leetcode.com/problems/number-of-matching-subsequences/" target="_blank">https://leetcode.com/problems/number-of-matching-subsequences/</a>
+- 어떤 식으로 순회할 것인가
+<details>
+   <summary>다시보기</summary> 
+    M * N * len(word[N]) 을 잘 해서 M * N 으로 줄여야 함
+   </details>
+
+### max-area-of-island
+- <a href="https://leetcode.com/problems/max-area-of-island/submissions/" target="_blank">https://leetcode.com/problems/max-area-of-island/submissions/</a>
+- 많이 풀어 본 보드문제
+<details>
+   <summary>다시보기</summary> 
+    예전에는 bfs + set으로 풀었던 거 같은데 그럴필요 없음.
+   </details>
 
 ### 4sums
 - 기존 확장밖에 없네

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Bloom filter"
-date:   2021-09-04 08:00:05 +0800
+date:   2020-09-04 08:00:05 +0800
 categories: coding
 use_math: true
 tags: coding

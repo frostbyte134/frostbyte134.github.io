@@ -1,0 +1,27 @@
+---
+layout: post
+title:  "Kafka"
+date:   2021-10-03 08:00:05 +0800
+categories: coding
+use_math: true
+tags: coding
+---
+
+- <a href="https://aiokafka.readthedocs.io/en/stable/consumer.html" target="_blank">aiokafka 문서</a>
+- <a href="https://medium.com/@jaykreps/exactly-once-support-in-apache-kafka-55e1fdd0a35f" target="_blank">exactly once in kafka (멱등성 idempotent)</a>
+
+
+### Aiokafka
+
+- Kafka maintains a numerical `offset` for each record in a partition
+    - This offset acts as a __unique identifier of a record__ within that partition 
+    - and also __denotes the position of the consumer in the partition__
+
+There are actually two notions of position:
+- The `position` gives the offset of the next record that should be given out. It will be one larger than the highest offset the consumer has seen in that partition. 
+- The `committed position` is the last offset that has been stored securely. Should the process restart, this is the offset that the consumer will start from. The consumer can either automatically commit offsets periodically, or it can choose to control this committed position manually by calling `await consumer.commit()`.
+
+> When using manual commit it is recommended to provide a `ConsumerRebalanceListener` which will process pending messages in the batch and commit before allowing rejoin. If your group will rebalance during processing commit will fail with `CommitFailedError`, as partitions may have been processed by other consumer already.`
+
+> Note  
+The committed offset should always be the offset of the next message that your application will read. Thus, when calling commit(offsets) you should add one to the offset of the last message processed.
