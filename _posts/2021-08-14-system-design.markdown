@@ -9,7 +9,7 @@ tags: coding
 
 ### Chap 1 Scale from zero to mils
 sql vs nosql
-- rdb는 join이 큰 특징인 듯 (보통 nosql은 안됨)
+- rdb는 join이 큰 특징. (nosql - 스키마리스, 분산, 속도빠름, 조인안됨 등..)
 - nosql (=non relational) if
   - require super low latency, unstructured data (or not relational), store massive amount of data
 
