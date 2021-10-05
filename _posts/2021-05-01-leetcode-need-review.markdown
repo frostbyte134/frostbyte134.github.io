@@ -15,10 +15,19 @@ solve the problem while explain it to yourself, and write examples (must!)
 - 문제 재정의, 다시 읽기
 - 웰노운들 적용시켜 보기
 
-재재복습
-- <a href="https://leetcode.com/problems/insert-delete-getrandom-o1/" target="_blank">380. Insert Delete GetRandom O(1)</a>
-- <a href="https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/" target="_blank">1249. Minimum Remove to Make Valid Parentheses</a> 깔끔한 풀이만
 
+### https://leetcode.com/problems/asteroid-collision/
+- <a href="https://leetcode.com/problems/asteroid-collision/" target="_blank">https://leetcode.com/problems/asteroid-collision/</a> 이정돈 이제 뭐...(2)
+<details>
+   <summary>심심하면 다시보기. 걍 풀긴 함</summary> 
+    경우를 잘 따져봅시다 (2). 상태공간이 넓은 듯 안넓은듯
+   </details>
+### Minimum Difference Between Largest and Smallest Value in Three Moves
+- <a href="https://leetcode.com/problems/minimum-difference-between-largest-and-smallest-value-in-three-moves/" target="_blank">https://leetcode.com/problems/minimum-difference-between-largest-and-smallest-value-in-three-moves/</a> 이정돈 이제 뭐...
+<details>
+   <summary>심심하면 다시보기. 걍 풀긴 함</summary> 
+    경우를 잘 따져봅시다. 상태공간이 넓은 듯 안넓은듯
+   </details>
 
 ### find peak element
 - <a href="https://leetcode.com/problems/find-peak-element/" target="_blank">https://leetcode.com/problems/find-peak-element/</a> 눈으로 보기만
@@ -32,8 +41,9 @@ solve the problem while explain it to yourself, and write examples (must!)
 - 어떤 식으로 순회할 것인가
 <details>
    <summary>다시보기</summary> 
-    M * N * len(word[N]) 을 잘 해서 M * N 으로 줄여야 함
+    M * N * len(word[N]) 을 잘 해서 M * N * 26 으로 줄여야 함. 포인터 / iterator
    </details>
+- https://leetcode.com/problems/longest-word-in-dictionary-through-deleting/ 동일문제
 
 ### max-area-of-island
 - <a href="https://leetcode.com/problems/max-area-of-island/submissions/" target="_blank">https://leetcode.com/problems/max-area-of-island/submissions/</a>
@@ -55,7 +65,10 @@ solve the problem while explain it to yourself, and write examples (must!)
 ### Maximum product subarray
 - <a href="https://leetcode.com/problems/maximum-product-subarray/" target="_blank">https://leetcode.com/problems/maximum-product-subarray/</a>
 - 원칙 적용시켜 보기. 내가 이런 생각을 했었다고? ㄷㄷ
-
+- <details>
+   <summary>생각만</summary> 
+    0이 있으면 쪼개기. -x ... -y 인 경우는 고려안해도 되니까, 답은 항상 한쪽에만 -1이 있는 경우 (또는 -가 아예 없거나 안쪽에 -가 짝수로 있는 경우). 반대부터 보기도 굳
+   </details>
 ### Bricks Falling When Hit
 <a href="https://leetcode.com/problems/bricks-falling-when-hit/" target="_blank">https://leetcode.com/problems/bricks-falling-when-hit/</a>
 
@@ -157,6 +170,10 @@ TODO: make a post on
 
 ### Insert Delete GetRandom O(1) (다시보기)
 * <a href="https://leetcode.com/problems/insert-delete-getrandom-o1/" target="_blank">dict를 잘 쓰자.</a>
+* <details>
+   <summary>다시보기</summary> 
+    dict/set으로 inclusion/exclusion검사, 배열로 random연산, 삭제시 마지막꺼랑 스왑 후 삭제
+   </details>
 
 ### Validate Stack Sequences
 * <a href="https://leetcode.com/problems/validate-stack-sequences/" target="_blank">꼭 다시 보자 (보기만)</a>
