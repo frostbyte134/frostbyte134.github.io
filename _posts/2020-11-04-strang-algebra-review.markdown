@@ -13,6 +13,12 @@ tags: linear_algebra math need_review
 
 
 ### Chap 1
+- \\(M \times N\\) matrix = M equations, N unknowns
+- Geometry of Linear Equation \\(Ax=b\\)
+  - linear combination of vectors (columns) \\(\sum a\_ix\_i=b\\), in column sense
+  - intersection of hyperplanes, in row sense
+    - ex) in \\(R^3\\), each row represents plane (freedom in \\(R^2\\), given linear (orthogonal) constraint), and their intersection is line (freedom in \\(R^2\\))
+  - singular case - trivial (just a reminder)
 - Any equality in \\(R^3\\) represents a plane (\\(3x+2y+5z=2, y=3, ...\\))
   - intersection of 2 planes = a line
   - intersection of 3 planes = a point
@@ -34,7 +40,7 @@ tags: linear_algebra math need_review
 - \\(P\\) = permutation matrix (non-singular)
 - \\(L\\) = lower triangle matrix (row operations) \\( L=L\_1L\_2L\_3...\\)
 - \\(U\\) = resulting upper triangle mat
-
+- time complexity \\(O(n^3)\\)
 
 `1J`
 - In the nonsingular case, there is a permutation matrix \\(P\\) that reorders the rows of \\(A\\) to avoid zeros in the pivot positions. Then \\(Ax=b\\) has a unique solution:  
