@@ -15,13 +15,29 @@ solve the problem while explain it to yourself, and write examples (must!)
 - 문제 재정의, 다시 읽기
 - 웰노운들 적용시켜 보기
 
+### maximum-profit-in-job-scheduling
+- <a href="https://leetcode.com/problems/maximum-profit-in-job-scheduling" target="_blank">https://leetcode.com/problems/maximum-profit-in-job-scheduling</a> 
+<details>
+   <summary>뻘짓하다 힌트 한번 봄...</summary> 
+    dp라는 힌트 보고 풀음. 내가 푼 것 보다 정렬 (정해진 순서로 상태공간 탐색) + 이진탐색 을 잘 하면 상태공간을 좀 더 좁힐 수 있음. 
+   </details>
+
+
+### minimum-number-of-increments-on-subarrays-to-form-a-target-array/
+- <a href="https://leetcode.com/problems/minimum-number-of-increments-on-subarrays-to-form-a-target-array/" target="_blank">https://leetcode.com/problems/minimum-number-of-increments-on-subarrays-to-form-a-target-array</a> 
+<details>
+   <summary>그냥 쉬운 하드인가 했는데</summary> 
+    스택으로 풀었는데 생각해보니 더 쉽게 풀 수 있음. 아 글고 스택인데 자꾸 [0] 체크하네. 넘올만이여서 그런듯
+   </details>
+
 
 ### https://leetcode.com/problems/asteroid-collision/
 - <a href="https://leetcode.com/problems/asteroid-collision/" target="_blank">https://leetcode.com/problems/asteroid-collision/</a> 이정돈 이제 뭐...(2)
 <details>
    <summary>심심하면 다시보기. 걍 풀긴 함</summary> 
-    경우를 잘 따져봅시다 (2). 상태공간이 넓은 듯 안넓은듯
+    경우를 잘 따져봅시다 (2). 충돌의 성질 상 스택처럼 풀 수 있음. 
    </details>
+
 ### Minimum Difference Between Largest and Smallest Value in Three Moves
 - <a href="https://leetcode.com/problems/minimum-difference-between-largest-and-smallest-value-in-three-moves/" target="_blank">https://leetcode.com/problems/minimum-difference-between-largest-and-smallest-value-in-three-moves/</a> 이정돈 이제 뭐...
 <details>

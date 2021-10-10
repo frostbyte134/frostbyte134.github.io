@@ -39,11 +39,15 @@ tags: linear_algebra math need_review
 \\[PA=LU\\]
 - \\(P\\) = permutation matrix (non-singular)
 - \\(L\\) = lower triangle matrix (row operations) \\( L=L\_1L\_2L\_3...\\)
+  - ex) 1번째 row를 2번째 row에 3배해서 뺌 -> 왼쪽에 Low triangular 곱해줘야
+  - 이거의 inverse도 low triangular (3의 부호만 반대) 이므로, \\(L`PA=U \rightarrow PA=LU\\)
 - \\(U\\) = resulting upper triangle mat
 - time complexity \\(O(n^3)\\)
+- \\(Ax=b\\)를 2개의 triangular system으로 만들 수 있음
+  - \\(Ax=b \rightarrow LUx=b \rightarrow Ly=b, Ux=y\\)
 
 `1J`
-- In the nonsingular case, there is a permutation matrix \\(P\\) that reorders the rows of \\(A\\) to avoid zeros in the pivot positions. Then \\(Ax=b\\) has a unique solution:  
+- In the nonsingular case, there is a permutation matrix \\(P\\) that reorders the rows of \\(A\\) to avoid zeros in the pivot positions (재수없는 경우 회피). Then \\(Ax=b\\) has a unique solution:  
 With the rows reordered in advance, \\(PA\\) can be factored into \\(LU\\).
 - In the singular case, no \\(P\\) can produce full set of pivots : elimination fails
 
@@ -59,15 +63,17 @@ With the rows reordered in advance, \\(PA\\) can be factored into \\(LU\\).
 
 
 #### `Gauss-jordan` for calculating inverse
-- U를 D로 만드는 연산의 역행렬을 원래 행렬에 곱하면 됨
+- U를 I로 만드는 연산의 역행렬을 원래 행렬에 곱하면 됨
 - \\(O(N^3)\\). O(N^2 * 2)번의 row operation / permutation을 할 것이고, 각 연산은 O(N)
 
 `1K` The inverse of \\(A\\) is a matrix \\(B\\) such that \\(BA=I\\) and \\(AB=I\\). There is at most one such \\(B\\), and it is denote by \\(A^\{-1\}\\).
 
-`1N` Suppose \\(A=A^T\\) can be factored int \\(A=LU=LDU\\) without row exchanges. Then \\(U\\) is the trnaspose of \\(L\\). The symmetric factorifzation becomes \\(A=LDL^T\\).
+`1N` Suppose \\(A=A^T\\) can be factored into \\(A=LU=LDU\\) without row exchanges. Then \\(U\\) is the trnaspose of \\(L\\). The symmetric factorifzation becomes \\(A=LDL^T\\).
 
 
 ### Chap 2
+
+> Elimination can simplify, one entry at a time, the le linear system \\(Ax=b\\). ... it also simplifies ... the basic question of `existence` and `uniqueness`.  
 
 > __Definition.__ A __subspace__ of a vector space is a nonempty subset that satisfies the requirements for a vector space: __Linear combinations stay in the subspace__.  
 1. If we add any vector \\(x\\) and \\(y\\) in the subspace, \\(x+y\\) is in the subspace
@@ -79,14 +85,15 @@ A subspace is a subset that is __closed__ under addition and scalar multiplicati
 
 The coluns of \\(AB\\) are combinations of the columns of \\(A\\) - the column space of \\(AB\\) is contained in (possibly equivalent) the column space of \\(A\\). Zero row will make a difference.
 
-`2C` If \\(Ax=0\\) has more unknowns than equations \\(\left(n>m\right)\\), then it has at least one special solution: There are more solutions than the trivial \\(x=0\\).
+`2C` If \\(Ax=0\\) has more unknowns than equations \\(\left( m < n \right)\\), then __it has at least one special solution:__ There are more solutions than the trivial \\(x=0\\).
 - = Its nullspace cannot be trivial
   - 왜나하면, column들이 dependent하기 떄문에 (column들의 linear combination에서 dependent한 칼럼이 있다 - 특정 special solution을 dependent한 칼럼들을 이용해 무한하게 만들 수 있으므로, nullspace가 nontrivial함)
-    - 예를 들어 \\([a, b, c] \in N(A)\\)이고, \\(A\\)의 2, 3번째 column 이 dependent하다면, \\([a, b+c, b-c] \in N(A)\\)이고 둘은 row입장에서는 linearly dependent하지 않으므로..
-    - 위의 소리는, dependent한 column이 있을 시 __단사가 될 수 없다는__ 것과 동일  
+    - 위의 소리는, dependent한 column이 있을 시 __단사가 될 수 없다는__ 것과 동일. 일단 \\(x=0\\) 인 solution에 dependent한 컬럼들을 합쳐서 0이 되게 붙여서 또 답을 만들 수 있음.  
   - The columns of \\(A\\) are independent exactly when \\(N(A)\\) is trivial
 
-`2H` If a vector space \\(V\\) consists of all linear combinations of \\(w\_1,...,w\_n\\), then these vectors span the space. Every vector \\(v\in V\\) is some combination of the \\(w\\)'s.
+> 결론. dependent columns i.i.f nontrivial nullspace i.i.f 최소 답이 1개이상 있음
+
+`2H` If a vector space \\(V\\) consists of all linear combinations of \\(w\_1,...,w\_n\\), then these `vectors span the space.` Every vector \\(v\in V\\) is some combination of the \\(w\\)'s.
 
 `2I` A basis for a vector space \\(V\\) is a sequence of vectors having two properties at once:
 1. The vectors are linearly independent (not too many vectors)
@@ -96,14 +103,17 @@ The coluns of \\(AB\\) are combinations of the columns of \\(A\\) - the column s
 
 #### The Four Fundamental Subspaces
 
+- subspace: closed in linear combination
+- 구분해야 되는 케이스: full rank, full row/column rank, none of mentioned
+
 > When the rank is as large as possible, \\(r=n\\) or \\(r=m\\) or \\(r=m=n\\), then the matrix has a left-inverse \\(B\\) or a right-inverse \\(C\\) or a two-sided \\(A^\{-1\}\\).
 
-- \\(r=n\\)인 경우 (column들이 independent), \\(A^TA\\)와 \\(A\\)는 둘다 trivial한 nullspace를 가지고 있음.
+- \\(r=n\\)인 경우 (`full column rank`, column들이 independent), \\(A^TA\\)와 \\(A\\)는 둘다 trivial한 nullspace를 가지고 있음.
 - \\(N(A) = N(A^TA)\\).
   - \\(\rightarrow\\) : trivial
-  - \\(\leftarrow\\) : \\(AT^Ax=0 \quad\rightarrow\quad x^TA^TAx=0 \quad\rightarrow\quad \|\|Ax\|\|=0 \quad\rightarrow\quad Ax=0\\)
+  - \\(\leftarrow\\) : \\(A^TAx=0 \quad\rightarrow\quad x^TA^TAx=0 \quad\rightarrow\quad \|\|Ax\|\|=0 \quad\rightarrow\quad Ax=0\\)
 - \\(A^TA\\)는 \\(n\times n\\) 행렬에 N(A)가 trivial하므로 non-singular함
-- 결국 A는, \\((A^TA)^\{-1\}A\\)의 left-inverse를 가짐!
+- 결국 A의 left inverse는 \\((A^TA)^\{-1\}A^T\\)가 됨!
 - \\(r=m\\)인 경우 - transpose해서 보이면 됨
 
 For a matrix \\(A\in R^\{m\times n\}\\), 
@@ -125,9 +135,9 @@ For a matrix \\(A\in R^\{m\times n\}\\),
 #### Existence of Inverses
 
 `2Q`
-1. __EXISTENCE__ : Full row rank \\(r=m\\). \\(Ax=b\\) has at least one solution \\(x\\) for every \\(b\\) i.i.f the columns span \\(R^m\\). Then \\(A\\) has a `right-inverse` \\(C\\) s.t. \\(AC=I,\\ \\ C\in R^\{n\times m\}\\). This is pissible only when \\(m\leq n\\).
-  - 항상 전사인가? yes. column space (\\(R^m\\))가 full rank이므로, 어떤 b든 column들의 선형조합으로 생성 가능. 차원정리로도 보일 수 있음.
-  - 항상 단사인가? no. \\(n-r\neq 0\\)인 경우 nullspace가 nontrivial함. 오히려 항상 단사가 아님.
+1. __EXISTENCE__ : Full row rank \\(r=m\\). \\(Ax=b\\) has at least one solution \\(x\\) for every \\(b\\) __i.i.f__ the columns span \\(R^m\\). Then \\(A\\) has a `right-inverse` \\(C\\) s.t. \\(AC=I,\\ \\ C\in R^\{n\times m\}\\). This is pissible only when \\(m\leq n\\).
+  - 항상 전사인가? yes. column space (\\(R^m\\))가 full rank이므로, 어떤 b든 column들의 선형조합으로 생성 가능 (위의 iif). 차원정리로도 보일 수 있음.
+  - 항상 단사인가? no. \\(n-r\neq 0\\)인 경우 nullspace가 nontrivial함.
   - 항상 right-inverse가 있을 것인가? yes. \\(C=A^T(AA^T)^\{-1\}\\). 증명 - `The Four Fundamental Subspaces` 부분 한글
 2. __UNIQUENESS__ : Full column rank \\(r=n\\). \\(Ax=b\\) has at most one solution \\(x\\) for every \\(b\\) i.i.f the columns are linealy independent. Then \\(A\\) has an \\(n\times m\\) left-inverse \\(B\\) s.t. \\(BA=, C\in \{n\times m\}\\). This is possible only if \\(m\geq n\\).
   - 항상 전사인가? no. 이미지의 rank가 모자라므로 항상 전사가 아니라는 것은 자명함
@@ -145,7 +155,7 @@ For the square matrices, the condition for invertibility is __full rank__ : \\(r
 8. \\(A^TA\\) is positive definite
 
 
-> Rank 1 matrix : Every rank 1 matrix has the simple form \\(A=uv^T\\) = column times row
+> Rank 1 matrix : Every rank 1 matrix has the simple form \\(A=uv^T\\) = column times row. 맨 처음 row로 다른 row들을 표현할 수 있으므로, col x row form으로 나타낼 수 있음.
 
 <img src="{{site.url}}/images/math/linear_alg/strang/chap1/rank1.jpg" width="800">  
 
@@ -157,7 +167,9 @@ For the square matrices, the condition for invertibility is __full rank__ : \\(r
 ### Chap 3 Orthogonality
 > A basis is a set of independent vectors that span a space. Geometrically, it is a set of coordinate axes.
 
+
 - The fundamental subspaces meet at right angles : those four subspaces are perpendicular in pairs, two in \\(R^m\\) and two in \\(R^n\\).
+- orthogonality를 이용해 projection을 general case에 대해 풀면 normal equation이 나옴
 
 `3A` The inner prod \\(x^Ty\\) is zero iif \\(x\\) and \\(y\\) are orthogonal vectors. If \\(x^Ty>0\\), their angle is less than 90 deg. If \\(x^Ty<0\\), their angle is greater than 90 deg (코사인 그래프)
 
