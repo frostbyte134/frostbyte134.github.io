@@ -15,6 +15,10 @@ solve the problem while explain it to yourself, and write examples (must!)
 - 문제 재정의, 다시 읽기
 - 웰노운들 적용시켜 보기
 
+
+### https://leetcode.com/problems/search-a-2d-matrix/
+쉬운데 추가풀이가 재밌네
+
 ### maximum-profit-in-job-scheduling
 - <a href="https://leetcode.com/problems/maximum-profit-in-job-scheduling" target="_blank">https://leetcode.com/problems/maximum-profit-in-job-scheduling</a> 
 <details>
@@ -282,7 +286,7 @@ TODO: make a post on
 
 #### Minimum Swaps To Make Sequences Increasing
 - <a href="https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing/" target="_blank">https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing/</a>
-- 미디엄이라 쉽게 보고 O(N^2) dp로 풀음
+- 미디엄이라 쉽게 보고 O(N*2) dp로 풀음
 - O(N) 풀이가 존재하네....? 다시 풀어봅시다
 
 #### Longest Increasing Path in a Matrix

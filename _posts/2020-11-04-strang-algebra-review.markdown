@@ -164,6 +164,17 @@ For the square matrices, the condition for invertibility is __full rank__ : \\(r
 
 (<a href="https://nailbrainz.github.io/analysis/2018/04/02/vector-projection.html" target="_blank">remember</a> that, \\(\text\{cos\}\theta = \|a^Tb\|/(\|a\|\|b\|)\\))
 
+
+#### Linear transformations
+- Matrix: bijection with linear transformation (row space -> column space, null space -> 0 vector)
+
+`2U`: Suppose the vectors \\(x\_1,...,x\_n\\) are a basis for the space \\(V\\), and vectors \\(y\_1,...,y\_m\\) are a basis for \\(W\\). Each linear transformation \\(T\\) from \\(V\\) to \\(W\\) is represented by a matrix \\(A\\). The \\(j\\)th column is formed by applying \\(T\\) to the \\(j\\) th basis vector \\(x\_j\\), and wrtiting it \\(T(x\_j)\\) as a combination of the \\(y's\\).
+\\[\text{Column j of A}\quad T(x\_j) = Ax\_j = a\_{1j}y\_1 + ... + a\_{mj}y\_m\\]
+
+- example of linear transformation: rotation, projection, differentiation, integration
+> `change of a basis`: \\(A \rightarrow S^\{-1\}AS\\). a single transformation is represented by different matrices (= via different bases, accounted for by \\(S\\))  
+  - the theory of eigenvectors will lead to this formula \\(S^{-1}AS\\), and to the best basis
+
 ### Chap 3 Orthogonality
 > A basis is a set of independent vectors that span a space. Geometrically, it is a set of coordinate axes.
 
@@ -220,23 +231,73 @@ Its close connection to inner products gives a new and much more _abstract_ defi
 - __The least square solution__ to above system is \\(\hat\{x\}_W\\), which can be found in 
   - `weighted normal equation` \\((A^TW^TWA)\hat\{x\}\_W=A^TW^TWb\\)
 
+#### Least square fitting of data
+
+ex) suppose we have 12 data, and we want to predict scalar \\(b\_i\\) given (3 variables and constant terms)
+- \\(A\\) is 12 times 4 matrix, with one data on its each row. 
+- In \\(Ax=b\\) we want to find \\(x\\), which will give us a line. (for each data point \\(A^T\_i\\), inner product it with \\(x\\) and the measurement comes out)
+
+#### A^TA
+- symmetric, square, positive-definite
+  - if \\(A\\) has independent columns, then the same is true for \\(A^TA\\), and it is invertible
 
 #### Gram-Schmidt and QR factorization
 - every \\(m\times n\\) matrix with independent columns can be factorized to \\(QR\\), where \\(Q\\) is the orthonormal matrix and \\(R\\) is the upper triangle matrix (which is clear given the Gram-Schmidt process)
 
 #### Function Spaces and Fourier Series
-- 엄청 중요하니까 한번 읽어 보기
 - `Hilbert space` : norm이 유한한 무한차원 벡터들로 이루어진 vector sapce
+ - linear operation에 닫혀있나? yes (triangle inequality \\(\|\|x+y\|\| \leq \|\|x\|\| + \|\|y\|\|\\)). 그래서 space임
+ - dot product시 발산 안하나? yes (Schwaltz inequality \\(\|v^Tw\| \leq \|\|v\|\| \|\|w\|\|\\))
+- 각 벡터의 구성요소를 함수의 출력이라 생각하면, hilbert space를 \\(R^n\mapsto R^1\\)의 function space라고 생각할 수 있음
+ - 퓨리에 시리즈: 함수를 \\(sin x\\) (의 taylor approximation)에 projection한 것
 
+### Chap 4 Determinants
 
-
+대부분 스킵
+- The determinant of \\(A\\) equals the volume of a box (in row, in column, both same)
+- in \\(R^3\\), suppose we change to cylindrical coordiates by \\(x=r\cos\theta, y=r\sin\theta, z=z\\). 
+- when unit box \\(dxdydz\\) changes, \\(\|J\|drd\thetadz\\) change occurs in cylindrical coordinates where
+\\[J = 
+\begin{bmatrix}{}
+	\partial x \partial r & \partial x \partial \theta & \partial x \partial z \cr
+	\partial y \partial r & \partial y \partial \theta & \partial y \partial z \cr
+	\partial z \partial r & \partial z \partial \theta & \partial z \partial z \cr
+\end{bmatrix}
+= 
+\begin{bmatrix}{}
+	\cos \theta & -r \sin \theta & 0 \cr
+	\sin \theta & r \cos \theta & 0 \cr
+	0 & 0 & 1 \cr
+\end{bmatrix}
+\\]
 ### Chap 5 Eigenvalues and Eigenvectors
+
+> This chapter begins the 2nd half of LinAlg. The 1st half was about \\(Ax=b\\). The new problem \\(Ax=\lambda x\\) will still be solved by simplifying a matrix - __making it diagonal as possible__. Elimination chages the eigenvalues, which we dont want.
 
 - eigenvalues - solution of characterstic equation \\((A-\lambda I)x=0\\)
 - eigenvectors - nontrivial nullspace component of the characteristic equation
+
+__5B__ : The sum of \\(n\\) eigenvalues equals the sum of the \\(n\\) diagonal entries, \\(tr A\\).
 
 __5C__ : The eigenvectors diagonalize a matrix:
 - Suppose the \\(n\times n\\) matrix \\(A\\) has \\(n\\) linearly indpendent eigenvectors. If these eigenvectors are the columns of a matrix \\(S\\), then \\(S^\{-1\}AS\\) is a diagonal matrix \\(\Lambda\\). The eigenvalues of \\(A\\) are on the diagonal of \\(\Lambda\\).
 - \\(S^\{-1\}AS=\Lambda\\)
 - can be shown by \\(As=S\Lambda\\)
 - Normal matrices have linearly independent e-vecs, hence diagonalizable
+- eigenvalue가 전부 distinct -> eigenvector들이 전부 linearly independent하고, diagonizable함 (증명 : 5D. Suppose not)
+  - 겹치는 게 있어도 full eigenvector를 가질 수 있음 -> diagonizable
+- eigenvalue가 전부 양수 -> nontrivial nullspace (0 eigenvale가 없음) - invertible
+  - diagonizability와 invertibility는 아무 관계가 없음
+
+#### Complex matrices
+- every symmetric matrix (and Hermitan matrices) has real eigenvalues
+- its eigenvectors can be chosen to be orthonormal
+  - spectral decomposition \\(A=Q\Lambda Q^T\\)
+
+- TODO: add link to the post
+
+#### Similarity transform
+The matrices \\(A\\) and \\(M^{-1}AM\\) are `similar`. Going from one to the other is a `similarity transform`
+- they share eigenvalues (easy to prove)
+- it is also easily seen using characteristic equation
+- change of basis = similiarity transform

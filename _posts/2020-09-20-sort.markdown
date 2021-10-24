@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Sorting"
+title:  "Sort, Selection"
 date:   2020-09-20 09:10:05 +0800
 categories: coding
 use_math: true
@@ -28,8 +28,7 @@ tags: coding algorithm
 
 
 ### Quicksort worst case
-- 정렬/역순/전부 동일한 경우 + pivot이 maximum 이면, 각 partition O(N)이 N번 일어남
-- swap 기준을 leq로 하든 <로 하든 동일하게 partition이 O(N)임
+- 어쨌거나 pivot이 maximum / minimum이면 partition이 O(N^2)로 이루어짐
 
 ### (randomized) Quicksort Avg case
 - 일단, constant split (ex -  1 : 9)로만 나뉘어도
@@ -82,7 +81,8 @@ procedure introsort(A, maxdepth):
         introsort(A[p+1:n], maxdepth - 1)
 ```
 - recursion depth가 특정 threshold (ex - lgN * 2)를 넘어가면, 더이상 partition을 나누지 않고 heapsort로 변함
-- STL은 n=32이하일 시 binary insertion sort로 변한다는 듯
+  - why heapsort? - space complexity O(1)
+- STL은 n=32이하일 시 __추가적으로__ binary insertion sort로 변한다는 듯 (결국 3개의 소트가 쓰이는 것)
 
 ### Tim sort
 - 자바, 파이썬 (list)
@@ -120,3 +120,15 @@ References
 - dag길이 - tournament method일시 lgn
 
 
+### O(N) Selection
+
+1. 재귀
+2. 배열을 5개짜리 chunk로 나눔
+3. 각 chunk에서 median 찾기
+4. median끼리 정렬. 이제 전체 배열은 median of median (MOM) 을 중심으로 3개 집합으로 나뉨
+  - median이 MOM보다 작은 chunk 내부에서, median보다 작거나 같은 값들 : MOM보다 작음
+  - median이 MOM보다 큰 chunk 내부에서, median보다 크거나 같은 값들 : MOM보다 큼
+  - 나머지: 모름
+5. 각 집합의 크기를 구하고, k가 어디에 속하는지에 따라 계속 재귀 진행
+
+O(N) 증명: CLRS 보기

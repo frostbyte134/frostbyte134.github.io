@@ -7,6 +7,9 @@ use_math: true
 tags: deep_learning deep_learning(bengio)
 ---
 
+> The softmax function, also known as softargmax or normalized exponential function, is a generalization of the logistic function to multiple dimensions [(wiki)](https://en.wikipedia.org/wiki/Softmax_function){:target="_blank"}
+
+
 * revision history
 * Written in 2018-03
 * added easy Bayesian intro in 2019.10.1
@@ -24,15 +27,15 @@ so prior \\(\times\\) likelihood is important. Thefore we apply log on it, and d
 
 Now, the posterior can be expressed as
 \\[ P(Y=y\_1 \| X=x ) = \frac\{ P(Y=y\_1,\\ X=x) \}\{ P(X=x\_1) \}\\]
-\\[= frac\{e^\{a\_1\}\}\{e^\{a\_1\}+e^\{a\_2\}\}\\]
+\\[= \frac\{e^\{a\_1\}\}\{e^\{a\_1\}+e^\{a\_2\}\}\\]
 
 which is, sigmoid / softmax (generalized case)
 
 ### logit <-> sigmoid
 Logit function
-\\[\text\{logit\}(y)=frac\{y\}\{1-y\}=t\\]
+\\[\text\{logit\}(y)=\frac\{y\}\{1-y\}=t\\]
 and the sigmoid function
-\\[\text\{sigmoid\}(t)=frac\{1\}\{1+e^\{-t\}\}\\]
+\\[\text\{sigmoid\}(t)=\frac\{1\}\{1+e^\{-t\}\}\\]
 are in the inverse relation
 
 
