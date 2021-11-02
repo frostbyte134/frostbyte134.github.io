@@ -55,7 +55,17 @@ tags: coding algorithm
      \\[= \sum\_\{i=1\}^\{n-1\} O(lgn)\quad\quad ... \quad\quad \text\{upper bound for harmonic series. (think bout the integral of 1/n)\}\\]
      \\[O(nlgn)\\]
  
-  
+
+### K-way merge
+
+1. Heap vs Tournament tree in 
+  - 둘이 달라? 다를 이유가 있나??
+  - https://en.wikipedia.org/wiki/K-way_merge_algorithm
+    - 힙 - 포인터로 해야 하는듯 (K way merge = strictly in place 니까)
+    - 토너먼트 트리: balanced binary tree. 
+    - > The heap is more commonly used, although a tournament tree is faster in practice. A heap uses approximately 2*log(k) comparisons in each step because it handles the tree from the root down to the bottom and needs to compare both children of each node. Meanwhile, a tournament tree only needs log(k) comparisons because it starts on the bottom of the tree and works up to the root, only making a single comparison in each layer. The tournament tree should therefore be the preferred implementation.
+    - 힙은 삭제 (logK, 위에서 아래) + 삽입 (logK, 아래에서 위) 인데 토너먼터는 logK면 땡 (아래에서 걍 삽입)
+2. external sorting - 하면 되지
    
 
 ### Intro sort

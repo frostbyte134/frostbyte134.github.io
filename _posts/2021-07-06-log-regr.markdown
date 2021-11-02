@@ -1,0 +1,25 @@
+---
+layout: post
+title:  "Logistic regression"
+date:   2021-07-06 08:00:05 +0800
+categories: math
+use_math: true
+tags: math
+---
+
+
+1. 정의
+2. vs linear regr
+
+
+- https://ratsgo.github.io/machine%20learning/2017/04/02/logistic/
+- https://ratsgo.github.io/machine%20learning/2017/07/02/logistic/
+
+
+로지스틱 함수 (시그모이드 함수)  
+\\[\frac\{1\}\{1+e^\{-x\}\} \\]
+- 장점: dependent var이 categorical 인 경우 처리가능
+- log odd를 linear regression으로 찾기
+- K-category: K-1개의 log odd를 linear regression으로 (입력벡터 \\(x\\)에 대해, K-1개의 coef vectors 필요)
+
+<img src="{{ site.url }}/images/math/prob/regr.png" width="600" class="center"/>  

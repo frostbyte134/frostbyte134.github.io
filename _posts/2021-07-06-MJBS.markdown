@@ -1,0 +1,138 @@
+---
+layout: post
+title:  "MJBS"
+date:   2021-07-06 08:00:05 +0800
+categories: coding
+use_math: true
+tags: coding
+---
+
+MJBS stands for 면접백서
+
+### Bias-variance Tradeoff
+- bias가 크다는 것은 무엇인가?, high bias (+low variance) 모델은 무엇에 취약한가?
+    - 실제 값과 모델의 평균 예측 값의 차이. 모델의 자유도가 낮다. 데이터의 특징을 학습하지 못함. underfitting
+- variance가 크다는 것은 무엇인가?
+    - 모델 예측 값의 분산 (over all dataset). 모델의 자유도가 높다 (but 민감함). 언더피팅의 가능성이 높음
+- 트레이드오프 관계
+
+
+
+### Softmax
+- normalized exponential function, \\(R^N \mapsto [0,1]^N\\), \\[\sigma(z)\_i = \frac\{\sum\_\{j=1\}^\{K\}e^\{z\_j\}\}\{e^\{z\_i\}\} \quad\quad \text{ for } i = 1,...,K\\]
+- why softmax, instead of directly predicting probs?
+  - max(0, min(1, v)) 으로 하면, parameter space중 saturation되는 곳이 넘모 많음
+- 클래스가 많은 경우 computation efficiency?
+- overflow / underflow?
+
+### NMS
+- [그냥 이페이지면 됨](https://nailbrainz.github.io/deep_learning/2018/07/17/nms.html)
+
+
+
+### 디비 인덱스
+- https://myjamong.tistory.com/237
+- https://myjamong.tistory.com/184
+  - "INDEX는 데이터를 빠르게 찾기 위해 오름차순으로 정렬된 주소체계라고 표현하고 싶습니다"
+- 풀스캔의 시간복잡도 O(N), 가끔 느린이유: 리프노드 링크드리스트 순회 - 블록 리드가 안됨
+- 인덱스는 B+트리
+
+
+### Hash collision
+- 링크드리스트 / 해시값에 소수로 나머지연산해서 건너뛰기
+
+
+### Column store vs row store
+- 일부 column만 select 시 컬럼스토어가 유리. 데이터 iterate할 시에는 블록  리드가 가능한 row store가 유리
+- https://nesoy.github.io/articles/2019-10/Column-Oriented-DBMS
+   - row oriented: 적은 수의 row읽을때 좋음. but 일부 컬럼 데이터만 select 시, iterate 시 쓸대없는 데이터도 읽어야 함. 반면 모든 column을 읽을 땐 걍 좋음
+- column store : 각 열 데이터 파일 내의 모든 데이터는 동일한 유형이므로 압축에 이상적입니다. 일반적으로 전체 열보다 단일 열에 대해 훨씬 우수한 압축률을 얻을 수 있습니다.
+
+### Sync / Async / Block / Non-block
+- sync: clock
+- async: 시간을 맞추지 않는 것 (non-block과 연관이 있긴 있음)
+- block: 끝나기전까지 제어권이 돌아오지 않음 (폴링 등)
+- non-block: 제어권을 계속 가지고 감
+- examples
+  - sync + non-block : select, epoll
+  - async + non-block : asyncio (python), 
+
+
+### K-way merge
+- 토너먼트 트리 정확한 시간복잡도: 소트 페이지에 정리함
+
+
+### 베이즈이론 퀴즈
+- https://hsm-edu.tistory.com/1175
+
+
+### ORM
+- N+1 문제 이거 뭐였지?
+  - ORM에서, batch insert / select를 할 수도 있는 상황인데 안하고 객체 하나 만들때/부를때마다 1개의 디비 쿼리를 호출하게 되는 것.
+
+
+### 메모리가 모자라는 환경에서 TOP-K
+- selection 따로따로 하면 될 듯
+
+### K-means
+- 초기 centroid 를 잘 정하려면? PCA로 차원을 줄여 성능을 올리고?
+
+
+### 피보나치 인버스?
+- https://stackoverflow.com/questions/5162780/an-inverse-fibonacci-algorithm
+- 행렬 자승 ([[1, 1], [1, 0]])으로 logN 가능
+
+
+### 하둡
+- hive 실행시 - 내부적으로 map-reduce로 변환
+
+
+
+### 양의 정수 (~2^32) 숫자 중에서 없는 숫자를 1gb시스템 내에서 체크하려면?
+- 비트를 만들어 해결? 아니 근데 ++로 계속 봐도 되자너
+
+### 보간법
+- bilinear, nearest, CUBIC
+
+
+### C
+- static vs dynamic linking: 까먹었네?
+- 일반 함수를 virtual func으로 교채 시, ABI는 유지되는가?
+
+### 파라메트릭 서치
+- 최적화문제를 이분탐색으로 log N번의 결정문제로 바꿈 https://www.crocus.co.kr/1000 
+
+### new vs malloc
+- https://stackoverflow.com/questions/184537/in-what-cases-do-i-use-malloc-and-or-new
+- new는 소멸자도 호출해준다고 함. malloc는 배열에 첫번쨰 포인터에 대해 부르면 그 포인터부분만 지움
+
+### type-safe
+- https://dololak.tistory.com/17
+- abstract class를 저장하는 배열을 만듬. 어기에 넣기 전엔 derived class로 만들어서 뭔 클래스의 인스턴스인지 알 수 있었으나, 나중에 꺼낼 땐 알기 어려움 (not type safe)
+- 자바에선 제너릭? 파이썬은 https://stackoverflow.com/questions/46388355/is-python-type-safe 아니라고 함 (개념 자체가 애매한 듯)
+
+
+### REST API서버 - 클라이언트 간의 통신 설명
+1. DNS서버에 도메인네임 질의 - IP가 옴
+2. ..
+
+
+### external sort
+- https://www.glassdoor.com/Interview/Sort-a-million-32-bit-integers-using-only-2MB-of-RAM-QTN_120936.htm?__cf_chl_jschl_tk__=pmd_yhC7TeJ7ZMVmh27_deQlTy5GHfXBNWqWaebHiHIz_Uc-1635081026-0-gqNtZGzNAqWjcnBszQiR
+
+### 상관관계는 인과관계를 의미하지 않는다
+- 인과가 있는지는 따로 증명해야 할 듯 (더 strict한 조건)
+
+
+### 다익스트라
+1. 시간복잡도
+  1. 모든 엣지를 일단 체크함 O(E)
+  2. 워스트 케이스의 경우, 고려한 엣지마다 노드까지의 거리가 갱신됨. lgE의 연산을 E번 함. O(ElgE)
+  3. 보통 E << V^2 이기 때문에, 위는 O(ElgV)라고 볼 수도 있음 (?)
+  4. 중복 원소를 PQ에 넣지 않을 시, O(VlgE)나 O(VlgV)
+  5. 우선순위 큐가 없을 시, 매번 노드 방문 (V) 마다, 다음 노드를 for문으로 찾음 (V) = O(V^2). 결국 O(E + V^2)
+2. 증명
+- 귀류법인데 말로하기 너무 힘든 듯
+
+### A-스타 알고리즘
+- 

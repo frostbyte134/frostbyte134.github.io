@@ -1,0 +1,13 @@
+---
+layout: post
+title:  "Gradient Boosted Trees"
+date:   2021-07-06 08:00:05 +0800
+categories: math
+use_math: true
+tags: math
+---
+
+
+### Regression Tree
+- <a href="https://www.youtube.com/watch?v=g9c66TUylZ4" target="_blank">regression tree</a> 이거 20분 보면 다 됨 (1.5배속)
+- 각 decision step마다, 각 feature를 돌며, threshold를 증가시켜 가며 가장 낮은 MSE를 주는 threshold를 찾음
