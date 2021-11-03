@@ -10,6 +10,7 @@ tags: math probability bandit information_theory
 
 - <a href="https://banditalgs.com/2016/09/22/optimality-concepts-and-information-theory/" target="_blank">https://banditalgs.com/2016/09/22/optimality-concepts-and-information-theory/</a>  
 - 옛날에 책이 어디 있었는데...
+- https://shurain.net/personal-perspective/information-theory/
 
 ### Entropy
 

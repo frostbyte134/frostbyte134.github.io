@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Gradient Boosted Trees"
+title:  "Ridge Regression"
 date:   2021-07-06 08:00:05 +0800
 categories: math
 use_math: true

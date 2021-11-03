@@ -1,13 +1,18 @@
 ---
 layout: post
 title:  "MJBS"
-date:   2021-07-06 08:00:05 +0800
+date:   2021-05-06 08:00:05 +0800
 categories: coding
 use_math: true
 tags: coding
 ---
 
 MJBS stands for 면접백서
+
+### ROC, AUC (Area Under the curve)
+- ROC: 다른 decision threashold에 따른 pr 커브
+  - AUC: area under the curve
+- AP: 이거 discretization한 것
 
 ### Bias-variance Tradeoff
 - bias가 크다는 것은 무엇인가?, high bias (+low variance) 모델은 무엇에 취약한가?
@@ -16,9 +21,12 @@ MJBS stands for 면접백서
     - 모델 예측 값의 분산 (over all dataset). 모델의 자유도가 높다 (but 민감함). 언더피팅의 가능성이 높음
 - 트레이드오프 관계
 
-1. 정의
-2. vs linear regr
 
+### Lasso (L1), Ridge (L2^2) regression
+- https://www.youtube.com/watch?v=Q81RR3yKn30
+- least square + norm regularization
+- 선형모델의 variance가 높다 = 기울기가 급격하다. bias가 높다 = 모든 데이터 (트레이닝+테스트)에 대해 오차가 크다.
+- Rigde vs Lasso = L2는 0에 가까워질수록 값이 낮아져도 이득이 적음. Lasso는 0이 되기 전 까지 동일.
 
 ### p-value
 - [statquest](https://www.youtube.com/watch?v=vemZtEM63GY)

@@ -7,6 +7,8 @@ use_math: true
 tags: map mean_average_precision precision recall information_theory detection deep_learning
 ---
 
+- [참고](https://ctkim.tistory.com/79)
+
 Suppose we are solving a detection problem.
 
 ### IOU
