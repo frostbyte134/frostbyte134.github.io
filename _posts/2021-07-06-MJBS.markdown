@@ -16,10 +16,31 @@ MJBS stands for 면접백서
     - 모델 예측 값의 분산 (over all dataset). 모델의 자유도가 높다 (but 민감함). 언더피팅의 가능성이 높음
 - 트레이드오프 관계
 
+1. 정의
+2. vs linear regr
 
+
+### p-value
+- [statquest](https://www.youtube.com/watch?v=vemZtEM63GY)
+- given the null hypothesis is true, it’s the probability of getting a test statistic as extreme or more extreme than the calculated test statistic [(link)](https://sites.nicholas.duke.edu/statsreview/files/2013/06/Comparison-of-Means-Solutions2.pdf)
+- \\(\approx P(\text\{getting result same as, or more extreme than this\} | \text\{NULL hypo is true\})\\)
+- significance level 0.05
+  - 전체 실험 중, (given that) null hypo가 true인데 결과가 잘못 (significance level보다 p value가 높게) 나오는 경우 (false positive)는 5%뿐.
+- NULL hypothesis: 그떄마다 달라지는 듯..? 보통 two variables are not related인 듯 함
+
+### Correlation does not imply causation
+
+### k-means
+- [https://developers.google.com/machine-learning/clustering/algorithm/advantages-disadvantages](https://developers.google.com/machine-learning/clustering/algorithm/advantages-disadvantages)
+- ensemble - Hungarian (cluster assignment)
+
+### SVM scaling
+- Scaling before applying SVM is very important. Part 2 of Sarle’s Neural Networks FAQ Sarle (1997) explains the importance of this and most of considerations also apply to SVM. The main advantage of scaling is to avoid attributes in greater numeric ranges dominating those in smaller numeric ranges. Another advantage is to avoid numerical difficulties during the calculation. Because kernel values usually depend on
+the inner products of feature vectors, e.g. the linear kernel and the polynomial kernel, large attribute values might cause numerical problems. We recommend linearly scaling each attribute to the range [−1, +1] or [0, 1].
+Of course we have to use the same method to scale both training and testing data. For example, suppose that we scaled the first attribute of training data from [−10, +10] to [−1, +1]. If the first attribute of testing data lies in the range [−11, +8], we must scale the testing data to [−1.1, +0.8]. See Appendix B for some real examples
 
 ### Softmax
-- normalized exponential function, \\(R^N \mapsto [0,1]^N\\), \\[\sigma(z)\_i = \frac\{\sum\_\{j=1\}^\{K\}e^\{z\_j\}\}\{e^\{z\_i\}\} \quad\quad \text{ for } i = 1,...,K\\]
+- normalized exponential function, \\(R^N \mapsto [0,1]^N\\), \\[\sigma(z)\_i = \frac\{ e^\{z\_i\} \}\{ \sum\_\{j=1\}^\{K\}e^\{z\_j\} \} \quad\quad \text{ for } i = 1,...,K\\]
 - why softmax, instead of directly predicting probs?
   - max(0, min(1, v)) 으로 하면, parameter space중 saturation되는 곳이 넘모 많음
 - 클래스가 많은 경우 computation efficiency?
@@ -27,8 +48,6 @@ MJBS stands for 면접백서
 
 ### NMS
 - [그냥 이페이지면 됨](https://nailbrainz.github.io/deep_learning/2018/07/17/nms.html)
-
-
 
 ### 디비 인덱스
 - https://myjamong.tistory.com/237
@@ -97,7 +116,7 @@ MJBS stands for 면접백서
 
 ### C
 - static vs dynamic linking: 까먹었네?
-- 일반 함수를 virtual func으로 교채 시, ABI는 유지되는가?
+- 일반 함수를 virtual func으로 교채 시, ABI는 유지되는가? ㅡ,.ㅡ 문제가 너무 거지같은듯. 이건 패스
 
 ### 파라메트릭 서치
 - 최적화문제를 이분탐색으로 log N번의 결정문제로 바꿈 https://www.crocus.co.kr/1000 
@@ -133,6 +152,3 @@ MJBS stands for 면접백서
   5. 우선순위 큐가 없을 시, 매번 노드 방문 (V) 마다, 다음 노드를 for문으로 찾음 (V) = O(V^2). 결국 O(E + V^2)
 2. 증명
 - 귀류법인데 말로하기 너무 힘든 듯
-
-### A-스타 알고리즘
-- 

@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Kafka Consumer"
-date:   2021-8-03 08:00:05 +0800
+title:  "Kafka"
+date:   2021-08-03 08:00:05 +0800
 categories: coding
 use_math: true
 tags: coding
@@ -10,6 +10,25 @@ tags: coding
 - <a href="https://aiokafka.readthedocs.io/en/stable/consumer.html" target="_blank">aiokafka 문서</a>
 - <a href="https://medium.com/@jaykreps/exactly-once-support-in-apache-kafka-55e1fdd0a35f" target="_blank">exactly once in kafka (idempotent)</a>
 - <a href="https://kafka.apache.org/documentation/#semantics" target="_blank">kafka semantics</a>
+
+### Exactly once
+https://medium.com/@jaykreps/exactly-once-support-in-apache-kafka-55e1fdd0a35f
+- producer -> broker
+    - 프로듀서는 ack가 안오면 무지성 재전송하면 됨. 카프카에서 알아서 (멱등성) 중복처리 해 줄 것 (이미 데이터가 들어온 오프셋이 오면 무시하는 듯)
+- broker -> consumer. 사실 이부분이 힘듬
+    1. `derived state`와 이 상태를 만드는데 쓰인 오프셋을 db에 트랜잭션으로 같이 저장 (!!)
+    2. derived state과 offset을 멱등성있게 기록. 이것도 결국 derived state과 offset을 같이 저장하고, 더 낮은 offset의 update는 무시
+
+
+https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/
+- at least once: ack timeout시 재전송. 중복전송 가능성 있음
+- at most once: ack timeout시 재전송안함
+- exactly once: ack timeout시 재전송, 브로커단에서 중복처리 (멱등성!), 컨슈머도 커밋 잘
+    - 처리되어야 하는 것들: 브로커 실패 (n이 replication factor일시 n-1 broker fail까진 괜찮음), 브로커단에서 중복전송 처리, 클라이언트단에서 derived state만큼 commit
+
+브로커단에서의 멱등성 처리
+- 시퀸스넘버를 가지고 처리됨 (replication log에 넘버 기록되어, 리더가 죽어도 새로 선출된 리더가 이어받아 처리)
+
 
 ### Aiokafka
 
@@ -54,23 +73,5 @@ __each partition is assigned to exactly one consumer in the group.__
 - 토픽에 파티션에는 하나의 컨슈머만 붙을 수 있음. 반대는 가능 (컨슈머 하나가 여러 파티션 땡기기)
 - 커밋: 자동 / 수동 (로컬에서 처리하고 커밋 + sigterm handler로 k8s환경에서 손실을 최대한 줄일 수 있음)
 
-
-### Exactly once
-https://medium.com/@jaykreps/exactly-once-support-in-apache-kafka-55e1fdd0a35f
-- producer -> broker
-    - 프로듀서는 ack가 안오면 무지성 재전송하면 됨. 카프카에서 알아서 중복처리 해 줄 것 (이미 데이터가 들어온 오프셋이 오면 무시하는 듯)
-- broker -> consumer. 사실 이부분이 힘듬
-    1. `derived state`와 이 상태를 만드는데 쓰인 오프셋을 db에 트랜잭션으로 같이 저장 (!!)
-    2. derived state과 offset을 멱등성있게 기록. 이것도 결국 derived state과 offset을 같이 저장하고, 더 낮은 offset의 update는 무시
-
-
-https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/
-- at least once: ack timeout시 재전송. 중복전송 가능성 있음
-- at most once: ack timeout시 재전송안함
-- exactly once: ack timeout시 재전송, 브로커단에서 중복처리 (멱등성!), 컨슈머도 커밋 잘
-    - 처리되어야 하는 것들: 브로커 실패 (n이 replication factor일시 n-1 broker fail까진 괜찮음), 브로커단에서 중복전송 처리, 클라이언트단에서 derived state만큼 commit
-
-브로커단에서의 멱등성 처리
-- 시퀸스넘버를 가지고 처리됨 (replication log에 넘버 기록되어, 리더가 죽어도 새로 선출된 리더가 이어받아 처리)
 
 trans

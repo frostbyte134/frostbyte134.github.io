@@ -9,7 +9,8 @@ tags: coding python
 
 ### 정리 (2020.10.01)
 * `GIL` : Global interpreter lock. parallel환경에서 인터프리터가 python byte code를 동시에 실행하는 것을 막음. 
-* why GIL? : python은 garbage collection에서, reference count를 이용하기 때문. 인터프리터에 락이 걸리기 때문에 인터프리터가 사용하는내부 변수도 thread-safe해짐 (벼)
+  - global interpreter lock or GIL, that must be held by the current thread before it can safely access Python objects
+* why GIL? : python은 garbage collection에서, reference count를 이용하기 때문
 * why GIL is a problem?
   1. mulththreading이 parallel하지 못함
   2. python은 따로 쓰레드 스케쥴링이 없음 - 특정 쓰레드가 GIL을 잡아야 할 시 (ex - main thread만이 signal handling 가능) 이를 보장해 줄 방법이 없음
