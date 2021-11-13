@@ -1,0 +1,26 @@
+---
+layout: post
+title:  "블로그 AWS로 이전하기"
+date:   2021-11-05 08:00:05 +0800
+categories: coding
+use_math: true
+tags: coding
+---
+
+일단 생각
+- 일단 장고를 써야 할 듯
+- 요금폭탄 (?) 맞긴 싫으니까 써킷브레이커도 있어야 할 듯
+- 주로 삽질 기록?
+- Latex는 어쩌나. 뭔가 있긴 있겠지?
+
+> Do it! 장고+부트스트랩 파이썬 웹 개발의 정석 웹 기초부터 블로그 개발·배포·운영까지, 만들면서 배우는 웹 개발 A to Z
+
+- <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank">Mozilla CSS</a>
+
+### Chap 3 기초
+- `<label>`태그 = for 속성을 radiobutton, input등의 id와 맞추면, 멀리 떨어져 있어도 label태그를 클릭한 게 radiobutton을 클릭한 게 됨
+    <a href="http://tcpschool.com/html-tags/label" target="_blank">http://tcpschool.com/html-tags/label</a>
+- `onkeyup`: input태그의 속성, 키보드로 값 변경시 적용되는 듯
+- `<span>`: css 속성 먹이기 위해 주로 쓴다 함. `<div>`와의 차이점: 줄바꿈이 자동으로 안됨.
+- js
+    - `document.getElementById("valueB").innerHTML` 이걸로 id가 valueB인 태그 자체의 레퍼런스를 가져올 수 있음
