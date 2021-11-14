@@ -8,7 +8,6 @@ tags: linear_algebra need_revise
 ---
 
 - <a href="https://www.cs.cmu.edu/~venkatg/teaching/CStheory-infoage/book-chapter-4.pdf" target="_blank">https://www.cs.cmu.edu/~venkatg/teaching/CStheory-infoage/book-chapter-4.pdf</a>
-- <a href="https://web.stanford.edu/class/cs168/l/l9.pdf" target="_blank">https://web.stanford.edu/class/cs168/l/l9.pdf</a>
 
 
 \\(U\Sigma V^T\\) joins \\(LU\\) from Gaussian elimination and <a href="{{site.url}}/linear_algebra/2018/05/15/orthonormal-basis.html" target="_blank">\\(QR\\) from orthogonalization.</a>  
