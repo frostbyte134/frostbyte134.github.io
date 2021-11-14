@@ -94,14 +94,6 @@ tags: coding
     - 선언파일을 통한 배포, 동적 엔드포인트 디스커버리
     - 서빙 플랫폼의 가치 - 단순 서버를 쉽게 띄워주는 게 아닌, 전체 모델 서빙 process의 효율화 라고 함.
 
-### 실리콘밸리의 MLOps
-https://velog.io/@xcellentbird/Review-%EC%8B%A4%EB%A6%AC%EC%BD%98%EB%B0%B8%EB%A6%AC%EC%9D%98-MLOps
-
-
-### Motivation - Why did I start MLOps?
-출처: https://deepinsight.tistory.com/179 [Steve-Lee's Deep Insight]
-
-
 
 ### 나를 따라하는 아바타 모델 개발부터 모바일에 적용하기까지
 https://deview.kr/2020/sessions/395
@@ -137,3 +129,52 @@ https://tv.naver.com/v/16969155
 - 갑분 matrix factorization - 메모리가 행렬인데 빈공간이 좀 있었음. 이걸 스타일벡터와 컴포넌트벡터로 분해해서 빈칸을 채웠다고 함
     - 대신 행렬분해는 보통 수치적으로 푸니까 비쌈
     - 모델이 factorize할 행렬을 예측하도록 바꿨다고 함. 이걸로 4글자로 만들 수 있었다고 함 ㄷㄷ
+
+
+
+
+### 실리콘밸리의 MLOps
+
+데뷰는 아니지만..아니 근데 왠 실리콘벨리? 관련 내용이 없는데
+
+<a href="https://velog.io/@xcellentbird/Review-%EC%8B%A4%EB%A6%AC%EC%BD%98%EB%B0%B8%EB%A6%AC%EC%9D%98-MLOps" target="_blank">https://velog.io/@xcellentbird/Review-%EC%8B%A4%EB%A6%AC%EC%BD%98%EB%B0%B8%EB%A6%AC%EC%9D%98-MLOps</a>
+
+- 머신러닝의 대부분 현실 적용 사례에서는 기초 데이터는 끊임없이 변하고, 이에 따라 Fearture Drift(피처 드리프트: 특징치가 목적에서 벗어나는 현상?) 문제 해결을 위해 모델 재학습이 필요하거나 전체 파이프라인(데이터 이동 및 전처리 시스템?)을 재설계해야 할 수도 있다. 비즈니스의 규제 요구 사항도 빠르게 변경될 수 있기 때문에, 더 잦은 모델 릴리즈 주기가 요구될 수 있다
+- 모델의 ROI(투자 대비 효과)는 실제 사용되기 전까지 0이라고 볼 수 있다. 따라서 출시까지 소요되는 기간(Time to Market)은 머신러닝 프로젝트에서 가장 중요하게 고려하고 최적화해야 할 지표다.
+- ✔ "ML Ops의 목표는 가장 빠른 시간내에, 가장 적은 위험을 부담하며 아이디어 단계부터 상용화 단계까지 ML프로젝트를 진행할 수 있도록 기술적 마찰을 줄이는 것이다."
+
+요약하면,
+- 배포시 모델 정합성 체크 (신규 vs 기존)
+- 효과적인 데이터 파이프라인 구축 (모델 재배포 빠르고 쉽게)
+- 빠른 릴리즈 주기에 대응하기 쉽게 좋은 로깅 파이프라인 추가 
+- 또 뭐가 있을까
+
+### Motivation - Why did I start MLOps?
+이거도 데뷰는 아니지만...
+
+
+
+<a href="https://deepinsight.tistory.com/179" target="_blank">https://deepinsight.tistory.com/179</a>
+- 기존SW = 코드 / AI 시스템은 코드(+모델)과 데이터를 사용해 구축 - 대부분의 문제는 좋은 데이터 (파이프라인)으로 해결가능
+- 데이터의 품질 (정합성, 레이블 일관성) 이 중요
+    - 기본 모델의 데이터 품질을 체계적으로 개선하는 것이 저품질 데이터로 최신 모델을 쫓는 것보다 낫습니다.
+    - 훈련 중 오류가 발생하면 데이터 중심 접근 방식을 취하는 것이 낫습니다.
+
+이게 그 유명하다는 그림인듯. 흠...  
+<img src="https://blog.kakaocdn.net/dn/Md3CJ/btq6AdmU3BH/mbIxysIc6DFbAIWkLndSq0/img.png" width="600">
+
+
+`data drift`: 모델배포후 들어오는 데이터가 점차 변함
+- aka concept drift
+
+
+배포
+- ramp up, canary (rollout), blue-green (근데 사실 뭐 비슷한 거 아닌가. 두개로 나뉜 상태를 좀 오래 유지하는 듯), rollback
+
+머신러닝 시스템이 test dataset에 대해 낮은 오류를 갖더라도 불균형적으로 중요한 일련의 예제에 대한 성능이 충분하지 않으면 기계 학습 시스템은 여전히 프로덕션 배포에 적합하지 않습니다.
+- 이와 밀접한 관련이 있는 것은 데이터 세트의 key slice에 대한 성능 문제입니다.
+
+> ML is an iterative process
+
+- metric잘 뽑아야 iterative를 효율적으로 함
+- 선언적, eventual consistency 시스템도 복잡도를 줄이는 데 도움이 많이 되는듯

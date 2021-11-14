@@ -14,7 +14,7 @@ tags: coding
 ### Exactly once
 https://medium.com/@jaykreps/exactly-once-support-in-apache-kafka-55e1fdd0a35f
 - producer -> broker
-    - 프로듀서는 ack가 안오면 무지성 재전송하면 됨. 카프카에서 알아서 (멱등성) 중복처리 해 줄 것 (이미 데이터가 들어온 오프셋이 오면 무시하는 듯)
+    - 프로듀서는 (idempotent 옵션을 켰을 때) ack가 안오면 무지성 재전송하면 됨. 카프카에서 알아서 중복처리 해 줄 것 (이미 데이터가 들어온 오프셋이 오면 무시하는 듯)
 - broker -> consumer. 사실 이부분이 힘듬
     1. `derived state`와 이 상태를 만드는데 쓰인 오프셋을 db에 트랜잭션으로 같이 저장 (!!)
     2. derived state과 offset을 멱등성있게 기록. 이것도 결국 derived state과 offset을 같이 저장하고, 더 낮은 offset의 update는 무시

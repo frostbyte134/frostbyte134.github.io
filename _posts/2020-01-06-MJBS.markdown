@@ -21,6 +21,13 @@ MJBS stands for 면접백서
     - 모델 예측 값의 분산 (over all dataset). 모델의 자유도가 높다 (but 민감함). 언더피팅의 가능성이 높음
 - 트레이드오프 관계
 
+### Buffalo
+- `collab filtering`: 유저의 과거 데이터만으로, explicit item / user profile을 만들지 않고 추천
+  - ex) matrix factorization
+  - domain free. suffer from cold-start (content-based는 비교적 이 문제를 겪지 않음)
+  - rely on explicit feedbacks - which is often not available
+  - impicit feedbacks (검색기록, 클릭 등. 따봉처럼 explicit하지 않음)
+    - no negative feedbacks 
 
 ### Lasso (L1), Ridge (L2^2) regression
 - https://www.youtube.com/watch?v=Q81RR3yKn30
