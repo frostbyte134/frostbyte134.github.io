@@ -9,6 +9,10 @@ tags: coding
 
 MJBS stands for 면접백서
 
+### 전체 샤드에 쿼리를 날리게 되는 경우
+- nearest neighbor추천 - nn결과에 기반해서 추천을 날리게 되면 모든 샤드에 대해 날리게 됨
+  - 클릭데이터의 경우, 유저아이디 기반으로 날리게 되므로 미리 인덱스를 걸어놓던지, 카산드라 기반 디비의 경우 PK를 설정해서 유저아이디가 같은것끼리는 같은 노드에 들어가게 할 수 있음 (timestamp기준 졍렬로)
+
 ### ROC, AUC (Area Under the curve)
 - ROC: 다른 decision threashold에 따른 pr 커브
   - AUC: area under the curve
@@ -27,7 +31,10 @@ MJBS stands for 면접백서
   - domain free. suffer from cold-start (content-based는 비교적 이 문제를 겪지 않음)
   - rely on explicit feedbacks - which is often not available
   - impicit feedbacks (검색기록, 클릭 등. 따봉처럼 explicit하지 않음)
-    - no negative feedbacks 
+    - no negative feedbacks (클릭/보지 않은 것만으로 네거티브라고 하긴 좀)
+      - 주어진 데이터만 보다 보면, 이 asymmetry 때문에 positive feedback만 모델링하게 됨 - hence it is crucual to address also the missing data
+    - inherently noisy
+    - numerical value implies `confidence` (`preference` in explicit)
 
 ### Lasso (L1), Ridge (L2^2) regression
 - https://www.youtube.com/watch?v=Q81RR3yKn30
