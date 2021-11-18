@@ -57,7 +57,7 @@ We see that
 Selecting 1st largest eigenpair gives the solution.
 
 ### PCA of k-dim
-- 아니아니 이거 아니고, sequential하게 orthogonal constraint가 추가되는 optimization임
+- 아니아니 이거 아니고 (한번에 푸는거 아니고), sequential하게 orthogonal constraint가 추가되는 optimization임
 
 
 To generalizing the above problem, define
