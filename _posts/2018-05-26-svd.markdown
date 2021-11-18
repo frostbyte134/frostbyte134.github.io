@@ -7,7 +7,9 @@ use_math: true
 tags: linear_algebra need_revise
 ---
 
-- <a href="https://www.cs.cmu.edu/~venkatg/teaching/CStheory-infoage/book-chapter-4.pdf" target="_blank">https://www.cs.cmu.edu/~venkatg/teaching/CStheory-infoage/book-chapter-4.pdf</a>
+
+> row들에 대한 best fit subspace를 찾는 문제로 SVD 이해하기
+- <a href="https://www.cs.cmu.edu/~venkatg/teaching/CStheory-infoage/book-chapter-4.pdf" target="_blank">https://www.cs.cmu.edu/~venkatg/teaching/CStheory-infoage/book-chapter-4.pdf</a>. 아이패드꺼 노트 옮겨야 하는데...
 
 
 \\(U\Sigma V^T\\) joins \\(LU\\) from Gaussian elimination and <a href="{{site.url}}/linear_algebra/2018/05/15/orthonormal-basis.html" target="_blank">\\(QR\\) from orthogonalization.</a>  

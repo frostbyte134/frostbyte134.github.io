@@ -11,7 +11,7 @@ tags: linear_algebra statistic linear_programming duality
 - 데이터가 n개, d개의 feature를 갖고 있을 때, 데이터행렬 \\(X\\)는 \\(n \times d\\), 공분산행렬 \\(XX^T\\)는 \\(n \times n\\)
 - 공분산행렬(노멀 매트릭스)의 구조를 최대한 보존하고 싶음 (variance가 maximization되는 projection)
     - 밑의 1-dim문제를 풀면, 답 (projection matrix, \\(d\times 1\\))은 1st largest eigenvector of \\(XX^T\\)
-    - X를 SVD로 푼 것 \\(X=U\SigmaV^T\quad \rightarrow\quad XX^T=U\Sigma^2U^T\\)의 첫 번째 eigenvector이기도 함
+    - X를 SVD로 푼 것 \\(X=U\SigmaV^T\quad \rightarrow\quad XX^T=U\Sigma^2U^T\\)의 첫 번째 eigenvector이기도 함 (스펙트럴 분해처럼 되어버림)
     - 이 때 (SVD쪽 참고), 이렇게 큰 eigenvalue들만 선택해서 행렬을 구성하는 것은 원래 행렬에서 Frobenius norm이 가장 가까운 rank K factorization문제를 푸는 것이기도 함 
 - <a href="https://stats.stackexchange.com/questions/10251/what-is-the-objective-function-of-pca?noredirect=1&lq=1" target="_blank">이거도 좋네</a>
 
