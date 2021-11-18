@@ -9,6 +9,9 @@ tags: coding
 
 MJBS stands for 면접백서
 
+### 엔트로피
+- 허프만 코딩 길이, 유니폼 - 최대, constrained variance = 가우시안
+
 ### 전체 샤드에 쿼리를 날리게 되는 경우
 - nearest neighbor추천 - nn결과에 기반해서 추천을 날리게 되면 모든 샤드에 대해 날리게 됨
   - 클릭데이터의 경우, 유저아이디 기반으로 날리게 되므로 미리 인덱스를 걸어놓던지, 카산드라 기반 디비의 경우 PK를 설정해서 유저아이디가 같은것끼리는 같은 노드에 들어가게 할 수 있음 (timestamp기준 졍렬로)
@@ -22,8 +25,15 @@ MJBS stands for 면접백서
 - bias가 크다는 것은 무엇인가?, high bias (+low variance) 모델은 무엇에 취약한가?
     - 실제 값과 모델의 평균 예측 값의 차이. 모델의 자유도가 낮다. 데이터의 특징을 학습하지 못함. underfitting
 - variance가 크다는 것은 무엇인가?
-    - 모델 예측 값의 분산 (over all dataset). 모델의 자유도가 높다 (but 민감함). 언더피팅의 가능성이 높음
+    - 모델 예측 값의 분산 (over all dataset). 모델의 자유도가 높다 (but 민감함). 오버피팅의 가능성이 높음
+    - regularization 또는 데이터 추가 (노이즈를 씨게 학습했을 수도)
 - 트레이드오프 관계
+
+### Lasso (L1), Ridge (L2^2) regression
+- https://www.youtube.com/watch?v=Q81RR3yKn30
+- least square + norm regularization
+- 선형모델의 variance가 높다 = 기울기가 급격하다. bias가 높다 = 모든 데이터 (트레이닝+테스트)에 대해 오차가 크다.
+- Rigde vs Lasso = L2는 0에 가까워질수록 값이 낮아져도 이득이 적음. Lasso는 0이 되기 전 까지 동일.
 
 ### Buffalo
 - `collab filtering`: 유저의 과거 데이터만으로, explicit item / user profile을 만들지 않고 추천
@@ -35,12 +45,6 @@ MJBS stands for 면접백서
       - 주어진 데이터만 보다 보면, 이 asymmetry 때문에 positive feedback만 모델링하게 됨 - hence it is crucual to address also the missing data
     - inherently noisy
     - numerical value implies `confidence` (`preference` in explicit)
-
-### Lasso (L1), Ridge (L2^2) regression
-- https://www.youtube.com/watch?v=Q81RR3yKn30
-- least square + norm regularization
-- 선형모델의 variance가 높다 = 기울기가 급격하다. bias가 높다 = 모든 데이터 (트레이닝+테스트)에 대해 오차가 크다.
-- Rigde vs Lasso = L2는 0에 가까워질수록 값이 낮아져도 이득이 적음. Lasso는 0이 되기 전 까지 동일.
 
 ### p-value
 - [statquest](https://www.youtube.com/watch?v=vemZtEM63GY)

@@ -7,6 +7,11 @@ use_math: true
 tags: linear_algebra statistic linear_programming duality
 ---
 
+- <a href="https://stats.stackexchange.com/questions/134282/relationship-between-svd-and-pca-how-to-use-svd-to-perform-pca" target="_blank">이거면 다 됨</a>
+- 데이터가 n개, d개의 feature를 갖고 있을 때, 데이터행렬 \\(X\\)는 \\(n \times d\\), 공분산행렬 \\(X^TX\\)는 \\(n \times n\\)
+- 공분산행렬의 구조를 최대한 보존하고 싶음 (variance가 maximization되는 projection)
+    - 공분산행렬은 이미 노멀 매트릭스임. 
+- <a href="https://stats.stackexchange.com/questions/10251/what-is-the-objective-function-of-pca?noredirect=1&lq=1" target="_blank">이거도 좋네</a>
 
 ### Preliminaries
 
@@ -50,6 +55,9 @@ We see that
 Selecting 1st largest eigenpair gives the solution.
 
 ### PCA of k-dim
+- 아니아니 이거 아니고, sequential하게 orthogonal constraint가 추가되는 optimization임
+
+
 To generalizing the above problem, define
 * \\(A\in(p\times k)\\), so that the projection becomes \\(A^TX=(p\times k)\\)
 

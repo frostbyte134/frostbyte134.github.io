@@ -9,7 +9,47 @@ tags: coding kubernetes docker
 
 > 쿠버네티스 인 액션, 마르코 록샤
 
-2021.11.16 다시보기
+### 팟 스케쥴링
+<a href="https://velog.io/@jayoh/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%ED%8C%A8%ED%84%B4-6%EC%9E%A5-%EC%9E%90%EB%8F%99-%EB%B0%B0%EC%B9%98" target="_blank">참고사이트 1</a>
+<a href="https://blog.naver.com/PostView.naver?blogId=alice_k106&logNo=221511412970&redirect=Dlog&widgetTypeCall=true&directAccess=false" target="_blank">참고2</a>
+
+taint, toleration
+  - 마스터 노드에 `node-role.kubernetes.io/master:NoSchedule` 테인트가 등록되어 있어 보통 스케쥴링이 안됨
+  - 팟 toleration에
+  ```
+  toleration:
+    - effect: Noschedule
+      key: node-role.kubernetes.io/master
+  ```
+  라고 할 시 taint를 약간 무시하고 스케쥴링됨.
+
+effect 필드에 해당하는 값은 세 가지가 있으며 다음과 같습니다.
+- NoSchedule
+  - Taints 에 일치하지 않는 파드는 해당 노드에 예약되지 않음
+  - 노드의 기존 파드들은 유지
+- PreferNoSchedule
+  - Taints 에 일치하지 않는 파드는 해당 노드에 최대한 예약 되지 않도록 함
+  - 다른 노드의 자원 부족 시 예약 될 수도 있음
+- NoExecute
+  - Taints 에 일치하지 않는 파드는 해당 노드에 예약되지 않음
+  - 노드의 기존 파드들도 Taints 에 일치하지 않으면 제거
+
+nodeAffinity
+- required 는 Filtering 에 해당하며 조건을 만족하는 노드만 파드를 스케줄 하도록 합니다.
+- preferred 는 Scoring 에 해당하며 우선 순위를 통해서 보장하지 않지만 조건을 만족하는 파드를 최대한 스케줄 하도록 합니다.
+
+
+<a href="https://coffeewhale.com/kubernetes/mistake/2020/11/29/mistake-10/" target="_blank">사람들은 대부분 다음 두가지 설정의 차이를 잘 구분하지 못합니다.</a>
+- Liveness 체크는 당신의 Pod가 linvess 검사를 통과하지 못할 경우 재시작됩니다.
+- Readiness 체크는 검사를 통과하지 못하는 경우 더 이상 요청을 받지 못하게 Service로 부터 오는 트래픽을 끊습니다.
+- 두가지 검사 모두 Pod의 생명주기 전체 기간동안 지속적으로 검사합니다. 이것은 중요한 부분입니다. 사람들은 주로 ReadinessProbe의 경우 Pod를 시작할 시점에만 검사를 진행하여 트래픽의 전달 여부를 결정한다고 생각합니다. 하지만 그것은 단지 하나의 사용사례에 불과합니다.
+- Anti Affinity 설정
+  - 가용성을 위해 3개 Pod 레플리카를 생성하였지만 노드가 죽을 때 3개 Pod 모두 한꺼번에 죽었습니다. 어떻게 된 일인가요? 3개 Pod가 전부 한개 노드 위에서 돌았군요. 쿠버네티스가 알아서 고가용성(HA)을 보장해주는 것이 아니었나요?
+  - 쿠버네티스 스케줄러가 강제로 anti-affinity를 설정해 주진 않습니다. 명시적으로 선언해야 합니다. (와 개신기)
+
+<a href="https://kubernetes.io/ko/docs/concepts/scheduling-eviction/pod-priority-preemption/" target="_blank">파드 우선순위, preamption</a> (축출시키기)
+
+### 2021.11.16 다시보기
 - 컨테이너는 단일프로세스를 실행하는 것을 목적으로 설계됐다. 단일컨테이너에서 관련없는 다른 프로세스를 실행하는 경우, 프로세스 실행 관리 (재시작등), 로깅 등은 __모두 사용자 책임이다__ (넘모 맞말이구요). 또한 이 경우 모든 프로세스는 stdout으로 로그를 쏘기 떄문에 구분하기 피곤함
 - 1개 팟 - 여러 컨테이너 포함 가능 (1:1이 아님!)
   - 다만 모든 동일한 네임스페이스를 사용 = 같은 호스트명과 네트워크 인터페이스 사용 (파일시스템은 각 컨테이너 이미지의 UFS때문에 분리됨), 포트충돌 조심
@@ -36,9 +76,18 @@ tags: coding kubernetes docker
   - __외부 서비스를 위한 DNS생성__: DNS를 통해 서비스의 `extername`을 주소처럼 사용가능
   - 서비스에도 `세션 어피니티`가 있음
     - 세션 어피니티가 없어도 http keepalive가 적용되어 있으면 같은 팟에 연결되는 듯
-
-
-### Kubectl
+- 컨피그맵
+  - 컨피그맵을 볼륨마운트 할 수 있음 -> 파일 변화를 감지하고 업데이트 가능할 듯. 이 외에 자동감지는 마스터 폴링...? 정도밖에 없어보임
+- 롤링 업데이트 전략의 properties (밑에도 있지만 그4948)
+  - `maxsurge` : 의도된 파드 수 보다 얼마나 많은 파드를 순간적으로 가질 수 있나
+  - `maxUnavailable` : 사용할 수 없는 최대한의 파드 인스턴스 수. __이걸 0으로 하면 파드를 한번에 하나만 교체함__
+- 잘못된 버전의 롤아웃 방지
+  - `minReadySeconds` 설정 -> 여기서 지정된 시간 이후 레디니스 프로브 호출하고 롤아웃 진행됨
+  - 충분히 크게 설정하면, 실제 트래픽을 수신한 뒤 레디니스 프로브 호출 가능!
+  - 새 파드가 만들어 지고, old 파드와 충분한 시간 같이 돌다가 레디니스 프로브 실패 시
+    - `maxUnavailable=0`이면 새 파드만 제거됨. 아니면 몇 개 제거될 수도 있음
+    
+### Kubectl 모음
 #### Chap 9
 - `kubectl set selector` 로 서비스의 파드 셀렉터 변경가능 (블루-그린 deployment : 잠시 파드가 2배 됨)
 - `kubectl rolling-update <old_pod_name> <new_pad_name>` : old_pod_name는 이미 노드에서 돌고 있는 pod의 metadata.name이고, new_pod_name은 yaml에 있을 필요 없음 (이럼 로컬 yaml하고 name이 달라지긴 하는 듯)
