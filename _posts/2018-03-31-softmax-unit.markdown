@@ -6,7 +6,7 @@ categories: deep_learning
 use_math: true
 tags: deep_learning deep_learning(bengio)
 ---
->Anytime we wish to represent a probability distribution over a discrete variable with \\(n\\) possible values, we may use the softmax function.
+> Anytime we wish to represent a probability distribution over a discrete variable with \\(n\\) possible values, we may use the softmax function.
 
 The softmax function is usually used as output units, and for internal units rarely if we wish the model to choose between one of \\(n\\) different options for some internal variable.
 

@@ -7,6 +7,17 @@ use_math: true
 tags: math need_review deep_learning recomm nlp
 ---
 
+트랜스포머 1초정리
+- 포지셔널 인코딩 (코싸인+싸인, 퓨리에변환 같으 느낌)
+- 인코더-디코더 구조
+  - 트랜스포머 블록
+    - 멀티헤드 어텐션: 병렬. 멀리 떨어진 애들끼리 interaction이 logn이 아니라 상수
+      - dot product attention
+        - QK^T 행렬 (N X d_old) X ( d_old X N) 에 softmax를 씌움 - weight이 나옴
+        - 여기에 V (N X d_new)를 곱해서 새 feature를 만듬. weight 자체에서 1st row가 1번째 단어와 다른 나머지 단어간의 연관성을 고려한 거였음
+      - 대신 resolution이 떨어짐: multi head로 숫자로 때움?
+- 피드포워드 네트워크
+- 오토어그레시브함 (y-1이 y의 입력으로 쓰임)
 
 References
 - <a href="https://arxiv.org/pdf/1706.03762.pdf" target="_blank">https://arxiv.org/pdf/1706.03762.pdf</a>
