@@ -11,6 +11,8 @@ tags: coding
 - <a href="https://medium.com/@jaykreps/exactly-once-support-in-apache-kafka-55e1fdd0a35f" target="_blank">exactly once in kafka (idempotent)</a>
 - <a href="https://kafka.apache.org/documentation/#semantics" target="_blank">kafka semantics</a>
 
+- <a href="https://www.thebookofjoel.com/python-kafka-consumers" target="_blank">이거 좋은듯</a>
+
 ### Exactly once
 https://medium.com/@jaykreps/exactly-once-support-in-apache-kafka-55e1fdd0a35f
 - producer -> broker

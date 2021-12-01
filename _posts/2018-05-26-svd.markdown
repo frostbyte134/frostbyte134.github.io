@@ -1,15 +1,16 @@
 ---
 layout: post
-title:  "Singular value decomposition (finally!)"
-date:   2018-05-26 13:13:00 +0900
+title:  "Singular value decomposition"
+date:   2022-11-28 13:13:00 +0900
 categories: linear_algebra
 use_math: true
 tags: linear_algebra need_revise
 ---
 
+2가지 방향으로 이해가능 (updated at 2021-11-28)
+1. row들에 대한 best fit subspace를 찾는 문제로 - [문서 참고](https://drive.google.com/file/d/1-KVYlnwD2i5yrhkbWPi0w2n6VMSOtGzQ/view?usp=sharing). Matrix norm (Frobenious, l2)관점에서 SVD가 최적의 (norm을 가장 잘 보존하는) rank-K approximation이란 것 까지 스무스하게 보일 수 있음
+2. column관점에서, symmetric possitive definite한 normal행렬 A^TA나 AA^T를 eigen decomposition한 것으로 이해하기. 구성적으로 이해하기 쉬워서 좋음. 아래 내용이 해당 관련
 
-> row들에 대한 best fit subspace를 찾는 문제로 SVD 이해하기
-- <a href="https://www.cs.cmu.edu/~venkatg/teaching/CStheory-infoage/book-chapter-4.pdf" target="_blank">https://www.cs.cmu.edu/~venkatg/teaching/CStheory-infoage/book-chapter-4.pdf</a>. 아이패드꺼 노트 옮겨야 하는데...
 
 
 \\(U\Sigma V^T\\) joins \\(LU\\) from Gaussian elimination and <a href="{{site.url}}/linear_algebra/2018/05/15/orthonormal-basis.html" target="_blank">\\(QR\\) from orthogonalization.</a>  
