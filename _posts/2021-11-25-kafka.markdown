@@ -20,7 +20,8 @@ https://medium.com/@jaykreps/exactly-once-support-in-apache-kafka-55e1fdd0a35f
 - broker -> consumer. 사실 이부분이 힘듬
     1. `derived state`와 이 상태를 만드는데 쓰인 오프셋을 db에 트랜잭션으로 같이 저장 (!!)
     2. derived state과 offset을 멱등성있게 기록. 이것도 결국 derived state과 offset을 같이 저장하고, 더 낮은 offset의 update는 무시
-
+    3. 카프카에서 카프카로 데이터를 보낼 땐, Transaction을 활용 가능 - Producer의 Transaction context 안에 consumer의 commit까지 포함
+        - 내생각에는 sigterm handler, rebalance listener (with lock)을 구현 안해도 exactly once가 될 것 같았는데 아니었음. 왜지?
 
 https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/
 - at least once: ack timeout시 재전송. 중복전송 가능성 있음
