@@ -8,8 +8,9 @@ tags: linear_algebra need_revise
 ---
 
 2가지 방향으로 이해가능 (updated at 2021-11-28)
-1. row들에 대한 best fit subspace를 찾는 문제로 - [아이패드 노트필기 문서 참고](https://drive.google.com/file/d/1-KVYlnwD2i5yrhkbWPi0w2n6VMSOtGzQ/view?usp=sharing). Matrix norm (Frobenious, l2)관점에서 SVD가 최적의 (norm을 가장 잘 보존하는) rank-K approximation이란 것 까지 스무스하게 보일 수 있음
+1. row들에 대한 best fit subspace를 찾는 문제로 - [아이패드 노트필기 문서 참고](https://drive.google.com/file/d/1-KVYlnwD2i5yrhkbWPi0w2n6VMSOtGzQ/view?usp=sharing). Matrix norm (Frobenious, l2)관점에서 SVD가 최적의 (norm을 가장 잘 보존하는) rank-K approximation을 (값이 낮는 singular value들을 쳐내서) 것 까지 스무스하게 보일 수 있음 (PCA까지 연결)
 2. column관점에서, symmetric positive definite한 normal행렬 A^TA나 AA^T를 eigen decomposition한 것으로 이해하기. 구성적으로 이해하기 쉬워서 좋음. 아래 내용이 해당 관련
+	- inverse mapping관점에서 SVD로 구한 pseudoinverse가 매팽해주는 곳이 nullspace component를 포함하지 않으므로, 벡터 놈 관점에서 가장 최적의 (작은) 곳으로 매핑해줌
 
 ------------------------------------------------
 
