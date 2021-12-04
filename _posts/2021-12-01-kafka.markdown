@@ -13,6 +13,8 @@ tags: coding
 
 - <a href="https://www.thebookofjoel.com/python-kafka-consumers" target="_blank">이거 좋은듯</a>
     - <a href="https://jjaesang.github.io/kafka/2019/07/08/Exactly-Once-Semantics-kafka.html" target="_blank">참고?</a>
+
+
 ### Exactly once
 https://medium.com/@jaykreps/exactly-once-support-in-apache-kafka-55e1fdd0a35f
 - producer -> broker
@@ -35,7 +37,7 @@ https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apac
 #### Exactly Once, Kafka to Kafka
 카프카에서 카프카로 데이터를 보낼 땐, Transaction을 활용 가능 - Producer의 Transaction context 안에 consumer의 commit까지 포함
  - 내생각에는 sigterm handler, rebalance listener (with lock)을 구현 안해도 트랜잭션만 잘 쓰면 exactly once가 될 것 같았는데 아니었음. 왜지? 트랜잭션이 트랜잭션이 아닌가? 
- - 지금은 TPS도 200정도로 낮아서...1만정도는 되면 좋겠는데 구성 좀 해야 할 듯
+ - 지금 테스트환경은 TPS도 200정도로 낮아서...1만정도는 되면 좋겠는데 구성 좀 해야 할 듯
 
 ### Aiokafka
 
