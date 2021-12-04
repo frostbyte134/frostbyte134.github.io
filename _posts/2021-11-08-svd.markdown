@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Singular value decomposition"
-date:   2022-11-08 13:13:00 +0900
+date:   2021-11-08 13:13:00 +0900
 categories: linear_algebra
 use_math: true
 tags: linear_algebra need_revise
