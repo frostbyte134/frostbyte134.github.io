@@ -36,8 +36,7 @@ https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apac
 
 #### Exactly Once, Kafka to Kafka
 카프카에서 카프카로 데이터를 보낼 땐, Transaction을 활용 가능 - Producer의 Transaction context 안에 consumer의 commit까지 포함
- - 내생각에는 sigterm handler, rebalance listener (with lock)을 구현 안해도 트랜잭션만 잘 쓰면 exactly once가 될 것 같았는데 아니었음. 왜지? 트랜잭션이 트랜잭션이 아닌가? 
- - 지금 테스트환경은 TPS도 200정도로 낮아서...1만정도는 되면 좋겠는데 구성 좀 해야 할 듯
+ - 프로듀서에 컨슈머에 offset까지 커밋하는 <a href="https://towardsdatascience.com/exactly-once-semantics-across-multiple-kafka-instances-is-possible-20bf900c29cf" target="_blank">방식인 듯</a>
 
 ### Aiokafka
 
