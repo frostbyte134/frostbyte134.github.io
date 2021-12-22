@@ -76,7 +76,7 @@ response header에 `X-Ratelimit-Remaining`, `X-Ratelimit-Limit` 등 넣어 줌. 
       2. timestamp저장 - timestamp만으로 대략적인 rate 게산 가능
    - 윈도우 기반 : 윈도우 경계쪽에서 burst로 나가는 경우 문제되는 듯. 경계에선 윈도우를 쪼개 시간 비율로 계산하는 법도 있음
 3. 문제
-   - 동기화가 제일 큰 문제인듯. 보통 redis로 atomic하게 하지만 요청이 너무 몰리면?
+   - 동기화가 제일 큰 문제인듯. redis로 distributed lock을 쓰라고 나와 있긴 한데 마음에 들진 않음. 주소를 해싱해서 나누면 안되나?
      - soft limit 정도가 괜찮아 보임
    - 룰 저장은 어디에 하고 어떻게 업데이트 할 것인가? 보통 디비에 넣고 메모리에 저장해두는게 일반적일테지만..
 
@@ -85,8 +85,8 @@ response header에 `X-Ratelimit-Remaining`, `X-Ratelimit-Limit` 등 넣어 줌. 
 ### Chap 5 consistent hasing
 - ex) 몽고디비. 키를 서버에 나눠서 저장 밑 hashing으로 찾아가기
   - 나머지 연산자는 서버 추가/삭제 시 모든 키를 재배치해야 함
-  - 링 방식으로, 키는 "자기와 제일 가까운 서버"에 저장된다고 할 시 키 개수 / 서버 수 정도만 재배치하면 됨. 굳
-
+  - 링 방식으로, 키는 "자기와 제일 가까운 서버"에 저장된다고 할 시 키 개수 / 서버 수 정도만 재배치하면 됨
+  - virtual node = 단순한 위 방식대로라면 uniform 하게 키값 / 해시 구역이 서버에 배치되지 않음 -> virtual node들로 미리 해시구간을 나눠두고, 이것들을 서버에 할당
 
 ### Chap 6 A Key-value Store
 
@@ -104,8 +104,7 @@ response header에 `X-Ratelimit-Remaining`, `X-Ratelimit-Limit` 등 넣어 줌. 
 - C: Consistency (분산 node간 데이터 일치 여부)
 - A: Availability (일부 노드 다운시에도 잘 동작하는가)
 - P: Partition Tolerance: cluster continues to function even if there is a "partition" (communication break) between two nodes (both nodes are up, but can't communicate).
-  - CA - consistent하고, 노드 한두개 죽어도 / partition 발생해도 응답은 잘 함. 다만 partition발생 시 문제 (어떻게?)
-    - availability가 있으니 응답은 하지만, 파티션 해소 후에도 resync가 잘 안 되는 듯
+  - CA - 이거 뭐지. 분산 노드간 데이터는 잘 일치하고, 일부 장애시에도 잘 동작하지만 파티션 나면 터짐?
   - CP - data is consistent between all nodes, and maintains partition tolerance (preventing data desync) by __becoming unavailable__ when a node goes down.
     - A가 없으면 그냥 다운시키면 되는 듯 ㅋㅋ
     - EX - bank systems
@@ -189,7 +188,7 @@ read path - cache - bloom filter (데이터가 어느 sstable에 있는지?) - s
   - long url -> unique id (fixed format) = PK -> short ID 가 일반적인듯
     - unique id는 위의 분산ID생성기!
   - 중복검사 - 재생성 시나리오
-  - base64 conversion (대문자26 + 소문자26 + 특문?)
+  - 64진수 (대문자26 + 소문자26 + 특문?) 변환 = 1개 문자에 8bit 
 - 캐싱
   - `long url: short url` 포멧
 - 분산문제
@@ -209,7 +208,9 @@ read path - cache - bloom filter (데이터가 어느 sstable에 있는지?) - s
 - the key to horizontal scaling is to keep servers stateless 
 
   
-
+### Notification system
+- 메시지를 생성하는 부분 (db access) - 실제로 여러 서비스에 보내는 부분 메시지큐로 분리가능
+- exactly once (힘듬), logging 중요, retry
 
 ### Chap 11. Design a News Feed System
 - 페북의 뉴스피드 (MM 대시보드!)

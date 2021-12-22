@@ -35,6 +35,10 @@ MJBS stands for 면접백서
 - 선형모델의 variance가 높다 = 기울기가 급격하다. bias가 높다 = 모든 데이터 (트레이닝+테스트)에 대해 오차가 크다.
 - Rigde vs Lasso = L2는 0에 가까워질수록 값이 낮아져도 이득이 적음. Lasso는 0이 되기 전 까지 동일.
 
+### Regression Tree
+- <a href="https://www.youtube.com/watch?v=g9c66TUylZ4" target="_blank">regression tree</a> 이거 20분 보면 다 됨 (1.5배속)
+- 각 decision step마다, 각 feature를 돌며, threshold를 증가시켜 가며 가장 낮은 MSE를 주는 threshold를 찾음
+
 ### Buffalo
 - `collab filtering`: 유저의 과거 데이터만으로, explicit item / user profile을 만들지 않고 추천
   - ex) matrix factorization
@@ -88,7 +92,7 @@ Of course we have to use the same method to scale both training and testing data
 
 
 ### Column store vs row store
-- 일부 column만 select 시 컬럼스토어가 유리. 데이터 iterate할 시에는 블록  리드가 가능한 row store가 유리
+- 일부 column만  시 컬럼스토어가 유리. 데이터 iterate할 시에는 블록  리드가 가능한 row store가 유리
 - https://nesoy.github.io/articles/2019-10/Column-Oriented-DBMS
    - row oriented: 적은 수의 row읽을때 좋음. but 일부 컬럼 데이터만 select 시, iterate 시 쓸대없는 데이터도 읽어야 함. 반면 모든 column을 읽을 땐 걍 좋음
 - column store : 각 열 데이터 파일 내의 모든 데이터는 동일한 유형이므로 압축에 이상적입니다. 일반적으로 전체 열보다 단일 열에 대해 훨씬 우수한 압축률을 얻을 수 있습니다.

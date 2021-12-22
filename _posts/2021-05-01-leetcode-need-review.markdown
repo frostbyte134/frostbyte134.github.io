@@ -15,6 +15,64 @@ solve the problem while explain it to yourself, and write examples (must!)
 - 문제 재정의, 다시 읽기
 - 웰노운들 적용시켜 보기
 
+### Missing Element in Sorted Array
+- O(N)으로 일단 품.
+- nums[i]와 nums[i+1]간의 missing element가 누적된 값이 아닌데 어떻게 이진검색을 하나 고민했음 (부분합 배열을 만들면 이미 O(N))
+<details>
+   <summary>다시보기</summary> 
+    nums[j] - nums[i] - 1 - (j - i) 가 i --- j 사이에 있는 missing elements. 결국 배열 전체를 고려해야 하므로, 0~mid 까지 테스트하고 이 결과로 st/ed를 갱신하는 게 직관적
+   </details>
+
+
+#### Shortest Subarray with Sum at Least K
+- <a href="https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/" target="_blank">https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/</a>
+<details>
+   <summary>좋은 문제인 듯</summary> 
+    문제를 잘 읽기 (좀 햇갈림. 면졉같은데 내긴 좋진 않은듯). N^2 -> NlogN은 직관적인데, NlogN -> N은 바로 생각하긴 쉽지 않을 수도?
+   </details>
+
+#### Optimal Account Balancing
+* <a href="https://leetcode.com/problems/optimal-account-balancing/" target="_blank">https://leetcode.com/problems/optimal-account-balancing/</a>
+* <details>
+   <summary>잘 생각해 보면</summary>우선 transaction의 역순으로 하면 되니까 이거보다 큰 답은 없고, transaction을 압축하는 형태로 최적의 답이 나올 테니 각 노드의 값을 이상하게 쪼개는 경우는 없을 듯. 있는 거 다 쓰면서 완탐하면 될 듯
+   . 어째 갈수록 느려지네...;_;</details>
+
+#### Partition Equal subset sum
+* <a href="https://leetcode.com/problems/partition-equal-subset-sum/submissions/" target="_blank">https://leetcode.com/problems/partition-equal-subset-sum/submissions/</a>
+* <details>
+   <summary>실력이 퇴화하나....?</summary>제약조건을 잘 활용해 보자. DICT쓰면 특이케이스에 걸리는 게 별로 없는데 배열 써서...아니 그리고 제출하기 전 까지 생각이 안 나서 계속 틀림 ;_;....</details>
+
+
+#### Meeting Rooms II (need review)
+* <a href="https://leetcode.com/problems/meeting-rooms-ii/" target="_blank">그냥 풀기</a>
+* <details>
+   <summary>다시보가</summary> 
+   겹치는 구간의 최대갯수 세기 = PQ. 범위 더하기 되는 구간트리 / 이분탐색으로도 풀어볼 만은 한 듯...?  
+   l을 정렬해야 하고 r을 정렬하면 안되는 이유: l---r 로 되어 있으니까, l로 정렬해야 겹치는 것들을 확실하게 체크가능. r로 정렬하고 l보다 작은 것들을 필터링하면, l이 엄청 커졌다 작아지는 경우 못샘
+   </details>
+
+#### Partition Equal Subset Sum
+* <a href="https://leetcode.com/problems/partition-equal-subset-sum/" target="_blank">https://leetcode.com/problems/partition-equal-subset-sum/</a>
+* <details>
+   <summary>다시보가</summary> 
+   집합에서 합이 되는 부분집합의 개수. 직접 더해서 모든 경우의 수를 만들어볼 때 큰 값부터 고려해야 함 (현재 아이템을 여러번 쓸 수 있음)
+   </details>
+
+#### Partition Array into Two arrays to minimize sum diff
+* <a href="https://leetcode.com/problems/partition-array-into-two-arrays-to-minimize-sum-difference/" target="_blank">중간에서 만나요</a>
+* <details>
+   <summary>다시보가</summary> 
+   풀이가 합리적이네...글고 문제를 또 안읽음
+   </details>
+
+
+#### Partition Array into Two Arrays to Minimize Sum Difference
+
+* <a href="https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/submissions/" target="_blank">그냥</a>
+* 쉬운 미디엄인데..실수하기 좋은 (한번에 풀기 어려운) 링크드리스트 문제여서...
+
+
+--------------------------------
 
 ### https://leetcode.com/problems/search-a-2d-matrix/
 쉬운데 추가풀이가 재밌네
@@ -107,14 +165,6 @@ solve the problem while explain it to yourself, and write examples (must!)
 
 
 
-### Missing Element in Sorted Array
-- O(N)으로 일단 품.
-- nums[i]와 nums[i+1]간의 missing element가 누적된 값이 아닌데 어떻게 이진검색을 하나 고민했음 (부분합 배열을 만들면 이미 O(N))
-<details>
-   <summary>다시보기</summary> 
-    nums[j] - nums[i] - 1 - (j - i) 가 i --- j 사이에 있는 missing elements. low번째를 i로 두고, low밑에껀 k에서 빼 가면 됨. while lo+1 < hi: 포문으로 푸는게 훨 쉽네..(lo = mid, hi = mid로 갱신)
-   </details>
-
 
 ### 윈도우 문제
 - monotonic하게 움직이는 윈도우에서, __최대__ (=최소) 빠르게 찾기
@@ -155,7 +205,7 @@ TODO: make a post on
 - 2차원 세그트리같은건 아니었고...1차원 구간합을 효율적으로 갱신하면 상위권 됨
 
 ### Sliding Puzzle
-* <a href="https://leetcode.com/problems/sliding-puzzle/" target="_blank"> 보드가 작아 bijection 가능</a>
+* <a href="https://leetcode.com/problems/sliding-puzzle/" target="_blank"> 보드가 작아 bijection 가능. DFS하니까 메모리 리밋 뜸 ㅡㅡ</a>
 
 
 ### Alien Dictionary  (보기만)
@@ -163,13 +213,6 @@ TODO: make a post on
 * <details>
    <summary>다시보가</summary> 
    dfs 로 사이클 찾기 
-   </details>
-
-### Meeting Rooms II (need review)
-* <a href="https://leetcode.com/problems/meeting-rooms-ii/" target="_blank">그냥 풀기</a>
-* <details>
-   <summary>다시보가</summary> 
-   겹치는 구간의 최대갯수 세기 = PQ. 범위 더하기 되는 구간트리 / 이분탐색으로도 풀어볼 만은 한 듯...?
    </details>
 
 ### String Transforms Into Another String (보기만)
@@ -199,7 +242,7 @@ TODO: make a post on
 * <a href="https://leetcode.com/problems/validate-stack-sequences/" target="_blank">꼭 다시 보자 (보기만)</a>
 * <details>
    <summary>다시보기</summary> 
-   we can try man
+   we can try man (indeed)
    </details>
 
 ### basic calculator 2
@@ -271,9 +314,6 @@ TODO: make a post on
 * 몇시간 삽질해서 dp로 풀긴 함. dp 식이나 다시 세워보자
 * 난 O(NM) dp로 풀었는데 더 효율적으로 푸는 dp가 있다네. 그럴 꺼 같긴 했는데...
 
-#### Optimal Account Balancing
-* <a href="https://leetcode.com/problems/optimal-account-balancing/" target="_blank">https://leetcode.com/problems/optimal-account-balancing/</a>
-* 다시
 
 #### Copy list with Random Pointer
 * 다시 풀 필요는 없고, 생각정도는 해볼 만 함
@@ -292,11 +332,6 @@ TODO: make a post on
 #### Longest Increasing Path in a Matrix
 - <a href="https://leetcode.com/problems/longest-increasing-path-in-a-matrix/" target="_blank">https://leetcode.com/problems/longest-increasing-path-in-a-matrix/</a>
 - 하드인데 쉬웠음. 보드에서의 increasing path이므로, 왔던 곳으로 다시 못 감 - cache 이용가능 
-
-#### Shortest Subarray with Sum at Least K
-- <a href="https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/" target="_blank">https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/</a>
-- 못풀고 답 봤다. 디큐문제는 항상 어렵네...다시 풀어보자
-- 다시 풀었는데도 못풀었다. 디큐보다는 그리디네. 는 디큐 안쓰면 TLE나구요.
 
 #### Minimum Area Rectangle
 - <a href="https://leetcode.com/problems/minimum-area-rectangle/" target="_blank">Minimum Area Rectangle</a>

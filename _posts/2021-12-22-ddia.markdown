@@ -1,0 +1,125 @@
+---
+layout: post
+title:  "Designing Data Centric Application"
+date:   2021-12-22 08:00:05 +0800
+categories: coding
+use_math: true
+tags: coding
+---
+
+
+> Kleppmann, Martin. Designing Data-Intensive Applications . O'Reilly Media. Kindle Edition. 
+
+
+__하루에 1챕터씩 읽기!!!!__
+
+### Chap 1
+
+`Data-intensive` app
+- RAW cpu power is rarely a limiting factor
+- db, cache, search index, stream/batch processing
+
+
+#### 3 concerns in software systems
+1. `Reliability`
+  - Should continue to work `correctly` (performing the correct function at the desired lvl of performance) in the face of `adversity` 
+ (hw/sw/human faults)
+  - `fault`: system component fails / `failure`: system as a whole fails
+  - must be fault-tolerant / resilient
+  - HW failure: often add redundancy to individual HW
+  - 휴먼에러: 잘못쓰기 어렵게 만들기, easy rollback, monitoring
+2.  `Scalability`
+  - reasonable way to dealing with the system growth
+  - describe the __load__ of system (ex - TPS, hit ratio of cache, DAU, ...)
+
+#### 트위터 타임라인 구성하기
+- 트윗은 글로벌하게 그냥 저장
+- 트윗이 올라왔을 때 타임라인 구성하기
+   1. 온디멘드 타임라인 구성 
+   2. 유저 A의 트윗이 올라오면, 해당 유저 팔로워의 미리 만들어 놓은 타임라인 증분 업데이트
+- 처음 1번에서 2번으로 전환했다 함 (read operation이 훨 많아서)
+  - 이 경우, 핵심 load parameter는 fan out 숫자임
+- 최종적으로, 2번이나 핵심 유저가 트윗 올리면 바로 증분업데이트 안하고 (팬아웃이 너무 많아 로드 파라미터를 너무 크게 올림), 타임라인 올릴 때 유명 유저 리스트만 훑는다고 함
+
+Latency and response time
+- `latency`: dutation that a request is waiting to be handled  
+- `response time`: 클라이언트 기준 응답시간 (서비스 타임)
+
+#### `Maintainability`
+  - productivity (even with many ppl working with)
+  - fixing bugs, keeping system opetational, investigating failures, ...
+
+3 design principle for SW systems (for high maintainability)
+- Operability (easy to operate)
+  - Good operatibility means making routine tasks easy
+- simplicity (easy to understand)
+- evolvability (easy to make change)
+  - agile, tdd, short cycles, refactor
+
+#### Describing Performance
+- SLA, P50, P95, P99 (tail lavencies), avg
+- five-nine
+- Amazon has observed 100ms increase in response time reduces sales by 1%
+- 1sec slowdown reduces a customer satisfaction by 16%
+- OTOH, optimizing extreme tail performance is too expensive (over engineering)
+- calculating average - window selection and alg is important (`forward decay`, `t-digest`, `HdrHistogram`)
+
+
+#### Approahes for coping with Load
+- scale up (HW up) / scale out (병렬처리)
+- `elastic` system: can automatically add computing resources when they detect a load increase
+
+> While distributing stateless services across multiple machines is fairly straightforward, taking stateful data systems from a single node to a distributed setup can introduce a lot of additional complexity. For this reqson, common wisdom until recently was to kkep your database on a single node (scale up) until scaling cost or HA requirements forced you to make it distributed
+
+
+
+#### ACID
+- RDB: ACID 지원
+- noSQL: 어떤지?
+- redis: 싱글쓰레드인데 파이프라이닝이 있음 (이거 명확하게 정리 좀...)
+
+
+### Chap 2
+대부분의 APP은 여러 데이터 모델 (=레이어)로 이루어져 있음
+- 로우레벨 (임베디드) / 디비 / APP단 등
+- every data model embodies assumptions about how it is going to be used
+
+#### Relational vs Document model
+SQL
+- Data is organized into `relations` (called `tables` in SQL), where each relation is an unordered collection of `tuples` (`rows` in SQL)
+- transation기능을 60~70년대부터 추가하며 계속 쓰임
+- other databases at that time forced app devs to think about the internal repr of the data in the DB. The goal of the relational model was to hide that impl details behind a (cleaner) interface
+  - 70~80년대에는 network / hierarchical model 등이 있었으나, 사라짐 (위와 같은 이유 때문이었을 듯)
+
+NOSQL
+- > The name `NoSQL` is unfortunate, since it doesn't actually refer to any particular tech (catchy Twitter hashtag for a meetup on opensource, distributed, non-relational dbs in 2009)
+- scalability, opensource, non-relational (too restrictive)
+
+#### Object-Relational Mismatch
+OOP + Relational의 부조화인듯?
+- If data is stored in relational tables, an awkward translation layer (ORM, SqlAlchemy!) is required between the objects in the app code and the db model of tables, rows, and cols
+ - `impedence mismatch` problem
+
+#### One-To-Many
+- ex) 사람은 평생 여러 경력, 여러 교육을 받음
+- 이게 impedence mismatch 문제하고 무슨 관계지. 지금은 잘 모르겠음
+- SQL: 테이블을 쪼개고 foreign key ref를 걸음
+- noSQL, 특히 document db: 기본적으로 트리 형태 (one-to-many)를 쉽게 저장할 수 있음. 다소의 중복은 있지만...
+  - ex) human json obj안에 edu, career json obj
+  - 결국 join을 안해도 되므로, 이렇게 로컬에 (다소에 데이터 중복저장을 감안하고) 관계있는 데이터를 다 가지고 있는 경우를 locality가 있다고 하는 듯
+
+#### Many-to-One, Many-to-Many
+- many-to-one: 지역 1개에 여러 사람이 살고 있음
+- many-to-many: 기업에 있는 출신 학교? 약간 user를 통해 transitive하게 정의되는 관계인 듯
+- SQL: join. 안쓰고 컬럼을 (중복해서) 더 잡아도 되는데 consistency를 알아서 관리해야 함
+- noSQL: 조인을 알아서 app단에서 처리해야 함
+  - 예전 network model에선, 비슷하게 트리형태로 데이터를 저장했긴 한데 관계있는 다른 데이터에 대한 포인터도 저장했다고 함 - 관리가 어려워 폐기 (데이터 모델 변경 시 너무 피곤해짐)
+
+데이터가 트리형태일 땐 역시 noSQL이 나음. sql식의 테이블 쪼개기는 many-to-many도 비교적 대응가능한 반면 이런 상황에서 깔끔하지는 않음.
+- 반면 many-to-many + join필요 = sql이 나음
+
+#### Schema flexibility in Document Model
+- nosql: schemaless (X) / `schema-on-read` (O, ~runtime type checking)
+  - implicit schema가 있으나 enforced되지는 않음. 반면 sql은 `schema-on-write` (~compile-time type check) 임
+- mysql같은 경우, alter table 할 경우 모든 데이터를 다 복사한다고 함 - leads to few secs of downtime
+
