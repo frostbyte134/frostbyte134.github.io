@@ -123,3 +123,68 @@ OOP + Relational의 부조화인듯?
   - implicit schema가 있으나 enforced되지는 않음. 반면 sql은 `schema-on-write` (~compile-time type check) 임
 - mysql같은 경우, alter table 할 경우 모든 데이터를 다 복사한다고 함 - leads to few secs of downtime
 
+#### Query language for Data
+- imperative: 수행방법까지 구체적으로 지시
+  - 예전 db들 중에는 이런 식도 있었다 함
+- declarative: 원하는 결과만 명시. optimization은 알아서 (SQL)
+  - limited functionality, automatic optimization, low chance of mistake
+
+mapreduce: 윗 둘 중간에 있음
+- 몽고디비도 원랜 없었는데 json representation타입의 declarative인 `aggregation pipeline`을 도입했다고 함
+  - > The moral of the story is that n NoSQL system may find itself accidentally reinventing SQL, albeit in disguise
+
+그래프는 지금 관심이 없어서 스킵!
+
+
+### Chap 3. Storage and Retrieval
+
+어떻게 데이터를 무슨 포멧으로 저장하고 (`data model`) 어떻게 찾을 것인지 (`query language`) - chap2는 사용자 (개발자) 관점, chap3은 디비 관점
+- 우선 `log-structured storage engines` / `page-oriented storage engines` (ex - B-tree)
+
+Many databases internally use a log, which is an append-only data file.
+- in this book, `log` refers to an append-only sequence of records. It doesn't have to be readable
+
+In order to efficiently find the value for a particular key in the db, we need a different data structure: an `index`
+- 보통 추가적인 메타데이터로 구성
+- well chosen indexes speed up read queries, but every index slows down writes.
+  - for this reasen db dont usually index everything by default, but require you to choose indexes manually
+
+#### append only log + hash table index
+- assumes KV storage
+- 인덱스는 해시테이블: 메모리에 있음, 최근 key의 디스크 상 위치 저장
+- compation: merge + append (overrite안함)
+- deleting: 레코드에 `tombstone`남겨놓음. merging시 해당 record 이전 데이터들은 전부 무시
+- partially written records: `Bitcask`는 첵섬으로 확인
+- concurrency control: one writer thread (write이 sequential 하므로, concurrency로 얻는 이득이 별로 없는 듯)
+- crash recovery: 파일을 전부 읽어도 되지만, `Bitcask`는 해시테이블 스냅샷 활용
+
+append-only log의 장점
+- merge가 sequential (random rw 필요없음)
+- concurrency / crash recovery관점에서, overwrite하는 중 터질 일이 없음 (append하다 터지는 경우는 있겠지만)
+
+hash table의 단점
+- 파일에 넣기 어려움 (random access가 항상 필요)
+- range queries are not efficient
+
+#### SSTable
+sorted string table
+- segment (compaction의 단위) 내에서는 정렬 속성 유지
+  - 이제 그냥 append를 바로 할 수 없음
+- merging is simple and efficient: K-way merge
+  - merge시 충돌 - segment간 시간 우선순위가 있으므로, 제일 최신 segment의 데이터만 유지하면 됨
+- (해시테이블과 달리) 이제 키 하나를 찾기 위해 전체 키가 메모리에 없어도 됨. 일부 sparse key만 있으면 위치를 빠르게 찾을 수 있음
+  - 키를 구역으로 나누고, 각 구역의 시작데이터만 메모리에 올리고, 각 구역은 압축해서 저장해도 됨
+  - besides saving dist space, compression also reduces the I/O bandwidth use (!)
+
+Constructing and Maintaining SSTables
+- 결국 구성할땐 random access가 많으므로, 메모리에서 하는 게 효율적
+- 메모리에서 AVL/RB tree 구성 (`memtable`!)
+  - 크기가 일정 이상 커지면 디스크에 저장: 대부분 트리들은 노드 순회 방법 제공하므로 그대로 쓰면 sstable file이 됨
+  - 써지는 동안 들어오는 write은 새로운 memtable에
+- 키가 memtable없으면, 최신 순서대로 sstable 파일 찾음
+- 가끔씩 bg에서 merging / compation 수행
+- crash시 memtable은 유실됨: append only log를 복원용으로만 저장. memtable이 sstable이 되면 해당 로그도 폐기 가능 (크기가 크지 않음)
+- rocksDB / levelDB. 구글의 Bigtable paper에 sstable / memtable 용어가 도임됬다 함. cassandra, hbase에서도 해당 방법 사용
+
+#### Making an LSM-tree out of SSTable
+

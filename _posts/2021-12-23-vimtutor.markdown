@@ -1,11 +1,21 @@
 ---
 layout: post
-title:  "vimtutor Summary"
-date:   2021-01-23 08:00:05 +0800
+title:  "vim 익숙해지기"
+date:   2021-12-23 08:00:05 +0800
 categories: coding
 use_math: true
 tags: coding python
 ---
+
+revision history
+- 2021-01-23 vimtutor
+- 2021-12-23 go-VIM
+
+### Go-VIM
+- <a href="https://github.com/fatih/vim-go/wiki/Tutorial" target="_blank">https://github.com/fatih/vim-go/wiki/Tutorial</a>
+
+
+### VimTutor
 
 <a href="http://www2.geog.ucl.ac.uk/~plewis/teaching/unix/vimtutor" target="_blank">vimtutor en</a>
 
