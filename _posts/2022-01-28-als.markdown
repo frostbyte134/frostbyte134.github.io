@@ -1,0 +1,41 @@
+---
+layout: post
+title:  "IALS"
+date:   2021-12-29 08:00:05 +0800
+categories: reco
+use_math: true
+tags: math reco
+---
+
+
+맨날 까먹어서...아 장고도 빨리 해야되는데 먼가 정리할게 많네
+
+<a href="http://yifanhu.net/PUB/cf.pdf" target="_blank">Collaborative Filtering for Implicit Feedback Datasets</a>
+
+### Implicit feedback의 특징
+- explicit feedback represent preference (평점)
+- implicit feedback = confidence (클릭수 등)
+- no negative feedbacks, inherently noisy
+
+
+### definitions
+- `유저` 인덱스 \\(u, v\\), `아이템` 인덱스 \\(i, j\\)
+   - 유저벡터 \\(x\_u \in R^f \\), 아이템벡터 \\(y\_i \in R^f \\) (in common latent vector space) 
+- `관측값` (implcit feedback) \\(r\_{ui}\\) - 데이터셋에 있는 값
+- `preference` \\[p\_{ui} := \begin\{cases\}
+1 \quad\text\{if \} r\_{ui} \geq 0 \cr
+0 \quad\text\{if \} r\_{ui} \eq 0 \cr
+\end\{cases\}\\]
+   - 결국 우리의 implicit용 행렬분해 모델은 이 값을 이용한 binary matrix를 분해하게 됨. 
+   - cost function에서는 preference에 confidence를 곱한 값들의 합을 최소화
+   - preferences are assumed to be the inner products: \\(p\_{ui}=x\_u^T y\_i\\) 
+- `confidence` \\(c\_{ui} := 1+\alpha r\_{ui}\\)
+   - we have minimal confidence in \\(p\_{ui}\\) (1값) for every user-item pair (even unobserved ones)
+   - more observations (larger value of \\(r\_{ui}\\) = more confidence in \\(p\_{ui}=1\\)
+   - 보통 알파 40정도 썼다고 함
+
+Factors are computed by minimizing the following cost function
+\\[\min\_{x^\*, y^\*}\sum\_{u,i} c\_{ui}(p\_{ui} - x\_u^Ty\_i)^2 + \lambda \left( \sum\_u \|\|x\_u\|\|^2 + \sum\_i \|\|y\_i \|\|^2 \right) \\]
+
+
+<img src="{{ site.url }}/images/recomm/als.jpg" class="center"  width="500" />
