@@ -21,34 +21,38 @@ TODO
 2. For each rounds \\(t = 1, 2, ...\\)
    - based on the __past observations,__ the `learner` chooses an `action` \\(A\_t\\) \\[A\_t \in [K] := {1,...,K}\\]  
    - given \\(A\_t\\), the environment generates a __random__ `reward` \\[X\_t \sim P\_{A\_t}\\]
-     when \\(A\_t = k\\), \\(X\_t\sim P\_k\\)
-3. The Learner's goal is to maximize the random variable \\[S\_n := \sum\_{t=1}^nX\_t\\]  
+     when \\(A\_t = k\\), \\(X\_t\sim P\_k\\) (\\(t\\) is not random, but \\(X\_t\\) is random)
+3. The Learner's goal is to maximize the `total reward`, which is an random variable \\[S\_n := \sum\_{t=1}^nX\_t\\]  
    - many criterias for maximization. Ex) maximize \\(E[S\_n]\\)
    - didn't specified \\(n\\) yet - many choices (fixed, \\(\infty, \forall n\\))
-4. Let
+4. For an action \\(k\\), let us define "expected reward gained when action \\(k\\) is chosen",
    \\[\mu_k = \int\_{-\infty}^{\infty}xP\_k(x)dx\\]
    \\[\mu^* =\max\_k\mu\_k\\]
-   based on it, we can define
+   where the range of \\(k\\) is \\(\\{1,...,k\\}\\). Based on this, we can define
    \\[\vec{\Delta}\_k= \mu^* -\mu\_k\\]
    - expected amount of lost value when choosing action \\(k\\)
    - referred as `immediate regret`, `action gap`, `suboptimality gap` of action \\(k\\)
-5. Now we can define the `total regret` as
-   \\[R\_n=n\mu^* -E[{\textstyle\sum}\_{t=1}^NX\_t]\\]
-  - "the difference between the rewards you would expect to obtain if you choose the optimal action in every round, and the rewards you actually expect to see by using your policy"
-  - Note here that the subscript \\(t\\) of \\(X\_t\\) is also random. The learner makes choices based on the random previous rewards \\(X\_i, i < t \\) to choose \\(A\_t\\) hidden inside \\(X\_t\\).
+
 
 <h3 id="basic_regret_decomp">Basic Regret Decomposition Identity Lemma</h3>
 
-Define
+For the rounds untill \\(n\\), define
 \\[T\_k(n) = \sum\_{t=1}^n 1\\{A\_t=k\\}\\]
-- for \\(n\\) trial, counting the event \\(A\_t=k\\)
-- is a random variable on some strategy (which is not constant, and depends on the previous random rewards)
+- for trials 1 to \\(n\\), counting the event \\(A\_t=k\\)
+- is a random variable on some strategy (which is dependent on previous random rewards)
 
-> Now we can have the __basic regret decomposition identity lemma__
+Now we can define the `total regret` as \\[R\_n=n\mu^* -E[{\textstyle\sum}\_{t=1}^NX\_t]\\]
+- "the difference between the rewards you would expect to obtain if you choose the optimal action in every round, and the rewards you actually expect to see by using your policy"
+- \\(n\mu\\) is the optimal total expected reward in \\(n\\) rounds. No learner can do better than this.
+- The learner makes choices based on the random previous rewards \\(X\_i, i < t \\) to choose \\(A\_t\\) inside \\(X\_t\\), so \\(X\_t\\) is also random.
+
+> __Basic regret decomposition identity lemma__
 \\[R\_n = \sum\_{k=1}^K\vec{\Delta}\_kE[T\_k(n)]\\]
 \\[ = \sum\_{k=1}^K\left((\mu^* -\mu\_k)\mathbb{E}\left[\sum\_{t=1}^n 1\\{A\_t=k\\}\right] \right)\\]
 
-- regret in time duration \\(n\\) = loop for all distribution \\(k\\), calculate the expected number of event that the event \\(A\_t=k\\) is selected for the time-duration \\(t=1,...,n\\), multiply them with \\(\mu^* - \mu\_k\\) and sum them all up.
+- regret untill time \\(n\\) = loop for all distribution \\(k\\), calculate the expected number of event that the event \\(A\_t=k\\) is selected for the time-duration \\(t=1,...,n\\), multiply them with \\(\mu^* - \mu\_k\\) and sum them all up.
+- The lemma simply decomposes the regret in terms of the loss due to using each of the arms.
+- The technique of using indicators for switching from sums over one variable to another will be used quite a few times, so it is worth remembering
 
 __Proof__  
 For any fixed \\(t\\), we have \\[\sum\_{k=1}^{K} 1\\{A\_t=k\\} = 1\\]
