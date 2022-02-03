@@ -45,6 +45,7 @@ Now we can define the `total regret` as \\[R\_n=n\mu^* -E[{\textstyle\sum}\_{t=1
 - "the difference between the rewards you would expect to obtain if you choose the optimal action in every round, and the rewards you actually expect to see by using your policy"
 - \\(n\mu\\) is the optimal total expected reward in \\(n\\) rounds. No learner can do better than this.
 - The learner makes choices based on the random previous rewards \\(X\_i, i < t \\) to choose \\(A\_t\\) inside \\(X\_t\\), so \\(X\_t\\) is also random.
+   - Even when using deterministic strategy, previous rewards \\(X\_j,j<t\\) is random so \\(A\_t\\) which depends on them is also random
 
 > __Basic regret decomposition identity lemma__
 \\[R\_n = \sum\_{k=1}^K\vec{\Delta}\_kE[T\_k(n)]\\]
@@ -62,12 +63,14 @@ which gives
 \\[ R\_n=n\mu^\*  - E[S\_n] = \sum\_{k=1}^K\sum\_{t=1}^n E[(\mu^\* - X\_t) 1\\{ A\_t=k \\} ] \tag{1}\\]
 Now consider the inner term
 \\[E[(\mu^* -X\_t) 1\\{ A\_t=k \\} ]\\]
-using <a href="{{site.url}}/probability/2020/11/30/sum-of-ind-normals.html" target="_blank">iterated expectation,</a>
-   - Even when using deterministic strategy, previous rewards \\(X\_j,j<t\\) is random so \\(A\_t\\) which depends on them is also random
+
+Consider the <a href="{{site.url}}/probability/2020/11/30/sum-of-ind-normals.html" target="_blank">iterated expectation,</a>
 \\[E[(\mu^* -X\_t) 1\\{ A\_t=k \\} ] = E\left[E[(\mu^* -X\_t) 1\\{ A\_t=k \\} \|A\_t]\right]\\]
-since it holds that
-\\[E[(\mu^* -X\_t) 1\\{ A\_t=k \\} \| A\_t=j] =  1\\{ A\_t=k \\}E[(\mu^* -X\_t) \| A\_t=j]\\]
-we have
+
+using <a href="{{site.url}}/probability/2020/11/30/sum-of-ind-normals.html" target="_blank"> the definition of conditioned RV</a>, since it holds that
+\\[E[(\mu^* -X\_t) 1\\{ A\_t=k \\} \| A\_t=j] = E[(\mu^* -X\_t) \| A\_t=j] \\] \text\{  if \} j=k \text\{, otherwise \} \\] 
+\\[ = 1\\{ A\_t=k \\}E[(\mu^* -X\_t) \| A\_t=j]\\]
+(here \\(k\\) is a fixed constant. we loop with \\(k\\) in the outer sigma) for all \\(j \in \\(\\[K\\]\\)), we have
 \\[
 \begin\{align\*\}  
 E[(\mu^* -X\_t) 1\\{ A\_t=k \\} \| A\_t] &= 1\\{ A\_t=k \\}E[(\mu^* -X\_t) \| A\_t] \cr
@@ -76,7 +79,8 @@ E[(\mu^* -X\_t) 1\\{ A\_t=k \\} \| A\_t] &= 1\\{ A\_t=k \\}E[(\mu^* -X\_t) \| A\
                                         &= 1\\{ A\_t=k \\}(\mu^* -\mu\_k)  
 \end\{align\*\}  
 \\]
-the iterated expectation becomes
+(마지막 부분은 결국 \\(E[X\_t \| A\_t] = \mu\_\{A\_t\} = \int\_x P\_\{A\_t\}(x)\\)이냐는 질문과 동일. \\(E[ X\_t \| A\_t]\\)는 발생한 이벤트에 따라 \\(A\_t\\)의 값이 결정되어 함수 \\(E[X\_t \| A\_t = j] = \int\_x P\_\{j\}(x)\\)의 값을 가지게 되는 RV이므로, 마지막 equality도 성립)  
+(almost surely?) and the iterated expectation becomes
 \\[E\left[ 1\\{ A\_t=k \\}E[(\mu^\* -X\_t) \| A\_t] ] = E[1\\{ A\_t=k \\}(\mu^\* -\mu\_k) \right]\\]
 \\[ = E\left[ 1\\{ A\_t=k \\} \right] ( \mu^{\*} - \mu\_k ) \\]
 
