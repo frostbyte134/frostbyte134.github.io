@@ -25,3 +25,25 @@ tags: coding
 - `<span>`: css 속성 먹이기 위해 주로 쓴다 함. `<div>`와의 차이점: 줄바꿈이 자동으로 안됨.
 - js
     - `document.getElementById("valueB").innerHTML` 이걸로 id가 valueB인 태그 자체의 레퍼런스를 가져올 수 있음
+
+### Chap 4 bootstrap
+- 부트스트랩 쓰려면 뭔가 (?) 복붙해야 함
+- 다중상속으로 속성을 구현하는듯 ex) `<nav class="navbar navbar-light container">`
+- 그리드로 화면을 쉽게 비율단위로 분할가능
+    - `col-sm-6`: 화면넓이가 small일때 (부트스트랩 홈피에 기준있음) 넓이 비율을 6만큼 먹음
+- 마진 (외부로), 스페이싱 (내부로), 정렬 등
+- pagination도 쉽게 추가되네...
+
+### Chap 7
+- 장고는 메인 프로젝트와 앱들로 구성됨
+- 앱 = 도메인 모델? ORM등이 포함됨.
+- 앱에 변경사항이 있을 시, makemigrations 및 migrate를 실행해야 프로젝트에서 앱의 변경을 인지하고 변화를 만듬 (ex = DB 테이블 생성)
+
+### Chap 8
+- 프로젝트의 urls.py - ingress-nginx처럼 라우팅 (모듈 내의 함수를 실행시키게 할 수 있음)
+- views의 `render(request, 'blog/index.html', returning_dict)`: template폴더 안의 html파일을 렌더링 해주는 듯? (template/blog/index.html)
+    - 템플릿 폴더를 새로만들면 장고가 인지를 못함. 재시작 필요
+    - 딕셔너리에 넣어 모델 인스턴스를 리턴하면, html에서 바로 사용가능 ㄷㄷ 뭐로 하는거지
+- 뷰의 자동 템플릿 html 명
+    - listview: clsname_list.html
+    - detailview: clsname_detail.html

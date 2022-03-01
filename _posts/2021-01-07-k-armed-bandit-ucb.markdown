@@ -152,7 +152,8 @@ Note that, we can decompose \\(1\\{A_t = i\\}\\) into two terms
 \\]
 and if \\(A_t = i\\) then \\(\hat \mu_1(t-1) + \sqrt{\frac{2 \log f(t)}{T_1(t-1)}} < \hat \mu_i(t-1) + \sqrt{\frac{2 \log f(t)}{T_i(t-1)}} \tag{1}\\)
 
-so that (we indeed see that the inequality \\(\leq\\) holds in (1)), since there are cases where (1) holds but \\(A_t \neq i\\)
+so that (we indeed see that the inequality \\(\leq\\) holds in (1)), since there are cases where (1) holds but \\(A_t \neq i\\)  
+(아니 이거 (1)은 arm i가 골라진걸 가졍했을 때 성립해야 하는 거 아닌가? 왜이렇게 적어놨지)
 \\[
 \begin{align} 
 T_i(n) 
