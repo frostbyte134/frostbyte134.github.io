@@ -47,3 +47,17 @@ tags: coding
 - 뷰의 자동 템플릿 html 명
     - listview: clsname_list.html
     - detailview: clsname_detail.html
+
+### Chap9 정적/미디어파일 관리
+- 장고의 app_name/templates의 html파일은 정적파일이 아님 (동적으로 변하는 변수들이 있음) - 이 폴더에 css,js파일 넣으면 안됨 (그냥 html은 같은폴더에 bootstrap.jss 넣어도 됐음)
+- 각 앱 폴더에 static폴더 만들고 넣음
+- 뭔가..
+    1. 모델에 이미지 필드 추가, migrate = 어드민에서 모델별로 이미지 추가 가능
+    2. settings.py에서 어디 저장할지 설정
+    3. urls.py에서 어떻게 여기로 올지 설정
+    인듯
+
+### chap 13
+- div로 comment area / post area를 나눴음 (id 배정). soup로 div에서 이 아이디를 갖는 애들 가져와서 테스트 (보통 이러는 건가?)
+- `{% block main_area %} ... {% endblock %}` 문법을 블록 정의 및 삽입에 동시에 (?!?!?)씀 - 왜 구분 안하지 ㄷㄷ 한쪽이 비어야 하는 건가
+-  `{% include 'blog/navbar.html' %}` 으로 html 템플릿 자체를 그냥 삽입 가능

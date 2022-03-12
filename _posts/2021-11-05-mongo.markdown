@@ -1,0 +1,111 @@
+---
+layout: post
+title:  "몽고-디비"
+date:   2021-11-05 08:00:05 +0800
+categories: coding
+use_math: true
+tags: coding
+---
+
+허허
+
+
+
+https://docs.mongodb.com/manual/core/sharding-data-partitioning/
+https://docs.mongodb.com/manual/core/sharding-balancer-administration/#migration-thresholds
+
+MongoDB 는 데이터를 컬렉션 단위로 샤딩 (하나의 컬렉션이 쪼개져서 샤드에 분산)
+- 샤드는 하나의 mongo replica라고 생각하면 될 듯 (replica sets). 작은 몽고 서버.
+    - ex) xxx 클러스터는 50개 짜리 샤드
+- 데이터를 쪼개는 단위는 도큐먼트가 아니라 chunk (default 64MB).이 크기보다 더 커져야 chunk 가 쪼개짐.
+- 즉, 아무리 샤드가 많더라도 (작은 서버가 많아도) 컬렉션을 생성하고 데이터를 삽입하면 64MB 를 채우기 전 까지는 chunk 가 1개 \\(\rightarrow\\) 해당 데이터는 1개 샤드에만 있음. 데이터가 더 증가하면 (ex. 80MB) chunk 가 split 되고, 2개의 chunk 가 되면서 그 중 1개 chunk 가 다른 샤드로 이동
+- 데이터가 작은 컬렉션은 chunk 가 자동으로 쪼개지지 않기 때문에 아무리 샤드를 늘려도 자동으로 데이터 분산이 되지 않음. (ex. 50개 짜리 샤드클러스터에 chunk 10개짜리 컬렉션이 있는 경우) 이런 경우 데이터 분산을 위해서 컬렉션을 수동으로 split 해주어야 하며, 샤드를 늘릴때마다 수동 split이 필요
+    - 심지어 chunk 이동은 비용이 비싸기 때문에 MongoDB 는 완전 균등 분산을 하려고 하지 않음 (약간의 불균형은 그대로 유지) - 이 때문에 수동 split 은 생각보다 훨씬 더 많이 쪼개야 하는 상황이 발생 (?)
+
+- 2.5만건이 엄청 큰 것은 아님
+- OLTP성 쿼리는 보통 primary, OLAP는 secondary (내지는 전용 서버)
+- OLTP, OLAP란? - 조사 필요
+
+
+### glossary
+<a href="https://docs.mongodb.com/manual/reference/glossary/#std-term-sharded-cluster" target="_blank">`sharded cluster`</a>
+- The set of nodes comprising a sharded MongoDB deployment. A sharded cluster consists of config servers, shards, and one or more mongos routing processes. See Sharded Cluster Components.
+`sharding`
+- A database architecture that partitions data by key ranges and distributes the data among two or more database instances. Sharding enables horizontal scaling. See Sharding.
+`shard`
+- A single mongod instance or replica set that stores some portion of a sharded cluster's total data set. In production, all shards should be replica sets. See Shards.
+### balancer
+- <a href="https://docs.mongodb.com/manual/core/sharding-balancer-administration/#sharded-cluster-balancer" target="_blank">balancer manual</a>
+
+
+### sharding
+<a href="https://docs.mongodb.com/manual/sharding/" target="_blank">https://docs.mongodb.com/manual/sharding/</a>
+- `Sharding` is a method for distributing data across multiple machines
+- high query rates exhaust the CPU capacity, Working set sizes larger than the system's RAM stress the I/O capacity of disk drives
+    - vertical scaling (scape up) / horizontal scaling (scale out)
+    - __MongoDB supports horizontal scaling through sharding__
+
+sharded cluster
+- composed of shard (deployed as repica set) / mongos (query router) / config servers (stores metadata, config settings for the cluster)
+
+shard key
+- 보충 필요
+- 일단 샤드 키로 분산을 한다는 것은 확실. 그럼 샤드키로 청크를 특정할 수 있어야 하는 듯.
+    - MongoDB partitions sharded data into chunks. Each chunk has an inclusive lower and exclusive upper range based on the shard key.
+- may have null value (after 4.3)
+- <a href="https://docs.mongodb.com/manual/core/sharding-shard-a-collection/#std-label-sharding-shard-key-creation" target="_blank">sharding a collection</a>
+- 샤드 키 변경
+    - Starting in 5.0, you can __reshard a collection__ by changing a collection's shard key.
+    - Starting in 4.4, you can __refine a shard key__ by adding a suffix field or fields to the existing shard key.
+    - In 4.2 and earlier, the choice of __shard key cannot be changed__ after sharding.
+- To shard a populated collection, the collection must have an index that starts with the shard key
+- <a href="https://docs.mongodb.com/manual/sharding/#std-label-sharding-strategy" target="_blank">sharding strategy</a>
+- <a href="https://docs.mongodb.com/manual/core/sharding-balancer-administration/" target="_blank">밸런서</a> - 샤드 간 청크를 분배
+- For queries that include the shard key or the prefix of a compound shard key, mongos can target the query at a specific shard or set of shards. These targeted operations are generally more efficient than broadcasting to every shard in the cluster.
+- you can reshard your sharded collection https://docs.mongodb.com/manual/core/sharding-reshard-a-collection/#std-label-sharding-resharding
+- sharded cluster에 대한 접근은 무조건 mongos를 통해야 함
+- hashed sharding / ranged sharding
+- zone - skipped for now
+
+### mongos
+<a href="https://docs.mongodb.com/manual/core/sharded-cluster-query-router/#mongos" target="_blank">mongos</a>
+- route queries / write operations to shards in a sharded cluster
+    1. APP에게서 쿼리를 받음
+    2. 쿼리를 받아야 하는 샤드를 결정 (config 서버로부터 정보를 받는 듣)
+    3. 타겟 샤드에 cursor 생성 (!)
+    4. merge (the data from each shard) and return
+- sort등의 경우, 각 샤드의 결과를 정렬해 반환하는 역할도 함
+- pipeline이 몽고스에서 실행되지 못하는 경우도 있음
+- mongos performs a __broadcast operation__ for queries that do not include the shard key, routing queries to all shards in the cluster. Some queries that do include the shard key may still result in a broadcast operation depending on the distribution of data in the cluster and the selectivity of the query.
+
+
+<a href="https://docs.mongodb.com/manual/core/sharded-cluster-query-router/#how-mongos-handles-query-modifiers" target="_blank">How mongos Handles `Query Modifiers`</a>
+- sort - 머지함 (라운드 로빈 - 뭐 토너먼트 메소드 같은 거인듯)
+- limits - 샤드에게 이걸 고려한 limit이 전달됨. 아예 쓸모없는 건 아닌듯
+- skips - 쌩 skips는 몽고스에서 처리 (샤드와 주고받는 데이터는 주나 마나 동일 ㄷㄷ). limit과 같이 주어지면 효과가 있는 듯
+- For sharded clusters, mongos applies the read preference when reading from the shards. The member selected is governed by both the read preference and replication.localPingThresholdMs settings, and is re-evaluated for each operation.
+
+#### Targeted Operations vs. Broadcast Operations
+Generally, the fastest queries in a sharded environment are those that mongos route to a single shard, using the shard key and the cluster meta data from the config server. These targeted operations use the shard key value to locate the shard or subset of shards that satisfy the query document.
+
+For queries that don't include the shard key, mongos must query all shards, wait for their responses and then return the result to the application. These "scatter/gather" queries can be long running operations.
+
+
+#### Index Use
+If the query does not include the shard key, the mongos must send the query to all shards as a "scatter/gather" operation. Each shard will, in turn, use either the shard key index or another more efficient index to fulfill the query.
+
+If the query includes multiple sub-expressions that reference the fields indexed by the shard key and the secondary index, the mongos can route the queries to a specific shard and the shard will use the index that will allow it to fulfill most efficiently.
+
+
+### config sergers
+<a href="https://docs.mongodb.com/manual/core/sharded-cluster-config-servers/#std-label-sharded-cluster-config-server" target="_blank">config servers</a>\
+- has  metadata - includes the list of chunks on every shard and the ranges that define the chunks.
+
+
+
+### data partitioning with chunks
+<a href="https://docs.mongodb.com/manual/core/sharding-data-partitioning/" target="_blank">https://docs.mongodb.com/manual/core/sharding-data-partitioning/</a>
+
+
+### balancer
+<a href="https://docs.mongodb.com/manual/core/sharding-balancer-administration/#std-label-sharding-internals-balancing" target="_blank">https://docs.mongodb.com/manual/core/sharding-balancer-administration/#std-label-sharding-internals-balancing</a>
