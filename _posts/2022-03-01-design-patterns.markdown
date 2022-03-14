@@ -7,6 +7,9 @@ use_math: true
 tags: coding
 ---
 
+### Glossary
+- `concrete subclass` - abstract method를 전부 구현한 서브클래스 (자바 관련인듯?)
+
 ### SOLID
 
 ### Creational Patterns
