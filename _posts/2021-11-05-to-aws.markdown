@@ -59,18 +59,8 @@ tags: coding
 
 ### chap 13
 - div로 comment area / post area를 나눴음 (id 배정). soup로 div에서 이 아이디를 갖는 애들 가져와서 테스트 (보통 이러는 건가?)
-<p>
-\{% block main_area %\}
-... 
-\{% endblock %\}
-```
-</p>
-문법을 블록 정의 및 삽입에 동시에 (?!?!?)씀 - 왜 구분 안하지 ㄷㄷ 한쪽이 비어야 하는 건가
--  
-<p>
-\{% include 'blog/navbar.html' %\}
-</p> 
-으로 html 템플릿 자체를 그냥 삽입 가능
+- 꺽% block main_area %꺽 ...  꺽% endblock %꺽 문법을 블록 정의 및 삽입에 동시에 (?!?!?)씀 - 왜 구분 안하지 ㄷㄷ 한쪽이 비어야 하는 건가
+-  꺽% include 'blog/navbar.html' %꺽 으로 html 템플릿 자체를 그냥 삽입 가능
 
 
 ### Chap 14
