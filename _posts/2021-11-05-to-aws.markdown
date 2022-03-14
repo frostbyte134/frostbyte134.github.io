@@ -61,3 +61,24 @@ tags: coding
 - div로 comment area / post area를 나눴음 (id 배정). soup로 div에서 이 아이디를 갖는 애들 가져와서 테스트 (보통 이러는 건가?)
 - `{% block main_area %} ... {% endblock %}` 문법을 블록 정의 및 삽입에 동시에 (?!?!?)씀 - 왜 구분 안하지 ㄷㄷ 한쪽이 비어야 하는 건가
 -  `{% include 'blog/navbar.html' %}` 으로 html 템플릿 자체를 그냥 삽입 가능
+
+
+### Chap 14
+- `author = models.ForeignKey(User, on_delete=models.CASCADE)` 로 ORM post model에 왜래키 추가 (쓰지 말랬는데 ㄷㄷ)
+    - `models.CASCADE`: 사용자 삭제할 때 해당 포스트도 삭제
+    - `models.SET_NULL`: 위의 반대. 이경우 해당 author attribute는 `null=True`세팅이 되어 있어야
+- html 템플릿 파일에서 `{{ p.author | upper}}` 이러면 결국 뭐지? string의 .upper()함수를 호출한 건가...
+- `null=True` - DB에 빈값을 가질 수 있나, `blank=True` - 어드민에서 빈값을 입력할 수 있나?
+- django_extension/ipython을 poetry로 깔고, proj/settings.py의 INSTALLED_APPS에 추가하니, `poetry run python manage.py shell_plus`를 실행가능해졌음
+- post모델에 foreign key로 카테고리를 등록 = `{category_object}.post_set.all()`로 해당 카테고리를 fk로 가진 모든 포스트를 불러올 수 있음
+- `<div id="category_card">`를 만들고 테스트에서 이걸 활용 = 보통 이런식으로 하는 듯
+
+html 템플렛에서 컨텍스트 사용 (?)
+- view의 `get_context_data()`에서 반환하는 context에, html template에서 사용할 변수들을 만들 수 있음
+- listview는 기본으로 `{model_name}_list`에 대상 모델의 `{model}.objects.all()`을 갖고 있음.
+
+urlpattern
+- `path('category/<str:slug>/', views.category_page)` - slug를 str type으로 view의 category_page함수에 넘겨 줘라~
+
+FBV의 render함수
+- `return render`에서, 어떤 html template을 사용할 건지 / 해당 template의 컨텍스트 dict 지정 가능
