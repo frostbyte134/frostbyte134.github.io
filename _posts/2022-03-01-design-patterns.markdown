@@ -1,13 +1,15 @@
 ---
 layout: post
-title:  "개발-패턴"
+title:  "SW Design 개발-패턴"
 date:   2022-03-02 08:00:05 +0800
 categories: coding
 use_math: true
 tags: coding
 ---
 
-(작성-중)
+(작성-중) 
+
+<a href="https://refactoring.guru/design-patterns/catalog" target="_blank">https://refactoring.guru/design-patterns/catalog</a>
 
 ### Glossary
 - `concrete subclass` - abstract method를 전부 구현한 서브클래스 (자바 관련인듯?)
@@ -55,6 +57,11 @@ DIP를 해결하기 위해 DI (dependency injection)을 씀
 
 
 ### Creational Patterns
-- pros, cons
+- abstracts the instantiation process (객체 생성에서도 추상에 의존하기 위함, DIP)
+- class creation / object creation?? 다른 건가
+- 시스템이 알게 되는 것은 객체성성용 인터페이스 뿐 (각 concrete class들의 디테일/서로 어떻게 연결되어 있는지는 몰라도 됨)
 
-#### Abstract Factory
+### Design Patterns
+- <a href="https://github.com/nailbrainz/nailbrainz.github.io/issues/4" target="_blank">abstract factory / factory / singleton</a>
+- <a href="https://github.com/nailbrainz/nailbrainz.github.io/issues/5" target="_blank">prototype / singleton / adapter</a>
+- <a href="https://github.com/nailbrainz/nailbrainz.github.io/issues/6" target="_blank">Bridge / Composite / Decorator</a>

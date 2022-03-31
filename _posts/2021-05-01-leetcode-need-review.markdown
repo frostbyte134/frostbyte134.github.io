@@ -15,6 +15,34 @@ solve the problem while explain it to yourself, and write examples (must!)
 - 문제 재정의, 다시 읽기
 - 웰노운들 적용시켜 보기
 
+## PQ
+```
+from queue import PriorityQueue
+PQ = PriorityQueue()
+while len(PQ) > 0:
+   item = PQ[0]
+   item2 = PQ.get()
+   assert item1 == item2
+
+```
+
+
+### Step-By-Step Directions From a Binary Tree Node to Another
+- <a href="https://leetcode.com/problems/step-by-step-directions-from-a-binary-tree-node-to-another/" target="_blank">https://leetcode.com/problems/step-by-step-directions-from-a-binary-tree-node-to-another/</a>
+<details>
+   <summary>트리 구현 문제로는 좋은듯</summary> 
+    값도 유니크하니까 LCA도 됨
+   </details>
+
+
+### count unique chars of all substrs
+- <a href="https://leetcode.com/problems/count-unique-characters-of-all-substrings-of-a-given-string/" target="_blank">https://leetcode.com/problems/count-unique-characters-of-all-substrings-of-a-given-string/</a>
+<details>
+   <summary>다시보기</summary> 
+    발상의 전환? 이 지금 잘 안되는 건 당연하겠지...
+   </details>
+
+
 ### Missing Element in Sorted Array
 - O(N)으로 일단 품.
 - nums[i]와 nums[i+1]간의 missing element가 누적된 값이 아닌데 어떻게 이진검색을 하나 고민했음 (부분합 배열을 만들면 이미 O(N))
