@@ -15,17 +15,112 @@ solve the problem while explain it to yourself, and write examples (must!)
 - 문제 재정의, 다시 읽기
 - 웰노운들 적용시켜 보기
 
-## PQ
+
+### https://leetcode.com/problems/sentence-screen-fitting/
+- 해깔림. 다시 풀어 보자
+
+### Max Sum of Rectangle No Larger Than K (need review)
+
+* <a href="https://leetcode.com/problems/max-sum-of-rectangle-no-larger-than-k/" target="_blank">2차원 부분합이지만 진짜로 2차원 부분합으로 풀면 못풀음</a>
+* <details>
+   <summary>다시풀기</summary> 
+   1차원 부분합 (row)들만 구하고, i - j 로 로우를 고정해놓고 컬럼은 k를 0부터 증가시켜가며, 정렬된 ary를 만들고 여기서 이분탐색으로 답도 찾고 인덱스도 찾음
+   </details>
+* 생각만 하자..
+
+### https://leetcode.com/problems/word-search-ii/
+https://leetcode.com/problems/word-search-ii/
+
+### https://leetcode.com/problems/count-binary-substrings/submissions/
+https://leetcode.com/problems/count-binary-substrings/submissions/
+- 이게 이지? ㄷㄷ 미듐인데..생각만 ㄱㄱ
+
+### https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-iii/
+- 뭐 맞추긴 했는데 한번엔 안됨. 다시 풀어 보자
+
+### https://leetcode.com/problems/number-of-visible-people-in-a-queue/submissions/
+- 하든데 생각만
+- https://leetcode.com/problems/number-of-visible-people-in-a-queue/submissions/
+
+### https://leetcode.com/problems/3sum-with-multiplicity/
+https://leetcode.com/problems/3sum-with-multiplicity/
+- 최적화 ㅡㅡ 답 볼 뻔했자너
+
+### Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit (window problem, need review)
+- <a href="https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/" target="_blank">https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/</a>
+- 윈도우 안의 최대/최소의 차이. map으로 풀어서 하위 20퍼로 풀긴 함
+- 디큐 - increasing_deque는 맨 앞이 구간의 최소값, decreasing_deque는 맨 앞이 구간의 최대값임 (맨 뒤는 항상 새로 추가된 원소).
+  - 이 때 조심해야 할 게, 현재 구간 (디큐들에 들어있는 아이템들의 min, max정보가 유효한 구간)은 max(inc디큐에서 제일 최근에 빠진 인덱스+1, dec디큐에서 제일 최근에 빠진 인덱스+1)이라는 것
+- 면접볼 땐 바이너리 서치 (결정문제) 도 말해야 할 듯. 그게 포인트자너~
+
+### max-area-of-island
+- <a href="https://leetcode.com/problems/max-area-of-island/submissions/" target="_blank">https://leetcode.com/problems/max-area-of-island/submissions/</a>
+- 많이 풀어 본 보드문제 (눈으로 보기만)
+<details>
+   <summary>다시보기</summary> 
+    예전에는 bfs + set으로 풀었던 거 같은데 그럴필요 없음. 
+   </details>
+
+### https://leetcode.com/problems/swap-adjacent-in-lr-string/
+https://leetcode.com/problems/swap-adjacent-in-lr-string/
+- 다시. 뭔가 근접은 했는데 정리가 좋지 않았음
+
+### amount-of-new-area-painted-each-day
+https://leetcode.com/problems/amount-of-new-area-painted-each-day/ 
+- 다시 풀어보자
+
+### single-threaded-cpu
+https://leetcode.com/problems/single-threaded-cpu/
+- 이것도 깔끔하게 안풀림...
+
+### number-of-matching-subsequences (복습필수)
+- <a href="https://leetcode.com/problems/number-of-matching-subsequences/" target="_blank">https://leetcode.com/problems/number-of-matching-subsequences/</a>
+- 어떤 식으로 순회할 것인가
+<details>
+   <summary>다시보기</summary> 
+    M * N * len(word[N]) 을 잘 해서 M * N * 26 으로 줄여야 함. 포인터 / iterator
+   </details>
+- https://leetcode.com/problems/longest-word-in-dictionary-through-deleting/ 동일문제
+- 아니 근데 C++로 걍 풀면 되지 않나? 안되네. 다 끝난 걸 제외할 수 있는 게 핵심인 듯 
+
+### https://leetcode.com/problems/find-and-replace-in-string/
+코너케이스 하나를 성공못해서 원클 실패...
+
+### https://leetcode.com/problems/find-original-array-from-doubled-array/
+ㅡㅡ 항상 그 값을 조심하게...
+
+### detect-squares
+https://leetcode.com/problems/detect-squares/
+어...음...좌표문제는 항상 노트가 있음 좋겠다는 생각이 듬
+
+### Remove All Ones With Row and Column Flips
+wtf
+
+### Stock Price Fluctuation
+EZ
+https://leetcode.com/problems/stock-price-fluctuation
+
+
+### PQ
 ```
 from queue import PriorityQueue
 PQ = PriorityQueue()
+PQ.put(sth1)
+PQ.put(sth2)
+
 while len(PQ) > 0:
-   item = PQ[0]
-   item2 = PQ.get()
-   assert item1 == item2
+   item = PQ.get()
 
 ```
 
+### Maximum Number of Points with Cost
+- <a href="https://leetcode.com/problems/maximum-number-of-points-with-cost/" target="_blank">https://leetcode.com/problems/maximum-number-of-points-with-cost/</a>
+- <details>
+   <summary>오우 쉣 이게 미디엄?</summary> 
+    dp인데..여기까진 쉬운데...최적화를 좀 해야 됨 ㄷㄷ
+   </details>
+
+-------------------------------------------
 
 ### Step-By-Step Directions From a Binary Tree Node to Another
 - <a href="https://leetcode.com/problems/step-by-step-directions-from-a-binary-tree-node-to-another/" target="_blank">https://leetcode.com/problems/step-by-step-directions-from-a-binary-tree-node-to-another/</a>
@@ -94,7 +189,7 @@ while len(PQ) > 0:
    </details>
 
 
-#### Partition Array into Two Arrays to Minimize Sum Difference
+#### remove-duplicates-from-sorted-list-ii
 
 * <a href="https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/submissions/" target="_blank">그냥</a>
 * 쉬운 미디엄인데..실수하기 좋은 (한번에 풀기 어려운) 링크드리스트 문제여서...
@@ -142,14 +237,6 @@ while len(PQ) > 0:
     재귀식 잘짜보기 (조건 따지기). 올만이네..
    </details>
 
-### number-of-matching-subsequences (복습필수)
-- <a href="https://leetcode.com/problems/number-of-matching-subsequences/" target="_blank">https://leetcode.com/problems/number-of-matching-subsequences/</a>
-- 어떤 식으로 순회할 것인가
-<details>
-   <summary>다시보기</summary> 
-    M * N * len(word[N]) 을 잘 해서 M * N * 26 으로 줄여야 함. 포인터 / iterator
-   </details>
-- https://leetcode.com/problems/longest-word-in-dictionary-through-deleting/ 동일문제
 
 ### max-area-of-island
 - <a href="https://leetcode.com/problems/max-area-of-island/submissions/" target="_blank">https://leetcode.com/problems/max-area-of-island/submissions/</a>
@@ -203,12 +290,6 @@ while len(PQ) > 0:
     - 따라서 decreasing dequeue를 유지하면서 맨 앞의 값을 가져오면 됨
 - 투포인터와 겹치는 부분이 있는 듯. increasing 이든 decreasing 이든 배열을 유지하는건, 앞+뒤 정보를 가지고 있는 것이니까.
 
-### Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit (window problem, need review)
-- <a href="https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/" target="_blank">https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/</a>
-- 윈도우 안의 최대/최소의 차이. map으로 풀어서 하위 20퍼로 풀긴 함
-- 디큐 - increasing_deque는 맨 앞이 구간의 최소값, decreasing_deque는 맨 앞이 구간의 최대값임 (맨 뒤는 항상 새로 추가된 원소).
-  - 이 때 조심해야 할 게, 현재 구간 (디큐들에 들어있는 아이템들의 min, max정보가 유효한 구간)은 max(inc디큐에서 제일 최근에 빠진 인덱스+1, dec디큐에서 제일 최근에 빠진 인덱스+1)이라는 것
-
 
 ### Minimum Cost to Make at Least One Valid Path in a Grid (보기만)
 - <a href="https://leetcode.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid/" target="_blank">https://leetcode.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid/</a>
@@ -250,13 +331,6 @@ TODO: make a post on
    둘 다 26개씩 쓰였으면, 완전히 같지 않은 이상 못바꿈
    </details>
 
-### Max Sum of Rectangle No Larger Than K (need review)
-
-* <a href="https://leetcode.com/problems/max-sum-of-rectangle-no-larger-than-k/" target="_blank">2차원 부분합이지만 진짜로 2차원 부분합으로 풀면 못풀음</a>
-* <details>
-   <summary>다시풀기</summary> 
-   1차원 부분합 (row)들만 구하고, i - j 로 로우를 고정해놓고 컬럼은 k를 0부터 증가시켜가며, 정렬된 ary를 만들고 여기서 이분탐색으로 답도 찾고 인덱스도 찾음
-   </details>
 
 
 ### Insert Delete GetRandom O(1) (다시보기)
