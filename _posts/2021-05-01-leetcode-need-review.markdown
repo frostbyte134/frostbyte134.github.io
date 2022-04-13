@@ -14,7 +14,37 @@ solve the problem while explain it to yourself, and write examples (must!)
 - 가운데부터
 - 문제 재정의, 다시 읽기
 - 웰노운들 적용시켜 보기
+- 곱하기 있을 시 0 조심
 
+### PQ
+```
+from queue import PriorityQueue
+PQ = PriorityQueue()
+PQ.put(sth1)
+PQ.put(sth2)
+
+while len(PQ) > 0:
+   item = PQ.get()
+
+```
+
+### Iterator
+```
+iter_val = iter(iterable)
+nxt = next(iter_val, None)
+```
+
+### https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/submissions/
+https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/submissions/
+- 바이너리 서치 정리하기 (생각만)
+
+### https://leetcode.com/problems/maximum-level-sum-of-a-binary-tree/
+https://leetcode.com/problems/maximum-level-sum-of-a-binary-tree/
+- nlong말고 n으로 (생각정리만, 글로)
+
+### https://leetcode.com/problems/top-k-frequent-elements
+https://leetcode.com/problems/top-k-frequent-elements
+- nlogN은 개껌이고, N으로 다시 풀어 보기 (쪼금 햇갈림)
 
 ### https://leetcode.com/problems/sentence-screen-fitting/
 - 해깔림. 다시 풀어 보자
@@ -35,16 +65,6 @@ https://leetcode.com/problems/word-search-ii/
 https://leetcode.com/problems/count-binary-substrings/submissions/
 - 이게 이지? ㄷㄷ 미듐인데..생각만 ㄱㄱ
 
-### https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-iii/
-- 뭐 맞추긴 했는데 한번엔 안됨. 다시 풀어 보자
-
-### https://leetcode.com/problems/number-of-visible-people-in-a-queue/submissions/
-- 하든데 생각만
-- https://leetcode.com/problems/number-of-visible-people-in-a-queue/submissions/
-
-### https://leetcode.com/problems/3sum-with-multiplicity/
-https://leetcode.com/problems/3sum-with-multiplicity/
-- 최적화 ㅡㅡ 답 볼 뻔했자너
 
 ### Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit (window problem, need review)
 - <a href="https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/" target="_blank">https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/</a>
@@ -53,18 +73,6 @@ https://leetcode.com/problems/3sum-with-multiplicity/
   - 이 때 조심해야 할 게, 현재 구간 (디큐들에 들어있는 아이템들의 min, max정보가 유효한 구간)은 max(inc디큐에서 제일 최근에 빠진 인덱스+1, dec디큐에서 제일 최근에 빠진 인덱스+1)이라는 것
 - 면접볼 땐 바이너리 서치 (결정문제) 도 말해야 할 듯. 그게 포인트자너~
 
-### max-area-of-island
-- <a href="https://leetcode.com/problems/max-area-of-island/submissions/" target="_blank">https://leetcode.com/problems/max-area-of-island/submissions/</a>
-- 많이 풀어 본 보드문제 (눈으로 보기만)
-<details>
-   <summary>다시보기</summary> 
-    예전에는 bfs + set으로 풀었던 거 같은데 그럴필요 없음. 
-   </details>
-
-### https://leetcode.com/problems/swap-adjacent-in-lr-string/
-https://leetcode.com/problems/swap-adjacent-in-lr-string/
-- 다시. 뭔가 근접은 했는데 정리가 좋지 않았음
-
 ### amount-of-new-area-painted-each-day
 https://leetcode.com/problems/amount-of-new-area-painted-each-day/ 
 - 다시 풀어보자
@@ -72,6 +80,20 @@ https://leetcode.com/problems/amount-of-new-area-painted-each-day/
 ### single-threaded-cpu
 https://leetcode.com/problems/single-threaded-cpu/
 - 이것도 깔끔하게 안풀림...
+- 다시 풀었는데도 깔끔하게 안풀림 ㅡ,.ㅡ
+
+### https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-iii/
+- 뭐 맞추긴 했는데 한번엔 안됨. 다시 풀어 보자
+- 한번에 좀 ㅡㅡ
+
+
+### 복습선
+- 이 위로 복습 필요
+
+### https://leetcode.com/problems/3sum-with-multiplicity/
+https://leetcode.com/problems/3sum-with-multiplicity/
+- ncr recurrence rel
+
 
 ### number-of-matching-subsequences (복습필수)
 - <a href="https://leetcode.com/problems/number-of-matching-subsequences/" target="_blank">https://leetcode.com/problems/number-of-matching-subsequences/</a>
@@ -83,35 +105,58 @@ https://leetcode.com/problems/single-threaded-cpu/
 - https://leetcode.com/problems/longest-word-in-dictionary-through-deleting/ 동일문제
 - 아니 근데 C++로 걍 풀면 되지 않나? 안되네. 다 끝난 걸 제외할 수 있는 게 핵심인 듯 
 
-### https://leetcode.com/problems/find-and-replace-in-string/
-코너케이스 하나를 성공못해서 원클 실패...
 
-### https://leetcode.com/problems/find-original-array-from-doubled-array/
-ㅡㅡ 항상 그 값을 조심하게...
+### Find original array from doubled array
+<a href="https://leetcode.com/problems/find-original-array-from-doubled-array/" target="_blank">https://leetcode.com/problems/find-original-array-from-doubled-array/</a>
+- <details>
+   <summary>ㅡㅡ</summary> 
+    ㅡㅡ 곱하기가 있다? 항상 그 값 조심
+   </details>
 
-### detect-squares
-https://leetcode.com/problems/detect-squares/
-어...음...좌표문제는 항상 노트가 있음 좋겠다는 생각이 듬
+### find and replace in string
+<a href="https://leetcode.com/problems/find-original-array-from-doubled-array/" target="_blank">https://leetcode.com/problems/find-original-array-from-doubled-array/</a>
+- <details>
+   <summary>생각정도만</summary> 
+    뒤에서 풀면 왜 좋을까? 파이썬 문자열은 const임. 새로 만들어야 함
+   </details>
 
-### Remove All Ones With Row and Column Flips
-wtf
+#### Remove All Ones With Row and Column Flips
+<a href="https://leetcode.com/problems/remove-all-ones-with-row-and-column-flips/" target="_blank">https://leetcode.com/problems/remove-all-ones-with-row-and-column-flips/</a>
+- <details>
+   <summary>WTF</summary> 
+    같은 row를 두번 Flip해야만 새로 나오는 답이 있을까? - 0번은 2번과 같고, 1번은 3번과 같음. 
+    답 찾기 = 1번쨰 row와 다른 row를 뒤집으면, 결국 row끼리도 다 같아야 함
+   </details>
 
-### Stock Price Fluctuation
-EZ
-https://leetcode.com/problems/stock-price-fluctuation
+#### detect-squares
+<a href="https://leetcode.com/problems/detect-squares/" target="_blank">https://leetcode.com/problems/detect-squares/</a>
+- <details>
+   <summary>어...음...좌표문제는 항상 노트가 있음 좋겠다는 생각이 듬</summary> 
+    두번쨰로 천천히 푸니까 금방 품. 천천히!
+   </details>
+
+### swap adjacent in lr string
+https://leetcode.com/problems/swap-adjacent-in-lr-string/
+- <details>
+   <summary>보기만</summary> 
+    이름에 힌트가 있었네. 문제 잘 살펴보기 
+   </details>
+
+### max-area-of-island
+- <a href="https://leetcode.com/problems/max-area-of-island/submissions/" target="_blank">https://leetcode.com/problems/max-area-of-island/submissions/</a>
+- 많이 풀어 본 보드문제 (눈으로 보기만)
+<details>
+   <summary>다시보기</summary> 
+    예전에는 bfs + set으로 풀었던 거 같은데 그럴필요 없음. 
+   </details>
 
 
-### PQ
-```
-from queue import PriorityQueue
-PQ = PriorityQueue()
-PQ.put(sth1)
-PQ.put(sth2)
+### 눈팅선
+- 이 위로 눈팅만 필요 (위쪽이 중요)
 
-while len(PQ) > 0:
-   item = PQ.get()
-
-```
+### https://leetcode.com/problems/number-of-visible-people-in-a-queue/submissions/
+- 하든데 생각만
+- https://leetcode.com/problems/number-of-visible-people-in-a-queue/submissions/
 
 ### Maximum Number of Points with Cost
 - <a href="https://leetcode.com/problems/maximum-number-of-points-with-cost/" target="_blank">https://leetcode.com/problems/maximum-number-of-points-with-cost/</a>
@@ -811,6 +856,14 @@ https://leetcode.com/problems/subarray-sum-equals-k/
    <summary>보기만</summary> 
     transpose + column exchange / 4개의 점끼리만 바꾸기. Row 2개로 swap하려고 해서 잘 안풀려서 1번으로 풀음
    </details>
+
+
+
+### Stock Price Fluctuation
+<a href="https://leetcode.com/problems/stock-price-fluctuation" target="_blank">https://leetcode.com/problems/stock-price-fluctuation</a>
+- EZ
+
+
 
 
 
