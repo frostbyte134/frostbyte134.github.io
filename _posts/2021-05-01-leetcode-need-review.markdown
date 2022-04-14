@@ -34,13 +34,6 @@ iter_val = iter(iterable)
 nxt = next(iter_val, None)
 ```
 
-### https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/submissions/
-https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/submissions/
-- 바이너리 서치 정리하기 (생각만)
-
-### https://leetcode.com/problems/maximum-level-sum-of-a-binary-tree/
-https://leetcode.com/problems/maximum-level-sum-of-a-binary-tree/
-- nlong말고 n으로 (생각정리만, 글로)
 
 ### https://leetcode.com/problems/top-k-frequent-elements
 https://leetcode.com/problems/top-k-frequent-elements
@@ -150,6 +143,13 @@ https://leetcode.com/problems/swap-adjacent-in-lr-string/
     예전에는 bfs + set으로 풀었던 거 같은데 그럴필요 없음. 
    </details>
 
+### https://leetcode.com/problems/design-file-system/
+https://leetcode.com/problems/design-file-system/
+- EZ. 사알짝 고민함
+
+### https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/submissions/
+https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/submissions/
+- 바이너리 서치 정리하기 (생각만)
 
 ### 눈팅선
 - 이 위로 눈팅만 필요 (위쪽이 중요)
@@ -166,6 +166,7 @@ https://leetcode.com/problems/swap-adjacent-in-lr-string/
    </details>
 
 -------------------------------------------
+
 
 ### Step-By-Step Directions From a Binary Tree Node to Another
 - <a href="https://leetcode.com/problems/step-by-step-directions-from-a-binary-tree-node-to-another/" target="_blank">https://leetcode.com/problems/step-by-step-directions-from-a-binary-tree-node-to-another/</a>
@@ -241,6 +242,11 @@ https://leetcode.com/problems/swap-adjacent-in-lr-string/
 
 
 --------------------------------
+
+### https://leetcode.com/problems/maximum-level-sum-of-a-binary-tree/
+https://leetcode.com/problems/maximum-level-sum-of-a-binary-tree/
+- nlong말고 n으로 (생각정리만, 글로)
+- 레벨벨로 풀면 걍 ez
 
 ### https://leetcode.com/problems/search-a-2d-matrix/
 쉬운데 추가풀이가 재밌네
@@ -821,6 +827,7 @@ dp[val] = min([dp[val - c]+1 if val - c >= 0 else float("inf") for c in coins])
 
 #### Subarray Sum Equals K
 https://leetcode.com/problems/subarray-sum-equals-k/
+<details>
 <summary>보기만</summary> 
     부분합문제인데 N^2로 풀면 TLE남.  
 힌트는 값의 범위가 좁다는거였음. dic에 지금까지 나온 값들 저장해놓고 체크하면 됨.  
@@ -832,7 +839,7 @@ https://leetcode.com/problems/subarray-sum-equals-k/
 
 #### Find All Numbers Disappeared in an Array (reference problem)
 <a href="https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/" target="_blank">https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/</a>
-
+<details>
 <summary>보기만</summary> 
     리스트 값이 리스트 내부와 range가 같고, 리스트를 체크해야 할 시 리스트 값이 -를 해두면 좋은듯
    </details>
@@ -841,6 +848,7 @@ https://leetcode.com/problems/subarray-sum-equals-k/
 
 #### Min stack (reference problem))
 <a href="https://leetcode.com/problems/min-stack/" target="_blank">https://leetcode.com/problems/min-stack/</a>
+<details>
 <summary>보기만</summary> 
     stack의 최소값 - pair를 저장하면 됨. 큐와는 달리 top 밑에 있는 애들이 안빠지므로..
    </details>
