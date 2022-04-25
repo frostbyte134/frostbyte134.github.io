@@ -7,14 +7,31 @@ use_math: true
 tags: problem_solving leetcode need_review
 ---
 
+- https://leetcode.com/discuss/general-discussion/462981/leetcode-questions-sorted-by-vote-count
+- https://medium.com/hackernoon/google-interview-questions-deconstructed-the-knights-dialer-f780d516f029
+
 solve the problem while explain it to yourself, and write examples (must!)
 
 막히면?
 - 뒤에서
 - 가운데부터
+- 조건을 확인하고, 약한 조건 이용하기
 - 문제 재정의, 다시 읽기
 - 웰노운들 적용시켜 보기
 - 곱하기 있을 시 0 조심
+- 글쓰면서 (예제 만들면서 주절주절)
+- 비교할 때 항상 경계를 생각하자! 그럼 바로 풀림 ㅎㅎ
+- 제출전 리뷰 필수
+- 순차적으로
+- __list test cases__
+   - empty, simple, edges
+
+### OrderedDict
+ordereddict = linked list + dict (dict는 내부 링크드리스트에 대한 주소 저장)
+- Big-O running times for all methods are the same as regular dictionaries.
+- The internal self.__map dict maps keys to links in a doubly linked list.
+- The circular doubly linked list starts and ends with a sentinel element.
+
 
 ### PQ
 ```
@@ -34,13 +51,54 @@ iter_val = iter(iterable)
 nxt = next(iter_val, None)
 ```
 
+### https://leetcode.com/problems/lfu-cache/
+https://leetcode.com/problems/lfu-cache/
+- 풀긴 풀음. 다시
+
+### https://leetcode.com/problems/distinct-subsequences/
+https://leetcode.com/problems/distinct-subsequences/
+- 아직 안품
+
+### https://leetcode.com/problems/minimize-deviation-in-array/
+https://leetcode.com/problems/minimize-deviation-in-array/
+- ㅡㅡ..이런걸 어케 생각하는걸까
+
+### https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/
+https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/
+- 아직 안품
+
+### https://leetcode.com/problems/word-ladder/
+https://leetcode.com/problems/word-ladder/
+- 와 굿
+
+
+### https://leetcode.com/problems/reverse-nodes-in-k-group/
+https://leetcode.com/problems/reverse-nodes-in-k-group/
+- 아씨...글쓰면서 (예제 만들면서 주절주절) 하자
+
+
+### https://leetcode.com/problems/minimum-number-of-refueling-stops/
+https://leetcode.com/problems/minimum-number-of-refueling-stops/
+- 좋은 문제인 듯. 다시풀기 필수
+
+### https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/
+- 난 2-pass로 풀었는데 (나름 맘에듬), general solution이 있었음. 제너럴한걸로 풀어 보자
+- dp말고 계산할거를 따로 저장할떈 이거 초기값 등도 잘 신경써야 함 
+
+### https://leetcode.com/problems/median-of-two-sorted-arrays/
+https://leetcode.com/problems/median-of-two-sorted-arrays/
+- 이거 꼭 다시 (주말내에)
+- <a href="https://leetcode.com/problems/median-of-two-sorted-arrays/discuss/2511/Intuitive-Python-O(log-(m%2Bn))-solution-by-kth-smallest-in-the-two-sorted-arrays-252ms" target="_blank">discussion</a>이 좋다고 생각해 본 게 오랜만이네..
+
+### https://leetcode.com/problems/trapping-rain-water/
+https://leetcode.com/problems/trapping-rain-water/
+- 에반데. 3년전에 왜캐 잘했지. 지금하고 반대로 (가로 vs 세로) 풀었네 ㅋㅋ
 
 ### https://leetcode.com/problems/top-k-frequent-elements
 https://leetcode.com/problems/top-k-frequent-elements
 - nlogN은 개껌이고, N으로 다시 풀어 보기 (쪼금 햇갈림)
 
-### https://leetcode.com/problems/sentence-screen-fitting/
-- 해깔림. 다시 풀어 보자
 
 ### Max Sum of Rectangle No Larger Than K (need review)
 
@@ -51,12 +109,7 @@ https://leetcode.com/problems/top-k-frequent-elements
    </details>
 * 생각만 하자..
 
-### https://leetcode.com/problems/word-search-ii/
-https://leetcode.com/problems/word-search-ii/
 
-### https://leetcode.com/problems/count-binary-substrings/submissions/
-https://leetcode.com/problems/count-binary-substrings/submissions/
-- 이게 이지? ㄷㄷ 미듐인데..생각만 ㄱㄱ
 
 
 ### Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit (window problem, need review)
@@ -66,26 +119,122 @@ https://leetcode.com/problems/count-binary-substrings/submissions/
   - 이 때 조심해야 할 게, 현재 구간 (디큐들에 들어있는 아이템들의 min, max정보가 유효한 구간)은 max(inc디큐에서 제일 최근에 빠진 인덱스+1, dec디큐에서 제일 최근에 빠진 인덱스+1)이라는 것
 - 면접볼 땐 바이너리 서치 (결정문제) 도 말해야 할 듯. 그게 포인트자너~
 
+
+
+
+#### Find All Numbers Disappeared in an Array (reference problem)
+<a href="https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/" target="_blank">https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/</a>
+<details>
+<summary>보기만</summary> 
+    리스트 값이 리스트 내부와 range가 같고, 리스트를 체크해야 할 시 리스트 값이 -를 해두면 좋은듯
+   </details>
+
+
+
+### 복습선 (다시풀기선) 경계
+- 이 위로 다시풀기 필요
+
+### Maximum Number of Points with Cost
+- <a href="https://leetcode.com/problems/maximum-number-of-points-with-cost/" target="_blank">https://leetcode.com/problems/maximum-number-of-points-with-cost/</a>
+- <details>
+   <summary>오우 쉣 이게 미디엄?</summary> 
+    dp인데..여기까진 쉬운데...최적화를 좀 해야 됨 ㄷㄷ
+   </details>
+
+### https://leetcode.com/problems/maximal-rectangle/submissions/
+https://leetcode.com/problems/maximal-rectangle/submissions/
+- 걍 다시 풇어보기
+
+### https://leetcode.com/problems/word-search-ii/
+https://leetcode.com/problems/word-search-ii/
+- 살짝 만족. 구현 다시 보기만 하자
+
+
+### Burst Baloons
+<a href="https://leetcode.com/problems/burst-balloons/" target="_blank">https://leetcode.com/problems/burst-balloons/</a>
+<details>
+<summary>보기만</summary> 
+    l-r 사이에서 i번째 풍선을 마지막에 터트렸을 때 얻을 수 있는 최대값 (결국 어느 풍선이던 마지막에 터트려야 함) = 결국엔 마지막에 i번째만 남았다는 듯. nums[l-1] * nums[i] * nums[r+1] (범위 밖 풍선과 묶여야 하니까) + dp[l][i-1] + dp[i+1][r]. 첨에 nums = [1] + nums + [1]해놓으면 편함
+   </details>
+
+
 ### amount-of-new-area-painted-each-day
 https://leetcode.com/problems/amount-of-new-area-painted-each-day/ 
 - 다시 풀어보자
 
-### single-threaded-cpu
-https://leetcode.com/problems/single-threaded-cpu/
-- 이것도 깔끔하게 안풀림...
-- 다시 풀었는데도 깔끔하게 안풀림 ㅡ,.ㅡ
+### https://leetcode.com/problems/edit-distance/
+https://leetcode.com/problems/edit-distance/
+- 아씨..복습만 (눈팅)
+- +1
 
-### https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-iii/
-- 뭐 맞추긴 했는데 한번엔 안됨. 다시 풀어 보자
-- 한번에 좀 ㅡㅡ
+### https://leetcode.com/problems/binary-tree-maximum-path-sum/
+https://leetcode.com/problems/binary-tree-maximum-path-sum/
+- 보기만
+
+### https://leetcode.com/problems/count-of-smaller-numbers-after-self/
+https://leetcode.com/problems/count-of-smaller-numbers-after-self/
+- 오우 쉣. 보기만
+
+### https://leetcode.com/problems/jump-game-ii/
+https://leetcode.com/problems/jump-game-ii/
+- 걍 보기만
+
+### Longest Palindromic Substring
+- asd
+
+#### Longest Valid Parenthesis
+<a href="https://leetcode.com/problems/longest-valid-parentheses/submissions/" target="_blank">https://leetcode.com/problems/longest-valid-parentheses/submissions/</a>
+
+핵심: `이전` valid parenthesis의 시작으로 거리를 구하는 것. cur에 저장
+
+cur = -1
+
+1. (를 만났을 시
+    1. `이전` 레벨의 시작(cur)을 스택에 저장 - 이어붙이기 기능
+    2. 현재 레벨의 시작을 cur에 세팅
+2. )를 만났을 시
+    1. 이전에 쌓은 (가 없는 경우 - cur을 현재로 갱신해줌 (이제 valid한 것 못만드므로 reset)
+    2. 있는 경우 - 이전 레벨의 시작 (st.top())과 현재의 거리를 답에 반영 후, pop. 
+
+이렇게 하는 이유는, ()()나 (()()) 같은 경우를 해결하기 위해서.
 
 
-### 복습선
-- 이 위로 복습 필요
+
+#### Container With Most Water
+
+<a href="https://leetcode.com/problems/container-with-most-water/" target="_blank">https://leetcode.com/problems/container-with-most-water/</a>
+
+기본시도: 정렬가능시 정렬 (이문제 아님), 왼 안되면 왼+오, ...
+- 스택으로 푸는 그 문제인 줄 알았다 ㅡㅡ 낙시쩔음
+- 증명 영어로
+
+#### Subarray Sum Equals K
+<a href="https://leetcode.com/problems/subarray-sum-equals-k/" target="_blank">https://leetcode.com/problems/subarray-sum-equals-k/</a>
+
+<details>
+<summary>보기만</summary> 
+    부분합문제인데 N^2로 풀면 TLE남.  
+힌트는 값의 범위가 좁다는거였음. dic에 지금까지 나온 값들 저장해놓고 체크하면 됨.  
+`collections.counter`를 쓰면 더 빨라지는듯?
+   </details>
+
+
+#### Min stack (reference problem))
+<a href="https://leetcode.com/problems/min-stack/" target="_blank">https://leetcode.com/problems/min-stack/</a>
+<details>
+<summary>보기만</summary> 
+    stack의 최소값 - pair를 저장하면 됨. 큐와는 달리 top 밑에 있는 애들이 안빠지므로..
+   </details>
+
 
 ### https://leetcode.com/problems/3sum-with-multiplicity/
 https://leetcode.com/problems/3sum-with-multiplicity/
 - ncr recurrence rel
+- ncr = n-1cr-1 + n-1Cr
+
+### https://leetcode.com/problems/delete-and-earn/
+https://leetcode.com/problems/delete-and-earn/
+- 미디엄인데 못품 ㄷㄷ N^2 범위 디피인줄...기억해 둘 만한 듯
 
 
 ### number-of-matching-subsequences (복습필수)
@@ -98,6 +247,14 @@ https://leetcode.com/problems/3sum-with-multiplicity/
 - https://leetcode.com/problems/longest-word-in-dictionary-through-deleting/ 동일문제
 - 아니 근데 C++로 걍 풀면 되지 않나? 안되네. 다 끝난 걸 제외할 수 있는 게 핵심인 듯 
 
+
+
+### Alien Dictionary  (보기만)
+* <a href="https://leetcode.com/problems/alien-dictionary/" target="_blank">단어 사전이 valid한가?</a>
+* <details>
+   <summary>다시보가 (엣지케이스만)</summary> 
+   dfs 로 사이클 찾기
+   </details>
 
 ### Find original array from doubled array
 <a href="https://leetcode.com/problems/find-original-array-from-doubled-array/" target="_blank">https://leetcode.com/problems/find-original-array-from-doubled-array/</a>
@@ -151,6 +308,16 @@ https://leetcode.com/problems/design-file-system/
 https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/submissions/
 - 바이너리 서치 정리하기 (생각만)
 
+### https://leetcode.com/problems/count-binary-substrings/submissions/
+https://leetcode.com/problems/count-binary-substrings/submissions/
+- 이게 이지? ㄷㄷ 미듐인데..생각만 ㄱㄱ
+
+
+### https://leetcode.com/problems/sentence-screen-fitting/
+- 해깔림. 다시 풀어 보자
+- 인덱스 의미 조심-
+
+
 ### 눈팅선
 - 이 위로 눈팅만 필요 (위쪽이 중요)
 
@@ -158,14 +325,20 @@ https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-
 - 하든데 생각만
 - https://leetcode.com/problems/number-of-visible-people-in-a-queue/submissions/
 
-### Maximum Number of Points with Cost
-- <a href="https://leetcode.com/problems/maximum-number-of-points-with-cost/" target="_blank">https://leetcode.com/problems/maximum-number-of-points-with-cost/</a>
-- <details>
-   <summary>오우 쉣 이게 미디엄?</summary> 
-    dp인데..여기까진 쉬운데...최적화를 좀 해야 됨 ㄷㄷ
-   </details>
+
+
+### https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-iii/
+- 뭐 맞추긴 했는데 한번엔 안됨. 다시 풀어 보자
+- 한번에 좀 ㅡㅡ
+
 
 -------------------------------------------
+
+### single-threaded-cpu
+https://leetcode.com/problems/single-threaded-cpu/
+- 이것도 깔끔하게 안풀림...
+- 다시 풀었는데도 깔끔하게 안풀림 ㅡ,.ㅡ
+- 비교할 때 항상 경계를 생각하자! 그럼 바로 풀림 ㅎㅎ
 
 
 ### Step-By-Step Directions From a Binary Tree Node to Another
@@ -330,7 +503,9 @@ https://leetcode.com/problems/maximum-level-sum-of-a-binary-tree/
    </details>
 
 
-
+### https://leetcode.com/problems/peeking-iterator/
+https://leetcode.com/problems/peeking-iterator/
+- 씽크빅 ㅋㅋ
 
 ### 윈도우 문제
 - monotonic하게 움직이는 윈도우에서, __최대__ (=최소) 빠르게 찾기
@@ -366,14 +541,6 @@ TODO: make a post on
 
 ### Sliding Puzzle
 * <a href="https://leetcode.com/problems/sliding-puzzle/" target="_blank"> 보드가 작아 bijection 가능. DFS하니까 메모리 리밋 뜸 ㅡㅡ</a>
-
-
-### Alien Dictionary  (보기만)
-* <a href="https://leetcode.com/problems/alien-dictionary/" target="_blank">단어 사전이 valid한가?</a>
-* <details>
-   <summary>다시보가</summary> 
-   dfs 로 사이클 찾기 
-   </details>
 
 ### String Transforms Into Another String (보기만)
 * <a href="https://leetcode.com/problems/string-transforms-into-another-string/" target="_blank">예외케이스를 찾아보자</a>
@@ -646,10 +813,6 @@ Permutation의 다음번째는 무엇인가? (lexicographical order)
 
 ### Need review
 
-#### Find All Numbers Disappeared in an Array
-https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/
-
-Cycle 찾기 문제. 이게 이지라고?
 
 #### search a 2d matrix
 
@@ -702,45 +865,6 @@ class Solution:
 ```
 
 
-#### Longest Valid Parenthesis
-<a href="https://leetcode.com/problems/longest-valid-parentheses/submissions/" target="_blank">https://leetcode.com/problems/longest-valid-parentheses/submissions/</a>
-
-핵심: `이전` 레벨의 시작으로 거리를 구하는 것. cur에 저장
-
-cur = -1
-
-1. (를 만났을 시
-    1. `이전` 레벨의 시작(cur)을 스택에 저장
-    2. 현재 레벨의 시작을 cur에 세팅
-2. )를 만났을 시
-    1. 이전에 쌓은 (가 없는 경우 - cur을 현재로 갱신해줌
-    2. 있는 경우 - 이전 레벨의 시작 (st.top())과 현재의 거리를 답에 반영 후, pop. 
-
-이렇게 하는 이유는, ()()나 (()()) 같은 경우를 해결하기 위해서.
-
-
-
-```python
-def longestValidParentheses(self, s: str) -> int:
-    st = []
-    
-    lvlStart = -1
-    ans = 0
-    for i, ch in enumerate(s):
-        if ch == '(':
-            st.append(lvlStart)
-            lvlStart = i
-        else:
-            if len(st) == 0:
-                lvlStart = i
-            else:
-                lvlStart = st.pop()
-                ans = max(ans, i - lvlStart)
-        
-    return ans
-```
-
-
 
 #### N-Queens (reference problem)
 <a href="https://leetcode.com/problems/n-queens/" target="_blank">https://leetcode.com/problems/n-queens/</a>
@@ -751,31 +875,6 @@ def longestValidParentheses(self, s: str) -> int:
     2. position의 조건이, rowInd+colInd와 rowInd-colInd 가 같으면 같은 대각에 있는 것이므로, 위의 두 값을 queen의 위치와 같이 저장. 같은 row/col체크는 하지 않을 것 (위에서 이미 결정하고 오므로)
     3. naive board solution은 정말 보드를 다 찾아보지만 이 solution은 row별로 어디에 놓을지만 결정해도 되므로 시간절약도 많이 될듯
 
-	
-
-#### Container With Most Water
-
-<a href="https://leetcode.com/problems/container-with-most-water/" target="_blank">https://leetcode.com/problems/container-with-most-water/</a>
-
-기본시도: 정렬가능시 정렬 (이문제 아님), 왼 안되면 왼+오, ...
-
-스택으로 푸는 그 문제인 줄 알았다 ㅡㅡ 낙시쩔음
-
-```python
-class Solution:
-    def maxArea(self, height: 'List[int]') -> 'int':
-        fr, to = 0, len(height)-1
-        ans = 0
-        while(fr < to):
-            ans = max(ans, min(height[fr], height[to]) * (to - fr))
-            if height[fr] < height[to]:
-                fr = fr + 1
-            else:
-                to = to - 1
-        return ans
-                         
-                
-```
 
 #### Smallest Range 
 <a href="https://leetcode.com/problems/smallest-range-ii/" target="_blank">https://leetcode.com/problems/smallest-range-ii/</a>
@@ -825,33 +924,8 @@ dp[val] = min([dp[val - c]+1 if val - c >= 0 else float("inf") for c in coins])
 1. 다수의 min/max보다는 List comprehension을 쓰자!
 2. `float("inf")`
 
-#### Subarray Sum Equals K
-https://leetcode.com/problems/subarray-sum-equals-k/
-<details>
-<summary>보기만</summary> 
-    부분합문제인데 N^2로 풀면 TLE남.  
-힌트는 값의 범위가 좁다는거였음. dic에 지금까지 나온 값들 저장해놓고 체크하면 됨.  
-`collections.counter`를 쓰면 더 빨라지는듯?
-   </details>
 
 
-
-
-#### Find All Numbers Disappeared in an Array (reference problem)
-<a href="https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/" target="_blank">https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/</a>
-<details>
-<summary>보기만</summary> 
-    리스트 값이 리스트 내부와 range가 같고, 리스트를 체크해야 할 시 리스트 값이 -를 해두면 좋은듯
-   </details>
-
-
-
-#### Min stack (reference problem))
-<a href="https://leetcode.com/problems/min-stack/" target="_blank">https://leetcode.com/problems/min-stack/</a>
-<details>
-<summary>보기만</summary> 
-    stack의 최소값 - pair를 저장하면 됨. 큐와는 달리 top 밑에 있는 애들이 안빠지므로..
-   </details>
 
 
 
