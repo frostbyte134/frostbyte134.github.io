@@ -28,6 +28,37 @@ A resource-oriented API is generally modeled as a resource hierarchy, where
 While there is some conceptual alignment between storage systems and REST APIs, a service with a resource-oriented API is not necessarily a database (APIs are more flexible, inter-connected, does more than storing)
 
 
+### Methods
+-  resource-oriented API emphasizes resources (`data model`) over the methods performed on the resources (`functionality`)
+- A typical resource-oriented API exposes a large number of resources with a small number of methods
+- Where API functionality naturally maps to one of the standard methods, that method should be used in the API design (if not, one can use custom method)
+
+### Resource Names
+- In resource-oriented APIs, resources are named entities, and resource names are their identifiers. 
+- Each resource must have its own unique resource name. The resource name is made up of the ID of the resource itself, the IDs of any parent resources, and its API service name
+- A collection is a special kind of resource that contains a list of sub-resources of identical type. For example, a directory is a collection of file resources. The resource ID for a collection is called collection ID.
+- ex) `/storage.googleapis.com/buckets/<bucket-id>/objects/<object-id>`
+- API Service Name/Collection ID/Resource ID/Collection ID/Resource ID
+
+### Resource / Collection ID
+- Resource IDs must be clearly documented whether they are assigned by the client, the server, or either. For example, file names are typically assigned by clients, while email message IDs are typically assigned by servers.
+- Must be valid C/C++ identifiers
+- Must be in plural form with lowerCamel case. If the term doesn't have suitable plural form, such as "evidence" and "weather", the singular form should be used.
+- Overly general terms should be avoided or qualified. For example, rowValues is preferred to values. The following terms should be avoided without qualification:
+   - elements, entries, instances, items, objects, resources, types, values
+
+
+### standard methods
+- https://cloud.google.com/apis/design/standard_methods
+
+### stadard field names
+- https://cloud.google.com/apis/design/standard_fields
+
+
+### Glossaries
+- https://cloud.google.com/apis/design/glossary
+
+
 
 
 
