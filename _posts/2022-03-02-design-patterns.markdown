@@ -9,7 +9,6 @@ tags: coding
 
 (작성-중) 
 
-<a href="https://refactoring.guru/design-patterns/catalog" target="_blank">https://refactoring.guru/design-patterns/catalog</a>
 
 정리를 그냥 [여기](https://github.com/nailbrainz/nailbrainz.github.io/issues)다가 해 놨음. 가서 보기
 

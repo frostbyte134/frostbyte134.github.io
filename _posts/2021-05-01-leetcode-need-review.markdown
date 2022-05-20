@@ -67,9 +67,6 @@ https://leetcode.com/problems/distinct-subsequences/
 https://leetcode.com/problems/minimize-deviation-in-array/
 - ㅡㅡ..이런걸 어케 생각하는걸까
 
-### https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/
-https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/
-- 아직 안품
 
 ### https://leetcode.com/problems/word-ladder/
 https://leetcode.com/problems/word-ladder/
@@ -137,6 +134,13 @@ https://leetcode.com/problems/top-k-frequent-elements
 
 ### 복습선 (다시풀기선) 경계
 - 이 위로 다시풀기 필요
+
+### Reaching Points
+- https://leetcode.com/problems/reaching-points/
+- <details>
+   <summary>하드 수월하게 풀었네 ㅋㅋ 생각정리가 중요함</summary> 
+    tl < tr인 경우엔 둘 다 스왑하면 됨 ㅋㅋ. tl >>> tr인 경우엔 tl에서 tr만큼 계속 뺼 수 밖에 없다는 걸 알아채는게 포인트. 둘 다 비슷하면 금방 끝날꺼라는 것도.
+   </details>
 
 ### Maximum Number of Points with Cost
 - <a href="https://leetcode.com/problems/maximum-number-of-points-with-cost/" target="_blank">https://leetcode.com/problems/maximum-number-of-points-with-cost/</a>
