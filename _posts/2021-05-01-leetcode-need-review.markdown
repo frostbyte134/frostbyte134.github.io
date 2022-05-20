@@ -51,9 +51,13 @@ iter_val = iter(iterable)
 nxt = next(iter_val, None)
 ```
 
-### https://leetcode.com/problems/lfu-cache/
-https://leetcode.com/problems/lfu-cache/
-- 풀긴 풀음. 다시
+
+### Alien Dictionary  (보기만)
+* <a href="https://leetcode.com/problems/alien-dictionary/" target="_blank">단어 사전이 valid한가?</a>
+* <details>
+   <summary>다시보가 (엣지케이스만)</summary> 
+   dfs 로 사이클 찾기
+   </details>
 
 ### https://leetcode.com/problems/distinct-subsequences/
 https://leetcode.com/problems/distinct-subsequences/
@@ -248,12 +252,13 @@ https://leetcode.com/problems/delete-and-earn/
 - 아니 근데 C++로 걍 풀면 되지 않나? 안되네. 다 끝난 걸 제외할 수 있는 게 핵심인 듯 
 
 
-
-### Alien Dictionary  (보기만)
-* <a href="https://leetcode.com/problems/alien-dictionary/" target="_blank">단어 사전이 valid한가?</a>
+### https://leetcode.com/problems/lfu-cache/
+https://leetcode.com/problems/lfu-cache/
+- 풀긴 풀음. 다시
+- 또 풀긴 풀음 ㅡㅡ 
 * <details>
-   <summary>다시보가 (엣지케이스만)</summary> 
-   dfs 로 사이클 찾기
+   <summary>아나</summary> 
+   방금 삽입된 아이템이 캐시에 없던 거면, 이게 유력한 least frequently used임 (use_counter=1). 난 캐시 값 갱신 (1) ->  PQ에 삽입 (2) -> 꽊찼으면 하나 제거 (3) 순으로 하면 안되고 (넣자마자 없어질 수 있음), 132로 해야 하고, 1/2에서 큐사이즈가 첨부터 0일 때 고려해야 함. 아님 뭐 다른 방법으로 사이즈 꽉 찬거 체크하던지
    </details>
 
 ### Find original array from doubled array

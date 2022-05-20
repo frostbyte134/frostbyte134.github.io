@@ -39,3 +39,14 @@ Factors are computed by minimizing the following cost function
 
 
 <img src="{{ site.url }}/images/recomm/als.jpg" class="center"  width="500" />
+
+
+### Paper
+
+#### Abstract
+implicit feedbacks - we lack evidence on dislikes
+- treating the data as indication of pos/neg pref, associated with vastly variyng confidence lvls -> `factor model tailed for implicit feedbacks`
+- suggest a scalable optimization procedure, which scales linearly with the data size
+- we offer novel way to give explanations to recommendations of this factor model
+
+

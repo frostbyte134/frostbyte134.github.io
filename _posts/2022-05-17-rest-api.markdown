@@ -1,11 +1,34 @@
 ---
 layout: post
 title:  "Representational state transfer"
-date:   2020-12-17 07:00:05 +0800
+date:   2022-05-17 07:00:05 +0800
 categories: coding
 use_math: true
 tags: coding python
 ---
+
+### Google Cloud Best Practice
+<a href="https://cloud.google.com/apis/design/resources" target="_blank">https://cloud.google.com/apis/design/resources</a>
+- Its core principle is to define named resources that can be manipulated using a small number of methods
+- __The resources and methods are known as nouns and verbs of APIs.__
+   - With the HTTP protocol, the resource names naturally map to URLs, and methods naturally map to HTTP methods POST, GET, PUT, PATCH, and DELETE
+
+
+### What is REST API
+`A REST API` is modeled as collections of individually-addressable resources (the nouns of the API).  
+Resources are referenced with their resource names and manipulated via a small set of methods (also known as verbs or operations).
+
+### Resources
+A resource-oriented API is generally modeled as a resource hierarchy, where
+- each node is either a simple resource or a collection resource. (`resource` and a `collection`)
+- A collection contains a list of resources of the same type. ex) a user has a collection of contacts.
+   - A resource has some `state` and zero or more `sub-resources`. Each sub-resource can be either a resource or a collection.
+
+
+While there is some conceptual alignment between storage systems and REST APIs, a service with a resource-oriented API is not necessarily a database (APIs are more flexible, inter-connected, does more than storing)
+
+
+
 
 
 *************************************************
