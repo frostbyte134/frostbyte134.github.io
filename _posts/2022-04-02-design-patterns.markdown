@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "SW Design Patterns (GOF + GURU) 개발-패턴"
-date:   2022-03-02 08:00:05 +0800
+date:   2022-04-02 08:00:05 +0800
 categories: coding
 use_math: true
 tags: coding
@@ -10,6 +10,8 @@ tags: coding
 (작성-중) 
 
 
+<a href="https://refactoring.guru/design-patterns/catalog" target="_blank">https://refactoring.guru/design-patterns/catalog</a>
+
 정리를 그냥 [여기](https://github.com/nailbrainz/nailbrainz.github.io/issues)다가 해 놨음. 가서 보기
 
 
@@ -17,7 +19,7 @@ tags: coding
 - `concrete subclass` - abstract method를 전부 구현한 서브클래스 (자바 관련인듯?)
 
 ### SOLID
-- solid = 마틴 어쩌고가 짜깁기한 거
+- solid = 마틴 어쩌고 님이 짜깁기한 거
 - 일단 코드를 짜보고 민감하게 신경 쓴 경험치가 필요
 - 남용하면 가독성/직관성이 떨어진다
 - `yagni` - you ain't gonna need it
