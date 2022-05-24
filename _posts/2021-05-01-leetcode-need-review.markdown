@@ -52,6 +52,19 @@ nxt = next(iter_val, None)
 ```
 
 
+#### Optimal Account Balancing
+* <a href="https://leetcode.com/problems/optimal-account-balancing/" target="_blank">https://leetcode.com/problems/optimal-account-balancing/</a>
+* <details>
+   <summary>잘 생각해 보면</summary>우선 transaction의 역순으로 하면 되니까 이거보다 큰 답은 없고, transaction을 압축하는 형태로 최적의 답이 나올 테니 각 노드의 값을 이상하게 쪼개는 경우는 없을 듯. 있는 거 다 쓰면서 완탐하면 될 듯
+   . 어째 갈수록 느려지네...;_;</details>
+
+#### Shortest Subarray with Sum at Least K
+- <a href="https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/" target="_blank">https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/</a>
+<details>
+   <summary>좋은 문제인 듯</summary> 
+    문제를 잘 읽기 (좀 햇갈림. 면졉같은데 내긴 좋진 않은듯). N^2 -> NlogN은 직관적인데, NlogN -> N은 바로 생각하긴 쉽지 않을 수도?
+   </details>
+
 ### Alien Dictionary  (보기만)
 * <a href="https://leetcode.com/problems/alien-dictionary/" target="_blank">단어 사전이 valid한가?</a>
 * <details>
@@ -374,19 +387,6 @@ https://leetcode.com/problems/single-threaded-cpu/
     nums[j] - nums[i] - 1 - (j - i) 가 i --- j 사이에 있는 missing elements. 결국 배열 전체를 고려해야 하므로, 0~mid 까지 테스트하고 이 결과로 st/ed를 갱신하는 게 직관적
    </details>
 
-
-#### Shortest Subarray with Sum at Least K
-- <a href="https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/" target="_blank">https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/</a>
-<details>
-   <summary>좋은 문제인 듯</summary> 
-    문제를 잘 읽기 (좀 햇갈림. 면졉같은데 내긴 좋진 않은듯). N^2 -> NlogN은 직관적인데, NlogN -> N은 바로 생각하긴 쉽지 않을 수도?
-   </details>
-
-#### Optimal Account Balancing
-* <a href="https://leetcode.com/problems/optimal-account-balancing/" target="_blank">https://leetcode.com/problems/optimal-account-balancing/</a>
-* <details>
-   <summary>잘 생각해 보면</summary>우선 transaction의 역순으로 하면 되니까 이거보다 큰 답은 없고, transaction을 압축하는 형태로 최적의 답이 나올 테니 각 노드의 값을 이상하게 쪼개는 경우는 없을 듯. 있는 거 다 쓰면서 완탐하면 될 듯
-   . 어째 갈수록 느려지네...;_;</details>
 
 #### Partition Equal subset sum
 * <a href="https://leetcode.com/problems/partition-equal-subset-sum/submissions/" target="_blank">https://leetcode.com/problems/partition-equal-subset-sum/submissions/</a>
