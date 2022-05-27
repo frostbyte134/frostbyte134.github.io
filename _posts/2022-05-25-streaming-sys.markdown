@@ -28,10 +28,9 @@ streaming (fast) + batch (slow, but accurate, refer later)
 -> exactly once가 어느정도 해결책이 된다
 
 ### Side Effect
-- Dataflow (? 빔의 구현체인가)는 custom function이 record별로 exactly once하게 실행되는 것을 보장 X
+- Dataflow (빔을 사용한 뭔가 데이터 플랫폼이라고 제리가 말씀주심)는 custom function이 record별로 exactly once하게 실행되는 것을 보장 X
     - Only one of these invocations can win and produce output further down the pipeline 
-    - 따라서 연산이 멱등하면 exactly once (인 듯)
-    - nonidempotent side effects are not uaranteed to execute exactly once
+    - 따라서 custom 연산이 멱등해야 exactly once를 생각해 보기라도 하는 듯 (nonidempotent side effects are not guaranteed to execute exactly once) 
     - 중간에 custom 함수로 외부 서비스를 호출하는 side effect가 있으면, 파이프라인 결과에 와서는 exactly once인데 이 호출은 그렇지 않은 듯
     - 외부 서비스도 멱등하고 commit logic이 있으면 어케 해볼 여지는 있을 듯
 
@@ -66,3 +65,6 @@ streaming (fast) + batch (slow, but accurate, refer later)
   - tends to fill up -> FP rate goes up
     - 타임스탬프 range별로 블룸필터를 만듬
     - 레코드별로 시스템 타임스탬프별로 나눠서 record query -> fillup 방지
+
+### 가비지 콜렉션
+- 시스템 타임스탬프 (processing time)을 이용한 triggering -> 파이프라인별로 어디가 느린지도 이걸로 확인 가능
