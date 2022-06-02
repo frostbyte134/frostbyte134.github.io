@@ -1,11 +1,24 @@
 ---
 layout: post
 title:  "Leetcode problems"
-date:   2021-05-01 09:59:00 +0800
+date:   2021-06-01 09:59:00 +0800
 categories: problem_solving
 use_math: true
 tags: problem_solving leetcode need_review
 ---
+
+
+리셋 ㄱㄱ
+- 한번에 푸는 게 중요한듯 (실수 없이)
+- 보자마자 opt sol이 걍 떠올라야 하는듯 ㅡ,.ㅡ
+
+
+### 복습리스트
+- https://leetcode.com/problems/sum-of-subarray-ranges/ (한번에 opt)
+
+
+
+
 
 - https://leetcode.com/discuss/general-discussion/462981/leetcode-questions-sorted-by-vote-count
 - https://medium.com/hackernoon/google-interview-questions-deconstructed-the-knights-dialer-f780d516f029
