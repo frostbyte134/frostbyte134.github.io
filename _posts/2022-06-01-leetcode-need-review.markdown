@@ -15,8 +15,10 @@ tags: problem_solving leetcode need_review
 
 ### 복습리스트
 - https://leetcode.com/problems/sum-of-subarray-ranges/ (한번에 opt)
-
-
+- https://leetcode.com/problems/maximum-length-of-subarray-with-positive-product/
+   - 이건 쫌 걸리긴 했는데 풀긴함
+- https://leetcode.com/problems/minimum-swaps-to-group-all-1s-together/
+   - 쉽게 풀긴 했는데, 더 깔끔한 풀이 유도하기
 
 
 

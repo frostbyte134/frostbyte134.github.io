@@ -68,3 +68,106 @@ streaming (fast) + batch (slow, but accurate, refer later)
 
 ### 가비지 콜렉션
 - 시스템 타임스탬프 (processing time)을 이용한 triggering -> 파이프라인별로 어디가 느린지도 이걸로 확인 가능
+
+
+### Chap 6 - A General Theory of Stream and Table Relativity
+
+- Data processing pipelines (both batch and streaming) consist of tables, streams, and operations upon those tables and streams
+- `Tables are data at rest`, and act as a container for data to accumulate and be observed over time
+- `Streamms are data in motion`, and encode a discretized view of the evolution of a table over time
+- `Operations` on a stream/table yield a new stream/table
+  - stream -> stream: nongrouping, element-wise operations (data is still in motion)
+  - stream -> table: grouping operation (group by key?)
+    - windowing = incorporates the dim of event time into such groupings
+    - merging windows dynamically
+  - table -> stream: ungrouping (triggering) operations
+    - `watermarks` provide a notion of input completeness relative to event time (useful when griggering event-timestamped data)
+    - `accumulation mode` - ?
+  - table -> table - None
+
+They codify the fact that data exist in one of two constitutions (table/stream) at any given time
+windowing = slight modification of grouping
+
+
+### Chap 7 The Practicalities of Persistent State
+
+Persistent state is, quite literally, the tables (...) with the additional requirements that it must be robustly stored in a media relative immune to loss
+- Stored on local disk counts, as long as you don't ask your Site Reliability Engineers (lol)
+- Stored on a replicated set of dists is better, in distinct physical locations is better still
+- Stored in memory definitely doesn't count
+- Stored in replicated memory across multiple machines with UPS power backup and generators onsite maybe does (..)
+
+Long running pipelines will inevitably fail
+- To ensure that they can resume, they need some sort of durable recollection of where they were before the interruption. Thats where persistent state comes in
+
+#### motivation
+- Do batch pipelines use persistent state, and why or why not?
+- Bounded dataset are finite in size, by nature -> often asume that they can be reproduced in its entirety upon failure
+- Unbounded dataset - assumes infinite size. systems that process this data (__historically__ streaming systems) have been tailored to that use case
+  - exactly once / at least once = need checkpointing, at most once = does not
+  - there's nothing batch- or streaming-specific about persistent state
+  - it happends to be critical when processing unbounded data
+
+Persistent state provide two things
+- a basis for correctness wrt ephemeral inputs (checkpointing)
+- a way to minimize work duplicated wrt failures
+
+> At the end of the day, persistent state is really just a means of providing correctness and efficient fault tolorance in data processing pipelines
+
+#### Implicit state
+- not much can do to reduce the size of input \\(\rightarrow\\) persist the intermediate state tables within a pipeline (=implicit?)
+
+Raw grouping
+- \\(\sim\\) appending to the list for each group
+- data: user/score kv pair
+- apply `GroupByKey` of beam -> `user: list of int` PCollection
+- sum the scores for users using lambda func
+- http://streamingbook.net/fig/7-1
+- 각 윈도우별로 int가 아니고 배열을 중간에 들고 있음
+- 트리거링이 여러개 (early / on-time / late)있을 경우, sum을 매번 다시 함
+- grouping을 체크포인팅한다고 했을 때, 쓸대없는 sum을 다시 해야 함 (너무 당연한 거 아닌가)
+
+Incremental Combining
+- associative, commutative 한 연산에 대해 최적화 해 줌 (걍 다 더하는 듯). 어떤 순서로 더하던 완전 상관없으니 최적화 가능한 듯
+- incremental combining is a form of automatic state built upon a user-defined associative and commutative combining operator
+- ex) mean = 중간 형태 (sum, associative & commutative) / 최종 (전체 수로 나누기)
+  - window merging할때도 중간형태끼리 합하면 되서 좋음
+- `incrementalization`: b/c the order of individual inputs doesnt matter, we dont need to buffer all the inputs in some strict order
+- `parallelization`: we're free to spread computation of those subgroups across a plurality of machines
+- one shortcoming: grouping operations are restricted (sums, means, ...)
+
+Generalized State (빔 광고타임?)
+- raw grouping: requires to buffer up the raw inputs to the grouping opereation - no way for partial processing
+- incremental: allows partial processing, but is restricted
+- we need flexibility in 3 dims
+  - data structure (grouping = list, incremental = single value. 보통 이것보단 많이 필요)
+  - write/read granularity - 입력을 언제 읽어 (중간)상태를 언제 쓸 수 있는지?
+  - flexibility in scheduling processing
+    - triggers
+      - `completeness trigger` provide a way to bind processing to the watermark (=end of window)
+      - `repeated update trigger`: periodic
+    - 이것만으론 불충분해서 timer를 도입했다 함 (ex - 전체 input completeness말고 일부 record의 input completeness만 있어도 되는 join?)
+
+#### Conversion Attribution
+- pooly served by raw grouping / incremental, so we need to go to low lvl (with generalized state)
+- to provide concrete feedback on the effectiveness of advertisement
+- http://streamingbook.net/fig/7-3
+  - Building up conversion attributions over an unbounded, out-of-order stream of data requires keeping tack of impressions, visits, goals. That's where persistent state comes in
+  - `impression`: click ad. is a visit
+  - `visits`: single page view
+  - `goal`: purchase. is a visit
+  - `watermark`: purchased event time
+- `conversion attribution`: identify imporession which resulted in goal
+  - visit + list of visits (trail) + impression
+
+(rather general) required property of data pipeline
+- handle out of order data (ad imp, website traffic데이터가 이벤트타임대로 들어오지 않음)
+- handle high volume of data
+- protect against spam
+  - ex) a single ad that is clicked multiple times in a row by single user - as long as those clicks occur within a certain amount of time of one another they must be considered as one
+- optimize for performance
+
+use Beam's State, Timers API
+- POJO (plane old java object) def (with getter, setters)
+- `DoFn`: consume a flattened collection of Visits, and Impressions, keyed by user \\(\rightarrow\\) yield a collection of Attributions
+  1. save all visits, imps in a dict keyed by the URL
