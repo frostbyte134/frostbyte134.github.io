@@ -7,7 +7,7 @@ permalink: /about/
 
 
 
-I am an engineer who tries to make a thing which...
+I am an engineer who tries to make a thing s.t...
 - many people use
 - yield consistent result, regardless of who runs it or where it is ran
 
