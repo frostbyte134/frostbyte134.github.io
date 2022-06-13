@@ -149,6 +149,8 @@ Generalized State (빔 광고타임?)
     - 이것만으론 불충분해서 timer를 도입했다 함 (ex - 전체 input completeness말고 일부 record의 input completeness만 있어도 되는 join?)
 
 #### Conversion Attribution
+
+
 - pooly served by raw grouping / incremental, so we need to go to low lvl (with generalized state)
 - to provide concrete feedback on the effectiveness of advertisement
 - http://streamingbook.net/fig/7-3
@@ -158,7 +160,7 @@ Generalized State (빔 광고타임?)
   - `goal`: purchase. is a visit
   - `watermark`: purchased event time
 - `conversion attribution`: identify imporession which resulted in goal
-  - visit + list of visits (trail) + impression
+  - goal -> list of visits (trail) -> impression (this is our target)
 
 (rather general) required property of data pipeline
 - handle out of order data (ad imp, website traffic데이터가 이벤트타임대로 들어오지 않음)
@@ -166,8 +168,11 @@ Generalized State (빔 광고타임?)
 - protect against spam
   - ex) a single ad that is clicked multiple times in a row by single user - as long as those clicks occur within a certain amount of time of one another they must be considered as one
 - optimize for performance
+  - 병렬화가 beam에 지정한 키 별로 된다는데. 카프카로 이거 짜려면 일단 같은 파티션에 동일 유저 데이터를 몰아넣을 수 있어야 하나?...
 
-use Beam's State, Timers API
+<a href="https://github.com/takidau/streamingbook/blob/master/src/main/java/net/streamingbook/StateAndTimers.java" target="_blank">code</a> - use Beam's State, Timers API
 - POJO (plane old java object) def (with getter, setters)
-- `DoFn`: consume a flattened collection of Visits, and Impressions, keyed by user \\(\rightarrow\\) yield a collection of Attributions
+- `static class AttributionFn extends DoFn<KV<String, VisitOrImpression>, Attribution>` part: consume a flattened collection of Visits, and Impressions (여기서 flattened = VisitOrImpression 클래스로 묶였단 예기), keyed by user \\(\rightarrow\\) yield a collection of Attributions
   1. save all visits, imps in a dict keyed by the URL
+- 아니 persistent state 저장하는 곳이 어디야?
+
