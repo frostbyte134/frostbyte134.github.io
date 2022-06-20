@@ -176,3 +176,44 @@ Generalized State (빔 광고타임?)
   1. save all visits, imps in a dict keyed by the URL
 - 아니 persistent state 저장하는 곳이 어디야?
 
+### Chap 8
+
+- things discussed here is still hypothetical - 아직도?
+- the vision for stream SQL presented here is the result of discussion between Calcite, Flink and Beam communities
+- `relation`: conceptual table
+- `relational algebra` - mathematical way to describe relationships between relations
+  - `closure property` of relational algebra: applying any operation from relational algebra to relation yields another relation
+  - historic failures in stream SQL (`sSQL`): failed to satisfy this property
+    - treat stream separately from classic relation. users need to learn 4 types of operations (relations <-> streams) - SQL같은 명령형? 언어에서는 치명적이었을 듯
+
+what we need is a way for stream to become a first-class citizen within the relational algebra itself
+- not that they (relations, streams) are treated exactly same - but the core operations must apply to them cleanly
+- the key to integrate streaming into SQL - extend relation to 3d (`time-varying relations` = `TVR`)
+  - `select TVR * FROM UserScores`; -> 시간별로 다 나옴
+  - TVR essentially consists of a sequence of classic relations -> __if we apply (classical) relation algebra on TVR, it yields TVR__
+  - closure property holds on this extended relations
+
+but TVRs are not practical 
+
+#### Streams and Table
+The SQL 2011 standard (already) provides temporal tables
+- + `AS OF SYSTEM TIME` construct - explcit query snapshot of table at certain time
+
+SELECT TVR vs SELECT STREAM
+- encode하는 데이터는 동일하지만, STREAM은 upsert시 row2개가 더 생김 (기존값 포함) + 현재진행형
+
+
+Table과 stream은 dual (!) relation
+- 보통 full fidelity를 유지하진 않고 loss가 있음 (람다 아키텍처?)
+
+
+Inherent stream bias in the Beam Model
+- all of the logical transformations are connected by streams, even it includes grouping (which results in a temporary table somewhere as noted in Chap6)
+  - these transformations are `PTransforms`
+  - streams are the common currency in a Beam pipeline (even batch pipelines), and tables are always treated specially, either abstracted behind sources and sinks at the edge of the pipeline or hidden away beneath a grouping and triggering operation somewhere in the pipeline
+  - whenever the table is involced, some sort of conversion is required
+  - __source__ that consumes tables are hardcoded - no way for a user to specify custom triggering of a table
+  - __sinks__ that write tables are also hardcoded - in a way which they group ther input streams
+    - explicit grouping - by user key (some customization possible)
+    - impicit grouping (by partition, for example)
+  - grouping to table / ungrouping to stream - provide complete flexibility
