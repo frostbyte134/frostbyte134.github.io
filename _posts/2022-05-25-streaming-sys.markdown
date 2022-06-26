@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Streaming Systems Chap 5 - Exatly Once"
+title:  "Streaming Systems Chap 5~8"
 date:   2022-05-25 08:00:05 +0800
 categories: coding
 use_math: true
