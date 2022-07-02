@@ -77,7 +77,7 @@ __Going Deeper with Atrous Conv__:
 In the last Resnet block (block 4), added 3 replicas (same structure) with striding, which has `output_stride=256`.  
 2. Consecutive atrous conv (`Multi-grid method`: employ a hierarchy of grids of different sizes):  
 OS=16 - 2 * [1, 2, 4] rates  
-<img src="{{ site.url }}/images/deeplearning/consec.png" class="center" style="width:800px"/>  
+<img src="{{ site.url }}/nailbrainz.github.io/images/deeplearning/consec.png" class="center" style="width:800px"/>  
 3. ASPP: Compared to Deeplab v2, added image-level by GAVP (atrous conv with too large rate degenerated to 1by1 conv, since the filter weights of edges are applied to zero-padding region, so the middle filter weight is only effective)  
 \\(\rightarrow\\) one 1by1, three 3bye with rates (6, 12, 18), and image-lvl GAVP, when `os=16`. The rates doubled when `OS=8`.
 

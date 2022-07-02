@@ -18,7 +18,7 @@ tags: deep_learning segmentation skipconnection
 
 
 ### Architecture
-<img src="{{ site.url }}/images/deeplearning/unet.png" class="center" style="width:1000px"/> 
+<img src="{{ site.url }}/nailbrainz.github.io/images/deeplearning/unet.png" class="center" style="width:1000px"/> 
 
 * No Dense layer
 * No padding in convs of contracting path 

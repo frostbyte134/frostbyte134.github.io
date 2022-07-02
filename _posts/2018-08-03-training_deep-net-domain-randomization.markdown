@@ -90,7 +90,7 @@ Although `DR` images are easy to generate, obtained somewhat competitive results
 
 __PR Curve__:
 
-<img src="{{ site.url }}/images/deeplearning/ssg/dr-pr.png" class="center" style="width:500px"/>
+<img src="{{ site.url }}/nailbrainz.github.io/images/deeplearning/ssg/dr-pr.png" class="center" style="width:500px"/>
 	- For high recall, VKITTI is better.
 > We hypothesize that our simplified DR procedure prevents some variations observed in the test set from being genrerated. For example, image context is ignored by our procedure, so that the structure inherent in parked cars is not taken into account. (thus problematic in high recall?)
 
@@ -100,7 +100,7 @@ __PR Curve__:
 * gradient was allowed to fully flow from end-to-end
 * Faster R-CNN network trained until convergence. 
 
-<img src="{{ site.url }}/images/deeplearning/ssg/finetune-pr.png" class="center" style="width:500px"/>
+<img src="{{ site.url }}/nailbrainz.github.io/images/deeplearning/ssg/finetune-pr.png" class="center" style="width:500px"/>
 
 Fig. 6. (For comparison, the figure also shows results after
 training only on real images at the original learning rate of

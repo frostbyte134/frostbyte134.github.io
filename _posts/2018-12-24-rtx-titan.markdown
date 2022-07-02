@@ -7,8 +7,8 @@ use_math: true
 tags: photo misc
 ---
 
-<img src="{{ site.url }}/images/titan_1.jpg" class="center" style="width:600px"/>
+<img src="{{ site.url }}/nailbrainz.github.io/images/titan_1.jpg" class="center" style="width:600px"/>
 
 신고식으로 이미지넷 함 달리는중. 1epoch당 5시간쯤이면...Titan XP가 12시간이었으니 엄청 좋아지긴 한 듯
 
-<img src="{{ site.url }}/images/titan_2.png" class="center" style="width:600px"/>
+<img src="{{ site.url }}/nailbrainz.github.io/images/titan_2.png" class="center" style="width:600px"/>

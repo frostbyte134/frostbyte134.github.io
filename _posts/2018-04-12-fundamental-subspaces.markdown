@@ -7,7 +7,7 @@ use_math: true
 tags: linear_algebra
 ---
 
-![4spaces]({{ site.url }}/images/math/linear_alg/4spaces.jpg)  
+![4spaces]({{ site.url }}/nailbrainz.github.io/images/math/linear_alg/4spaces.jpg)  
 
 ### (1) Row space (\\(R^n\\), with \\(r\\) basis)
 * Space spanned by the rows

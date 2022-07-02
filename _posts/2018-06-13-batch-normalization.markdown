@@ -6,7 +6,7 @@ categories: deep_learning
 use_math: true
 tags: optimization deep_learning need_revise
 ---
-<img src="{{ site.url }}/images/deeplearning/batchnorm_calc.png" class="center" style="width:800px"/> 
+<img src="{{ site.url }}/nailbrainz.github.io/images/deeplearning/batchnorm_calc.png" class="center" style="width:800px"/> 
 > <a href="https://arxiv.org/abs/1502.03167" target="_blank">Batch normalization</a> is a method of adaptive reparametrization, motivated by the difficulty of training very deep models.
 
 It provides __reasonable tradeoff__ between the representational power of the network and ease in optimization. 

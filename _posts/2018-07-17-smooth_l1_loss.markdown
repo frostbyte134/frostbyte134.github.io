@@ -7,7 +7,7 @@ use_math: true
 tags: deep_learning detection optimization
 ---
 
-<img src="{{ site.url }}/images/deeplearning/smooth_l1.png" class="center" style="width:500px"/>  
+<img src="{{ site.url }}/nailbrainz.github.io/images/deeplearning/smooth_l1.png" class="center" style="width:500px"/>  
 \\[
 \text\{smooth\}\_\{L\_1\}=\begin\{cases\}
     0.5x^2, && \text\{if \} \|x\|<1 \cr

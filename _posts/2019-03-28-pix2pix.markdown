@@ -89,7 +89,7 @@ In this paper, authours
 L1 vs GAN loss: L1 is minimized by choosing the median of the conditional prob. dist, but adversarial loss can aware that greyish images are not likely to be from GT - showed in figure 7 of color distribution matching
 
 
-<img src="{{ site.url }}/images/deeplearning/gan/pix2pix-fig7.png" class="center" style="width:1000px"/> 
+<img src="{{ site.url }}/nailbrainz.github.io/images/deeplearning/gan/pix2pix-fig7.png" class="center" style="width:1000px"/> 
 figure 7 - not RGB, but Lab color space in log scale! (actual difference comes in high prob region, not the low prob regions which are dominant in the figure)
 
 ### Generator (Unet + skip conn)

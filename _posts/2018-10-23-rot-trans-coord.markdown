@@ -7,7 +7,7 @@ use_math: true
 tags: geometry rotatation
 ---
 
-<img src="{{ site.url }}/images/math/rot.png" class="center" style="width:500px"/>  
+<img src="{{ site.url }}/nailbrainz.github.io/images/math/rot.png" class="center" style="width:500px"/>  
 
 ### Rotation in 2D
 Suppose that we want to perform \\(\text\{ccw\}(\theta)\\): counter-clock direction rotation, in the amount of theta.
@@ -59,7 +59,7 @@ The matrix representing such rotation is, \\[R_x:=
 
 Suppose that we are given a rotation matrix of of an object (That is, we have a world coordinate system and an object coordinate system, and have the rotation matrix of the object). Generally the direction is counter-clock wise (in each yaw, pitch and roll).  
 To simplify the problem, we consider a rotation of coordinate system in 2D (__yawing__ \\(\text\{ccw\}(\theta)\\), for instance).  
-<img src="{{ site.url }}/images/math/rot.png" class="center" style="width:500px"/>  
+<img src="{{ site.url }}/nailbrainz.github.io/images/math/rot.png" class="center" style="width:500px"/>  
 Note that, \\[\text\{Rotating the axis(object) ccw\}(\theta)\\]is equivalent to\\[\text\{Rotating the whole points cw\}(\theta)\\]
 Yawing is given as the rotation of the object.  
 Thus, to represent (a point \\(p\\) in the world coordinate) with the target(camera) coordinate , which rotated in the amount of \\(\text\{ccw\}(\theta)\\) in yawing,  

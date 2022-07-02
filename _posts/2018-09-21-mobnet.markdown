@@ -14,7 +14,7 @@ tags: deep_learning mobilenet depthwise_conv
 <a href="https://arxiv.org/pdf/1704.04861.pdf" target="_blank">https://arxiv.org/pdf/1704.04861.pdf</a>  
 
 - Depthwise convolution: seperate(ind) 1-dim conv over each input channel, then combine (channelwise) with 1by1 conv
-<img src="{{ site.url }}/images/deeplearning/depthwise.png" class="center" style="width:500px"/>  
+<img src="{{ site.url }}/nailbrainz.github.io/images/deeplearning/depthwise.png" class="center" style="width:500px"/>  
 - Computational cost of Depthwise conv:
 	1. Normal conv: \\(D_\{filt\}\times D_\{filt\} \times C_\{filt\}\\) (a single filter wrt one output point) \\(\times D_\{out\} \times D_\{out\} \times C_\{out\}\\)  
 	Note that \\(C_\{filt\}= C_\{in\}\\).

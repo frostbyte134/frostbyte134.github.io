@@ -19,7 +19,7 @@ tags: linear_algebra need_revise
    - In equation \\(A^TAx=A^Tb\\), any `nullspace` component of \\(A^TA\\) (is equivalent of the `nullspace` of \\(A\\)) can be added to \\(x\\), so we cannot determine which \\(x\\) corresponds to \\(b\\) as a reverse-mapping.
    - We map shortest (= which does not contain any nullspace component of \\(A^TA\\) (\\(A^TA\\) and \\(A\\) shares nullspace anyway)) \\(x\\) to \\(b\\), by `pseudoinverse`!
 
-<img src="{{ site.url }}/images/math/linear_alg/pseudoinverse.png" class="center" style="width:800px"/>  
+<img src="{{ site.url }}/nailbrainz.github.io/images/math/linear_alg/pseudoinverse.png" class="center" style="width:800px"/>  
 
 
 When \\(A^\{-1\}\\) fails to exist, the best substitute is the `pseudoinverse` \\(A^+\\). This inverts \\(A\\) where that is possible: \\(A^+Ax=x\\) for \\(x\\) in the row space. On the left nullspace, nothing can be done. \\(A^+y=0\\). Thus \\(A^+\\) inverts \\(A\\) where it is invertible, and has the same rank \\(r\\). One formula for \\(A^+\\) depends on the singula value decomposition.

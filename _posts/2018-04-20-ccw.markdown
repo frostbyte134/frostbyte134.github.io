@@ -7,7 +7,7 @@ use_math: true
 tags: geometry
 ---
 
-![hey]({{ site.url }}/images/math/geometry/ccw.gif)  
+![hey]({{ site.url }}/nailbrainz.github.io/images/math/geometry/ccw.gif)  
 
 For \\(a,b\in\Re^2\\),
 

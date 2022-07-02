@@ -15,7 +15,7 @@ For \\(A\in R^\{m\times n\}\\),
 \\[\Leftrightarrow \textrm\{rank\}A=n\\]
 <br>
 * If \\(m<n,\\>A\\) __cannot be injective__.  
-proof: Thanks to the <a href="{{ site.url }}/linear_algebra/2018/05/09/rank.html#dimen_theorem" target="_blank">dimensionality theorem</a>,
+proof: Thanks to the <a href="{{ site.url }}/nailbrainz.github.io/linear_algebra/2018/05/09/rank.html#dimen_theorem" target="_blank">dimensionality theorem</a>,
 \\[\textrm\{dim\}(\textrm\{ker\}A)+\textrm\{dim\}(\textrm\{Im\}A)=n\\]
 but \\(\textrm\{dim\}(\textrm\{Im\}A)<n\\), so \\(\textrm\{ker\}A\\) is nontrivial.  
 \\(\Rightarrow \\) for nonzero \\(x'\in \textrm\{ker\}A,\\>Ax=A(x+x')\\)
@@ -26,7 +26,7 @@ but \\(\textrm\{dim\}(\textrm\{Im\}A)<n\\), so \\(\textrm\{ker\}A\\) is nontrivi
 \\[\Leftrightarrow \textrm\{dim\}\textrm\{Im\}A=m\\]
 <br>
 * If \\(m>n,\\>A\\) __cannot be surjective__.  
-proof: Again, thanks to the <a href="{{ site.url }}/linear_algebra/2018/05/09/rank.html#dimen_theorem" target="_blank">dimensionality theorem</a>,
+proof: Again, thanks to the <a href="{{ site.url }}/nailbrainz.github.io/linear_algebra/2018/05/09/rank.html#dimen_theorem" target="_blank">dimensionality theorem</a>,
 \\[\textrm\{dim\}(\textrm\{ker\}A)+\textrm\{dim\}(\textrm\{Im\}A)=n\\]
 Then \\(\textrm\{dim\}(\textrm\{Im\}A)\leq n<m\\), which contradicts the definition of surjective mapping.
 

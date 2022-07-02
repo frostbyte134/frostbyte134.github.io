@@ -20,7 +20,7 @@ Relative coordinate based on an arbitrary fixed point.
 
 ### 3. Image coordinate system (pixel coordinate)
 unit = pixel   
-![이미지좌표계]({{ site.url }}/images/math/geometry/image_coord_sys.png)  
+![이미지좌표계]({{ site.url }}/nailbrainz.github.io/images/math/geometry/image_coord_sys.png)  
 
 ### 4. Normalized image coordinate system
 - virtual plane for convenience (projection of all 3d points to a plane where `focal length` = 1)
@@ -30,7 +30,7 @@ unit = pixel
 * `Origin` (=`principal point`): intersection with z-axis of camera coordinate system and the plane  
         = projection of the focus point into the normalized image plane
 
-| ![핀홀투영]({{ site.url }}/images/math/geometry/pinhole_projection.png)| 
+| ![핀홀투영]({{ site.url }}/nailbrainz.github.io/images/math/geometry/pinhole_projection.png)| 
 |:--:| 
 | Image from [1] |
 
@@ -47,8 +47,8 @@ u\cr v \cr 1
 \begin{bmatrix} 
 x_w \cr y_w \cr z_w \cr 1 
 \end{bmatrix} \\]
-![1]({{ site.url }}/images/math/geometry/vline.png){: .center-image }  
-![2]({{ site.url }}/images/math/geometry/calibration_cameramodel_coords.png){: .center-image } 
+![1]({{ site.url }}/nailbrainz.github.io/images/math/geometry/vline.png){: .center-image }  
+![2]({{ site.url }}/nailbrainz.github.io/images/math/geometry/calibration_cameramodel_coords.png){: .center-image } 
 
 ### 1. World coordinate to camera coordinate
 - using `extrinsic matrix` \\( \begin{bmatrix} R & T \end{bmatrix} \\) (Rotation and Translation)
@@ -61,7 +61,7 @@ x_w \cr y_w \cr z_w \cr 1
 
 Note that, \\( T \\) __is the position of the origin of the world coordinate in camera-coordinate.__
 
-![3]({{ site.url }}/images/math/geometry/rel_coord.png){: .center-image } 
+![3]({{ site.url }}/nailbrainz.github.io/images/math/geometry/rel_coord.png){: .center-image } 
 
 If order to represent (x, y) with the camera plane, we need to add T (vector addition!).
 

@@ -13,7 +13,7 @@ PASCAL VOC 2012 test 72.5
 ### Abstract, Introduction
 * Limitation of conventional (pre-2015) seg nets: prone to considering multi-scale objects  
 	1. receptive field size fixed - the object that is substantially larger or smaller than the receptive field may be fragmented or mislabeld. In other words, label prediction is doen with the only locla info. for large objs and the pixels that belong to the same object may be inconsistent labels as shown in below figure.  
-	<img src="{{ site.url }}/images/deeplearning/seg-lim.png" class="center" style="width:500px"/>
+	<img src="{{ site.url }}/nailbrainz.github.io/images/deeplearning/seg-lim.png" class="center" style="width:500px"/>
 	2. the detailed structures of an obj are often lost or smoothed b/c the label map, input to the deconv layer, is too coarse (dense, os=8 in deeplab!) and __deconv procedure is overly simple.__ Recent (2015) methods use CRF to mitigate this issue (ex - integrate multiple outputs with CRF)  
 * The proposed algorithm mitigates the limitations of the existing methods based on fully convolutional networks by __integrating deep deconv net and proposal-wise prediction (by CRF);__
 
@@ -27,7 +27,7 @@ Related works
 * In (Fully Convolutional Networks for Semantic Segmentation, CVPR 2015) paper, fc layers in the standard CNNs are interpreted as convolutions with large receptive fields, and seg is achieved using coarse class score maps obtained by feedforwarding an input image.
 
 ### Architecture
-<img src="{{ site.url }}/images/deeplearning/conv-deconv.png" class="center" style="width:1000px"/>  
+<img src="{{ site.url }}/nailbrainz.github.io/images/deeplearning/conv-deconv.png" class="center" style="width:1000px"/>  
 * Input image: object proposals from edge-box [28]
 * Output image: prob map in the same size to input iamge
 * contracting part: VGG (13 layers), 2 fc layers in the end
@@ -35,7 +35,7 @@ Related works
 * Inference: gather all instance seg results (zero padded to match dimension), perform max or mean gathering for each spatial loc, and apply fc-CRF [16]
 
 ### Deconv Network
-<img src="{{ site.url }}/images/deeplearning/deconv-unpool.png" class="center" style="width:500px"/>  
+<img src="{{ site.url }}/nailbrainz.github.io/images/deeplearning/deconv-unpool.png" class="center" style="width:500px"/>  
 * `pooling`: filter noisy activations in a lower layer by abstracting activations in a receptive field with a single represnetative value.  
 	* helps classification by retaining only robust activations in upper layers
 	* spatial info with a receptive field is lost

@@ -38,7 +38,7 @@ Factors are computed by minimizing the following cost function
 \\[\min\_{x^\*, y^\*}\sum\_{u,i} c\_{ui}(p\_{ui} - x\_u^Ty\_i)^2 + \lambda \left( \sum\_u \|\|x\_u\|\|^2 + \sum\_i \|\|y\_i \|\|^2 \right) \\]
 
 
-<img src="{{ site.url }}/images/recomm/als.jpg" class="center"  width="500" />
+<img src="{{ site.url }}/nailbrainz.github.io/images/recomm/als.jpg" class="center"  width="500" />
 
 
 ### Paper

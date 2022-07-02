@@ -12,7 +12,7 @@ Throughout this page, we assume that a line \\(l_i\\) is composed of two points 
 
 ### (1) No need for intersecting point
 
-![hmm]({{ site.url }}/images/math/geometry/Line+segment+intersection.jpg)  
+![hmm]({{ site.url }}/nailbrainz.github.io/images/math/geometry/Line+segment+intersection.jpg)  
 
 (Note that, \\(\textrm\{ccw\}(a,b,c)=(b-a)\times(c-a)\\))
 

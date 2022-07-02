@@ -15,7 +15,7 @@ Suppose we are solving a detection problem.
 
 `IOU`: Intersection over union. IOU is calculated betweeen `ground truth` and `detection`.
 
-<img src="{{ site.url }}/images/deeplearning/map/iou.png" class="center" style="width:400px"/>
+<img src="{{ site.url }}/nailbrainz.github.io/images/deeplearning/map/iou.png" class="center" style="width:400px"/>
 
 
 ### (True/False)(Positive/Negative)
@@ -26,7 +26,7 @@ Suppose we are solving a detection problem.
 |positive |true positives(TP) |false positives(FP)|
 |negative  |false negatives(FN)|true negatives(TN)|
 
-<img src="{{ site.url }}/images/deeplearning/map/samples_1_v2.png" class="center" style="width:700px"/>  
+<img src="{{ site.url }}/nailbrainz.github.io/images/deeplearning/map/samples_1_v2.png" class="center" style="width:700px"/>  
 Percentage(%) refers to the confidence of model.
 
 Assume that IOU threshold is 0.5. In above fig, we need to identify IOU with eyes.
@@ -73,7 +73,7 @@ harmonic mean is always less than geometric/arithmetic mean, and close to the \\
 
 ### Precision-Recall Curve
 
-<img src="{{ site.url }}/images/deeplearning/map/pr_curve.png" class="center"/>  
+<img src="{{ site.url }}/nailbrainz.github.io/images/deeplearning/map/pr_curve.png" class="center"/>  
 (image from [1])  
 
 If we consider the top k most confident data, then
@@ -86,7 +86,7 @@ If we consider the top k most confident data, then
 Both \\(R\\) and \\(P\\) increases (\\(tp\\) increases by 1 \\(\rightarrow\\) fraction become closes to 1), and the curve jags up to right.
 
 ### AP and mAP
-<img src="{{ site.url }}/images/deeplearning/map/20171123_195812.jpg" class="center" style="width:400px"/>  
+<img src="{{ site.url }}/nailbrainz.github.io/images/deeplearning/map/20171123_195812.jpg" class="center" style="width:400px"/>  
 (image from <a href="http://darkpgmr.tistory.com/162" target="_blank">http://darkpgmr.tistory.com/162</a>)
 
 `AP`: average of maximum recall over all distinct recall values. (single category, in detection case)  

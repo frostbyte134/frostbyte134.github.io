@@ -124,7 +124,7 @@ establish, closing
 - tcpdump -> wireshark에서, cli가 serv에 [FIN, ACK]는 보내는데 이 이후 종료 과정이 진행되지 않는 것을 발견
 - 서버에서 read시 0이나 음수가 리턴될 시 close를 불러 줘야 하는데 이 처리를 안해서, `close_wait소켓이 계속 유지되고 있었음`
   - 이거 나중에 확인해보자 (netstat -napo로)    
-    <img src="{{ site.url }}/images/coding/tcp/close_wait.jpg" width="350" class="center"/>  
+    <img src="{{ site.url }}/nailbrainz.github.io/images/coding/tcp/close_wait.jpg" width="350" class="center"/>  
     서버에서는 read에서 0 return하면 socket close를 해줘야 하는데 이를 처리 안해서 계속 죽은 소켓에서 읽고 있고 (sigpipe 나지 않나?), 클라이언트에선 FIN에 대한 ACK는 받았으나 서버에서 close호출로 보내오는 FIN을 받지 못해 FIN_WAIT2에 걸림 (timeout 후 소켓 없어짐)
 - 이제 TIME_WAIT 대량발생 시험해 볼 수 있을 듯
 

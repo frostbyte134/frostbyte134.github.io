@@ -15,7 +15,7 @@ tags: coding C
 #### 1.1 The RISC design philosophy
 The `RISC` philosophy concentrates on __reducing the complexity of instructions performed by the hardware__ because it is easier to provide greater flexibility and intelligence in software rather than hardware. As a result, a __RISC design places greater demands on the compiler.__ In contrast, the traditional complex instruction set computer (CISC) relies more on the hardware for instruction functionality, and consequently the CISC instructions are more complicated. 
 
-<img src="{{ site.url }}/images/coding/arm/cisc_risc.jpg" width="600" class="center"/>  
+<img src="{{ site.url }}/nailbrainz.github.io/images/coding/arm/cisc_risc.jpg" width="600" class="center"/>  
 
 The RISC philosophy is implemented with four major design rules:
 1. The compiler or programmer synthesizes complicated operations (for example, a divide operation) by combining several simple instructions.  
@@ -40,7 +40,7 @@ The ARM instruction set differs from the pure RISC definition in several ways
 Each box represents a feature or function. The lines connecting the boxes are the buses carrying data.  
 We can separate the device into four main hardware components: `ARM`, `controller` (Interrupt / Memory / ...), peripherals, bus
 
-<img src="{{ site.url }}/images/coding/arm/soc.jpg" width="600" class="center"/>  
+<img src="{{ site.url }}/nailbrainz.github.io/images/coding/arm/soc.jpg" width="600" class="center"/>  
 
 bus: AMBA. The ARM processor cor is a bus master, perihperals tend to be bus slaves
 
@@ -63,7 +63,7 @@ __Example 1.1__
 - Initializing or organizing memory is an important part of the initialization code because many operating systems expect a known memory layout before they can start. 
 - Figure 1.5 shows memory before and after reorganization. It is common for ARM-based embedded systems to provide for memory remapping because it allows the system to start the initialization code from ROM at power-up. The initialization code then redefines or remaps the memory map to place RAM at address 0x00000000—an important step because then the exception vector table can be in RAM and thus can be reprogrammed. We will discuss the vector table in more detail in Section 2.4.
 
-<img src="{{ site.url }}/images/coding/arm/mem_remap.jpg" width="300" class="center"/>  
+<img src="{{ site.url }}/nailbrainz.github.io/images/coding/arm/mem_remap.jpg" width="300" class="center"/>  
 
 #### SUMMARY
 - Pure RISC is aimed at high performance, but ARM uses a modified RISC design philosophy that also targets good code density and low power consumption. An embedded system consists of a processor core surrounded by caches, memory, and peripherals. The system is controlled by operating system software that manages application tasks. 
@@ -82,7 +82,7 @@ An embedded system also includes the following software components: Initializati
 
 ### Chapter 2
 
-<img src="{{ site.url }}/images/coding/arm/arm_core_dataflow.jpg" width="300" class="center"/>  
+<img src="{{ site.url }}/nailbrainz.github.io/images/coding/arm/arm_core_dataflow.jpg" width="300" class="center"/>  
 
 * A programmer can think of an `ARM core` as __functional units connected by data buses,__ as shown in Figure 2.1,
 * Figure 2.1 shows a `Von Neumann implementation` of the ARM—data items and instructions share the same bus. 
@@ -111,9 +111,9 @@ An embedded system also includes the following software components: Initializati
 
 #### 2.2 CPSR
 
-<img src="{{ site.url }}/images/coding/arm/cpsr.jpg" width="400" class="center"/>  
+<img src="{{ site.url }}/nailbrainz.github.io/images/coding/arm/cpsr.jpg" width="400" class="center"/>  
 
-<img src="{{ site.url }}/images/coding/arm/processor_modes.jpg" width="400" class="center"/>  
+<img src="{{ site.url }}/nailbrainz.github.io/images/coding/arm/processor_modes.jpg" width="400" class="center"/>  
 
 #### banked registers
 * 20 registers are hidden from a program at different times. These registers are called `banked registers` and are identified by the shading in the diagram. They are available only when the processor is in a particular mode;
@@ -133,14 +133,14 @@ An embedded system also includes the following software components: Initializati
 
 > In this book we use a notation that presents the cpsr data in a more human readable form. When a bit is a binary 1 we use a capital letter; when a bit is a binary 0, we use a lowercase letter. For the condition flags a capital letter shows that the flag has been set. For interrupts a capital letter shows that an interrupt is disabled.
 
-<img src="{{ site.url }}/images/coding/arm/cpsr_conventions.jpg" width="400" class="center"/>  
+<img src="{{ site.url }}/nailbrainz.github.io/images/coding/arm/cpsr_conventions.jpg" width="400" class="center"/>  
 
 `Conditional execution` controls whether or not the core will execute an instruction. 
 * Most instructions have a condition attribute that determines if the core will execute it based on the setting of the condition flags. 
 * __Prior to execution, the processor compares the condition attribute with the condition flags in the cpsr.__ 
 * If they match, then the instruction is executed; otherwise the instruction is ignored.
 
-<img src="{{ site.url }}/images/coding/arm/conditional_mnemonics.jpg" width="400" class="center"/>  
+<img src="{{ site.url }}/nailbrainz.github.io/images/coding/arm/conditional_mnemonics.jpg" width="400" class="center"/>  
 
 #### 2.3 pipeline
 * `Fetch` loads an instruction from memory.  
@@ -175,7 +175,7 @@ There are three other characteristics of the pipeline worth mentioning.
   * TCM is fast SRAM located close to the core and guarantees the clock cycles required to fetch instructions or data—critical for real-time algorithms requiring deterministic behavior. __TCMs appear as memory in the address map and can be accessed as fast memory.__
 
 
-<img src="{{ site.url }}/images/coding/arm/havard_cache_tcm.jpg" width="400" class="center"/>  
+<img src="{{ site.url }}/nailbrainz.github.io/images/coding/arm/havard_cache_tcm.jpg" width="400" class="center"/>  
 
 
 #### Memory mgmt
@@ -224,7 +224,7 @@ refer to the book
 - read the book. Too many things to write on the blog
 
 #### pre/post conditions  
-<img src="{{ site.url }}/images/coding/arm/pre_post.jpg" width="400" class="center"/>  
+<img src="{{ site.url }}/nailbrainz.github.io/images/coding/arm/pre_post.jpg" width="400" class="center"/>  
 
 - In the pre and post conds, __memory__ is denoted as  
   `mem<data_size>[address]`  
@@ -243,7 +243,7 @@ __S suffix__
   - `The Z flag` is set if the result is zero.
 
 #### MOV, LDR
-<img src="{{ site.url }}/images/coding/arm/mov.jpg" width="450" class="center"/>  
+<img src="{{ site.url }}/nailbrainz.github.io/images/coding/arm/mov.jpg" width="450" class="center"/>  
 
 - mov vs ldr
   - <a href="https://www.raspberrypi.org/forums/viewtopic.php?t=16528" target="_blank">https://www.raspberrypi.org/forums/viewtopic.php?t=16528</a>
@@ -266,11 +266,11 @@ multiply instructions
 - The long multiply instructions (`SMLAL`, `SMULL`, `UMLAL`, and `UMULL`) produce a 64-bit result. The result is too large to fit a single 32-bit register so the result is placed in two registers labeled RdLo and RdHi.
 - The number of cycles taken to execute a multiply instruction depends on the processor implementation. For some implementations the cycle timing also depends on the value in Rs. For more details on cycle timings, see Appendix D.
 - The __branch with link__, or `BL`, instruction is similar to the B instruction but overwrites the link register lr with a return address. It performs a `subroutine call`.  
-  <img src="{{ site.url }}/images/coding/arm/branch.jpg" width="350" class="center"/>  
+  <img src="{{ site.url }}/nailbrainz.github.io/images/coding/arm/branch.jpg" width="350" class="center"/>  
 - `LDR` and `STR` instructions can load and store data on a boundary alignment that is the same as the datatype size being loaded or stored. For example, LDR can only load 32-bit words on a memory address that is a multiple of four bytes—0, 4, 8, and so on.
   - `preindex with writeback`   
-  <img src="{{ site.url }}/images/coding/arm/preind1.jpg" width="350" class="center"/>   
-  <img src="{{ site.url }}/images/coding/arm/preind2.jpg" width="350" class="center"/>  
+  <img src="{{ site.url }}/nailbrainz.github.io/images/coding/arm/preind1.jpg" width="350" class="center"/>   
+  <img src="{{ site.url }}/nailbrainz.github.io/images/coding/arm/preind2.jpg" width="350" class="center"/>  
   - `LDM` : load multiple regs, `STM` : save multiple regs
   - `IA` : increment after, `IB` : increment before
   - `DA` : decrement after, `DB` : decrement before
@@ -286,7 +286,7 @@ multiply instructions
 
 > In the ATPCS, stacks are defined as being full descending stacks. Thus, the LDMFD and STMFD instructions provide the pop and push functions,
 
-<img src="{{ site.url }}/images/coding/arm/stack_desc.jpg" width="450" class="center"/>  
+<img src="{{ site.url }}/nailbrainz.github.io/images/coding/arm/stack_desc.jpg" width="450" class="center"/>  
 
 
 When handling a checked stack there are three attributes that need to be preserved: the stack base, the stack pointer, and the stack limit. The stack base is the starting address of the stack in memory. The stack pointer initially points to the stack base; as data is pushed onto the stack, the stack pointer descends memory and continuously points to the top of stack. If the stack pointer passes the stack limit, then a stack overflow error has occurred. Here is a small piece of code that checks for stack overflow errors for a descending stack:

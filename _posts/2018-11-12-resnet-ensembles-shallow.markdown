@@ -49,8 +49,8 @@ __Drouput__:
 
 __ there are many paths in resnet__
 
-<img src="{{ site.url }}/images/deeplearning/unravel1.png" class="center" style="width:800px"/>  
-<img src="{{ site.url }}/images/deeplearning/unravel2.png" class="center" style="width:800px"/> 
+<img src="{{ site.url }}/nailbrainz.github.io/images/deeplearning/unravel1.png" class="center" style="width:800px"/>  
+<img src="{{ site.url }}/nailbrainz.github.io/images/deeplearning/unravel2.png" class="center" style="width:800px"/> 
  
 * The graph (fig1-(b)) makes clear that data flows along many paths from input to output (thanks to skip conn.)
 * Each unique path can be indexed by a binary code \\(b\in\\{0,1\\}^\{n\}\\)
@@ -80,7 +80,7 @@ Based on the observations,
 
 	
 ### 3. The importance of short paths in resent
-<img src="{{ site.url }}/images/deeplearning/unravel3.png" class="center" style="width:700px"/> 
+<img src="{{ site.url }}/nailbrainz.github.io/images/deeplearning/unravel3.png" class="center" style="width:700px"/> 
 
 1. __Distribution of path lengths (fig6-(a))__: binomial. many at center. For resnet-54, 95% of blocks resides in 19-35
 2. __vanishing grads in resnet:__  

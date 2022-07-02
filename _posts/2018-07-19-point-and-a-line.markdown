@@ -9,7 +9,7 @@ tags: geometry
 
 ### (1)Projection between two vectors
 
-<img src="{{ site.url }}/images/math/geometry/proj-vec.png" class="center" style="width:500px"/>
+<img src="{{ site.url }}/nailbrainz.github.io/images/math/geometry/proj-vec.png" class="center" style="width:500px"/>
 
 As usual,
 \\[(b-ca)^Ta=0\\]
@@ -17,7 +17,7 @@ As usual,
 
 ### (2)Projection between a point (=a vector) and a line (which is represented with two vectors on it)
 
-<img src="{{ site.url }}/images/math/geometry/proj-pnt.png" class="center" style="width:500px"/>
+<img src="{{ site.url }}/nailbrainz.github.io/images/math/geometry/proj-pnt.png" class="center" style="width:500px"/>
 
 1. Find projection between two vectors \\(\text\{proj\}(b-a,\\>q-a)\\)  
 2. We have to add \\(a\\) to the result, recovering original coordinate system.

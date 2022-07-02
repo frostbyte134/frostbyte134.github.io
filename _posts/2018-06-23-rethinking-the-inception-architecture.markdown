@@ -68,7 +68,7 @@ Example TODO:
 \\(\leadsto\\) \\((d\times d \times k) \times 2k\\) computation bottlenect
 3. (fig10): Parallel stride 2 block.
 
-<img src="{{ site.url }}/images/deeplearning/inception/expansion.jpg" class="center"/>  
+<img src="{{ site.url }}/nailbrainz.github.io/images/deeplearning/inception/expansion.jpg" class="center"/>  
 
 __No explanation/intuition in the paper why (the bizarre asymmetric structure of) 3 works. No explanation either why they decided to use it.__ Maybe inspired by the asymmetry of 3-2.
 

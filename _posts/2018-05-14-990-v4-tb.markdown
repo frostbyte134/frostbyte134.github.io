@@ -6,7 +6,7 @@ categories: photo
 use_math: true
 tags: misc photo
 ---
-![hey]({{ site.url }}/images/etc/990v4_1.jpg)  
+![hey]({{ site.url }}/nailbrainz.github.io/images/etc/990v4_1.jpg)  
   <br/><br/>
-![hey]({{ site.url }}/images/etc/990v4_2.jpg)  
+![hey]({{ site.url }}/nailbrainz.github.io/images/etc/990v4_2.jpg)  
 낫배드
