@@ -97,7 +97,7 @@ If the query does not include the shard key, the mongos must send the query to a
 If the query includes multiple sub-expressions that reference the fields indexed by the shard key and the secondary index, the mongos can route the queries to a specific shard and the shard will use the index that will allow it to fulfill most efficiently.
 
 
-### config sergers
+### config servers
 <a href="https://docs.mongodb.com/manual/core/sharded-cluster-config-servers/#std-label-sharded-cluster-config-server" target="_blank">config servers</a>\
 - has  metadata - includes the list of chunks on every shard and the ranges that define the chunks.
 
@@ -109,3 +109,16 @@ If the query includes multiple sub-expressions that reference the fields indexed
 
 ### balancer
 <a href="https://docs.mongodb.com/manual/core/sharding-balancer-administration/#std-label-sharding-internals-balancing" target="_blank">https://docs.mongodb.com/manual/core/sharding-balancer-administration/#std-label-sharding-internals-balancing</a>
+
+
+
+
+
+### 몽고 교육
+
+#### Storage and Retrieval
+- 커서 - 바로 데이터를 가져오지 않고, batch로 알아서 끊어서 가져옴
+- find.skip - 매우 비효율적 (서버에 코스트가 있으며 대량 skip은 별로 권장 안하는 듯)
+- to specify a field in a nested doc we use dot notation
+    - `db.coll.findOne({"address.city": "New York"})` 처럼 사용가능
+    - `findOne({address: {city: "New York"}})` 이건 추가적인 필드가 더 없는 경우 (문서구조가 정확히 일치)만 검색가능

@@ -13,6 +13,31 @@ tags: problem_solving leetcode need_review
 - 보자마자 opt sol이 걍 떠올라야 하는듯 ㅡ,.ㅡ
 
 
+
+### 애멀존 가자
+aa
+
+#### Kadane
+- Maximum subarray sum (이걸 까먹네 ㅋㅋ)
+- Substring with Largest Variance - ㅅㅂ
+
+
+#### Skyline Problems
+* <a href="https://leetcode.com/problems/the-skyline-problem/description/" target="_blank">https://leetcode.com/problems/the-skyline-problem/description/</a>
+* <details>
+   <summary>풀긴 품</summary>이것도 어케 답 안보고 풀긴했는데 이전에도 풀어본거라...ㅎㅎ 생각 정리나 집중도 잘 안됐음..</details>
+
+#### Sort Colors
+* <a href="https://leetcode.com/problems/sort-colors/description/" target="_blank">https://leetcode.com/problems/sort-colors/description/</a>
+* <details>
+   <summary>풀긴 품</summary>빠르게 안됐음. 다시 한번 풀어볼 정도?</details>
+ 
+
+
+### 보기만
+- https://leetcode.com/problems/the-number-of-weak-characters-in-the-game/ 풀긴 걍 풀음 ㅎㅎ 아직 죽진 않았구먼
+
+
 ### 복습리스트
 - https://leetcode.com/problems/sum-of-subarray-ranges/ (한번에 opt)
 - https://leetcode.com/problems/maximum-length-of-subarray-with-positive-product/
