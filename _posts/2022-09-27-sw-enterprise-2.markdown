@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Patterns of Enterprise APP Architecture 3"
-date:   2020-09-26 09:10:05 +0800
+date:   2022-09-26 09:10:05 +0800
 categories: coding
 use_math: true
 tags: coding

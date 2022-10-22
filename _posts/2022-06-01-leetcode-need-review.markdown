@@ -22,6 +22,12 @@ aa
 - Substring with Largest Variance - ㅅㅂ
 
 
+### https://leetcode.com/problems/find-k-th-smallest-pair-distance/description/
+
+* <a href="https://leetcode.com/problems/find-k-th-smallest-pair-distance/description/" target="_blank">https://leetcode.com/problems/find-k-th-smallest-pair-distance/description/</a>
+* <details>
+   <summary>와 풀긴 푸음</summary>난 이진탐색 2번으로 풀었는데, 투포인터 + 이진탐색이 더 빠른 듯?</details>
+
 ### https://leetcode.com/problems/plates-between-candles/solutions/
 
 * <a href="https://leetcode.com/problems/plates-between-candles/description/" target="_blank">https://leetcode.com/problems/plates-between-candles/description/</a>
