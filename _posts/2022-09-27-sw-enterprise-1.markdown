@@ -210,6 +210,7 @@ which pattern to choose: complexity of doamin layer (which is not quantifiable)
 CI가 2006년 쓴 글이네?ㄷㄷㄷㄷㄷㄷㄷ
 대전게임 / 데바데 같은 건 consistency 관리를 어떻게 할까...
 커맨드 패턴 복습 (아래)
+we begun to see interfaces based on XML over HTTP (...) 언제적 얘기지
 
 
 ### Chap 9 Domain Logic Patterns
@@ -265,8 +266,6 @@ Company sell 3 `products` - word processors, db, spreadsheat
 
 common concern = `bloated objects`
 - too many responsibilities in a single class, each only used in a single use case (SRP!)
-
-
   - responsiblity is general -> to order class (?)
   - is specific - seperate to the usage-specific class (might be a TS or the presentation itself?)
 
@@ -275,10 +274,9 @@ The problem with separating usage-specific behavior is that __it can lead to dup
 - my adivce is not to seperate usage-specific behavior. Put it all in the object thats the natural fir. Fix the bloating when, and it, it becomes a problem
 
 
-
 느낀점
-usage-specific behavior를 전부 분리하는 것은 duplication의 위험이 큼 -> 문제가 될 때만 분리?
-
+- object책에서 이 책 내용을 열심히 반복적으로 설명해 줬던 것 같음 (obj = behavior + state, if-else문을 객체구조 쪽으로 옮겨라)
+- usage-specific behavior를 전부 분리하는 것은 duplication의 위험이 큼 -> 문제가 될 때만 분리?
 
 The problem with separating usage-specific behavior is that __it can lead to duplication__
 - duplication quickly lead to more complexity / inconsistency, but i've found bloating occurs much less frequently
@@ -298,7 +296,7 @@ Domain model - multiple objs interacts with each other (even simplest cases)
 
 
 The OO habit of successive forwarding from obj to obj moves the behavior to the obj most qualified to handle it, but it also resolves much of the conditional behavior
-- there are no conditionals in the cals
+- there are no conditionals in the calcs
 - you set up the decision path when you create the products with the appropriate stragegy
 - domain model works well with similar conditions, since the similar conditionals factored out into the obj structure
 - this moves complexity out of algorithm and into the relationships between objs

@@ -22,6 +22,28 @@ aa
 - Substring with Largest Variance - ㅅㅂ
 
 
+### https://leetcode.com/problems/plates-between-candles/solutions/
+
+* <a href="https://leetcode.com/problems/plates-between-candles/description/" target="_blank">https://leetcode.com/problems/plates-between-candles/description/</a>
+* <details>
+   <summary>개굿</summary>nlogn으로 풀었는데, 훨씬 더 깔끔한 방법이 있네. 어쨋든 지금 ps 근육이 없음. 많이 풀어야 할 듯</details>
+
+### https://leetcode.com/problems/integer-to-english-words/description/
+Integer to English Words
+- 풀어볼 만 한듯 (한번에 제출, 설명, 깔끔)
+
+### sequentially-ordinal-rank-tracker
+* <a href="https://leetcode.com/problems/sequentially-ordinal-rank-tracker/description/" target="_blank">https://leetcode.com/problems/sequentially-ordinal-rank-tracker/description/</a>
+* <details>
+   <summary>방법은 금방 알았는데 (ㅋㅋ)</summary>순차적으로 늘어나니까..ㅎㅎ heapq 연습문제</details>
+
+### unique-paths-iii
+
+* <a href="https://leetcode.com/problems/unique-paths-iii/description/" target="_blank">https://leetcode.com/problems/unique-paths-iii/description/</a>
+* <details>
+   <summary>Aㅏ...</summary>늙었구나...</details>
+
+
 #### Skyline Problems
 * <a href="https://leetcode.com/problems/the-skyline-problem/description/" target="_blank">https://leetcode.com/problems/the-skyline-problem/description/</a>
 * <details>
