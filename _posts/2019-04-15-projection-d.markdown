@@ -19,7 +19,7 @@ Let
   
 The standard __adversarial loss__ for GAN is given by
 \\[\mathcal\{L\}(D)=-E\_\{q(y)\}[E\_\{q(x\|y)\}\ln D(x,y)]- E\_\{p(y)\}[E\_\{p(x\|y)\}\ln[1-D(x,y)]]\\]
-To find the optimal discriminator \\(f^\text\{\*\}\\)in the functional space as <a href="https://nailbrainz.github.io/deep_learning/2019/03/09/nips2016-gan-tutorial.html" target="_blank">Goodfellow did</a>, we first fix \\(x,y\\) of \\(D\\) so that
+To find the optimal discriminator \\(f^\text\{\*\}\\)in the functional space as <a href="https://deep_learning/2019/03/09/nips2016-gan-tutorial.html" target="_blank">Goodfellow did</a>, we first fix \\(x,y\\) of \\(D\\) so that
 \\[\mathcal\{L\}(D(x,y))=-q(y)q(x\|y)\ln \sigma(f^\*(x,y))-p(y)p(x\|y)\ln[1-\sigma(f^\*(x,y))]] \\]
 take derivative of the above term wrt a scalar \\(f^\*(x,y)\\) and letting it be 0 
 \\(\left( \frac\{\partial \mathcal\{L\}(\sigma(f^\*(x,y)))\}\{f^\*(x,y)\}=0 \right)\\)gives

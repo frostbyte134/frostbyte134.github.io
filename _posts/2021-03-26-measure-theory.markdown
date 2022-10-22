@@ -26,7 +26,7 @@ tags: math analysis probability
 
 `Fatou's lemma`
 \\[f(x)=\mathop{\text\{liminf\}}\_{n\rightarrow\infty} f\_n(x) \quad\rightarrow\quad \int\_E{f d\mu} \leq \mathop{\text\{liminf\}}\_{n\rightarrow\infty} f\_n d\mu \\]
-- 이거하고 DCT보기전에 liminf의 일반적인 성질을 다시 보고 오면 좋음 <a href="https://nailbrainz.github.io/analysis/2020/12/22/limit-supremum.html" target="_blank">링크</a>
+- 이거하고 DCT보기전에 liminf의 일반적인 성질을 다시 보고 오면 좋음 <a href="https://analysis/2020/12/22/limit-supremum.html" target="_blank">링크</a>
 
 chap 9, 10도 올려야 하는데..너무 귀찮다. 의욕이 없음. 뭔가 잘못 선택한 느낌..
 

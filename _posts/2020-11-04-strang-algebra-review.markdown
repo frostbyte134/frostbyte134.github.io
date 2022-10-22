@@ -162,7 +162,7 @@ For the square matrices, the condition for invertibility is __full rank__ : \\(r
 
 `2V` Supposer \\(A\\) and \\(B\\) are linear transformations from \\(V\\) to \\(W\\) and from \\(U\\) to \\(V\\). Their product \\(AB\\) start with a vector \\(u\in U\\), goes to \\(Bu\\) in \\(V\\), and finishes with \\(ABu\\) in \\(W\\). This `composition` \\(AB\\) is again a linear transformation from \\(U\\) to \\(V\\).
 
-(<a href="https://nailbrainz.github.io/analysis/2018/04/02/vector-projection.html" target="_blank">remember</a> that, \\(\text\{cos\}\theta = \|a^Tb\|/(\|a\|\|b\|)\\))
+(<a href="https://analysis/2018/04/02/vector-projection.html" target="_blank">remember</a> that, \\(\text\{cos\}\theta = \|a^Tb\|/(\|a\|\|b\|)\\))
 
 
 #### Linear transformations
@@ -205,13 +205,13 @@ __Dimension formula__ dim(row space) + dim(nullspace) = number of columns, \\(n\
 
 \\(A^T\\) goes in the opposite direction, from \\(R^m\\) to \\(R^m\\) and from \\(C(A)\\) to \\(C(A^T)\\). Of course the transpose is not inverse.
 
-When \\(A^\{-1\}\\) fails to exist, the best substitute is the <a href="https://nailbrainz.github.io/linear_algebra/2018/11/06/pseudoinverse.html" target="_blank">`pseudoinverse`</a> \\(A^+\\). This inverts \\(A\\) where that is possible: \\(A^+Ax=x\\) for \\(x\\) in the row space. On the left nullspace, nothing can be done. \\(A^+y=0\\). Thus \\(A^+\\) inverts \\(A\\) where it is invertible, and has the same rank \\(r\\). One formula for \\(A^+\\) depends on the <a href="https://nailbrainz.github.io/linear_algebra/2018/05/26/svd.html" target="_blank">singula value decomposition.</a>
+When \\(A^\{-1\}\\) fails to exist, the best substitute is the <a href="https://linear_algebra/2018/11/06/pseudoinverse.html" target="_blank">`pseudoinverse`</a> \\(A^+\\). This inverts \\(A\\) where that is possible: \\(A^+Ax=x\\) for \\(x\\) in the row space. On the left nullspace, nothing can be done. \\(A^+y=0\\). Thus \\(A^+\\) inverts \\(A\\) where it is invertible, and has the same rank \\(r\\). One formula for \\(A^+\\) depends on the <a href="https://linear_algebra/2018/05/26/svd.html" target="_blank">singula value decomposition.</a>
 
 
 #### 3.2 Cosines and Projections onto lines
 > We want to connect inner products to angles, and also to transposes.
 
-<a href="https://nailbrainz.github.io/linear_algebra/2018/05/16/projection.html" target="_blank">Projection onto a line - least-squares solution to an overdetermined system</a>
+<a href="https://linear_algebra/2018/05/16/projection.html" target="_blank">Projection onto a line - least-squares solution to an overdetermined system</a>
 
 projection onto a line and Schwartz inequality (The most important inequality in mathematics!)  
 <img src="{{site.url}}/images/math/linear_alg/strang/chap1/schwartz.jpg" width="900">  
@@ -225,7 +225,7 @@ Its close connection to inner products gives a new and much more _abstract_ defi
 
 
 #### Least square
-- <a href="https://nailbrainz.github.io/linear_algebra/2018/05/16/projection.html" target="_blank">LINK</a> 으로 대체
+- <a href="https://linear_algebra/2018/05/16/projection.html" target="_blank">LINK</a> 으로 대체
 - Weighted least squares system \\(WAx=b\\) where \\(W\\) is a diagonal matrix with weights.
   - EX) 각 row (a data point)는 신뢰성, 표본 크기 등의 credibility degree를 가질 수 있음
 - __The least square solution__ to above system is \\(\hat\{x\}_W\\), which can be found in 

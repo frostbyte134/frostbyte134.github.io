@@ -79,10 +79,10 @@ vx_status vxGraphParameterEnqueueReadyRef(
 - __pipelining depth and buffers are orthogonal__
 
 - basic pipelining  
-<img src="{{ site.url }}/nailbrainz.github.io/images/tiovx/basic_graph_pipelined.png" width="800" class="center"/>  
+<img src="{{ site.url }}/images/tiovx/basic_graph_pipelined.png" width="800" class="center"/>  
 
 - with buffer  
-<img src="{{ site.url }}/nailbrainz.github.io/images/tiovx/basic_graph_pipelined_buffering.png" width="800" class="center"/>  
+<img src="{{ site.url }}/images/tiovx/basic_graph_pipelined_buffering.png" width="800" class="center"/>  
 
 - When developing a pipelined application, multiple buffers must be created between nodes in order to avoid any stalls in the pipeline
 
@@ -117,7 +117,7 @@ vx_status VX_API_CALL tivxSetNodeParameterNumBufByIndex	(	vx_node 	node,
 - Object Arrays and Pyramids are treated similarly in TIOVX from a pipelining perspective
 
 
-<img src="{{ site.url }}/nailbrainz.github.io/images/tiovx/Object_Array_Produced.png" width="600" class="center"/>  
+<img src="{{ site.url }}/images/tiovx/Object_Array_Produced.png" width="600" class="center"/>  
 
 - use the `vxReplicateNode()` feature for sending separate elements of an object array to downstream nodes for processing
 

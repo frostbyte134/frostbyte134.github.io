@@ -48,7 +48,7 @@ In practice, we don't have access to \\(p\_\{data\}\\), so we define `empirical 
 > Minimizing \\(D\_\{KL\}(p\_\{data\}(x) \|\| p\_\{model\}(x;\theta))\\) is exactly equivalent to maximing the log-lkelihood of the training set.
 
 ### Taxonomy
-<img src="{{ site.url }}/nailbrainz.github.io/images/deeplearning/gan/taxonomy.png" class="center" style="width:700px"/> 
+<img src="{{ site.url }}/images/deeplearning/gan/taxonomy.png" class="center" style="width:700px"/> 
 
 #### GANs vs other generative models
 * The design of the generator has very few restrictions.

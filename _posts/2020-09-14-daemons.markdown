@@ -9,7 +9,7 @@ tags: os need_review coding
 
 
 ### 데몬 생성 (duplicated)
-- <a href="https://nailbrainz.github.io/coding/2020/06/28/linux-process.html" target="_blank">https://nailbrainz.github.io/coding/2020/06/28/linux-process.html</a>
+- <a href="https://coding/2020/06/28/linux-process.html" target="_blank">https://coding/2020/06/28/linux-process.html</a>
 
 ### systemD
 - socket activation? : <a href="http://0pointer.de/blog/projects/socket-activation.html" target="_blank">http://0pointer.de/blog/projects/socket-activation.html</a>

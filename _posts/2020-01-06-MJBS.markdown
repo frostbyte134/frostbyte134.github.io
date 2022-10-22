@@ -77,7 +77,7 @@ Of course we have to use the same method to scale both training and testing data
 - overflow / underflow?
 
 ### NMS
-- [그냥 이페이지면 됨](https://nailbrainz.github.io/deep_learning/2018/07/17/nms.html)
+- [그냥 이페이지면 됨](https://deep_learning/2018/07/17/nms.html)
 
 ### 디비 인덱스
 - https://myjamong.tistory.com/237

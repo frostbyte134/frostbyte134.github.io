@@ -22,7 +22,7 @@ To describe a convolution, we need 3 components
 Then, \\(Z_{i,j,k}\\) can be described by \\(V, K\\) as follows \\[Z_{i,j,k}=\sum_{l,m,n}{V_{l,j+(m-1),k+(n-1)}K_{i,l,m,n}}\\]
 where \\(m, n\\) are iterated over the size of filter, starting with 1.
 
-| ![angle]({{ site.url }}/nailbrainz.github.io/images/deeplearning/6zX2c.png){: .center-image }| 
+| ![angle]({{ site.url }}/images/deeplearning/6zX2c.png){: .center-image }| 
 |:--:| 
 | Pic of a single channel. Image from <a href="http://jeanvitor.com/convolution-parallel-algorithm-python/" target="_blank">http://jeanvitor.com/convolution-parallel-algorithm-python/</a> |
 

@@ -25,7 +25,7 @@ A conv layer attemps to learn filters in a 3D space, by simultaneously mapping c
 
 > In effect, the fundamental hypothesis behind Inception is that cross-channel correlations and spatial correlations are sufficiently decoupled that it is preferable not to map them jointly.
 
-<img src="{{ site.url }}/nailbrainz.github.io/images/deeplearning/xception.png" class="center" style="width:1000px"/>  
+<img src="{{ site.url }}/images/deeplearning/xception.png" class="center" style="width:1000px"/>  
 
 * The Inception module first tries to find cross-channel correlation, then look for the best spatial correlation.
 * We remark that this extreme form of an Inception module is almost identical to a `depthwise separable convolution`.
@@ -42,7 +42,7 @@ Two minor differences between Depthwise separable and "extreme" Inception module
 ### The Xception architecture
 > In short, the Xception arthitecture is a linear stack of depthwise separable convolution layers with residual connections.
 
-<img src="{{ site.url }}/nailbrainz.github.io/images/deeplearning/xception2.png" class="center" style="width:1000px"/>  
+<img src="{{ site.url }}/images/deeplearning/xception2.png" class="center" style="width:1000px"/>  
 
 ### Experimental Evaluation
 

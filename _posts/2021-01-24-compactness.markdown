@@ -21,7 +21,7 @@ By an open cover of a set \\(E\\) in a metric space \\(X\\) is `compact` when __
 > __Theorem__ 2.33 (PMA):  
 Suppose \\(K\subset Y\subset X\\). Then \\(K\\) is compact wrt \\(X\\) i.i.f \\(K\\) is compact wrt \\(Y\\).
 
-<img src="{{ site.url }}/nailbrainz.github.io/images/analysis/2018-12-22/img1.png" class="center" style="width:400px"/>
+<img src="{{ site.url }}/images/analysis/2018-12-22/img1.png" class="center" style="width:400px"/>
 
 `proof:`
 \\(\rightarrow\\): Consider an open cover of \\(K\\) in \\(Y\\), \\(\bigcup\_\{\alpha\}G\_\{\alpha\}\\). We have show that this open cover has a finite subcover, using the compactness of \\(K\\) in \\(X\\).  
@@ -48,7 +48,7 @@ Thus we obtained finite subcover for an arbitary open cover in \\(X\\). __Q.E.D.
 > __Theorem__ 2.34 (PMA):  
 Compact subsets of metric spaces are closed.
 
-<img src="{{ site.url }}/nailbrainz.github.io/images/analysis/2018-12-22/img2.png" class="center" style="width:400px"/>
+<img src="{{ site.url }}/images/analysis/2018-12-22/img2.png" class="center" style="width:400px"/>
 
 `proof:`
 Let \\(K\\) be a compact subset of a metric space \\(X\\). We shall prove that the complement of \\(K\\) is an open subset of \\(K\\).  

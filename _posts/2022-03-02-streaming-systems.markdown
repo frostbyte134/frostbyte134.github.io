@@ -10,7 +10,7 @@ tags: coding
 (작성-중) 
 
 
-이것도 정리를 [여기](https://github.com/nailbrainz/nailbrainz.github.io/issues)다가 해 놨음. 중요한거만 따로 때 놓자
+이것도 정리를 [여기](https://github.com/nailbrainz/issues)다가 해 놨음. 중요한거만 따로 때 놓자
 
 
 ### Watermarks

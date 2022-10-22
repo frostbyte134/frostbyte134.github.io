@@ -43,7 +43,7 @@ So that, the least square to a one-variable problem \\(ax=b\\) is, \\(\hat\{x\}=
 We initially had \\(Ax=b\\) which might not be unsolvable. Instead we use the tool of linear algebra or calculus to obtain a reasonable \\(\hat\{x\}\\).  
 In calculus case, the __scalar error__ is \\(E^2(x):=\frac\{1\}\{2\}\\|Axb\\|^2\\), a distance in \\(R^n\\).
 Finding \\(\hat\{x\}\\) which minimizes \\(\frac\{1\}\{2\}\\|Ax-b\\|^2\\) is, equivalent to finding a point \\(A\hat\{x\}\\) in the column space closest to \\(b\\) (projection!) <br/>
-<img src="{{ site.url }}/nailbrainz.github.io/images/math/linear_alg/general_proj.jpg" width="1000" class="center"/>  
+<img src="{{ site.url }}/images/math/linear_alg/general_proj.jpg" width="1000" class="center"/>  
 In linear algebra case, using orthogonality
 \\[\begin\{matrix\}\{\}
 a_1^T(b-A\hat\{x\})=0 \cr \vdots \cr a_n^T(b-A\hat\{x\})=0 

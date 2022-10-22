@@ -35,7 +35,7 @@ If \\(f\\) is one-to-one correspondence and \\(f, f^\{-1\}\\) are both order-pre
 <h3 id="maximum">Maximum, Maximal of a Set</h3>
 
 Consider a ordered set \\((\\{1,2,3,4,5,6\\}, \rightarrow)\\)  
-<img src="{{ site.url }}/nailbrainz.github.io/images/math/iso.png" class="center" style="width:500px"/>  
+<img src="{{ site.url }}/images/math/iso.png" class="center" style="width:500px"/>  
 
 1. `Maximum` element \\(x\\) of a set \\(A\\): for all elements, \\(x\\) is always larger
 \\[\forall y\in A,\\ y\leq x \text\{ holds.\}\\]  

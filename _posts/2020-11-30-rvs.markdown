@@ -29,9 +29,9 @@ tags: math probability
 - `Discrete` : countable
 - `PMF` : probability mass function \\[p\_X(x) = P(X=x) = P(\\{ \omega \in \Omega \| X(\omega)=x  \\})\\]
 - `Expectation` (over countable) \\[E[X] := \sum\_x xp\_X(x)\\]
-  - __CAUTION__ \\(\quad \\) infinite sum <a href="https://nailbrainz.github.io/deep_learning/2018/08/23/series-and-sum.html" target="_blank"> needs to be well-defined</a>
+  - __CAUTION__ \\(\quad \\) infinite sum <a href="https://deep_learning/2018/08/23/series-and-sum.html" target="_blank"> needs to be well-defined</a>
     - we assume \\(\sum\_x\|x\|p\_X(x) < \infty \\) (absolute convergent series)
-    - we easily see that (in <a href="https://nailbrainz.github.io/deep_learning/2018/08/23/series-and-sum.html" target="_blank">absolutely convergent series</a>) the `linearity` holds
+    - we easily see that (in <a href="https://deep_learning/2018/08/23/series-and-sum.html" target="_blank">absolutely convergent series</a>) the `linearity` holds
   - \\(E[X+Y+Z] = E[X] + E[Y] + E[Z]\\), using linearity
   - \\(E[XY] = E[X]E[Y]\\), if \\(X\\) and \\(Y\\) are independent - using linearity and seperating joint pmf
   - unless \\(g\\) is an linear function, it is not generally true that \\(E[g(X)] = g(E[X])\\)

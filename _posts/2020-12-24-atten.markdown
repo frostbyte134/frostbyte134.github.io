@@ -74,7 +74,7 @@ layer</a>
   1. `multi-head attention` 
   2. `positionwise fc feed-forward network`
 - residual conns (\\(d\_{model}=512\\) all over the layer enables it)
-- <a href="https://nailbrainz.github.io/deep_learning/2018/06/12/batch-normalization.html" target="_blank">layer normalization</a>
+- <a href="https://deep_learning/2018/06/12/batch-normalization.html" target="_blank">layer normalization</a>
 
 
 #### decoder

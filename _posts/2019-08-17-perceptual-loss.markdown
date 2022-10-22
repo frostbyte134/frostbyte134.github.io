@@ -10,7 +10,7 @@ tags: deep_learning pytorch
 The purpose of this document is, recording the reconstruction procedure of 
 
 1. `ResNet-50` from Bag of tricks... <a href="https://arxiv.org/abs/1812.01187" target="_blank">paper</a>, <a href="{{site.url}}/deep_learning/2019/06/01/bag-of-tricks-classification.html" target="_blank">review</a>,
-2. `Stylized Imagenet` <a href="https://arxiv.org/abs/1811.12231" target="_blank">paper</a>, <a href="https://nailbrainz.github.io/deep_learning/2019/05/22/imgnet-texture-biased.html" target="_blank">review</a>
+2. `Stylized Imagenet` <a href="https://arxiv.org/abs/1811.12231" target="_blank">paper</a>, <a href="https://deep_learning/2019/05/22/imgnet-texture-biased.html" target="_blank">review</a>
 
 , in `Pytorch`, to use the `SIN` (Stylized Imagnet Model) as a perceptual loss calculator in GAN training (pix2pix setup). 
 

@@ -50,7 +50,7 @@ For an arbitrary vector \\(x\in R^n\\),
 
 
 ### Chap 2
-<img src="{{ site.url }}/nailbrainz.github.io/images/math/linear_alg/mapping.jpg" width="1000" class="center"/>  
+<img src="{{ site.url }}/images/math/linear_alg/mapping.jpg" width="1000" class="center"/>  
 
 - 전사 (`surjective`) = imA의 모든 y에 대한 상응하는 x가 존재
 - 단사 (`injective`)= imA의 모든 y에 상응하는 x는 유일

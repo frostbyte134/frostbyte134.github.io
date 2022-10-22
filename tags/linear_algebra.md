@@ -19,7 +19,7 @@ Orthogonal - Unitary
 Symmetric - Hermitian
 
 
-<a href="https://nailbrainz.github.io/linear_algebra/2018/05/09/orthogonality.html" target="_blank">If set of vectors are mutually orthogonal, then they are mutually independent.</a>
+<a href="https://linear_algebra/2018/05/09/orthogonality.html" target="_blank">If set of vectors are mutually orthogonal, then they are mutually independent.</a>
 
 
 4 Fundamental subspaces

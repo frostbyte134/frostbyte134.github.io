@@ -25,7 +25,7 @@ Ex) `Horizontal line`
 Think about a 'plane' parallel to the ground, encompassing the optical axis.
 In below picture, it is represented as a line encompassing L.
 
-| ![VP_horiz]({{ site.url }}/nailbrainz.github.io/images/math/geometry/vline.png){: .center-image }| 
+| ![VP_horiz]({{ site.url }}/images/math/geometry/vline.png){: .center-image }| 
 |:--:| 
 | Image from [2] |
 
@@ -34,7 +34,7 @@ Intersection of such plane with image plane forms a 'line', which is represented
 In the image, for every point below L, no matter how long we extend the line (from C, passing such point), the line will eventually touch the ground and the pixel of such point will be represented as a ground.
 
 Height of the camera is independent with the position of the vanishing line of horizontal plane. Only the pitch, yaw, rolling matters.
-![VP_horiz]({{ site.url }}/nailbrainz.github.io/images/math/geometry/horizontal_lines_of_vp.png){: .center-image }
+![VP_horiz]({{ site.url }}/images/math/geometry/horizontal_lines_of_vp.png){: .center-image }
 
 If we know a vanishing point, we can find out extrinsic parameters (pitch, yaw, rolling) and intrinsic parameters (focal length and principal points)
 

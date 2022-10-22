@@ -15,9 +15,9 @@ TODO:
 
 
 > Preliminary (must!)  
-  - <a href="https://nailbrainz.github.io/analysis/2018/09/14/set-basic.html" target="_blank">set-basic</a>
-  - <a href="https://nailbrainz.github.io/analysis/2018/09/25/ordered-set.html" target="_blank">Ordered set, Isomorphism and Supremum</a>
-  - <a href="https://nailbrainz.github.io/analysis/2018/09/25/cardinality-of-sets-and-axiom-of-choice.html" target="_blank">Cardinality of Sets and the Axiom of Choice</a>
+  - <a href="https://analysis/2018/09/14/set-basic.html" target="_blank">set-basic</a>
+  - <a href="https://analysis/2018/09/25/ordered-set.html" target="_blank">Ordered set, Isomorphism and Supremum</a>
+  - <a href="https://analysis/2018/09/25/cardinality-of-sets-and-axiom-of-choice.html" target="_blank">Cardinality of Sets and the Axiom of Choice</a>
 
 
 

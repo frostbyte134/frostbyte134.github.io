@@ -29,7 +29,7 @@ Deep generative models have had less of an impact,
 
 
 ### Related work
-<img src="{{ site.url }}/nailbrainz.github.io/images/deeplearning/gan/generative-2014.png" class="center" style="width:700px"/>   
+<img src="{{ site.url }}/images/deeplearning/gan/generative-2014.png" class="center" style="width:700px"/>   
 In __undirected graphical models__ (MRF!) with latent variables such as RBM, or DBP (deep Boltzman machines), 
 * interactions are represneted as the prod of unnormalized potentials.  
 * The partition function and its gradient are intractable for all but the most trivial instances, akthough they can be estimated by MCMC methods.

@@ -40,7 +40,7 @@ demonstrate ... by exceeding SOTA unsupervcised adaptation results on standard c
 * we observe that generative modeling of input image distribution is not necessary, as the ultimate task is to learn a discriminative repr.
 * On the other hand, asym mapping can better model the difference in low lvl features than sym ones.
 
-<img src="{{ site.url }}/nailbrainz.github.io/images/deeplearning/adda.png" class="center" style="width:600px"/>   
+<img src="{{ site.url }}/images/deeplearning/adda.png" class="center" style="width:600px"/>   
 `ADDA` 
 1. first learns a discriminative repr using the labels in the source domain and 
 2. then learns a separate encoding that maps the target data to the same space using an asym mapping learned through a domain-adversarial loss.

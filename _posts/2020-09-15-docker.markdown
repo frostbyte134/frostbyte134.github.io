@@ -16,7 +16,7 @@ tags: coding docker
   - docker(client)는 unix domain socket, fd, tcp 방식으로 docker daemon 에 접속하고, docker daemon(server)은 자신이 command 를 수신할 통신 방식을 지정하여 기동해둔다.
 - <a href="https://ziwon.github.io/post/docker-storage-volumes/" target="_blank"> 위 다 보고 보기</a>
 - <a href="https://2infinity.tistory.com/46?category=705880" target="_blank">https://2infinity.tistory.com/46?category=705880</a> 정리 페이지
-- <a href="https://nailbrainz.github.io/coding/2020/09/01/vfs.html" target="_blank">vfs - cgroups</a>
+- <a href="https://coding/2020/09/01/vfs.html" target="_blank">vfs - cgroups</a>
 - <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/resource_management_guide/ch01" target="_blank">레드햇 cgroup 페이지</a>
 - <a href="https://docs.docker.com/machine/overview/#whats-the-difference-between-docker-engine-and-docker-machine" target="_blank">offcial docker doc page</a>
 

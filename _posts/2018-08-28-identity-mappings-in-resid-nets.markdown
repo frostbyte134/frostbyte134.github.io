@@ -57,7 +57,7 @@ Note: when the skip connection is not identity mapping e.g. multiply some scalar
 
 To this end, the author suggested modification of ResNets units as  
 
-<img src="{{ site.url }}/nailbrainz.github.io/images/deeplearning/resnet_identity.png" class="center" style="width:500px"/>
+<img src="{{ site.url }}/images/deeplearning/resnet_identity.png" class="center" style="width:500px"/>
 
 Next:  
 2. <a href="https://arxiv.org/abs/1603.09382" target="_blank">[14] Deep networks with stochastic depth</a>  

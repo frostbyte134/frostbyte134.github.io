@@ -4,7 +4,7 @@
 
 
 ### data alignment
-https://nailbrainz.github.io/coding/2020/04/10/data-align.html
+https://coding/2020/04/10/data-align.html
 
 ### restrict, volatile
 `volatile`: 이 메모리 접근 부분을 생략하지 말아라  

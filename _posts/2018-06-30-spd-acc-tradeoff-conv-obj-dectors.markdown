@@ -57,7 +57,7 @@ Such measure is averaged over the all anchors \\(a\\), and minimized wrt \\(\the
 
 
 ### Meta-architecture - SSDs
-<img src="{{ site.url }}/nailbrainz.github.io/images/deeplearning/tradeoff/ssd.png" class="center" style="width:500px"/>
+<img src="{{ site.url }}/images/deeplearning/tradeoff/ssd.png" class="center" style="width:500px"/>
 
 ... we use the term `SSD` to refer broadly to architectures that _use a single feed-forward convolutional network to directly predict classes and anchor offsets without requiring a second stage per-proposal classification operation_.
 
@@ -65,7 +65,7 @@ Such measure is averaged over the all anchors \\(a\\), and minimized wrt \\(\the
 
 
 ### Meta-architecture - Faster R-CNN
-<img src="{{ site.url }}/nailbrainz.github.io/images/deeplearning/tradeoff/faster.png" class="center" style="width:500px"/>
+<img src="{{ site.url }}/images/deeplearning/tradeoff/faster.png" class="center" style="width:500px"/>
 
 In the Faster R-CNN setting, detection happens in two stages.
 1. in _Region Proposal Network_ (__RPN__), images are processed by a feature extractors (VGG, Resnet,...) and features are selected in some intermediate lvl, to predict a class-agnostic box proposals.  
@@ -75,7 +75,7 @@ In the Faster R-CNN setting, detection happens in two stages.
 
 
 ### Meta-architecture - R-FCN
-<img src="{{ site.url }}/nailbrainz.github.io/images/deeplearning/tradeoff/rfcn.png" class="center" style="width:500px"/>
+<img src="{{ site.url }}/images/deeplearning/tradeoff/rfcn.png" class="center" style="width:500px"/>
 
 ... is like Faster R-CNN, but instead of cropping features from the same layer where region proposals are predicted, crops to the last layer minimizes the amount of of features prior to prediction.
 \\(\leadsto\\) minimize the pe-region computation that must be done

@@ -41,4 +41,4 @@ Therefore, in any case, \\(k-1\\) padding is the optimal.
 
 
 
-TODO: concat with https://nailbrainz.github.io/deep_learning/2018/04/11/conv-oper-practice.html
+TODO: concat with https://deep_learning/2018/04/11/conv-oper-practice.html

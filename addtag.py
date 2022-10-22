@@ -1,7 +1,7 @@
 import os
 
-postPath = "D:\\blog\\nailbrainz.github.io\\_posts"
-tagPath = "D:\\blog\\nailbrainz.github.io\\tags"
+postPath = "D:\\blog\\frostbyte134.github.io\\_posts"
+tagPath = "D:\\blog\\frostbyte134.github.io\\tags"
 posts = os.listdir(postPath)
 
 for post in posts:

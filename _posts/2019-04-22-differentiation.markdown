@@ -15,7 +15,7 @@ Let \\(f\\) be defined (and __real-valued__) on \\([a,b]\\). For any \\(x\in [a,
 \\[\phi(t)=\frac\{f(t)-f(x)\}\{t-x\},\quad (a<t<b,\\ t\neq x)\tag\{1\}\\]
 and define
 \\[f'(x):=\lim\_\{t\rightarrow x\}\phi(t)\tag\{2\}\\]
-provided that __the limit exists__ in accordance with <a href="https://nailbrainz.github.io/analysis/2018/12/19/limit.html" target="_blank">its definition</a>.
+provided that __the limit exists__ in accordance with <a href="https://analysis/2018/12/19/limit.html" target="_blank">its definition</a>.
 
 Note that,
 1. We thus associate with the function \\(f\\) a function \\(f'\\) whose domain is the set of points \\(x\\) at which the limit 2 exists. We call \\(f'\\) as the derivative of \\(f\\).

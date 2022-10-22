@@ -38,7 +38,7 @@ Recommender systems are based on one of two stragegies
    <img src="{{site.url}}/images/math/linear_alg/strang/chap1/rating_mat.jpg" width="800">  
 
 ### SVD
-* <a href="https://nailbrainz.github.io/linear_algebra/2018/05/26/svd.html" target="_blank">SVD</a> decomposes rating matrix \\(R\in \|U\|\times \|I\|\\) into \\(U\in \|U\|\times \|U\|, \Sigma \in \|U\|\times \|I\|, V^T \in \|I\| \times \|I\|\\) 
+* <a href="https://linear_algebra/2018/05/26/svd.html" target="_blank">SVD</a> decomposes rating matrix \\(R\in \|U\|\times \|I\|\\) into \\(U\in \|U\|\times \|U\|, \Sigma \in \|U\|\times \|I\|, V^T \in \|I\| \times \|I\|\\) 
 * excluding rows/cols with 0 (or very small) singular values (\\(\Sigma \in f\times f\\)), we obtain \\(\text\{rank\} f\\) approximation!
 * <a href="https://stats.stackexchange.com/questions/211686/why-does-the-reconstruction-error-of-truncated-svd-equal-the-sum-of-squared-sing" target="_blank">SVD로 구한 factorization이 rank k constraint하에서, 원래 행렬과의 MSE (Frobenious norm)가 가장 작은 행렬</a>이며, error는 singular value들의 제곱의 합 (frob norm은 sqrt를 안하니..)  
   <img src="{{site.url}}/images/math/linear_alg/strang/chap1/frob.jpg" width="700">  

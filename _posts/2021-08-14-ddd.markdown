@@ -82,7 +82,7 @@ tags: coding
 - `domain service function`: entity나 value object가 아닌 것 (ex - allication of order line to batch)
 - exceptions can be uised to express domain concepts too
 
-<img src="{{ site.url }}/nailbrainz.github.io/images/coding/python/../../../../../images/coding/python/ddd_1.gif" class="center" style="width:300px"/>
+<img src="{{ site.url }}/images/coding/python/../../../../../images/coding/python/ddd_1.gif" class="center" style="width:300px"/>
 - <a href="https://github.com/Dev-Nebe/architecture-patterns-with-python/blob/master/src/allocation/domain/model.py" target="_blank">코드</a>를 보면, `allocate()`는 실제로 batch의 동작에 의존함. order_line도 파라미터로 받긴 하는데 얘한테 의존하는 건 없음 (order_line의 동작이 바껴도 allocate에 영향 X)
 
 

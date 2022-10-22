@@ -9,7 +9,7 @@ tags: analysis geometry linear_algebra need_revise
 
 ### Definition of Cos/Sin on a unit circle
 
-| ![angle]({{ site.url }}/nailbrainz.github.io/images/math/analysis/cosonangle.png){: .center-image }| 
+| ![angle]({{ site.url }}/images/math/analysis/cosonangle.png){: .center-image }| 
 |:--:| 
 | defining \\(\cos\theta, \sin\theta\\) on a circle |
 
@@ -19,7 +19,7 @@ Let \\((x,y)\\) be a point on the unit circle, and \\(\theta\\) be the angle whi
 
 <h3 id="proj_on_line">Projection onto a line (cosine and inner product)</h3>
 What we want to show is, in \\(0\leq\theta\leq \pi/2\\), :\\[\cos{\theta}=\frac{\| a^Tb\| }{\|a\|\|b\|}.\\]
-![vproj]({{ site.url }}/nailbrainz.github.io/images/math/analysis/vector_proj.png){: .center-image }
+![vproj]({{ site.url }}/images/math/analysis/vector_proj.png){: .center-image }
 
 To begin with,
 \\[p = ca\quad\textrm{for}\quad c\in\Re, a\in \Re^N\\] \\[a^T(b-p)=a^T(b-ca)=0\\] \\[\longrightarrow c=\frac{a^Tb}{a^Ta}, \\]so that \\[p=ca=\frac{a^Tb}{a^Ta}a, \quad \|p\|=\sqrt{\frac{(a^Tb)^2}{(a^Ta)^2}a^Ta}=\frac{\|a^Tb\|}{\|a\|}\\] now, \\[\cos{\theta}=\frac{\|p\|}{\|b\|}=\frac{\|a^Tb\|}{\|a\|\|b\|}\\]
@@ -87,7 +87,7 @@ An outer product \\(a\times b\\) is defined between two vectors \\(a\in\Re^3, b\
 When we let \\(a\\) as x-axis, \\(b\\) as y-axis, then the cross-product will be pointing toward z-axis direction.
 
 
-| ![cp]({{ site.url }}/nailbrainz.github.io/images/math/analysis/cross_product.png){: .center-image }| 
+| ![cp]({{ site.url }}/images/math/analysis/cross_product.png){: .center-image }| 
 |:--:| 
 | <a href="http://darkpgmr.tistory.com/121" target="_blank">http://darkpgmr.tistory.com/121</a>  |
 
@@ -114,7 +114,7 @@ Let \\(\theta=\textrm{acos}\left(\frac{a^Tb}{\|a\|\|b\|}\right).\\) Then the ans
 We let minimum \\(\theta\\) to be the angle between two __lines__, since we can always find two angles between two lines (or 0).
 
 
-| ![angle]({{ site.url }}/nailbrainz.github.io/images/math/analysis/line_theta.png){: .center-image }| 
+| ![angle]({{ site.url }}/images/math/analysis/line_theta.png){: .center-image }| 
 |:--:| 
 | <a href="http://darkpgmr.tistory.com/121" target="_blank">http://darkpgmr.tistory.com/121</a>  |
 
