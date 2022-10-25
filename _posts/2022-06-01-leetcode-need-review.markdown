@@ -22,6 +22,9 @@ aa
 - Substring with Largest Variance - ㅅㅂ
 
 
+### https://leetcode.com/problems/partition-array-such-that-maximum-difference-is-k/description/
+ez. 리뷰만 (설명하기)
+
 ### https://leetcode.com/problems/find-k-th-smallest-pair-distance/description/
 
 * <a href="https://leetcode.com/problems/find-k-th-smallest-pair-distance/description/" target="_blank">https://leetcode.com/problems/find-k-th-smallest-pair-distance/description/</a>
