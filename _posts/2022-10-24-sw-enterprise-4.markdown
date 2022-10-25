@@ -96,6 +96,7 @@ a structure to organize db mappers that handle inheritance hierarchies
 
 ### 느낀점
 - 이거 sqlalchemy 쓰면 대충 돌아는 가는 거 아닌가 하다가..옛날 개발자들이 object-relational impedence mismatch 때문에 고민한 흔적이라고 생각하기로 했음 
+  - 상속 쪽은 https://docs.sqlalchemy.org/en/14/orm/inheritance.html 읽어보니까 이해가 좀 된 듯
 - data mapper 예제들 솔직히 다 보진 않았음. 나중에, 예를들면 coumpound key 를 쓸 때 생각나면 보러 갈 듯 ㅋㅋ
 - 번외) 돌아다니다 몽고디비 락에 대한 설명을 봤는데, 이 책 pessimistic lock과 완전 동일해서 신기했음 http://mongodb.citsoft.net/?page_id=187
 - https://stackoverflow.com/questions/1337095/sqlalchemy-inheritance
