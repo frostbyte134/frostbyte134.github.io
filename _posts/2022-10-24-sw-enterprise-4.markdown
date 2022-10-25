@@ -40,7 +40,63 @@ Saves an association as a table with foreign keys to the tables that are linked 
 - 기존 객체끼리 연결하고 싶은데, 컬럼을 추가하고 싶지 않을 때
 
 예제 - 그냥 N:N, 다수의 1:N 로딩 (where), 조인한 테이블에서 한방에 로딩 등에 대한 mapper 예제
+
+
+#### dependent mapping
+has one class perform the database mapping for a child class
+- 일부 object는 자연스럽게 특정 다른 오브젝트와 의존관계를 맺음 (앨범 - 트랙). 이 객체들이 다른 것들과 연관이 없을 시, album mapper가 track mapper도 포함하게 해서 동작 단순화 (...)
+
+The basic idea behind it is that, one class (the dependent) relies upon some other class (the owner) for its database persistence. Each dependent can, and must have one owner
+- This (must have  one dependent) manifests
+  - for active recore/row data gataway, dependent class wont have any db code (its in the owner)
+  - with data mapper, mapping code is in the owner   
+
+UML - composition!
+
+#### Serialized LOB
+save a graph of objects by serializing them into a single large object (LOB), which it stores in a db field
+
+#### Single Table Inheritance
+Represnets an inheritance hierarchy of classes as a single table that has columns for all the fields of the various classes
+
+상속구조의 모든 변수들을 단일 테이블에 저장 (join 최소화)
+- loading into memory - need a column specifying class (in the inheritance hiararchy)
+- loading data - read the code first to determine class
+- on saving data -> the code need to be written by superclass?
+
+pros - single table, no joints
+cons - some fields are sometimes be null, wasted space in db
+
+구현
+- mapper - abstract player mapper - footballer/cricketer mapper 에서 find, save, load 구현
+  - footballer는 자신의 type code 반환 - 디비의 타입 컬럼과 맞춰 보는 듯
+- player mapper = mapper상속받으나 (왜?), footballer/cricketer mapper 컴포지션으로 보유 
+
+
+#### Class Table Inheritance
+Represents an inheritance hierarchy of classes with one table for each class
+
+- one tip = common primary key
+- biggest issue = load data from multiple table. Outer join can help (to rule out empty table) but sometimes not enough
+
+#### Concrete table inheritance
+- concrete class 별로 테이블 1개
+- why worst?
+
+abstract class는 테이블이 없음 - 다른 테이블의 객체와 abstract class가 foreign key로 연결되어 있을 때, referential integrity를 유지하려면 매핑 테이블이 필요한데, abstract class 테이블이 없어서 개 피곤해짐 (클래스 하나 추가하기라도 하면....)
+
+pros = each table contains no null attr, no join required
+cons - difficult to handle primary key,k cant enforce db relationship to abstract class, not easy to change abstract class
+- a find on the superclass (which is entirely valid) makes awkward join or multiple table search
+
+#### Inheritance Mapper
+a structure to organize db mappers that handle inheritance hierarchies
+- minimize save and load (for the class hierarchy)
+- provide both abstract and concrete mapping behavior to save/load superclass or a subclass
+
 ### 느낀점
-- 돌아다니다 몽고디비 락에 대한 설명을 봤는데, 이 책 pessimistic lock과 완전 동일해서 신기했음 http://mongodb.citsoft.net/?page_id=187
-- 솔직히 compount key java example 부분은 안봤음. 나중에 이게 필요할 때 생각나면 보러 갈 듯 ㅋㅋ
+- 이거 sqlalchemy 쓰면 대충 돌아는 가는 거 아닌가 하다가..옛날 개발자들이 object-relational impedence mismatch 때문에 고민한 흔적이라고 생각하기로 했음 
+- data mapper 예제들 솔직히 다 보진 않았음. 나중에, 예를들면 coumpound key 를 쓸 때 생각나면 보러 갈 듯 ㅋㅋ
+- 번외) 돌아다니다 몽고디비 락에 대한 설명을 봤는데, 이 책 pessimistic lock과 완전 동일해서 신기했음 http://mongodb.citsoft.net/?page_id=187
+- https://stackoverflow.com/questions/1337095/sqlalchemy-inheritance
 
