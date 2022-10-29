@@ -100,4 +100,47 @@ a structure to organize db mappers that handle inheritance hierarchies
 - data mapper 예제들 솔직히 다 보진 않았음. 나중에, 예를들면 coumpound key 를 쓸 때 생각나면 보러 갈 듯 ㅋㅋ
 - 번외) 돌아다니다 몽고디비 락에 대한 설명을 봤는데, 이 책 pessimistic lock과 완전 동일해서 신기했음 http://mongodb.citsoft.net/?page_id=187
 - https://stackoverflow.com/questions/1337095/sqlalchemy-inheritance
+- 결국 키는 guid vs auto-increment?
 
+--------------
+
+### Chap13 Object-Relational Metadata Mapping Patterns
+#### Metadata mapping
+> holds details of object-relational mapping in metadata
+
+`code generation`: write a program whose input=metadata, output=source code of class that do the mapping (?)
+- generated cod should not be edited by hand, no need to be in source code control
+
+`reflective program`: ask an obj for a method named setName, and then run an invoke method on the setName method passing in the appropriate argument
+- can read in field and method names from a metadata file, and use them to carry out the mapping
+- more dynamic. but slow and hard to debug
+
+mapping changes should be rare, involves db schema changing
+
+on most occasions you keep the metadata in a seperate file format (XML? nowadays yaml or json perhaps)
+
+when to use - `Metadata mapping` can greatly reduce the work needed to handle db mapping. However some setup is requred (metadata mapping framework)
+
+#### Query Object
+An object that represents a db query
+- application of the interpreter pattern geared to represent a SQL query
+- allow client to form queries of various kinds, and to turn those obj structures into the appropriate SQL string
+
+- easy to extend - can start with simple query object 
+- represent queries in the language of the in-memory objs rather than the db schema
+- instead of using table and column names, you can use (domain) obj and field names in the query obj
+  - to perform the change of view (from domain to db), it needs to know how the db structure maps to the obj structure - `metadata maping` (damn)
+
+when to use
+- quite complex - one dont use them with hand built data layer. you really need them with domain model and data mapper
+- advs: keep db encapsulated (schema encapsulated, support multiple dbs, schemas, optimization, ...)
+
+
+interpreter pattern 찾으러 갔다가 리팩토링구루에서 없는거 보고 ㅌㅌ함
+그냥...도메인 객체로 날린 쿼리를 db 쿼리로 바꿔주는 무언가...?
+
+
+
+### 느낀점
+metadata mapping은 잘 안쓰이는 느낌?
+query object는 interpreter pattern - 뭔지 기억이 안나서 refactoring guru에 갔더니 없음 ㅋㅋ https://feedback.refactoring.guru/communities/3/topics/702-missing-interpreter-pattern-in-behavioral-section
