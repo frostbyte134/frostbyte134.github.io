@@ -21,6 +21,9 @@ aa
 - Maximum subarray sum (이걸 까먹네 ㅋㅋ)
 - Substring with Largest Variance - ㅅㅂ
 
+### https://leetcode.com/problems/minimum-number-of-moves-to-make-palindrome/description/
+다시 ㄱ
+
 ### https://leetcode.com/problems/image-overlap/description/
 이것도 답 봄. 문제도 제대로 안보고 풀었음 ㅎㅎ 
 
