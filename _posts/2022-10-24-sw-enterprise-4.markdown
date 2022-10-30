@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Patterns of Enterprise APP Architecture 4"
+title:  "Patterns of Enterprise Application Architecture 4"
 date:   2022-09-26 09:10:05 +0800
 categories: coding
 use_math: true
@@ -140,7 +140,29 @@ interpreter pattern 찾으러 갔다가 리팩토링구루에서 없는거 보�
 그냥...도메인 객체로 날린 쿼리를 db 쿼리로 바꿔주는 무언가...?
 
 
+#### Repository
+Mediates between the domain and data mapping layers usng a collection like interface for accessing domain objects
+
+다 명문이라 걍 읽어볼 만 함
+- a layer isolates domain objects from details of the db access code (good for complex domain model)
+  - __abstraction over the mapping layer__
+  - especly good with large/many domain classess / heavy querying, by minimizing duplication
+- `repository` mediates between the domain and data mapping layers, acting like an in-memory domain obj collection
+- client construct query __declaritively__ (!), submit them to repository
+- obj can be added/removed from the repository (like collection), and the mapping code inside repository will do the work inside
+- conceptually, `repository` encapsulates set of objs persisted in data source and (mapping) operations over them, providing more object-oriented view of the persistence layer
+- helps for clean seperation + one way dependency between the domain and data mapping layers 
+- combines `metadata mapping` with `query object` (?!)
+  - criteria know how to add themselvs to a query, the query obj knows how to incorporate criteria objs, the metadata mapping controls the interaction in implementation detail
+
+helps for multiple source - in-memory for unit testing, db for real
+- __clients never need to think in SQL and can write code purely in terms of objects__
+- 예시 - strategy pattern (in-memory / relational), composition with repository object
 
 ### 느낀점
 metadata mapping은 잘 안쓰이는 느낌?
 query object는 interpreter pattern - 뭔지 기억이 안나서 refactoring guru에 갔더니 없음 ㅋㅋ https://feedback.refactoring.guru/communities/3/topics/702-missing-interpreter-pattern-in-behavioral-section
+repository - 평소에 no thinking. bottom up feeling learning
+
+- application of the interpreter pattern geared to represent a SQL queryㄷㅐ추
+- application of the interpreter pattern geared to represent a SQL query
