@@ -180,11 +180,35 @@ Two principle separation in MVC
 2. separating the controller from the view
   - good for editable/non-editable behavior (strategy pattern, editable/non-editable strategy)
 
+
+컨트롤러가 하는 것 = request로부터 데이터 추출, model의 상태 변경, view의 상태 변경/뷰로 포워딩 (생성 등은 뭐 딴데서 해 주는 게 좋다는 듯?)
+
+#### Page controller
+- 이제 안 쓰이는 듯. 전부 Front controller로 넘어간 듯
+- jsp = 진자같은 템플릿 엔진 (html 속 자바)
+- servlet = 동적 html 생성 (자바 속 html)
+- 보통 액션별로 컨트롤러가 따로 있다고 함
+- 서블릿 안에 컨트롤러가 들어갈 수도 있고, 서버페이지에서 헬퍼를 호출하고 헬퍼에서 컨트롤 로직이 있을 수도 (이거 근데 무쓸모인듯)
+
+#### Front Controller
+A controller that handles all requests for a web site
+- 대새?
+- handles security, internationalizztion, particular view for particular uses, ...
+
+#### Template View
+- jsp등도 포함. 진자도 인 듯
+- 이걸 프론트에서도 하게 된게 MVVM?
+
+#### Application controller
+그냥 프론트 - 백엔드를 분리하고 백엔드가 app controller인 셈 치면 되나?
+
 ### 느낀점
 metadata mapping은 잘 안쓰이는 느낌?
-query object는 interpreter pattern - 뭔지 기억이 안나서 refactoring guru에 갔더니 없음 ㅋㅋ https://feedback.refactoring.guru/communities/3/topics/702-missing-interpreter-pattern-in-behavioral-section
+query object는 interpreter pattern 이래서 - 뭔지 기억이 안나서 refactoring guru에 갔더니 없음 ㅋㅋ https://feedback.refactoring.guru/communities/3/topics/702-missing-interpreter-pattern-in-behavioral-section
 repository - 평소에 별 생각 없이 abstract repository 만들고 메모리/디비 구현하고 테스트 짜야지...?했는데, 바텀업부터 배운 느낌이라 좋았음
 
+https://stackoverflow.com/questions/9743671/is-the-controller-on-the-mvc-pattern-the-same-as-the-page-controller-pattern-des
 view와 controller의 경계가 다소 불명확한듯...?
-
+two step view, transform view같은건 스킵했음 🙏
 - application of the interpreter pattern geared to represent a SQL query
+https://velog.io/@teo/%ED%94%84%EB%A1%A0%ED%8A%B8%EC%97%94%EB%93%9C%EC%97%90%EC%84%9C-MV-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80%EC%9A%94#mvvm-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90---angular-react-vue
