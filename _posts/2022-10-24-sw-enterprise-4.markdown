@@ -159,10 +159,32 @@ helps for multiple source - in-memory for unit testing, db for real
 - __clients never need to think in SQL and can write code purely in terms of objects__
 - 예시 - strategy pattern (in-memory / relational), composition with repository object
 
+### Chap 14 Web Presentation Patterns
+
+#### Model View Controller
+Mvc considers 3 roles
+- `model`
+  - obj that represents domain. Nonvisual obj. In its most pure form it is domain model. Transaction script is also one of the model.
+- `view` = rpresnets the display of the model in the UI (restricted to it)
+- `controller` - any changes to the infomation are handled (sits between model and the view)
+  - takes user input, manipulates the model, and cause view to update appropriately
+  - __UI is the combination of the view and the controller__
+
+Two principle separation in MVC
+1. separating the presentation from the model - the most fundamental heuristocs of good sw design
+  - view: UI, presentation
+  - model: business policies, db interactions
+  - can present same model in many different ways
+  - key point - direction of the dependencies (presentation ->(depends on) model, not the other way)
+    - usually many presentation depends on one model - to apply change at the same time on many presentations (without creating dependency on the other way) one need things like `observer pattern` 
+2. separating the controller from the view
+  - good for editable/non-editable behavior (strategy pattern, editable/non-editable strategy)
+
 ### 느낀점
 metadata mapping은 잘 안쓰이는 느낌?
 query object는 interpreter pattern - 뭔지 기억이 안나서 refactoring guru에 갔더니 없음 ㅋㅋ https://feedback.refactoring.guru/communities/3/topics/702-missing-interpreter-pattern-in-behavioral-section
-repository - 평소에 no thinking. bottom up feeling learning
+repository - 평소에 별 생각 없이 abstract repository 만들고 메모리/디비 구현하고 테스트 짜야지...?했는데, 바텀업부터 배운 느낌이라 좋았음
 
-- application of the interpreter pattern geared to represent a SQL queryㄷㅐ추
+view와 controller의 경계가 다소 불명확한듯...?
+
 - application of the interpreter pattern geared to represent a SQL query
