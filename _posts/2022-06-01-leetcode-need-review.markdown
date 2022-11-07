@@ -21,6 +21,26 @@ aa
 - Maximum subarray sum (이걸 까먹네 ㅋㅋ)
 - Substring with Largest Variance - ㅅㅂ
 
+#### 
+- https://leetcode.com/problems/minimum-adjacent-swaps-for-k-consecutive-ones/description/ 아직 
+ㅁㅗㅅ봄
+
+
+### https://leetcode.com/problems/minimum-number-of-moves-to-make-palindrome/description/
+다시 ㄱ
+- 꼬리문제 https://leetcode.com/problems/minimum-adjacent-swaps-to-make-a-valid-array/
+
+### https://leetcode.com/problems/image-overlap/description/
+이것도 답 봄. 문제도 제대로 안보고 풀었음 ㅎㅎ 
+
+### https://leetcode.com/problems/continuous-subarray-sum/description/
+흠. 답 보긴 봤음. 다시 ㄱㄱ
+
+### https://leetcode.com/problems/sum-of-total-strength-of-wizards/description/
+아니...일단 다시 풀어 보자. 풀이 일부러 안적음. 왜 이런 걸 내는거야. 리트코드 함 보고 오라는 건가?
+
+### https://leetcode.com/problems/partition-array-such-that-maximum-difference-is-k/description/
+ez. 리뷰만 (설명하기)
 
 ### https://leetcode.com/problems/find-k-th-smallest-pair-distance/description/
 
