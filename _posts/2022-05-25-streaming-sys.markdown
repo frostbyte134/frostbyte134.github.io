@@ -8,7 +8,7 @@ tags: coding
 ---
 
 와...개바쁨 ㄷㄷ 이제 그래도 여유가 좀 생길 듯...
-- TODO [여기](https://github.com/nailbrainz/issues)이전 챕터 봐논거 정리하기 (워터마크, 트리거 등 개념 정리)
+- TODO [여기](https://github.com/frostbyte134/nailbrainz.github.io/issues)이전 챕터 봐논거 정리하기 (워터마크, 트리거 등 개념 정리)
 
 Conventional streaming systems
 - best effort - at-least-once
