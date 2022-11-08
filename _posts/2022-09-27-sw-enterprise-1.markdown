@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Patterns of Enterprise APP Architecture 2"
+title:  "Patterns of Enterprise Application Architecture 2"
 date:   2022-09-26 09:10:05 +0800
 categories: coding
 use_math: true

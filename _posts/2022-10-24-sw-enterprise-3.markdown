@@ -98,7 +98,6 @@ a structure to organize db mappers that handle inheritance hierarchies
 - 이거 sqlalchemy 쓰면 대충 돌아는 가는 거 아닌가 하다가..옛날 개발자들이 object-relational impedence mismatch 때문에 고민한 흔적이라고 생각하기로 했음 
   - 상속 쪽은 https://docs.sqlalchemy.org/en/14/orm/inheritance.html 읽어보니까 이해가 좀 된 듯
 - data mapper 예제들 솔직히 다 보진 않았음. 나중에, 예를들면 coumpound key 를 쓸 때 생각나면 보러 갈 듯 ㅋㅋ
-- 번외) 돌아다니다 몽고디비 락에 대한 설명을 봤는데, 이 책 pessimistic lock과 완전 동일해서 신기했음 http://mongodb.citsoft.net/?page_id=187
 - https://stackoverflow.com/questions/1337095/sqlalchemy-inheritance
 - 결국 키는 guid vs auto-increment?
 
@@ -212,3 +211,85 @@ view와 controller의 경계가 다소 불명확한듯...?
 two step view, transform view같은건 스킵했음 🙏
 - application of the interpreter pattern geared to represent a SQL query
 https://velog.io/@teo/%ED%94%84%EB%A1%A0%ED%8A%B8%EC%97%94%EB%93%9C%EC%97%90%EC%84%9C-MV-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80%EC%9A%94#mvvm-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90---angular-react-vue
+
+
+### Chap 15. Distribution Patterns
+Provides a coarse-grained facade on fine-grained objects to improve efficiency over a network
+- coarse-grained = SRP의 반대. 다수의 (응집도 낮을수도 있는) 변수들을 한번에 처리가능
+
+remote calls are expensive, inter-proc calls costs order of magnitude expense than in-process calls
+- 그러므로 모아서 한번에 처리하겠다 = coarse-grained
+- 요즘은 완전 반대인 듯...istio는 latency 엄청 느려저도 잘만 쓰던데
+
+A `Remote Facade` is a coarse-grained facade over a web of fine-grained objs
+- remote interface which only performs grouping
+- imples a synchronous (remote RPC) calls. Often async, message-based comm can greatly improve
+
+예제는 스킵함 ㅎㅎ
+
+Data Transfer Object - remote facade랑 같이쓰면 좋음. 한번에 다수의 데이터를 보내는 클래스...?
+
+### Chap 16 Offline Concurrency Patterns
+
+#### optimistic offline lock
+Prevents conflicts between concurrent business transactions by detecting a conflict and rolling back the transaction
+- good when session conflict prob is low
+
+An `Optmistic Offline Lock` by validating that, in the time since a session loaded a record, another session hasn't altered it
+- most commonly version number is used 
+- getting the Optimistic Offline Lock is a matter of comparing the version stored in your sesion data to the current version in the record data
+- bad idea to use the modification timestamp than a version count, since system clocks are simply too unreliable (esply on multiple servers)
+
+mysql로 구현 - `update ... version(cur_version + 1) where version=cur_version`
+- 이거말고 db쪽에서의 read만으로 판별하려면 isolation level을 신경써야 함 (repeatable read가 필요? 스냅샷을 떠 버리면 비교를 못하지 않나...)
+
+#### Pessimistic Lock
+Prevents conflicts betwen concurrent business transactions, by allowing only one business transaction at a time to access data
+
+long system transaction is not good = fitting business transaction to single system transaction is not good
+
+session \sim business transaction
+
+types of lock
+- eclusive write, exclusive read, read/write lock
+
+lock 매니저? 그냥 디비에 의존하면 안되나
+With a system transaction pessimistic locking scheme, such as `SELECT FOR UPDATE...`, deadlock is distinct possibility b/c they'll block till get the lock
+
+
+#### Coarse-Grained Lock
+Locks a set of related objects with a single lock
+- object must often be edited as a group. It makes senst to lock all of them if yu want to lock any one of them.
+
+Implement
+1. create single point of contention for locking gorup of objs
+2. provide syhotest path from the group members to the single lock
+
+shared lock
+- 객체들끼리 멤버변수로 공유
+- Optimistic - share the version
+- Pessimistic - share some sort of lockable token (?)
+  - lock을 얻을라면 데이터를 mysql에서 로드해야 하는데, 락을 안걸고 로드해도 되나?
+  - increment version을 추가하면 됨. 단일 트랜잭션에서 load - lock 획득 - version increment - commit 하면 잘못된 걸 로드해서 업데이트했을 시 커밋이 망할 것 (increment version 때문에)
+
+
+#### Aggregate!
+- a cluster of associated objs that we treat as a unit for data changes
+- each aggregate has a `root` that provides the only access point to members of the set
+- and a `boundary that defines whats in the set
+- fits with `Coarse-Grained lock` - locking an aggregate yields an alternative to a shared lock that I call a root lock
+- Using a root lock as a coarse-grained lock makes it necessary to implement navigation to the root in your obj graph
+
+root lock
+- 루트만 락을 갖고 있고, 락을 따지기 위해선 여기로 가야 함
+- 예제 - UOW에서 변경된 객체들 목록 가짐
+- commit() 구현 - 여기 순회하면서 `부모.getVersion().increment()` (optimistic lock) 하고
+
+
+### 느낀점
+- coarse grained - 요즘은 프로세스 외부 호출에서 발생하는 cost를 많이 신경쓰는 편은 아닌 듯. istio 보니까 latency 꽤나 올라가던데...
+- 낙관적 락은 대부분 select - +1 - 업데이트된 결과 체크로 가는 듯
+- pessimeistic lock - DB 강의 들으니까 트랜잭션을 짧게 잡으라는 말을 한페이지에 한번씩 하시던데 long transaction도 고려해 보래서 DBA와 앱개발자의 관점의 차이인가 싶었음 
+  - 돌아다니다 몽고디비 락에 대한 설명을 봤는데, pessimistic-read/write lock과 완전 동일 http://mongodb.citsoft.net/?page_id=187
+- root optimistic offline lock - 앞단에서 optimistic lock 얻을 때 계속 실패할 것 같은데..다른 구현은 어케 되어 있나 궁금했음
+- aggregate + lock 파트는 나중에 다시 볼 것 같은 기분이 듬..
