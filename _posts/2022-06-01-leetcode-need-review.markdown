@@ -40,7 +40,8 @@ aa
 
 * <a href="https://leetcode.com/problems/find-k-th-smallest-pair-distance/description/" target="_blank">https://leetcode.com/problems/find-k-th-smallest-pair-distance/description/</a>
 * <details>
-   <summary>와 풀긴 푸음</summary>난 이진탐색 2번으로 풀었는데, 투포인터 + 이진탐색이 더 빠른 듯?</details>
+   <summary>와 풀긴 푸음</summary>난 이진탐색 2번으로 풀었는데, 투포인터 + 이진탐색이 더 빠른 듯? 이거 cand_diff >= k 인 것 중 최소를 찾아야 하는 이유 = 진짜 있는 거를 찾아야 하기 때문. cand_diff <= k 인 것 중 최대는 없는 숫자가 선택될 수도 있음 (ex - 3, 4, 5, 6 다 cand_diff가 같고 실제 있는 pair diff는 3인 경우. 실제 diff가 4가 될순 없음. 그럼 3은 4보다 자기보다 작은 숫자가 더 작을 테니까) </details>
+   투포인터로 어케 풀지? - num[i] 보다 cand_diff만큼 큰 num[j] 이거 둘다 순증가해서 투포인터 가능 (순증가 투포인터는 첨보네...)
 
 ### https://leetcode.com/problems/plates-between-candles/solutions/
 
@@ -79,23 +80,35 @@ Integer to English Words
 ### 보기만
 - https://leetcode.com/problems/the-number-of-weak-characters-in-the-game/ 풀긴 걍 풀음 ㅎㅎ 아직 죽진 않았구먼
 
-### Done
 
-#### https://leetcode.com/problems/partition-array-such-that-maximum-difference-is-k/description/
-ez. 리뷰만 (설명하기)
+### amount-of-new-area-painted-each-day
+https://leetcode.com/problems/amount-of-new-area-painted-each-day/자
+- 다시 풀어보자
+- (22.06.01) 예외조건 하나를 못찾았음. 생각만 해 보자
 
-#### https://leetcode.com/problems/continuous-subarray-sum/description/
-흠. 답 보긴 봤음. 다시 ㄱㄱ
-- 다시했을땐 풀긴 함. 배라는 것이 중요
+
+### Burst Baloons
+<a href="https://leetcode.com/problems/burst-balloons/" target="_blank">https://leetcode.com/problems/burst-balloons/</a>
+<details>
+<summary>보기만 - 아니 다시 보니까 못풀음 ㅡㅡ</summary> 
+    l-r 사이에서 i번째 풍선을 마지막에 터트렸을 때 얻을 수 있는 최대값 (결국 어느 풍선이던 마지막에 터트려야 함) = 결국엔 마지막에 i번째만 남았다는 듯. nums[l-1] * nums[i] * nums[r+1] (범위 밖 풍선과 묶여야 하니까) + dp[l][i-1] + dp[i+1][r]. 첨에 nums = [1] + nums + [1]해놓으면 편함
+    터트렸을 때 얻을 수 있는 최대값을 dp로 잡았어야 했나..
+   </details>
+
+
+
+
 
 
 ### 복습리스트
 - https://leetcode.com/problems/sum-of-subarray-ranges/ (한번에 opt)
 - https://leetcode.com/problems/maximum-length-of-subarray-with-positive-product/
    - 이건 쫌 걸리긴 했는데 풀긴함
-- https://leetcode.com/problems/minimum-swaps-to-group-all-1s-together/
-   - 쉽게 풀긴 했는데, 더 깔끔한 풀이 유도하기
 
+
+### https://leetcode.com/problems/word-ladder/
+https://leetcode.com/problems/word-ladder/
+- 효과적으로 풀 수 있는 방법 생각나면 DONE으로
 
 
 - https://leetcode.com/discuss/general-discussion/462981/leetcode-questions-sorted-by-vote-count
@@ -116,6 +129,34 @@ solve the problem while explain it to yourself, and write examples (must!)
 - 순차적으로
 - __list test cases__
    - empty, simple, edges
+
+
+
+
+
+
+
+
+
+
+
+### Done
+
+#### https://leetcode.com/problems/partition-array-such-that-maximum-difference-is-k/description/
+ez. 리뷰만 (설명하기)
+
+#### https://leetcode.com/problems/continuous-subarray-sum/description/
+흠. 답 보긴 봤음. 다시 ㄱㄱ
+- 다시했을땐 풀긴 함. 배라는 것이 중요
+#### https://leetcode.com/problems/minimum-swaps-to-group-all-1s-together/
+- 쉽게 풀긴 했는데, 더 깔끔한 풀이 유도하기
+
+
+### https://leetcode.com/problems/reverse-nodes-in-k-group/
+https://leetcode.com/problems/reverse-nodes-in-k-group/
+- 아씨...글쓰면서 (예제 만들면서 주절주절) 하자
+
+
 
 ### OrderedDict
 ordereddict = linked list + dict (dict는 내부 링크드리스트에 대한 주소 저장)
@@ -172,14 +213,6 @@ https://leetcode.com/problems/minimize-deviation-in-array/
 - ㅡㅡ..이런걸 어케 생각하는걸까
 
 
-### https://leetcode.com/problems/word-ladder/
-https://leetcode.com/problems/word-ladder/
-- 와 굿
-
-
-### https://leetcode.com/problems/reverse-nodes-in-k-group/
-https://leetcode.com/problems/reverse-nodes-in-k-group/
-- 아씨...글쓰면서 (예제 만들면서 주절주절) 하자
 
 
 ### https://leetcode.com/problems/minimum-number-of-refueling-stops/
@@ -189,7 +222,7 @@ https://leetcode.com/problems/minimum-number-of-refueling-stops/
 ### https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/
 https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/
 - 난 2-pass로 풀었는데 (나름 맘에듬), general solution이 있었음. 제너럴한걸로 풀어 보자
-- dp말고 계산할거를 따로 저장할떈 이거 초기값 등도 잘 신경써야 함 
+- dp말고 계산할거를 따로 저장할떈 이거 초기값 등도 잘 신경써야 함
 
 ### https://leetcode.com/problems/median-of-two-sorted-arrays/
 https://leetcode.com/problems/median-of-two-sorted-arrays/
@@ -236,8 +269,11 @@ https://leetcode.com/problems/top-k-frequent-elements
 
 
 
-### 복습선 (다시풀기선) 경계
-- 이 위로 다시풀기 필요
+### 복습 (need review)
+
+### https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/description/
+- https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/description
+- 썩 맘에들진 않는데..데이터에 따라 tle날수도 있으니까. union and find가 젤 좋은듯. 보기만 하자
 
 ### Reaching Points
 - https://leetcode.com/problems/reaching-points/
@@ -245,6 +281,7 @@ https://leetcode.com/problems/top-k-frequent-elements
    <summary>하드 수월하게 풀었네 ㅋㅋ 생각정리가 중요함</summary> 
     tl < tr인 경우엔 둘 다 스왑하면 됨 ㅋㅋ. tl >>> tr인 경우엔 tl에서 tr만큼 계속 뺼 수 밖에 없다는 걸 알아채는게 포인트. 둘 다 비슷하면 금방 끝날꺼라는 것도.
    </details>
+   
 
 ### Maximum Number of Points with Cost
 - <a href="https://leetcode.com/problems/maximum-number-of-points-with-cost/" target="_blank">https://leetcode.com/problems/maximum-number-of-points-with-cost/</a>
@@ -252,6 +289,10 @@ https://leetcode.com/problems/top-k-frequent-elements
    <summary>오우 쉣 이게 미디엄?</summary> 
     dp인데..여기까진 쉬운데...최적화를 좀 해야 됨 ㄷㄷ
    </details>
+   흠..깔끔하게 다시 ㄱㄱ
+
+-------------
+일단 여기까지...
 
 ### https://leetcode.com/problems/maximal-rectangle/submissions/
 https://leetcode.com/problems/maximal-rectangle/submissions/
@@ -262,17 +303,6 @@ https://leetcode.com/problems/word-search-ii/
 - 살짝 만족. 구현 다시 보기만 하자
 
 
-### Burst Baloons
-<a href="https://leetcode.com/problems/burst-balloons/" target="_blank">https://leetcode.com/problems/burst-balloons/</a>
-<details>
-<summary>보기만</summary> 
-    l-r 사이에서 i번째 풍선을 마지막에 터트렸을 때 얻을 수 있는 최대값 (결국 어느 풍선이던 마지막에 터트려야 함) = 결국엔 마지막에 i번째만 남았다는 듯. nums[l-1] * nums[i] * nums[r+1] (범위 밖 풍선과 묶여야 하니까) + dp[l][i-1] + dp[i+1][r]. 첨에 nums = [1] + nums + [1]해놓으면 편함
-   </details>
-
-
-### amount-of-new-area-painted-each-day
-https://leetcode.com/problems/amount-of-new-area-painted-each-day/ 
-- 다시 풀어보자
 
 ### https://leetcode.com/problems/edit-distance/
 https://leetcode.com/problems/edit-distance/

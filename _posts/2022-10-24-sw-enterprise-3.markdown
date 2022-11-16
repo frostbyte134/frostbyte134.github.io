@@ -208,6 +208,7 @@ repository - 평소에 별 생각 없이 abstract repository 만들고 메모리
 
 https://stackoverflow.com/questions/9743671/is-the-controller-on-the-mvc-pattern-the-same-as-the-page-controller-pattern-des
 view와 controller의 경계가 다소 불명확한듯...?
+page controller는 이제 안 쓰이는 듯(전부 front)
 two step view, transform view같은건 스킵했음 🙏
 - application of the interpreter pattern geared to represent a SQL query
 https://velog.io/@teo/%ED%94%84%EB%A1%A0%ED%8A%B8%EC%97%94%EB%93%9C%EC%97%90%EC%84%9C-MV-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80%EC%9A%94#mvvm-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90---angular-react-vue
@@ -263,7 +264,7 @@ Locks a set of related objects with a single lock
 
 Implement
 1. create single point of contention for locking gorup of objs
-2. provide syhotest path from the group members to the single lock
+2. provide shortest path from the group members to the single lock
 
 shared lock
 - 객체들끼리 멤버변수로 공유
@@ -289,7 +290,7 @@ root lock
 ### 느낀점
 - coarse grained - 요즘은 프로세스 외부 호출에서 발생하는 cost를 많이 신경쓰는 편은 아닌 듯. istio 보니까 latency 꽤나 올라가던데...
 - 낙관적 락은 대부분 select - +1 - 업데이트된 결과 체크로 가는 듯
-- pessimeistic lock - DB 강의 들으니까 트랜잭션을 짧게 잡으라는 말을 한페이지에 한번씩 하시던데 long transaction도 고려해 보래서 DBA와 앱개발자의 관점의 차이인가 싶었음 
-  - 돌아다니다 몽고디비 락에 대한 설명을 봤는데, pessimistic-read/write lock과 완전 동일 http://mongodb.citsoft.net/?page_id=187
+- pessimeistic lock - DB 강의 들으니까 트랜잭션을 짧게 잡으라는 말을 한페이지에 한번씩 하시던데 여기선 long transaction도 고려해 보래서 DBA와 앱개발자의 관점의 차이인가 싶었음 
+  - 돌아다니다 몽고디비 락에 대한 설명을 봤는데, pessimistic-read/write lock과 완전 동일 http://mongodb.citsoft.net/?page_id=187. mysql record lock도
 - root optimistic offline lock - 앞단에서 optimistic lock 얻을 때 계속 실패할 것 같은데..다른 구현은 어케 되어 있나 궁금했음
 - aggregate + lock 파트는 나중에 다시 볼 것 같은 기분이 듬..

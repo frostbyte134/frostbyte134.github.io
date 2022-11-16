@@ -35,6 +35,7 @@ tags: linux process os
 ### top, 프로세스 정보
 * `top`: load average, 사용자 수, 프로세스 수, CPU, MEM, SWAP사용량
 * __PR + NI__: 낮을수록 프로세스 우선순위 (`Run queue`에서 나오는 순서) 높음. NI는 조절가능
+* lsof: 프로세스가 연 파일 확인가능 (내지는 proc 파일시스템에서도 - 이거 디버깅할 때 좀 유용할 듯)
 
 #### 메모리 (Memory commit)
 * `VIRT`: The total amout of vietual memory used by the task (over commit 포함)
