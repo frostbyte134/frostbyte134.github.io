@@ -9,6 +9,7 @@ tags: coding
 
 허허
 
+sort가 인덱스를 안타면 in-memory blocking sort가 일어난다고 함
 
 
 https://docs.mongodb.com/manual/core/sharding-data-partitioning/

@@ -236,6 +236,10 @@ Kent Beck - __메서드가 작업을 어떻게(how) 수행하는지를 반영하
 <a href="https://medium.com/@_ericelliott/idempotency-and-referential-transparency-are-related-but-different-518a5b810700" target="_blank">link</a>  
 Idempotency and referential transparency are related, but different. All referentially transparent functions are idempotent, but the reverse is not true. An idempotent function may have a side effect the first time you run it. Subsequent updates won’t change things further, but the first run does.
 
+멱등성
+- https://developer.mozilla.org/ko/docs/Glossary/Idempotent
+- 한번 보내는 것이 여러번 보내는 것과 동일한 상태를 서버에 남겨야
+- delete는 첫번째만 삭제되고 이후엔 404내도 됨. "배열의 마지막 아이템을 삭제하는 연산"은 멱등하지 않음
 
 #### 6장 정리
 - 지금까지 나온 건 책임주도설계를 잘 하면 대충 적용됨

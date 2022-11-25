@@ -17,14 +17,40 @@ tags: problem_solving leetcode need_review
 ###  가자
 aa
 
+
+### Max Sum of Rectangle No Larger Than K (need review)
+
+* <a href="https://leetcode.com/problems/max-sum-of-rectangle-no-larger-than-k/" target="_blank">2차원 부분합이지만 진짜로 2차원 부분합으로 풀면 못풀음</a>
+* <details>
+   <summary>다시풀기</summary> 
+   1차원 부분합 (row)들만 구하고, i - j 로 로우를 고정해놓고 컬럼은 k를 0부터 증가시켜가며, 정렬된 ary를 만들고 여기서 이분탐색으로 답도 찾고 인덱스도 찾음
+   </details>
+* 생각만 하자..
+
+### https://leetcode.com/problems/find-the-kth-smallest-sum-of-a-matrix-with-sorted-rows/description/
+https://leetcode.com/problems/find-the-kth-smallest-sum-of-a-matrix-with-sorted-rows/description/
+
+
+
 #### Kadane
 - Maximum subarray sum (이걸 까먹네 ㅋㅋ)
 - Substring with Largest Variance - ㅅㅂ
+   - 문자 2개씩 보는 것만 기억할 만 한듯
+
+#### https://leetcode.com/problems/number-of-ways-of-cutting-a-pizza/description/
+- https://leetcode.com/problems/number-of-ways-of-cutting-a-pizza/description/
+- 풀만했는데 못풀었음 ㅡㅡ 정줄 좀 놓은 듯..
+
+#### https://leetcode.com/problems/substring-with-concatenation-of-all-words/description/
+- https://leetcode.com/problems/substring-with-concatenation-of-all-words/description/
+- 흠..낫배드. 어렵지 않은데 해맸네..
 
 #### 
 - https://leetcode.com/problems/minimum-adjacent-swaps-for-k-consecutive-ones/description/ 아직 
 ㅁㅗㅅ봄
 
+#### https://leetcode.com/problems/range-module/description/
+- ㅁㅊ...C++이면 쉽게 풀었을 듯
 
 ### https://leetcode.com/problems/minimum-number-of-moves-to-make-palindrome/description/
 다시 ㄱ
@@ -43,11 +69,6 @@ aa
    <summary>와 풀긴 푸음</summary>난 이진탐색 2번으로 풀었는데, 투포인터 + 이진탐색이 더 빠른 듯? 이거 cand_diff >= k 인 것 중 최소를 찾아야 하는 이유 = 진짜 있는 거를 찾아야 하기 때문. cand_diff <= k 인 것 중 최대는 없는 숫자가 선택될 수도 있음 (ex - 3, 4, 5, 6 다 cand_diff가 같고 실제 있는 pair diff는 3인 경우. 실제 diff가 4가 될순 없음. 그럼 3은 4보다 자기보다 작은 숫자가 더 작을 테니까) </details>
    투포인터로 어케 풀지? - num[i] 보다 cand_diff만큼 큰 num[j] 이거 둘다 순증가해서 투포인터 가능 (순증가 투포인터는 첨보네...)
 
-### https://leetcode.com/problems/plates-between-candles/solutions/
-
-* <a href="https://leetcode.com/problems/plates-between-candles/description/" target="_blank">https://leetcode.com/problems/plates-between-candles/description/</a>
-* <details>
-   <summary>개굿</summary>nlogn으로 풀었는데, 훨씬 더 깔끔한 방법이 있네. 어쨋든 지금 ps 근육이 없음. 많이 풀어야 할 듯</details>
 
 ### https://leetcode.com/problems/integer-to-english-words/description/
 Integer to English Words
@@ -58,11 +79,6 @@ Integer to English Words
 * <details>
    <summary>방법은 금방 알았는데 (ㅋㅋ)</summary>순차적으로 늘어나니까..ㅎㅎ heapq 연습문제</details>
 
-### unique-paths-iii
-
-* <a href="https://leetcode.com/problems/unique-paths-iii/description/" target="_blank">https://leetcode.com/problems/unique-paths-iii/description/</a>
-* <details>
-   <summary>Aㅏ...</summary>늙었구나...</details>
 
 
 #### Skyline Problems
@@ -70,34 +86,39 @@ Integer to English Words
 * <details>
    <summary>풀긴 품</summary>이것도 어케 답 안보고 풀긴했는데 이전에도 풀어본거라...ㅎㅎ 생각 정리나 집중도 잘 안됐음..</details>
 
-#### Sort Colors
-* <a href="https://leetcode.com/problems/sort-colors/description/" target="_blank">https://leetcode.com/problems/sort-colors/description/</a>
-* <details>
-   <summary>풀긴 품</summary>빠르게 안됐음. 다시 한번 풀어볼 정도?</details>
- 
-
-
 ### 보기만
-- https://leetcode.com/problems/the-number-of-weak-characters-in-the-game/ 풀긴 걍 풀음 ㅎㅎ 아직 죽진 않았구먼
 
 
-### amount-of-new-area-painted-each-day
-https://leetcode.com/problems/amount-of-new-area-painted-each-day/자
-- 다시 풀어보자
-- (22.06.01) 예외조건 하나를 못찾았음. 생각만 해 보자
+### Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit (window problem, need review)
+- <a href="https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/" target="_blank">https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/</a>
+- 윈도우 안의 최대/최소의 차이. map으로 풀어서 하위 20퍼로 풀긴 함
+- 디큐 - increasing_deque는 맨 앞이 구간의 최소값, decreasing_deque는 맨 앞이 구간의 최대값임 (맨 뒤는 항상 새로 추가된 원소).
+  - 이 때 조심해야 할 게, 현재 구간 (디큐들에 들어있는 아이템들의 min, max정보가 유효한 구간)은 max(inc디큐에서 제일 최근에 빠진 인덱스+1, dec디큐에서 제일 최근에 빠진 인덱스+1)이라는 것
+- 면접볼 땐 바이너리 서치 (결정문제) 도 말해야 할 듯. 그게 포인트자너~
 
 
-### Burst Baloons
-<a href="https://leetcode.com/problems/burst-balloons/" target="_blank">https://leetcode.com/problems/burst-balloons/</a>
+#### Find All Numbers Disappeared in an Array (reference problem)
+<a href="https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/" target="_blank">https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/</a>
 <details>
-<summary>보기만 - 아니 다시 보니까 못풀음 ㅡㅡ</summary> 
-    l-r 사이에서 i번째 풍선을 마지막에 터트렸을 때 얻을 수 있는 최대값 (결국 어느 풍선이던 마지막에 터트려야 함) = 결국엔 마지막에 i번째만 남았다는 듯. nums[l-1] * nums[i] * nums[r+1] (범위 밖 풍선과 묶여야 하니까) + dp[l][i-1] + dp[i+1][r]. 첨에 nums = [1] + nums + [1]해놓으면 편함
-    터트렸을 때 얻을 수 있는 최대값을 dp로 잡았어야 했나..
+<summary>보기만</summary> 
+    리스트 값이 리스트 내부와 range가 같고, 리스트를 체크해야 할 시 리스트 값이 -를 해두면 좋은듯
    </details>
 
 
 
+#### https://leetcode.com/problems/the-number-of-weak-characters-in-the-game/
+풀긴 걍 풀음 ㅎㅎ 아직 죽진 않았구먼
 
+### https://leetcode.com/problems/plates-between-candles/solutions/
+
+* <a href="https://leetcode.com/problems/plates-between-candles/description/" target="_blank">https://leetcode.com/problems/plates-between-candles/description/</a>
+* <details>
+   <summary>개굿</summary>nlogn으로 풀었는데, 훨씬 더 깔끔한 방법이 있네. 어쨋든 지금 ps 근육이 없음. 많이 풀어야 할 듯</details>
+
+### amount-of-new-area-painted-each-day
+https://leetcode.com/problems/amount-of-new-area-painted-each-day/
+- 다시 풀어보자
+- (22.06.01) 예외조건 하나를 못찾았음. 생각만 해 보자
 
 
 ### 복습리스트
@@ -114,33 +135,46 @@ https://leetcode.com/problems/word-ladder/
 - https://leetcode.com/discuss/general-discussion/462981/leetcode-questions-sorted-by-vote-count
 - https://medium.com/hackernoon/google-interview-questions-deconstructed-the-knights-dialer-f780d516f029
 
-solve the problem while explain it to yourself, and write examples (must!)
-
-막히면?
-- 뒤에서
-- 가운데부터
-- 조건을 확인하고, 약한 조건 이용하기
-- 문제 재정의, 다시 읽기
-- 웰노운들 적용시켜 보기
-- 곱하기 있을 시 0 조심
-- 글쓰면서 (예제 만들면서 주절주절)
-- 비교할 때 항상 경계를 생각하자! 그럼 바로 풀림 ㅎㅎ
-- 제출전 리뷰 필수
-- 순차적으로
-- __list test cases__
-   - empty, simple, edges
 
 
 
+#### https://leetcode.com/problems/number-of-good-paths/description/
+- https://leetcode.com/problems/number-of-good-paths/description/
+- 너무하네...
 
 
 
-
+#### Sort Colors
+* <a href="https://leetcode.com/problems/sort-colors/description/" target="_blank">https://leetcode.com/problems/sort-colors/description/</a>
+* 다시 쉽게 풀긴 했는데, 풀이방법 2개 돌아보고 넣을 정도는 됨. 보기만 하고 넣자
+* <details>
+   <summary>풀긴 품</summary>빠르게 안됐음. 다시 한번 풀어볼 정도?</details>
 
 
 
 
 ### Done
+
+### https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/
+- 난 2-pass로 풀었는데 (나름 맘에듬), general solution이 있었음. 제너럴한걸로 풀어 보자
+- dp말고 계산할거를 따로 저장할떈 이거 초기값 등도 잘 신경써야 함
+
+### Step-By-Step Directions From a Binary Tree Node to Another
+- <a href="https://leetcode.com/problems/step-by-step-directions-from-a-binary-tree-node-to-another/" target="_blank">https://leetcode.com/problems/step-by-step-directions-from-a-binary-tree-node-to-another/</a>
+<details>
+   <summary>트리 구현 문제로는 좋은듯</summary> 
+    값도 유니크하니까 LCA도 됨
+   </details>
+
+
+#### First Missing Positive (need review)
+<a href="https://leetcode.com/problems/first-missing-positive/" target="_blank">https://leetcode.com/problems/first-missing-positive/</a>
+* smallest nonnegative
+* <details>
+   <summary>다시풀기</summary> 
+   smallest nonnegative = 배열에 저장 가능
+   </details>
 
 #### https://leetcode.com/problems/partition-array-such-that-maximum-difference-is-k/description/
 ez. 리뷰만 (설명하기)
@@ -156,7 +190,61 @@ ez. 리뷰만 (설명하기)
 https://leetcode.com/problems/reverse-nodes-in-k-group/
 - 아씨...글쓰면서 (예제 만들면서 주절주절) 하자
 
+### unique-paths-iii
 
+* <a href="https://leetcode.com/problems/unique-paths-iii/description/" target="_blank">https://leetcode.com/problems/unique-paths-iii/description/</a>
+* <details>
+   <summary>Aㅏ...</summary>늙었구나...</details>
+
+#### Burst Baloons
+<a href="https://leetcode.com/problems/burst-balloons/" target="_blank">https://leetcode.com/problems/burst-balloons/</a>
+<details>
+<summary>보기만 - 아니 다시 보니까 못풀음 ㅡㅡ</summary> 
+    l-r 사이에서 i번째 풍선을 마지막에 터트렸을 때 얻을 수 있는 최대값 (결국 어느 풍선이던 마지막에 터트려야 함) = 결국엔 마지막에 i번째만 남았다는 듯. nums[l-1] * nums[i] * nums[r+1] (범위 밖 풍선과 묶여야 하니까) + dp[l][i-1] + dp[i+1][r]. 첨에 nums = [1] + nums + [1]해놓으면 편함
+    터트렸을 때 얻을 수 있는 최대값을 dp로 잡았어야 했나..
+   </details>
+
+#### Optimal Account Balancing
+* <a href="https://leetcode.com/problems/optimal-account-balancing/" target="_blank">https://leetcode.com/problems/optimal-account-balancing/</a>
+* <details>
+   <summary>잘 생각해 보면</summary>우선 transaction의 역순으로 하면 되니까 이거보다 큰 답은 없고, transaction을 압축하는 형태로 최적의 답이 나올 테니 각 노드의 값을 이상하게 쪼개는 경우는 없을 듯. 있는 거 다 쓰면서 완탐하면 될 듯
+   . 어째 갈수록 느려지네...;_;</details>
+
+### https://leetcode.com/problems/top-k-frequent-elements
+https://leetcode.com/problems/top-k-frequent-elements
+- nlogN은 개껌이고, N으로 다시 풀어 보기 (쪼금 햇갈림)
+
+### max-area-of-island
+- <a href="https://leetcode.com/problems/max-area-of-island/submissions/" target="_blank">https://leetcode.com/problems/max-area-of-island/submissions/</a>
+- 많이 풀어 본 보드문제 (눈으로 보기만)
+<details>
+   <summary>다시보기</summary> 
+    예전에는 bfs + set으로 풀었던 거 같은데 그럴필요 없음. 
+   </details>
+
+
+#### Min stack (reference problem))
+<a href="https://leetcode.com/problems/min-stack/" target="_blank">https://leetcode.com/problems/min-stack/</a>
+<details>
+<summary>보기만</summary> 
+    stack의 최소값 - pair를 저장하면 됨. 큐와는 달리 top 밑에 있는 애들이 안빠지므로..
+   </details>
+
+solve the problem while explain it to yourself, and write examples (must!)
+
+막히면?
+- 뒤에서
+- 가운데부터
+- 조건을 확인하고, 약한 조건 이용하기
+- 문제 재정의, 다시 읽기
+- 웰노운들 적용시켜 보기
+- 곱하기 있을 시 0 조심
+- 글쓰면서 (예제 만들면서 주절주절)
+- 비교할 때 항상 경계를 생각하자! 그럼 바로 풀림 ㅎㅎ
+- 제출전 리뷰 필수
+- 순차적으로
+- __list test cases__
+   - empty, simple, edges
 
 ### OrderedDict
 ordereddict = linked list + dict (dict는 내부 링크드리스트에 대한 주소 저장)
@@ -175,6 +263,11 @@ PQ.put(sth2)
 while len(PQ) > 0:
    item = PQ.get()
 
+from heapq import heappush, heappop
+Q = []
+heappush(Q, val)
+heappop(Q)
+
 ```
 
 ### Iterator
@@ -184,11 +277,6 @@ nxt = next(iter_val, None)
 ```
 
 
-#### Optimal Account Balancing
-* <a href="https://leetcode.com/problems/optimal-account-balancing/" target="_blank">https://leetcode.com/problems/optimal-account-balancing/</a>
-* <details>
-   <summary>잘 생각해 보면</summary>우선 transaction의 역순으로 하면 되니까 이거보다 큰 답은 없고, transaction을 압축하는 형태로 최적의 답이 나올 테니 각 노드의 값을 이상하게 쪼개는 경우는 없을 듯. 있는 거 다 쓰면서 완탐하면 될 듯
-   . 어째 갈수록 느려지네...;_;</details>
 
 #### Shortest Subarray with Sum at Least K
 - <a href="https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/" target="_blank">https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/</a>
@@ -219,10 +307,6 @@ https://leetcode.com/problems/minimize-deviation-in-array/
 https://leetcode.com/problems/minimum-number-of-refueling-stops/
 - 좋은 문제인 듯. 다시풀기 필수
 
-### https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/
-https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/
-- 난 2-pass로 풀었는데 (나름 맘에듬), general solution이 있었음. 제너럴한걸로 풀어 보자
-- dp말고 계산할거를 따로 저장할떈 이거 초기값 등도 잘 신경써야 함
 
 ### https://leetcode.com/problems/median-of-two-sorted-arrays/
 https://leetcode.com/problems/median-of-two-sorted-arrays/
@@ -232,40 +316,6 @@ https://leetcode.com/problems/median-of-two-sorted-arrays/
 ### https://leetcode.com/problems/trapping-rain-water/
 https://leetcode.com/problems/trapping-rain-water/
 - 에반데. 3년전에 왜캐 잘했지. 지금하고 반대로 (가로 vs 세로) 풀었네 ㅋㅋ
-
-### https://leetcode.com/problems/top-k-frequent-elements
-https://leetcode.com/problems/top-k-frequent-elements
-- nlogN은 개껌이고, N으로 다시 풀어 보기 (쪼금 햇갈림)
-
-
-### Max Sum of Rectangle No Larger Than K (need review)
-
-* <a href="https://leetcode.com/problems/max-sum-of-rectangle-no-larger-than-k/" target="_blank">2차원 부분합이지만 진짜로 2차원 부분합으로 풀면 못풀음</a>
-* <details>
-   <summary>다시풀기</summary> 
-   1차원 부분합 (row)들만 구하고, i - j 로 로우를 고정해놓고 컬럼은 k를 0부터 증가시켜가며, 정렬된 ary를 만들고 여기서 이분탐색으로 답도 찾고 인덱스도 찾음
-   </details>
-* 생각만 하자..
-
-
-
-
-### Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit (window problem, need review)
-- <a href="https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/" target="_blank">https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/</a>
-- 윈도우 안의 최대/최소의 차이. map으로 풀어서 하위 20퍼로 풀긴 함
-- 디큐 - increasing_deque는 맨 앞이 구간의 최소값, decreasing_deque는 맨 앞이 구간의 최대값임 (맨 뒤는 항상 새로 추가된 원소).
-  - 이 때 조심해야 할 게, 현재 구간 (디큐들에 들어있는 아이템들의 min, max정보가 유효한 구간)은 max(inc디큐에서 제일 최근에 빠진 인덱스+1, dec디큐에서 제일 최근에 빠진 인덱스+1)이라는 것
-- 면접볼 땐 바이너리 서치 (결정문제) 도 말해야 할 듯. 그게 포인트자너~
-
-
-
-
-#### Find All Numbers Disappeared in an Array (reference problem)
-<a href="https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/" target="_blank">https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/</a>
-<details>
-<summary>보기만</summary> 
-    리스트 값이 리스트 내부와 range가 같고, 리스트를 체크해야 할 시 리스트 값이 -를 해두면 좋은듯
-   </details>
 
 
 
@@ -361,14 +411,6 @@ cur = -1
    </details>
 
 
-#### Min stack (reference problem))
-<a href="https://leetcode.com/problems/min-stack/" target="_blank">https://leetcode.com/problems/min-stack/</a>
-<details>
-<summary>보기만</summary> 
-    stack의 최소값 - pair를 저장하면 됨. 큐와는 달리 top 밑에 있는 애들이 안빠지므로..
-   </details>
-
-
 ### https://leetcode.com/problems/3sum-with-multiplicity/
 https://leetcode.com/problems/3sum-with-multiplicity/
 - ncr recurrence rel
@@ -435,13 +477,6 @@ https://leetcode.com/problems/swap-adjacent-in-lr-string/
     이름에 힌트가 있었네. 문제 잘 살펴보기 
    </details>
 
-### max-area-of-island
-- <a href="https://leetcode.com/problems/max-area-of-island/submissions/" target="_blank">https://leetcode.com/problems/max-area-of-island/submissions/</a>
-- 많이 풀어 본 보드문제 (눈으로 보기만)
-<details>
-   <summary>다시보기</summary> 
-    예전에는 bfs + set으로 풀었던 거 같은데 그럴필요 없음. 
-   </details>
 
 ### https://leetcode.com/problems/design-file-system/
 https://leetcode.com/problems/design-file-system/
@@ -482,14 +517,6 @@ https://leetcode.com/problems/single-threaded-cpu/
 - 이것도 깔끔하게 안풀림...
 - 다시 풀었는데도 깔끔하게 안풀림 ㅡ,.ㅡ
 - 비교할 때 항상 경계를 생각하자! 그럼 바로 풀림 ㅎㅎ
-
-
-### Step-By-Step Directions From a Binary Tree Node to Another
-- <a href="https://leetcode.com/problems/step-by-step-directions-from-a-binary-tree-node-to-another/" target="_blank">https://leetcode.com/problems/step-by-step-directions-from-a-binary-tree-node-to-another/</a>
-<details>
-   <summary>트리 구현 문제로는 좋은듯</summary> 
-    값도 유니크하니까 LCA도 됨
-   </details>
 
 
 ### count unique chars of all substrs
@@ -713,13 +740,6 @@ TODO: make a post on
 - <a href="https://leetcode.com/problems/next-closest-time/" target="_blank">https://leetcode.com/problems/next-closest-time/</a>
 - 구현이 거지같았던 문제. 근데 시간이 넘어가면 다음 날 시간을 계산안해도 되서 풀만했던듯?
 
-### First Missing Positive (need review)
-<a href="https://leetcode.com/problems/first-missing-positive/" target="_blank">https://leetcode.com/problems/first-missing-positive/</a>
-* smallest nonnegative
-* <details>
-   <summary>다시풀기</summary> 
-   smallest nonnegative = 배열에 저장 가능
-   </details>
 
 ### divide array in sets of k consecutive numbers (need review)
 <a href="https://leetcode.com/problems/divide-array-in-sets-of-k-consecutive-numbers" target="_blank">https://leetcode.com/problems/divide-array-in-sets-of-k-consecutive-numbers</a>

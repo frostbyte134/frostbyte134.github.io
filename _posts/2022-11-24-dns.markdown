@@ -1,0 +1,162 @@
+---
+layout: post
+title:  "local dns resolving"
+date:   2022-11-24 07:00:05 +0800
+categories: coding
+use_math: true
+tags: coding 
+---
+
+rationale for refactoring this document - [link](https://pracucci.com/kubernetes-dns-resolution-ndots-options-and-why-it-may-affect-application-performances.html)
+
+NEXT - k8s CNI [https://coffeewhale.com/packet-network2](https://coffeewhale.com/packet-network2)
+
+
+basically host resolving on app relies on `getaddrinfo()` func of the glibc [(link)](https://access.redhat.com/documentation/enr/red_hat_enterprise_linux/8/html/configuring_and_managing_networking/configuring-the-order-of-dns-servers_configuring-and-managing-networking)
+
+### getaddrinfo
+[reference](https://jameshfisher.com/2018/02/03/what-does-getaddrinfo-do/)
+
+man getaddrinfo
+
+> Given node and service, which identify an Internet host and a service, getaddrinfo() returns one or more addrinfo structures, each of which contains an Internet address that can be specified in a call to bind(2) or connect(2).
+
+
+getaddrinfo doesn’t know anything about files, DNS, or any other way to find the address for a host. Instead, getaddrinfo gets a list of these “sources” at runtime from another file, /etc/nsswitch.conf, the “Name Service Switch”. Here’s some of mine:
+
+```
+$ cat /etc/nsswitch.conf
+passwd:         compat
+hosts:          files myhostname dns
+networks:       files
+```
+
+- file: `/etc/hosts`
+- dns: `/etc/resolved.conf`
+- [myhostname](https://www.freedesktop.org/software/systemd/man/nss-myhostname.html)
+
+
+test codes
+
+```
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netdb.h>
+#include <arpa/inet.h>
+int main(void) {
+  struct addrinfo* addr;
+  int result = getaddrinfo("google.com", NULL, NULL, &addr);
+  if (result != 0) {
+    printf("Error from getaddrinfo: %s\n", gai_strerror(result));
+    return 1;
+  }
+  struct sockaddr_in* internet_addr = (struct sockaddr_in*) addr->ai_addr;
+  printf("google.com is at: %s\n", inet_ntoa(internet_addr->sin_addr));
+  return 0;
+}
+```
+`strace ./a.out`
+
+
+
+### /etc/resolv.conf
+```
+nameserver 11.22.33.44
+search s.c.l c.l aa.bb.cc
+options ndots:5
+```
+
+1. fqdn (identified by the last dot), or addr with dots  larger than ndots (aa.bb.cc.dd.ee.ff.gg -> 5 dots )
+   - does not perform additional search
+2. for other cases, 
+   1. iterate search list
+   2. append each item as postfix, and query to the ns specified
+   3. ex - aa.bb -> aa.bb.svc.cluster.local, aa.bb.cluster.local, aa.bb.aa.bb.cc
+
+
+### /etc/host.conf
+ip - hostname direct mapping
+
+
+--------------------------------------------
+
+### Deprecated
+- contents below are deprecated 
+
+### 생활코딩 HTTP
+
+- <a href="https://opentutorials.org/course/3385/21673" target="_blank">생활코딩 HTTP</a>
+
+#### HTTP 소개
+- HTTP = 크게 Request/Response로 나뉨
+- 크롬의 우클릭-검사 (inspect) - Network탭 : 크롬의 네트워크 모니터링 툴
+  - `<img src="asd.jpg" ... >` 를 브라우저가 읽을 시, `asd.jpg`를 요청하기 위한 HTTP통신이 이루어짐
+  - 각 HTTP 통신 (request-response pair, network탭의 1줄) 에 대해 header를 읽을 수 있음
+
+#### HTTP Request Message
+- <a href="https://gmlwjd9405.github.io/2019/01/28/http-header-types.html" target="_blank">참고 1?</a>
+- <a href="https://goddaehee.tistory.com/169" target="_blank">참고 2?</a>
+- `GET /1.html HTTMP/1.1`
+  - http header : `GET /1.html HTTP/1.1`
+  - Request Headers
+    - `Host: ip:port`
+    - `user agent` : web browser의 다른 표현?
+    - `Accept-Encoding` : 압축형식
+    - `If-Modified-Since` : 내가 받을 /1.html의 변경시기?
+
+
+```
+Request header
+<br/>
+content
+```
+형식
+
+
+#### HTTP Response Message
+<img src="https://lh3.googleusercontent.com/proxy/bJVf127r5VMl6ukcIhLB7BeFsyQhArW4w-B23kfBj0zJ7AkFi9O0TlvtN8Y-vxN66IOIn3CvsLNMVjR3v93O7zZNbkz0pTPsWScgOqEZCGI">
+
+- `Content-Type: text/html` 
+- `Content-Encoding` : 압축 
+- `Content-length` : 컨텐츠의 바이트 길이
+
+
+```
+Request header
+<br/>
+html codes
+```
+포멧이고, 웹브라우저는 위를 참고하여 화면을 뿌려줌
+
+
+
+### 기타
+- HTTPS = SSL
+- `cache-control`, `pragma`, `application-cache`?
+- `cookie`
+- `proxy`
+  - 중계 서버
+  - 보안, 로드밸런싱
+
+
+### 쿠키
+
+- 쿠키값을 웹 브라우저에 설정 - 특정 사이트에 접속시마다 쿠기값을 보내 `상태`를 유지
+- `web storage` : 쿠키보다 좋음?
+
+
+링크 참고. 다들 워낙 잘 쓰셨네..
+- <a href="https://jeong-pro.tistory.com/80" target="_blank">https://jeong-pro.tistory.com/80</a>
+- 
+
+### 생활코딩 DNS
+- <a href="https://opentutorials.org/course/3276" target="_blank">https://opentutorials.org/course/3276</a>
+
+
+### HTML Form?
+
+
+### DNS
+
+https://opentutorials.org/course/3276/20303 이거부터 ㄱㄱ

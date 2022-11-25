@@ -44,6 +44,7 @@ implementation of epoll
   - 결국, socket filesystem에 `wait_queue`를 하나 등록시키고, 여기서 이벤트 기반으로 변화가 있을시마다 콜백함수가 호출되어 epoll구조체에 정보를 전닳해 줌. wait_queue기반의 이벤트라는것이 중요한 듯. 아직 polling 공부를 못해서...
 - https://programming.vip/docs/linux-kernel-notes-epoll-implementation-principle.html
 - optional : https://fd3kyt.github.io/posts/implementation-of-epoll/#fnref:fn-3
+- https://www.slideshare.net/llj098/epoll-from-the-kernel-side
 
 위의 것 prerequisite : wait_queue
 1. <a href="https://www.kernel.org/doc/htmldocs/kernel-hacking/queues.html" target="_blank">커널 doc 설명</a>
