@@ -11,11 +11,29 @@ tags: problem_solving leetcode need_review
 리셋 ㄱㄱ
 - 한번에 푸는 게 중요한듯 (실수 없이)
 - 보자마자 opt sol이 걍 떠올라야 하는듯 ㅡ,.ㅡ
+- 2022.11.25 하드100 돌파 ㅋㅋ
 
 
+### https://leetcode.com/problems/split-two-strings-to-make-palindrome/
+- aa
 
-###  가자
-aa
+### https://leetcode.com/problems/meeting-rooms-iii/description/
+- https://leetcode.com/problems/meeting-rooms-iii/description/
+- 풀긴 풀었는데 좀 더럽게 풀음...깔끔하게 푼거 참고하자. lee꺼가 좋은 듯
+
+### https://leetcode.com/problems/minimum-number-of-refueling-stops/
+https://leetcode.com/problems/minimum-number-of-refueling-stops/
+- 좋은 문제인 듯. 다시풀기 필수
+- 밑이랑 세트로 기억하면 좋을 듯
+
+
+### https://leetcode.com/problems/course-schedule-iii/description/
+https://leetcode.com/problems/course-schedule-iii/description/
+
+* <details>
+   <summary>오 문제좋다</summary> 
+   다시 ㄱㄱ
+   </details>
 
 
 ### Max Sum of Rectangle No Larger Than K (need review)
@@ -151,6 +169,21 @@ https://leetcode.com/problems/word-ladder/
    <summary>풀긴 품</summary>빠르게 안됐음. 다시 한번 풀어볼 정도?</details>
 
 
+### K inverse pairs
+* <a href="https://leetcode.com/problems/k-inverse-pairs-array/description/" target="_blank">링크</a>
+
+* <details>
+   <summary>다시보기만</summary> 
+   버벅거리면서 풀긴 함 ㅋㅋ
+   </details>
+
+### maximum-profit-in-job-scheduling
+- <a href="https://leetcode.com/problems/maximum-profit-in-job-scheduling" target="_blank">https://leetcode.com/problems/maximum-profit-in-job-scheduling</a> 
+<details>
+   <summary>뻘짓하다 힌트 한번 봄...</summary> 
+    dp라는 힌트 보고 풀음. 내가 푼 것 보다 정렬 (정해진 순서로 상태공간 탐색) + 이진탐색 을 잘 하면 상태공간을 좀 더 좁힐 수 있음. 
+   </details>
+- 다시푸니까 대충 풀긴 함 ㅋㅋ 이진탐색보다는 dict쓸 수 있을 때 쓰면 더 빠름
 
 
 ### Done
@@ -300,12 +333,6 @@ https://leetcode.com/problems/distinct-subsequences/
 https://leetcode.com/problems/minimize-deviation-in-array/
 - ㅡㅡ..이런걸 어케 생각하는걸까
 
-
-
-
-### https://leetcode.com/problems/minimum-number-of-refueling-stops/
-https://leetcode.com/problems/minimum-number-of-refueling-stops/
-- 좋은 문제인 듯. 다시풀기 필수
 
 
 ### https://leetcode.com/problems/median-of-two-sorted-arrays/
@@ -581,12 +608,6 @@ https://leetcode.com/problems/maximum-level-sum-of-a-binary-tree/
 ### https://leetcode.com/problems/search-a-2d-matrix/
 쉬운데 추가풀이가 재밌네
 
-### maximum-profit-in-job-scheduling
-- <a href="https://leetcode.com/problems/maximum-profit-in-job-scheduling" target="_blank">https://leetcode.com/problems/maximum-profit-in-job-scheduling</a> 
-<details>
-   <summary>뻘짓하다 힌트 한번 봄...</summary> 
-    dp라는 힌트 보고 풀음. 내가 푼 것 보다 정렬 (정해진 순서로 상태공간 탐색) + 이진탐색 을 잘 하면 상태공간을 좀 더 좁힐 수 있음. 
-   </details>
 
 
 ### minimum-number-of-increments-on-subarrays-to-form-a-target-array/
@@ -910,14 +931,6 @@ linked list + hash = O(1) LRU Cache!
 
 
 
-#### Best time to buy and sell stock
-<a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/submissions/" target="_blank">https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/</a>
-
-1. DP
-\\[\text\{maxx\}[i] = \max(\text\{maxx\}[i], \text\{maxx\}[i-1], ary[i] - ary[j] + \text\{maxx\}[j-2]),\\ j=1,...,i-1\\]
-when j<2, maxx[j-2] = 0 (there is no profit we can obtain in day=i=0, 1)
-2. __Notice__ that, the term \\(- ary[j] + \text\{maxx\}[j-2])\\) is calculated over and over
-
 #### Next permutation
 
 <a href="https://leetcode.com/problems/next-permutation/" target="_blank">https://leetcode.com/problems/next-permutation/</a>
@@ -1094,7 +1107,6 @@ dp[val] = min([dp[val - c]+1 if val - c >= 0 else float("inf") for c in coins])
 ### Stock Price Fluctuation
 <a href="https://leetcode.com/problems/stock-price-fluctuation" target="_blank">https://leetcode.com/problems/stock-price-fluctuation</a>
 - EZ
-
 
 
 

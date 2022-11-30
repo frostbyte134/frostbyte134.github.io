@@ -63,16 +63,16 @@ int main(void) {
 ### /etc/resolv.conf
 ```
 nameserver 11.22.33.44
-search s.c.l c.l aa.bb.cc
+search ss.cc.ll cc.ll aa.bb.cc
 options ndots:5
 ```
 
-1. fqdn (identified by the last dot), or addr with dots  larger than ndots (aa.bb.cc.dd.ee.ff.gg -> 5 dots )
+1. fqdn (identified by the last dot in the host name), or addr with dots strictly (need chec) larger than ndots (aa.bb.cc.dd.ee.ff.gg.hh -> 6 dots )
    - does not perform additional search
 2. for other cases, 
    1. iterate search list
    2. append each item as postfix, and query to the ns specified
-   3. ex - aa.bb -> aa.bb.svc.cluster.local, aa.bb.cluster.local, aa.bb.aa.bb.cc
+   3. ex - aa.bb -> aa.bb.ss.cc.ll, aa.bb.cc.ll, aa.bb.aa.bb.cc
 
 
 ### /etc/host.conf
