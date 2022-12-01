@@ -1,11 +1,88 @@
 ---
 layout: post
-title:  "Representational state transfer"
-date:   2022-01-17 07:00:05 +0800
+title:  "API design best practice"
+date:   2022-12-01 07:00:05 +0800
 categories: coding
 use_math: true
-tags: coding python
+tags: coding
 ---
+
+
+
+### 그런 REST API로 괜찮은가? (22.12.01 추가)
+- 이거 추가하면서 제목을 REST에서 api design으로 바꿈...ㅎㅎ
+- https://deview.kr/2017/schedule/212
+
+REST: 분산 하이퍼미디서 시스템 (EX-web)을 위한 아키텍처 스타일
+- `아키텍처 스타일`: 제약조건들의 집합
+- client-server, stateless, cache, layered system:  HTTP api이기만 해도 대충 잘 지켜짐 
+- code-on-demand(optional): 서버에서 클라이언트로 코드를 보내 실행할 수 있어야 함 (자바스크립트?)
+- `uniform interface`
+  - identification of resources: 식별가능하면 됨
+  - manipulation of rsc through representation: 리소스의 CRUD는 HTTP 메시지로 되어야 한다
+  - self-descriptive message: 쉽지않네..
+  - hypermedia as the engine of app state (HATEOAS)
+
+why uniform interface?
+- for seperate evolution of server/client? (reduce cohesion)
+
+Self-descriptive Message
+- `Content-Type: application/json-patch+json`: 여기 가면 operation들이 다 정의되어 있는 듯
+- 이건 json 파싱 관련만인 것 같은뎨?
+
+HATEOAS
+- 앱의 상태천이는 항상 hyperlink를 통해서 되어야 한다 (링크 클릭해서 상태 변화가 되어야 함)
+  - 근데 앱 자체의 로컬 상태천이랑 관계가 있나...?
+  - 헤더에 LINK를 포함 -> 이걸로 (사용자 입장에서의) 앱의 상티 전이가 되어야 하는 듯 (리소스들을 이동하면서?)
+  - HTML - 메시지 자체에 a태그로 들어간 링크도 천이로 치는 듯
+  - 동적인 링크 변경이 가능 (서버가 링크 구조를 바꿔도 클라이언트는 메시지마다 링크를 보고 따라가면 됨)
+
+웹페이지는 rest를 잘 만족함
+- 상태천이도
+- seperate evol도 
+
+REST API (by Roy T. Fielding)
+> An API that provides network-based access to resources via a uniform interace of self-descriptive msgs containing hypertext to indicate potential state transitions might be part of an overall system that is RESTful application
+
+버저닝 예기는 왜 있는 거지? - 이 방법대로라면 굳이 버저닝은 필요없다는 걸 말하고 싶은 듯...?
+
+If you can control entire system (cli-server), or not interested in independent evolution
+- no need to apply REST architecture
+
+
+내가 만든 HTTP API는?...
+- ex) APP은 breaking change가 꽤 많음. 웹은 이런 게 없음
+- 엄밀히 말하면 앱이 rest하지 않아서 = rest 아키텍처 스타일을 따르지 않아서
+- 웹은 잘 되는데 왜 앱은 REST가 잘 안되나?
+
+| .  | 웹페이지 | 앱 |
+| ------------- | ------------- | ------------- |
+| 프로토콜  | HTTP  | HTTP  |
+| COMM  | Human-Machine  | machine to machine  |
+| media type  | HTML  | JSON  |
+
+| .  | HTML  | JSON  |
+| ------------- | ------------- | ------------- |
+| hyperlink  | well defined (a tag,...)  | Nonedefined  |
+| self-descriptive  | good  | 어떻게 파싱해야 하는지만 있음. 각 필드의 의미 등은 불명 |
+
+미디어 타입 (app/json, app/html) - IANA에 해석 방법이 등록되어 있다고 함
+- json은 self-described field name (ex - "id", "title", ...)을 해석할 방법을 IANA에 등록해야 함...ㅜㅜ
+- IANA에 등록하기 싫으면, 명세를 작성한 곳 링크를 Link 헤더에 `Profile relation`으로 찾아가기
+  - content negotiation이 불가능? 해석 안될 때 답이 없다는 듯
+
+HATEOS
+- json에 링크를 박아놔도 되긴 하는데, 어떤 필드가 link인지를 정의안했긴 함 ㅋㅋ
+
+
+PPT의 정리
+- 오늘 대부분의 자칭 REST API는 REST하지 않다
+  - 특히 그 중 HATEOS와 self descriptive를 만족시키지 못한다
+- REST는 긴 시간 독립적으로 (low cohesion)진화하는 웹 앱을 위한 것이다. 아니면 신경X
+  - 강요X. 따를지 말지, 어디까지 따를지는 개발자들이 스스로 결정
+- 따르겠다면 self-descriptive, hateos를 만족시켜야 함
+  - json/self descriptive - custom media type / profile link relation으로)
+  - hateos - 헤더나 본문에 링크 박기?
 
 ### Google Cloud Best Practice
 <a href="https://cloud.google.com/apis/design/resources" target="_blank">https://cloud.google.com/apis/design/resources</a>
