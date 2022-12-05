@@ -1,18 +1,25 @@
 ---
 layout: post
-title:  "Leetcode problems"
+title:  "Leetcode problems - Need Reviews"
 date:   2021-05-01 09:59:00 +0800
 categories: problem_solving
 use_math: true
 tags: problem_solving leetcode need_review
 ---
 
+잘 못풀었던지 해서 다시 풀어봐야 하는 문제들
 
 리셋 ㄱㄱ
 - 한번에 푸는 게 중요한듯 (실수 없이)
 - 보자마자 opt sol이 걍 떠올라야 하는듯 ㅡ,.ㅡ
 - 2022.11.25 하드100 돌파 ㅋㅋ
 
+### https://leetcode.com/problems/jump-game-ii/
+https://leetcode.com/problems/jump-game-ii/
+- 걍 보기만
+
+### https://leetcode.com/problems/insert-delete-getrandom-o1-duplicates-allowed/description/
+- 그냥 구현용으로 풀어보기 좋은듯 ㅋㅋ 배열 마지막 조건을 항상 조심하자
 
 ### https://leetcode.com/problems/split-two-strings-to-make-palindrome/
 - aa
@@ -20,20 +27,6 @@ tags: problem_solving leetcode need_review
 ### https://leetcode.com/problems/meeting-rooms-iii/description/
 - https://leetcode.com/problems/meeting-rooms-iii/description/
 - 풀긴 풀었는데 좀 더럽게 풀음...깔끔하게 푼거 참고하자. lee꺼가 좋은 듯
-
-### https://leetcode.com/problems/minimum-number-of-refueling-stops/
-https://leetcode.com/problems/minimum-number-of-refueling-stops/
-- 좋은 문제인 듯. 다시풀기 필수
-- 밑이랑 세트로 기억하면 좋을 듯
-
-
-### https://leetcode.com/problems/course-schedule-iii/description/
-https://leetcode.com/problems/course-schedule-iii/description/
-
-* <details>
-   <summary>오 문제좋다</summary> 
-   다시 ㄱㄱ
-   </details>
 
 
 ### Max Sum of Rectangle No Larger Than K (need review)
@@ -55,14 +48,6 @@ https://leetcode.com/problems/find-the-kth-smallest-sum-of-a-matrix-with-sorted-
 - Substring with Largest Variance - ㅅㅂ
    - 문자 2개씩 보는 것만 기억할 만 한듯
 
-#### https://leetcode.com/problems/number-of-ways-of-cutting-a-pizza/description/
-- https://leetcode.com/problems/number-of-ways-of-cutting-a-pizza/description/
-- 풀만했는데 못풀었음 ㅡㅡ 정줄 좀 놓은 듯..
-
-#### https://leetcode.com/problems/substring-with-concatenation-of-all-words/description/
-- https://leetcode.com/problems/substring-with-concatenation-of-all-words/description/
-- 흠..낫배드. 어렵지 않은데 해맸네..
-
 #### 
 - https://leetcode.com/problems/minimum-adjacent-swaps-for-k-consecutive-ones/description/ 아직 
 ㅁㅗㅅ봄
@@ -73,9 +58,6 @@ https://leetcode.com/problems/find-the-kth-smallest-sum-of-a-matrix-with-sorted-
 ### https://leetcode.com/problems/minimum-number-of-moves-to-make-palindrome/description/
 다시 ㄱ
 - 꼬리문제 https://leetcode.com/problems/minimum-adjacent-swaps-to-make-a-valid-array/
-
-### https://leetcode.com/problems/image-overlap/description/
-이것도 답 봄. 문제도 제대로 안보고 풀었음 ㅎㅎ 
 
 ### https://leetcode.com/problems/sum-of-total-strength-of-wizards/description/
 아니...일단 다시 풀어 보자. 풀이 일부러 안적음. 왜 이런 걸 내는거야. 리트코드 함 보고 오라는 건가?
@@ -91,12 +73,6 @@ https://leetcode.com/problems/find-the-kth-smallest-sum-of-a-matrix-with-sorted-
 ### https://leetcode.com/problems/integer-to-english-words/description/
 Integer to English Words
 - 풀어볼 만 한듯 (한번에 제출, 설명, 깔끔)
-
-### sequentially-ordinal-rank-tracker
-* <a href="https://leetcode.com/problems/sequentially-ordinal-rank-tracker/description/" target="_blank">https://leetcode.com/problems/sequentially-ordinal-rank-tracker/description/</a>
-* <details>
-   <summary>방법은 금방 알았는데 (ㅋㅋ)</summary>순차적으로 늘어나니까..ㅎㅎ heapq 연습문제</details>
-
 
 
 #### Skyline Problems
@@ -162,13 +138,6 @@ https://leetcode.com/problems/word-ladder/
 
 
 
-#### Sort Colors
-* <a href="https://leetcode.com/problems/sort-colors/description/" target="_blank">https://leetcode.com/problems/sort-colors/description/</a>
-* 다시 쉽게 풀긴 했는데, 풀이방법 2개 돌아보고 넣을 정도는 됨. 보기만 하고 넣자
-* <details>
-   <summary>풀긴 품</summary>빠르게 안됐음. 다시 한번 풀어볼 정도?</details>
-
-
 ### K inverse pairs
 * <a href="https://leetcode.com/problems/k-inverse-pairs-array/description/" target="_blank">링크</a>
 
@@ -185,75 +154,6 @@ https://leetcode.com/problems/word-ladder/
    </details>
 - 다시푸니까 대충 풀긴 함 ㅋㅋ 이진탐색보다는 dict쓸 수 있을 때 쓰면 더 빠름
 
-
-### Done
-
-### https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/
-https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/
-- 난 2-pass로 풀었는데 (나름 맘에듬), general solution이 있었음. 제너럴한걸로 풀어 보자
-- dp말고 계산할거를 따로 저장할떈 이거 초기값 등도 잘 신경써야 함
-
-### Step-By-Step Directions From a Binary Tree Node to Another
-- <a href="https://leetcode.com/problems/step-by-step-directions-from-a-binary-tree-node-to-another/" target="_blank">https://leetcode.com/problems/step-by-step-directions-from-a-binary-tree-node-to-another/</a>
-<details>
-   <summary>트리 구현 문제로는 좋은듯</summary> 
-    값도 유니크하니까 LCA도 됨
-   </details>
-
-
-#### First Missing Positive (need review)
-<a href="https://leetcode.com/problems/first-missing-positive/" target="_blank">https://leetcode.com/problems/first-missing-positive/</a>
-* smallest nonnegative
-* <details>
-   <summary>다시풀기</summary> 
-   smallest nonnegative = 배열에 저장 가능
-   </details>
-
-#### https://leetcode.com/problems/partition-array-such-that-maximum-difference-is-k/description/
-ez. 리뷰만 (설명하기)
-
-#### https://leetcode.com/problems/continuous-subarray-sum/description/
-흠. 답 보긴 봤음. 다시 ㄱㄱ
-- 다시했을땐 풀긴 함. 배라는 것이 중요
-#### https://leetcode.com/problems/minimum-swaps-to-group-all-1s-together/
-- 쉽게 풀긴 했는데, 더 깔끔한 풀이 유도하기
-
-
-### https://leetcode.com/problems/reverse-nodes-in-k-group/
-https://leetcode.com/problems/reverse-nodes-in-k-group/
-- 아씨...글쓰면서 (예제 만들면서 주절주절) 하자
-
-### unique-paths-iii
-
-* <a href="https://leetcode.com/problems/unique-paths-iii/description/" target="_blank">https://leetcode.com/problems/unique-paths-iii/description/</a>
-* <details>
-   <summary>Aㅏ...</summary>늙었구나...</details>
-
-#### Burst Baloons
-<a href="https://leetcode.com/problems/burst-balloons/" target="_blank">https://leetcode.com/problems/burst-balloons/</a>
-<details>
-<summary>보기만 - 아니 다시 보니까 못풀음 ㅡㅡ</summary> 
-    l-r 사이에서 i번째 풍선을 마지막에 터트렸을 때 얻을 수 있는 최대값 (결국 어느 풍선이던 마지막에 터트려야 함) = 결국엔 마지막에 i번째만 남았다는 듯. nums[l-1] * nums[i] * nums[r+1] (범위 밖 풍선과 묶여야 하니까) + dp[l][i-1] + dp[i+1][r]. 첨에 nums = [1] + nums + [1]해놓으면 편함
-    터트렸을 때 얻을 수 있는 최대값을 dp로 잡았어야 했나..
-   </details>
-
-#### Optimal Account Balancing
-* <a href="https://leetcode.com/problems/optimal-account-balancing/" target="_blank">https://leetcode.com/problems/optimal-account-balancing/</a>
-* <details>
-   <summary>잘 생각해 보면</summary>우선 transaction의 역순으로 하면 되니까 이거보다 큰 답은 없고, transaction을 압축하는 형태로 최적의 답이 나올 테니 각 노드의 값을 이상하게 쪼개는 경우는 없을 듯. 있는 거 다 쓰면서 완탐하면 될 듯
-   . 어째 갈수록 느려지네...;_;</details>
-
-### https://leetcode.com/problems/top-k-frequent-elements
-https://leetcode.com/problems/top-k-frequent-elements
-- nlogN은 개껌이고, N으로 다시 풀어 보기 (쪼금 햇갈림)
-
-### max-area-of-island
-- <a href="https://leetcode.com/problems/max-area-of-island/submissions/" target="_blank">https://leetcode.com/problems/max-area-of-island/submissions/</a>
-- 많이 풀어 본 보드문제 (눈으로 보기만)
-<details>
-   <summary>다시보기</summary> 
-    예전에는 bfs + set으로 풀었던 거 같은데 그럴필요 없음. 
-   </details>
 
 
 #### Min stack (reference problem))
@@ -393,10 +293,6 @@ https://leetcode.com/problems/binary-tree-maximum-path-sum/
 ### https://leetcode.com/problems/count-of-smaller-numbers-after-self/
 https://leetcode.com/problems/count-of-smaller-numbers-after-self/
 - 오우 쉣. 보기만
-
-### https://leetcode.com/problems/jump-game-ii/
-https://leetcode.com/problems/jump-game-ii/
-- 걍 보기만
 
 ### Longest Palindromic Substring
 - asd
@@ -640,13 +536,6 @@ https://leetcode.com/problems/maximum-level-sum-of-a-binary-tree/
    </details>
 
 
-### max-area-of-island
-- <a href="https://leetcode.com/problems/max-area-of-island/submissions/" target="_blank">https://leetcode.com/problems/max-area-of-island/submissions/</a>
-- 많이 풀어 본 보드문제
-<details>
-   <summary>다시보기</summary> 
-    예전에는 bfs + set으로 풀었던 거 같은데 그럴필요 없음.
-   </details>
 
 ### 4sums
 - 기존 확장밖에 없네
@@ -835,14 +724,6 @@ TODO: make a post on
 - 연관문제도 풀어볼까
 - 제약조건이 좀 약하긴 함. 그래서 매 query마다 소팅을 하는데, 효율적으로 풀 수 없을까
 
-#### Valid square
-<a href="https://leetcode.com/problems/valid-square/" target="_blank">https://leetcode.com/problems/valid-square/</a>
-
-4개의 점이 주어졌을 시, 정사각형인가?
-* 첨에 회전을 생각안해서 함 틀림
-* 좌표가 같은지아닌지로 하려다 계속 틀려서, 벡터 + 내적 (90도 판별)로 풀음.
-* 말하면서 풀어야 하는데..넘모 귀찮은 것임
-
 #### Path with Maximum Gold
 <a href="https://leetcode.com/problems/valid-square/" target="_blank">https://leetcode.com/problems/valid-square/</a>
 
@@ -898,10 +779,6 @@ increasing하게 들어오는 timestamp. 특정 시점의 300초전까지의 hit
 
 ### reference problems
 
-#### LRU Cache
-<a href="https://leetcode.com/problems/lru-cache/" target="_blank">https://leetcode.com/problems/lru-cache/</a>
-linked list + hash = O(1) LRU Cache!
-
 #### 2-sum problems
 1. 2-sum - lr (O(N))
 2. 3-sum - 2sum * N
@@ -919,33 +796,6 @@ linked list + hash = O(1) LRU Cache!
     1. ed : 고정된 st에서, permutation을 포함하는 최소 끝점을 찾음
     2. st : 해당 ed에서, permutation을 포함할 때 까지 줄여감
 * 왠일로 하드를 수월하게 풀었네...?
-
-#### Merge Intervals
-
-<a href="https://leetcode.com/problems/merge-intervals/" target="_blank">https://leetcode.com/problems/merge-intervals/</a>
-
-1. 인터벌 (a, b)들을 오름차순으로 정렬
-2. valid non-intersecting interval 집합을 유지한다고 할 시, 현재 고려중인 interval은 
-    1. valid 집합의 마지막 interval보다 a값은 크다
-    2. 따라서, valid 집합의 마지막 interval과 머지되지 않을 시, 나머지들과 머지될 일은 없음.
-
-
-
-#### Next permutation
-
-<a href="https://leetcode.com/problems/next-permutation/" target="_blank">https://leetcode.com/problems/next-permutation/</a>
-
-Permutation의 다음번째는 무엇인가? (lexicographical order)
-
-1. Permutation이므로 swap
-2. lexi-order이므로, 자릿수가 작은 숫자를
-	1. 자기보다 자릿수가 더 낮으면서
-	2. 값은 더 큰 숫자
-	3. 중 최소의 숫자와 바꿔야 함.
-	
-	이렇게 i번째 숫자를 j(<i) 번째 숫자와 바꾸었으면, i-1번째부터는 작은 순으로 정렬해주어야 함. 그래야 바로 다음번이 되니까.
-3. 위에 해당하는 경우가 없을 시, 모든 숫자는 자기보다 자릿수가 낮은 숫자보다 큼. (ex - 4321) 문제에서 이러면 낮은순정렬하랬으므로 1d transpose해줌
-
 
 
 #### Finding cycle in linked list
@@ -976,67 +826,6 @@ Permutation의 다음번째는 무엇인가? (lexicographical order)
 
 ### Need review
 
-
-#### search a 2d matrix
-
-<a href="https://leetcode.com/problems/search-a-2d-matrix-ii" target="_blank">https://leetcode.com/problems/search-a-2d-matrix-ii</a>
-
-
-\\(m\times n\\) 행렬이, 행 / 열 별로 독립적으로 정렬되어 있을 시,
-
-1. 난 그냥 m*logn으로 풀음
-2. 행렬은 각 element 별로 4개로 쪼갤 수 있다. 왼위가 자기보다 무조건 작은 곳, 오른아래가 무조건 자기보다 큰 곳.  
-   왼쪽 위부터 시작하지 말고, 오른쪽 위부터 시작해서
-   1. ary[i][j] < target: 더 큰 수 를 찾아야 하므로, 오른 아래는 무조건 없다. 왼쪽으로 빠꾸. 위는 예전에 갔으므로 갈 필요가 없음.
-   2. ary[i][j] > target: 더 작은 수를 찾아야 하므로, 왼위는 무조건 없다. 아래로 ㄱ. 오른쪽은 오른쪽부터 시작했으므로 갈 필요가 없음.  
-   의 방식으로 \\(\mathop\{O\}(m+n\\) 탐색 가능.
-
-이런 문제를 바로바로 풀어야 할 텐데...
-
-
-#### Generate Parentheses
-
-<a href="https://leetcode.com/problems/generate-parentheses/" target="_blank">https://leetcode.com/problems/generate-parentheses/</a>
-
-n개의 parentheses로 가능한 모든 조합을 만드는 문제
-
-1. 재귀 - dp로 풀음
-2. backtracking - 새로운 parentheses는 항상 오른쪽에 붙인다고 하면 backtracking 가능  
-3. 어떻게 붙여도 숫자만 맞고, 오른쪽에 붙이므로 )를 먼저 다 쓰는 일 없이 r > l일때만 )를 써주면 valid함.
-
-dfs나 bfs로 상태공간 탐색가능
-
-```python
-class Solution:
-    
-    def solve(self, l, r):
-        if l == 0 and r == 0:
-            return [""]
-        ret = []
-        
-        if l != 0:
-            ret += ["(" + item for item in self.solve(l-1, r)]
-        if r != 0 and r > l:
-            ret += [")" + item for item in self.solve(l, r-1)]
-        if l == 0 and r != 0:
-            return [")"*r]
-        
-        return ret
-    
-    def generateParenthesis(self, n: int) -> List[str]:
-        return self.solve(n, n)
-```
-
-
-
-#### N-Queens (reference problem)
-<a href="https://leetcode.com/problems/n-queens/" target="_blank">https://leetcode.com/problems/n-queens/</a>
-
-1. Naive - on the board
-2. 보드보다 상태공간을 더 잘 표현할 수 있음
-    1. queen의 위치는, 1-d array의 위치가 row, 값이 column
-    2. position의 조건이, rowInd+colInd와 rowInd-colInd 가 같으면 같은 대각에 있는 것이므로, 위의 두 값을 queen의 위치와 같이 저장. 같은 row/col체크는 하지 않을 것 (위에서 이미 결정하고 오므로)
-    3. naive board solution은 정말 보드를 다 찾아보지만 이 solution은 row별로 어디에 놓을지만 결정해도 되므로 시간절약도 많이 될듯
 
 
 #### Smallest Range 
@@ -1070,38 +859,6 @@ class Solution:
         
         return ans
 ```
-
-
-### Reviewed
-
-#### Coin change
-
-<a href="https://leetcode.com/problems/coin-change/" target="_blank">https://leetcode.com/problems/coin-change/</a>
-
-문제자체는 별거 없는, 동전교환 dp인데..
-```python
-dp[val] = min([dp[val - c]+1 if val - c >= 0 else float("inf") for c in coins])
-```
-으로 푸는게 2차원 배열에 동전갯수번만큼 min 을 해주는 것보다 2배는 빨랐다. ㄷㄷ해.  
-결론:
-1. 다수의 min/max보다는 List comprehension을 쓰자!
-2. `float("inf")`
-
-
-
-
-
-
-#### Rotate image
-
-<a href="https://leetcode.com/problems/rotate-image/submissions/" target="_blank">https://leetcode.com/problems/rotate-image/submissions/</a>
-
-행렬 90도 rotation
-<details>
-   <summary>보기만</summary> 
-    transpose + column exchange / 4개의 점끼리만 바꾸기. Row 2개로 swap하려고 해서 잘 안풀려서 1번으로 풀음
-   </details>
-
 
 
 ### Stock Price Fluctuation
