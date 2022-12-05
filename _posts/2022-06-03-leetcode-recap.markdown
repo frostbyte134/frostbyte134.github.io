@@ -12,6 +12,13 @@ tags: problem_solving leetcode need_review
 아 빨리 블로그 만들어야 하는데..........
 
 
+
+
+### https://leetcode.com/problems/edit-distance/
+https://leetcode.com/problems/edit-distance/
+- 아씨..복습만 (눈팅)
+- +1
+
 #### https://leetcode.com/problems/number-of-ways-of-cutting-a-pizza/description/
 - https://leetcode.com/problems/number-of-ways-of-cutting-a-pizza/description/
 - 풀만했는데 못풀었음 ㅡㅡ 정줄 좀 놓은 듯..
@@ -54,3 +61,20 @@ tags: problem_solving leetcode need_review
 <a href="https://leetcode.com/problems/lru-cache/" target="_blank">https://leetcode.com/problems/lru-cache/</a>
 - linked list + hash = O(1) LRU Cache! - 이거 복습 한번만 ㅋㅋ
 - 내지는 PQ도 가능?
+
+### https://leetcode.com/problems/find-k-th-smallest-pair-distance/description/
+
+* <a href="https://leetcode.com/problems/find-k-th-smallest-pair-distance/description/" target="_blank">https://leetcode.com/problems/find-k-th-smallest-pair-distance/description/</a>
+* <details>
+   <summary>와 풀긴 푸음</summary>난 이진탐색 2번으로 풀었는데, 투포인터 + 이진탐색이 더 빠른 듯? 이거 cand_diff >= k 인 것 중 최소를 찾아야 하는 이유 = 진짜 있는 거를 찾아야 하기 때문. cand_diff <= k 인 것 중 최대는 없는 숫자가 선택될 수도 있음 (ex - 3, 4, 5, 6 다 cand_diff가 같고 실제 있는 pair diff는 3인 경우. 실제 diff가 4가 될순 없음. 그럼 3은 4보다 자기보다 작은 숫자가 더 작을 테니까) </details>
+   투포인터로 어케 풀지? - num[i] 보다 cand_diff만큼 큰 num[j] 이거 둘다 순증가해서 투포인터 가능 (순증가 투포인터는 첨보네...)ㅇ
+
+우리가 이진탐색으로 찾는 cand_diff = 3, 4, 5, 6 다 자기보다 작거나 같은 diff의 갯수가 같고, 실제 pair끼리 diff에는 4만 있는 경우, 3 / 5 / 6은 답이 될 수 없음. 이때 3에는 contradiction 남 (자기보다 작거나 "같은" 떄문에, 3과 4의 자기보다 같은 diff 갯수는 동일). 그러므로 cand_diff중 최소인 것을 찾으면 됨
+
+### K inverse pairs
+* <a href="https://leetcode.com/problems/k-inverse-pairs-array/description/" target="_blank">링크</a>
+
+* <details>
+   <summary>다시보기만</summary> 
+   버벅거리면서 풀긴 함 ㅋㅋ. 중간식이 진짜 맞는 거 같으면 초기조건은 대충 때우자
+   </details>

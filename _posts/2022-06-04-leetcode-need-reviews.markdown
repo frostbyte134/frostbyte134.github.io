@@ -14,12 +14,30 @@ tags: problem_solving leetcode need_review
 - 보자마자 opt sol이 걍 떠올라야 하는듯 ㅡ,.ㅡ
 - 2022.11.25 하드100 돌파 ㅋㅋ
 
-### https://leetcode.com/problems/jump-game-ii/
-https://leetcode.com/problems/jump-game-ii/
-- 걍 보기만
 
-### https://leetcode.com/problems/insert-delete-getrandom-o1-duplicates-allowed/description/
-- 그냥 구현용으로 풀어보기 좋은듯 ㅋㅋ 배열 마지막 조건을 항상 조심하자
+
+### maximum-profit-in-job-scheduling
+- <a href="https://leetcode.com/problems/maximum-profit-in-job-scheduling" target="_blank">https://leetcode.com/problems/maximum-profit-in-job-scheduling</a> 
+<details>
+   <summary>뻘짓하다 힌트 한번 봄...</summary> 
+    dp라는 힌트 보고 풀음. 내가 푼 것 보다 정렬 (정해진 순서로 상태공간 탐색) + 이진탐색 을 잘 하면 상태공간을 좀 더 좁힐 수 있음. 
+   </details>
+- 다시푸니까 대충 풀긴 함 ㅋㅋ 이진탐색보다는 dict쓸 수 있을 때 쓰면 더 빠름
+
+
+### https://leetcode.com/problems/design-file-system/
+https://leetcode.com/problems/design-file-system/
+- EZ. 사알짝 고민함
+- 한번에 풀기 (다시!)
+
+### Insert Delete GetRandom O(1) (다시보기)
+* <a href="https://leetcode.com/problems/insert-delete-getrandom-o1/" target="_blank">dict를 잘 쓰자.</a>
+* <details>
+   <summary>다시보기</summary> 
+    dict/set으로 inclusion/exclusion검사, 배열로 random연산, 삭제시 마지막꺼랑 스왑 후 삭제
+   </details>
+
+-----------------------------------
 
 ### https://leetcode.com/problems/split-two-strings-to-make-palindrome/
 - aa
@@ -29,18 +47,9 @@ https://leetcode.com/problems/jump-game-ii/
 - 풀긴 풀었는데 좀 더럽게 풀음...깔끔하게 푼거 참고하자. lee꺼가 좋은 듯
 
 
-### Max Sum of Rectangle No Larger Than K (need review)
-
-* <a href="https://leetcode.com/problems/max-sum-of-rectangle-no-larger-than-k/" target="_blank">2차원 부분합이지만 진짜로 2차원 부분합으로 풀면 못풀음</a>
-* <details>
-   <summary>다시풀기</summary> 
-   1차원 부분합 (row)들만 구하고, i - j 로 로우를 고정해놓고 컬럼은 k를 0부터 증가시켜가며, 정렬된 ary를 만들고 여기서 이분탐색으로 답도 찾고 인덱스도 찾음
-   </details>
-* 생각만 하자..
 
 ### https://leetcode.com/problems/find-the-kth-smallest-sum-of-a-matrix-with-sorted-rows/description/
 https://leetcode.com/problems/find-the-kth-smallest-sum-of-a-matrix-with-sorted-rows/description/
-
 
 
 #### Kadane
@@ -62,33 +71,12 @@ https://leetcode.com/problems/find-the-kth-smallest-sum-of-a-matrix-with-sorted-
 ### https://leetcode.com/problems/sum-of-total-strength-of-wizards/description/
 아니...일단 다시 풀어 보자. 풀이 일부러 안적음. 왜 이런 걸 내는거야. 리트코드 함 보고 오라는 건가?
 
-### https://leetcode.com/problems/find-k-th-smallest-pair-distance/description/
-
-* <a href="https://leetcode.com/problems/find-k-th-smallest-pair-distance/description/" target="_blank">https://leetcode.com/problems/find-k-th-smallest-pair-distance/description/</a>
-* <details>
-   <summary>와 풀긴 푸음</summary>난 이진탐색 2번으로 풀었는데, 투포인터 + 이진탐색이 더 빠른 듯? 이거 cand_diff >= k 인 것 중 최소를 찾아야 하는 이유 = 진짜 있는 거를 찾아야 하기 때문. cand_diff <= k 인 것 중 최대는 없는 숫자가 선택될 수도 있음 (ex - 3, 4, 5, 6 다 cand_diff가 같고 실제 있는 pair diff는 3인 경우. 실제 diff가 4가 될순 없음. 그럼 3은 4보다 자기보다 작은 숫자가 더 작을 테니까) </details>
-   투포인터로 어케 풀지? - num[i] 보다 cand_diff만큼 큰 num[j] 이거 둘다 순증가해서 투포인터 가능 (순증가 투포인터는 첨보네...)
-
-
 ### https://leetcode.com/problems/integer-to-english-words/description/
 Integer to English Words
 - 풀어볼 만 한듯 (한번에 제출, 설명, 깔끔)
 
 
-#### Skyline Problems
-* <a href="https://leetcode.com/problems/the-skyline-problem/description/" target="_blank">https://leetcode.com/problems/the-skyline-problem/description/</a>
-* <details>
-   <summary>풀긴 품</summary>이것도 어케 답 안보고 풀긴했는데 이전에도 풀어본거라...ㅎㅎ 생각 정리나 집중도 잘 안됐음..</details>
-
 ### 보기만
-
-
-### Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit (window problem, need review)
-- <a href="https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/" target="_blank">https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/</a>
-- 윈도우 안의 최대/최소의 차이. map으로 풀어서 하위 20퍼로 풀긴 함
-- 디큐 - increasing_deque는 맨 앞이 구간의 최소값, decreasing_deque는 맨 앞이 구간의 최대값임 (맨 뒤는 항상 새로 추가된 원소).
-  - 이 때 조심해야 할 게, 현재 구간 (디큐들에 들어있는 아이템들의 min, max정보가 유효한 구간)은 max(inc디큐에서 제일 최근에 빠진 인덱스+1, dec디큐에서 제일 최근에 빠진 인덱스+1)이라는 것
-- 면접볼 땐 바이너리 서치 (결정문제) 도 말해야 할 듯. 그게 포인트자너~
 
 
 #### Find All Numbers Disappeared in an Array (reference problem)
@@ -109,59 +97,14 @@ Integer to English Words
 * <details>
    <summary>개굿</summary>nlogn으로 풀었는데, 훨씬 더 깔끔한 방법이 있네. 어쨋든 지금 ps 근육이 없음. 많이 풀어야 할 듯</details>
 
-### amount-of-new-area-painted-each-day
-https://leetcode.com/problems/amount-of-new-area-painted-each-day/
-- 다시 풀어보자
-- (22.06.01) 예외조건 하나를 못찾았음. 생각만 해 보자
-
-
 ### 복습리스트
 - https://leetcode.com/problems/sum-of-subarray-ranges/ (한번에 opt)
 - https://leetcode.com/problems/maximum-length-of-subarray-with-positive-product/
    - 이건 쫌 걸리긴 했는데 풀긴함
 
-
-### https://leetcode.com/problems/word-ladder/
-https://leetcode.com/problems/word-ladder/
-- 효과적으로 풀 수 있는 방법 생각나면 DONE으로
-
-
 - https://leetcode.com/discuss/general-discussion/462981/leetcode-questions-sorted-by-vote-count
 - https://medium.com/hackernoon/google-interview-questions-deconstructed-the-knights-dialer-f780d516f029
 
-
-
-
-#### https://leetcode.com/problems/number-of-good-paths/description/
-- https://leetcode.com/problems/number-of-good-paths/description/
-- 너무하네...
-
-
-
-### K inverse pairs
-* <a href="https://leetcode.com/problems/k-inverse-pairs-array/description/" target="_blank">링크</a>
-
-* <details>
-   <summary>다시보기만</summary> 
-   버벅거리면서 풀긴 함 ㅋㅋ
-   </details>
-
-### maximum-profit-in-job-scheduling
-- <a href="https://leetcode.com/problems/maximum-profit-in-job-scheduling" target="_blank">https://leetcode.com/problems/maximum-profit-in-job-scheduling</a> 
-<details>
-   <summary>뻘짓하다 힌트 한번 봄...</summary> 
-    dp라는 힌트 보고 풀음. 내가 푼 것 보다 정렬 (정해진 순서로 상태공간 탐색) + 이진탐색 을 잘 하면 상태공간을 좀 더 좁힐 수 있음. 
-   </details>
-- 다시푸니까 대충 풀긴 함 ㅋㅋ 이진탐색보다는 dict쓸 수 있을 때 쓰면 더 빠름
-
-
-
-#### Min stack (reference problem))
-<a href="https://leetcode.com/problems/min-stack/" target="_blank">https://leetcode.com/problems/min-stack/</a>
-<details>
-<summary>보기만</summary> 
-    stack의 최소값 - pair를 저장하면 됨. 큐와는 달리 top 밑에 있는 애들이 안빠지므로..
-   </details>
 
 solve the problem while explain it to yourself, and write examples (must!)
 
@@ -208,7 +151,6 @@ heappop(Q)
 iter_val = iter(iterable)
 nxt = next(iter_val, None)
 ```
-
 
 
 #### Shortest Subarray with Sum at Least K
@@ -280,15 +222,6 @@ https://leetcode.com/problems/word-search-ii/
 - 살짝 만족. 구현 다시 보기만 하자
 
 
-
-### https://leetcode.com/problems/edit-distance/
-https://leetcode.com/problems/edit-distance/
-- 아씨..복습만 (눈팅)
-- +1
-
-### https://leetcode.com/problems/binary-tree-maximum-path-sum/
-https://leetcode.com/problems/binary-tree-maximum-path-sum/
-- 보기만
 
 ### https://leetcode.com/problems/count-of-smaller-numbers-after-self/
 https://leetcode.com/problems/count-of-smaller-numbers-after-self/
@@ -400,10 +333,6 @@ https://leetcode.com/problems/swap-adjacent-in-lr-string/
     이름에 힌트가 있었네. 문제 잘 살펴보기 
    </details>
 
-
-### https://leetcode.com/problems/design-file-system/
-https://leetcode.com/problems/design-file-system/
-- EZ. 사알짝 고민함
 
 ### https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/submissions/
 https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/submissions/
@@ -536,7 +465,6 @@ https://leetcode.com/problems/maximum-level-sum-of-a-binary-tree/
    </details>
 
 
-
 ### 4sums
 - 기존 확장밖에 없네
 <details>
@@ -617,13 +545,6 @@ TODO: make a post on
    </details>
 
 
-
-### Insert Delete GetRandom O(1) (다시보기)
-* <a href="https://leetcode.com/problems/insert-delete-getrandom-o1/" target="_blank">dict를 잘 쓰자.</a>
-* <details>
-   <summary>다시보기</summary> 
-    dict/set으로 inclusion/exclusion검사, 배열로 random연산, 삭제시 마지막꺼랑 스왑 후 삭제
-   </details>
 
 ### Validate Stack Sequences
 * <a href="https://leetcode.com/problems/validate-stack-sequences/" target="_blank">꼭 다시 보자 (보기만)</a>
@@ -717,7 +638,6 @@ TODO: make a post on
 - <a href="https://leetcode.com/problems/minimum-area-rectangle/" target="_blank">Minimum Area Rectangle</a>
 - 쉬운 문제고 어렵지 않게 풀긴 했는데, 검사조건을 명확하게 도출하지 못함. 다시 해보자. 다시 했음. 이전문제는 좀 naive하게 풀었던거 같음.
 
-
 #### Search Autocomplete system (need review)
 <a href="https://leetcode.com/problems/design-search-autocomplete-system/" target="_blank">https://leetcode.com/problems/design-search-autocomplete-system/</a>
 - B형이랑 쪼까 비슷한듯
@@ -734,7 +654,6 @@ TODO: make a post on
 
 #### Split Array Largest Sum
 <a href="https://leetcode.com/problems/split-array-largest-sum/" target="_blank">https://leetcode.com/problems/split-array-largest-sum/</a>
-
 
 * 배열을 m개의 non-empty subarray로 나눔.
 * 각 subary의 합의 최대를 x라 하면, 최소의 x는?

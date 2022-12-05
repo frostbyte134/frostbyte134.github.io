@@ -11,6 +11,13 @@ tags: problem_solving leetcode need_review
 
 
 
+### Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit (window problem, need review)
+- <a href="https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/" target="_blank">https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/</a>
+- 윈도우 안의 최대/최소의 차이. map으로 풀어서 하위 20퍼로 풀긴 함
+- PQ/디큐 - increasing_deque는 맨 앞이 구간의 최소값, decreasing_deque는 맨 앞이 구간의 최대값임 (맨 뒤는 항상 새로 추가된 원소).
+  - 이 때 조심해야 할 게, 현재 구간 (디큐들에 들어있는 아이템들의 min, max정보가 유효한 구간)은 max(inc디큐에서 제일 최근에 빠진 인덱스+1, dec디큐에서 제일 최근에 빠진 인덱스+1)이라는 것
+
+
 ### Valid square
 <a href="https://leetcode.com/problems/valid-square/" target="_blank">https://leetcode.com/problems/valid-square/</a>
 
@@ -82,6 +89,14 @@ Permutation의 다음번째는 무엇인가? (lexicographical order)
 
 
 
+
+#### First Missing Positive (need review)
+<a href="https://leetcode.com/problems/first-missing-positive/" target="_blank">https://leetcode.com/problems/first-missing-positive/</a>
+* smallest nonnegative
+* <details>
+   <summary>다시풀기</summary> 
+   smallest nonnegative = 배열에 저장 가능. 내지는 마킹해놓기 (모듈로로 판별)
+   </details>
 
 
 ### Minimum Window Substring
@@ -286,3 +301,32 @@ class Solution:
 
 * 클래스 내부에서 멤버함수 호출: 멤버변수와 같이 self.붙여줘야
 * 메모이제이션 쩌네. 2차원 dp로 풀라다 실패. 생각해보니 이렇게 재귀함수 짜고 2차원 dp했어도 걍 풀었을듯. 재귀 먼저 짜자
+
+### Max Sum of Rectangle No Larger Than K (need review)
+
+* <a href="https://leetcode.com/problems/max-sum-of-rectangle-no-larger-than-k/" target="_blank">2차원 부분합이지만 진짜로 2차원 부분합으로 풀면 못풀음</a>
+* <details>
+   <summary>다시풀기</summary> 
+   1차원 부분합 (row)들만 구하고, i - j 로 로우를 고정해놓고 컬럼은 k를 0부터 증가시켜가며, 정렬된 ary를 만들고 여기서 이분탐색으로 답도 찾고 인덱스도 찾음
+   </details>
+* 생각만 하자..
+* 이게 이렇게 쉽게 풀린다고? bisect는 신인가...
+
+#### Skyline Problems
+* <a href="https://leetcode.com/problems/the-skyline-problem/description/" target="_blank">https://leetcode.com/problems/the-skyline-problem/description/</a>
+* <details>
+   <summary>풀긴 품</summary>이것도 어케 답 안보고 풀긴했는데 이전에도 풀어본거라...ㅎㅎ 생각 정리나 집중도 잘 안됐음..</details>
+
+#### Min stack (reference problem))
+<a href="https://leetcode.com/problems/min-stack/" target="_blank">https://leetcode.com/problems/min-stack/</a>
+<details>
+<summary>보기만</summary> 
+    stack의 최소값 - pair를 저장하면 됨. 큐와는 달리 top 밑에 있는 애들이 안빠지므로..
+   </details>
+
+   
+### amount-of-new-area-painted-each-day
+https://leetcode.com/problems/amount-of-new-area-painted-each-day/
+- 다시 풀어보자
+- (22.06.01) 예외조건 하나를 못찾았음. 생각만 해 보자
+

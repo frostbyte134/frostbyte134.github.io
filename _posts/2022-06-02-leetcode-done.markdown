@@ -26,14 +26,6 @@ https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/
    </details>
 
 
-#### First Missing Positive (need review)
-<a href="https://leetcode.com/problems/first-missing-positive/" target="_blank">https://leetcode.com/problems/first-missing-positive/</a>
-* smallest nonnegative
-* <details>
-   <summary>다시풀기</summary> 
-   smallest nonnegative = 배열에 저장 가능
-   </details>
-
 #### https://leetcode.com/problems/partition-array-such-that-maximum-difference-is-k/description/
 ez. 리뷰만 (설명하기)
 
@@ -74,3 +66,25 @@ https://leetcode.com/problems/top-k-frequent-elements
     1. valid 집합의 마지막 interval보다 a값은 크다
     2. 따라서, valid 집합의 마지막 interval과 머지되지 않을 시, 나머지들과 머지될 일은 없음.
 3. 변형이 좀 있을 수 있는 듯 ㅋㅋ
+
+
+
+### https://leetcode.com/problems/word-ladder/
+https://leetcode.com/problems/word-ladder/
+- 효과적으로 풀 수 있는 방법 생각나면 DONE으로
+
+### https://leetcode.com/problems/binary-tree-maximum-path-sum/
+https://leetcode.com/problems/binary-tree-maximum-path-sum/
+- 보기만
+
+
+### https://leetcode.com/problems/jump-game-ii/
+https://leetcode.com/problems/jump-game-ii/
+- 걍 보기만
+
+
+#### https://leetcode.com/problems/number-of-good-paths/description/
+- https://leetcode.com/problems/number-of-good-paths/description/
+- 너무하네...
+* <details>
+   <summary>오 두번쨰는 잘 풀음 ㅎㅎ</summary>두번쨰에서 count한 뒤 나보다 큰 인접노드까지 merge할라고 했는데 이럼 넘 큰 것까지 merge되어버림. 그냥 시작할 때 자기랑 같은 거 머지하면 됨. 또, nC2 = n-1까지의 합 ㅋㅋ</details>
