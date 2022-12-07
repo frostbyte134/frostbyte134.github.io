@@ -14,7 +14,35 @@ tags: problem_solving leetcode need_review
 - 보자마자 opt sol이 걍 떠올라야 하는듯 ㅡ,.ㅡ
 - 2022.11.25 하드100 돌파 ㅋㅋ
 
+### https://leetcode.com/problems/delete-and-earn/
+https://leetcode.com/problems/delete-and-earn/
+- 미디엄인데 못품 ㄷㄷ N^2 범위 디피인줄...기억해 둘 만한 듯
+- 다시해서 풀긴했는데 더 빠른게 있었음. 난 이런거에 좀 약한가? 기억해 둘 만은 한듯
 
+### https://leetcode.com/problems/count-binary-substrings/submissions/
+https://leetcode.com/problems/count-binary-substrings/submissions/
+- 이게 이지? ㄷㄷ 미듐인데..생각만 ㄱㄱ
+- lee 답 보기. 좀 덜덜하네...
+
+
+### https://leetcode.com/problems/minimize-deviation-in-array/
+https://leetcode.com/problems/minimize-deviation-in-array/
+- <details>
+   <summary>흠</summary> 
+    빠르게 눈치채야 할 것 - 홀수가 젤 큰 수면 더 뭐 어케 해볼수가 없음. 결국 밑에 수 중하나를 두배해야 뭘 하는데, 이럼 deviation은 더 늘어나기 떄문.
+   </details>
+   
+
+
+### https://leetcode.com/problems/maximum-length-of-subarray-with-positive-product/
+- https://leetcode.com/problems/maximum-length-of-subarray-with-positive-product/
+   - 이건 쫌 걸리긴 했는데 풀긴함
+   - 허허 (aka like dog)
+
+### https://leetcode.com/problems/word-search-ii/
+https://leetcode.com/problems/word-search-ii/
+- 살짝 만족. 구현 다시 보기만 하자
+- ㅁㅊ문제였네...
 
 ### maximum-profit-in-job-scheduling
 - <a href="https://leetcode.com/problems/maximum-profit-in-job-scheduling" target="_blank">https://leetcode.com/problems/maximum-profit-in-job-scheduling</a> 
@@ -71,6 +99,12 @@ https://leetcode.com/problems/find-the-kth-smallest-sum-of-a-matrix-with-sorted-
 ### https://leetcode.com/problems/sum-of-total-strength-of-wizards/description/
 아니...일단 다시 풀어 보자. 풀이 일부러 안적음. 왜 이런 걸 내는거야. 리트코드 함 보고 오라는 건가?
 
+
+### https://leetcode.com/problems/median-of-two-sorted-arrays/
+https://leetcode.com/problems/median-of-two-sorted-arrays/
+- 이거 꼭 다시 (주말내에)
+- <a href="https://leetcode.com/problems/median-of-two-sorted-arrays/discuss/2511/Intuitive-Python-O(log-(m%2Bn))-solution-by-kth-smallest-in-the-two-sorted-arrays-252ms" target="_blank">discussion</a>이 좋다고 생각해 본 게 오랜만이네..
+
 ### https://leetcode.com/problems/integer-to-english-words/description/
 Integer to English Words
 - 풀어볼 만 한듯 (한번에 제출, 설명, 깔끔)
@@ -79,17 +113,8 @@ Integer to English Words
 ### 보기만
 
 
-#### Find All Numbers Disappeared in an Array (reference problem)
-<a href="https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/" target="_blank">https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/</a>
-<details>
-<summary>보기만</summary> 
-    리스트 값이 리스트 내부와 range가 같고, 리스트를 체크해야 할 시 리스트 값이 -를 해두면 좋은듯
-   </details>
 
 
-
-#### https://leetcode.com/problems/the-number-of-weak-characters-in-the-game/
-풀긴 걍 풀음 ㅎㅎ 아직 죽진 않았구먼
 
 ### https://leetcode.com/problems/plates-between-candles/solutions/
 
@@ -97,10 +122,6 @@ Integer to English Words
 * <details>
    <summary>개굿</summary>nlogn으로 풀었는데, 훨씬 더 깔끔한 방법이 있네. 어쨋든 지금 ps 근육이 없음. 많이 풀어야 할 듯</details>
 
-### 복습리스트
-- https://leetcode.com/problems/sum-of-subarray-ranges/ (한번에 opt)
-- https://leetcode.com/problems/maximum-length-of-subarray-with-positive-product/
-   - 이건 쫌 걸리긴 했는데 풀긴함
 
 - https://leetcode.com/discuss/general-discussion/462981/leetcode-questions-sorted-by-vote-count
 - https://medium.com/hackernoon/google-interview-questions-deconstructed-the-knights-dialer-f780d516f029
@@ -171,16 +192,6 @@ nxt = next(iter_val, None)
 https://leetcode.com/problems/distinct-subsequences/
 - 아직 안품
 
-### https://leetcode.com/problems/minimize-deviation-in-array/
-https://leetcode.com/problems/minimize-deviation-in-array/
-- ㅡㅡ..이런걸 어케 생각하는걸까
-
-
-
-### https://leetcode.com/problems/median-of-two-sorted-arrays/
-https://leetcode.com/problems/median-of-two-sorted-arrays/
-- 이거 꼭 다시 (주말내에)
-- <a href="https://leetcode.com/problems/median-of-two-sorted-arrays/discuss/2511/Intuitive-Python-O(log-(m%2Bn))-solution-by-kth-smallest-in-the-two-sorted-arrays-252ms" target="_blank">discussion</a>이 좋다고 생각해 본 게 오랜만이네..
 
 ### https://leetcode.com/problems/trapping-rain-water/
 https://leetcode.com/problems/trapping-rain-water/
@@ -212,14 +223,6 @@ https://leetcode.com/problems/trapping-rain-water/
 
 -------------
 일단 여기까지...
-
-### https://leetcode.com/problems/maximal-rectangle/submissions/
-https://leetcode.com/problems/maximal-rectangle/submissions/
-- 걍 다시 풇어보기
-
-### https://leetcode.com/problems/word-search-ii/
-https://leetcode.com/problems/word-search-ii/
-- 살짝 만족. 구현 다시 보기만 하자
 
 
 
@@ -271,10 +274,6 @@ cur = -1
 https://leetcode.com/problems/3sum-with-multiplicity/
 - ncr recurrence rel
 - ncr = n-1cr-1 + n-1Cr
-
-### https://leetcode.com/problems/delete-and-earn/
-https://leetcode.com/problems/delete-and-earn/
-- 미디엄인데 못품 ㄷㄷ N^2 범위 디피인줄...기억해 둘 만한 듯
 
 
 ### number-of-matching-subsequences (복습필수)
@@ -333,14 +332,9 @@ https://leetcode.com/problems/swap-adjacent-in-lr-string/
     이름에 힌트가 있었네. 문제 잘 살펴보기 
    </details>
 
-
 ### https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/submissions/
 https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/submissions/
 - 바이너리 서치 정리하기 (생각만)
-
-### https://leetcode.com/problems/count-binary-substrings/submissions/
-https://leetcode.com/problems/count-binary-substrings/submissions/
-- 이게 이지? ㄷㄷ 미듐인데..생각만 ㄱㄱ
 
 
 ### https://leetcode.com/problems/sentence-screen-fitting/
@@ -430,10 +424,6 @@ https://leetcode.com/problems/maximum-level-sum-of-a-binary-tree/
 - nlong말고 n으로 (생각정리만, 글로)
 - 레벨벨로 풀면 걍 ez
 
-### https://leetcode.com/problems/search-a-2d-matrix/
-쉬운데 추가풀이가 재밌네
-
-
 
 ### minimum-number-of-increments-on-subarrays-to-form-a-target-array/
 - <a href="https://leetcode.com/problems/minimum-number-of-increments-on-subarrays-to-form-a-target-array/" target="_blank">https://leetcode.com/problems/minimum-number-of-increments-on-subarrays-to-form-a-target-array</a> 
@@ -441,7 +431,6 @@ https://leetcode.com/problems/maximum-level-sum-of-a-binary-tree/
    <summary>그냥 쉬운 하드인가 했는데</summary> 
     스택으로 풀었는데 생각해보니 더 쉽게 풀 수 있음. 아 글고 스택인데 자꾸 [0] 체크하네. 넘올만이여서 그런듯
    </details>
-
 
 ### https://leetcode.com/problems/asteroid-collision/
 - <a href="https://leetcode.com/problems/asteroid-collision/" target="_blank">https://leetcode.com/problems/asteroid-collision/</a> 이정돈 이제 뭐...(2)
@@ -455,13 +444,6 @@ https://leetcode.com/problems/maximum-level-sum-of-a-binary-tree/
 <details>
    <summary>심심하면 다시보기. 걍 풀긴 함</summary> 
     경우를 잘 따져봅시다. 상태공간이 넓은 듯 안넓은듯
-   </details>
-
-### find peak element
-- <a href="https://leetcode.com/problems/find-peak-element/" target="_blank">https://leetcode.com/problems/find-peak-element/</a> 눈으로 보기만
-<details>
-   <summary>다시보기</summary> 
-    재귀식 잘짜보기 (조건 따지기). 올만이네..
    </details>
 
 
@@ -546,31 +528,15 @@ TODO: make a post on
 
 
 
-### Validate Stack Sequences
-* <a href="https://leetcode.com/problems/validate-stack-sequences/" target="_blank">꼭 다시 보자 (보기만)</a>
-* <details>
-   <summary>다시보기</summary> 
-   we can try man (indeed)
-   </details>
-
 ### basic calculator 2
 * https://leetcode.com/problems/basic-calculator-ii/
 * 외우는게 좋은듯
 
 
 
-### Flip Equivalent Binary Trees
-- https://leetcode.com/problems/flip-equivalent-binary-trees/
-- 그냥 생각만...일부 노드면 flip된 경우를 flip equivalent라고 할 경우, 두 트리가 서로 flip equivalent일 조건은?
-
-### Minimum Remove to Make Valid Parentheses
-- https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/
-- 이것도 생각만. 2-pass로 품.
-
 ### Next Closest Time
 - <a href="https://leetcode.com/problems/next-closest-time/" target="_blank">https://leetcode.com/problems/next-closest-time/</a>
 - 구현이 거지같았던 문제. 근데 시간이 넘어가면 다음 날 시간을 계산안해도 되서 풀만했던듯?
-
 
 ### divide array in sets of k consecutive numbers (need review)
 <a href="https://leetcode.com/problems/divide-array-in-sets-of-k-consecutive-numbers" target="_blank">https://leetcode.com/problems/divide-array-in-sets-of-k-consecutive-numbers</a>
@@ -590,10 +556,6 @@ TODO: make a post on
 - __범위가 주어지지 않은 보드판__을, 로봇이 front / left, right만 갈 수 있을 때 완전탐색하는 법
 - 상대좌표로 vis를 찍는 dfs. dfs이기 때문에, 돌아오는 연산도 구현해 줘야 함 (왼2, 전진, 다시 왼2). 안그럼 vis가 정확하지 않기 때문에 무한루프 돔. 
 
-
-### delete nodes and return forest
-- <a href="https://leetcode.com/problems/delete-nodes-and-return-forest/" target="_blank">https://leetcode.com/problems/delete-nodes-and-return-forest</a>
-- 복습까진 필요없는 듯. 중복정보를 본인도 처리하고 자손도 중복으로 처리해서 느렸다. 자손에서 return으로 보내 줬으면 됐을 껄...이거 면접에서 이래 죽쓰면 풀긴 풀었는데 감점 엄청 당할듯.
 
 #### Minimum Swaps to make subsequences increasing
 * <a href="https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing/" target="_blank">https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing/</a>
@@ -629,28 +591,6 @@ TODO: make a post on
 - <a href="https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing/" target="_blank">https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing/</a>
 - 미디엄이라 쉽게 보고 O(N*2) dp로 풀음
 - O(N) 풀이가 존재하네....? 다시 풀어봅시다
-
-#### Longest Increasing Path in a Matrix
-- <a href="https://leetcode.com/problems/longest-increasing-path-in-a-matrix/" target="_blank">https://leetcode.com/problems/longest-increasing-path-in-a-matrix/</a>
-- 하드인데 쉬웠음. 보드에서의 increasing path이므로, 왔던 곳으로 다시 못 감 - cache 이용가능 
-
-#### Minimum Area Rectangle
-- <a href="https://leetcode.com/problems/minimum-area-rectangle/" target="_blank">Minimum Area Rectangle</a>
-- 쉬운 문제고 어렵지 않게 풀긴 했는데, 검사조건을 명확하게 도출하지 못함. 다시 해보자. 다시 했음. 이전문제는 좀 naive하게 풀었던거 같음.
-
-#### Search Autocomplete system (need review)
-<a href="https://leetcode.com/problems/design-search-autocomplete-system/" target="_blank">https://leetcode.com/problems/design-search-autocomplete-system/</a>
-- B형이랑 쪼까 비슷한듯
-- 연관문제도 풀어볼까
-- 제약조건이 좀 약하긴 함. 그래서 매 query마다 소팅을 하는데, 효율적으로 풀 수 없을까
-
-#### Path with Maximum Gold
-<a href="https://leetcode.com/problems/valid-square/" target="_blank">https://leetcode.com/problems/valid-square/</a>
-
-
-2차원 grid에서, 재방문이 불가 & 0을 방문하지 못할 시, 모을 수 있는 가장 많은 값은? (방문시 값 get)
-* n, m이 해봐야 15, 논제로 아이템이 25개가 맥시멈 -> 완탐
-* dp도 되지 않을까? 논제로 아이템 25개에 대한 상태공간 (25bit)만...안되겠네
 
 #### Split Array Largest Sum
 <a href="https://leetcode.com/problems/split-array-largest-sum/" target="_blank">https://leetcode.com/problems/split-array-largest-sum/</a>
@@ -783,8 +723,6 @@ class Solution:
 ### Stock Price Fluctuation
 <a href="https://leetcode.com/problems/stock-price-fluctuation" target="_blank">https://leetcode.com/problems/stock-price-fluctuation</a>
 - EZ
-
-
 
 
 #### Regular expression

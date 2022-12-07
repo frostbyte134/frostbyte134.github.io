@@ -14,6 +14,10 @@ tags: problem_solving leetcode need_review
 
 
 
+### Minimum Remove to Make Valid Parentheses
+- https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/
+- 이것도 생각만. 2-pass로 품. 아니면 마킹?ㅋㅋ
+
 ### https://leetcode.com/problems/edit-distance/
 https://leetcode.com/problems/edit-distance/
 - 아씨..복습만 (눈팅)
@@ -77,4 +81,28 @@ https://leetcode.com/problems/edit-distance/
 * <details>
    <summary>다시보기만</summary> 
    버벅거리면서 풀긴 함 ㅋㅋ. 중간식이 진짜 맞는 거 같으면 초기조건은 대충 때우자
+   </details>
+
+#### Search Autocomplete system (need review)
+<a href="https://leetcode.com/problems/design-search-autocomplete-system/" target="_blank">https://leetcode.com/problems/design-search-autocomplete-system/</a>
+- B형이랑 쪼까 비슷한듯
+- 연관문제도 풀어볼까
+- 제약조건이 좀 약하긴 함. 그래서 매 query마다 소팅을 하는데, 효율적으로 풀 수 없을까
+- bisect는 신이다
+
+
+### find peak element
+- <a href="https://leetcode.com/problems/find-peak-element/" target="_blank">https://leetcode.com/problems/find-peak-element/</a> 눈으로 보기만
+<details>
+   <summary>다시보기</summary> 
+    재귀식 잘짜보기 (조건 따지기). 올만이네..
+   </details>
+- 이진탐색 - inclusive, 종료조건
+
+
+### https://leetcode.com/problems/odd-even-linked-list/description/
+- https://leetcode.com/problems/odd-even-linked-list/description/
+- <details>
+   <summary>다시보기만</summary> 
+      링크드 리스트에서 재배열하면서 아이템 하나를 때낼 땐 next=None 잘 해 주기 
    </details>

@@ -88,3 +88,51 @@ https://leetcode.com/problems/jump-game-ii/
 - 너무하네...
 * <details>
    <summary>오 두번쨰는 잘 풀음 ㅎㅎ</summary>두번쨰에서 count한 뒤 나보다 큰 인접노드까지 merge할라고 했는데 이럼 넘 큰 것까지 merge되어버림. 그냥 시작할 때 자기랑 같은 거 머지하면 됨. 또, nC2 = n-1까지의 합 ㅋㅋ</details>
+
+   
+#### Path with Maximum Gold
+<a href="https://leetcode.com/problems/path-with-maximum-gold/" target="_blank">https://leetcode.com/problems/path-with-maximum-gold/</a>
+
+2차원 grid에서, 재방문이 불가 & 0을 방문하지 못할 시, 모을 수 있는 가장 많은 값은? (방문시 값 get)
+* n, m이 해봐야 15, 논제로 아이템이 25개가 맥시멈 -> 완탐
+* dp도 되지 않을까? 논제로 아이템 25개에 대한 상태공간 (25bit)만...안되겠네
+
+
+
+#### Minimum Area Rectangle
+- <a href="https://leetcode.com/problems/minimum-area-rectangle/" target="_blank">Minimum Area Rectangle</a>
+- 쉬운 문제고 어렵지 않게 풀긴 했는데, 검사조건을 명확하게 도출하지 못함. 다시 해보자. 다시 했음. 이전문제는 좀 naive하게 풀었던거 같음.
+- 그림 안그렸으면 한번에 솔브 못했을듯?ㅋㅋ...
+
+
+
+#### https://leetcode.com/problems/sum-of-subarray-ranges/
+- https://leetcode.com/problems/sum-of-subarray-ranges/
+
+
+
+#### https://leetcode.com/problems/the-number-of-weak-characters-in-the-game/
+풀긴 걍 풀음 ㅎㅎ 아직 죽진 않았구먼
+
+
+#### Longest Increasing Path in a Matrix
+- <a href="https://leetcode.com/problems/longest-increasing-path-in-a-matrix/" target="_blank">https://leetcode.com/problems/longest-increasing-path-in-a-matrix/</a>
+- 하드인데 쉬웠음. 보드에서의 increasing path이므로, 왔던 곳으로 다시 못 감 - cache 이용가능 
+
+
+
+### Flip Equivalent Binary Trees
+- https://leetcode.com/problems/flip-equivalent-binary-trees/
+- 그냥 생각만...일부 노드면 flip된 경우를 flip equivalent라고 할 경우, 두 트리가 서로 flip equivalent일 조건은?
+
+
+### Validate Stack Sequences
+* <a href="https://leetcode.com/problems/validate-stack-sequences/" target="_blank">꼭 다시 보자 (보기만)</a>
+* <details>
+   <summary>다시보기</summary> 
+   we can try man (indeed)
+   </details>
+
+### delete nodes and return forest
+- <a href="https://leetcode.com/problems/delete-nodes-and-return-forest/" target="_blank">https://leetcode.com/problems/delete-nodes-and-return-forest</a>
+- 복습까진 필요없는 듯. 중복정보를 본인도 처리하고 자손도 중복으로 처리해서 느렸다. 자손에서 return으로 보내 줬으면 됐을 껄...이거 면접에서 이래 죽쓰면 풀긴 풀었는데 감점 엄청 당할듯.

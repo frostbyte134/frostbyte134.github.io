@@ -330,3 +330,7 @@ https://leetcode.com/problems/amount-of-new-area-painted-each-day/
 - 다시 풀어보자
 - (22.06.01) 예외조건 하나를 못찾았음. 생각만 해 보자
 
+
+### https://leetcode.com/problems/maximal-rectangle/submissions/
+https://leetcode.com/problems/maximal-rectangle/submissions/
+- 걍 다시 풇어보기
