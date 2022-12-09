@@ -12,7 +12,9 @@ tags: problem_solving leetcode need_review
 아 빨리 블로그 만들어야 하는데..........
 
 
-
+### https://leetcode.com/problems/filling-bookcase-shelves/
+https://leetcode.com/problems/filling-bookcase-shelves/
+- EZ. 보고 생각만
 
 ### Minimum Remove to Make Valid Parentheses
 - https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/
@@ -41,14 +43,6 @@ https://leetcode.com/problems/edit-distance/
     터트렸을 때 얻을 수 있는 최대값을 dp로 잡았어야 했나..
    </details>
 
-
-### max-area-of-island
-- <a href="https://leetcode.com/problems/max-area-of-island/submissions/" target="_blank">https://leetcode.com/problems/max-area-of-island/submissions/</a>
-- 많이 풀어 본 보드문제 (눈으로 보기만)
-<details>
-   <summary>다시보기</summary> 
-    예전에는 bfs + set으로 풀었던 거 같은데 그럴필요 없음. 
-   </details>
 
 
 ### sequentially-ordinal-rank-tracker
@@ -106,3 +100,8 @@ https://leetcode.com/problems/edit-distance/
    <summary>다시보기만</summary> 
       링크드 리스트에서 재배열하면서 아이템 하나를 때낼 땐 next=None 잘 해 주기 
    </details>
+
+#### Minimum Swaps To Make Sequences Increasing
+- <a href="https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing/" target="_blank">https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing/</a>
+- 미디엄이라 쉽게 보고 O(N*2) dp로 풀음
+- O(N) 풀이가 존재하네....? 다시 풀어봅시다

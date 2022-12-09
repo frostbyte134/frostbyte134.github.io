@@ -14,10 +14,52 @@ tags: problem_solving leetcode need_review
 - 보자마자 opt sol이 걍 떠올라야 하는듯 ㅡ,.ㅡ
 - 2022.11.25 하드100 돌파 ㅋㅋ
 
-### https://leetcode.com/problems/delete-and-earn/
-https://leetcode.com/problems/delete-and-earn/
-- 미디엄인데 못품 ㄷㄷ N^2 범위 디피인줄...기억해 둘 만한 듯
-- 다시해서 풀긴했는데 더 빠른게 있었음. 난 이런거에 좀 약한가? 기억해 둘 만은 한듯
+### https://leetcode.com/problems/max-stack/description/
+https://leetcode.com/problems/max-stack/description/
+- 음..풀긴 풀어서 상위 80펀데, 문제 요구조건 (read O(1))이 만족되나?ㅋㅋ
+
+### Missing Element in Sorted Array
+- O(N)으로 일단 품.
+- nums[i]와 nums[i+1]간의 missing element가 누적된 값이 아닌데 어떻게 이진검색을 하나 고민했음 (부분합 배열을 만들면 이미 O(N))
+<details>
+   <summary>다시보기</summary> 
+    nums[j] - nums[i] - 1 - (j - i) 가 i --- j 사이에 있는 missing elements. 결국 배열 전체를 고려해야 하므로, 0~mid 까지 테스트하고 이 결과로 st/ed를 갱신하는 게 직관적
+   </details>
+- 이것도 진심 레퍼런스 급
+
+#### Meeting Rooms II (need review)
+* <a href="https://leetcode.com/problems/meeting-rooms-ii/" target="_blank">그냥 풀기</a>
+* <details>
+   <summary>다시보가</summary> 
+   겹치는 구간의 최대갯수 세기 = PQ. 범위 더하기 되는 구간트리 / 이분탐색으로도 풀어볼 만은 한 듯...?  
+   l을 정렬해야 하고 r을 정렬하면 안되는 이유: l---r 로 되어 있으니까, l로 정렬해야 겹치는 것들을 확실하게 체크가능. r로 정렬하고 l보다 작은 것들을 필터링하면, l이 엄청 커졌다 작아지는 경우 못샘
+   </details>
+- 레퍼런스 각
+
+#### Minimum Window Subsequence
+* <a href="https://leetcode.com/problems/minimum-window-subsequence/" target="_blank">https://leetcode.com/problems/minimum-window-subsequence/</a>
+* 몇시간 삽질해서 dp로 풀긴 함. dp 식이나 다시 세워보자
+* 난 O(NM) dp로 풀었는데 투포인터가 더 효율적 (뒤에서 보면..!)
+* edit distance랑 비슷하게 생각하면 되는 듯
+
+### Minimum Cost to Make at Least One Valid Path in a Grid (보기만)
+- <a href="https://leetcode.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid/" target="_blank">https://leetcode.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid/</a>
+- 금방 생각난 것 - level (trial횟수) 별로 bfs하기. 여기서 특정 지역을 1번만 바꿀 수 있다는 제약조건이 걸리긴 했지만, 문제 특성상 최적의 답에 특정 지역을 두번 바꾼 게 들어갈 수 없기에 그냥 함 (한번만 바꾼 것 만 있는 답을 더 빨리 발견할 것이여서)
+- 결국 level별로 할 필요도 없었음. 레벨별로 하면 O(보드크기 X 맥스 레벨 (200)) 이지만, bfs하고 - 경계 저장 - 경계에서 다시 BFS - ...로 하면 O(보드크기)로 끝낼 수 있음
+- 디큐도 재밌었음. 디큐를 바로 생각할 수 있는 근거는 뭘까. 같은 레벨이면 앞에 더하고 (DFS?), 다음 레벨은 뒤에 더하는 식으로 함 (레벨 별). 결국 레벨은 현재에서 현재+1을 찾게 되므로, 항상 디큐에는 레벨이 증가하는 순서로 들어가게 됨
+
+### minimum distance to type a word using two fingers (need review)
+<a href="https://leetcode.com/problems/minimum-distance-to-type-a-word-using-two-fingers/" target="_blank">https://leetcode.com/problems/minimum-distance-to-type-a-word-using-two-fingers/</a>
+* 일단 O(KN^2) dp로는 쉽게 풀음
+* <details>
+   <summary>O(N)</summary> iterative dp로 풀면 K를 없애도 됨. 왼/오를 구분하지 않아도 되고, 항상 한쪽 손가락만 움직이는 경우보다 얼만큼 절약할 수 있나를 a[26] 상태공간에 넣으면 O(N X 26)임. Lee꺼 참조
+   </details>
+* 대박이네..레퍼런스급
+
+### https://leetcode.com/problems/number-of-ways-to-build-sturdy-brick-wall/description/
+https://leetcode.com/problems/number-of-ways-to-build-sturdy-brick-wall/description/
+- 이게..미디엄?
+
 
 ### https://leetcode.com/problems/count-binary-substrings/submissions/
 https://leetcode.com/problems/count-binary-substrings/submissions/
@@ -73,7 +115,7 @@ https://leetcode.com/problems/design-file-system/
 ### https://leetcode.com/problems/meeting-rooms-iii/description/
 - https://leetcode.com/problems/meeting-rooms-iii/description/
 - 풀긴 풀었는데 좀 더럽게 풀음...깔끔하게 푼거 참고하자. lee꺼가 좋은 듯
-
+- 레퍼런스급
 
 
 ### https://leetcode.com/problems/find-the-kth-smallest-sum-of-a-matrix-with-sorted-rows/description/
@@ -211,18 +253,6 @@ https://leetcode.com/problems/trapping-rain-water/
    <summary>하드 수월하게 풀었네 ㅋㅋ 생각정리가 중요함</summary> 
     tl < tr인 경우엔 둘 다 스왑하면 됨 ㅋㅋ. tl >>> tr인 경우엔 tl에서 tr만큼 계속 뺼 수 밖에 없다는 걸 알아채는게 포인트. 둘 다 비슷하면 금방 끝날꺼라는 것도.
    </details>
-   
-
-### Maximum Number of Points with Cost
-- <a href="https://leetcode.com/problems/maximum-number-of-points-with-cost/" target="_blank">https://leetcode.com/problems/maximum-number-of-points-with-cost/</a>
-- <details>
-   <summary>오우 쉣 이게 미디엄?</summary> 
-    dp인데..여기까진 쉬운데...최적화를 좀 해야 됨 ㄷㄷ
-   </details>
-   흠..깔끔하게 다시 ㄱㄱ
-
--------------
-일단 여기까지...
 
 
 
@@ -345,11 +375,6 @@ https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-
 ### 눈팅선
 - 이 위로 눈팅만 필요 (위쪽이 중요)
 
-### https://leetcode.com/problems/number-of-visible-people-in-a-queue/submissions/
-- 하든데 생각만
-- https://leetcode.com/problems/number-of-visible-people-in-a-queue/submissions/
-
-
 
 ### https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-iii/
 - 뭐 맞추긴 했는데 한번엔 안됨. 다시 풀어 보자
@@ -365,36 +390,11 @@ https://leetcode.com/problems/single-threaded-cpu/
 - 비교할 때 항상 경계를 생각하자! 그럼 바로 풀림 ㅎㅎ
 
 
-### count unique chars of all substrs
-- <a href="https://leetcode.com/problems/count-unique-characters-of-all-substrings-of-a-given-string/" target="_blank">https://leetcode.com/problems/count-unique-characters-of-all-substrings-of-a-given-string/</a>
-<details>
-   <summary>다시보기</summary> 
-    발상의 전환? 이 지금 잘 안되는 건 당연하겠지...
-   </details>
-
-
-### Missing Element in Sorted Array
-- O(N)으로 일단 품.
-- nums[i]와 nums[i+1]간의 missing element가 누적된 값이 아닌데 어떻게 이진검색을 하나 고민했음 (부분합 배열을 만들면 이미 O(N))
-<details>
-   <summary>다시보기</summary> 
-    nums[j] - nums[i] - 1 - (j - i) 가 i --- j 사이에 있는 missing elements. 결국 배열 전체를 고려해야 하므로, 0~mid 까지 테스트하고 이 결과로 st/ed를 갱신하는 게 직관적
-   </details>
-
 
 #### Partition Equal subset sum
 * <a href="https://leetcode.com/problems/partition-equal-subset-sum/submissions/" target="_blank">https://leetcode.com/problems/partition-equal-subset-sum/submissions/</a>
 * <details>
    <summary>실력이 퇴화하나....?</summary>제약조건을 잘 활용해 보자. DICT쓰면 특이케이스에 걸리는 게 별로 없는데 배열 써서...아니 그리고 제출하기 전 까지 생각이 안 나서 계속 틀림 ;_;....</details>
-
-
-#### Meeting Rooms II (need review)
-* <a href="https://leetcode.com/problems/meeting-rooms-ii/" target="_blank">그냥 풀기</a>
-* <details>
-   <summary>다시보가</summary> 
-   겹치는 구간의 최대갯수 세기 = PQ. 범위 더하기 되는 구간트리 / 이분탐색으로도 풀어볼 만은 한 듯...?  
-   l을 정렬해야 하고 r을 정렬하면 안되는 이유: l---r 로 되어 있으니까, l로 정렬해야 겹치는 것들을 확실하게 체크가능. r로 정렬하고 l보다 작은 것들을 필터링하면, l이 엄청 커졌다 작아지는 경우 못샘
-   </details>
 
 #### Partition Equal Subset Sum
 * <a href="https://leetcode.com/problems/partition-equal-subset-sum/" target="_blank">https://leetcode.com/problems/partition-equal-subset-sum/</a>
@@ -494,11 +494,6 @@ https://leetcode.com/problems/peeking-iterator/
 - 투포인터와 겹치는 부분이 있는 듯. increasing 이든 decreasing 이든 배열을 유지하는건, 앞+뒤 정보를 가지고 있는 것이니까.
 
 
-### Minimum Cost to Make at Least One Valid Path in a Grid (보기만)
-- <a href="https://leetcode.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid/" target="_blank">https://leetcode.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid/</a>
-- 금방 생각난 것 - level (trial횟수) 별로 bfs하기. 여기서 특정 지역을 1번만 바꿀 수 있다는 제약조건이 걸리긴 했지만, 문제 특성상 최적의 답에 특정 지역을 두번 바꾼 게 들어갈 수 없기에 그냥 함 (한번만 바꾼 것 만 있는 답을 더 빨리 발견할 것이여서)
-- 결국 level별로 할 필요도 없었음. 레벨별로 하면 O(보드크기 X 맥스 레벨 (200)) 이지만, bfs하고 - 경계 저장 - 경계에서 다시 BFS - ...로 하면 O(보드크기)로 끝낼 수 있음
-- 디큐도 재밌었음. 디큐를 바로 생각할 수 있는 근거는 뭘까. 같은 레벨이면 앞에 더하고 (DFS?), 다음 레벨은 뒤에 더하는 식으로 함 (레벨 별). 결국 레벨은 현재에서 현재+1을 찾게 되므로, 항상 디큐에는 레벨이 증가하는 순서로 들어가게 됨
 
 TODO: make a post on
 * https://www.educative.io/courses/grokking-the-system-design-interview
@@ -527,7 +522,6 @@ TODO: make a post on
    </details>
 
 
-
 ### basic calculator 2
 * https://leetcode.com/problems/basic-calculator-ii/
 * 외우는게 좋은듯
@@ -542,13 +536,6 @@ TODO: make a post on
 <a href="https://leetcode.com/problems/divide-array-in-sets-of-k-consecutive-numbers" target="_blank">https://leetcode.com/problems/divide-array-in-sets-of-k-consecutive-numbers</a>
 * 일단 하위30퍼로 풀긴 풀음
 * consequtive란 단서 때문에 더 빠르게 풀 수 있음. 그림을 잘 그려 보자
-
-### minimum distance to type a word using two fingers (need review)
-<a href="https://leetcode.com/problems/minimum-distance-to-type-a-word-using-two-fingers/" target="_blank">https://leetcode.com/problems/minimum-distance-to-type-a-word-using-two-fingers/</a>
-* 일단 O(KN^2) dp로는 쉽게 풀음
-* <details>
-   <summary>O(N)</summary> iterative dp로 풀면 K를 없애도 됨. 왼/오를 구분하지 않아도 되고, 항상 한쪽 손가락만 움직이는 경우보다 얼만큼 절약할 수 있나를 a[26] 상태공간에 넣으면 O(N X 26)임 
-   </details>
 
 
 ### Robot Room Cleaner
@@ -572,11 +559,6 @@ TODO: make a post on
    <summary>다시 풀어 보기</summary> 그리디하게 가능. 작은 숫자부터, 1. 이 숫자가 기존 list의 맨 뒤에 붙거나, 2. 그 숫자로부터 이어지는 숫자 2개가 더 있어야 함. 그리디네...
    </details>
 
-#### Minimum Window Subsequence
-* <a href="https://leetcode.com/problems/minimum-window-subsequence/" target="_blank">https://leetcode.com/problems/minimum-window-subsequence/</a>
-* 몇시간 삽질해서 dp로 풀긴 함. dp 식이나 다시 세워보자
-* 난 O(NM) dp로 풀었는데 더 효율적으로 푸는 dp가 있다네. 그럴 꺼 같긴 했는데...
-
 
 #### Copy list with Random Pointer
 * 다시 풀 필요는 없고, 생각정도는 해볼 만 함
@@ -587,10 +569,6 @@ TODO: make a post on
 * Damn! give this guy a Novel prize! https://raw.githubusercontent.com/hot13399/leetcode-graphic-answer/master/138.%20Copy%20List%20with%20Random%20Pointer.jpg
 * 에전에 K사 면접문제. 끝을 모르는 링크드 리스트에서 뒤에서 K번째를 찾을 때 그 느낌하고 비슷한가 했는데 비슷하진 않네
 
-#### Minimum Swaps To Make Sequences Increasing
-- <a href="https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing/" target="_blank">https://leetcode.com/problems/minimum-swaps-to-make-sequences-increasing/</a>
-- 미디엄이라 쉽게 보고 O(N*2) dp로 풀음
-- O(N) 풀이가 존재하네....? 다시 풀어봅시다
 
 #### Split Array Largest Sum
 <a href="https://leetcode.com/problems/split-array-largest-sum/" target="_blank">https://leetcode.com/problems/split-array-largest-sum/</a>
@@ -609,16 +587,6 @@ TODO: make a post on
 #### Design Hit Counter
 <a href="https://leetcode.com/problems/design-hit-counter/" target="_blank">https://leetcode.com/problems/design-hit-counter/</a>
 increasing하게 들어오는 timestamp. 특정 시점의 300초전까지의 hit수를 구해야 함. 제약조건을 이용해 이진탐색으로 풀음
-
-#### Minimum Knight Moves (복습요망)
-<a href="https://leetcode.com/problems/minimum-knight-moves/" target="_blank">https://leetcode.com/problems/minimum-knight-moves/</a>
-
-#### Time Based Key-Value Store (medium)
-- <a href="https://leetcode.com/problems/time-based-key-value-store/" target="_blank">https://leetcode.com/problems/time-based-key-value-store/</a>
-- 문제를 잘 읽읍시다..
-- 그나저나, 새 item이 계속 추가되는 상태에서 정렬된 배열을 유지하는 건 계속 나오네. 이 문제의 경우는 increasing하는 순서로 주어져서 별 상관 없었지만. 문제를 잘 읽지 않은 덕분에 파이썬으로 어떻게 구현해야 하는지 계속 생각함.
-  1. map (splay tree) - lower_bnd연산을 구현하면 쉬울듯.
-  2. key가 정해져있고 좌표압축이 가능하며 범위가 작은 경우 - random access linked list로 짜면 될 듯. 근데 이거 만들어 본 적이 없어서..연습요망
 
 #### Text justification
 - <a href="https://leetcode.com/problems/text-justification/submissions/" target="_blank">https://leetcode.com/problems/text-justification/submissions/</a>, hard
@@ -643,18 +611,6 @@ increasing하게 들어오는 timestamp. 특정 시점의 300초전까지의 hit
 2. 3-sum - 2sum * N
 3. 4-sum - 3sum * N
 
-
-
-
-### Minimum Window Substring
-<a href="https://leetcode.com/problems/minimum-window-substring/" target="_blank">https://leetcode.com/problems/minimum-window-substring/</a>
-
-* 긴 string s에서 짧은 string t의 permutation을 포함하는 substing의 최소길이를 찾아야 함
-* Permutation을 포함만 하면 되므로, count가 적었다가 같아지는 순간이 중요
-* 윈도우 (2 indices - st, ed)로 체크함.   
-    1. ed : 고정된 st에서, permutation을 포함하는 최소 끝점을 찾음
-    2. st : 해당 ed에서, permutation을 포함할 때 까지 줄여감
-* 왠일로 하드를 수월하게 풀었네...?
 
 
 #### Finding cycle in linked list

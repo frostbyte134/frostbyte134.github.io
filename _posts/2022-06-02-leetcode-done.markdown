@@ -136,3 +136,51 @@ https://leetcode.com/problems/jump-game-ii/
 ### delete nodes and return forest
 - <a href="https://leetcode.com/problems/delete-nodes-and-return-forest/" target="_blank">https://leetcode.com/problems/delete-nodes-and-return-forest</a>
 - 복습까진 필요없는 듯. 중복정보를 본인도 처리하고 자손도 중복으로 처리해서 느렸다. 자손에서 return으로 보내 줬으면 됐을 껄...이거 면접에서 이래 죽쓰면 풀긴 풀었는데 감점 엄청 당할듯.
+
+### Maximum Number of Points with Cost
+- <a href="https://leetcode.com/problems/maximum-number-of-points-with-cost/" target="_blank">https://leetcode.com/problems/maximum-number-of-points-with-cost/</a>
+- <details>
+   <summary>오우 쉣 이게 미디엄?</summary> 
+    dp인데..여기까진 쉬운데...최적화를 좀 해야 됨 ㄷㄷ
+   </details>
+   너무 많이 다시 풀어서 done에 넣음 ㅋㅋ
+
+
+#### Minimum Knight Moves (복습요망)
+<a href="https://leetcode.com/problems/minimum-knight-moves/" target="_blank">https://leetcode.com/problems/minimum-knight-moves/</a>
+
+#### Time Based Key-Value Store (medium)
+- <a href="https://leetcode.com/problems/time-based-key-value-store/" target="_blank">https://leetcode.com/problems/time-based-key-value-store/</a>
+- 문제를 잘 읽읍시다..
+- 그나저나, 새 item이 계속 추가되는 상태에서 정렬된 배열을 유지하는 건 계속 나오네. 이 문제의 경우는 increasing하는 순서로 주어져서 별 상관 없었지만. 문제를 잘 읽지 않은 덕분에 파이썬으로 어떻게 구현해야 하는지 계속 생각함.
+  1. map (splay tree) - lower_bnd연산을 구현하면 쉬울듯.
+  2. key가 정해져있고 좌표압축이 가능하며 범위가 작은 경우 - random access linked list로 짜면 될 듯. 근데 이거 만들어 본 적이 없어서..연습요망
+
+
+### Minimum Window Substring
+<a href="https://leetcode.com/problems/minimum-window-substring/" target="_blank">https://leetcode.com/problems/minimum-window-substring/</a>
+
+* 긴 string s에서 짧은 string t의 permutation을 포함하는 substing의 최소길이를 찾아야 함
+* Permutation을 포함만 하면 되므로, count가 적었다가 같아지는 순간이 중요
+* 윈도우 (2 indices - st, ed)로 체크함.   
+    1. ed : 고정된 st에서, permutation을 포함하는 최소 끝점을 찾음
+    2. st : 해당 ed에서, permutation을 포함할 때 까지 줄여감
+* 왠일로 하드를 수월하게 풀었네...?
+
+### https://leetcode.com/problems/number-of-visible-people-in-a-queue/submissions/
+- 하든데 생각만. 유명한 패턴
+- https://leetcode.com/problems/number-of-visible-people-in-a-queue/submissions/
+
+
+### https://leetcode.com/problems/delete-and-earn/
+https://leetcode.com/problems/delete-and-earn/
+- 미디엄인데 못품 ㄷㄷ N^2 범위 디피인줄...기억해 둘 만한 듯
+- 다시해서 풀긴했는데 더 빠른게 있었음. 난 이런거에 좀 약한가? 기억해 둘 만은 한듯
+
+### max-area-of-island
+- <a href="https://leetcode.com/problems/max-area-of-island/submissions/" target="_blank">https://leetcode.com/problems/max-area-of-island/submissions/</a>
+- 많이 풀어 본 보드문제 (눈으로 보기만)
+<details>
+   <summary>다시보기</summary> 
+    예전에는 bfs + set으로 풀었던 거 같은데 그럴필요 없음. 
+   </details>

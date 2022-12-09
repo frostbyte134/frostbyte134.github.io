@@ -334,3 +334,17 @@ https://leetcode.com/problems/amount-of-new-area-painted-each-day/
 ### https://leetcode.com/problems/maximal-rectangle/submissions/
 https://leetcode.com/problems/maximal-rectangle/submissions/
 - 걍 다시 풇어보기
+
+#### Find All Numbers Disappeared in an Array (reference problem)
+<a href="https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/" target="_blank">https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/</a>
+<details>
+<summary>보기만</summary> 
+    리스트 값이 리스트 내부와 range가 같고, 리스트를 체크해야 할 시 리스트 값이 -를 해두면 좋은듯
+   </details
+
+### count unique chars of all substrs
+- <a href="https://leetcode.com/problems/count-unique-characters-of-all-substrings-of-a-given-string/" target="_blank">https://leetcode.com/problems/count-unique-characters-of-all-substrings-of-a-given-string/</a>
+<details>
+   <summary>다시보기</summary> 
+    발상의 전환? 이 지금 잘 안되는 건 당연하겠지...
+   </details>>
