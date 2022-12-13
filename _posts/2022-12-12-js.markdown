@@ -1,0 +1,63 @@
+---
+layout: post
+title:  "MERN - Javascript"
+date:   2022-12-09 08:00:05 +0800
+categories: coding
+use_math: true
+tags: coding
+---
+
+리액트 먼저 볼라다 자바스크립트 페이지가 되어 버림 ㅋㅋ
+솔직히 리액트만 보면 되서 인프런 강의 이런거 필요없을듯. 일단 없이 해 보자
+
+### JS tutorial
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Language_Overview
+- functions are 1st class
+- dynamic typed
+
+
+
+#### Types
+
+[Data Types](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Language_Overview#data_types)
+- Number
+    - no distinction between float/int - __apparent integer is in fact implicitly a float__ (???)
+        - For operations that expect integers (ex-bitwise operations), the number will be converted to a 32-bit integer
+    - NaN (div by 0) / INF
+- Bigint: `123n`
+    - division truncates to zero, can grow indefinitely
+- String
+    - utf-16, single/double quotes. `length` property gives len
+    - `+`(binary) operator is overloaded for strings: when one operand is a string, it performs string concat instead of add
+    - `template literal` syntax: `I am ${age} years old.` 
+- `Symbol`: used for creating unique identifiers that won't collide.
+- `Undefined`: indicating that a variable has not been assigned a value.
+- `Null`: indicating a deliberate non-value.
+
+string to number
+- `parseInt()` / `parseFloat()`
+- Number() - parses a string as if it's a number literal and supports many different number representations.
+    - = unary `+`
+
+null/undefined
+- `null`: a deliberate non-value (and is only accessible through the null keyword)
+- `undefined`: indicates absence of value. There are many ways to obtain undefined:
+    - A return statement with no value (return;) implicitly returns undefined.
+    - Accessing a nonexistent object property (obj.iDontExist) returns undefined.
+    - A variable declaration without initialization (let x;) will implicitly initialize the variable to undefined.
+
+t/f
+- false, 0, empty strings (""), NaN, null, and undefined all become false
+
+#### Variables
+can define vars with 3 keywords
+- `let`: block-level, local vars
+- `const` declarations only prevent `reassignments.` they don't prevent `mutations` of the variable's value, if it's an object.
+- `var` declarations can have surprising behaviors (for example, they are not block-scoped), and __are discouraged__ in modern JavaScript code.
+
+If you declare a variable without assigning any value to it, its __value is undefined (not null)__
+
+### React
+
+https://reactjs.org/docs/hello-world.html#how-to-read-this-guide
+- learn by concepts
