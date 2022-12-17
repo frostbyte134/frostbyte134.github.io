@@ -7,7 +7,6 @@ use_math: true
 tags: coding
 ---
 
-
 ### requirements
 
 - 페이지 컨텐츠
@@ -59,6 +58,10 @@ tags: coding
     - 각 포스트는 권한에 따라 visible한 영역이 달라짐
 - 사용자
     - 권한과 N:1
+
+참고할 만한 블로그 - [커피고래님 블로그](https://coffeewhale.com/bigdata/2015/10/31/more-the-better-03/)
+- uri에 날짜가 있음 - 안좋은 거 같음. 링크가 쉽게 깨짐. 날짜도 resource라고 할 수 있나? 있긴 한데...흠
+- 카테고리..도 있으면 좋을 듯
 
 
 Below contents are deprecated
