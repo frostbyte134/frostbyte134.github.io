@@ -54,8 +54,250 @@ can define vars with 3 keywords
 - `let`: block-level, local vars
 - `const` declarations only prevent `reassignments.` they don't prevent `mutations` of the variable's value, if it's an object.
 - `var` declarations can have surprising behaviors (for example, they are not block-scoped), and __are discouraged__ in modern JavaScript code.
+```
+const obj = {};
+obj.a = 1; // no error
+console.log(obj); // { a: 1 }
+```
 
 If you declare a variable without assigning any value to it, its __value is undefined (not null)__
+
+> JavaScript is `dynamically typed`. Types (as described in the previous section) are only associated with values, but not with variables. For let-declared variables, you can always change its type through reassignment.
+
+
+#### Operators
+
+대부분 파이썬이랑 비슷
+
+For equality, the `double-equals` operator performs type coercion if you give it different types, with sometimes interesting results. On the other hand, the `triple-equals` operator does not attempt type coercion, and __is usually preferred.__
+
+```
+123 == "123"; // true
+1 == true; // true
+
+123 === "123"; // false
+1 === true; // false
+```
+The double-equals and triple-equals also have their inequality counterparts: `!=` and `!==.`
+
+The && and || operators use short-circuit logic
+
+operators - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators
+
+#### control_structures
+- for, while, do-while, if-else if-else
+- switch-case
+
+try
+```
+try {
+  buildMySite("./website");
+} catch (e) {
+  console.error("Building site failed:", e);
+}
+
+function buildMySite(siteDirectory) {
+  if (!pathExists(siteDirectory)) {
+    throw new Error("Site directory does not exist");
+  }
+}
+```
+
+#### Objects
+- dict in python
+
+Objects are usually created using the literal syntax:
+```
+const obj = {
+  name: "Carrot",
+  for: "Max",
+  details: {
+    color: "orange",
+    size: 12,
+  },
+};
+```
+Object properties can be accessed using dot (.) or brackets ([]).
+- __Object keys are always strings or symbols__ — even array indices, which are canonically integers, are actually strings under the hood.
+
+Objects are always references, so unless something is explicitly copying the object, mutations to an object would be visible to the outside.
+- This also means two separately created objects will never be equal (`!==`), because they are different references. If you hold two references of the same object, mutating one would be observable through the other.
+
+### Arrays
+
+Arrays in JavaScript = special type of object
+- naturally, numerical properties can be accessed only using `[]` syntax
+- one magic property called `length` - automatically updated to `+1 to the highest index`
+
+out-of-bound access - returns `undefined`
+
+since arrays are iterable, you can use the for...of loop,
+```
+for (const currentValue of a) {
+  // Do something with currentValue
+}
+```
+
+Arrays come with a plethora of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce" target="_blank">array methods</a>. Many of them would iterate the array — for example, map() would apply a callback to every array element, and return a new array:
+
+### Functions
+
+
+can be called with __more or fewer parameters__ than it specifies
+- call a function without passing the parameters it expects, those args will be set to undefined
+- There are a number of other parameter syntaxes available. For example, the `rest parameter syntax` allows collecting all the extra parameters passed by the caller into an array, similar to Python's *args. __(Since JS doesn't have named parameters on the language level, there's no **kwargs.)__
+
+```
+function avg(...args) {
+  let sum = 0;
+  for (const item of args) {
+    sum += item;
+  }
+  return sum / args.length;
+}
+
+avg(2, 3, 4, 5); // 3.5
+```
+
+We mentioned that JavaScript doesn't have named parameters. It's possible, though, to implement them using object destructuring, which allows objects to be conveniently packed and unpacked.
+```
+// Note the { } braces: this is destructuring an object
+function area({ width, height }) {
+  return width * height;
+}
+
+// The { } braces here create a new object
+console.log(area({ width: 2, height: 3 }));
+```
+
+#### Anonymous functions
+functions without names. anonymous functions are typically used as arguments to other functions, immediately assigned to a variable that can be used to invoke the function, or returned from another function.
+```
+// Note that there's no function name before the parentheses
+const avg = function (...args) {
+  let sum = 0;
+  for (const item of args) {
+    sum += item;
+  }
+  return sum / args.length;
+};
+```
+
+There's another way to define anonymous functions — using an `arrow function expression.`
+```
+// Note that there's no function name before the parentheses
+const avg = (...args) => {
+  let sum = 0;
+  for (const item of args) {
+    sum += item;
+  }
+  return sum / args.length;
+};
+
+// You can omit the `return` when simply returning an expression
+const sum = (a, b, c) => a + b + c;
+```
+
+Arrow functions are not semantically equivalent to function expressions — for more information, see its <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions" target="_blank">reference page.</a> (should not be used as methods, don't have their own bindings to this, arguments, or super)
+```
+param => expression
+
+(param) => expression
+
+(param1, paramN) => expression
+
+param => {
+  statements
+}
+
+(param1, paramN) => {
+  statements
+}
+```
+
+There's another way that anonymous functions can be useful: it can be simultaneously declared and invoked in a single expression, called an Immediately invoked function expression (IIFE):
+
+(function () {
+  // …
+})();
+
+Functions are first-class objects
+- JavaScript functions are first-class objects. This means that they can be assigned to variables, passed as arguments to other functions, and returned from other functions. In addition, JavaScript supports closures out-of-the-box without explicit capturing, allowing you to conveniently apply functional programming styles.
+```
+// Function returning function
+const add = (x) => (y) => x + y;
+// Function accepting function
+const babies = ["dog", "cat", "hen"].map((name) => `baby ${name}`);
+```
+
+__Note that JavaScript functions are themselves objects__ — like everything else in JavaScript — and you can add or change properties on them just like we've seen earlier in the Objects section
+
+### Classes
+JavaScript offers the class syntax that's very similar to languages like Java.
+```
+class Person {
+  constructor(name) {
+    this.name = name;
+  }
+  sayHello() {
+    return `Hello, I'm ${this.name}!`;
+  }
+}
+
+const p = new Person("Maria");
+console.log(p.sayHello());
+```
+> JavaScript classes are just functions that must be instantiated with the new operator
+
+
+Here's an example of how ad hoc the creation of a class can be: it's just an expression returned from an arrow function. This pattern is called a mixin.
+```
+const withAuthentication = (cls) =>
+  class extends cls {
+    authenticate() {
+      // …
+    }
+  };
+
+class Admin extends withAuthentication(Person) {
+  // …
+}
+```
+
+- Static properties are created by prepending `static`
+- Private properties are created by prepending a hash `#` (not private). The hash is an integral part of the property name. __(Think about # as _ in Python.)__
+   - Unlike most other languages, there's absolutely no way to read a private property outside the class body — not even in derived classes.
+
+
+### Asynchronous programming
+> JavaScript is single-threaded by nature. __There's no paralleling; only concurrency.__
+
+Asynchronous programming is powered by an event loop, which allows a set of tasks to be queued and polled for completion.
+
+3 idiomatic ways to write asynchronous code in JavaScript:
+- Callback-based (such as setTimeout())
+- Promise-based
+- async/await, which is a syntactic sugar for Promises
+
+
+workers
+- https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers
+
+event loops
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop
+- 아...지역변수도 힙에 저장해야 함. 이벤트루프가 frame을 받아 동작하기 때문에, 힙에 미리 지역변수들을 할당하고 그 레퍼런스를 가지게 하나봄
+
+If you have an async value, it's not possible to get its value synchronously. For example, if you have a promise, you can only access the eventual result via the then() method. Similarly, await can only be used in an async context, which is usually an async function or a module.
+
+### modules
+Different runtimes may use different module systems (????)
+
+For example, Node.js uses the package manager npm and is mostly file-system based, while Deno and browsers are fully URL-based and modules can be resolved from HTTP URLs
+
+
+### event loop
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop
+
 
 ### React
 

@@ -11,6 +11,10 @@ tags: problem_solving leetcode need_review
 
 
 
+#### https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
+- 깔끔하지 못했음
+
 ### Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit (window problem, need review)
 - <a href="https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/" target="_blank">https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/</a>
 - 윈도우 안의 최대/최소의 차이. map으로 풀어서 하위 20퍼로 풀긴 함
@@ -243,8 +247,6 @@ dp[val] = min([dp[val - c]+1 if val - c >= 0 else float("inf") for c in coins])
 
 
 
-
-
 #### Rotate image
 
 <a href="https://leetcode.com/problems/rotate-image/submissions/" target="_blank">https://leetcode.com/problems/rotate-image/submissions/</a>
@@ -347,4 +349,8 @@ https://leetcode.com/problems/maximal-rectangle/submissions/
 <details>
    <summary>다시보기</summary> 
     발상의 전환? 이 지금 잘 안되는 건 당연하겠지...
-   </details>>
+   </details>
+
+
+### https://leetcode.com/problems/evaluate-reverse-polish-notation/description/
+- 예외처리 하는 방법이 재밌음 (내가 저걸 몇년전에 했었네...). 기억해 둘 만 한듯

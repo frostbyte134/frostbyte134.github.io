@@ -14,6 +14,13 @@ tags: problem_solving leetcode need_review
 - 보자마자 opt sol이 걍 떠올라야 하는듯 ㅡ,.ㅡ
 - 2022.11.25 하드100 돌파 ㅋㅋ
 
+
+### https://leetcode.com/problems/set-intersection-size-at-least-two/description/
+- 한번에 풀진 못함
+
+### https://leetcode.com/problems/sum-of-distances-in-tree/description/
+- 와 풀었당 ㅎㅎㅎ 딕셔너리를 따로 두는게 깔끔해보이긴 하네
+
 ### https://leetcode.com/problems/max-stack/description/
 https://leetcode.com/problems/max-stack/description/
 - 음..풀긴 풀어서 상위 80펀데, 문제 요구조건 (read O(1))이 만족되나?ㅋㅋ
