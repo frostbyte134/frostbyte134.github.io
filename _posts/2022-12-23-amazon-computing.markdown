@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "streamig migration"
+title:  "The Distributed Computing Manifesto"
 date:   2022-12-23 08:00:05 +0800
 categories: coding
 use_math: true
