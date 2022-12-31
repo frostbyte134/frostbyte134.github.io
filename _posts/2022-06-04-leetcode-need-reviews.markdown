@@ -15,6 +15,17 @@ tags: problem_solving leetcode need_review
 - 2022.11.25 하드100 돌파 ㅋㅋ
 
 
+### https://leetcode.com/problems/wildcard-matching/description/
+- x같다 ㅋㅋㅋ 으...안보고 풀긴했는데 ㅜㅜ
+
+
+### https://leetcode.com/problems/jump-game/
+이걸 한번에 못푸네 ㅡㅡ https://leetcode.com/problems/jump-game/
+
+
+### https://leetcode.com/problems/longest-subsequence-with-limited-sum/description/
+- 아니 뭐 당근 풀긴 했는데..이정도면 미디엄 아니냐? ㄷㄷ
+
 ### https://leetcode.com/problems/set-intersection-size-at-least-two/description/
 - 한번에 풀진 못함
 
