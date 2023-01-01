@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "API design best practice"
+title:  "API design best practice - Google/Naver"
 date:   2022-12-29 07:00:05 +0800
 categories: coding
 use_math: true
@@ -9,11 +9,10 @@ tags: coding
 
 - 
 <a href="https://cloud.google.com/apis/design/resources" target="_blank">google</a> / <a href="https://learn.microsoft.com/en-us/azure/architecture/best-practices/api-design" target="_blank">MS</a> design best practice
+  - https://github.com/Microsoft/api-guidelines/blob/master/Guidelines.md
+  - https://mathieu.fenniak.net/the-api-checklist/
 - <a href="https://deview.kr/2017/schedule/212" target="_blank">그런 REST API로 괜찮은가</a>
 
-### MS API design best practice
-
-https://learn.microsoft.com/en-us/azure/architecture/best-practices/api-design
 
 ### 그런 REST API로 괜찮은가? (22.12.01 추가)
 - 이거 추가하면서 제목을 REST에서 api design으로 바꿈...ㅎㅎ
