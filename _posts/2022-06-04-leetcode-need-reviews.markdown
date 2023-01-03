@@ -15,6 +15,9 @@ tags: problem_solving leetcode need_review
 - 2022.11.25 하드100 돌파 ㅋㅋ
 
 
+### https://leetcode.com/problems/finding-the-number-of-visible-mountains/description/
+- 아나 ㅋㅋ 답봄
+
 ### https://leetcode.com/problems/wildcard-matching/description/
 - x같다 ㅋㅋㅋ 으...안보고 풀긴했는데 ㅜㅜ
 
