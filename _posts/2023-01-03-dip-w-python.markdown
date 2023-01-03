@@ -54,6 +54,8 @@ Factory provider
 - The rest of the Factory positional and keyword arguments are the dependencies
 - Factory injects the dependencies every time when creates a new object. The dependencies are injected following these rules:
 
+<a href="https://python-dependency-injector.ets-labs.org/providers/async.html" target="_blank">async injection</a>
+
 #### Container
 <a href="https://python-dependency-injector.ets-labs.org/containers/index.html#containers" target="_blank">https://python-dependency-injector.ets-labs.org/containers/index.html#containers</a>
 
@@ -89,3 +91,22 @@ miscs
 - <a href="https://python-dependency-injector.ets-labs.org/containers/declarative.html" target="_blank">declarative</a>
 - dynamic: runtime creation of container, without declaraing container's attributes
 - <a href="https://python-dependency-injector.ets-labs.org/containers/overriding.html" target="_blank">overriding</a>
+
+
+### Wiring
+<a href="https://python-dependency-injector.ets-labs.org/wiring.html#wiring" target="_blank">https://python-dependency-injector.ets-labs.org/wiring.html#wiring</a>
+
+Wiring feature provides a way to inject container providers into the functions and methods.
+
+To use wiring you need:
+- Place `@inject` decorator. Decorator @inject injects the dependencies.
+- Place markers. Wiring marker specifies what dependency to inject, e.g. `Provide[Container.bar]`. This helps container to find the injections.
+- Wire the container with the markers in the code. Call container.wire() specifying modules and packages you would like to wire it with.
+- Use functions and classes as you normally do. Framework will provide specified injections.
+
+
+
+examples
+- https://python-dependency-injector.ets-labs.org/examples/application-single-container.html#application-single-container
+- https://python-dependency-injector.ets-labs.org/examples/application-multiple-containers.html#application-multiple-containers
+- https://python-dependency-injector.ets-labs.org/examples/decoupled-packages.html#decoupled-packages
