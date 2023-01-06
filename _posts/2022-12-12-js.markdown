@@ -140,8 +140,14 @@ for (const currentValue of a) {
 
 Arrays come with a plethora of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce" target="_blank">array methods</a>. Many of them would iterate the array — for example, map() would apply a callback to every array element, and return a new array:
 
+`...` operator on array
+- `let arr = [1, 2, 3];`
+- `...arr`: unwrap all values in arr
+- ex) deepcopy array = `newarr = [...arr]`
+
 ### Functions
 
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions#arrow_functions" target="_blank">arrow functions</a>
 
 can be called with __more or fewer parameters__ than it specifies
 - call a function without passing the parameters it expects, those args will be set to undefined
