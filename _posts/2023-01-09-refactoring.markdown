@@ -21,7 +21,7 @@ ensure to a solid set of tests for the refactoring target code
 - easier said...reality bites.
 - refactoring changes the program in small steps (easier to find the cause of mistake)
 
-파라미터가 없는 함수 극혐인데 (특히 오록스 보면서 좀 많았음), 중간 코드긴 하지만 자주 보인 듯
+
 
 variable names are a key to clear code
 - breaking a large function into smaller ones only adds value if the names are good (no need to peek into details if names are good)
@@ -32,3 +32,18 @@ replaced few local variables to inline calls
 - temp vars are only useful within their own routine, and therefore they encourge long, complex (own) routines - "i prefer to replace with a declared function"
 
 JS - [object.assign](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) = shallow copy over 1 level enumerable
+
+conditional to polymorphic
+- if-else문을 객체 생성 안으로 몰아넣는거 아닌가 싶긴 하지만.. -> 이 상속구조에 기대는 코드들이 더 생길수록 이득이라는 듯
+- 일단 로직의 위치를 옮기고, 다음 상속구조에 따른 polymorphic change를 적용하는듯 (나였으면 상속구조부터 짰을 듯...)
+
+> I believe, however, that we can go beyond taste and say that the true test of good code is how easy it is to change it
+
+small steps are key
+- in this case: decomposing into small, nested functions (with good names) -> use Split Phase (?) to seperate the calc/printing -> introduce polymorphism
+- but what if a big bunch of codes depends on many external resources?zz
+
+느낀점
+- 리액트 공부중이라 자바스크립트인게 좋은 듯
+- 파라미터가 없는 함수 좀 그런데 (특히 오록스 보면서 좀 많았음. 난 사이드 이펙트다 라는 느낌. 코드 보기도 어려움), 중간 코드긴 하지만 자주 보인 듯.
+- 코드에도 줄넘어갈때마다 하이픈 붙는것때문에 좀 그럼...
