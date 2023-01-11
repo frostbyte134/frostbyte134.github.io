@@ -185,3 +185,31 @@ react-router-dom에서 invalid hook call에러 발생 (일단 hook이 뭔지 잘
 
 
 보통 index.js에서는 `<BrowserRouter><App /></BrowserRouter>`만 설정해 주고, 실제 router 설정은 App에서 리턴되는 html에 끼워넣는듯
+
+### props
+
+현 구조
+1. index.js에서 라우팅 규칙 정의 - App만 끼워넣고 반환
+2. 이러면 결국 App은 index.js에서 감싼 라우터규칙 태그 안에 있음 -> 앱에서 라우팅규칙 정의해도 됨
+3. 앱에서 list.js, upload.js 임포트하고 여기 컴포넌트들을 라우팅규칙으로 각자 추가 (`/list`는 list 컴포넌트 띄우게)
+4. 근데 content list state를 list.js, upload.js에서 각자 들고 있으니, 업로드해서 추가하도 리스트엔 반영이 안됨 -> 이걸 해결
+5. App.js에서 컨텐트리스트를 정의해서 list, upload에 넘김 -> 문제 해결!
+
+App.js 에서 list.js의 List컴포넌트로 스테이트/스테이트 설정 함수 넘겨주기
+```javascript
+<Routes>
+   <Route path="/List" element={
+      <List contentList={contentList} setContentList={setContentList}/>
+   } />
+   ...
+</Routes>
+```
+
+굳이 스테이트가 아니여도 이렇게 전달가능하다고 함
+- 약간..암묵적인 의존관계가 좀 생길 거 같은데?
+- 자식 의 입장에선 부모에게 전달받은 걸 `props`라고 함
+- (자식) 함수 컴포넌트에선 매개변수에 props란 이름으로 변수 하나 만들고, `props.변수명 / 함수명` 등으로 사용가능
+
+우왕ㅋ굳ㅋ
+
+[코드링크](https://github.com/frostbyte134/react-fastapi-blog/commit/156b40db2e7946a7d393e7e7ec1dfbd12c5e2bd6)
