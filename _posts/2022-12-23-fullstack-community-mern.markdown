@@ -240,4 +240,7 @@ App.js 에서 list.js의 List컴포넌트로 스테이트/스테이트 설정 �
       }
     }, [/* useEffect가 실행될 조건. 빈 배열 = 살거나 죽을 때만 실행 */])
 ```
-- 조건에는 state가 들어갈 수 
+- 조건에는 state가 들어갈 수 있음 - state가 들어갈 시,  컴포넌트가 아니고 해당 스테이트가 살거나 죽을 떄 실행
+- component lifecycle에 대한 이해가 있어야 한다고 함. 난 뭐 아직 모르니까. 이 떄 서버랑 통신/데이터를 받아오는 경우가 많은 듯?
+
+[코드 링크](https://github.com/frostbyte134/react-fastapi-blog/commit/ca7c7d60d242c3ed53e37efb33c3c986c10425a9)
