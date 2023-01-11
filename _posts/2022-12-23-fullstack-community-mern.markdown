@@ -171,6 +171,9 @@ const Name = () => {
 
 ### react-router-dom
 
+__routes는 switch-case랑 비슷__
+- html dom 내에서의 switch-case (현재 선택된 것만 페이지에 보여짐)
+
 <a href="https://github.com/frostbyte134/react-fastapi-blog/commit/76e656962850d206d87bb314eb73891b43bf3ea1" target="_blank">코드</a>
 
 6버전 이후로 해야 함
@@ -187,6 +190,8 @@ react-router-dom에서 invalid hook call에러 발생 (일단 hook이 뭔지 잘
 보통 index.js에서는 `<BrowserRouter><App /></BrowserRouter>`만 설정해 주고, 실제 router 설정은 App에서 리턴되는 html에 끼워넣는듯
 
 ### props
+
+하기전에 헤더에서 [Link](https://reactrouter.com/en/main/components/link) 컴포넌트? 추가해서 쉽게 링크 만듬 (커밋 [diff](https://github.com/frostbyte134/react-fastapi-blog/commit/156b40db2e7946a7d393e7e7ec1dfbd12c5e2bd6) 참고)
 
 현 구조
 1. index.js에서 라우팅 규칙 정의 - App만 끼워넣고 반환
@@ -213,3 +218,26 @@ App.js 에서 list.js의 List컴포넌트로 스테이트/스테이트 설정 �
 우왕ㅋ굳ㅋ
 
 [코드링크](https://github.com/frostbyte134/react-fastapi-blog/commit/156b40db2e7946a7d393e7e7ec1dfbd12c5e2bd6)
+
+
+#### useEffect
+아까 router는 switch-case라고 했음
+- 현재 선택된 case 컴포넌트만 보여지고, 나머지는 안보여짐 = 안보여질때도 많음
+- 컴포넌트에는 라이프사이클이 있음 (보여질떄/안보여질때가 이 싸이클 상태가 다른가 봄)
+
+
+리액트 `hook`
+- mount 전/이전 이런 것도 있는데 이건 알아서 찾아봐라
+- 컴포넌트가 보일떄/안보일 때 hook을 통해 이밴트를 캐치할 수 있음
+- `useEffect`하나로 혹에 대한 코딩을 전부 할 수 있음
+
+```javascript
+    useEffect(() => {
+      // when component appears (when the component is mounted)
+    
+      return () => {
+        // when component dies
+      }
+    }, [/* useEffect가 실행될 조건. 빈 배열 = 살거나 죽을 때만 실행 */])
+```
+- 조건에는 state가 들어갈 수 
