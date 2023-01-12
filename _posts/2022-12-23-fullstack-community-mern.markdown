@@ -30,6 +30,7 @@ create app
 App.js의 내용이 어떻게 브라우져로 렌더링되는가?
 - index.js를 보면, root객체를 만듬
 - 이 root객체는 `public/index.html`의 body에 `<div id="root">`이걸 렌더링하는 데 쓰이는 듯
+- __결국 리액트로 짠 모든 내용이 이 id=root을 체우는 데 들어가게 됨__
 
 #### 컴포넌트
 리액트의 뭔가 중요한 building block (재사용성!). 클래스형에서 함수형으로 넘어가는 추세
@@ -189,7 +190,7 @@ react-router-dom에서 invalid hook call에러 발생 (일단 hook이 뭔지 잘
 
 보통 index.js에서는 `<BrowserRouter><App /></BrowserRouter>`만 설정해 주고, 실제 router 설정은 App에서 리턴되는 html에 끼워넣는듯
 
-### props
+#### props
 
 하기전에 헤더에서 [Link](https://reactrouter.com/en/main/components/link) 컴포넌트? 추가해서 쉽게 링크 만듬 (커밋 [diff](https://github.com/frostbyte134/react-fastapi-blog/commit/156b40db2e7946a7d393e7e7ec1dfbd12c5e2bd6) 참고)
 
@@ -244,3 +245,32 @@ App.js 에서 list.js의 List컴포넌트로 스테이트/스테이트 설정 �
 - component lifecycle에 대한 이해가 있어야 한다고 함. 난 뭐 아직 모르니까. 이 떄 서버랑 통신/데이터를 받아오는 경우가 많은 듯?
 
 [코드 링크](https://github.com/frostbyte134/react-fastapi-blog/commit/ca7c7d60d242c3ed53e37efb33c3c986c10425a9)
+
+
+### Chap 2
+
+#### express
+node.js 기반 웹 앱 https://expressjs.com/ko/
+
+시작하기대로 설치
+1. `npm init -y` -> package.json 설치
+2. `npm i express@4.17.2 --save`
+  - `npm audit fix` 하래서 함. 뭔진 모름
+3. [hello world](https://expressjs.com/ko/starter/hello-world.html) 예제
+4. `package.json`에 script에 `"start":"node index.js"` 추가 -> `npm start`로 실행
+
+클라이언트에 가서 `npm run-script build` 실행 -> 리액트의 App 컴포넌트가 들어간 build 폴더를 빌드함 (원랜 이걸 그냥 리턴하는 서버? 를 띄웠겠지?)
+- 여기엔 우리가 만든 js를 압축해서 임포트하는 index.html가 있음
+
+이제 express 서버에서 이 `/` path에서 sendFile로 응답으로 이 html을 반환할 거임 -> 왜?
+- 결국 리액트 서버 - express 서버 구조가 아니고
+- 리액트 (static html file) - express 서버 구조로 가는 듯?
+- 또 해줘야 하는게, 저 리액트를 빌드한 build 폴더를 static용으로 쓸 거라고 express에 알려줘야 함. `pp.use(express.static(path.join(__dirname, "../client/build")))`
+
+익스프레스를 매번 켜기 귀찮으니, 노드몬? 을 써서
+- `npm i nodemon --save`
+- ? 안돼서 찾아보니 `sudo npm install -g nodemon`하고 맥북 비번 입력하라 함
+- 이걸 start에 등록함 `nodemon index.js`
+
+[코드](https://github.com/frostbyte134/react-fastapi-blog/commit/5eefb6d2dda57f8a688377aa2dba32dfb182a3af) - 스태틱파일때매 디프가 깨지네..깃이그노어 등록할껄
+- `node_modules` 때문이었ㅇ.ㅁ 깃이그노어에 등록함
