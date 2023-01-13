@@ -47,3 +47,51 @@ small steps are key
 - 리액트 공부중이라 자바스크립트인게 좋은 듯
 - 파라미터가 없는 함수 좀 그런데 (특히 오록스 보면서 좀 많았음. 난 사이드 이펙트다 라는 느낌. 코드 보기도 어려움), 중간 코드긴 하지만 자주 보인 듯.
 - 코드에도 줄넘어갈때마다 하이픈 붙는것때문에 좀 그럼...
+
+
+### Chap 2
+> Refactoring(noun): a change made to the internal structure of sw to make it easier to understand and cheaper to modify without changeing its `observable behavior`
+
+if the code was broken for some days, then it is not refactoring (zz)
+
+
+`observable behavior`: internal details (call stack status, level) which are not observable doesnt matter
+
+refactoring is always done to make the code easier to understand and cheaper to modify
+
+#### Why we should refactor?
+
+code decays
+- often people add code without a full understanding of architecture
+- -> breaks uniformity / constraints of entire codebase -> harder to see the architecture just by reading the code
+- harder to see the design of code -> harder to preserve the structure -> code decays much faster! zz
+
+more code
+- = more dependency = harder to refactor (more change to break system in somewhere)
+
+> By clarifying the structure of the program, I clarify certain assumptions I've made - to a point where even I can't avoid spotting the bugs
+
+#### When should we refactor?
+The best time to refactor is just before I need to add a new featre to the codebase
+
+By refactoring I move the understanding from my head into the code itself (Ward Cunningham)
+
+excellent code (also) needs plenty of refactoring too
+- whenever we code we make choice between tradeoffs - it was valid yesterday but could be wrong next day - as business changes / system changes
+- the advantage is that clean code is easier to refactor
+
+To change from one library to another, start by introducing a new abstraction that can act as an interface to either libs
+- `branch by abstraction`
+
+
+code reviews help spread knowledge through a dev team
+
+A schedule-driven manager wants me to do things the fastest way I can; how I do it is my responsibility (so do the refactorign without telling them zz)
+
+
+
+느낀점
+- 그 테크톡(톡서버 자바 리팩토링) 발표에 리팩토링 책 이야기 나왔음 (난 거의 졸긴 함)
+   - 인터페이스 의존성 (컴포지션 주입?)보다 함수 의존성이 더 좋다는 것처럼 말하던데 사실 파이썬 덕타이핑이 함수형 의존성 아닌가? 하는 생각이 들었음
+- 짧은 커밋, observable change가 중요하다 - 어드민 리팩토링 중인데 알파배포 수십번은 한듯 ㅋㅋ
+- 매니저가 이해못하면 말하지 않고 리팩토링해라 ㄷㄷ
