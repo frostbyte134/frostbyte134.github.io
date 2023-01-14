@@ -10,6 +10,8 @@ tags: coding
 
 복지포인트가 남아서 ㅎㅎ 일단 지르고 봄. 첫 시작으로 리액트에 흥미를 붙이는 정도...? 백엔드는 fastapi로 바꾸고 헤로쿠 말고 AWS에 올리는 식으로 할듯
 
+리액트는 [여기](https://create-react-app.dev) 많이 참고한 듯
+
 ### lec 1
 #### 대충 구조
 
@@ -274,3 +276,53 @@ node.js 기반 웹 앱 https://expressjs.com/ko/
 
 [코드](https://github.com/frostbyte134/react-fastapi-blog/commit/5eefb6d2dda57f8a688377aa2dba32dfb182a3af) - 스태틱파일때매 디프가 깨지네..깃이그노어 등록할껄
 - `node_modules` 때문이었ㅇ.ㅁ 깃이그노어에 등록함
+
+#### mongodb
+
+서버의 역할 - html 제어 및 routing
+- but react에서 라우팅규칙을 정의할 수 있고 우린 이걸 쓰기로 함
+- -> 이러면 서버는 라우팅을 하면 안됨 -> 어느 uri로 오든 `/`로 보내야 함 -> 정규식 이용 (from express)
+
+
+몽고 - 몽고디비 아틀라스 신청
+- 왜 신청하지 ㅡㅡㅋ 난그냥 로컬 몽고디비 쓰기로 함
+- 몽고 관리용 라이브러리 설치 `npm i mongoose --save`
+- [mongoose](https://mongoosejs.com/)
+
+connect().then().catch() -> js의 `promise`를 봐야 한다고 함
+
+[코드](https://github.com/frostbyte134/react-fastapi-blog/commit/f64c07d6d5890f48279d0b10627daa0d6bf2ecd4)
+
+#### axios and cors
+`cors` = cross origin resource sharing
+- 브라우저에서 어떤 리소스를 허용하고자 할 떄, 다른 포트에서 온 정보들에 대해서 보안 규칙을 지켜야 한다
+- `axios` 라이브러리로 처리 (프론트에서)
+
+프론트에서 `http://localhost:5000/api/test`로 (브라우저 내에서) 서버로 요청을 보내도 에러가 뜸
+```
+Access to XMLHttpRequest at 'http://127.0.0.1:5000/api/test' from origin 'http://localhost:3000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+```
+이게 cors구만
+
+[http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware#readme)를 이용해서 해결할 거라고 함
+- 아니 [이 페이지](https://create-react-app.dev/docs/proxying-api-requests-in-development/#configuring-the-proxy-manually) 보고 그냥 읽어주는 느낌인데
+
+src/setupProxy.js에 다음 내용 추가하고 성공 (브라우저에선 'http://127.0.0.1:5000/api/test' 말고 '/api/test'라고 해야 함. 전자는 axios 적용 안됨)
+```javascript.js
+const { createProxyMiddleware } = require('http-proxy-middleware');
+
+module.exports = function(app) {
+  app.use(
+    '/api',
+    createProxyMiddleware({
+      target: 'http://localhost:5000',
+      changeOrigin: true,
+    })
+  );
+};
+```
+
+클라이언트에서 `/api/test POST`할때 뒤에 대충 json 하나 (req body)로 넣었더니, 서버에서는 undefine가 뜸
+- `body-parser`사용 필요? (express의 내장 모듈)
+
+[코드](https://github.com/frostbyte134/react-fastapi-blog/commit/77db1a3428b6c054febc4d45e37a9c146e582280)
