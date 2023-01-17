@@ -182,4 +182,79 @@ Refactoring can certainly make software go more slowly—but it also makes the s
    - 테스트 - 손으로 많이 보고 있음...ㅜㅜ
 -  yagni를 하기 위해선 결국 리팩토링이 필요하다 (제이)
 
+### Chap 3 Bad smells in Code
+Deciding when to start refactoring—and when to stop—is just as important to refactoring as knowing how to operate the mechanics of it.
 
+we have learned to look for certain structures in the code that suggest—sometimes, scream for—the possibility of refactoring.
+
+One thing we won’t try to give you is precise criteria for when a refactoring is overdue. In our experience, no set of metrics rivals informed human intuition.
+
+#### Mysterious Names
+- our code needs to be mundane and clear - One of the most important parts of clear code is good names.
+- Renaming is not just an exercise in changing names. When you can’t think of a good name for something, it’s often a sign of a deeper design malaise.
+
+#### duplicated codes
+meh
+
+
+#### Long function
+In our experience, the programs that live best and longest are those with short functions
+- All of the payoffs of indirection — explanation, sharing, and choosing — are supported by small functions
+- real key to making it easy to understand small functions is good naming.
+- A heuristic we follow is that whenever we feel the need to comment something, we write a function instead. Such a function contains the code that we wanted to comment but is named after the intention of the code rather than the way it works.
+   - A block of code with a comment that tells you what it is doing can be replaced by a method whose name is based on the comment.
+
+#### Long Parameter List
+better than global variables, but long param lists are confusing in their own right
+
+Classes are a great way to reduce parameter list sizes. They are particularly useful when multiple functions share several parameter values.
+
+#### Global data
+The problem with global data is that it can be modified from anywhere in the code base, and there’s no mechanism to discover which bit of code touched it.
+   - At least when you have it wrapped by a function, you can start seeing where it’s modified and start to control its access.
+
+#### Mutable data
+Changes to data can often lead to unexpected consequences and tricky bugs.
+- an entire school of software development—functional programming—is based on the notion that data should never change and that updating a data structure should always return a new copy of the structure with the change, leaving the old data pristine.
+
+#### Divergent Change
+The database interaction and financial processing problems are separate contexts, and we can make our programming life better by moving such contexts into separate modules.
+
+#### Feature Envy
+When we modularize a program, we are trying to separate the code into zones to maximize the interaction inside a zone and minimize interaction between zones.
+- The fundamental rule of thumb is to put things together that change together.
+
+#### Data Clumps
+A good test is to consider deleting one of the data values. If you did this, would the others make any sense? If they don’t, it’s a sure sign that you have an object that’s dying to be born.
+
+#### Replaced switch (to poly-sth)
+The problem with such duplicate switches is that, whenever you add a clause, you have to find all the switches and update them.
+- 객체구조로 만들면 안그래도 됨 ㅋㅋ
+
+#### Loops
+These days, however, first-class functions are widely supported, so we can use Replace Loop with Pipeline (231) to retire those anachronisms. (loops to pipeline?)
+- pipeline operations, such as filter and map, help us quickly see the elements
+
+
+#### Remove Middle Man
+Encapsulation often comes with delegation. You ask a director whether she is free for a meeting; she delegates the message to her diary and gives you an answer. All well and good. There is no need to know whether the director uses a diary, an electronic gizmo, or a secretary to keep track of her appointments. c However, this can go too far. You look at a class’s interface and find half the methods are delegating to this other class. After a while, it is time to use Remove Middle Man (192)
+
+
+#### Large Class
+- When a class is trying to do too much, it often shows up as too many fields.
+- common prefixes or suffixes for some subset of the variables in a class suggest the opportunity for a component.
+- As with a class with too many instance variables, a class with too much code is a prime breeding ground for duplicated code, chaos, and death.
+
+#### Data Class
+
+Data classes are often a sign of behavior in the wrong place, which means you can make big progress by moving it (the functions over that class) from the client into the data class itself.
+
+
+
+느낀점
+- A heuristic we follow is that whenever we feel the need to comment something, we write a function instead. Such a function contains the code that we wanted to comment but is named after the intention of the code rather than the way it works. A block of code with a comment that tells you what it is doing can be replaced by a method whose name is based on the comment.
+- Classes are a great way to reduce parameter list sizes. They are particularly useful when multiple functions share several parameter values.
+   - 오브잭트 책에서는 철저히 협력 관계의 객체를 생각하라고 했던 것 같은데, 이런 바텀업도 뭐 나쁘진 않을 듯
+- 뭐를 써서 어케 고칠 수 있다 하는데 뭐를 아직 안봐서 모르겠음. 두번 보기를 권장하는 구조인 듯
+- Remove Middle Man: 아직 middle man이 생길 정도로 메시지를 왕창 주고받는 상황을 못 만들어 본 듯
+- comments are often used as a deodorant zz
