@@ -58,5 +58,48 @@ with engine.begin() as conn:
 - gets a new Connection from the Engine the next time it needs to execute SQL against the database
 
 
+### Working With Database Metadata
+https://docs.sqlalchemy.org/en/20/tutorial/metadata.html
+
+how to represent database tables, columns, and constraints within SQLAlchemy using the MetaData and related objects
+
+`SQL Expression Language` allows fluent, composable construction of SQL queries
+- The foundation for these queries are Python objects that represent database concepts like tables and columns, aka `database metadata`
+- database metadata includes following objs: MetaData, Table, and Column
+
+
+#### Metadata
+- we place our tables (Python objects that represents DB table) to the `MetaData` object
+   - facade over a Python dictionary that stores a series of Table
+   - also stores constraints (over the columns and tables. ex - PK, FK)
+- `MetaData.create_all()` emits DDL (create table, ...) to DB
+
+#### Declarative Table
+
+- facade around the __Table declaration process__
+- gives us [ORM mapped class](https://docs.sqlalchemy.org/en/20/glossary.html#term-ORM-mapped-class), or just `mapped class`
+- allows us to declare our user-defined classes and Table metadata at once
+
+Metadata with ORM
+- the MetaData collection remains present, associated with an ORM-only construct commonly referred to as the `Declarative Base`
+- to acquire a new Declarative Base, create a new class that subclasses the SQLAlchemy DeclarativeBase class
+- subclassing base class `class Base(DeclarativeBase):...` gives a new ORM mapped class
+
+```
+>>> Base.metadata
+MetaData()
+```
+
+emitting DDL
+```
+>>> Base.metadata.create_all(engine)
+BEGIN (implicit)
+PRAGMA main.table_...info("user_account")
+...
+PRAGMA main.table_...info("address")
+...
+COMMIT
+```
+
 #### Join
 https://stackoverflow.com/questions/27900018/flask-sqlalchemy-query-join-relational-tables
