@@ -258,3 +258,60 @@ Data classes are often a sign of behavior in the wrong place, which means you ca
 - 뭐를 써서 어케 고칠 수 있다 하는데 뭐를 아직 안봐서 모르겠음. 두번 보기를 권장하는 구조인 듯
 - Remove Middle Man: 아직 middle man이 생길 정도로 메시지를 왕창 주고받는 상황을 못 만들어 본 듯
 - comments are often used as a deodorant zz
+
+
+### Chap 4 Building Tests 
+
+> To do refactoring properly, I need a solid suite of tests to spot my inevitable mistakes.
+
+- most time is spent during debugging
+- Make sure all tests are fully automatic and that they check their own results.
+- Run the test frequently
+  - so that only few subset of codes are possible cause of bug just spotted by the test
+- Writing the tests means a lot of extra code to write.
+  - This is not helped by the fact that many people have never learned to write tests or even to think about tests.
+
+In fact, one of the most useful times to write tests is before I start programming. When I need to add a feature, I begin by writing the test.
+- Writing the test also concentrates me on the interface rather than the implementation (always a good thing). It also means I have a clear point at which I’m done coding—when the test works.
+
+The style I follow is to look at all the things the class should do and test each one of them for any conditions that might cause the class to fail.
+- no need to test all functions (where the bugs are not likely to occur)
+
+This pattern—write with a placeholder for the expected value, replace the placeholder with the code’s actual value, inject a fault, revert the fault—is a common one I use when adding tests to existing code.
+
+sharing fixtures between tests is not good - it makes interaction between tests, which lead to nondeterminist result
+- const in java only means that the ref is const. change in the obj that the var refers may happen
+- make new fixture objs before each test
+
+
+> nondeterminism in the tests that can lead to long and difficult debugging at best (and a collapse of confidence in the tests at worst)
+
+setup - exercise - teardown
+
+As a general rule, it’s wise to have only a single verify statement in each it clause. This is because the test will fail on the first verification failure—which can often hide useful information when you’re figuring out why a test is broken.
+
+Think of the boundary conditions under which things might go wrong and concentrate your tests there.
+- = playing the part of an enemy to my code
+
+ many testing frameworks distinguish between this situation
+ - `error` - an exception raised during an earlier phase (ex - setup).
+ - regular `failure` indicates a verify step where the actual value is outside the bounds expected by the verify statement
+
+
+type errors in input - How should the code respond to such a case?
+- One approach is to add some handling that would give a better error response — either raising a more meaningful error message, or just setting producers to an empty array (with perhaps a log message). But there may also be valid reasons to leave it as it is. Perhaps the input object is produced by a trusted source—such as another part of the same code base. Putting in lots of validation checks between modules in the same code base can result in duplicate checks that cause more trouble than they are worth, especially if they duplicate validation done elsewhere. But if that input object is coming in from an external source, such as a JSON-encoded request, then validation checks are needed, and should be tested. In either case, writing tests like this raises these kinds of questions.
+
+you cannot prove that a program has no bugs by testing. That’s true, but it does not affect the ability of testing to speed up programming.
+- There is a law of diminishing returns in testing,
+
+> Look at a function and consider the likely areas of error. Your tests will not find every bug, but as you refactor, you will understand the program better and thus find more bugs.
+
+Architectures often are, rightly, judged on their testability.
+
+
+느낀점
+- 코멘트 -  encapsulation시킬 수 없으므로 관리 포인트가 늘어난다는 점에서 안좋은듯. 어드민 코드에 막 코멘트 넣다가 느낌
+- "Writing the tests means a lot of extra code to write" - 진짜 그런 듯. 맨 처음 했을 떈 완전 별로였음
+- 테스트 먼저 작성하면 좋다고 많이 들었는데 잘 안되는 듯. 프로젝트가 어느정도 만들어지고 나서는 좀 되긴 하는 듯
+- 1년 전 쯤에는 랜덤데이터로 테스트하는게 가짓수도 늘어나지 않고 좋지 않나 하는 생각도 했었음 - 도메인이 간단해서 당시에는 별 문제 없었지만 좀만 복잡해져도 난리났을 듯
+- 테스트 1개당 assert 1개는 너무..테스트가 늘어나지 않으려나 ㄷㄷ
