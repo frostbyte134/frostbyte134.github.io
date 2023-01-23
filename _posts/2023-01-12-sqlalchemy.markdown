@@ -128,3 +128,8 @@ in ORM mode, DML operations are queued to session
 
 ### Join
 https://stackoverflow.com/questions/27900018/flask-sqlalchemy-query-join-relational-tables
+
+
+#### pooling
+https://docs.sqlalchemy.org/en/20/core/pooling.html
+- engine에서 풀 관리 -> 세션은 엔진의 파사드이므로 팩토리로 세션 하나 만들 때 마다 알아서 엔진의 풀에서 하나씩 가져오는 듯
