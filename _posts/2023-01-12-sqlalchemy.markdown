@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "SQLAlchemy Conceps"
+title:  "SQLAlchemy Concepts"
 date:   2023-01-12 07:00:05 +0800
 categories: coding
 use_math: true
@@ -10,7 +10,7 @@ tags: coding
 맨날 까먹어서 정리 한번 해 두면 좋을 듯..ㅋㅋ
 
 ### Overviews
-https://docs.sqlalchemy.org/en/20/intro.html#overview
+<a href="https://docs.sqlalchemy.org/en/20/intro.html#overview" target="_blank">https://docs.sqlalchemy.org/en/20/intro.html#overview</a>
 
 SQLAlchemy is divided into two main pars: core and ORM
 
@@ -50,6 +50,7 @@ with engine.connect() as conn
 # "begin once" (commited at the context managet)
 with engine.begin() as conn:
    conn.execute(...
+```
 
 #### Session with ORM
 - `session`: entrypoint of ORM part
@@ -58,8 +59,20 @@ with engine.begin() as conn:
 - gets a new Connection from the Engine the next time it needs to execute SQL against the database
 
 
+If we alter the attributes of this object, the Session tracks this change:
+```python
+>>> sandy.fullname = "Sandy Squirrel"
+```
+
+The object appears in a collection called Session.dirty, indicating the object is “dirty”:
+
+```python
+>>> sandy in session.dirty
+True
+```
+
 ### Working With Database Metadata
-https://docs.sqlalchemy.org/en/20/tutorial/metadata.html
+<a href="https://docs.sqlalchemy.org/en/20/tutorial/metadata.html" target="_blank">https://docs.sqlalchemy.org/en/20/tutorial/metadata.html</a>
 
 how to represent database tables, columns, and constraints within SQLAlchemy using the MetaData and related objects
 
@@ -77,11 +90,11 @@ how to represent database tables, columns, and constraints within SQLAlchemy usi
 #### Declarative Table
 
 - facade around the __Table declaration process__
-- gives us [ORM mapped class](https://docs.sqlalchemy.org/en/20/glossary.html#term-ORM-mapped-class), or just `mapped class`
+- gives us [ORM mapped class](https://docs.sqlalchemy.org/en/20/glossary.html#term-ORM-mapped-class) (aka `mapped class`)
 - allows us to declare our user-defined classes and Table metadata at once
 
 Metadata with ORM
-- the MetaData collection remains present, associated with an ORM-only construct commonly referred to as the `Declarative Base`
+- the MetaData collection remains present, as an ORM-only construct `Declarative Base`
 - to acquire a new Declarative Base, create a new class that subclasses the SQLAlchemy DeclarativeBase class
 - subclassing base class `class Base(DeclarativeBase):...` gives a new ORM mapped class
 
@@ -101,5 +114,17 @@ PRAGMA main.table_...info("address")
 COMMIT
 ```
 
-#### Join
+#### Inserting rows with ORM
+
+<a href="https://docs.sqlalchemy.org/en/14/orm/basic_relationships.html" target="_blank">https://docs.sqlalchemy.org/en/14/orm/basic_relationships.html</a>
+
+#### UoW
+in ORM mode, DML operations are queued to session
+- flushed later when necessary (lazy persistence? zz)
+- UoW generally means it accumulates changes one at a time, but does not actually communicate them to the database until needed
+  - 컨트롤을 이쪽에서 가지고 있다는 뜻으로 알면 되나?
+
+
+
+### Join
 https://stackoverflow.com/questions/27900018/flask-sqlalchemy-query-join-relational-tables
