@@ -143,7 +143,7 @@ Arrays come with a plethora of <a href="https://developer.mozilla.org/en-US/docs
 `...` operator on array
 - `let arr = [1, 2, 3];`
 - `...arr`: unwrap all values in arr
-- ex) deepcopy array = `newarr = [...arr]`
+- ex) deepcopy array = `newarr = [...arr]` 
 
 ### Functions
 

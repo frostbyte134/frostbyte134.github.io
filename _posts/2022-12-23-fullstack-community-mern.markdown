@@ -326,3 +326,48 @@ module.exports = function(app) {
 - `body-parser`사용 필요? (express의 내장 모듈)
 
 [코드](https://github.com/frostbyte134/react-fastapi-blog/commit/77db1a3428b6c054febc4d45e37a9c146e582280)
+
+
+
+#### Mongoose
+몽고디비의 모델 = 스키마를 감싸주고, 스키마를 쓸 수 있게 해줌
+- json 스키마에 대한 facade?
+
+
+mongoose db명 = connection string에서 바꿈
+- colleciton name: 스키마 닫기 전에 옵션으로
+
+```js
+const someSchema = new mongoose.Schema (
+    {some_schema},
+    {collection: "Posts"}
+;)
+```
+
+편하네 ㄷㄷ 파이썬에는 json schema정하는 거 없나? 그냥 파이덴틱 써야 하나..
+
+<a href="https://github.com/frostbyte134/react-fastapi-blog/commit/dde77f39e5ed4de838c4f3d80be15a44ec937322" target="_blank">코드 diff</a>
+
+#### React Bootstrap
+부트스트랩: css 템플릿 프레임워크
+
+리엑트를 위한 react-bootstrap이 따로 있음
+- 나오는 순서에 따라 설치 ㄱㄱ
+- `npm i react-bootstarp@5.1.3`
+
+`import { Button } from 'react-bootstrap'` 처럼 중괄호가 있는 이유 - export할 때 여러개가 있어서 중괄호로 export했기 때문
+
+cdn방식으로 스타일을 가져옴
+- html파일에 `<link rel ...>`을 넣어줘야 하는데, 리액트에는 `index.html`밖에 html파일이 없음 -> 여기 해더 내 마지막에 선언 
+
+헤더영역을 꾸밀 것 - nav bar에서 가져올 수 있음
+- 기본적으로 반응형
+
+인라인이 css 모듈보다 우선됨
+
+<a href="https://github.com/frostbyte134/react-fastapi-blog/commit/64cdb934694ad60ff101cc3a058e3c15df10d720" target="_blank">react-bootstarp 코드 diff</a>
+
+### emotion
+포스트 업로드 페이지는 직접 만들껀데, 이 때 css라이브러리로 `emotion`을 쓸 것
+
+좀 기네 ㅋㅋ 나중에..

@@ -7,6 +7,21 @@ use_math: true
 tags: coding
 ---
 
+
+### 스파크 스트리밍 정리
+https://medium.com/naver-biz-dev/spark-%EC%8A%A4%ED%8A%B8%EB%A6%AC%EB%B0%8D%EA%B3%BC-session-window-%EC%86%8C%EA%B0%9C-6471b2ffa102
+
+`append mode`
+- watermark로 프로세싱 타임 처리. 워터마크 이전에 온 것들은 반영 안하고 버려서, 그냥 고정된 결과가 계속 append되는 형태임
+
+`Update mode`
+- 워터마크 딱히 없이 무한 반영인 듯? 이 방식은 Spark Structured Streaming을 통해 제공
+
+Spart structured streaming
+- 
+
+
+
 아니 ㅡ,.ㅡ 연말에 일이 좀 줄어야 하는 거 아닌가...ㄷㄷ
 
 req

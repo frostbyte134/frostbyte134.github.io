@@ -315,3 +315,175 @@ Architectures often are, rightly, judged on their testability.
 - 테스트 먼저 작성하면 좋다고 많이 들었는데 잘 안되는 듯. 프로젝트가 어느정도 만들어지고 나서는 좀 되긴 하는 듯
 - 1년 전 쯤에는 랜덤데이터로 테스트하는게 가짓수도 늘어나지 않고 좋지 않나 하는 생각도 했었음 - 도메인이 간단해서 당시에는 별 문제 없었지만 좀만 복잡해져도 난리났을 듯
 - 테스트 1개당 assert 1개는 너무..테스트가 늘어나지 않으려나 ㄷㄷ
+
+
+### Chap 6 A First Set of Refactoring
+most common refactoring - extraction (function / variable)
+
+> Extraction is all about giving names, and I often need to change the names as I learn (about the system)
+
+#### extract function
+when to make (enclose to) new function?
+
+> separation between intention and implementation. If you have to spend effort looking at a fragment of code and figuring out what it’s doing, then you should extract it into a function and name the function after the “what.”
+
+any function with more than 6 lines of code starts to smell
+- it’s not unusual for me to have functions that are a single line of code
+- when there is distance between the intention of the code and its implementation, even len(func_name) > len(code) is accepted
+
+
+#### extract variable
+local variables may help break the expression down into something more manageable.
+
+
+#### change function declaration
+A good name allows me to understand what the function does when I see it called, without seeing the code that defines its implementation.
+
+The parameters of a function dictate how a function fits in with the rest of its world. Parameters set the context in which I can use a function.
+ (+applicability)
+
+
+#### Encapsulate Variable
+So if I want to move widely accessed data, often the best approach is to first encapsulate it by routing all its access through functions.
+
+#### Rename Variable
+Naming things well is the heart of clear programming. Variables can do a lot to explain what I’m up to—
+
+
+#### Combine Functions into Class
+Classes are a fundamental construct in most modern programming languages. They bind together data and functions into a shared environment, exposing some of that data and function to other program elements for collaboration. They are the primary construct in object-oriented languages,
+
+#### Split phase
+When I run into code that’s dealing with two different things, I look for a way to split it into separate modules. I endeavor to make this split because, if I need to make a change, I can deal with each topic separately and not have to hold both in my head together.
+
+
+느낀점
+- 코드를 읽고 뭐하는건지 알아내야 할 때 함수로 만들고 이름을 줘라. 지금까지는 책에 나왔던 대로 맨위에 코멘트 한 줄 달았는데, 앞으론 함수로 빼내야 할 듯
+   - 단일 라인이라도 함수로 만드는 경우가 많다고 함 ㄷㄷ
+- step by step으로 (내부 함수로 -> 가짜 파라미터 추가 등) 바꾸는 과정이 인상깊었음. 이건 의식적으로 따라해 봐야 할 듯
+- 뭔가...지난날 했던 삽질이 떠오르면서 와닿는 부분이 있고 그런가? 하는 부분도 있음 (transformation 같은 부분). 아직 경험 (코드로 받은 고통?) 이 모자란 듯
+- 함수 이름을 짓기 위한 좋은 방법 = 함수 밑에 코멘트를 달고 그걸 이름으로 바꾸기
+- It is my habit to make all mutable data encapsulated
+   - 다들 pydantic에서도 굳이 immutable로 만들고 카피해서 쓰긴 하니까..
+- "although in a dynamically typed language like JavaScript, I do like to put the type into the name (hence parameter names like aCustomer)."
+- split phase
+  - 컴파일러 얘기를 하니까 와닿았음.
+  - 차근차근 intermediate data를 만들고 함수를 분리하는 과정은 좋아보이긴 했는데...중간 데이터로 json (dict)를 쓰는 게 좋은 건진 잘 모르겠음. 너무 암시적이고, 이걸 받는 입장에선 안에 뭐가 있는지 모르니까 재사용하기도 힘들고..
+
+
+
+### Chap 8 Encapsulation
+"Classes were designed for information hiding."
+
+As well as hiding the internals of classes, it’s often useful to hide connections between classes, which I can do with Hide Delegate (189). But too much hiding leads to bloated interfaces, so I also need its reverse: Remove Middle Man (192).
+
+#### Encapsulate Record
+
+This is why I favor objects over records for __mutable data__
+- With objects, can hide what is stored and provide methods for all three values.
+
+hashmap (python dicts) - The downside of using them is they are aren’t explicit about their fields.
+
+
+#### Encapsulate Collection
+- when getter returns the collection itself, it can be modified easily
+   - provide update methods
+   - java provides proxy for the col (raise exception when modification is tried)
+   - never think that the ppl who take your method will not modify the collection zz
+
+#### Replace Temp with Query
+temp vars are useful when explaining its meaning and avoiding dup codes
+- but sometimes its good to replace with func
+- Putting this logic into functions often also sets up a stronger boundary between the extracted logic and the original function
+- can reuse the funcs
+- This refactoring works best if I’m inside a class, since the class provides a shared context for the methods I’m extracting.
+
+그냥 모든 변수에 대한 ref를 펑션콜로 바꾸네
+- 사이드 이펙트가 없는 함수로 바꿔야
+
+#### Extract Class
+
+> You’ve probably read guidelines that a class should be a crisp abstraction, only handle a few clear responsibilities, and so on. In practice, classes grow. You add some operations here, a bit of data there. You add a responsibility to a class feeling that it’s not worth a separate class—but as that responsibility grows and breeds, the class becomes too complicated. Soon, your class is as crisp as a microwaved duck.
+
+Fowler, Martin. Refactoring (Addison-Wesley Signature Series (Fowler)) (p. 182). Pearson Education. Kindle Edition. 
+
+
+splitting the class
+- A good sign is when a subset of the data and a subset of the methods seem to go together.
+
+#### Hide Delegate
+
+- a.b.c() 보다는 a.b()가 당연히 좋긴 하고, 인캡슐레이션도 되긴 하겠지만..가능하면 피해야 하는 상황 아닐까 싶긴 함
+
+
+#### Remove Middle man
+Every time the client wants to use a new feature of the delegate, I have to add a simple delegating method to the server. After adding features for a while, I get irritated with all this forwarding. The server class is just a middle man (Middle Man (81)), and perhaps it’s time for the client to call the delegate directly. (This smell often pops up when people get overenthusiastic about following the Law of Demeter, which I’d like a lot more if it were called the Occasionally Useful Suggestion of Demeter.)
+
+느낀점
+- 코멘트 - 이전에 코멘트는 실행도 안되고 encapsulation도 안되고 그래서 결국 페브리즈 느낌이라고 했는데 openapi 문서용으로 쓰이는 코멘트는 괜찮지 않을까...하는 생각이 들었음 (많이들 보니까)
+- Encapsulating a record means going deeper than just the variable itself; I want to control how it’s manipulated.
+- In general, I find it wise to be moderately paranoid about collections and I’d rather copy them unnecessarily than debug errors due to unexpected modifications.
+- inline class - 쓸일이 있을까 ㄷㄷ 책에 나온 대로 리팩토링 과정 중 합치고 다시 나누는 용도 외엔 잘 모르겠음
+- remove middle man: - a.b.c() 보다는 a.b()가 당연히 좋긴 하고, 인캡슐레이션도 되긴 하겠지만..가능하면 피해야 하는 상황 아닐까 싶긴 함 - 이라고 생각했더니 다음 장에 바로 나옴
+- 디미터의 법칙 - 객체지향 스터디떄 봤는데 기억이 안나서 다시 봤음..
+
+
+- 클래스에 들어온 값 검증하는 걸 책임으로 주는 예제가 있던데, pydantic같은 거 쓰면 이런거 할 필요 없지 않나...도메인이 너무 휑하니 비어서 뭘 넣어야 할지 좀 애매함
+
+
+### Chap 8 Moving Features
+
+
+### move function
+오..시작부터 명언작렬 ㄷㄷ
+
+> The heart of a good software design is its modularity—which is my ability to make most modifications to a program while only having to understand a small part of it. To get this modularity, I need to ensure that related software elements are grouped together and the links between them are easy to find and understand. But my understanding of how to do this isn’t static—as I better understand what I’m doing, I learn how to best group together software elements. To reflect that growing understanding, I need to move elements around.
+
+In OOP, the core modular context is a class
+
+함수 이동 시, 함수의 컨텍스트를 고려한다 -> 함수의 컨텍스트를 생각해 본 적이 그닥 없는 것 같음..
+
+polymorphic method일 시 이동이 어려워짐 -> 상속을 너무 쓰면 결합도를 높이긴 하는 것 같음..
+
+
+#### move field
+
+
+Programming involves writing a lot of code that implements behavior—but the strength of a program is really founded on its data structures. If I have a good set of data structures that match the problem, then my behavior code is simple and straightforward. But poor data structures lead to lots of code whose job is merely dealing with the poor data. And it’s not just messier code that’s harder to understand; it also means the data structures obscure what the program is doing.
+- I may seek to move data because I find I always need to pass a field from one record whenever I pass another record to a function.
+- Change is also a factor; if a change in one record causes a field in another record to change too, that’s a sign of a field in the wrong place.
+
+역시 천천히 한 스텝씩 진행하는 게 인상적
+
+#### Move Statements into Function
+
+If I see the same code executed every time I call a particular function, I look to combine that repeating code into the function itself.
+
+
+#### Move statement to caller
+- 예시 (emitPhotoData) 보니까 어떤 동작인진 알았는데, 왜 옮기는 지는 좀 이해가 안됐음 (단순하게 설명하려고 만든 예시인 듯 함)
+
+Functions are the basic building block of the abstractions we build as programmers. And, as with any abstraction, we don’t always get the boundaries right. As a code base changes its capabilities—as most useful software does—we often find our abstraction boundaries shift. For functions, that means that what might once have been a cohesive, atomic unit of behavior becomes a mix of two or more different things.
+
+One trigger for this is when common behavior used in several places needs to vary in some of its calls. Now, we need to move the varying behavior out of the function to its callers.
+
+함수가 여러 곳에서 조금씩 변형된 형태로 사용되서 파라미터도 많고 복잡해질 때, 바뀌는 내용을 때내서 caller들에게 주면 좋다
+
+파이프라인 쪽 -> 플링크로?
+
+
+#### Slide Statements
+Code is easier to understand when things that are related to each other appear together.
+- 사이드 이펙트를 내는 함수는 옮기기도 쉽지 않음. 예외 정도 말고는 가능하면 내지 말자고 생각했음
+
+#### Split loop
+- 확실히 도는 루프가 같다고 묶는 것 보단 의미상 다르면 떼어놓는 게 결합도를 낮추긴 할 듯
+
+#### Replace Loop with Pipeline
+- 최근 스타게이트 로깅 파이프라인을 플링크로 다시 짜고 있는데, 확실히 이런 류의 변환이 좋긴 한 것 같음
+- ..설명
+
+
+느낀점
+- 파이프라인
+- 별 내용은 없지만 remove dead code 챕터를 따로 만든 거 보니, 프로덕션에서 어려 컨설팅 하면서 죽은 코드에 고통을 많이 받으셨던 듯...? 코멘팅 하지 말고 깃을 이용하

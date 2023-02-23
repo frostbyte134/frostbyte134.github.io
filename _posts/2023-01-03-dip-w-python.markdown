@@ -8,6 +8,10 @@ tags: coding
 ---
 
 
+
+의존성주입된걸 쓸라고 하면 `Provide` object has no attribute ...
+- wiring이 안 된 것
+
 - <a href="https://stackoverflow.com/questions/2461702/why-is-ioc-di-not-common-in-python" target="_blank">https://stackoverflow.com/questions/2461702/why-is-ioc-di-not-common-in-python</a>
     - think the votes are bit biased for python side, but anyway think its a good page
 - <a href="https://python-dependency-injector.ets-labs.org/introduction/di_in_python.html" target="_blank">https://python-dependency-injector.ets-labs.org/introduction/di_in_python.html</a>

@@ -12,6 +12,10 @@ tags: problem_solving leetcode need_review
 아 빨리 블로그 만들어야 하는데..........
 
 
+### Path With Maximum Minimum Value
+- 쉬운데, 풀이 2가지 생각해 내기
+- https://leetcode.com/problems/path-with-maximum-minimum-value/description/
+
 ### https://leetcode.com/problems/filling-bookcase-shelves/
 https://leetcode.com/problems/filling-bookcase-shelves/
 - EZ. 보고 생각만

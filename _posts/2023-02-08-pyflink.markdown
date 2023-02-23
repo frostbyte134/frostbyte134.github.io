@@ -1,0 +1,49 @@
+---
+layout: post
+title:  "Pyflink"
+date:   2023-02-08 08:00:05 +0800
+categories: coding
+use_math: true
+tags: coding
+---
+
+스팤 스트리밍은 파이썬 지원이 넘 구려 보여서 플링크로 함
+
+https://nightlies.apache.org/flink/flink-docs-release-1.13/docs/dev/python/installation/
+
+
+결론적으로
+- 로컬에서 돌아가는 pyflink 이미지를 만들어서 돌리는 형식
+- pyflink k8s operator에 제출하면, custom python aggregation function 이 멈춤 ㅡㅡ 결국 오퍼레이터는 못썼다. 시간이 좀만 더 있었으면..
+- 파이썬은 좀...역시 자바를 봐야 하나 하는 생각이 들었다. 되는 게 없음. 결론적으로 돌아가는 걸 만들고 나오긴 했는데 많이 아쉬웠다
+
+
+문서나 읽자...
+
+### 1.16
+https://nightlies.apache.org/flink/flink-docs-release-1.16/
+
+
+### flink doc
+https://flink.apache.org/
+
+###
+
+- https://medium.com/naver-biz-dev/%EC%8A%A4%ED%8A%B8%EB%A6%BC-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC-sql%EB%A1%9C-%EB%8B%A4%EB%A3%B0%EC%88%98-%EC%9E%88%EB%8A%94-flink-%EC%82%B4%ED%8E%B4%EB%B3%B4%EA%B8%B0-a14b970e4eeb
+
+
+
+
+### youtube
+https://www.youtube.com/watch?v=SbLBtL6IPE4
+
+(Table(declarative) / Streaming API(imperative)) -> Py4J -> java -> runtime (w operators)
+
+<img src="{{ site.url }}/images/coding/pyflink-ark.jpg" class="center" width="600"/>
+- 사용자가 파이썬으로 만든 함수는 Python worker에서, 워터마크 관리같은건 자바에서
+- 데이터서비스를 통해 둘 사이 데이터교환이 많으면 느려질 것 같은 느낌적인 느낌
+    - 그런 말 하는 거 같음. operator들끼리 합치던지, 데이터를 한번에 보내던지 하라고 함
+- 판다스 / 판다스의 User Defiend Function을 쓸 수 있다는 거 같음. 판다스 잘 안쓰는데..
+- 내부적으로 Cython을 쓰는 듯
+
+알리바바? 중국 쪽에서 관리를 많이 하나 보네...뭐 대용량처리는 중국도 잘하긴 하지...
