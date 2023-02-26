@@ -1,0 +1,64 @@
+---
+layout: post
+title:  "광고란 무엇일까"
+date:   2023-02-22 08:00:05 +0800
+categories: coding
+use_math: true
+tags: coding
+---
+
+
+일단 되는대로 정리해 보기
+
+
+
+### Google ADs glossary
+Google ADs - [glossary](https://support.google.com/google-ads/answer/12326985?hl=en&ref_topic=24937)
+
+`Net cost`
+- `all campaigns spent` + tax, fee - (adjustment + promotions)
+- 캠페인이 뭐지? 광고 하나 넣는 그런 단위인가 봄
+
+`prominence`
+- estimation of ad's visibility on the search result page. give you a sense for your ads’ location on the page.
+- factors are
+  - __position__ : higher pos = more prominence (ppl read from top)
+  - __ad formats__ : 광고의 포멧이 뭐지?
+- measured by the `average change in CTR` (왜 ctr의 변화량? 절대값이 높아도 높은거 아닌가)
+
+`top` / `absolute top` metrics
+- set of prominence metric
+- 뭐래는지 모르겠어서 좀 찾아봄 https://www.youtube.com/watch?v=H63MEnIW5Pc 
+  - avg pos metric: ad에서의 평균 위치만 말해주고, 실제 페이지에서의 위치는 잘모름 (misleading in many situations)
+  - man those names suck zz
+  - `top`: anywhere above the organic search results
+  - `Absolute Top`: Number 1 position in the Search Results (with `Ad` box)
+  - `Top Impression Share` is how often your Ads show above the Organic results.
+  - Search lost absolute top impression share (budget): estimates how often your ad wasn’t the very first ad above the organic search results due to a low budget.
+    - 이게 뭐 실시간으로 버젯이 낮으면 위치를 바꿔주고 그런 것도 있나 봄?
+  - 광고가 top에 있지 않으면 어디에 있는거지?
+  - Search top impression rate “Impr. (Top) %” is the percentage of your ad impressions that are shown anywhere above the organic search results.
+
+Search absolute top impression rate 'Impr. (Abs.Top) %' is the percentage of your ad impressions that are shown as the very first ad above the organic search results.
+
+[`Organic Search Result`](https://support.google.com/google-ads/answer/6054492?hl=en)
+- 돈받지 않는 검색결과라는 듯?
+- The ads above organic results contain an “Ad” box.
+- The ads to the right of organic results have an “Ads” box above them.
+
+
+### What is google ads
+
+[what is google ads](https://www.wordstream.com/articles/what-is-google-adwords) (`Google Adwords`)
+- advertisers bid on certain keywords
+- The actual position of your ad is determined by your ad rank (Maximum Bid times Quality Score)
+- `CPC`: cost per click
+  - Your actual CPC will be determined by the ad rank of the next highest ad below you divided by your Quality Score (determined by the competitiveness of your keywords, your maximum bids, and your Quality Scores)
+  - AdWords bidding heavily penalizes advertisers who bid with low quality scores
+  - The average cpc on Google Ads varies by keyword and industry, but is roughly $2.32 on the search network and $0.58 on the display networ
+
+Quality score formulas
+- https://tenscores.com/quality-score/formula
+
+PPC guide
+- https://searchengineland.com/guide/ppc/how-the-ppc-ad-auction-works

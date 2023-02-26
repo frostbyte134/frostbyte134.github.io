@@ -1,0 +1,30 @@
+---
+layout: post
+title:  "Factory Method"
+date:   2023-02-24 08:00:05 +0800
+categories: coding
+use_math: true
+tags: coding
+---
+
+
+그냥..한번 함 정리해두면 좋겠다 생각이 들었음.
+
+개발하면서 코드베이스가 커지다 보면, 객체 생성 로직을 분리시키고 싶을 때가 옴
+- ex) 내 경험으로는.."배포 명령" 객체가 있었는데 배포 schedule을 객체 생성시각의 다음 정시로 (ex. 14:25 -> 15:00) 둬야 했었음
+- 배포 명령 클래스 자체에서 할 일이 많고, 이 배포 명령을 갖다 쓰는 곳에서도 (ex - 명령 registry) 하는 일이 따로 있을시  
+  또 여러 다른 종류의 데이터로부터 (ex - json, raw text) 이 객체를 만들어야 할 경우 SRP를 생각해서라도 팩토리 메서드가 있는 게 나아 보임
+- 조건이 좀 많은데?ㅋㅋ 어쨋건 객체 생성 로직이 복잡해질 때면 항상 고려해 보자
+
+
+리팩토링 구루를 봐두는 게 좋긴 한 듯. 한 2~3번 보고 나면 알아서 기억이 나겠지
+
+[`Refactoring Guru - Factory method`](https://refactoring.guru/design-patterns/factory-method)
+- 여기서는 클래스 하이어라키의 확장과 연관지어 이야기함
+- 여기서는 새로운 상속 hierarchy를 만드는 것 보단 기존에 있는 하이어라키에 (abstract/concrete) factory method를 붙이는 걸 선호하는 듯?
+  - 하긴 클래스가 넘 많으면 또 좀 거시기하긴 해..
+- cross-OS 앱을 만들 떄 좋긴 할 듯
+- 싱글턴 객체를 구현할 때도 쓸 수 있다고 함
+
+> Inheritance is probably the easiest way to extend the default behavior of a library or framework. But how would the framework recognize that your subclass should be used instead of a standard component?
+

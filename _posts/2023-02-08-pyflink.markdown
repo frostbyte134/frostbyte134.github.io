@@ -14,11 +14,21 @@ https://nightlies.apache.org/flink/flink-docs-release-1.13/docs/dev/python/insta
 
 결론적으로
 - 로컬에서 돌아가는 pyflink 이미지를 만들어서 돌리는 형식
-- pyflink k8s operator에 제출하면, custom python aggregation function 이 멈춤 ㅡㅡ 결국 오퍼레이터는 못썼다. 시간이 좀만 더 있었으면..
+- pyflink k8s operator에 제출하면, python udf (table aggregation) 이 멈춤 ㅡㅡ 결국 오퍼레이터는 못썼다. 시간이 좀만 더 있었으면..
 - 파이썬은 좀...역시 자바를 봐야 하나 하는 생각이 들었다. 되는 게 없음. 결론적으로 돌아가는 걸 만들고 나오긴 했는데 많이 아쉬웠다
 
 
+내가 뭘 했나?
+- 셀프 디플로이를 지원하는 추천 엔드포인트의 버킷 별로, processing time tumbling window를 만듬
+- table def (source) - flitber by - select - window - group by
+- 이걸 python udf (aggregate func) 으로 accumulate해서 prometheus pushgateway에 한번에 씀
+  - 한번에 prom으로 쓰기 위해 aggr func 활용
+
+
 문서나 읽자...
+
+
+
 
 ### 1.16
 https://nightlies.apache.org/flink/flink-docs-release-1.16/
@@ -27,12 +37,46 @@ https://nightlies.apache.org/flink/flink-docs-release-1.16/
 ### flink doc
 https://flink.apache.org/
 
-###
 
-- https://medium.com/naver-biz-dev/%EC%8A%A4%ED%8A%B8%EB%A6%BC-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC-sql%EB%A1%9C-%EB%8B%A4%EB%A3%B0%EC%88%98-%EC%9E%88%EB%8A%94-flink-%EC%82%B4%ED%8E%B4%EB%B3%B4%EA%B8%B0-a14b970e4eeb
+### Hands on training
+- https://nightlies.apache.org/flink/flink-docs-release-1.16/docs/learn-flink/overview/
+
+streaming = bounded / unbounded
+- batch processing = paradigm for a bounded stream
+- streaming processing involves unbounded data stream
+
+in flink, apps are composed of `streaming dataflows`
+- a dataflow = `source` - `transformation`s - `sink`
+- one transformation can have multiple `operator`s
+- During execution, a stream has one or more stream partitions, and each operator has one or more operator `subtask`s. The operator subtasks are independent of one another, and execute in different threads (possibly on different machines/containers).
+
+Streams can transport data between two operators in
+- a `one-to-one` (or forwarding) pattern (preserve the partitioning and ordering of the elements)
+- a `redistributing` pattern and keyBy/window change the `partitioning of streams`
+  - In a redistributing exchange the ordering among the elements is only preserved within each pair of sending and receiving subtasks
+
+stateful stream processing
+- saves state on JVM heap or some external (ex - rocksdb)
 
 
+### state
+- 이거 좀 보고 싶음 https://nightlies.apache.org/flink/flink-docs-release-1.16/docs/concepts/stateful-stream-processing/
 
+### UDF (python)
+
+<a href="https://nightlies.apache.org/flink/flink-docs-release-1.16/docs/dev/python/table/udfs/python_udfs/"  target="_blank">python udf</a>
+- `scalar func`: takes multiple scalar values (of single row), outputs scalar value
+- `table function`: takes multiple scalar values (of single row), outputs arbitrary num of rows
+- `aggregate function`: maps scalar values of multiple rows to a new scalar value
+  - The behavior of an aggregate function is centered around the concept of an accumulator
+- `table aggregate`: maps scalar values of multiple rows to zero, one, or multiple rows (or structured types).
+
+### biz cic
+[flink](https://medium.com/naver-biz-dev/%EC%8A%A4%ED%8A%B8%EB%A6%BC-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC-sql%EB%A1%9C-%EB%8B%A4%EB%A3%B0%EC%88%98-%EC%9E%88%EB%8A%94-flink-%EC%82%B4%ED%8E%B4%EB%B3%B4%EA%B8%B0-a14b970e4eeb) - 테이블 선언으로 데이터를 받을 수 있고 파싱에러도 쉽게 무시가능해서 썼다~정도
+- tumbling window + table aggregation func
+
+[delayed feedback](https://medium.com/naver-biz-dev/%EA%B4%91%EA%B3%A0-%EC%A0%84%ED%99%98%EC%9C%A8-%EC%98%88%EC%B8%A1-%EB%AA%A8%EB%8D%B8%EB%A7%81-5067467a8bbf)
+- delay까지 예측해야 하나? 문제가 좀 많이 복잡해지는 거 아닌가?
 
 ### youtube
 https://www.youtube.com/watch?v=SbLBtL6IPE4

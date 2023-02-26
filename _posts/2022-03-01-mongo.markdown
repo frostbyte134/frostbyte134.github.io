@@ -28,6 +28,18 @@ MongoDB 는 데이터를 컬렉션 단위로 샤딩 (하나의 컬렉션이 쪼�
 - OLTP, OLAP란? - 조사 필요
 
 
+분포가 고르고 누락되지 않은 필드 기준 - index?
+
+대충 성능이 의심되면 upsert는 초당 천개
+
+
+건별 삭제는 부하가 좀 있음. (rdbms도) 컬렉션/테이블 삭제가 권장된다고 함
+
+몽고는 sort조건이 인덱스를 사용할 수 있도록 하는 것이 중요
+- 안될시 인메모리 블로킹 소트 사용
+
+
+
 ### glossary
 <a href="https://docs.mongodb.com/manual/reference/glossary/#std-term-sharded-cluster" target="_blank">`sharded cluster`</a>
 - The set of nodes comprising a sharded MongoDB deployment. A sharded cluster consists of config servers, shards, and one or more mongos routing processes. See Sharded Cluster Components.
