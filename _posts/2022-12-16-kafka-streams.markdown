@@ -7,6 +7,33 @@ use_math: true
 tags: coding
 ---
 
+https://tech.kakao.com/2016/04/21/closewait-timewait/
+k8s --delete = etcd에서만 데이터를 날림
+톰슨샘플링에서의 탐색
+= 아직 분포의 분산이 넓어 큰 값도 나올 수 있고 작은 값도 나올 수 있을 떄
+helm checksum
+pk로 변경 = alter table로 락 발생
+- unique index를 concurrently로 추가 -> alter table add pk using index index명 으로 메타정보만 변경
+ALS로 뽑은 추천 목록을 MAB로 리랭킹할 수도 있다고 함
+개인화는 유저의 확률값을 곱해주기 위해 위 함수처럼 normalize시킨 값을 score로 합니다?
+mysql swap clear = swap memory는 폭탄이나 마찬가지
+널리 쓰이는 오프라인 랭킹 메트릭 (NDCG/MMR)과 비즈니스 임팩트가 있는 온라인 지표 (CTR/노출당 매출/체류시간 등)은 상관관계가 거의 없다는 것이 팀 내부 실험에서 드러남
+추천팀의 로직 대부분은 온라인 메트릭을 최적화하기 위해 실시간 피드백 의존적 모델을 쓰고 있음
+
+FE는 새로 받은 아이템이 있으면 카프카를 통해 새 아이템이 있다고 알려줌
+-> FB는 이 토픽에 연결되어, 피처 만들어 모델하우스에 업로드
+
+W2V이 shifted ppmi를 학습하는 모델?
+
+톰슨 = IMP-TS
+
+FK 안쓰는 이유
+- online ddl 작업시 데드락 발생 가능성이 높아짐 (pt-online-schema-change = 작업시 fk를 해제하고 하는 것을 권장)
+- mysql online ddl 역시 드데락
+- 일괄 mig이 어렵다
+
+mock을 쓰면 진거다, 회피한거다?
+- https://medium.com/@chanhyeonglee/mock-%EA%B0%9D%EC%B2%B4-%EB%82%A8%EC%9A%A9%EC%9D%80-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%BD%94%EB%93%9C%EB%A5%BC-%EB%A7%9D%EC%B9%9C%EB%8B%A4-f38129e5d40a
 
 ### 스파크 스트리밍 정리
 https://medium.com/naver-biz-dev/spark-%EC%8A%A4%ED%8A%B8%EB%A6%AC%EB%B0%8D%EA%B3%BC-session-window-%EC%86%8C%EA%B0%9C-6471b2ffa102

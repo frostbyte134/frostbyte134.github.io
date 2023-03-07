@@ -1,0 +1,79 @@
+---
+layout: post
+title:  "Spark"
+date:   2023-03-04 08:00:05 +0800
+categories: coding
+use_math: true
+tags: coding
+---
+
+스팤을 봅시다
+
+
+<a href="https://spark.apache.org/docs/latest/quick-start.html" target="_blank">https://spark.apache.org/docs/latest/quick-start.html</a>
+
+
+
+`RDD`: Resilient Distributed Dataset
+- relational이 아니었네..
+
+RDD programming이 오래됐고, Dataset/SQL programming이 비교적 최신이라고 함
+
+### SQL / Dataset
+https://spark.apache.org/docs/latest/sql-programming-guide.html
+
+
+`DataFrame`
+- `Dataset`: Spark’s primary abstraction over a distributed collection of items
+- can be created from Hadoop InputFormats (such as HDFS files) or by transforming other Datasets
+- Due to Python’s dynamic nature, we don’t need the Dataset to be strongly-typed in Python - all Datasets in Python are `Dataset[Row]`, and we call it DataFrame to be consistent with the data frame concept in Pandas and R
+
+
+### Cluster mode
+https://spark.apache.org/docs/latest/cluster-overview.html
+
+
+
+<a href="https://spark.apache.org/docs/latest/cluster-overview.html#glossary" target="_blank">Glossaries</a>
+- app, uber jar, driver, deploy mode (cluster/client), executor
+- task, job, stage
+- driver creates the spark context 
+- Spark app = instance of SparkContext
+
+
+to run on a cluster
+1. the SparkContext can connect to several types of cluster managers (either Spark’s own standalone cluster manager, Mesos, YARN or Kubernetes). managers allocate resources across applications
+2. Once connected, Spark acquires executors on nodes in the cluster, which are processes that run computations and store data for your application
+3. Next, Spark sends your application code (defined by JAR or Python files passed to SparkContext) to the executors. Finally, SparkContext sends tasks to the executors to run.
+
+There are several useful things to note about this architecture:
+1. Each application gets its own executor processes (which stay up for the duration of the whole app and run tasks in multiple threads)  
+  This has the benefit of isolating applications from each other, on both the scheduling side (each driver schedules its own tasks) and executor side (tasks from different applications run in different JVMs). However, it also means that data cannot be shared across different Spark applications (instances of SparkContext) without writing it to an external storage system.
+Spark is agnostic to the underlying cluster manager. As long as it can acquire executor processes, and these communicate with each other, it is relatively easy to run it even on a cluster manager that also supports other applications (e.g. Mesos/YARN/Kubernetes).
+
+2. The driver program must listen for and accept incoming connections from its executors throughout its lifetime
+3. Spark is agnostic to the underlying cluster manager. 
+
+Because the driver schedules tasks on the cluster, it should be run close to the worker nodes, preferably on the same local area network. If you’d like to send requests to the cluster remotely, it’s better to open an RPC to the driver and have it submit operations from nearby than to run a driver far away from the worker nodes.
+
+### App submission guide
+https://spark.apache.org/docs/latest/submitting-applications.html
+
+can use all cluster managers through a uniform interface
+
+modes
+- `client mode` = spark submit 프로세스에서 driver가 실행되는 구조조. 마스터와 동일 네트워크 내에 있을 시 좋다고
+  - stdout, stderr도 콘솔에 붙음
+- `cluster mode` = 드라이버 실행도 원격에서 됨.
+
+
+### Monitoring guide
+https://spark.apache.org/docs/latest/monitoring.html
+
+Every SparkContext launches a Web UI, by default on port 4040, that displays useful information about the application
+- 이걸 After the fact? 이상한 말을 쓰네. 어쨋건 스파크 컨텍스트가 종료된 후에도 보고싶으면 아래 옵션 enable
+
+```
+spark.eventLog.enabled true
+spark.eventLog.dir hdfs://namenode/shared/spark-logs
+```
