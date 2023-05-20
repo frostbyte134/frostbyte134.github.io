@@ -7,11 +7,81 @@ use_math: true
 tags: coding
 ---
 
+misc (정리 필요)
+- narrow transformation: map, filter. 결과 파티션의 row1개 결과를 만들 때, source partition이 1개 이하만 필요
+- wide transformation: 결과 row1개를 만들 때, source에서 여러 partition이 필요한 경우
+- wide transformation이 실행될 때 partition의 개수를 명시적으로 바꿀 수 있다 (narrow는 x)
+  - 파티션 개수가 따로 지정되어 있지 않다면, `spark.default.parallelism` 설정값을 이용하게 된다
+  - 파티션이 부족한 것보다는 차라리 조금 더 많은 것이 낫다.
+MapReduce에서 보수적으로 task의 수를 늘려나가는 것과는 가이드가 다른데, 이는 MapReduce는 각 task의 스타트업 오버헤드가 큰 반면 스파크는 그렇지 않기 때문이다.
+
+
 스팤을 봅시다
+
+https://data-flair.training/blogs/spark-tutorial/ 흠..
+
+
+[spark architecture](https://0x0fff.com/spark-architecture/)
+[spark architecture - shuffle](https://0x0fff.com/spark-architecture-shuffle/)
+[how to turn your spark jobs](https://blog.cloudera.com/how-to-tune-your-apache-spark-jobs-part-2/)
+
+
+wide transformation - spill https://spidyweb.tistory.com/335
+
 
 
 <a href="https://spark.apache.org/docs/latest/quick-start.html" target="_blank">https://spark.apache.org/docs/latest/quick-start.html</a>
 
+### Task, executor, partition
+
+- https://jaemunbro.medium.com/spark-executor-%EA%B0%9C%EC%88%98-%EC%A0%95%ED%95%98%EA%B8%B0-b9f0e0cc1fd8
+- https://jaemunbro.medium.com/apache-spark-partition-%EA%B0%9C%EC%88%98%EC%99%80-%ED%81%AC%EA%B8%B0-%EC%A0%95%ED%95%98%EA%B8%B0-3a790bd4675d  
+- https://stackoverflow.com/questions/46108305/apache-spark-how-partitions-are-processed-in-an-executor
+- https://www.talend.com/resources/intro-apache-spark-partitioning/
+- https://spidyweb.tistory.com/429
+
+executor
+- 캐싱/실행 공간을 갖는 JVM
+- 드라이버와 통신하며 워커에서 테스크를 실행. 대부분의 배포 모드에서 1개 노드 = 1개 executor
+- executor + driver크기 = 해당 스파크가 돌고 있는 노드/컨테이너를 넘길 수 없음
+- `spark.memory.fraction`: 내부 메타데이터/자료구조를 위해 쓰이는 비율
+- 여러 개의 executor-cores보유 가능
+- 실행중인 1 task = 1 core. (1 executor에서 n개의 코어 보유 가능)
+  - 파티션 1개는 1개의 task에서만 처리가능 (1파티션을 여러 태스크에서 동시처리 불가)
+  - 따라서, 1 executor - N task / 실행중인 1 task - N partition - 1 core 
+
+정리하면
+- 1 driver - N jobs - 1 stage - N tasks - 1 core - N partitions 
+
+driver
+- SparkSession을 초기화
+- 클러스터 매니저와 통신, executor에서 필요한 자원 요청
+- execution plan 생성: 스파크 앱을 job으로 -> job을 DAG형태로 변환
+- 각 실행 단위 (?)를 task로 나누어 executor에 분배
+- 스파스 퀠에서는 이미 만들어져 있음
+
+SparkSession
+- 모든 스파크 연산/데이터에 대한 통합 채널
+- 데이터 읽기 / sql 실행 등에 대한 시작점
+
+
+`스파크 앱(makes 스파크 드라이버 (makes 스파크 세션)) <--통신--> executor` 
+
+
+Task
+- 저수준 RDD 코드들 (2.x이후로 직접은 안쓰게 바뀜)
+- Dataframe API -> 자동으로 RDD로 분해 -> Executor의 JVM에서 실행되는 스칼라 바이트코드로 분해 (이 RDD는 RDD API와도 다르다고 함. 뭐래...)
+
+stage
+- job -> 여러 스테이지로 분리
+- shuffle시 노드끼리 데이터 교환이 일어남 -> executor끼리 데이터 전송이 이뤄지는 범위 경계로 스테이지가 생기기도 함
+
+transformation
+- transform DataFrame to DataFrame
+- lazy evaluation: `lineage`로 변경되어 최적화 된 후 실행됨
+
+action
+- lazy eval이 실행됨
 
 
 `RDD`: Resilient Distributed Dataset
@@ -40,6 +110,9 @@ https://spark.apache.org/docs/latest/cluster-overview.html
 - driver creates the spark context 
 - Spark app = instance of SparkContext
 
+Job - task로 구성됨
+- task: executor로 보내지는, 작업 실행의 가장 기본적인 단위
+- stage: task의 모음. DAG의 노드인 듯
 
 to run on a cluster
 1. the SparkContext can connect to several types of cluster managers (either Spark’s own standalone cluster manager, Mesos, YARN or Kubernetes). managers allocate resources across applications
@@ -60,11 +133,29 @@ Because the driver schedules tasks on the cluster, it should be run close to the
 https://spark.apache.org/docs/latest/submitting-applications.html
 
 can use all cluster managers through a uniform interface
+- 일부 (ex - standalone) 클러스터 매니저용 옵션이 있기는 함
 
 modes
 - `client mode` = spark submit 프로세스에서 driver가 실행되는 구조조. 마스터와 동일 네트워크 내에 있을 시 좋다고
   - stdout, stderr도 콘솔에 붙음
 - `cluster mode` = 드라이버 실행도 원격에서 됨.
+
+Note that JARs and files are copied to the working directory for each SparkContext on the executor nodes. This can use up a significant amount of space over time and will need to be cleaned up
+- With YARN, cleanup is handled automatically, and
+- with Spark standalone, automatic cleanup can be configured with the spark.worker.cleanup.appDataTtl property.
+
+
+### Configuration
+https://spark.apache.org/docs/latest/configuration.html
+
+#### Spark properties
+- can be set from `SparkConf` passed to `SparkContext`
+
+
+### Run spark on YARN
+- [spark doc](https://spark.apache.org/docs/latest/running-on-yarn.html)
+- [cloudera yarn doc](https://blog.cloudera.com/yarn-capacity-scheduler/)
+
 
 
 ### Monitoring guide

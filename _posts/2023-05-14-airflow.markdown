@@ -1,0 +1,124 @@
+---
+layout: post
+title:  "Airflow"
+date:   2023-05-14 08:00:05 +0800
+categories: coding
+use_math: true
+tags: coding
+---
+
+https://airflow.apache.org/docs/apache-airflow/stable/index.html
+- 거의 뭐 신주단지 모시듯 하는 듯..ㅋㅋ
+
+
+### Intro
+https://airflow.apache.org/docs/apache-airflow/stable/index.html
+
+- Airflow pipelines are configured as `Python code`
+- Airflow framework contains `operators` to connect with numerous technologies
+- Workflows can be stored in version control so that you can roll back to previous versions
+- Tests can be written to validate functionality (?)
+- `Backfill`ing allows you to (re-)run pipelines on historical data after making changes to your logic.
+- Airflow was built for finite batch workflows. While the CLI and REST API do allow triggering workflows, Airflow was not built for infinitely-running event-based workflows. Airflow is not a streaming solution.
+
+
+### quickstart
+https://airflow.apache.org/docs/apache-airflow/stable/start.html
+- `AIRFLOW_HOME=~/airflow`: Airflow needs a home
+- Airflow will create the `$AIRFLOW_HOME` folder and create the `airflow.cfg` file with defaults that will get you going fast
+  - for the config refer the page https://airflow.apache.org/docs/apache-airflow/stable/configurations-ref.html
+
+
+`standalone`
+- sqlite + SequentialExecutor
+- no parallelism
+
+`airflow standalone` command is equivalent to
+```bash
+airflow db init
+
+airflow users create \
+    --username admin \
+    --firstname Peter \
+    --lastname Parker \
+    --role Admin \
+    --email spiderman@superhero.org
+
+airflow webserver --port 8080
+
+airflow scheduler
+```
+
+
+### configuration
+- https://airflow.apache.org/docs/apache-airflow/stable/configurations-ref.html
+
+
+### tutorials
+https://airflow.apache.org/docs/apache-airflow/stable/tutorial/fundamentals.html
+- dag내에서 task(=node)들을 연결
+- dag생성 시 default argument를 줄 수 있음 (내부 task들 생성시 활)
+
+`operators`: defines a __unit of work__ for Airflow to complete.
+- Using __operators is the classic approach__ to defining work in Airflow
+- somtimes it’s better to use the `TaskFlow API` to define work in a Pythonic context as described in Working with TaskFlow 
+
+
+To use an operator in a DAG, you have to instantiate it as a `task`
+- Tasks determine how to execute your operator within the context of a DAG.
+
+The precedence rules for a task are as follows:
+1. Explicitly passed arguments
+2. Values that exist in the default_args dictionary
+3. The operator’s default value, if one exists
+
+### DAG documentation
+
+In Apache Airflow, `backfill` is a command that allows you to run a DAG for a specified historical period.
+- Backfill can only be used for DAGs that have a schedule interval.
+- Backfill will not run tasks that have already been run.
+- Backfill can only be used for DAGs that are in the "running" or "paused" state.
+
+
+
+### Architecture
+https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/overview.html
+
+A workflow is represented as a DAG
+- node: Task
+- A DAG specifies the dependencies between Tasks
+
+An Airflow installation generally consists of the following components:
+- A `scheduler`, which handles both triggering scheduled workflows, and submitting Tasks to the executor to run.
+- An `executor`, which handles running tasks. In the default Airflow installation, this runs everything inside the scheduler, but most production-suitable executors actually push task execution out to workers.
+- A `webserver`, which presents a handy user interface to inspect, trigger and debug the behaviour of DAGs and tasks.
+- A folder of `DAG files`, read by the scheduler and executor (and any workers the executor has)
+- A `metadata database`, used by the scheduler, executor and webserver to store state.
+
+
+https://airflow.apache.org/docs/apache-airflow/stable/_images/arch-diag-basic.png
+
+3 common types of task you will see:
+- `Operators`, predefined tasks that you can string together quickly to build most parts of your DAGs.
+- `Sensors`, a special subclass of Operators which are entirely about waiting for an external event to happen.
+- A `TaskFlow-decorated @task`, which is a custom Python function packaged up as a Task.
+
+>  The concepts of Task and Operator are somewhat interchangeable, but it’s useful to think of them as separate concepts - essentially, Operators and Sensors are templates, and when you call one in a DAG file, you’re making a Task.
+
+DAGs are designed to be run many times, and multiple runs of them can happen in parallel. DAGs are parameterized, always including an interval they are “running for” (the [data interval](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/dag-run.html#data-interval)), but with other optional parameters as well.
+- [Running Dags](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/dags.html#running-dags)
+- [What does execution_date mean](https://airflow.apache.org/docs/apache-airflow/stable/faq.html#what-does-execution-date-mean)
+
+
+data interval of `@daily` scheduled DAG : 00:00 ~ 24:00
+- dag runs after its data interval ends (to collect all data in its data interval)
+- `logical date` (aka `execution_date` prior to 2.2) of a DAG run: start of the data interval, not when the DAG is actually executed
+- Similarly, since the `start_date` argument for the DAG and its tasks points to the same logical date, it marks the start of the DAG’s first data interval, not when tasks in the DAG will start running
+
+> In other words, a DAG run will only be scheduled one interval after start_date
+
+Every time you run a DAG, you are creating a new instance of that DAG which Airflow calls a DAG Run
+
+
+### core cencepts - Dag
+DAGs are nothing without Tasks to run, and those will usually come in the form of either Operators, Sensors or TaskFlow.
