@@ -122,3 +122,33 @@ Every time you run a DAG, you are creating a new instance of that DAG which Airf
 
 ### core cencepts - Dag
 DAGs are nothing without Tasks to run, and those will usually come in the form of either Operators, Sensors or TaskFlow.
+- upstream: dependencies on other tasks
+- downstream: other tasks depend on the current task
+
+
+#### Loading DAGs
+- Airflow loads DAGs from py files in `DAG_FOLDER`
+- only loads dags in the global context (not the ones inside function context, for example)
+
+#### Dag run
+Every time you run a DAG, you are creating a new `DAG Run` instance of that DAG
+- DAG Runs can run in parallel for the same DAG
+- and each has a defined `data interval`, which identifies the period of data the tasks should operate on.
+
+
+A DAG run will have a start date when it starts, and end date when it ends. This period describes the time when the DAG actually ‘ran.’ Aside from the DAG run’s start and end date, there is another date called logical date (formally known as execution date), which describes the intended time a DAG run is scheduled or triggered. The reason why this is called logical is because of the abstract nature of it having multiple meanings, depending on the context of the DAG run itself.
+
+For example, if a DAG run is manually triggered by the user, its logical date would be the date and time of which the DAG run was triggered, and the value should be equal to DAG run’s start date. However, when the DAG is being automatically scheduled, with certain schedule interval put in place, the logical date is going to indicate the time at which it marks the start of the data interval, where the DAG run’s start date would then be the logical date + scheduled interval.
+
+
+Miscs
+- every single Operator/Task must be assigned to a DAG in order to run
+- `Dynamic DAGs`: Since a DAG is defined by Python code, there is no need for it to be purely declarative; you are free to use loops, functions, and more to define your DAG.
+  - In general, we advise you to try and keep the topology (the layout) of your DAG tasks relatively stable
+
+
+#### Taskgroup
+- A TaskGroup can be used to organize tasks into hierarchical groups in Graph view. It is useful for creating repeating patterns and cutting down visual clutter.
+- Unlike SubDAGs, TaskGroups are purely a UI grouping concept
+- task group 단위로 dependency, default_args 지정가능
+- 
