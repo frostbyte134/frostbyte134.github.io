@@ -8,8 +8,7 @@ tags: coding
 ---
 
 https://airflow.apache.org/docs/apache-airflow/stable/index.html
-- 거의 뭐 신주단지 모시듯 하는 듯..ㅋㅋ
-
+- 많이 씀
 
 ### Intro
 https://airflow.apache.org/docs/apache-airflow/stable/index.html
@@ -65,7 +64,7 @@ https://airflow.apache.org/docs/apache-airflow/stable/tutorial/fundamentals.html
 
 
 To use an operator in a DAG, you have to instantiate it as a `task`
-- Tasks determine how to execute your operator within the context of a DAG.
+- __Tasks determine how to execute your operator within the context of a DAG.__
 
 The precedence rules for a task are as follows:
 1. Explicitly passed arguments
@@ -83,6 +82,8 @@ In Apache Airflow, `backfill` is a command that allows you to run a DAG for a sp
 
 ### Architecture
 https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/overview.html
+<img src="https://airflow.apache.org/docs/apache-airflow/stable/_images/edge_label_example.png" width="800">
+
 
 A workflow is represented as a DAG
 - node: Task
