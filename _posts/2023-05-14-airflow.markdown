@@ -152,4 +152,35 @@ Miscs
 - A TaskGroup can be used to organize tasks into hierarchical groups in Graph view. It is useful for creating repeating patterns and cutting down visual clutter.
 - Unlike SubDAGs, TaskGroups are purely a UI grouping concept
 - task group 단위로 dependency, default_args 지정가능
-- 
+
+
+
+### DAG Runs
+- instantiation of the running of DAG in time
+- Any time the DAG is executed, a DAG Run is created and all tasks inside it are executed
+
+
+### Data Interval
+- every dag run has `data interval` that represents the time range it operates in
+- ex) `@daily` dag: 00:00 ~ 24:00
+
+
+> A DAG run is usually scheduled __after__ its associated data interval has ended, to ensure the run is able to collect all the data within the time period. In other words, a run covering the data period of 2020-01-01 generally does not start to run until 2020-01-01 has ended, i.e. after 2020-01-02 00:00:00.
+
+
+All dates in Airflow are tied to the data interval concept in some way
+- `logical date` (= `execution_date`): start of the data interval, not when the DAG is actually executed.
+- similarly `start_date` argument for the DAG and its tasks points to the same logical date, it marks the start of the DAG’s first data interval, not when tasks in the DAG will start running. 
+  - In other words, a DAG run will only be scheduled one interval after start_date.
+
+
+To Keep in Mind
+- Marking task instances as failed can be done through the UI. This can be used to stop running task instances.
+- Marking task instances as successful can be done through the UI. This is mostly to fix false negatives, or for instance, when the fix has been applied outside of Airflow.
+
+
+### Task
+
+In addition, sensors have a timeout parameter. This only matters for sensors in reschedule mode. timeout controls the maximum time allowed for the sensor to succeed. If timeout is breached, AirflowSensorTimeout will be raised and the sensor fails immediately without retrying.
+
+- An `SLA`, or a Service Level Agreement, is an expectation for the maximum time a Task should be completed relative to the Dag Run start time
