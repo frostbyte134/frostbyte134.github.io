@@ -15,8 +15,7 @@ tags: misc hobby
 그냥 대충 내려놓고 살아야할듯..ㅋㅋ
 
 
-<iframe src="https://drive.google.com/file/d/12_3qzMDSe-ar6k0-aswpy9knYzQBOQbI/preview" width="640" height="480" allow="autoplay"></iframe>
-
+<iframe allowfullscreen="allowfullscreen" class="b-hbp-video b-uploaded" frameborder="0" height="266" id="BLOGGER-video-c42c3dd9f5f1b4cd-16081" mozallowfullscreen="mozallowfullscreen" src="https://www.blogger.com/video.g?token=AD6v5dzMb_rB05_y6kvqrT6O3ffzTKk3T4ejQXL8TA2dmZe6wyiMtq1GKvQDrkTiY7TFLITPy7PlYUesTok_FzzLsu7sqFoLIBnohnEBwjHR-BiLA_zGTQuOAu3Qe8mJ-TRo8TG2GNOu" webkitallowfullscreen="webkitallowfullscreen" width="320"></iframe>
 
 1. 제일 깔끔해야 할 거 같은 1번변주인데 좀 별로다...연습을 많이 안해서 그런듯
 2. 끝부분에 좀 빨라진 느낌
