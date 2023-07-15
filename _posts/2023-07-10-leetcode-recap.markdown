@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Leetcode problems - recap"
-date:   2021-05-01 09:59:00 +0800
+date:   2023-07-10 10:59:00 +0800
 categories: problem_solving
 use_math: true
 tags: problem_solving leetcode need_review
@@ -11,6 +11,13 @@ tags: problem_solving leetcode need_review
 다시 대충 훑어보기만 해도 되는 문제들
 아 빨리 블로그 만들어야 하는데..........
 
+### https://leetcode.com/problems/longest-chunked-palindrome-decomposition/description/
+- 이것도 구글딱지붙은 하든데 일단 풀긴풀음
+- opt sol이 아니었긴 함..ㅎㅎ 기억해 둘 만 한듯.
+
+### https://leetcode.com/problems/number-of-ways-to-reorder-array-to-get-same-bst/description/
+- https://leetcode.com/problems/number-of-ways-to-reorder-array-to-get-same-bst/description/
+- 하든데 왠일로 잘 풀리긴 했는데...한번에 못품 ㅎㅎ
 
 ### Path With Maximum Minimum Value
 - 쉬운데, 풀이 2가지 생각해 내기

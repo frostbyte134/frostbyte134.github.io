@@ -28,3 +28,6 @@ tags: misc hobby
 난 칠때 몸이 안움직이는 줄 알았는데..거의 랑랑 수준이네? ㅋㅋㅋ 랑랑보고 웃을때가 아니었음. 근데 생각해보면 선풍기때매 옷이 걍 펄럭이는 거 같음...ㅋㅋ
 
 그래도...방향은 잡은 거 같긴 함 ㅋㅋ 뒷부분도 언젠간........
+
+
+https://drive.google.com/file/d/12_3qzMDSe-ar6k0-aswpy9knYzQBOQbI/view?usp=sharing

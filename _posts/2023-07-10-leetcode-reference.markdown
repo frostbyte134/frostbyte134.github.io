@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Leetcode problems - ref problems"
-date:   2021-05-01 09:59:00 +0800
+date:   2023-07-10 09:58:00 +0800
 categories: problem_solving
 use_math: true
 tags: problem_solving leetcode need_review
@@ -9,11 +9,13 @@ tags: problem_solving leetcode need_review
 
 뭔가 기억해두면 이득일 것 같은 문제들
 
-
-
 #### https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
 https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
 - 깔끔하지 못했음
+- 아 ㅋㅋ...컨티뉴를 위에 놓고 밑에 무조건 실행시켜야 하는 걸 또 놨네 ㅋㅋ...너무 오랫만인가?
+
+---------------------0714 리뷰완료---------------------
+
 
 ### Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit (window problem, need review)
 - <a href="https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/" target="_blank">https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/</a>

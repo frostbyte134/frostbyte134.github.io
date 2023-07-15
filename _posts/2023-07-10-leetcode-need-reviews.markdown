@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Leetcode problems - Need Reviews"
-date:   2021-05-01 09:59:00 +0800
+date:   2023-07-10 11:59:00 +0800
 categories: problem_solving
 use_math: true
 tags: problem_solving leetcode need_review
@@ -14,6 +14,22 @@ tags: problem_solving leetcode need_review
 - 보자마자 opt sol이 걍 떠올라야 하는듯 ㅡ,.ㅡ
 - 2022.11.25 하드100 돌파 ㅋㅋ
 
+하...구글 떨어지고 나면 문제 다시 풀 줄 알았는데...일년동안 하나도 안풀었네 ㅋㅋ
+
+## 쉬운데 구현상 다시 풀어야 하는 것들
+
+### https://leetcode.com/problems/shortest-bridge/description/
+- 그냥 평범한 미디엄인데..실력이 다 죽었음 ㅋㅋ
+
+### https://leetcode.com/problems/longest-subsequence-with-limited-sum/description/
+- 아니 뭐 당근 풀긴 했는데..이정도면 미디엄 아니냐? ㄷㄷ
+
+
+
+--------------------------
+
+
+## 잘 모르겠는 것들
 
 ### https://leetcode.com/problems/finding-the-number-of-visible-mountains/description/
 - 아나 ㅋㅋ 답봄
@@ -24,10 +40,6 @@ tags: problem_solving leetcode need_review
 
 ### https://leetcode.com/problems/jump-game/
 이걸 한번에 못푸네 ㅡㅡ https://leetcode.com/problems/jump-game/
-
-
-### https://leetcode.com/problems/longest-subsequence-with-limited-sum/description/
-- 아니 뭐 당근 풀긴 했는데..이정도면 미디엄 아니냐? ㄷㄷ
 
 ### https://leetcode.com/problems/set-intersection-size-at-least-two/description/
 - 한번에 풀진 못함
