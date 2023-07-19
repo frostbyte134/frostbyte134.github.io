@@ -14,14 +14,12 @@ https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
 - 깔끔하지 못했음
 - 아 ㅋㅋ...컨티뉴를 위에 놓고 밑에 무조건 실행시켜야 하는 걸 또 놨네 ㅋㅋ...너무 오랫만인가?
 
----------------------0714 리뷰완료---------------------
-
-
 ### Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit (window problem, need review)
 - <a href="https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/" target="_blank">https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/</a>
 - 윈도우 안의 최대/최소의 차이. map으로 풀어서 하위 20퍼로 풀긴 함
-- PQ/디큐 - increasing_deque는 맨 앞이 구간의 최소값, decreasing_deque는 맨 앞이 구간의 최대값임 (맨 뒤는 항상 새로 추가된 원소).
-  - 이 때 조심해야 할 게, 현재 구간 (디큐들에 들어있는 아이템들의 min, max정보가 유효한 구간)은 max(inc디큐에서 제일 최근에 빠진 인덱스+1, dec디큐에서 제일 최근에 빠진 인덱스+1)이라는 것
+- 디큐로 decreasing queue 구성 - 특정 값이 최대값이 되는 구간을 알 수 있음
+ 
+---------------------0714 리뷰완료---------------------
 
 
 ### Valid square
