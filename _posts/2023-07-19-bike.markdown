@@ -11,8 +11,7 @@ tags: misc hobby
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Z5ldO3PJ5IA?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-~홀리몰리 과카몰리 로보카폴리 롤리폴리 모노폴리 브로콜리 보더콜리 할리갈리 키드밀리 베리베리 스토로베리~
-
+홀리 몰리
 
 <img src="{{site.url}}/images/paratropper1.jpg" width="800" class="center"/>  
 <img src="{{site.url}}/images/paratropper3.jpg" width="800" class="center"/>  
