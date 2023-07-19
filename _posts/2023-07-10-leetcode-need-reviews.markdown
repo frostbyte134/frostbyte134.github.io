@@ -16,6 +16,13 @@ tags: problem_solving leetcode need_review
 
 하...구글 떨어지고 나면 문제 다시 풀 줄 알았는데...일년동안 하나도 안풀었네 ㅋㅋ
 
+
+
+TODO
+- https://leetcode.com/problems/smallest-sufficient-team/
+- https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended-ii/
+
+
 ## 쉬운데 구현상 다시 풀어야 하는 것들
 
 ### https://leetcode.com/problems/shortest-bridge/description/

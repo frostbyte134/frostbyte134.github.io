@@ -1,0 +1,22 @@
+---
+layout: post
+title:  "몬태규 패러트루퍼 (+bgm)"
+date:   2023-07-19 01:27:05 
+categories: hobby
+use_math: true
+tags: misc hobby
+---
+
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Z5ldO3PJ5IA?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+홀리몰리 과카몰리 로보카폴리 롤리폴리 모노폴리 브로콜리 보더콜리 할리갈리 키드밀리 베리베리 스토로베리 
+
+
+<img src="{{site.url}}/images/paratropper1.jpg" width="800" class="center"/>  
+<img src="{{site.url}}/images/paratropper2.jpg" width="800" class="center"/>  
+
+근데 조립하는데 한 네시간 걸림...ㅎ
+
+글고 생각보다 크다. 이거들고 비행기는 못타고 짐에 맡겨야 할 듯..
