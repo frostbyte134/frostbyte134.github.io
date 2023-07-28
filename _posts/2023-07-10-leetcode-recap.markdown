@@ -11,9 +11,17 @@ tags: problem_solving leetcode need_review
 다시 대충 훑어보기만 해도 되는 문제들
 아 빨리 블로그 만들어야 하는데..........
 
-### https://leetcode.com/problems/longest-chunked-palindrome-decomposition/description/
-- 이것도 구글딱지붙은 하든데 일단 풀긴풀음
-- opt sol이 아니었긴 함..ㅎㅎ 기억해 둘 만 한듯.
+
+-----------------다 훑어본 것들----------------------
+
+### https://leetcode.com/problems/maximum-strictly-increasing-cells-in-a-matrix/description/
+- 구글하드. 내방법도 시간복잡도는 어차피 똑같은데 recursion등 ㅈ좀 비효울적이었음
+- lee 답을 생각할라면 반대로 봤어야 했음. 그리고 dp 테크닉도...이정도까진 면접때 필요없지 않을까? 다시 보기만 하자
+
+
+### https://leetcode.com/problems/non-overlapping-intervals/description/
+- 이런문제 몇번은 푼 거 같은데. 근데 이번엔 좀 신박한 (...) 실수 함 ㅋㅋ...
+- 초기조건을 -1로 뒀는데 이게 input range에 있었음..
 
 ### https://leetcode.com/problems/number-of-ways-to-reorder-array-to-get-same-bst/description/
 - https://leetcode.com/problems/number-of-ways-to-reorder-array-to-get-same-bst/description/

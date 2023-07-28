@@ -18,9 +18,46 @@ https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
 - <a href="https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/" target="_blank">https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/</a>
 - 윈도우 안의 최대/최소의 차이. map으로 풀어서 하위 20퍼로 풀긴 함
 - 디큐로 decreasing queue 구성 - 특정 값이 최대값이 되는 구간을 알 수 있음
- 
+
+#### Finding cycle in linked list
+<a href="https://leetcode.com/problems/linked-list-cycle-ii/" target="_blank">https://leetcode.com/problems/linked-list-cycle-ii/</a>
+
+1. travel with `slow` (goes 1 pointer in a time) and `fast` (goes 2 point in a time)
+2. Let
+* \\(L\_1\\): distance between the starting point and cycle entrance
+* \\(L\_2\\): distance between the cycle entrance and meeting point
+* \\(C\\): cycle length
+* \\(n\\): number of times `fast` ran through circle until it meets with `slow`
+그러면,
+1. \\(2(L\_1+L\_2)=L\_1+L\_2+nC\\)
+2. \\(n=1\\): 어차피 `fast`와 `slow`는 1번에 1칸씩밖에 차이가 안나기때문에, `fast`는 1번의 순회만으로 `slow`와 만남.
+
+그러므로, \\(L\_1+L\_2=C \quad\rightarrow\quad L\_1=C-L\_2\\). 만일 fast와 slow가 만났다면 (cycle 있음), 현재 slow위치에서 1칸씩 앞으로 나가고, 다시 starting point에서 1칸씩 앞으로 나가서 만나는곳이 cycle entry가 됨. 
+
+### https://leetcode.com/problems/image-overlap/description/
+- 이것도 답 봄. 문제도 제대로 안보고 풀었음 ㅎㅎ 
+- 다시 풀어서 대충 비슷하게 맞긴 했는데..원 답이 역시 좋네
+
 ---------------------0714 리뷰완료---------------------
 
+
+#### Merge Intervals
+
+<a href="https://leetcode.com/problems/merge-intervals/" target="_blank">https://leetcode.com/problems/merge-intervals/</a>
+
+1. 인터벌 (a, b)들을 오름차순으로 정렬
+2. valid non-intersecting interval 집합을 유지한다고 할 시, 현재 고려중인 interval은 
+    1. valid 집합의 마지막 interval보다 a값은 크다
+    2. 따라서, valid 집합의 마지막 interval과 머지되지 않을 시, 나머지들과 머지될 일은 없음.
+- 07.25 다시풀음. 앞정렬/뒤정렬 차이 다시 생각만 한번 해보자. 구현 실수도 하나 했음
+
+
+### https://leetcode.com/problems/minimum-number-of-refueling-stops/
+https://leetcode.com/problems/minimum-number-of-refueling-stops/
+- 좋은 문제인 듯. 다시풀기 필수
+- 밑이랑 세트로 기억하면 좋을 듯
+- 07.24: 다시풀었는데 못풀었음 ㅋㅋ...쉣 다 날아간 듯
+    - 일주일쯤 뒤에 또 보자
 
 ### Valid square
 <a href="https://leetcode.com/problems/valid-square/" target="_blank">https://leetcode.com/problems/valid-square/</a>
@@ -29,28 +66,6 @@ https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
 * 첨에 회전을 생각안해서 함 틀림
 * 꼭 각으로 풀어야 할까...?ㅋㅋ 거지같넹. 기억정도 해 두면 좋을 듯
 
-### https://leetcode.com/problems/minimum-number-of-refueling-stops/
-https://leetcode.com/problems/minimum-number-of-refueling-stops/
-- 좋은 문제인 듯. 다시풀기 필수
-- 밑이랑 세트로 기억하면 좋을 듯
-
-#### Sort Colors
-* <a href="https://leetcode.com/problems/sort-colors/description/" target="_blank">https://leetcode.com/problems/sort-colors/description/</a>
-* 다시 쉽게 풀긴 했는데, 풀이방법 2개 돌아보고 넣을 정도는 됨. 보기만 하고 넣자
-* <details>
-   <summary>풀긴 품</summary>빠르게 안됐음. 다시 한번 풀어볼 정도?</details>
-
-#### LRU Cache
-<a href="https://leetcode.com/problems/lru-cache/" target="_blank">https://leetcode.com/problems/lru-cache/</a>
-linked list + hash = O(1) LRU Cache!
-
-#### 2-sum problems
-1. 2-sum - lr (O(N))
-2. 3-sum - 2sum * N
-3. 4-sum - 3sum * N
-
-### https://leetcode.com/problems/image-overlap/description/
-이것도 답 봄. 문제도 제대로 안보고 풀었음 ㅎㅎ 
 
 ### https://leetcode.com/problems/course-schedule-iii/description/
 https://leetcode.com/problems/course-schedule-iii/description/
@@ -73,6 +88,16 @@ Permutation의 다음번째는 무엇인가? (lexicographical order)
 	
 	이렇게 i번째 숫자를 j(<i) 번째 숫자와 바꾸었으면, i-1번째부터는 작은 순으로 정렬해주어야 함. 그래야 바로 다음번이 되니까.
 3. 위에 해당하는 경우가 없을 시, 모든 숫자는 자기보다 자릿수가 낮은 숫자보다 큼. (ex - 4321) 문제에서 이러면 낮은순정렬하랬으므로 1d transpose해줌
+
+
+#### LRU Cache
+<a href="https://leetcode.com/problems/lru-cache/" target="_blank">https://leetcode.com/problems/lru-cache/</a>
+linked list + hash = O(1) LRU Cache!
+
+#### 2-sum problems
+1. 2-sum - lr (O(N))
+2. 3-sum - 2sum * N
+3. 4-sum - 3sum * N
 
 
 
@@ -103,41 +128,8 @@ Permutation의 다음번째는 무엇인가? (lexicographical order)
    </details>
 
 
-### Minimum Window Substring
-<a href="https://leetcode.com/problems/minimum-window-substring/" target="_blank">https://leetcode.com/problems/minimum-window-substring/</a>
-
-* 긴 string s에서 짧은 string t의 permutation을 포함하는 substing의 최소길이를 찾아야 함
-* Permutation을 포함만 하면 되므로, count가 적었다가 같아지는 순간이 중요
-* 윈도우 (2 indices - st, ed)로 체크함.   
-    1. ed : 고정된 st에서, permutation을 포함하는 최소 끝점을 찾음
-    2. st : 해당 ed에서, permutation을 포함할 때 까지 줄여감
-* 왠일로 하드를 수월하게 풀었네...?
-
-#### Merge Intervals
-
-<a href="https://leetcode.com/problems/merge-intervals/" target="_blank">https://leetcode.com/problems/merge-intervals/</a>
-
-1. 인터벌 (a, b)들을 오름차순으로 정렬
-2. valid non-intersecting interval 집합을 유지한다고 할 시, 현재 고려중인 interval은 
-    1. valid 집합의 마지막 interval보다 a값은 크다
-    2. 따라서, valid 집합의 마지막 interval과 머지되지 않을 시, 나머지들과 머지될 일은 없음.
 
 
-
-#### Finding cycle in linked list
-<a href="https://leetcode.com/problems/linked-list-cycle-ii/" target="_blank">https://leetcode.com/problems/linked-list-cycle-ii/</a>
-
-1. travel with `slow` (goes 1 pointer in a time) and `fast` (goes 2 point in a time)
-2. Let
-* \\(L\_1\\): distance between the starting point and cycle entrance
-* \\(L\_2\\): distance between the cycle entrance and meeting point
-* \\(C\\): cycle length
-* \\(n\\): number of times `fast` ran through circle until it meets with `slow`
-그러면,
-1. \\(2(L\_1+L\_2)=L\_1+L\_2+nC\\)
-2. \\(n=1\\): 어차피 `fast`와 `slow`는 1번에 1칸씩밖에 차이가 안나기때문에, `fast`는 1번의 순회만으로 `slow`와 만남.
-
-그러므로, \\(L\_1+L\_2=C \quad\rightarrow\quad L\_1=C-L\_2\\). 만일 fast와 slow가 만났다면 (cycle 있음), 현재 slow위치에서 1칸씩 앞으로 나가고, 다시 starting point에서 1칸씩 앞으로 나가서 만나는곳이 cycle entry가 됨.
 
 <a href="https://leetcode.com/problems/linked-list-cycle-ii/discuss/44781/Concise-O(n)-solution-by-using-C%2B%2B-with-Detailed-Alogrithm-Description" target="_blank">editorial</a>
 

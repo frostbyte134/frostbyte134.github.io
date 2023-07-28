@@ -13,6 +13,35 @@ tags: problem_solving leetcode need_review
 
 ### Done
 
+### https://leetcode.com/problems/construct-quad-tree/submissions/
+- 구글 미디엄인데 걍 풀긴 풀음
+- 근데 한번엔 못품 ㅋㅋ 2차원 부분합만 이슈긴 해서..다시 풀 필요는 없을 듯
+
+
+### https://leetcode.com/problems/shuffle-an-array/submissions/
+- 이거도 구글 미디엄인데 한번에 풀음
+- 영어로 잘 설명을 못하겠네..근데 내가 생각해 낸 방법이긴 한데 다시 생각해 낼 수 있을지?ㅋㅋㅋㅋ잘 모르겠음
+
+
+### Minimum Window Substring
+<a href="https://leetcode.com/problems/minimum-window-substring/" target="_blank">https://leetcode.com/problems/minimum-window-substring/</a>
+
+* 긴 string s에서 짧은 string t의 permutation을 포함하는 substing의 최소길이를 찾아야 함
+* Permutation을 포함만 하면 되므로, count가 적었다가 같아지는 순간이 중요
+* 윈도우 (2 indices - st, ed)로 체크함.   
+    1. ed : 고정된 st에서, permutation을 포함하는 최소 끝점을 찾음
+    2. st : 해당 ed에서, permutation을 포함할 때 까지 줄여감
+* 왠일로 하드를 수월하게 풀었네...?
+- 이거 이젠 구현 문제인듯..ㅋㅋ
+
+
+#### Sort Colors
+* <a href="https://leetcode.com/problems/sort-colors/description/" target="_blank">https://leetcode.com/problems/sort-colors/description/</a>
+* 다시 쉽게 풀긴 했는데, 풀이방법 2개 돌아보고 넣을 정도는 됨. 보기만 하고 넣자
+* <details>
+   <summary>풀긴 품</summary>빠르게 안됐음. 다시 한번 풀어볼 정도?</details>
+- 23.07.24: 이번엔 빨리품 ㅋㅋ
+
 ### https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/
 https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/
 - 난 2-pass로 풀었는데 (나름 맘에듬), general solution이 있었음. 제너럴한걸로 풀어 보자
@@ -28,17 +57,6 @@ https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/
 
 #### https://leetcode.com/problems/partition-array-such-that-maximum-difference-is-k/description/
 ez. 리뷰만 (설명하기)
-
-#### https://leetcode.com/problems/continuous-subarray-sum/description/
-흠. 답 보긴 봤음. 다시 ㄱㄱ
-- 다시했을땐 풀긴 함. 배라는 것이 중요
-#### https://leetcode.com/problems/minimum-swaps-to-group-all-1s-together/
-- 쉽게 풀긴 했는데, 더 깔끔한 풀이 유도하기
-
-
-### https://leetcode.com/problems/reverse-nodes-in-k-group/
-https://leetcode.com/problems/reverse-nodes-in-k-group/
-- 아씨...글쓰면서 (예제 만들면서 주절주절) 하자
 
 ### unique-paths-iii
 
@@ -184,3 +202,7 @@ https://leetcode.com/problems/delete-and-earn/
    <summary>다시보기</summary> 
     예전에는 bfs + set으로 풀었던 거 같은데 그럴필요 없음. 
    </details>
+
+
+### https://leetcode.com/problems/all-possible-full-binary-trees/description/
+- 아 이제 미디움은 좀...ㅋㅋ

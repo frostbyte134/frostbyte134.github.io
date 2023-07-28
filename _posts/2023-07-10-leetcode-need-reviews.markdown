@@ -22,6 +22,7 @@ TODO
 - https://leetcode.com/problems/smallest-sufficient-team/
 - https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended-ii/
 
+-----------------리뷰완료----------------------
 
 ## 쉬운데 구현상 다시 풀어야 하는 것들
 
@@ -32,8 +33,25 @@ TODO
 - 아니 뭐 당근 풀긴 했는데..이정도면 미디엄 아니냐? ㄷㄷ
 
 
+### https://leetcode.com/problems/longest-chunked-palindrome-decomposition/description/
+- 이것도 구글딱지붙은 하든데 일단 풀긴풀음
+- opt sol이 아니었긴 함..ㅎㅎ 기억해 둘 만 한듯.
+
 
 --------------------------
+
+
+#### https://leetcode.com/problems/continuous-subarray-sum/description/
+흠. 답 보긴 봤음. 다시 ㄱㄱ
+- 다시했을땐 풀긴 함. 배라는 것이 중요
+
+#### https://leetcode.com/problems/minimum-swaps-to-group-all-1s-together/
+- 쉽게 풀긴 했는데, 더 깔끔한 풀이 유도하기
+
+
+### https://leetcode.com/problems/reverse-nodes-in-k-group/
+https://leetcode.com/problems/reverse-nodes-in-k-group/
+- 아씨...글쓰면서 (예제 만들면서 주절주절) 하자
 
 
 ## 잘 모르겠는 것들
