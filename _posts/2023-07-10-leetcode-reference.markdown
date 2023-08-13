@@ -38,6 +38,23 @@ https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
 - 이것도 답 봄. 문제도 제대로 안보고 풀었음 ㅎㅎ 
 - 다시 풀어서 대충 비슷하게 맞긴 했는데..원 답이 역시 좋네
 
+
+### https://leetcode.com/problems/course-schedule-iii/description/
+https://leetcode.com/problems/course-schedule-iii/description/
+* <details>
+   <summary>오 문제좋다</summary> 
+   다시 ㄱㄱ
+   </details>
+
+
+### https://leetcode.com/problems/minimum-number-of-refueling-stops/
+https://leetcode.com/problems/minimum-number-of-refueling-stops/
+- 좋은 문제인 듯. 다시풀기 필수
+- 밑이랑 세트로 기억하면 좋을 듯
+- 07.24: 다시풀었는데 못풀었음 ㅋㅋ...쉣 다 날아간 듯
+    - 일주일쯤 뒤에 또 보자
+
+
 ---------------------0714 리뷰완료---------------------
 
 
@@ -51,14 +68,6 @@ https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
     2. 따라서, valid 집합의 마지막 interval과 머지되지 않을 시, 나머지들과 머지될 일은 없음.
 - 07.25 다시풀음. 앞정렬/뒤정렬 차이 다시 생각만 한번 해보자. 구현 실수도 하나 했음
 
-
-### https://leetcode.com/problems/minimum-number-of-refueling-stops/
-https://leetcode.com/problems/minimum-number-of-refueling-stops/
-- 좋은 문제인 듯. 다시풀기 필수
-- 밑이랑 세트로 기억하면 좋을 듯
-- 07.24: 다시풀었는데 못풀었음 ㅋㅋ...쉣 다 날아간 듯
-    - 일주일쯤 뒤에 또 보자
-
 ### Valid square
 <a href="https://leetcode.com/problems/valid-square/" target="_blank">https://leetcode.com/problems/valid-square/</a>
 
@@ -67,12 +76,6 @@ https://leetcode.com/problems/minimum-number-of-refueling-stops/
 * 꼭 각으로 풀어야 할까...?ㅋㅋ 거지같넹. 기억정도 해 두면 좋을 듯
 
 
-### https://leetcode.com/problems/course-schedule-iii/description/
-https://leetcode.com/problems/course-schedule-iii/description/
-* <details>
-   <summary>오 문제좋다</summary> 
-   다시 ㄱㄱ
-   </details>
 
 #### Next permutation
 

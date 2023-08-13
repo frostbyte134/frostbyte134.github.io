@@ -13,6 +13,11 @@ tags: problem_solving leetcode need_review
 
 ### Done
 
+
+### https://leetcode.com/problems/longest-subsequence-with-limited-sum/description/
+- 아니 뭐 당근 풀긴 했는데..이정도면 미디엄 아니냐? ㄷㄷ
+
+
 ### https://leetcode.com/problems/construct-quad-tree/submissions/
 - 구글 미디엄인데 걍 풀긴 풀음
 - 근데 한번엔 못품 ㅋㅋ 2차원 부분합만 이슈긴 해서..다시 풀 필요는 없을 듯

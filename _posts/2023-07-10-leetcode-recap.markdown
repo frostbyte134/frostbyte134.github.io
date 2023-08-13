@@ -14,6 +14,12 @@ tags: problem_solving leetcode need_review
 
 -----------------다 훑어본 것들----------------------
 
+
+#### https://leetcode.com/problems/continuous-subarray-sum/description/
+흠. 답 보긴 봤음
+- 다시했을땐 풀긴 함. 배라는 것이 중요. 어려울 건 없고..보기만 하자
+
+
 ### https://leetcode.com/problems/maximum-strictly-increasing-cells-in-a-matrix/description/
 - 구글하드. 내방법도 시간복잡도는 어차피 똑같은데 recursion등 ㅈ좀 비효울적이었음
 - lee 답을 생각할라면 반대로 봤어야 했음. 그리고 dp 테크닉도...이정도까진 면접때 필요없지 않을까? 다시 보기만 하자

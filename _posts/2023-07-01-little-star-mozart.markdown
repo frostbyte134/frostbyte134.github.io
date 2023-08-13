@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "모짜르트 - 작은별 반주곡 (반띵)"
+title:  "모짜르트 - 작은별 변주곡 (반띵)"
 date:   2023-07-01 13:27:05 
 categories: hobby
 use_math: true
@@ -29,5 +29,3 @@ tags: misc hobby
 
 그래도...방향은 잡은 거 같긴 함 ㅋㅋ 뒷부분도 언젠간........
 
-
-https://drive.google.com/file/d/12_3qzMDSe-ar6k0-aswpy9knYzQBOQbI/view?usp=sharing

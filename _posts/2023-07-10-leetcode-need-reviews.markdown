@@ -22,15 +22,22 @@ TODO
 - https://leetcode.com/problems/smallest-sufficient-team/
 - https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended-ii/
 
------------------리뷰완료----------------------
-
-## 쉬운데 구현상 다시 풀어야 하는 것들
-
 ### https://leetcode.com/problems/shortest-bridge/description/
 - 그냥 평범한 미디엄인데..실력이 다 죽었음 ㅋㅋ
 
-### https://leetcode.com/problems/longest-subsequence-with-limited-sum/description/
-- 아니 뭐 당근 풀긴 했는데..이정도면 미디엄 아니냐? ㄷㄷ
+-----------------리뷰완료----------------------
+
+
+
+https://leetcode.com/problems/odd-even-jump/description/
+값이 계속 추가되는 배열에서, 매번 변경되는 특정 값 보다 바로 크거나 바로 작은 값 찾기
+이패턴 기억해 놓아야 할 듯
+bisect_left같은거 쓰면서 난리났었음...ㅋㅋ c++이면 맵같은거 쓸텐데
+lee 이사람은 뭐하는 사람일까...
+
+
+## 쉬운데 구현상 다시 풀어야 하는 것들
+
 
 
 ### https://leetcode.com/problems/longest-chunked-palindrome-decomposition/description/
@@ -40,10 +47,8 @@ TODO
 
 --------------------------
 
-
-#### https://leetcode.com/problems/continuous-subarray-sum/description/
-흠. 답 보긴 봤음. 다시 ㄱㄱ
-- 다시했을땐 풀긴 함. 배라는 것이 중요
+### https://leetcode.com/problems/search-in-rotated-sorted-array-ii/description/
+- 이것도 뭐 풀긴 풀었는데..다시 ㄱㄱ
 
 #### https://leetcode.com/problems/minimum-swaps-to-group-all-1s-together/
 - 쉽게 풀긴 했는데, 더 깔끔한 풀이 유도하기
