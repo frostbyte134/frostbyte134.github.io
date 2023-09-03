@@ -28,8 +28,7 @@ TODO
 -----------------리뷰완료----------------------
 
 
-
-https://leetcode.com/problems/odd-even-jump/description/
+### https://leetcode.com/problems/odd-even-jump/description/
 값이 계속 추가되는 배열에서, 매번 변경되는 특정 값 보다 바로 크거나 바로 작은 값 찾기
 이패턴 기억해 놓아야 할 듯
 bisect_left같은거 쓰면서 난리났었음...ㅋㅋ c++이면 맵같은거 쓸텐데
@@ -38,7 +37,9 @@ lee 이사람은 뭐하는 사람일까...
 
 ## 쉬운데 구현상 다시 풀어야 하는 것들
 
-
+### https://leetcode.com/problems/cinema-seat-allocation/description/
+- 실수 한 두번 함. 구현 (바운더리 컨디션) 잘 따져서 한번에 어셉밭기 ㄱㄱ
+- 승지니어님 꺼 보니까 셀프질문을 좀 많이 던져야겠더만..의식적으로
 
 ### https://leetcode.com/problems/longest-chunked-palindrome-decomposition/description/
 - 이것도 구글딱지붙은 하든데 일단 풀긴풀음
