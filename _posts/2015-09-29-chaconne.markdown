@@ -7,7 +7,25 @@ use_math: true
 tags: hobby misc
 ---
 
-느리게 치려고 했는데 안되서 속도가 오락가락하네...
 
+revision history
+- 2015-09-21 16:02
+- 2023-09-17
+
+먼가 많이 바뀌긴 했는데..내가 바뀐 건 아니고 이루마님이 곡을 바꾸셨음...ㅎ
+
+<iframe allowfullscreen="allowfullscreen" class="b-hbp-video b-uploaded" frameborder="0" height="266" id="BLOGGER-video-3d04959f934c88ba-10612" mozallowfullscreen="mozallowfullscreen" src="https://www.blogger.com/video.g?token=AD6v5dw4XKe_SElgoYn2oza4_XzQwxSdqw0IqyQWCh7iuj6zPp1DtZDmHhJPJNwPovpO4tkXq_x94tFNkBV91TVS-mRFdsiUZoNXmO7kRdHvXEUpWlEuQoMMGCKHHDXgmNpQwFyVaJyK" webkitallowfullscreen="webkitallowfullscreen" width="320"></iframe>
+
+
+- 이전껀 피아노를 안쳐봤어도 시도해 볼 각이 보이는 느낌인데..바뀐건 그래도 한 체르니30 초반은 쳐봤어야 쉽게 칠거같음 
+- 보통 곡을 잘 안바꾸지 않나...? 뭔가 이루마님의 애착인형(?)같은 곡인 느낌?ㅋㅋ
+- 춤곡이래서(안그래도 왈츠같은 느낌이 좀 있긴 했음 ㅋㅋ) 쳐지지 않는 느낌으로 쳐보려고 했는데...뭔가 이도저도 아닌 것 같이 돼버린 느낌..
+
+
+<details><summary>2015-09-21</summary>
+느리게 치려고 했는데 안되서 속도가 오락가락하네...<br/>
+그래도 이때부터는 디피를 피아노에 연결해서 소리만 따로녹음한듯 <br/>
 
 <iframe allowfullscreen="allowfullscreen" class="b-hbp-video b-uploaded" frameborder="0" height="266" id="BLOGGER-video-584bdc21ebd73a9d-807" mozallowfullscreen="mozallowfullscreen" src="https://www.blogger.com/video.g?token=AD6v5dxcKVniy6YqoAxdijcx-wd6xgroITKnwNygzYCLr2MCLOwlZTqIQ_Zom38oiHnIPjVKWErWbTP6WQDFGpVIUBgED1Vpx1Sp_XBeusNKvzkX_D7YqWKxi9L2izHX4wBpeuw4sg" webkitallowfullscreen="webkitallowfullscreen" width="320"></iframe>
+
+</details>
