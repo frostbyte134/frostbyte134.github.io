@@ -10,6 +10,24 @@ tags: coding C
 * <a href="http://recipes.egloos.com/" target="_blank">http://recipes.egloos.com/</a> 크롬에서 깨지네...?
 * 이런 책이 있어서 정말 다행인듯
 
+
+## ARM
+
+RISC (Advanced Risc Machine)
+- 명령어 길이 고정, 종류가 많지 않음 (CISC보다 효율이 떨어지는 상황 생김)
+- 하지만 저전력에 심플한 구조
+
+AAPCS
+- 4개정도까지 파라미터  / 리턴 타입은 레지스터에 저장
+- 이후는 스택에
+- 복원만 잘하면 함수내에서 뭘해도 노상관
+- SP: 스택포인터 레지스터
+- LR: 링크레지스터. 브랜치 시 돌아올 주소
+- PC: fetch한 주소
+- CSPR - current program status register. 방금 연산 상태 (마이너슨지, 오버플로운지, … 뭔지) + 인터럽트인지 + 현재 모드
+
+
+
 ### Clock
 - `edge trigger` : clock이 High, Low일 시 IC가 동작하는 게 아니라, 올라갈 떄 또는 내려갈 때 동작
 - `level trigger`: clock이 High, Low일 시 IC가 동작
@@ -33,6 +51,17 @@ tags: coding C
 
 
 ### Compile
+
+순서
+1. 전처리기
+2. assem 파일 (.s)
+3. object file ( `.o`, 나름 ELF)
+  - 코드 + 링킹용 심볼들
+4. 링킹 - + `.a` 파일, `.so` 파일
+5. elf -> bin
+
+
+기타
 - `ADS` : ARM Developers' Suit compliler.
 - 그러고보면 TI는 맨날 `ARM GCC`만 주네.
 - Assembly와 기계어는 1:1이나, 아닌 경우도 나옴 (뒤에)
@@ -59,6 +88,7 @@ tags: coding C
 #### Memory map과 symbol (199p)
  - `symbol` (global)
    - linker가 식별하는 기본 단위. linking 후 자신만의 주소를 가짐
+   - 전역변수/함수의 "이름". 자신만의 주소를 가짐
    - linker만의 pointer. 실제 메모리에 적재되지는 않으며, 모두 주소로 변환됨
  - symbol이 아닌 것 = local.
    - `global` : 함수, 전역변수, static 변수 (함수 내의 static 변수도 global임) (RO, RW, ZI 전부 포함)
@@ -69,8 +99,13 @@ tags: coding C
 
 RO, RW, ZI는 Flash MCP에서 어디에 위치할 것인가
 - RO: Flash에만 있으면 됨
+   - `.const`
 - RW: Flash에도 있고 (loading view), RAM에도 있음 (execution view)
-- ZI: RAM에만 있음
+   - `.data`
+- ZI: RAM에만 있음 (zero initialized)
+   - `.bss`
+
+`.text`: 코드
 
 #### ELF - Linking view (relocatable file) (205p)
 - `.o` 파일. 어셈블러의 출력. `relocatable file`. 
@@ -93,6 +128,11 @@ RO, RW, ZI는 Flash MCP에서 어디에 위치할 것인가
 
 `segment`: sum of sections
 
+
+> 링킹: 함수 정의부, 전역변수의 실제 위치를 조사한 뒤 TABLE 구성 -> 나중에 object파일 내의 해당 심볼들 호출부분을 실제 주소로 변환
+
+load view, execution view가 서로 다름
+
 ### ELF - Execution view (after linking) (216p)
 
 위 .o파일이 링킹 후 executable view로 바뀌면, `.rel.x`가 전부 없어지고, segment별로 section들이 정리되고, `.init` 섹션이 생김. 임베디드 시스템에서는 위 중 ELF header / symbol table / debug 정보 등은 제외하고, `.text` + `.rodata` 를 `RO`, `.data` 를 `RW` 라는 2개의 section으로 나눈 binary를 flash memory에 burining함.
@@ -105,6 +145,10 @@ __Cases__
 1. multiple strong symbols : link error
 2. 1 strong symbol : multiple weak symbol - choose 1 strong symbol
 3. multiple weak symbol : randomly selects one
+
+
+
+<details><summary>스캐터로딩 - 지금 볼필요 없을 듯</summary>
 
 
 #### Scatter loading
@@ -157,5 +201,15 @@ LOAD_ROM 0x0
 로 되며 (ZI는 0초기화에 실행중도 아니므로 불필요), `execution view`에서는 위 대로 배치됨
 
 
+</details>
 
 
+컨텍스트 - 레지스터셋의 스냅샷
+
+포인터 - 주소를 가르키는 word크기의 자료형
+
+byte alignment problem
+- struct 선언시 `__packed`, `#pragma pack(4)`
+
+
+task control block - 컨텍스트 스위치 시 스택에 저장

@@ -89,7 +89,7 @@ Both \\(R\\) and \\(P\\) increases (\\(tp\\) increases by 1 \\(\rightarrow\\) fr
 <img src="{{ site.url }}/images/deeplearning/map/20171123_195812.jpg" class="center" style="width:400px"/>  
 (image from <a href="http://darkpgmr.tistory.com/162" target="_blank">http://darkpgmr.tistory.com/162</a>)
 
-`AP`: average of maximum recall over all distinct recall values. (single category, in detection case)  
+`AP`: average of maximum precision over all distinct recall values. (single category, in detection case)  
 	 Note that, since the maxium of recall is 1, summing the area under PR-curve is equivalent to taking expectation. Thus the name __average__ precision.  
 `mAP`: average of AP over all queries (AP averaged __for all categories__) 
 

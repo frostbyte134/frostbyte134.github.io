@@ -14,18 +14,35 @@ tags: problem_solving leetcode need_review
 - 보자마자 opt sol이 걍 떠올라야 하는듯 ㅡ,.ㅡ
 - 2022.11.25 하드100 돌파 ㅋㅋ
 
-하...구글 떨어지고 나면 문제 다시 풀 줄 알았는데...일년동안 하나도 안풀었네 ㅋㅋ
-
-
 
 TODO
 - https://leetcode.com/problems/smallest-sufficient-team/
 - https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended-ii/
 
+
+
+### https://leetcode.com/problems/cinema-seat-allocation/description/
+- 실수 한 두번 함. 구현 (바운더리 컨디션) 잘 따져서 한번에 어셉밭기 ㄱㄱ
+- 승지니어님 꺼 보니까 셀프질문을 좀 많이 던져야겠더만..의식적으로
+
+
 ### https://leetcode.com/problems/shortest-bridge/description/
 - 그냥 평범한 미디엄인데..실력이 다 죽었음 ㅋㅋ
 
------------------리뷰완료----------------------
+-----------------리뷰완료---------------------- (이 위로)
+
+
+### https://leetcode.com/problems/minimum-replacements-to-sort-the-array/description/
+- 답봄..ㅎ 뭔가 근접하기 했는데 생각이 더 나가지 못했음. 다시풀자
+- 문제풀때 노션 쓰자
+
+### https://leetcode.com/problems/student-attendance-record-ii
+- 기존에 풀었는데..걍 풀어 보기
+
+### https://leetcode.com/problems/circle-and-rectangle-overlapping/description/
+- was not able to think of 1 boundary case
+- gotta approach slowly...
+   - or divide the cases in smart way...
 
 
 ### https://leetcode.com/problems/odd-even-jump/description/
@@ -34,12 +51,12 @@ TODO
 bisect_left같은거 쓰면서 난리났었음...ㅋㅋ c++이면 맵같은거 쓸텐데
 lee 이사람은 뭐하는 사람일까...
 
+### https://leetcode.com/problems/candy/
+- suboptimal은 금방 품. 직접 그려보면서 했으면 옵티말도 찾을 수 있었을까.....?
 
 ## 쉬운데 구현상 다시 풀어야 하는 것들
 
-### https://leetcode.com/problems/cinema-seat-allocation/description/
-- 실수 한 두번 함. 구현 (바운더리 컨디션) 잘 따져서 한번에 어셉밭기 ㄱㄱ
-- 승지니어님 꺼 보니까 셀프질문을 좀 많이 던져야겠더만..의식적으로
+
 
 ### https://leetcode.com/problems/longest-chunked-palindrome-decomposition/description/
 - 이것도 구글딱지붙은 하든데 일단 풀긴풀음
@@ -50,9 +67,14 @@ lee 이사람은 뭐하는 사람일까...
 
 ### https://leetcode.com/problems/search-in-rotated-sorted-array-ii/description/
 - 이것도 뭐 풀긴 풀었는데..다시 ㄱㄱ
+- seperate cases (possibly with questions)
+- dup case - identify problematic cases
 
 #### https://leetcode.com/problems/minimum-swaps-to-group-all-1s-together/
 - 쉽게 풀긴 했는데, 더 깔끔한 풀이 유도하기
+
+#### https://leetcode.com/problems/count-fertile-pyramids-in-a-land/description/
+- was not able to solve zz dunno why the hell I started with partial sum solution
 
 
 ### https://leetcode.com/problems/reverse-nodes-in-k-group/
@@ -64,13 +86,10 @@ https://leetcode.com/problems/reverse-nodes-in-k-group/
 
 ### https://leetcode.com/problems/finding-the-number-of-visible-mountains/description/
 - 아나 ㅋㅋ 답봄
+- 문제를 알아야 풀 수 있는거같은데....ㅋㅋㅋ 
 
 ### https://leetcode.com/problems/wildcard-matching/description/
 - x같다 ㅋㅋㅋ 으...안보고 풀긴했는데 ㅜㅜ
-
-
-### https://leetcode.com/problems/jump-game/
-이걸 한번에 못푸네 ㅡㅡ https://leetcode.com/problems/jump-game/
 
 ### https://leetcode.com/problems/set-intersection-size-at-least-two/description/
 - 한번에 풀진 못함
@@ -176,10 +195,6 @@ https://leetcode.com/problems/design-file-system/
 ### https://leetcode.com/problems/split-two-strings-to-make-palindrome/
 - aa
 
-### https://leetcode.com/problems/meeting-rooms-iii/description/
-- https://leetcode.com/problems/meeting-rooms-iii/description/
-- 풀긴 풀었는데 좀 더럽게 풀음...깔끔하게 푼거 참고하자. lee꺼가 좋은 듯
-- 레퍼런스급
 
 
 ### https://leetcode.com/problems/find-the-kth-smallest-sum-of-a-matrix-with-sorted-rows/description/

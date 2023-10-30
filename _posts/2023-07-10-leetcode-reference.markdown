@@ -9,6 +9,12 @@ tags: problem_solving leetcode need_review
 
 뭔가 기억해두면 이득일 것 같은 문제들
 
+
+### https://leetcode.com/problems/shuffle-an-array/submissions/
+- 이거도 구글 미디엄인데 한번에 풀음
+- 영어로 잘 설명을 못하겠네..근데 내가 생각해 낸 방법이긴 한데 다시 생각해 낼 수 있을지?ㅋㅋㅋㅋ잘 모르겠음
+    - 다시 못생각해냈음...ㅎ
+
 #### https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
 https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
 - 깔끔하지 못했음

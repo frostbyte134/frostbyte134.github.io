@@ -14,6 +14,11 @@ tags: problem_solving leetcode need_review
 ### Done
 
 
+### https://leetcode.com/problems/top-k-frequent-elements
+https://leetcode.com/problems/top-k-frequent-elements
+- nlogN은 개껌이고, N으로 다시 풀어 보기 (쪼금 햇갈림)
+
+
 ### https://leetcode.com/problems/longest-subsequence-with-limited-sum/description/
 - 아니 뭐 당근 풀긴 했는데..이정도면 미디엄 아니냐? ㄷㄷ
 
@@ -23,9 +28,6 @@ tags: problem_solving leetcode need_review
 - 근데 한번엔 못품 ㅋㅋ 2차원 부분합만 이슈긴 해서..다시 풀 필요는 없을 듯
 
 
-### https://leetcode.com/problems/shuffle-an-array/submissions/
-- 이거도 구글 미디엄인데 한번에 풀음
-- 영어로 잘 설명을 못하겠네..근데 내가 생각해 낸 방법이긴 한데 다시 생각해 낼 수 있을지?ㅋㅋㅋㅋ잘 모르겠음
 
 
 ### Minimum Window Substring
@@ -40,12 +42,7 @@ tags: problem_solving leetcode need_review
 - 이거 이젠 구현 문제인듯..ㅋㅋ
 
 
-#### Sort Colors
-* <a href="https://leetcode.com/problems/sort-colors/description/" target="_blank">https://leetcode.com/problems/sort-colors/description/</a>
-* 다시 쉽게 풀긴 했는데, 풀이방법 2개 돌아보고 넣을 정도는 됨. 보기만 하고 넣자
-* <details>
-   <summary>풀긴 품</summary>빠르게 안됐음. 다시 한번 풀어볼 정도?</details>
-- 23.07.24: 이번엔 빨리품 ㅋㅋ
+
 
 ### https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/
 https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/
@@ -76,9 +73,6 @@ ez. 리뷰만 (설명하기)
    <summary>잘 생각해 보면</summary>우선 transaction의 역순으로 하면 되니까 이거보다 큰 답은 없고, transaction을 압축하는 형태로 최적의 답이 나올 테니 각 노드의 값을 이상하게 쪼개는 경우는 없을 듯. 있는 거 다 쓰면서 완탐하면 될 듯
    . 어째 갈수록 느려지네...;_;</details>
 
-### https://leetcode.com/problems/top-k-frequent-elements
-https://leetcode.com/problems/top-k-frequent-elements
-- nlogN은 개껌이고, N으로 다시 풀어 보기 (쪼금 햇갈림)
 
 #### Merge Intervals
 

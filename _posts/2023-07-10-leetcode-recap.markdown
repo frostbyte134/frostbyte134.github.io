@@ -12,8 +12,31 @@ tags: problem_solving leetcode need_review
 아 빨리 블로그 만들어야 하는데..........
 
 
------------------다 훑어본 것들----------------------
+-----------------위로는 다 훑어본 것들----------------------
 
+
+### https://leetcode.com/problems/longest-string-chain/
+- 풀긴 했는데, 걍 눈으로 복습만...
+
+#### Sort Colors
+* <a href="https://leetcode.com/problems/sort-colors/description/" target="_blank">https://leetcode.com/problems/sort-colors/description/</a>
+* 다시 쉽게 풀긴 했는데, 풀이방법 2개 돌아보고 넣을 정도는 됨. 보기만 하고 넣자
+* <details>
+   <summary>풀긴 품</summary>빠르게 안됐음. 다시 한번 풀어볼 정도?</details>
+- 23.07.24: 이번엔 빨리품 ㅋㅋ. 헛갈리는 케이스 정리만 하자
+
+
+### https://leetcode.com/problems/jump-game/
+이걸 한번에 못푸네 ㅡㅡ 
+
+
+#### https://leetcode.com/problems/copy-list-with-random-pointer/description/
+- 문제읽고 예외케이스만 정리 (no need to solve)
+- whats the god damn matter to my Korean key stroke?
+
+
+#### https://leetcode.com/problems/remove-nth-node-from-end-of-list/submissions/
+- 1번만에 accept 못받음. 쫀심상하게...ㅎㅎ
 
 #### https://leetcode.com/problems/continuous-subarray-sum/description/
 흠. 답 보긴 봤음

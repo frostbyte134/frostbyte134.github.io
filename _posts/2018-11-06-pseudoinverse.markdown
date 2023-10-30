@@ -58,7 +58,8 @@ so that \\(\hat\{x\}\\) is the shortest when \\(x\_n=0\\).
 
 Now we show that \\(x^+=A^+b=V\Sigma^+ U^Tb\\).  
 1. Multiplciation by the orthognal matrix \\(U^T\\) leaves length unchanged
-\\[\\| Ax-b\\| =\\| V\Sigma^+ U^Tx-b\\|=\\| \Sigma V^Tx-U^Tb\\|\\] 
+\\[\\| Ax-b\\| =\\| U\Sigma^+ V^Tx-b\\|=\\| \Sigma V^Tx-U^Tb\\|\\] 
 2. Define \\(y=V^Tx=V^\{-1\}x\\), which has same length with \\(x\\). Then, minimizing \\(\\|Ax-b\\|\\) is equivalent to minimizing \\(\\|\Sigma y-U^Tb\\|\\). Now \\(\Sigma\\) is diagonal and we know the best \\(y^+\\). It is \\(y^+=\Sigma^+U^Tb\\), where \\(\Sigma^+\\) is taking reciprocal of each nonzero diagonal components of \\(\Sigma\\). For zero diagonal entries, the norm value does not change whatever we put on corresonding elements of \\(\Sigma^+\\), so 0 is the optimal (minimum norm answer).
 
 
+http://www.sci.utah.edu/~gerig/CS6640-F2012/Materials/pseudoinverse-cis61009sl10.pdf `Theorem 11.1.2`
