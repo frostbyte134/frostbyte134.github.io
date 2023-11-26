@@ -13,5 +13,5 @@ tags: misc hobby
 <iframe allowfullscreen="allowfullscreen" class="b-hbp-video b-uploaded" frameborder="0" height="266" id="BLOGGER-video-e6624be83efcb7c1-4723" mozallowfullscreen="mozallowfullscreen" src="https://www.blogger.com/video.g?token=AD6v5dz9jU_LEYxIrVKwT_mOSB0gWwQEzRfAUONMN1hHVTOGHswnjMJt3bTuUTYObEVI5B4bjnrsHxzMHXp7FPxsPttHSqFgqcEfnYuXeTx3Ru4iE1xMtj5ENf2wAlRl9Obmym1Zl-U" webkitallowfullscreen="webkitallowfullscreen" width="320"></iframe>
 
 피아노 관련 기억하면 역시 선생님이 젤 먼저 떠오르긴 하는데...내가 따로 뉴에이지 치는걸 별로 안좋아하시긴 했음...ㅋㅋㅋ
-- 같은 교회 다니던 친구 어머니도 이젠 안다닌대서..연락할 길도 없음 ㅜㅜ
+- 선생님이랑 같은 교회 다니던 친구 어머니도 이젠 안다닌대서..연락할 길도 없음 ㅜㅜ
 - 치던 클래식도 잘 연습안하니 그러셨겠지만...ㅋㅋ 뭐 지금쯤 선생님도 소일거리로 뉴에이지 치고계실수도? ㅋㅋ
