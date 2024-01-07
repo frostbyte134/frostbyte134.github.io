@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Nothing - Bruno Major (arr by 류성은)"
+title:  "Bruno Major - Nothing (arr by 류성은)"
 date:   2024-01-07 00:27:05 
 categories: hobby
 use_math: true
@@ -20,5 +20,6 @@ tags: misc hobby
     - 끝나면 50복습보단 평균율이나 인벤션이 좋을듯. 끝내면 말이지만....
 2. 재즈 - 기본이랑 스케일 외우기
     - 학원....?...
-3. 뭐가 됐든.. ~도망가는 버릇 고치기~ 덜 도망가기
+3. 뭐가 됐든.. <del>도망가는 버릇 고치기</del> 덜 도망가기
     - 근데 이건 도망간다는 걸 어케 정의하냐에 따라 달라지긴 함 ㅋㅋ
+    - 벌써 학원부터 안갈 생각 하고 있긴 한데..ㅋㅋ
