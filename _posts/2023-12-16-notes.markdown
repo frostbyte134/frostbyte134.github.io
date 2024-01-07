@@ -1,0 +1,49 @@
+---
+layout: post
+title:  "음악이론"
+date:   2023-12-20 00:27:05 
+categories: hobby
+use_math: true
+tags: misc hobby
+---
+
+목표를 정하면 좋을꺼같은데..쉽지않네 ㅎㅎ
+- 일단 지금 치는 곡들 코드 분석 가능한 정도?
+
+
+### 실용음악 기초 화성학
+
+#### Chap 1
+
+- 같은 음이라도 옥타브가 다르면 임시표 적용x. 맨날 헷갈림 ㅋㅋ
+- 같은 음에 새로운 임시표가 붙으면 기존건 전부 무시
+- 9/4 = 4분음표가 한마디에 9개
+- 4/4 = 강약중약 (맨날 안지키는..ㅋㅋ)
+- 레가토와 논레가토의 표현..ㄷㄷ
+
+#### Chap 2
+
+음정 = 도수 + 반음
+- 미파 - 시도. 이거까진 기억나네..ㅋㅋ
+- 8도 = 1옥타브
+- 1358도 = 완전X도, 2367도 = 장x도
+
+
+### 박터틀님
+
+https://www.youtube.com/watch?v=Or8BAUYMtDQ&t=1s
+
+https://www.youtube.com/watch?v=7S-SF7LEgTs
+- 왼손으로 옥타브를 많이 눌러줄수록 오른손이 편해진다 (...)
+- 왼손은 메이저 = 15음, 마이너 = 17음 누르는 습관이 좋음
+
+
+https://www.youtube.com/watch?v=w9A33teZG2g 모드(Mode)가 대체 모드라요
+
+
+
+https://www.youtube.com/watch?v=teUNGla32go 워킹베이스
+
+### 태경삼촌
+
+https://www.youtube.com/watch?v=JN5kStaakfk
