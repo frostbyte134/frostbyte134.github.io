@@ -1,0 +1,159 @@
+---
+layout: post
+title:  "Iceberg"
+date:   2024-02-03 08:00:05 +0800
+categories: coding
+use_math: true
+tags: coding
+---
+
+
+# LINE Data Platform에서 Apache Iceberg 도입
+https://linedevday.linecorp.com/2021/ko/sessions/64/
+- https://speakerdeck.com/line_devday2021/adopting-apache-iceberg-on-line-data-platform
+
+
+챌린지, 쿼리과제
+- SQL 실행 시 쿼리엔진이 분산처리를 가능하게함 (plan만들어주고 리소스 관리스템이 리소스 할당)
+- 쿼리 -> 실행플랜 변환
+  - 데이터파일이 어딨는지, 어떻게 읽고 쓸지
+  - 이런 데이터를 어케관리할지는 테이블 포멧으로 정의됨
+
+
+한글 듣다가 영어로 바꿈 ㅋㅋ a row in table을 "한 줄"로 변역하네..
+- 영어는 기계음이 좀 찢어지는 듯... 
+
+Table format
+- Determines a way to organize data files, to present them as a table
+
+Data discovery
+- answerswhat data files are in a table
+- hides the complexity of finding relevant files
+
+Data abstraction
+- answers how to read/write data
+- Hide the complexity of data format and data structures
+
+
+hive data format - De facto standard
+- data files are defined in directory (`/table/ymd=2023-10-01`)
+- hive metastore (= a server)
+  - partition, schema
+  - saves metadata in RDBMS
+
+troubles in metastore
+- select - QPS 5000
+- cpu usage = 50~60\% when high
+ - over 90% in certain times
+ - some hive table which has 11M+ rows
+  - deleted the partitions (which was not intended)
+
+Hive metastore
+- 1 partiton = 1 row
+- trouble can be caused by heavy scans - OOM (GC)
+- "table metadata lookup performance is bound to the capacity of central Hive metastore and Metastore DB instances"
+
+
+Iceberg
+- open source table format (like Hive, which is also a table format)
+- `table format`: way to abstract what data comprises the table, in sql quety execution
+  - track and manage the status of table
+  - create snapshot when data is read and committed
+
+`snapshot`: status (of the files) of the table, in certain point of time
+
+table meta - manifest list - manifest file
+- manifest list: meta about manifests, including partition stats
+- manifest files: list data files
+
+difference wrt hive
+- state of the tables are tracked using file
+- not DB -> scalable
+- stat support - hive (per partition) / iceberg (per file)
+
+
+### finding files for a query
+1. current snapshot and manifest list file is refered
+2. filter manifest files, using partition value ranges sotred in the manifest list files
+3. read each manifest to get data files
+
+Summary
+- Hive table format is coupled with central metastore db (poses scability issues)
+- "we are considering adopting it widely in Line Data Platform"
+
+## part 2
+
+### overview of existing log pipelines
+
+kafka - flink - RAW table
+- append only, sequence file format (= raw data format)
+- exatly once delivery
+
+orc = faster
+
+watcher - detect update of raw data (per partition)
+- Tez converts sequencefile format table to ORC using INSERT OVERWRITE
+
+
+all tables are external, for the __loose coupling with the data and table__
+
+
+### problems of existing pipelines
+
+end to end high latency: 1~2 hours to write log to the table
+1. small file problem - to avoid it, used `BucketingSink`
+   - enabled writing to a single seq file over multiple checkpoints (to append to a single sequence file)
+2. 2hour latency = Flusing RAW table seqfile every hour, to create hourly partitioned HDFS file (= 1 hour). Takes 50mins for the conversion (+1 hour)
+
+
+proposed solution
+1. directly write ORC (streamingFileSink + OrcWriter)
+   - write per every few mins (from 1 hour seq file to orc)
+2. but small file compaction (delete and replace) was problem (not easy to implement)
+   - it can delete the files just b4 user's job read them
+   - to many partitions and various sending patterns
+   - not easy to implement compaction (delete and replace) on hive (+ high scan cost)
+
+robustness problem of the solution
+- flink watcher, HDFS, hive metastore, Hiveserver2, Yarn
+
+
+heavy scan
+- heavy partition scan, wrt hive metastore
+- heavy hdfs dir scan, against namenode
+
+
+schema EVOL (ORC)
+- used `orc.force.positional.evolution=true`, for backward compat
+- 이옵션 좀 알아봐야할듯
+
+cannot delete/insert/move fields
+- supports only adding files of table/struct
+- table의 컬럼이 아니라 필드라고 하는 듯
+- often user request to drop / modify
+
+### new pipeline
+
+kafka -> flink (flush orc file per 5 mins) writes iceberg files directly -> iceberg table
+
+### flinck + iceberg app
+
+
+as-is
+- convert protofuf/json to avro using org.apache.avro.protobuf lib
+- converg avro to rowdata using Iceberg FlinkAvroReader
+
+multi-write, single-commit
+- IcebergStreamWriter writes files (many writers during the flow)
+- IcebergFilesCommiter commits snapshots (1 commiter during the flow)
+
+
+`FlinkSink` of Iceberg = wrapper of the writer/commiter. Didnt used for perf issues
+- 질문?
+
+splitter?
+
+Furture works
+- verify the stablility / scalabity of iceberg table, and start to think iceberg table
+- replace hive table to iceberg table
+- use iceberg features such as incremental read/update, time travel
