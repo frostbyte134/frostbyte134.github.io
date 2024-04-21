@@ -14,6 +14,11 @@ tags: misc hobby
 - 뭔가 댓글도 멋있는게 달렸는데....스페인어 화자들이 뭔가 낭만(?)같은게 많다는 스테레오타입이 진짜같긴 함 ㅋㅋ
 
 
-<iframe allowfullscreen="allowfullscreen" class="b-hbp-video b-uploaded" frameborder="0" height="266" id="BLOGGER-video-f7797c61253544f0-13441" mozallowfullscreen="mozallowfullscreen" src="https://www.blogger.com/video.g?token=AD6v5dzf2lrbDRDEJdQ4lmAvOg9TaI8Vv6hNlpT8hLkTaNLaKjrmm8m9qYQPrGdmoRjHljgUcx1AyHyEXszyPe8fwa3bqY5kat7lvC68Q2gF1hjRmYic0j88rM6IZzTnQ7r5Q4s_Kl8_" webkitallowfullscreen="webkitallowfullscreen" width="320"></iframe>
+<iframe allowfullscreen="allowfullscreen" class="b-hbp-video b-uploaded" frameborder="0" height="266" id="BLOGGER-video-3fd6c38a45789f76-14196" mozallowfullscreen="mozallowfullscreen" src="https://www.blogger.com/video.g?token=AD6v5dy-5z8pYmFD8oidO4F4xcG2SWr7soK4RLkZtTW7JYX0QUAjyXoQ0eb2JMiVvpovble-SPKgpz-U9S5b8_6IkD5fdBCqWPKMIdc0v3Z3C8zqHnIaumd54j1Mr5Bc4vrNmsLV2WX_" webkitallowfullscreen="webkitallowfullscreen" width="320"></iframe>
 
 그나저나..이제 그닥 쳐보고 싶은 게 없네..ㅎ 뭐 항상 이런 패턴이긴 했음
+
+
+2024.04.21
+- 이제 한두번만에 녹음이 되긴 하는데..일단 들어보고 생각해야 할 듯 ㅋㅋ
+- 저번건 첨에 속도가 좀 빠른게 맘에 안들었음
