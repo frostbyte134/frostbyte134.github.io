@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "밴드반주 모음집"
+title:  "밴드 일기 (?)"
 date:   2015-10-03 01:27:05 
 categories: hobby
 use_math: true
@@ -19,3 +19,19 @@ tags: misc hobby
 팔자에도 없는 아침운동한다고 다리가 아픈데 ㅋㅋ 손은 안아파서 다행임
 
 <iframe allowfullscreen="allowfullscreen" class="b-hbp-video b-uploaded" frameborder="0" height="266" id="BLOGGER-video-223f54a2df21ed96-6832" mozallowfullscreen="mozallowfullscreen" src="https://www.blogger.com/video.g?token=AD6v5dyRfDV89znWuU3bC6jYLPWmySqd64zbMjjyCS7fyAncDz4IzvxGGFEM8rKxVDY88zN7RZ_BP7jN2EFHwtVjYDpko_Ol27eriHZhpaHaG101uhPZYg9ZDSlSPi0mlV74CwRZJz8" webkitallowfullscreen="webkitallowfullscreen" width="320"></iframe>
+
+
+### 2차합주 (05.22)
+
+평일이라 퇴근하고 호다닥 달려감 ㅋㅋ 얼마전까지 일이 많았는데 안겹쳐서 다행...
+
+합주실이 사진으로 볼땐 분위기있었는데 좀 좁았음 ㅡㅡㅋ 난 뭐 상관없었지만..
+
+왼손은 햇갈리면 안누르는게 나은듯 ㅋㅋㅋ 베이스도 있고 피아노왼손은 없어도 티가 진짜 잘 안남
+
+곡은 [perfect night](https://www.youtube.com/watch?v=A8gTCYqVNBk)였는데..곡이 빨라서 합주때 실제로 드럼같은거 들으면서 하니까 연습보다 훨 재밌었음 ㅎㅎ
+
+
+<img src="{{site.url}}/images/band/perfect_night.jpg" width="500" class="center"/> 
+
+진솔이 덕에 이런 걸 다 해보네 ㅋㅋ
