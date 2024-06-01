@@ -1,0 +1,26 @@
+---
+layout: post
+title:  "Be My Love - Keith Jarrett"
+date:   2024-06-01 01:27:05 
+categories: hobby
+use_math: true
+tags: misc hobby
+---
+
+내 뚝딱거리는 연주를 고쳐주겠다고 선생님이 들고오신 비장의 곡....ㅋㅋㅋㅋ
+- 코드연습이 더 중요하다고 20%만 쓰라 하셨지만 곡이 맘에 들어서 50%는 쓴듯 ㅎㅎ
+
+과제
+- `리듬이 들리지 않게` 쳐야 한다는 선생님의 명언이 있었음 ㄷㄷ 잘 되진 않은듯 ㅋㅋ 특히 뒤로 갈수록...
+- 멜로디 파악 및 멜로디라인만 강조하기
+    - <a href="{{site.url}}/hobby/2023/07/15/bach-joy.html" target="_blank">이 때</a> 한음만 강조하는건 어케하는건가 생각했는데 나빼고 다 열심히 연습하고 있었음 ㅋㅋ 
+    - 멜로디를 노래하듯이 라고도 하셨는데 이건 전혀 이해를 못함..ㅋㅋㅋㅋㅋㅋ
+- 페달 끊어주기....ㅋㅋ 이건 계속 문제네
+- 한 반년만 계속 치면 나름 맘에 드는 연주가 나올 것 같은 느낌적인 느낌..ㅎㅎ 이곡은 반년뒤에 꼭 다시 찍어보고 싶음
+
+
+<iframe allowfullscreen="allowfullscreen" class="b-hbp-video b-uploaded" frameborder="0" height="266" id="BLOGGER-video-51361341d167e91c-12353" mozallowfullscreen="mozallowfullscreen" src="https://www.blogger.com/video.g?token=AD6v5dxwdw7bx_74sdOHi_fO-0AfrgeuPe4tn0WyNc4hdgl8sJUGQOpIrnlv8tMjJZbTxT_HHBJXS0b33scrqYtM9Opjk7uIPFBPOqrl5uNCJcmwIIlL-dkkwjhWufzhElLeKJYaUfoM" webkitallowfullscreen="webkitallowfullscreen" width="320"></iframe>
+
+학원은 진짜 잘 간것 같음 ㅎㅎ 잘친다 못친다를 떠나서 연주가 훨씬 즐거워짐 ~숙제가 넘 많긴 한데....~
+
+음악 취향이란 게 주관적이지만...가끔은 남의 도움을 받는 것도 좋은 듯 ㅎㅎ
