@@ -11,10 +11,19 @@ tags: coding
 
 요약
 - stub / mock 구분 (내가 지금 state / behavior 중 뭘 테스트하는지도 인지하기)
+   - 이건 생각보다...잘 실천이 안됐음. 실천한다고 도움이 되나?
 - hemchrest 사용 (AssertJ ㅜㅜ)
+  - 굿
 - given when then 구조 사용
+   - 이건 테스트에 섹션을 구분해놓으니까 보기 좋은 듯
 - 구현을 테스트하진 않는지 항상 생각하기. 되도록 인터페이스를 대상으로 결과만 테스트하기
+   - 굿2
 - Mock을 안 쓸 수 있으면 안쓰기!
+   - 하고싶은데 잘안됨 ㅎ
+   - 모킹이 많을수록 false positive test가 될 확률이 높다...진짜 공감가는 말인듯
+
+https://blog.outsider.ne.kr/1275?fbclid=IwAR1Z9DPi-JJns_bSccrNZIo8zFo-0B8nAvIEHen3tu0_jaIUS34hY90FVJ0
+- 공감가는 부분이 엄청 많은듯
 
 
 https://www.martinfowler.com/testing/
