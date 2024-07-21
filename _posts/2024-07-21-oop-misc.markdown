@@ -11,8 +11,9 @@ tags: coding
 최근 거의 십년이상 개발되어온 수십만라인 레거시 코드베이스에 작업을 하면서 든...잡생각
 - 원래 몇개 더 있었는데 너무 어지러워서 걍지움 ㅋㅋ 주로 SRP에 대한 생각이 대부분. 결론 - SRP는 렘마도 아니고 절대명제다
 
-생각보다 is-a 상속을 깔끔하게 쓰기 쉽지 않음 (리스코프 치환 지키면서)
-- 이미 [커뮤니티에선](https://softwareengineering.stackexchange.com/questions/371707/why-the-industry-prefer-use-composition-over-inheritance) 다들 입아프게 떠드는 거긴 한데...프로덕션에서 다시 느낀 건 오랜만인 듯 ㅎㅎ 좋은 기회인 듯
+> 주제: 생각보다 is-a 상속을 깔끔하게 쓰기 쉽지 않음 (리스코프 치환 지키면서)
+
+이미 [커뮤니티에선](https://softwareengineering.stackexchange.com/questions/371707/why-the-industry-prefer-use-composition-over-inheritance) 다들 입아프게 떠드는 거긴 한데...프로덕션에서 다시 느낀 건 오랜만인 듯 ㅎㅎ 좋은 기회인 듯
 - is-a에 맞게 상속을 사용하기보단 단순 코드 재사용 용으로 쓰는 경우가 대부분. 공통코드를 상위로 돌리고, 하부에선 super의 공통코드를 적절하게 호출하는 식
 
 
