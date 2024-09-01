@@ -1,11 +1,33 @@
 ---
 layout: post
-title:  "몬태규 패러트루퍼 (+bgm)"
+title:  "자전거"
 date:   2023-07-19 01:27:05 
 categories: hobby
 use_math: true
 tags: misc hobby
 ---
+
+
+결국 byb로..ㅎㅎ
+
+<img src="{{site.url}}/images/bike_1.jpg" width="600" class="center"/>  
+
+<img src="{{site.url}}/images/bike_2.jpg" width="600" class="center"/>  
+
+
+자출 첫날 바보같이 자물쇠를 안들고갔지만 노프라블럼!
+
+<img src="{{site.url}}/images/bike_3.jpg" width="600" class="center"/>  
+
+
+는 사실 자전거 끌고 엘베탈때 뭔가 쪽팔렸음..ㅎㅎ 출근때라 사람도 많고..끌고갈때 계속 틱틱거리는 소리도 나고 ㅋㅋㅋㅋㅋ ㅜㅜ
+
+그래도 너무 맘에 듬 ㅎㅎ 탈때마다 기분이 좋음. 뭔가 인생레벨에서 큰 퍼즐이 하나 맞춰진 느낌
+
+좀 비싸긴 한테...본전뽑을라면 자출 한 10년 해야 할 듯 ㅋㅋ 아님 프론트랙 달고 배민라이더 하던지 ㅡㅡㅋ 뭐 이럴라고 돈버는거지 ㅋㅋㅋ
+
+이제 다음은 텐트치고 옥상에서 자보기? ㅋㅋ
+
 
 ## 여행계획 + 여행용 20인지 미니벨로
 
