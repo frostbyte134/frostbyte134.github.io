@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "[Standard] All the Things You Are"
-date:   2025-11-08 15:27:05 
+date:   2025-11-07 15:27:05 
 categories: hobby
 use_math: true
 tags: misc hobby
