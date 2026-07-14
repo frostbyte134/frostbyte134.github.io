@@ -40,33 +40,33 @@ tags: photo hobby misc
 - 조시까지 자전거로 (대충 70km?)
 - 조시에서 치바로 다시 기차로
 
-![7]{{ site.url }}/images/japan_tokyo/7.jpg)<br/><br/>
+![7]({{ site.url }}/images/japan_tokyo/7.jpg)<br/><br/>
 
 기차에 열심히 싣고 감. 일본 규정에는 바퀴도 가방밖으로 나오면 안된다고함. 아직 현금도 많이 쓰고 이런게 깐깐한듯. 가방이 무거웠다...대충 18kg?
 
 
-![8]{{ site.url }}/images/japan_tokyo/8.jpg)<br/><br/>
+![8]({{ site.url }}/images/japan_tokyo/8.jpg)<br/><br/>
 나름 유명한 루트인 듯 인장도 있다. 도로에 찍는게 비싼지 많이는 못봄
 
 
-![10]{{ site.url }}/images/japan_tokyo/10.jpg)<br/><br/>
+![10]({{ site.url }}/images/japan_tokyo/10.jpg)<br/><br/>
 헤매다 발견한 이상한 등대. 사진 보니까 거지꼴이 따로 없다
 - 발라클라바까지 쓰고 다녔는데 이땐 쉬느라 벗고있음...업힐에서 힘들어서 코만 내놓고 다녔는데 코만 빨갛게 탔다 ㅋㅋ 개열받음
 
-![12]{{ site.url }}/images/japan_tokyo/12.jpg)<br/><br/>
-![11]{{ site.url }}/images/japan_tokyo/11.jpg)<br/><br/>
-![9]{{ site.url }}/images/japan_tokyo/9.jpg)<br/><br/>
+![12]({{ site.url }}/images/japan_tokyo/12.jpg)<br/><br/>
+![11]({{ site.url }}/images/japan_tokyo/11.jpg)<br/><br/>
+![9]({{ site.url }}/images/japan_tokyo/9.jpg)<br/><br/>
 
 바다라 그런지 시원한 느낌. 라이딩하면서 기분이 좋았음. 뭔가 제주도 바다하고 냄새(?)가 좀 다른거같긴 했음
 - 마지막 업힐쯤엔 좀 힘들어짐...오래타면 역시 다리보다도 엉덩이(허리)가 젤 문제인듯. 담번 라이딩할때 참고해야..
 
-![13]{{ site.url }}/images/japan_tokyo/13.jpg)<br/><br/>
+![13]({{ site.url }}/images/japan_tokyo/13.jpg)<br/><br/>
 집가는길 나리타공항 3터미널에서 갑자기 나온 피아노. 손에 익은 all the things you are을 쳐봤는데 긴장도 그렇게 안되고..박자는 좀 나갔지만 ㅋㅋ 나쁘지 않았던듯
 - 이전에는 남들 앞에서 연주하는게 넘 싫었는데..나름 공연도 몇번 해보고 (롤링홀 유경험자 ㄷㄷ) 이젠 남들앞에서 연주하는것도 좀 즐기게 된듯
 - 칠게 별로 없었음 ㅎㅎ 곡을 좀 평소에 완곡해서 외워둬야겠다는 생각이 좀 들었음
 
 10년전 [미국여행때]({{ site.url }}/traveling/2015/09/19/usa.html) 글하고 비교해보니까 확실히 최근 3~4년간 사회화가 엄청 된 듯 ㅋㅋ 말이 엄청 많아짐
 
-![14]{{ site.url }}/images/japan_tokyo/14.jpg)<br/><br/>
+![14]({{ site.url }}/images/japan_tokyo/14.jpg)<br/><br/>
 나쁘지 않았다 ㅎㅎ
 
